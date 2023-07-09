@@ -25,3 +25,7 @@ Homestead.json
 /.idea/commandlinetools/Laravel_16_05_2023__11_40_am.xml
 /.idea/php.xml
 /.idea/phpunit.xml
+/.idea/.gitignore
+/.idea/fom-vps-test.iml
+/.idea/modules.xml
+/.idea/vcs.xml
