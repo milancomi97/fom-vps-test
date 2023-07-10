@@ -8,6 +8,8 @@
 
         #errorContainer{
             color:red;
+            text-align: center;
+            font-size: 1.4em;
         }
     </style>
 @endsection
