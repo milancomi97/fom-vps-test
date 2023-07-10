@@ -6,6 +6,7 @@ use App\Http\Requests\UpdatePartnerRequest;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Session;
 
 class PartnerController extends Controller
 {
@@ -67,8 +68,7 @@ class PartnerController extends Controller
             'internal_sifra' => $input['internal_sifra']
         ]);
 
-
-        return  ;
+        Session::flash('message', 'Partner:  '.$partner->name.'  je uspešno kreiran.');
     }
 
     /**
@@ -84,16 +84,65 @@ class PartnerController extends Controller
      */
     public function edit(Partner $partner)
     {
-        //
+        return view('partneri.edit_partner', ['partner' => $partner]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePartnerRequest $request, Partner $partner)
+    public function update(Request $request, Partner $partner)
     {
-        //
+        $input = $request->all();
+        $partner->update([
+                'adress' => $input['adress'],
+                'contact_employee' => $input['contact_employee'],
+                'email' => $input['email'],
+                'maticni_broj' => $input['maticni_broj'],
+                'mesto' => intval($input['mesto']),
+                'name' => $input['name'],
+                'odgovorno_lice' => $input['odgovorno_lice'],
+                'phone' => $input['phone'],
+                'pib' => $input['pib'],
+                'pripada_pdvu' => $input['pripada_pdvu'] == 'true',
+                'registarski_broj' => $input['registarski_broj'],
+                'short_name' => $input['short_name'],
+                'sifra_delatnosti' => $input['sifra_delatnosti'],
+                'web_site' => $input['web_site'],
+                'adress' => $input['adress'],
+                'active' => $input['active'] == 'true'
+            ]);
+
+        Session::flash('message', 'Partner:  '.$partner->name.'  je uspešno izmenjen.');
     }
+
+//    public function update(Request $request, Partner $partner)
+//    {
+//        $input = $request->all();
+//        $partner->adress=$input['adress'];
+//        $partner->contact_employee=$input['contact_employee'];
+//        $partner->email=$input['email'];
+//        $partner->maticni_broj=$input['maticni_broj'];
+//        $partner->mesto=intval($input['mesto']);
+//        $partner->name=$input['name'];
+//        $partner->odgovorno_lice=$input['odgovorno_lice'];
+//        $partner->phone=$input['phone'];
+//        $partner->pib=$input['pib'];
+//        $partner->pripada_pdvu=$input['pripada_pdvu'] == 'true';
+//        $partner->registarski_broj=$input['registarski_broj'];
+//        $partner->short_name=$input['short_name'];
+//        $partner->sifra_delatnosti=$input['sifra_delatnosti'];
+//        $partner->web_site=$input['web_site'];
+//        $partner->adress=$input['adress'];
+//        $partner->active=$input['active'] == 'true';
+//        $partner->internal_sifra=$input['internal_sifra'];
+//        $partner->update(
+//
+//        );
+//
+//        return dd($partner);
+//    }
+
+
 
     /**
      * Remove the specified resource from storage.

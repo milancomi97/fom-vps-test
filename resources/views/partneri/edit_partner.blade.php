@@ -22,13 +22,14 @@
                             <div class="form-group">
                                 <label for="name">Naziv</label>
                                 <input type="text" name="name" class="form-control" id="name"
-                                       placeholder="Uneti pun naziv">
+                                       placeholder="Uneti pun naziv" value="{{$partner->name}}">
                             </div>
                         </div>
                         <div class="col-md-5 offset-md-1">
                             <div class="form-group">
                                 <label for="short_name">Skraćeni naziv </label>
                                 <input type="text" class="form-control" name="short_name" id="short_name"
+                                       value="{{$partner->short_name}}"
                                        placeholder="Uneti skraćen naziv">
                             </div>
                         </div>
@@ -39,7 +40,8 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="internal_sifra">Interna šifra</label>
-                                <input type="text" class="form-control" name="internal_sifra" id="internal_sifra"
+                                <input disabled type="text" class="form-control" name="internal_sifra" id="internal_sifra"
+                                       value="{{$partner->internal_sifra}}"
                                        placeholder="">
                             </div>
                         </div>
@@ -47,7 +49,9 @@
 
                             <div class="form-group">
                                 <label for="pib">PIB</label>
-                                <input type="text" class="form-control" id="pib" name="pib" placeholder="">
+                                <input type="text" class="form-control" id="pib" name="pib" placeholder=""
+                                       value="{{$partner->pib}}"
+                                >
                             </div>
                         </div>
                     </div>
@@ -58,13 +62,16 @@
                             <div class="form-group">
                                 <label for="contact_employee">Kontakt osoba</label>
                                 <input type="text" class="form-control" name="contact_employee" id="contact_employee"
+                                       value="{{$partner->contact_employee}}"
                                        placeholder="">
                             </div>
                         </div>
                         <div class="col-md-5 offset-md-1">
                             <div class="form-group">
                                 <label for="phone">Kontakt telefon</label>
-                                <input type="text" class="form-control" id="phone" name="phone" placeholder="">
+                                <input type="text" class="form-control" id="phone" name="phone" placeholder=""
+                                       value="{{$partner->phone}}"
+                                >
                             </div>
                         </div>
                     </div>
@@ -75,13 +82,17 @@
                         <div class="col-md-5">
                             <div class="form-group">
                                 <label for="web_site">Web adresa</label>
-                                <input type="text" class="form-control" name="web_site" id="web_site" placeholder="">
+                                <input type="text" class="form-control" name="web_site" id="web_site" placeholder=""
+                                       value="{{$partner->web_site}}"
+                                >
                             </div>
                         </div>
                         <div class="col-md-5 offset-md-1">
                             <div class="form-group">
                                 <label for="email">Email</label>
-                                <input type="text" class="form-control" id="email" name="email" placeholder="">
+                                <input type="text" class="form-control" id="email" name="email" placeholder=""
+                                       value="{{$partner->email}}"
+                                >
                             </div>
                         </div>
                     </div>
@@ -93,6 +104,7 @@
                             <div class="form-group">
                                 <label for="sifra_delatnosti">Šifra delatnosti</label>
                                 <input type="text" class="form-control" name="sifra_delatnosti" id="sifra_delatnosti"
+                                       value="{{$partner->sifra_delatnosti}}"
                                        placeholder="">
                             </div>
                         </div>
@@ -100,6 +112,7 @@
                             <div class="form-group">
                                 <label for="odgovorno_lice">Odgovorno lice</label>
                                 <input type="text" class="form-control" name="odgovorno_lice" id="odgovorno_lice"
+                                       value="{{$partner->odgovorno_lice}}"
                                        placeholder="">
                             </div>
                         </div>
@@ -111,6 +124,7 @@
                             <div class="form-group">
                                 <label for="maticni_broj">Matični broj</label>
                                 <input type="text" class="form-control" id="maticni_broj" name="maticni_broj"
+                                       value="{{$partner->maticni_broj}}"
                                        placeholder="">
                             </div>
                         </div>
@@ -118,6 +132,7 @@
                             <div class="form-group">
                                 <label for="registarski_broj">Registarski broj</label>
                                 <input type="text" class="form-control" name="registarski_broj" id="registarski_broj"
+                                       value="{{$partner->registarski_broj}}"
                                        placeholder="">
                             </div>
                         </div>
@@ -142,7 +157,7 @@
                             <div class="form-group">
                                 <label for="adress">Adresa</label>
                                 <textarea class="form-control" id="adress" name="adress" rows="3"
-                                          placeholder="Adresa partnera"></textarea>
+                                          placeholder="Adresa partnera">{{$partner->adress}}</textarea>
 
                             </div>
 
@@ -154,7 +169,9 @@
                                 <label for="active">Aktivan Partner/Komitent</label>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="active"
+                                     @if($partner->active) checked @endif
                                            id="active">
+
                                     <label class="form-check-label" for="checkbox1">
                                         Aktivan
                                     </label>
@@ -166,6 +183,7 @@
                                 <label for="pripada_pdvu">Komitent je u sistemu PDV-a</label>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="pripada_pdvu"
+                                           @if($partner->pripada_pdvu) checked @endif
                                            id="pripada_pdvu">
                                     <label class="form-check-label" for="checkbox1">
                                         Komitent je u sistemu PDV-a
@@ -205,7 +223,7 @@
                     <div class="row pt-5 mb-5">
                         <div class="col-md-12">
                             <div class="float-right">
-                                <button type="submit" class="btn btn-primary dodaj_partnera">Sačuvaj komitenta</button>
+                                <button type="submit" class="btn btn-primary izmeni_partnera">Izmeni komitenta</button>
                             </div>
                         </div>
                     </div>
@@ -223,21 +241,21 @@
 @section('custom-scripts')
     <script>
         $(document).ready(function () {
-            $('.dodaj_partnera').click(function (e) {
+            $('.izmeni_partnera').click(function (e) {
                 e.preventDefault(); // Prevent the default form submission
 
                 // Collect the form data
                 var data = $('form').serializeArray();
-
                 var active = $('#active').is(":checked");
                 var pripada_pdvu = $('#pripada_pdvu').is(":checked");
 
-                data.push({name: 'pripada_pdvu', value: pripada_pdvu});
+                console.log(active);
                 data.push({name: 'active', value: active});
+                data.push({name: 'pripada_pdvu', value: pripada_pdvu});
 
                 $.ajax({
-                    url: '{{ route('partner.store') }}', // Replace with your server URL
-                    type: 'POST', // Use POST method to send data
+                    url: '{{ url('partner') }}'+'/23', // Replace with your server URL
+                    type: 'PATCH', // Use POST method to send data
                     data: $.param(data),
                     success: function (response) {
                         debugger;

@@ -6,6 +6,10 @@
 @endsection
 
 @section('content')
+    @if(Session::has('message'))
+        <p class="alert alert-remove alert-success text-center">{{ Session::get('message') }}</p>
+    @endif
+
     <style>
         .custom-select {
             width: 4em !important;
@@ -13,29 +17,45 @@
     </style>
     <div class="content-wrapper" style="min-height: 2080.12px;">
         <section class="content-header">
-            <div class="container">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
+            <div class="container-fluid pl-5">
+                <div class="row mb-2 mt-5">
+                    <div class="col-lg-3">
 
                         <h1>Pregled poslovnih partnera</h1>
                     </div>
-                    <div>
-                        <button class="btn btn-primary"><a class="text-dark"
-                                                           href="https://www.apr.gov.rs/%d0%bf%d0%be%d1%87%d0%b5%d1%82%d0%bd%d0%b0.3.html">Otvori
-                                APR</a>
-                        </button>
-                        <button class="btn btn-secondary"><a class="text-dark"
-                                                             href="https://www.apr.gov.rs/%d0%bf%d0%be%d1%87%d0%b5%d1%82%d0%bd%d0%b0.3.html">Otvori
-                                NBS</a>
-                        </button>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <button class="btn btn-primary"><a class="text-light" target="_blank"
+                                                                   href="https://www.apr.gov.rs/%d0%bf%d0%be%d1%87%d0%b5%d1%82%d0%bd%d0%b0.3.html">Otvori
+                                        APR</a>
+                                </button>
+                            </div>
+                            <div class="col-lg-2">
+
+                                <button class="btn btn-primary"><a class="text-light" target="_blank"
+                                                                   href="https://www.apr.gov.rs/%d0%bf%d0%be%d1%87%d0%b5%d1%82%d0%bd%d0%b0.3.html">Otvori
+                                        NBS</a>
+                                </button>
+                            </div>
+                            <div class="col-lg-4 offset-lg-4" style=" display: flex; justify-content: flex-end;">
+
+                                <button class="btn btn-success"><a class="text-light"
+                                                                   href="{{route('partner.create')}}">Dodaj partnera
+                                        &nbsp; &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </a>
+
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
         <section class="content ">
-            <div class="container">
+            <div class="container-fluid pl-5">
                 <table id="table_id" class="display" style="width:100%">
-                   <form class="delete-form">{!! csrf_field() !!}</form>
+                    <form class="delete-form">{!! csrf_field() !!}</form>
                 </table>
             </div>
         </section>
@@ -58,9 +78,9 @@
                 scrollX: true,
                 decimal: ",",
                 language: {
-                    search: "Pretraga&nbsp;:",
+                    search: '<i class="fas fa-search"></i>&nbsp;&nbsp;&nbsp;&nbsp;Pretraga&nbsp;:',
                     info: "_START_ - _END_ od ukupno _TOTAL_ poslovnih partnera",
-                    lengthMenu: "Prikaži _MENU_ poslove partnere",
+                    lengthMenu: "Prikaži &nbsp;&nbsp; _MENU_ &nbsp;&nbsp; poslovnih partnera",
                     infoFiltered: "(Filtrirano od _MAX_ ukupno poslovnih partnera)",
                     paginate: {
                         first: "Prvi",
@@ -76,6 +96,8 @@
                             var column = this;
                             var title = column.header().textContent;
 
+                            if(title!=='Action'){
+
                             // Create input element and add event listener
                             $('<input type="text"/>')
                                 .appendTo($(column.header()))
@@ -84,11 +106,14 @@
                                         column.search(this.value).draw();
                                     }
                                 });
+                            }
+
                         });
+
                 },
                 columns: [
                     {
-                        title: 'Interna sifra'
+                        title: 'Interna sifra '
                     },
                     {
                         title: 'Naziv'
@@ -99,7 +124,7 @@
                         title: 'Aktivan',
                         render: function (data, type) {
                             return data ? '<i class="fas fa-circle fa-xl" style="color: #ff0000; font-size: 2em; margin-left: 13%;"><i class="d-none">' + data + '</i></i>' :
-                                '<i class="fa fa-circle" style="color: #198754; font-size: 2em; margin-left: 13%;"><i class="d-none">' + data + '</i></i>';
+                                '<i class="fa fa-circle" style="color: #28A745; font-size: 2em; margin-left: 13%;"><i class="d-none">' + data + '</i></i>';
                         }
                     },
                     {
@@ -117,16 +142,16 @@
                     {
                         title: 'Action',
                         render: function (data, type) {
-                            return '<div class="row"><div class="col-sm-6"><button type="button" class="btn btn-outline-light"><i class="fa fa-trash remove"  data-id="' + data + '"   style="font-size: 1em; color: #212529;"  aria-hidden="true"></i></button></div>' +
-                                '<div class="col-sm-6"><button type="button" class="btn btn-outline-light"><i class="fas fa-edit edit" data-id="' + data + '" style="font-size: 1em; color: #007BFF;"  aria-hidden="true"></i></button></div></div>'
+                            var partnerUrl = "{!! url('partner/') !!}" + '/' + data + '/edit';
+                            return '<div class="row"><div class="col-lg-5 pb-1"><button type="button" class="btn btn-outline-light remove" data-id="' + data + '" ><i class="fa fa-trash"  data-id="' + data + '"   style="font-size: 1em; color: #212529;"  aria-hidden="true"></i></button></div>' +
+                                '<a href="' + partnerUrl + '"><div class="col-lg-5"><button type="button" class="btn btn-outline-light"><i class="fas fa-edit edit" data-id="' + data + '" style="font-size: 1em; color: #007BFF;"  aria-hidden="true"></i></button></div></div></a>'
                         }
                     }
                 ],
             });
 
 
-
-            $( "#table_id" ).on( "click", ".remove", function(e) {
+            $("#table_id").on("click", ".remove", function (e) {
 
                 e.preventDefault();
                 e.stopImmediatePropagation();
@@ -144,33 +169,48 @@
                     showCloseButton: true,
                     confirmButtonColor: "#cc3f44",
 
-                }).then((result)=>{
-                    if(result.isConfirmed){
+                }).then((result) => {
+                    if (result.isConfirmed) {
                         var partner_id = $(self.target).data('id')
                         var token = $('.delete-form').serializeArray()[0];
 
                         $.ajax({
-                        url: '{{url('/partner/')}}/'+partner_id, // Replace with your server URL
+                            url: '{{url('/partner/')}}/' + partner_id, // Replace with your server URL
                             type: 'DELETE',
-                            data:{
-                            '_token':token.value,
-                            'partner_id':partner_id
+                            data: {
+                                '_token': token.value,
+                                'partner_id': partner_id
                             },
                             success: function (response) {
-                                table.row( $(this).parents('tr') )
-                                    .remove()
-                                    .draw();
                                 Swal.fire('Podatak je uspešno obrisan obrisan!', partnerName, 'success')
                             },
                             error: function (xhr, status, error) {
                                 console.log(xhr.responseText);
                             }
                         });
-                       // end ajax
+
+                        table.row($(this).parents('tr'))
+                            .remove()
+                            .draw();
+                        // end ajax
 
                     }
                 })
             });
+
+            if ($('.alert-remove').length) {
+
+                $('.alert-remove').on('click', function () {
+                    setTimeout(() => {
+                        $(this).fadeOut(1000, function () {
+                            $(this).remove()
+                        })
+                    });
+                });
+
+                $('.alert-remove').click();
+            }
+            table.draw();
         });
 
     </script>
