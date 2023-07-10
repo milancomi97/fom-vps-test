@@ -1,7 +1,12 @@
 @extends('adminlte.layout.app')
 
 @section('custom-styles')
+    <style>
+        .error {
+            border: 1px solid red;
+        }
 
+    </style>
 @endsection
 
 @section('content')
@@ -14,7 +19,9 @@
         <div class="content pl-5 pr-5 ">
             <div class="container pl-5 pr-5 border">
                 <h2 class="pb-5 pt-2 text-center">Dodaj poslovnog partnera</h2>
-                <form>
+                <div id="errorContainer"></div>
+
+                <form id="create_partner_form">
                     {!! csrf_field() !!}
                     <!--Row 1-->
                     <div class="row">
@@ -226,28 +233,60 @@
             $('.dodaj_partnera').click(function (e) {
                 e.preventDefault(); // Prevent the default form submission
 
-                // Collect the form data
-                var data = $('form').serializeArray();
 
-                var active = $('#active').is(":checked");
-                var pripada_pdvu = $('#pripada_pdvu').is(":checked");
+                $('#errorContainer').empty();
+                var isValid = true;
+                $('#create_partner_form input[type="text"]').each(function () {
+                    var fieldValue = $(this).val();
 
-                data.push({name: 'pripada_pdvu', value: pripada_pdvu});
-                data.push({name: 'active', value: active});
-
-                $.ajax({
-                    url: '{{ route('partner.store') }}', // Replace with your server URL
-                    type: 'POST', // Use POST method to send data
-                    data: $.param(data),
-                    success: function (response) {
-                        debugger;
-                        window.location.href = '{{route('partner.index')}}'
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle the error
-                        console.log(xhr.responseText);
+                    if (fieldValue === '') {
+                        $(this).addClass('error');
+                        isValid = false;
                     }
                 });
+                if (isValid) {
+                    // Perform Ajax request here
+                    // ...
+                    var data = $('form').serializeArray();
+
+                    var active = $('#active').is(":checked");
+                    var pripada_pdvu = $('#pripada_pdvu').is(":checked");
+
+                    data.push({name: 'pripada_pdvu', value: pripada_pdvu});
+                    data.push({name: 'active', value: active});
+
+
+                    $.ajax({
+                        url: '{{ route('partner.store') }}', // Replace with your server URL
+                        type: 'POST', // Use POST method to send data
+                        data: $.param(data),
+                        success: function (response) {
+                            debugger;
+                            window.location.href = '{{route('partner.index')}}'
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle the error
+                            console.log(xhr.responseText);
+                        }
+                    });
+                }
+            )
+                ;
+
+
+            }
+        else
+            {
+                // Show error message
+                $('#errorContainer').text('Popuni sva polja');
+            }
+
+
+            // Collect the form data
+
+
+            $('#create_partner_form input[type="text"]').on('input', function () {
+                $(this).removeClass('error');
             });
         });
     </script>
