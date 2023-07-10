@@ -6,7 +6,7 @@
             border: 1px solid red;
         }
 
-        .errorContainer{
+        #errorContainer{
             color:red;
         }
     </style>
