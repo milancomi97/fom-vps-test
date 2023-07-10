@@ -6,6 +6,9 @@
             border: 1px solid red;
         }
 
+        .errorContainer{
+            color:red;
+        }
     </style>
 @endsection
 
