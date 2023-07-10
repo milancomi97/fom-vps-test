@@ -202,7 +202,7 @@
 
                 $('.alert-remove').on('click', function () {
                     setTimeout(() => {
-                        $(this).fadeOut(1000, function () {
+                        $(this).fadeOut(10000, function () {
                             $(this).remove()
                         })
                     });

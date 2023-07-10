@@ -29,3 +29,5 @@ Homestead.json
 /.idea/fom-vps-test.iml
 /.idea/modules.xml
 /.idea/vcs.xml
+.idea/sshConfigs.xml
+.idea/commandlinetools/Laravel_7_10_23__8_12_PM.xml
