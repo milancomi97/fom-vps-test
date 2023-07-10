@@ -246,7 +246,7 @@
                 });
                 if (isValid) {
                     // Perform Ajax request here
-                    // ...
+                    // Collect the form data
                     var data = $('form').serializeArray();
 
                     var active = $('#active').is(":checked");
@@ -254,7 +254,6 @@
 
                     data.push({name: 'pripada_pdvu', value: pripada_pdvu});
                     data.push({name: 'active', value: active});
-
 
                     $.ajax({
                         url: '{{ route('partner.store') }}', // Replace with your server URL
@@ -269,21 +268,13 @@
                             console.log(xhr.responseText);
                         }
                     });
+
+
+                } else {
+                    // Show error message
+                    $('#errorContainer').text('Popuni sva polja');
                 }
-            )
-                ;
-
-
-            }
-        else
-            {
-                // Show error message
-                $('#errorContainer').text('Popuni sva polja');
-            }
-
-
-            // Collect the form data
-
+            });
 
             $('#create_partner_form input[type="text"]').on('input', function () {
                 $(this).removeClass('error');
