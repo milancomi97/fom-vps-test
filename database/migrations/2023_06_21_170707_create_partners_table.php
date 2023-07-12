@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\PartnerFields;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,22 +14,22 @@ return new class extends Migration
     {
         Schema::create('partners', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('short_name');
-            $table->string('contact_employee');
-            $table->string('pib');
-            $table->string('phone');
-            $table->string('web_site');
-            $table->string('email');
-            $table->string('sifra_delatnosti');
-            $table->string('odgovorno_lice');
-            $table->string('maticni_broj');
-            $table->string('registarski_broj');
-            $table->integer('mesto');
-            $table->string('adress');
-            $table->boolean('active');
-            $table->string('internal_sifra')->unique();
-            $table->boolean('pripada_pdvu');
+            $table->string(PartnerFields::FIELD_NAME->value);
+            $table->string(PartnerFields::FIELD_SHORTNAME->value)->nullable();
+            $table->string(PartnerFields::FIELD_CONTACT_EMPLOYEE->value)->nullable();
+            $table->string(PartnerFields::FIELD_PIB->value);
+            $table->string(PartnerFields::FIELD_PHONE->value)->nullable();
+            $table->string(PartnerFields::FIELD_WEB_SITE->value)->nullable();
+            $table->string(PartnerFields::FIELD_EMAIL->value)->nullable();
+            $table->string(PartnerFields::FIELD_SIFRA_DELATNOSTI->value)->nullable();
+            $table->string(PartnerFields::FIELD_ODGOVORNO_LICE->value)->nullable();
+            $table->string(PartnerFields::FIELD_MATICNI_BROJ->value)->nullable();
+            $table->string(PartnerFields::FIELD_REGISTARSKI_BROJ->value)->nullable();
+            $table->integer(PartnerFields::FIELD_MESTO->value)->nullable();
+            $table->string(PartnerFields::FIELD_ADDRESS->value)->nullable();
+            $table->boolean(PartnerFields::FIELD_ACTIVE->value);
+            $table->string(PartnerFields::FIELD_INTERNAL_SIFRA->value);
+            $table->boolean(PartnerFields::FIELD_PRIPADA_PDVU->value);
             $table->timestamps();
         });
     }

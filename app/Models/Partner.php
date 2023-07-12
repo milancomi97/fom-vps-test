@@ -23,7 +23,7 @@ class Partner extends Model
         'registarski_broj',
         'mesto',
         'pripada_pdvu',
-        'adress',
+        'address',
         'active',
         'internal_sifra'
     ];

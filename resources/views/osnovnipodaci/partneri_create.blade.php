@@ -41,8 +41,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="adress">Adresa</label>
-                                <input type="text" class="form-control" name="adress" id="adress" placeholder="">
+                                <label for="address">Adresa</label>
+                                <input type="text" class="form-control" name="address" id="address" placeholder="">
                             </div>
                         </div>
                         <div class="col-md-6">

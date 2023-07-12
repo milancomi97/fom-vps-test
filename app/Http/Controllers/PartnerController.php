@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PartnerFields;
 use App\Http\Requests\UpdatePartnerRequest;
 use App\Models\Partner;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
 use Session;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
+
 
 class PartnerController extends Controller
 {
@@ -15,18 +20,19 @@ class PartnerController extends Controller
      */
     public function index()
     {
+
         $partners = Partner::all();
 
         $partnerData = [];
         foreach ($partners as $partner) {
             $partnerData[] = [
-                $partner->internal_sifra, // TODO ostaje
-                $partner->name, // TODO ostaje
-                $partner->short_name, // TODO ostaje
-                $partner->pib,// TODO ostaje
-                $partner->active, // TODO ostaje
-                $partner->email, // TODO ostaje
-                $partner->web_site, // TODO ostaje
+                $partner->internal_sifra,
+                $partner->name,
+                $partner->short_name,
+                $partner->pib,
+                $partner->active,
+                $partner->email,
+                $partner->web_site,
                 $partner->id
             ];
         }
@@ -48,27 +54,35 @@ class PartnerController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $partner = Partner::create([
-            'adress' => $input['adress'],
-            'contact_employee' => $input['contact_employee'],
-            'email' => $input['email'],
-            'maticni_broj' => $input['maticni_broj'],
-            'mesto' => intval($input['mesto']),
-            'name' => $input['name'],
-            'odgovorno_lice' => $input['odgovorno_lice'],
-            'phone' => $input['phone'],
-            'pib' => $input['pib'],
-            'pripada_pdvu' => $input['pripada_pdvu'] == 'true',
-            'registarski_broj' => $input['registarski_broj'],
-            'short_name' => $input['short_name'],
-            'sifra_delatnosti' => $input['sifra_delatnosti'],
-            'web_site' => $input['web_site'],
-            'adress' => $input['adress'],
-            'active' => $input['active'] == 'true',
-            'internal_sifra' => $input['internal_sifra']
-        ]);
 
-        Session::flash('message', 'Partner:  '.$partner->name.'  je uspešno kreiran.');
+        $checkPartner = $this->checkForDuplicates($input);
+        if (!$checkPartner) {
+            $partner = Partner::create([
+                PartnerFields::FIELD_ADDRESS->value => $input[PartnerFields::FIELD_ADDRESS->value],
+                PartnerFields::FIELD_CONTACT_EMPLOYEE->value => $input[PartnerFields::FIELD_CONTACT_EMPLOYEE->value],
+                PartnerFields::FIELD_EMAIL->value => $input[PartnerFields::FIELD_EMAIL->value],
+                PartnerFields::FIELD_MATICNI_BROJ->value => $input[PartnerFields::FIELD_MATICNI_BROJ->value],
+                PartnerFields::FIELD_MESTO->value => intval($input[PartnerFields::FIELD_MESTO->value]),
+                PartnerFields::FIELD_NAME->value => $input[PartnerFields::FIELD_NAME->value],
+                PartnerFields::FIELD_ODGOVORNO_LICE->value => $input[PartnerFields::FIELD_ODGOVORNO_LICE->value],
+                PartnerFields::FIELD_PHONE->value => $input[PartnerFields::FIELD_PHONE->value],
+                PartnerFields::FIELD_PIB->value => $input[PartnerFields::FIELD_PIB->value],
+                PartnerFields::FIELD_PRIPADA_PDVU->value => $input[PartnerFields::FIELD_PRIPADA_PDVU->value] == 'true',
+                PartnerFields::FIELD_REGISTARSKI_BROJ->value => $input[PartnerFields::FIELD_REGISTARSKI_BROJ->value],
+                PartnerFields::FIELD_SHORTNAME->value => $input[PartnerFields::FIELD_SHORTNAME->value],
+                PartnerFields::FIELD_SIFRA_DELATNOSTI->value => $input[PartnerFields::FIELD_SIFRA_DELATNOSTI->value],
+                PartnerFields::FIELD_WEB_SITE->value => $input[PartnerFields::FIELD_WEB_SITE->value],
+                PartnerFields::FIELD_ADDRESS->value => $input[PartnerFields::FIELD_ADDRESS->value],
+                PartnerFields::FIELD_ACTIVE->value => $input[PartnerFields::FIELD_ACTIVE->value] == 'true',
+                PartnerFields::FIELD_INTERNAL_SIFRA->value => $input[PartnerFields::FIELD_INTERNAL_SIFRA->value]
+            ]);
+        }
+
+
+        return $checkPartner;
+
+
+        Session::flash('message', 'Partner:  ' . $partner->name . '  je uspešno kreiran.');
     }
 
     /**
@@ -93,56 +107,27 @@ class PartnerController extends Controller
     public function update(Request $request, Partner $partner)
     {
         $input = $request->all();
-        $partner->update([
-                'adress' => $input['adress'],
-                'contact_employee' => $input['contact_employee'],
-                'email' => $input['email'],
-                'maticni_broj' => $input['maticni_broj'],
-                'mesto' => intval($input['mesto']),
-                'name' => $input['name'],
-                'odgovorno_lice' => $input['odgovorno_lice'],
-                'phone' => $input['phone'],
-                'pib' => $input['pib'],
-                'pripada_pdvu' => $input['pripada_pdvu'] == 'true',
-                'registarski_broj' => $input['registarski_broj'],
-                'short_name' => $input['short_name'],
-                'sifra_delatnosti' => $input['sifra_delatnosti'],
-                'web_site' => $input['web_site'],
-                'adress' => $input['adress'],
-                'active' => $input['active'] == 'true'
+            $partner->update([
+                PartnerFields::FIELD_ADDRESS->value => $input[PartnerFields::FIELD_ADDRESS->value],
+                PartnerFields::FIELD_CONTACT_EMPLOYEE->value => $input[PartnerFields::FIELD_CONTACT_EMPLOYEE->value],
+                PartnerFields::FIELD_EMAIL->value => $input[PartnerFields::FIELD_EMAIL->value],
+                PartnerFields::FIELD_MATICNI_BROJ->value => $input[PartnerFields::FIELD_MATICNI_BROJ->value],
+                PartnerFields::FIELD_MESTO->value => intval($input[PartnerFields::FIELD_MESTO->value]),
+                PartnerFields::FIELD_NAME->value => $input[PartnerFields::FIELD_NAME->value],
+                PartnerFields::FIELD_ODGOVORNO_LICE->value => $input[PartnerFields::FIELD_ODGOVORNO_LICE->value],
+                PartnerFields::FIELD_PHONE->value => $input[PartnerFields::FIELD_PHONE->value],
+//                PartnerFields::FIELD_PIB->value => $input[PartnerFields::FIELD_PIB->value],
+                PartnerFields::FIELD_PRIPADA_PDVU->value => $input[PartnerFields::FIELD_PRIPADA_PDVU->value] == 'true',
+                PartnerFields::FIELD_REGISTARSKI_BROJ->value => $input[PartnerFields::FIELD_REGISTARSKI_BROJ->value],
+                PartnerFields::FIELD_SHORTNAME->value => $input[PartnerFields::FIELD_SHORTNAME->value],
+                PartnerFields::FIELD_SIFRA_DELATNOSTI->value => $input[PartnerFields::FIELD_SIFRA_DELATNOSTI->value],
+                PartnerFields::FIELD_WEB_SITE->value => $input[PartnerFields::FIELD_WEB_SITE->value],
+                PartnerFields::FIELD_ADDRESS->value => $input[PartnerFields::FIELD_ADDRESS->value],
+                PartnerFields::FIELD_ACTIVE->value => $input[PartnerFields::FIELD_ACTIVE->value] == 'true'
+//                PartnerFields::FIELD_INTERNAL_SIFRA->value => $input[PartnerFields::FIELD_INTERNAL_SIFRA->value]
             ]);
-
-        Session::flash('message', 'Partner:  '.$partner->name.'  je uspešno izmenjen.');
+            Session::flash('message', 'Partner:  ' . $partner->name . '  je uspešno izmenjen.');
     }
-
-//    public function update(Request $request, Partner $partner)
-//    {
-//        $input = $request->all();
-//        $partner->adress=$input['adress'];
-//        $partner->contact_employee=$input['contact_employee'];
-//        $partner->email=$input['email'];
-//        $partner->maticni_broj=$input['maticni_broj'];
-//        $partner->mesto=intval($input['mesto']);
-//        $partner->name=$input['name'];
-//        $partner->odgovorno_lice=$input['odgovorno_lice'];
-//        $partner->phone=$input['phone'];
-//        $partner->pib=$input['pib'];
-//        $partner->pripada_pdvu=$input['pripada_pdvu'] == 'true';
-//        $partner->registarski_broj=$input['registarski_broj'];
-//        $partner->short_name=$input['short_name'];
-//        $partner->sifra_delatnosti=$input['sifra_delatnosti'];
-//        $partner->web_site=$input['web_site'];
-//        $partner->adress=$input['adress'];
-//        $partner->active=$input['active'] == 'true';
-//        $partner->internal_sifra=$input['internal_sifra'];
-//        $partner->update(
-//
-//        );
-//
-//        return dd($partner);
-//    }
-
-
 
     /**
      * Remove the specified resource from storage.
@@ -151,15 +136,38 @@ class PartnerController extends Controller
     {
         $status = Partner::destroy($request->partner_id);
 
-        if($status){
-            return  response()->json([
-                'status' => (bool) $status
+        if ($status) {
+            return response()->json([
+                'status' => (bool)$status
             ], 200);
-        }else{
-            return  response()->json([
-                'status' => (bool) $status
-            ],  404 );
+        } else {
+            return response()->json([
+                'status' => (bool)$status
+            ], 404);
         }
 
+    }
+
+    private function checkForDuplicates($data)
+    {
+        $uniqueFields = [
+            PartnerFields::FIELD_INTERNAL_SIFRA->value,
+            PartnerFields::FIELD_PIB->value
+        ];
+
+        foreach ($uniqueFields as $field) {
+            $partner = Partner::where($field, $data[$field])->get();
+            if (count($partner)) {
+                return [
+                    'status' => false,
+                    'duplicateFieldName' => $field,
+                    'duplicateFieldValue' => $data[$field],
+                    'duplicateRecordNameValue' => $partner->first()->name,
+                    'duplicateRecordId' => $partner->first()->id
+                ];
+            }
+        }
+
+        return false;
     }
 }

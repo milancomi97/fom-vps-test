@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="height: auto">
         <!-- Content Header (Page header) -->
         <div class="content-header">
         </div>
@@ -49,7 +49,7 @@
 
                             <div class="form-group">
                                 <label for="pib">PIB</label>
-                                <input type="text" class="form-control" id="pib" name="pib" placeholder=""
+                                <input disabled type="text" class="form-control" id="pib" name="pib" placeholder=""
                                        value="{{$partner->pib}}"
                                 >
                             </div>
@@ -155,9 +155,9 @@
                         </div>
                         <div class="col-md-5 offset-md-1">
                             <div class="form-group">
-                                <label for="adress">Adresa</label>
-                                <textarea class="form-control" id="adress" name="adress" rows="3"
-                                          placeholder="Adresa partnera">{{$partner->adress}}</textarea>
+                                <label for="address">Adresa</label>
+                                <textarea class="form-control" id="address" name="address" rows="3"
+                                          placeholder="Adresa partnera">{{$partner->address}}</textarea>
 
                             </div>
 
@@ -223,7 +223,8 @@
                     <div class="row pt-5 mb-5">
                         <div class="col-md-12">
                             <div class="float-right">
-                                <button type="submit" class="btn btn-primary izmeni_partnera">Izmeni komitenta</button>
+                                <a href="{{route('partner.index')}}"> <button type="button" class="btn btn-success">Nazad</button></a>
+                                <button type="submit" class="btn btn-primary izmeni_partnera ml-2">Sačuvaj izmene</button>
                             </div>
                         </div>
                     </div>

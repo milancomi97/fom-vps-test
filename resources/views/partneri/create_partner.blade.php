@@ -15,7 +15,7 @@
 @endsection
 
 @section('content')
-    <div class="content-wrapper">
+    <div class="content-wrapper" style="height: auto">
         <!-- Content Header (Page header) -->
         <div class="content-header">
         </div>
@@ -152,8 +152,8 @@
                         </div>
                         <div class="col-md-5 offset-md-1">
                             <div class="form-group">
-                                <label for="adress">Adresa</label>
-                                <textarea class="form-control" id="adress" name="adress" rows="3"
+                                <label for="address">Adresa</label>
+                                <textarea class="form-control" id="address" name="address" rows="3"
                                           placeholder="Adresa partnera"></textarea>
 
                             </div>
@@ -217,7 +217,8 @@
                     <div class="row pt-5 mb-5">
                         <div class="col-md-12">
                             <div class="float-right">
-                                <button type="submit" class="btn btn-primary dodaj_partnera">Sačuvaj komitenta</button>
+                                <a href="{{route('partner.index')}}"> <button type="button" class="btn btn-success">Nazad</button></a>
+                                <button type="submit" class="btn btn-primary dodaj_partnera ml-2">Sačuvaj partnera</button>
                             </div>
                         </div>
                     </div>
@@ -231,6 +232,7 @@
     <!-- /.content-wrapper -->
 @endsection
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @section('custom-scripts')
     <script>
@@ -265,8 +267,33 @@
                         type: 'POST', // Use POST method to send data
                         data: $.param(data),
                         success: function (response) {
-                            debugger;
-                            window.location.href = '{{route('partner.index')}}'
+
+                            if(response.status===false){
+                                var duplicateFieldName = response.duplicateFieldName;
+                                var duplicateFieldValue = response.duplicateFieldValue;
+                                var duplicateRecordNameValue = response.duplicateRecordNameValue;
+                                var duplicateRecordId = response.duplicateRecordId;
+                                Swal.fire({
+                                    title: 'Duplikat',
+                                    text: 'Partner sa '+duplicateFieldName+' : '+duplicateFieldValue+', već postoji kao '+duplicateRecordNameValue,
+                                    icon: 'error',
+                                    confirmButtonText: 'Izmeni '+duplicateRecordNameValue,
+                                    cancelButtonText: 'Odustani',
+                                    showCancelButton: true,
+                                    showCloseButton: true,
+                                    confirmButtonColor: "#198754",
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = "{!! url('partner/') !!}" + '/' + duplicateRecordId + '/edit';
+                                    }
+                                })
+
+
+                                ;
+                            }else{
+                                window.location.href = '{{route('partner.index')}}'
+                            }
+
                         },
                         error: function (xhr, status, error) {
                             // Handle the error

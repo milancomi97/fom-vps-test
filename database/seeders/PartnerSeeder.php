@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\PartnerFields;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class PartnerSeeder extends Seeder
 {
@@ -15,27 +14,75 @@ class PartnerSeeder extends Seeder
      */
     public function run(): void
     {
-        for($i=0;$i<2000;$i++){
 
-        DB::table('partners')->insert([
-            'name' => Str::random(10),
-            'email' => Str::random(10) . '@gmail.com',
-            'short_name' => Str::random(10),
-            'contact_employee' => Str::random(10),
-            'pib' => Str::random(10),
-            'phone' => Str::random(10),
-            'web_site' => Str::random(10),
-            'sifra_delatnosti' => Str::random(10),
-            'odgovorno_lice' => Str::random(10),
-            'maticni_broj' => Str::random(10),
-            'registarski_broj' => Str::random(10),
-            'mesto' => 2,
-            'pripada_pdvu' => false,
-            'active'=>rand(0,1),
-            'adress' => Str::random(10),
-            'internal_sifra'=>$i
-        ]);
+        $partners = $this->getPartnerArray();
+
+        // CSV WITHOUT ,
+        // CSV WITH THIS COULUMN NAMES
+        foreach ($partners as $partner) {
+            DB::table('partners')->insert([
+                'name' => $partner['name'],
+                'email' => $partner['email'],
+                'short_name' => $partner['short_name'],
+                'contact_employee' => $partner['contact_employee'],
+                'pib' => $partner['pib'],
+                'phone' => $partner['phone'],
+                'web_site' =>$partner['web_site'],
+                'sifra_delatnosti' => $partner['sifra_delatnosti'],
+                'odgovorno_lice' => $partner['odgovorno_lice'],
+                'maticni_broj' => $partner['maticni_broj'],
+//                'registarski_broj' =>$partner['registarski_broj'],
+                'registarski_broj' =>"Undefinded",
+                'mesto' => $partner['mesto'],
+                'pripada_pdvu' => $partner['pripada_pdvu'] =="1",
+                'active' =>$partner['active'] =="1",
+                'address' => $partner['address'],
+                'internal_sifra' =>$partner['internal_sifra']
+
+            ]);
         }
 
+    }
+
+    public function getPartnerArray()
+    {
+        $file = Storage::disk('local')->readStream('backup/PoslovniPartneri.csv');
+        if ($file !== false) {
+            $partners = [];
+            while (($row = fgetcsv($file)) !== false) {
+                $partners[] = $row;
+            }
+            fclose($file);
+
+            // Use the $data array as needed
+            print_r($partners);
+        } else {
+            echo "Failed to open the CSV file.";
+        }
+
+        $partnerDataArray = [];
+        foreach ($partners as $key => $partner) {
+
+            if ($key == 0) {
+                continue;
+            } else {
+                $partnerData = (explode(";", $partner[0]));
+
+                foreach ($partnerData as $keyPartner => $partnerField) {
+
+                    $columnNames = explode(";", $partners[0][0]);
+
+                    try {
+                        $partnerDataArray[$key][$columnNames[$keyPartner]] = $partnerField;
+                    } catch (\Exception $exception){
+
+                    }
+
+//                        $partnerDataArray[$key][$columnNames[$keyPartner]] = $partnerField;
+                }
+            }
+        }
+
+        return $partnerDataArray;
     }
 }

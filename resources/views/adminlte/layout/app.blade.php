@@ -20,7 +20,7 @@
     @yield('custom-styles')
 </head>
 <style>
-    html {zoom: 75%;}
+    html {zoom: 83% !important;}
 </style>
 
 <body class="hold-transition sidebar-mini">
@@ -33,7 +33,7 @@
 
 </div>
 <script>
-    document.body.style.zoom="90%"
+
 </script>
 </body>
 </html>
