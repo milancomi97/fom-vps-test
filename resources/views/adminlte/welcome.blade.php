@@ -15,6 +15,7 @@
 
     <!-- Main content -->
     <div class="content">
+        <h3> Treba da osmislimo dokument o planu rada, sta smo uradili, na ovoj stranici ce da budu redirektovani posle registracije ili logovanja</h3>
     </div>
     <!-- /.content -->
 </div>
