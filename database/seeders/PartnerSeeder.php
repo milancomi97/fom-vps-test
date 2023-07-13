@@ -31,8 +31,6 @@ class PartnerSeeder extends Seeder
                 'sifra_delatnosti' => $partner['sifra_delatnosti'],
                 'odgovorno_lice' => $partner['odgovorno_lice'],
                 'maticni_broj' => $partner['maticni_broj'],
-//                'registarski_broj' =>$partner['registarski_broj'],
-                'registarski_broj' =>"Undefinded",
                 'mesto' => $partner['mesto'],
                 'pripada_pdvu' => $partner['pripada_pdvu'] =="1",
                 'active' =>$partner['active'] =="1",

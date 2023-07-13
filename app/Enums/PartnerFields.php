@@ -14,7 +14,6 @@ enum PartnerFields:string
     case FIELD_SIFRA_DELATNOSTI ='sifra_delatnosti';
     case FIELD_ODGOVORNO_LICE ='odgovorno_lice';
     case FIELD_MATICNI_BROJ ='maticni_broj';
-    case FIELD_REGISTARSKI_BROJ ='registarski_broj';
     case FIELD_MESTO ='mesto';
     case FIELD_ADDRESS ='address';
     case FIELD_ACTIVE ='active';

@@ -126,13 +126,6 @@
                                        placeholder="">
                             </div>
                         </div>
-                        <div class="col-md-5 offset-md-1">
-                            <div class="form-group">
-                                <label for="registarski_broj">Registarski broj</label>
-                                <input type="text" class="form-control" name="registarski_broj" id="registarski_broj"
-                                       placeholder="">
-                            </div>
-                        </div>
                     </div>
                     <!--Row 6 End-->
 
@@ -286,10 +279,7 @@
                                     if (result.isConfirmed) {
                                         window.location.href = "{!! url('partner/') !!}" + '/' + duplicateRecordId + '/edit';
                                     }
-                                })
-
-
-                                ;
+                                });
                             }else{
                                 window.location.href = '{{route('partner.index')}}'
                             }

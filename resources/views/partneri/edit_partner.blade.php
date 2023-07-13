@@ -17,6 +17,7 @@
                 <form>
                     {!! csrf_field() !!}
                     <!--Row 1-->
+                    <input type="hidden" id="partner_id" name="partner_id" value="{{$partner->id}}">
                     <div class="row">
                         <div class="col-md-5">
                             <div class="form-group">
@@ -125,14 +126,6 @@
                                 <label for="maticni_broj">Matični broj</label>
                                 <input type="text" class="form-control" id="maticni_broj" name="maticni_broj"
                                        value="{{$partner->maticni_broj}}"
-                                       placeholder="">
-                            </div>
-                        </div>
-                        <div class="col-md-5 offset-md-1">
-                            <div class="form-group">
-                                <label for="registarski_broj">Registarski broj</label>
-                                <input type="text" class="form-control" name="registarski_broj" id="registarski_broj"
-                                       value="{{$partner->registarski_broj}}"
                                        placeholder="">
                             </div>
                         </div>
@@ -245,6 +238,7 @@
             $('.izmeni_partnera').click(function (e) {
                 e.preventDefault(); // Prevent the default form submission
 
+                var partnerId =  $('#partner_id').val();
                 // Collect the form data
                 var data = $('form').serializeArray();
                 var active = $('#active').is(":checked");
@@ -255,15 +249,13 @@
                 data.push({name: 'pripada_pdvu', value: pripada_pdvu});
 
                 $.ajax({
-                    url: '{{ url('partner') }}'+'/23', // Replace with your server URL
+                    url: '{{ url('partner') }}'+'/'+partnerId, // Replace with your server URL
                     type: 'PATCH', // Use POST method to send data
                     data: $.param(data),
                     success: function (response) {
-                        debugger;
                         window.location.href = '{{route('partner.index')}}'
                     },
                     error: function (xhr, status, error) {
-                        // Handle the error
                         console.log(xhr.responseText);
                     }
                 });

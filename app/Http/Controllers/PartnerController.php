@@ -68,7 +68,6 @@ class PartnerController extends Controller
                 PartnerFields::FIELD_PHONE->value => $input[PartnerFields::FIELD_PHONE->value],
                 PartnerFields::FIELD_PIB->value => $input[PartnerFields::FIELD_PIB->value],
                 PartnerFields::FIELD_PRIPADA_PDVU->value => $input[PartnerFields::FIELD_PRIPADA_PDVU->value] == 'true',
-                PartnerFields::FIELD_REGISTARSKI_BROJ->value => $input[PartnerFields::FIELD_REGISTARSKI_BROJ->value],
                 PartnerFields::FIELD_SHORTNAME->value => $input[PartnerFields::FIELD_SHORTNAME->value],
                 PartnerFields::FIELD_SIFRA_DELATNOSTI->value => $input[PartnerFields::FIELD_SIFRA_DELATNOSTI->value],
                 PartnerFields::FIELD_WEB_SITE->value => $input[PartnerFields::FIELD_WEB_SITE->value],
@@ -76,13 +75,11 @@ class PartnerController extends Controller
                 PartnerFields::FIELD_ACTIVE->value => $input[PartnerFields::FIELD_ACTIVE->value] == 'true',
                 PartnerFields::FIELD_INTERNAL_SIFRA->value => $input[PartnerFields::FIELD_INTERNAL_SIFRA->value]
             ]);
+            Session::flash('message', 'Partner:  ' . $partner->name . '  je uspešno kreiran.');
         }
-
 
         return $checkPartner;
 
-
-        Session::flash('message', 'Partner:  ' . $partner->name . '  je uspešno kreiran.');
     }
 
     /**
@@ -118,7 +115,6 @@ class PartnerController extends Controller
                 PartnerFields::FIELD_PHONE->value => $input[PartnerFields::FIELD_PHONE->value],
 //                PartnerFields::FIELD_PIB->value => $input[PartnerFields::FIELD_PIB->value],
                 PartnerFields::FIELD_PRIPADA_PDVU->value => $input[PartnerFields::FIELD_PRIPADA_PDVU->value] == 'true',
-                PartnerFields::FIELD_REGISTARSKI_BROJ->value => $input[PartnerFields::FIELD_REGISTARSKI_BROJ->value],
                 PartnerFields::FIELD_SHORTNAME->value => $input[PartnerFields::FIELD_SHORTNAME->value],
                 PartnerFields::FIELD_SIFRA_DELATNOSTI->value => $input[PartnerFields::FIELD_SIFRA_DELATNOSTI->value],
                 PartnerFields::FIELD_WEB_SITE->value => $input[PartnerFields::FIELD_WEB_SITE->value],
@@ -160,7 +156,7 @@ class PartnerController extends Controller
             if (count($partner)) {
                 return [
                     'status' => false,
-                    'duplicateFieldName' => $field,
+                    'duplicateFieldName' => $field =='pib'?'PIB':'Interna šifra',
                     'duplicateFieldValue' => $data[$field],
                     'duplicateRecordNameValue' => $partner->first()->name,
                     'duplicateRecordId' => $partner->first()->id

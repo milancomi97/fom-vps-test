@@ -20,7 +20,6 @@ class Partner extends Model
         'sifra_delatnosti',
         'odgovorno_lice',
         'maticni_broj',
-        'registarski_broj',
         'mesto',
         'pripada_pdvu',
         'address',

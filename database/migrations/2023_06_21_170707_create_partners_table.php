@@ -24,7 +24,6 @@ return new class extends Migration
             $table->string(PartnerFields::FIELD_SIFRA_DELATNOSTI->value)->nullable();
             $table->string(PartnerFields::FIELD_ODGOVORNO_LICE->value)->nullable();
             $table->string(PartnerFields::FIELD_MATICNI_BROJ->value)->nullable();
-            $table->string(PartnerFields::FIELD_REGISTARSKI_BROJ->value)->nullable();
             $table->integer(PartnerFields::FIELD_MESTO->value)->nullable();
             $table->string(PartnerFields::FIELD_ADDRESS->value)->nullable();
             $table->boolean(PartnerFields::FIELD_ACTIVE->value);
