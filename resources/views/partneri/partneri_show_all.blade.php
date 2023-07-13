@@ -11,34 +11,58 @@
     @endif
 
     <style>
+        .title{
+
+        }
         .custom-select {
             width: 4em !important;
         }
+        @media only screen and (max-width: 768px) {
+
+            .title-mobile {
+                text-align: center;
+                margin-bottom: 30px !important;
+                font-size: 30px !important;
+            }
+            .button-margin-mobile{
+
+            }
+        }
+
+        @media only screen and (max-width: 992px) {
+
+            .title-tablet {
+
+                margin-bottom:30px !important
+            }
+
+        }
+
     </style>
     <div class="content-wrapper" style="min-height: 2080.12px;">
         <section class="content-header">
             <div class="container-fluid pl-5">
                 <div class="row mb-2 mt-5">
-                    <div class="col-lg-3">
+                    <div class="col-lg-5 ">
 
-                        <h1>Pregled poslovnih partnera</h1>
+                        <h1 class="title-mobile title-tablet title ">Pregled poslovnih partnera</h1>
                     </div>
-                    <div class="col-lg-9">
+                    <div class="col-lg-7 ">
                         <div class="row">
-                            <div class="col-lg-2">
+                            <div class="col-lg-2 col-sm-2 col-3" style=" display: flex; justify-content: flex-start;">
                                 <button class="btn btn-primary"><a class="text-light" target="_blank"
                                                                    href="https://www.apr.gov.rs/%d0%bf%d0%be%d1%87%d0%b5%d1%82%d0%bd%d0%b0.3.html">Otvori
                                         APR</a>
                                 </button>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-lg-2 col-sm-2 col-3" style=" display: flex; justify-content: flex-start;">
 
                                 <button class="btn btn-primary"><a class="text-light" target="_blank"
                                                                    href="https://www.apr.gov.rs/%d0%bf%d0%be%d1%87%d0%b5%d1%82%d0%bd%d0%b0.3.html">Otvori
                                         NBS</a>
                                 </button>
                             </div>
-                            <div class="col-lg-4 offset-lg-4" style=" display: flex; justify-content: flex-end;">
+                            <div class="col-lg-4 offset-lg-4 offset-sm-0 offset-md-0 col-6 offset-0" style=" display: flex; justify-content: flex-end;">
 
                                 <button class="btn btn-success"><a class="text-light"
                                                                    href="{{route('partner.create')}}">Dodaj partnera
