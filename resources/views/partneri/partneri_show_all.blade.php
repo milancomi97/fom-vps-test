@@ -11,9 +11,7 @@
     @endif
 
     <style>
-        .title{
 
-        }
         .custom-select {
             width: 4em !important;
         }

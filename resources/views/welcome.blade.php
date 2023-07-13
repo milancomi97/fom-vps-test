@@ -51,7 +51,9 @@
             </svg>
         </div>
         <h1 style="color: white;text-align: center;font-size: 40px">+</h1>
-        <img src="{{URL::asset('/images/welcomepage/logo.png')}}" alt="logo Pic" height="200" width="200">
+        <div clas="container">
+            <img src="{{URL::asset('/images/welcomepage/logo.png')}}" alt="logo Pic" class="mx-auto d-block" height="200" width="200">
+        </div>
     </div>
 </div>
 </body>
