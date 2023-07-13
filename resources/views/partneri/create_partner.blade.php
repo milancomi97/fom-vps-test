@@ -9,7 +9,8 @@
         #errorContainer{
             color:red;
             text-align: center;
-            font-size: 1.4em;
+            font-size: 2em;
+            margin-bottom: 2em;
         }
     </style>
 @endsection
@@ -237,11 +238,16 @@
                 $('#errorContainer').empty();
                 var isValid = true;
                 $('#create_partner_form input[type="text"]').each(function () {
+
                     var fieldValue = $(this).val();
+                    var fieldName= $(this).attr("name");
+                    var requiredFields = ['name','short_name','internal_sifra'];
 
                     if (fieldValue === '') {
-                        $(this).addClass('error');
-                        isValid = false;
+                        if(requiredFields.includes(fieldName)) {
+                            $(this).addClass('error');
+                            isValid = false;
+                        }
                     }
                 });
                 if (isValid) {
@@ -294,7 +300,7 @@
 
                 } else {
                     // Show error message
-                    $('#errorContainer').text('Popuni sva polja');
+                    $('#errorContainer').text('Popuni polja.');
                 }
             });
 
