@@ -6,6 +6,7 @@ use App\Enums\PartnerFields;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use League\Csv\Reader;
 
 class PartnerSeeder extends Seeder
 {
@@ -14,11 +15,8 @@ class PartnerSeeder extends Seeder
      */
     public function run(): void
     {
+        $partners = $this->getPartnerArray2();
 
-        $partners = $this->getPartnerArray();
-
-        // CSV WITHOUT ,
-        // CSV WITH THIS COULUMN NAMES
         foreach ($partners as $partner) {
             DB::table('partners')->insert([
                 'name' => $partner['name'],
@@ -82,5 +80,14 @@ class PartnerSeeder extends Seeder
         }
 
         return $partnerDataArray;
+    }
+
+
+    public function getPartnerArray2(){
+        $filePath = storage_path('app/backup/PoslovniPartneri.csv');
+        $csv = Reader::createFromPath($filePath, 'r');
+        $csv->setHeaderOffset(0);
+        $csv->setDelimiter(';');
+        return $csv;
     }
 }

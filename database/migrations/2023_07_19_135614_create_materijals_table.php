@@ -1,0 +1,41 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('materijals', function (Blueprint $table) {
+            $table->id();
+            $table->integer('category_id')->nullable();
+            $table->string('sifra_materijala')->nullable();
+            $table->string('naziv_materijala')->nullable();
+            $table->string('standard')->nullable();
+            $table->string('dimenzija')->nullable();
+            $table->string('kvalitet')->nullable();
+            $table->string('jedinica_mere')->nullable();
+            $table->integer('tezina')->nullable();
+            $table->string('dimenzije')->nullable();
+            $table->string('dimenzija_1')->nullable();
+            $table->string('dimenzija_2')->nullable();
+            $table->string('dimenzija_3')->nullable();
+            $table->string('dimenzija_4')->nullable();
+            $table->string('sifra_standarda')->nullable();
+            $table->string('napomena')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('materijals');
+    }
+};

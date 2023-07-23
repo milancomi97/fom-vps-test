@@ -34,5 +34,6 @@ Route::get('/templatetheme', function () {
 });
 
 Route::resource("/partner", \App\Http\Controllers\PartnerController::class);
+Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
 
 require __DIR__.'/auth.php';

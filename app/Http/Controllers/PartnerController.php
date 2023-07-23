@@ -3,14 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PartnerFields;
-use App\Http\Requests\UpdatePartnerRequest;
 use App\Models\Partner;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\App;
 use Session;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Rule;
 
 
 class PartnerController extends Controller

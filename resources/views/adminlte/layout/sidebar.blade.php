@@ -86,12 +86,21 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{route('materijal.create')}}" class="nav-link">
                                 <i class="fas fa-circle  nav-icon"></i>
-                                <p>Komitenti - Partneri</p>
+                                <p class="small">Materijali (kreiraj)</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('materijal.index')}}" class="nav-link">
+                                <i class="fas fa-circle  nav-icon"></i>
+                                <p class="small">Materijali (pregled)</p>
+                            </a>
+                        </li>
+
+
                     </ul>
                 </li>
                 <li class="nav-item menu">
