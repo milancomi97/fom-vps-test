@@ -25,4 +25,15 @@ class Materijal extends Model
         'sifra_standarda',
         'napomena'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function stanjematerijala()
+    {
+        return $this->hasMany(StanjeZaliha::class, 'sifra_materijala');
+    }
+
 }

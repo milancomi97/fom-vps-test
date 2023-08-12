@@ -10,9 +10,19 @@ return new class extends Migration {
      */
     public function up(): void
     {
+
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->timestamps();
+        });
+
+
         Schema::create('materijals', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id')->nullable();
+            $table->unsignedBigInteger('category_id');
             $table->string('sifra_materijala')->nullable();
             $table->string('naziv_materijala')->nullable();
             $table->string('standard')->nullable();
@@ -25,8 +35,9 @@ return new class extends Migration {
             $table->string('dimenzija_2')->nullable();
             $table->string('dimenzija_3')->nullable();
             $table->string('dimenzija_4')->nullable();
-            $table->string('sifra_standarda')->nullable();
+            $table->unsignedBigInteger('sifra_standarda')->nullable();
             $table->string('napomena')->nullable();
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -37,5 +48,6 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('materijals');
+        Schema::dropIfExists('categories');
     }
 };

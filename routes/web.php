@@ -33,6 +33,8 @@ Route::get('/templatetheme', function () {
     return view('/adminlte/welcome');
 });
 
+Route::post('/materijals_pdf', [\App\Http\Controllers\MaterijalController::class, 'pdfExport'])->name('profile.edit');
+
 Route::resource("/partner", \App\Http\Controllers\PartnerController::class);
 Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
 

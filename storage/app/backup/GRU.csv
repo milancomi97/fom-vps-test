@@ -1,0 +1,1598 @@
+GRUPA_ID;NAZIV;STAND,L;D1,L;ND1,C,20;D2,L;ND2,C,20;D3,L;ND3,C,20;D4,L;ND4,C,15;KV,L;INIT,N,1,0;NIVO,C,1
+1;Poluproizvodi i prozivodi Crnne i Obojene metal.;1;1;;1;;1;;0;;1;1;1
+11;Polupr. cr.i oboj. metal.(lim.,fi..,prof.,cevi..;1;1;;1;;1;;0;;1;2;2
+111;limovi,trake,ploce...;1;1;debljina;1;sirina;1;duzina;0;;1;3;3
+1111;limovi ravni;1;1;debljina;1;sirina;1;duzina;0;;1;4;4
+11111;limovi ravni tanki beli,pocinkovani(1mm-4mm);1;1;debljina;1;sirina;1;duzina;0;;1;5;5
+11112;limovi ravni celicni;1;1;debljina;1;sirina;1;duzina;1;XXX...;1;5;5
+11113;limovi ravni od obojenih metala i njihovih leg.;1;1;debljina;1;sirina;1;duzina;0;;1;5;5
+1112;limovi rebrasti;1;1;debljina;1;sirina;1;duzina;0;;1;4;4
+1115;limovi profilisani;1;1;debljina;1;sirina;1;duzina;0;;1;4;4
+11151;limovi profilisani celicni;1;1;debljina;1;sirina;1;duzina;0;;1;5;5
+11153;limovi profilisani od obojenih metala i legura;1;1;debljina;1;sirina;1;duzina;0;;1;5;5
+1119;limovi perforirani;1;1;debljina;1;sirina;1;duzina;0;;1;4;4
+11191;limovi perforirani celicni;1;1;debljina;1;sirina;1;duzina;0;;1;5;5
+1113;trake;1;1;debljina;1;sirina;1;duzina;0;;1;4;4
+11131;trake celicne;1;1;debljina;1;sirina;1;duzina;0;;1;5;5
+11132;trake od  obojenih metala;1;1;debljina;1;sirina;1;duzina;0;;1;5;5
+1117;folije(lim beli...);1;1;;1;;1;;0;;1;4;4
+11171;folije celicne;1;1;;1;;1;;1;;1;5;5
+11172;folije od obojenih metala i njihovih legura;1;1;;1;;1;;1;;1;5;5
+11179;folije ostale;1;1;;1;;1;;1;;1;5;5
+1116;lamele;1;1;;1;;1;;1;;1;4;4
+11161;lamele celicne;1;1;;1;;1;;1;;1;5;5
+1118;ploce;1;1;;1;;1;;1;;1;4;4
+11181;ploce celicne;1;1;;1;;0;;1;;1;5;5
+11182;ploce od od obojenih metala ilegura;1;1;;1;;0;;1;;1;5;5
+11183;ploce od plemenitih metala;1;1;;1;;0;;1;;1;5;5
+119;polup. crne i oboj. metal. ostalo;1;1;;1;;0;;1;;1;3;3
+112;okrugli,pljosnati,poluokrugli,kvadratni;1;1;;1;;0;;1;osnovni podaci;1;3;3
+1121;okrugli materijal;1;1;;1;;0;;1;osnovni podaci;1;4;4
+11211;okrugli celicni;1;1;;1;;0;;1;osnovni podaci;1;5;5
+11212;okrugli od obojenih metala injihovih leg.;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11213;okrugli ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+1122;pljosnati mater.;1;0;;0;;0;;1;osnovni podaci;1;4;4
+11221;pljosnati celik;1;0;;0;;0;;1;osnovni podaci;1;5;5
+122117;pljosnati cel. ug. sa gar. sastavom za automate;1;0;;0;;0;;1;osnovni podaci;1;6;6
+11225;pljosnati mater. od al i al legura;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11227;pljosnati mater. od cu i cu legura;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11229;pljosnati ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+1125;kvadratni mater.;1;0;;0;;0;;1;osnovni podaci;1;4;4
+11251;kvadratni celik;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11255;kvadratni mater. od al i al legura;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11256;kvadratni mater. od cu i cu legura;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11259;kvadratni ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+1126;poluokrugli mater.;1;0;;0;;0;;1;osnovni podaci;1;4;4
+11261;poluokrugli celik;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11262;poluokrugli mater. od al i al legura;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11265;poluokrugli mater. od cu i cu legura;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11269;poluokrugli mater. ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+1127;sestougaoni materijal.;1;0;;0;;0;;1;osnovni podaci;1;4;4
+11271;sestougaoni celik;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11272;sestougaoni mater. od obojenih metala;1;0;;0;;0;;1;osnovni podaci;1;5;5
+1128;mnogougaoni i raznougaoni mater.;1;0;;0;;0;;1;osnovni podaci;1;4;4
+11281;mnogougaoni celik;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11282;mnogougaoni od obojenih metala;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11289;mnogougaoni ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+1129;zica;1;0;;0;;0;;1;osnovni podaci;1;4;4
+11291;zica celicna;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11292;zica od obojenih materijala;1;0;;0;;0;;1;osnovni podaci;1;5;5
+115;ugaonici,nosaci,profili, sine...;1;0;;0;;0;;1;osnovni podaci;1;3;3
+1151;ugaonici;1;0;;0;;0;;1;osnovni podaci;1;4;4
+11511;ugaonici ravnokraki cel;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11512;ugaonici raznokraki cel;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11513;ugaonici od obojenih met. i njihovih leg.;1;0;;0;;0;;1;osnovni podaci;1;5;5
+1152;nosaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+11521;nosaci I oblika  cel;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11522;nosaci U oblika  cel;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11523;nosaci T oblika  cel;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11524;nosaci raznih oblika cel;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11525;nosaci od obojenih metala;1;0;;0;;0;;1;osnovni podaci;1;5;5
+1156;sine;1;0;;0;;0;;1;osnovni podaci;1;4;4
+11561;sine tip A;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11562;sine tip S;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11565;sine specijalne;1;0;;0;;0;;1;osnovni podaci;1;5;5
+11569;sine ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+1159;ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+116;cevi...;1;0;;0;;0;;1;osnovni podaci;1;3;3
+1161;cevi okrugle;1;0;nazivni precnik;0;debljina zida;0;duzina;1;osnovni podaci;1;4;4
+11611;cevi okrugle bez sava cel;1;0;nazivni precnik;0;debljina zida;0;duzina;1;osnovni podaci;1;5;5
+11612;cevi okrugle sa savom cel;1;0;nazivni precnik;0;debljina zida;0;duzina;1;osnovni podaci;1;5;5
+11613;cevi okrugle od obojenih metala i legura;1;0;nazivni precnik;0;debljina zida;0;duzina;1;osnovni podaci;1;5;5
+1162;cevi kvadratne;1;0;nazivni precnik;0;debljina zida;0;duzina;1;osnovni podaci;1;4;4
+11621;cevi kvadratne cel i poc.;1;0;nazivni precnik;0;debljina zida;0;duzina;1;osnovni podaci;1;5;5
+11622;cevi kvadratne od ob. metala;1;0;nazivni precnik;0;debljina zida;0;duzina;1;osnovni podaci;1;5;5
+1163;cevi pravougone;1;0;nazivni precnik;0;debljina zida;0;duzina;1;osnovni podaci;1;4;4
+11631;cevi pravougaone cel i poc.;1;0;nazivni precnik;0;debljina zida;0;duzina;0;osnovni podaci;1;5;5
+11632;cevi pravougaone od oboj. metala;1;0;nazivni precnik;0;debljina zida;0;duzina;1;osnovni podaci;1;5;5
+17;odlivci,otkivci,otpresci...;1;0;;0;;0;;1;osnovni podaci;1;2;2
+171;odlivci;1;0;;0;;0;;1;osnovni podaci;1;3;3
+1711;odlivci od sivog liva;1;0;;0;;0;;1;osnovni podaci;1;4;4
+1712;odlivci od celicnog liva;1;0;;0;;0;;1;osnovni podaci;1;4;4
+1715;odlivci od nodularnog liva;1;0;;0;;0;;1;osnovni podaci;1;4;4
+1716;odlivci od temper liva;1;0;;0;;0;;1;osnovni podaci;1;4;4
+1717;odlivci od obojenih metala ilegura;1;0;;0;;0;;1;osnovni podaci;1;4;4
+172;otkivci;1;0;;0;;0;;1;osnovni podaci;1;3;3
+1721;otkivci po crtezu;1;0;;0;;0;;1;osnovni podaci;1;4;4
+1722;otkivci standardni;1;0;;0;;0;;1;osnovni podaci;1;4;4
+17221;otkivci stand. cel. izduzeni;1;0;;0;;0;;1;osnovni podaci;1;5;5
+17222;otkivci stand. cel. kruznog preseka;1;0;;0;;0;;1;osnovni podaci;1;5;5
+17224;otkivci stand. cel. vretenasti;1;0;;0;;0;;1;osnovni podaci;1;5;5
+17225;otkivci stand. cel. rogljasti;1;0;;0;;0;;1;osnovni podaci;1;5;5
+17226;otkivci stand. cel. cevasti;1;0;;0;;0;;1;osnovni podaci;1;5;5
+17228;otkivci stand. cel. prstenatog preseka;1;0;;0;;0;;1;osnovni podaci;1;5;5
+17229;otkivci stand. ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+1729;otkivci ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+175;otpresci;1;0;;0;;0;;1;osnovni podaci;1;3;3
+1751;otpresci po crtezu;1;0;;0;;0;;1;osnovni podaci;1;4;4
+17511;otpresci po crtezu od uglj. cel.;1;0;;0;;0;;1;osnovni podaci;1;5;5
+17515;otpresci po crt. od celika za poboljsanje;1;0;;0;;0;;1;osnovni podaci;1;5;5
+17517;otpresci po crt. od obojenih metala;1;0;;0;;0;;1;osnovni podaci;1;5;5
+17519;otpresci po crtezu ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+1752;otpresci standardni;1;0;;0;;0;;1;osnovni podaci;1;4;4
+1759;otpresci ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+1789;ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+179;ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+19;razni proizvodi crne i obojene metalurgije;1;0;;0;;0;;1;osnovni podaci;1;2;2
+3;METALNI (gotovi) PROIZVODI;1;0;;0;;0;;1;osnovni podaci;1;1;1
+31;elementi za spajanje, vezivanje i osigur;1;0;;0;;0;;1;osnovni podaci;1;2;2
+311;vijci;1;0;nazivni precnik;1;;1;duzina;1;osnovni podaci;1;3;3
+3111;vijci sa sestostranom glavom;1;0;nazivni precnik;1;;1;duzina;1;osnovni podaci;1;4;4
+3112;vijci za tacno naleganje;1;0;nazivni precnik;1;;1;duzina;1;osnovni podaci;1;4;5
+3113;vijci sa cetvrtastom glavom;1;0;nazivni precnik;1;;1;duzina;1;osnovni podaci;1;4;4
+3114;vijci sa cilindricnom glavom;1;0;nazivni precnik;1;;1;duzina;1;osnovni podaci;1;4;4
+3115;vijci sa poluokruglom gl.,sociv. i upust. gl.;1;0;nazivni precnik;1;;1;duzina;1;osnovni podaci;1;4;4
+3116;vijci sa cilin.i upust.glav. i sest.rup. IMBUS;1;0;nazivni precnik;1;;1;duzina;1;osnovni podaci;1;4;4
+3117;vijci sa karakakteristicnim oblikom i glavom;1;0;nazivni precnik;1;;1;duzina;1;osnovni podaci;1;4;4
+3118;vijci svorni , urezni,Anker,bez glave...;1;0;nazivni precnik;1;;1;duzina;1;osnovni podaci;1;4;4
+3119;vijci za lim, drvo, plasticne tiplove i ostali;1;0;nazivni precnik;1;;1;duzina;1;osnovni podaci;1;4;4
+312;navrtke;1;0;;0;;0;;1;osnovni podaci;1;3;3
+3121;navrtke sestostrane i za opstu namenu;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3122;navrtke samoosig.,sa vencem, zatvor., za zavariv;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3123;navrtke  krunaste;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3124;navrtke cetv.,sa vencem, prsten,krilas., narezan;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3125;navrtke za osiguranje;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3126;navrtke za cevne spojke;1;0;;0;;0;;1;osnovni podaci;1;4;4
+313;podloske;1;0;;0;;0;;1;osnovni podaci;1;3;3
+3131;podloske - podlozne plocice;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3132;podloske ravne,kvadratne i kose;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3133;podloske elasticne;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3134;podloske za osiguranje;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3135;podloske -zaptivaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+314;zakovice;1;0;;0;;0;;1;osnovni podaci;1;3;3
+315;civije;1;0;;0;;0;;1;osnovni podaci;1;3;3
+3151;civije cilindricne;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3152;civije konicne;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3153;civije elasticne;1;0;;0;;0;;1;osnovni podaci;1;4;4
+316;cepovi;1;0;;0;;0;;1;osnovni podaci;1;3;3
+3161;cepovi sa estostranom rupom;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3162;cepovi sa sestostranom glavom;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3163;cepovi ostalih oblika i namena;1;0;;0;;0;;1;osnovni podaci;1;4;4
+317;rascepke;1;0;;0;;0;;1;osnovni podaci;1;3;3
+3171;rascepke okrugle;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3172;rascekpke pljosnate i klinaste;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3173;rascepke ostalih oblika i namena;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3141;zakovice sa poluokruglom i socivastom glavom;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3142;zakovice sa upustenom glavom;1;0;;0;;0;;1;osnovni podaci;1;4;4
+3143;zakovice sa trapezastom glavom;1;0;;0;;0;;1;osnovni podaci;1;4;4
+318;klinovi;1;0;;0;;0;;1;osnovni podaci;1;3;3
+3181;klinovi standardni(ravni i kosi);1;0;;0;;0;;1;osnovni podaci;1;4;4
+3182;klinovi po crtezu;1;0;;0;;0;;1;osnovni podaci;1;4;4
+319;ekseri i ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+32;Lezajevi,pribor za lezajeve i prateca oprema;1;1;unutrasnji precnik;0;spoljasnji precnik;1;sirina lezaja;1;osnovni podaci;1;2;2
+321;lezajevi;1;1;unutrasnji precnik;0;spoljasnji precnik;1;sirina lezaja;1;osnovni podaci;1;3;3
+3211;lezajevi kotrljajuci;1;1;unutrasnji precnik;0;spoljasnji precnik;1;sirina lezaja;1;osnovni podaci;1;4;4
+3212;lezajevi klizni;1;1;unutrasnji precnik;0;spoljasnji precnik;1;sirina lezaja;1;osnovni podaci;1;4;4
+32111;lezajevi kotrljajuci kuglicni;1;1;unutrasnji precnik;0;spoljasnji precnik;1;sirina lezaja;1;oznaka lezaja;1;5;5
+32112;lezajevi kotrljajuci valjcani;1;1;unutrasnji precnik;0;spoljasnji precnik;1;sirina lezaja;1;osnovni podaci;1;5;5
+32113;lezajevi kotrljajuci iglicasti;1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;5;5
+32114;lezajevi kotrljajuci konusni;1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;5;5
+32115;lezajevi kotrljajuci bacvati;1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;5;5
+322;pribor za lezajeve;1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;3;3
+3221;uskocnici;1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;4;4
+3222;MB osiguraci;1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;4;4
+3223;KM navrtke;1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;4;4
+3224;kuglice;1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;4;4
+3225;sedla za pritezanje(Hilzne);1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;4;4
+32211;uskocnici unutrasnji(J-400,D-472);1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;5;5
+32212;uskocnici spoljasnji (J-401,D-471);1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;5;5
+323;prateca oprema za lezajeve;1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;3;3
+3231;kucista za lezajeve;1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;4;4
+3232;ostala oprema za lezajeve;1;1;unutrasnji precnik;0;spoljasnji precnik;0;sirina lezaja;1;osnovni podaci;1;4;4
+34;vodoistalacini materijal;1;1;;0;;0;;1;osnovni podaci;1;2;2
+35;lanci uzad i prateci pribor;1;0;;0;;0;;1;osnovni podaci;1;2;2
+33;Materijal i delovi za hidrauliku i pnematiku;1;0;;0;;0;;1;osnovni podaci;1;2;2
+4;NEMETALI (guma,plastika,koza,drvo,staklo i sl.);1;0;;0;;0;;1;osnovni podaci;1;1;1
+41;proizvodi od gume(materjal idelovi za ugr.;1;0;;0;;0;;1;osnovni podaci;1;2;2
+4122;platna gumirana;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4123;folije;1;0;;0;;0;;1;osnovni podaci;1;4;4
+411;trake ,profili,ploce...;1;0;;0;;0;;1;osnovni podaci;1;3;3
+4111;trake i ploce gumene ravne;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4112;profilisana guma;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4114;trake transportne;1;0;;0;;0;;1;osnovni podaci;1;4;4
+413;zaptivni materijal;1;0;;0;;0;;1;osnovni podaci;1;3;3
+4131;semerinzi;1;0;;0;;0;;0;;1;4;4
+4132;manzetne;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4133;"""o""prstenovi, V prstenovi...";1;0;;0;;0;;1;osnovni podaci;1;4;4
+4134;zaptivke;1;0;;0;;0;;1;osnovni podaci;1;4;4
+41341;zaptivke prstenaste;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41342;zaptivke tvrde prstenaste;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41343;zaptivke za zaptivanje naglavaka;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41344;zaptivke za visoke pritiske;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41349;zaptivke ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+4139;zaptivni materjal ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+414;cevi i creva;1;0;;0;;0;;1;osnovni podaci;1;3;3
+4141;cevi;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4142;creva;1;0;;0;;0;;1;osnovni podaci;1;4;4
+41421;creva za gasove;1;0;;0;;0;;1;osnovni podaci;1;5;5
+414211;creva za gasove za zavarivanje;1;0;;0;;0;;1;osnovni podaci;1;6;6
+414212;creva za gasove za komprimovani vazduh;1;0;;0;;0;;1;osnovni podaci;1;6;6
+414213;creva za gasove za komprimovani vazduh za alate;1;0;;0;;0;;1;osnovni podaci;1;6;6
+414215;creva za gasove i vodenu paru;1;0;;0;;0;;1;osnovni podaci;1;6;6
+414219;creva ostalo;1;0;;0;;0;;1;osnovni podaci;1;6;6
+41422;creva za neagresivne tecnosti;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41423;creva za agresivne tecnosti;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41424;creva za naftne derivate;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41425;creva za rastresite materijale;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41426;creva za visestruku namenu;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41427;creva za posebne namene;1;0;;0;;0;;1;osnovni podaci;1;5;5
+414271;creva za posebne namene za hidrauliku;1;0;;0;;0;;1;osnovni podaci;1;6;6
+414272;creva za posebne namene za hladnjake;1;0;;0;;0;;1;osnovni podaci;1;6;6
+414273;creva za posebne namene za laboratoriju;1;0;;0;;0;;1;osnovni podaci;1;6;6
+414279;creva za posebne namene ostalo;1;0;;0;;0;;1;osnovni podaci;1;6;6
+41429;creva ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+4149;cevi i creva ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+415;remeni;1;0;;0;;0;;1;osnovni podaci;1;3;3
+4151;remeni klinasti;1;0;;0;;0;;1;osnovni podaci;1;4;4
+41511;remeni klinasti beskonacni normalne sirine;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41512;remeni klinasti beskonacni uski;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41513;remeni klinasti beskonacni siroki za varijatore;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41514;remeni klinasti beskonacni ozubljeni za male rem;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41517;remeni klinasti konacni;1;0;;0;;0;;1;osnovni podaci;1;5;5
+41519;remeni klinasti ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+4159;remeni ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+416;gume za transportna sredstva;1;0;;0;;0;;1;osnovni podaci;1;3;3
+4161;gume spoljne;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4162;gume unutrasnje;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4163;gumeni pojasevi;1;0;;0;;0;;1;osnovni podaci;1;4;4
+417;galanterija (tehnicki gumeni proizvodi);1;0;;0;;0;;1;osnovni podaci;1;3;3
+4171;amortizeri;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4172;ulosci gumeni;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4173;odbojnici;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4174;podmetaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+418;izolacioni materijal;1;0;;0;;0;;1;osnovni podaci;1;3;3
+419;proizvodi od gume ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+42;plasticni proizvodi(materjal i delovi za ugradnj;1;0;;0;;0;;1;osnovni podaci;1;2;2
+421;ploce,trake,profili;1;0;;0;;0;;1;osnovni podaci;1;3;3
+4211;ploce;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4212;trake;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4214;okrugla i profilisana plastika;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4219;ploce, trake ,profili ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+422;cevi,creva i cevni elementi;1;0;;0;;0;;1;osnovni podaci;1;3;3
+4221;cevi;1;0;;0;;0;;1;osnovni podaci;1;4;4
+42211;cevi za energetiku;1;0;;0;;0;;1;osnovni podaci;1;5;5
+42212;cevi za hidrauliku i pneumatiku;1;0;;0;;0;;1;osnovni podaci;1;5;5
+42213;cevi za klimatizaciju i ventilaciju;1;0;;0;;0;;1;osnovni podaci;1;5;5
+42214;cevi za transport fluida;1;0;;0;;0;;1;osnovni podaci;1;5;5
+42215;cevi za vodovod i kanalizaciju;1;0;;0;;0;;1;osnovni podaci;1;5;5
+42219;cevi ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+4222;creva;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4223;lukovi,kolena...;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4224;racve;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4229;cevi, creva i cevni elementi ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+423;folije,plastificirana platna;1;0;;0;;0;;1;osnovni podaci;1;3;3
+425;galanterija;1;0;;0;;0;;1;osnovni podaci;1;3;3
+427;plasticne komponente;1;0;;0;;0;;1;osnovni podaci;1;3;3
+429;plasticni proizvodi ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+44;proizvodi od koze i krzna;1;0;;0;;0;;1;osnovni podaci;1;2;2
+441;proizvodi od koze;1;0;;0;;0;;1;osnovni podaci;1;3;3
+4411;remeni;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4412;trake;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4414;kaisevi;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4416;vezice;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4419;proizvodi od koze ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+442;proizvodi od krzna;1;0;;0;;0;;1;osnovni podaci;1;3;3
+449;proizvodi od krzna ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+45;proizvodi od drveta;1;0;;0;;0;;1;osnovni podaci;1;2;2
+451;rezana drvena gradja;1;0;;0;;0;;1;osnovni podaci;1;3;3
+452;gotovi(industrijski) drveni proizvodi;1;0;;0;;0;;1;osnovni podaci;1;3;3
+453;razna drvena galanterija;1;0;;0;;0;;1;osnovni podaci;1;3;3
+4511;rezana drvena gradja-grede;1;0;;0;;0;;1;osnovni podaci;1;4;4
+457;pluta;1;0;;0;;0;;1;osnovni podaci;1;3;3
+459;proizvodi od drveta ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+46;proizvodi od stakla;1;0;;0;;0;;1;osnovni podaci;1;2;2
+461;staklo ravno;1;0;;0;;0;;1;osnovni podaci;1;3;3
+4611;staklo ravno obicno;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4612;staklo ravno armirano;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4614;staklo ravno vatrootporno;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4619;staklo ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+462;staklo po crtezu;1;0;;0;;0;;1;osnovni podaci;1;3;3
+464;proizvodi od stakla i sl. mater.;1;0;;0;;0;;1;osnovni podaci;1;3;3
+4641;staklo klirit;1;0;;0;;0;;1;osnovni podaci;1;4;4
+47;materijali za peskarenje ,koksovanje..;1;0;;0;;0;;1;osnovni podaci;1;2;2
+471;materijali za peskarenje i sacmarenje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+4711;kvarcni pesak;1;0;;0;;0;;1;osnovni podaci;1;4;4
+4713;pasta za sacmarenje;1;0;;0;;0;;1;osnovni podaci;1;4;4
+472;marerijali za koksovanje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+49;nemetali ostalo;1;0;;0;;0;;1;osnovni podaci;1;2;2
+5;ELEKTROTEHNICKI MATERIJAL;1;0;;0;;0;;1;osnovni podaci;1;1;1
+51;elektromotori,transformatori...;1;0;;0;;0;;1;osnovni podaci;1;2;2
+511;elektromotori;1;0;;0;;0;;1;osnovni podaci;1;3;3
+512;agregati...;1;0;;0;;0;;1;osnovni podaci;1;3;3
+513;transformatori;1;0;;0;;0;;1;osnovni podaci;1;3;3
+519;elektromotori,transformatori ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+52;elektroinstalacioni materjal;1;0;;0;;0;;1;osnovni podaci;1;2;2
+521;provodnici,kablovi, pribor za prov.,kablove;1;0;;0;;0;;1;osnovni podaci;1;3;3
+5211;provodnici sa izolacijom;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5212;kablovi;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5213;kablovi produzni i kablovi sa konekcijom,priklj.;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5214;provodnici bez izol. (Zica);1;0;;0;;0;;1;osnovni podaci;1;4;4
+5215;trake za uzmljenje,sine za razvod i sl.;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5217;pribor za provodnike i kablove i elektromntaz.m.;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5219;provodnici ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+522;xx;1;0;;0;;0;;1;osnovni podaci;1;3;3
+523;komponente rasklopnih postrojenja;1;0;;0;;0;;1;osnovni podaci;1;3;3
+5231;prekidaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5232;kontaktori;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5233;releji,bimetali;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5234;rastavljaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5235;osiguraci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5236;oduzimaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5237;prikljucni pribor;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5239;komponente rasklopnih postrojenja ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+524;prikljucnice(preb.na grupu 5272-uticnice);1;0;;0;;0;;1;osnovni podaci;1;3;3
+525;rasvetna tela i svetiljke;1;0;;0;;0;;1;osnovni podaci;1;3;3
+5251;sijalice elektricne;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5252;cevi svetlosne;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5253;svetiljke;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5255;pribor za elektricne sijalice;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5256;pribor za svetlosne cevi;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5257;pribor za svetiljke;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5259;rasvetna tela i svetiljke ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+526;kutije instalacione,ormani...;1;0;;0;;0;;1;osnovni podaci;1;3;3
+527;uitikaci i uticnice;1;0;;0;;0;;1;osnovni podaci;1;3;3
+528;xx;1;0;;0;;0;;1;osnovni podaci;1;3;3
+529;elektroinstalacionimaterjal ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+53;elektroizolacioni materijal;1;0;;0;;0;;1;osnovni podaci;1;2;2
+531;izolatori;1;0;;0;;0;;1;osnovni podaci;1;3;3
+532;trake samolepive;1;0;;0;;0;;1;osnovni podaci;1;3;3
+533;papir za elektro svrhe;1;0;;0;;0;;1;osnovni podaci;1;3;3
+539;elektroizolacioni materjal ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+54;elektrohemijski izvori;1;0;;0;;0;;1;osnovni podaci;1;2;2
+541;baterije;1;0;;0;;0;;1;osnovni podaci;1;3;3
+542;akumulatori;1;0;;0;;0;;1;osnovni podaci;1;3;3
+543;elekroliti;1;0;;0;;0;;1;osnovni podaci;1;3;3
+549;elektrohemijski izvori ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+55;delovi elektro uredjaja;1;0;;0;;0;;1;osnovni podaci;1;2;2
+551;komponente uredjaja rashlade i termotehnike;1;0;;0;;0;;1;osnovni podaci;1;3;3
+5511;grejaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5512;regulatori temperature (termostati);1;0;;0;;0;;1;osnovni podaci;1;4;4
+5513;temperaturni davaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5514;isparivaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5515;kompresori;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5516;rashladni kondenzatori;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5517;ventilatori;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5518;pribori;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5519;Klimatizeri,grejalice...;1;0;;0;;0;;1;osnovni podaci;1;4;4
+552;pretvaracki uredjaji,meraci,napajaci...;1;0;;0;;0;;1;osnovni podaci;1;3;3
+555;elektro delovi masina;1;0;;0;;0;;1;osnovni podaci;1;3;3
+559;delovi elektro uredjaja ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+56;komponente za elektroniku i telekomunikaciju;1;0;;0;;0;;1;osnovni podaci;1;2;2
+561;ekonderi i ...;1;0;;0;;0;;1;osnovni podaci;1;3;3
+562;kondezatori;1;0;;0;;0;;1;osnovni podaci;1;3;3
+563;poluprovodnicke komponente;1;0;;0;;0;;1;osnovni podaci;1;3;3
+5633;tranzistori;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5638;stabilizatori;1;0;;0;;0;;1;osnovni podaci;1;4;4
+5639;poluuprovodnicke komponente ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+564;potencimetri, otpornici..;1;0;;0;;0;;1;osnovni podaci;1;3;3
+565;el. mag. kartice i stampane ploce;1;0;;0;;0;;1;osnovni podaci;1;3;3
+569;komponente za elektroniku i telekomunikacije ost;1;0;;0;;0;;1;osnovni podaci;1;3;3
+58;elektricni uredjaji za motorna vozila;1;0;;0;;0;;1;osnovni podaci;1;2;2
+581;alternatori,razvodnici paaljenja,releji..;1;0;;0;;0;;1;osnovni podaci;1;3;3
+5852;farovi stop svetla;1;0;;0;;0;;1;osnovni podaci;1;3;3
+585;zvucno svetlosna signalizacija;1;0;;0;;0;;1;osnovni podaci;1;3;3
+586;elektricni  instrumenti za motor. vozila;1;0;;0;;0;;1;osnovni podaci;1;3;3
+589;elektricni uredjaji za motorna vozila ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+59;elektrotehnicki materjal ostalo;1;0;;0;;0;;1;osnovni podaci;1;2;2
+6;HTZ OPREMA;1;0;;0;;0;;1;osnovni podaci;1;1;1
+61;licna zastitna sredstva;1;0;;0;;0;;1;osnovni podaci;1;2;2
+611;odela(komlet);1;0;;0;;0;;1;osnovni podaci;1;3;3
+619;kape,slemovi,kapuljacei ostala oprema;1;0;;0;;0;;1;osnovni podaci;1;3;3
+612;mantili;1;0;;0;;0;;1;osnovni podaci;1;3;3
+613;prsluci;1;0;;0;;0;;1;osnovni podaci;1;3;3
+614;rukavice;1;0;;0;;0;;1;osnovni podaci;1;3;3
+615;cipele,cizme.borosane...;1;0;;0;;0;;1;osnovni podaci;1;3;3
+616;maske;1;0;;0;;0;;1;osnovni podaci;1;3;3
+617;kecelje,pregace;1;0;;0;;0;;1;osnovni podaci;1;3;3
+618;bunde;1;0;;0;;0;;1;osnovni podaci;1;3;3
+62;vatrogasna zastitna sredstva;1;0;;0;;0;;1;osnovni podaci;1;2;2
+63;sanitarna zastitna sredstva;1;0;;0;;0;;1;osnovni podaci;1;2;2
+69;htz ostalo;1;0;;0;;0;;1;osnovni podaci;1;2;2
+7;ANTIKOROZIVNA ZASTITA I HEMIJSKI PROIZVODI;1;0;;0;;0;;1;osnovni podaci;1;1;1
+7619;premazi ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+8;rezervni (Netipicni) delovi i potrosni mater.;1;0;;0;;0;;1;osnovni podaci;1;1;1
+9;OSTALO;1;0;;0;;0;;1;osnovni podaci;1;1;1
+10;KLASIFIKATOR MATERIJALA I ALATA;0;0;;0;;0;;0;;0;0;0
+5555555;VVV;1;1;sirlll;1;DDDD;0;fDUZINa;1;FFF;1;0;
+36;opruge,zupcanici...;0;0;;0;;0;;0;;0;2;2
+361;opruge;0;0;;0;;0;;0;;0;3;3
+3611;opruge po crtezu;0;0;;0;;0;;0;;0;4;4
+3612;opruge po standardu;0;0;;0;;0;;0;;0;4;4
+4512;rezana drvena gradja- daske;0;0;;0;;0;;0;;0;4;4
+4513;rezana drvena gradja -letve;0;0;;0;;0;;0;;0;4;4
+4514;rezana drvena gradja- lajsne;0;0;;0;;0;;0;;0;4;4
+4521;sanduci drveni;0;0;;0;;0;;0;;0;4;4
+4522;palete drvene;0;0;;0;;0;;0;;0;4;4
+4523;podmetaci drveni;0;0;;0;;0;;0;;0;4;4
+4524;ostali got.drveni proizvodi;0;0;;0;;0;;0;;0;4;4
+43;proizvodi od azbesta,prespana,tekstila,papira...;0;0;;0;;0;;0;;0;2;2
+431;materijal i gotovi delovi od azbesta;0;0;;0;;0;;0;;0;3;3
+432;prespan,jugelit,klingerit i sl.;0;0;;0;;0;;0;;0;3;3
+433;proizvodi od tekstila;0;0;;0;;0;;0;;0;3;3
+434;papir;0;0;;0;;0;;0;;0;3;3
+435;izolacioni materijal(stirior,staklena vuna);0;0;;0;;0;;0;;0;3;3
+4311;kocione obloge-ferode...;0;0;;0;;0;;0;;0;4;4
+4312;table,ploce,trake ,lepenke azbestne;0;0;;0;;0;;0;;0;4;4
+4313;pletenice azbestnei sl.;0;0;;0;;0;;0;;0;4;4
+4314;zaptivke azbestne i sl.;0;0;;0;;0;;0;;0;4;4
+4321;prespan;0;0;;0;;0;;0;;0;4;4
+4322;jugelit;0;0;;0;;0;;0;;0;4;4
+4323;tekstolit;0;0;;0;;0;;0;;0;4;4
+4324;klingerit;0;0;;0;;0;;0;;0;4;4
+4331;pamucne pletenice,kanapi...;0;0;;0;;0;;0;;0;4;4
+4332;cirade,azbestno platno...;0;0;;0;;0;;0;;0;4;4
+4333;galanter.teks.(zavese,dzakovi,kucina,pucv.,filc);0;0;;0;;0;;0;;0;4;4
+4351;stiropor;0;0;;0;;0;;0;;0;4;4
+4352;staklena vuna,tervol,filc keramicki...;0;0;;0;;0;;0;;0;4;4
+4341;terpapir,smirgle,flizelin...;0;0;;0;;0;;0;;0;4;4
+4342;ostali papir. prizvodi(tapete,karton...);0;0;;0;;0;;0;;0;4;4
+1293;pletena zica;0;0;;0;;0;;0;;0;4;4
+4325;grafit;0;0;;0;;0;;0;;0;4;4
+5111;elektromotori trofazni;0;0;;0;;0;;0;;0;4;4
+5112;elektromotori mofazni;0;0;;0;;0;;0;;0;4;4
+37;razni masinski sklopovi i rezervni delovi;0;0;;0;;0;;0;;0;2;2
+39;razna gotova roba;0;0;;0;;0;;0;;0;2;2
+391;metalni okov i drugi bravarski delovi;0;0;;0;;0;;0;;0;3;3
+393;ostala gotova roba;0;0;;0;;0;;0;;0;3;3
+351;lanci;0;0;;0;;0;;0;;0;3;3
+353;kuke;0;0;;0;;0;;0;;0;3;3
+354;priveznice;0;0;;0;;0;;0;;0;3;3
+355;stezaci ,drzaci...;0;0;;0;;0;;0;;0;3;3
+356;uske(omce);0;0;;0;;0;;0;;0;3;3
+357;skopac;0;0;;0;;0;;0;;0;3;3
+358;uzad;0;0;;0;;0;;0;;0;3;3
+359;clanci za lance;0;0;;0;;0;;0;;0;3;3
+3511;lanci industrijski(galov);0;0;;0;;0;;0;;0;4;4
+3512;lanci obicni;0;0;;0;;0;;0;;0;4;4
+3911;kvake;0;0;;0;;0;;0;;0;4;4
+3912;brave;0;0;;0;;0;;0;;0;4;4
+3913;katanci;0;0;;0;;0;;0;;0;4;4
+331;prikljucci,drzaci cevi,usecni prstenovi...;0;0;;0;;0;;0;;0;3;3
+3311;prikljucci;0;0;;0;;0;;0;;0;4;4
+3312;drzaci cevi;0;0;;0;;0;;0;;0;4;4
+3313;usecni prstenovi;0;0;;0;;0;;0;;0;4;4
+3314;selne,spojna navrtka,razni elemen.priklj.;0;0;;0;;0;;0;;0;4;4
+3315;dozatori;0;0;;0;;0;;0;;0;4;4
+3316;odusci;0;0;;0;;0;;0;;0;4;4
+332;razni delovi za hidrauliku i pneumatiku;0;0;;0;;0;;0;;0;3;3
+3321;mazalice i pribor za mazalice;0;0;;0;;0;;0;;0;4;4
+3322;manometri,termometri,sonde...;0;0;;0;;0;;0;;0;4;4
+3323;cilindri,aktuatori,pribor za cil.,hladnjaci...;0;0;;0;;0;;0;;0;4;4
+3324;magneti;0;0;;0;;0;;0;;0;4;4
+3325;razni elementi pneumatike(prigusnice,;0;0;;0;;0;;0;;0;4;4
+3326;filtri;0;0;;0;;0;;0;;0;4;4
+3327;kardanska vratila sa prib.za vezivanje;0;0;;0;;0;;0;;0;4;4
+341;vodoinstalacioni materijal(delovi);0;0;;0;;0;;0;;0;3;3
+342;vodoinstalacioni materijal(gotovi proizvodi);0;0;;0;;0;;0;;0;3;3
+343;vodoistalacioni materijal(razni elementi);0;0;;0;;0;;0;;0;3;3
+3411;slavine;0;0;;0;;0;;0;;0;4;4
+3412;cevni lukovi;0;0;;0;;0;;0;;0;4;4
+3413;ventili i reduciri(i za hidrauliku i pnematiku);0;0;;0;;0;;0;;0;4;4
+3414;prirubnice;0;0;;0;;0;;0;;0;4;4
+3415;holenderi;0;0;;0;;0;;0;;0;4;4
+3416;kolena;0;0;;0;;0;;0;;0;4;4
+3417;mufovi;0;0;;0;;0;;0;;0;4;4
+3418;T-komadi(racve);0;0;;0;;0;;0;;0;4;4
+3419;dupli nipli;0;0;;0;;0;;0;;0;4;4
+34131;ventili;0;0;;0;;0;;0;;0;5;5
+34132;reduciri;0;0;;0;;0;;0;;0;5;5
+3421;lavabo;0;0;;0;;0;;0;;0;4;4
+3422;kade;0;0;;0;;0;;0;;0;4;4
+3423;bojleri;0;0;;0;;0;;0;;0;4;4
+3424;vodokotlici;0;0;;0;;0;;0;;0;4;4
+3425;pisoari;0;0;;0;;0;;0;;0;4;4
+3426;podne resetke;0;0;;0;;0;;0;;0;4;4
+3431;kontra navrtke;0;0;;0;;0;;0;;0;4;4
+3432;vijci za lavabo i sl.;0;0;;0;;0;;0;;0;4;4
+3226;stezni prsten;0;0;;0;;0;;0;;0;4;4
+71;tecna goriva ulja i maziva;0;0;;0;;0;;0;;0;2;2
+711;tecna goriva;0;0;;0;;0;;0;;0;3;3
+712;ulja i maziva;0;0;;0;;0;;0;;0;3;3
+7111;nafta;0;0;;0;;0;;0;;0;4;4
+7112;benzin;0;0;;0;;0;;0;;0;4;4
+7113;ostala tecna goriva;0;0;;0;;0;;0;;0;4;4
+72;gasovi industrijski;0;0;;0;;0;;0;;0;2;2
+721;industrijski gasovi iz centralnog razvoda;0;0;;0;;0;;0;;0;3;3
+722;industrijski gasovi u boci;0;0;;0;;0;;0;;0;3;3
+7121;Motorna ulja;0;0;;0;;0;;0;;0;4;4
+7123;industrijska ulja;0;0;;0;;0;;0;;0;4;4
+7129;ostala ulja i maziva;0;0;;0;;0;;0;;0;4;4
+71211;motorna ulja za teretna vozila i mehanizaciju;0;0;;0;;0;;0;;0;5;5
+71212;motorna ulja za putnicka vozila;0;0;;0;;0;;0;;0;5;5
+71213;motorna ulja za motoc. i male polj. masine;0;0;;0;;0;;0;;0;5;5
+71214;motorna ulja za traktore;0;0;;0;;0;;0;;0;5;5
+371;gazista,oprema za gazista,ograde i sl.;0;0;;0;;0;;0;;0;3;3
+3711;gazista lim-lim;0;0;;0;;0;;0;;0;4;4
+3712;gazista sa istegnutim metalom;0;0;;0;;0;;0;;0;4;4
+3713;oprema za gazista;0;0;;0;;0;;0;;0;4;4
+372;oprema i gotovi proizvodi za ugradnju;0;0;;0;;0;;0;;0;3;3
+373;rezervni delovi za masine,opremu i aparate;0;0;;0;;0;;0;;0;3;3
+3732;rezervni delovi za masine;0;0;;0;;0;;0;;0;4;4
+7122;specijalna ulja za motorna vozila i industr. mas;0;0;;0;;0;;0;;0;4;4
+71221;ulja za menjace;0;0;;0;;0;;0;;0;5;5
+71222;ulja za hidraulicne kocnice;0;0;;0;;0;;0;;0;5;5
+71223;tecnost za rashladne sisteme(antifrizi);0;0;;0;;0;;0;;0;5;5
+71224;ulja za lance motornih testera;0;0;;0;;0;;0;;0;5;5
+71229;ostala specijalna ulj za masine;0;0;;0;;0;;0;;0;5;5
+71231;hidraulicna ulja;0;0;;0;;0;;0;;0;5;5
+71232;reduktorska ulja;0;0;;0;;0;;0;;0;5;5
+71233;ulja za klizne staze;0;0;;0;;0;;0;;0;5;5
+71234;ulja za lezajeve;0;0;;0;;0;;0;;0;5;5
+71239;ostala industrijska ulja;0;0;;0;;0;;0;;0;5;5
+7124;industrijske i automobilske masti;0;0;;0;;0;;0;;0;4;4
+71241;automobilske masti;0;0;;0;;0;;0;;0;5;5
+71242;univerzalne industrijske masti;0;0;;0;;0;;0;;0;5;5
+71243;masti za visoke pritiske;0;0;;0;;0;;0;;0;5;5
+71244;masti za visoke temperature;0;0;;0;;0;;0;;0;5;5
+71245;masti za ekstremne uslove(paste);0;0;;0;;0;;0;;0;5;5
+71246;masti za zaupcaste prenosnike;0;0;;0;;0;;0;;0;5;5
+71247;masti za prehrmbenu industriju;0;0;;0;;0;;0;;0;5;5
+71248;masti za lance;0;0;;0;;0;;0;;0;5;5
+71249;masti za posebne namene;0;0;;0;;0;;0;;0;5;5
+7125;sredstva za mehanicku i termicku obr. metala;0;0;;0;;0;;0;;0;4;4
+71251;sredstva za obradu struganjem i brusenjem;0;0;;0;;0;;0;;0;5;5
+71252;sredstva za obradu rezanjem;0;0;;0;;0;;0;;0;5;5
+71253;sredstva za obradu dubokim busenjem;0;0;;0;;0;;0;;0;5;5
+71254;sredsva za obradu honovanjem i superfinisiranj.;0;0;;0;;0;;0;;0;5;5
+71255;sredsva za obradu kovanjem;0;0;;0;;0;;0;;0;5;5
+71256;sredsva za obradu kaljenjem;0;0;;0;;0;;0;;0;5;5
+71259;ostala sredsva za mehanicku i term. obradu;0;0;;0;;0;;0;;0;5;5
+73;premazna sredstva;0;0;;0;;0;;0;;0;2;2
+731;radionicka premazna sredstva;0;0;;0;;0;;0;;0;3;3
+732;osnovna premazna sredstva;0;0;;0;;0;;0;;0;3;3
+733;medjupremazna sredstva;0;0;;0;;0;;0;;0;3;3
+734;zavrsna premazna sredstva;0;0;;0;;0;;0;;0;3;3
+735;specijalna premazna sredstva;0;0;;0;;0;;0;;0;3;3
+736;vodorastvorna premazna sredstva;0;0;;0;;0;;0;;0;3;3
+739;ostala premazna sredstva;0;0;;0;;0;;0;;0;3;3
+7311;sop- prajmeri jednokomponentni 1K;0;0;;0;;0;;0;;0;4;4
+7312;sop- prajmeri dvokomponentni 2K;0;0;;0;;0;;0;;0;4;4
+7313;vos- prajmeri;0;0;;0;;0;;0;;0;4;4
+7319;ostala radionicka premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7321;osnovna alkidna premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7322;osovna epoksiestarska premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7323;osnovna epoksidna premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7324;osnovna hlorkaucuk premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7325;osnovna vinilna premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7326;osnovna silikatna premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7327;osnovna bitumenska premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7328;osnovna poliuretanska premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7329;specijalna osnovna premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7331;alkidna medjupremazna sredstva;0;0;;0;;0;;0;;0;4;4
+7332;epoksiestarska medjupremazna sredstva;0;0;;0;;0;;0;;0;4;4
+7333;epoksidna medjupremazna sredstva;0;0;;0;;0;;0;;0;4;4
+7334;hlorkaucuk medjupremazna sredstva;0;0;;0;;0;;0;;0;4;4
+7335;akrilna medjupremazna sredstva;0;0;;0;;0;;0;;0;4;4
+7336;vinilna medjupremazna sredstva;0;0;;0;;0;;0;;0;4;4
+7337;bitumenska medjupremazna sredstva;0;0;;0;;0;;0;;0;4;4
+7338;poliuretanska medjupremazna sredstva;0;0;;0;;0;;0;;0;4;4
+7339;ostala medjupremazna sredstva;0;0;;0;;0;;0;;0;4;4
+74;razredjivaci i odmascivaci;0;0;;0;;0;;0;;0;2;2
+741;razredjivaci za premazna sredstva;0;0;;0;;0;;0;;0;3;3
+742;odmascivaci;0;0;;0;;0;;0;;0;3;3
+749;ostali razredjivaci i odmascivaci;0;0;;0;;0;;0;;0;3;3
+7411;razredjivaci za jednokom. prem. sredstva;0;0;;0;;0;;0;;0;4;4
+7412;razredjivaci za dvokomp. prem. sredstva;0;0;;0;;0;;0;;0;4;4
+7419;ostali razredjivaci;0;0;;0;;0;;0;;0;4;4
+74111;razredjivaci za hlorkaucuk sistem;0;0;;0;;0;;0;;0;5;5
+74112;razredjivaci za alkidni sistem;0;0;;0;;0;;0;;0;5;5
+74113;razredjivaci za epoksiestarski sistem;0;0;;0;;0;;0;;0;5;5
+74114;razredjivaci za vinilni-akrilni 1k sistem;0;0;;0;;0;;0;;0;5;5
+74116;razredjivaci za nitro sistem;0;0;;0;;0;;0;;0;5;5
+74117;razredjivaci za protivpozarni sistem;0;0;;0;;0;;0;;0;5;5
+74119;ostali razredjvaci za jednokomp prem. sred.;0;0;;0;;0;;0;;0;5;5
+74115;razredjivaci za silikonski sistem;0;0;;0;;0;;0;;0;5;5
+74121;razredjivaci za sop-prajmer 2k;0;0;;0;;0;;0;;0;5;5
+74122;rezredjivaci za epoksidni sistem;0;0;;0;;0;;0;;0;5;5
+74123;razredjivaci za vos-prajmere 2k;0;0;;0;;0;;0;;0;5;5
+74124;razredjivaci za poliuretanski sistem;0;0;;0;;0;;0;;0;5;5
+74125;razredjivaci za akrilni 2k sistem;0;0;;0;;0;;0;;0;5;5
+74126;razredjivaci za silikatni sistem;0;0;;0;;0;;0;;0;5;5
+74127;razredjivaci za poliester sistem;0;0;;0;;0;;0;;0;5;5
+74129;ostali razredjivaci za dvokomp. prem. sred.;0;0;;0;;0;;0;;0;5;5
+7413;specijalni razredjivaci;0;0;;0;;0;;0;;0;4;4
+74131;razredjivaci za pranje alata;0;0;;0;;0;;0;;0;5;5
+74132;razredivaci za skidanje stare boje;0;0;;0;;0;;0;;0;5;5
+74133;razredjivaci za uklanjanje kamenca iz instal.;0;0;;0;;0;;0;;0;5;5
+74139;ostali specijalni razredjivaci;0;0;;0;;0;;0;;0;5;5
+5551;elektromag. kocnice, spojnice ...;0;0;;0;;0;;0;;0;4;4
+5552;el.ventili...;0;0;;0;;0;;0;;0;4;4
+7314;sredstva za fosfatizaciju;0;0;;0;;0;;0;;0;4;4
+1719;odlivci bez kvaliteta( ?);0;0;;0;;0;;0;;0;4;4
+5559;razni elektro dlovi mas. i post.(pripor,kleme...;0;0;;0;;0;;0;;0;4;4
+7341;zavrsna alkidna premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7342;zavrsna silikatna premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7343;zavrsna epoksidna premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7344;zavrsna hlorkaucuk premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7345;zavrsna akrilna premazna sredstva 1k i 2k;0;0;;0;;0;;0;;0;4;4
+7346;zavrsna vinilna i vinil-akrilna prem. sredstva;0;0;;0;;0;;0;;0;4;4
+7347;zavrsna bitumenska premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7348;zavrsna poliuretanska premazna sredstva;0;0;;0;;0;;0;;0;4;4
+7349;silikonska i ostala zavrsna prem. sredstva;0;0;;0;;0;;0;;0;4;4
+5421;akumulatori za industriju;0;0;;0;;0;;0;;0;4;4
+5422;akumulatori za automob. ,kamione ...;0;0;;0;;0;;0;;0;4;4
+4231;folije;0;0;;0;;0;;0;;0;4;4
+362;zupcanici,caure...;0;0;;0;;0;;0;;0;3;3
+363;vratila,rez.delovi za vratila,viljuske;0;0;;0;;0;;0;;0;3;3
+3631;vratila(osovine);0;0;;0;;0;;0;;0;4;4
+3632;rezervni delovi za vratila;0;0;;0;;0;;0;;0;4;4
+3722;delovi za ugradnju - valjci i sl.;0;0;;0;;0;;0;;0;4;4
+7421;odmascivaci na bazi rastvaraca;0;0;;0;;0;;0;;0;4;4
+7422;odmascivaci na bazi naftnih derivata;0;0;;0;;0;;0;;0;4;4
+7423;odmascivaci na bazi deterdzenata;0;0;;0;;0;;0;;0;4;4
+7429;ostali odmascivaci;0;0;;0;;0;;0;;0;4;4
+75;lepkovi,kitovi,sredstva za zaptiv. i izolaciju;0;0;;0;;0;;0;;0;2;2
+751;lepkovi;0;0;;0;;0;;0;;0;3;3
+752;sredstva za zaptivanje;0;0;;0;;0;;0;;0;3;3
+753;kitovi u antikorozionim sistemima;0;0;;0;;0;;0;;0;3;3
+754;sredstva za hidro i zvucnu izolaziju;0;0;;0;;0;;0;;0;3;3
+7511;neoprenski jednokomponentni lepkovi;0;0;;0;;0;;0;;0;4;4
+7512;neoprenski dvokomponentni lepkovi;0;0;;0;;0;;0;;0;4;4
+7513;epoksidni dvokomponentni lepkovi;0;0;;0;;0;;0;;0;4;4
+7514;cijano-akrilni jednokomponentni lepkovi;0;0;;0;;0;;0;;0;4;4
+7515;polivinil-acetatni lepkovi(za drvo);0;0;;0;;0;;0;;0;4;4
+7516;poliuretanski dvokomponentni lepkovi;0;0;;0;;0;;0;;0;4;4
+7519;ostali lepkovi;0;0;;0;;0;;0;;0;4;4
+7521;trajno elasticna zaptivna srdstva;0;0;;0;;0;;0;;0;4;4
+7522;trajno plasticna zaptivna sredstva;0;0;;0;;0;;0;;0;4;4
+7531;poliester dvokomp. brzosusivi kit;0;0;;0;;0;;0;;0;4;4
+7532;poliester dvokomp. sporosusivi kit;0;0;;0;;0;;0;;0;4;4
+7533;epoksidni dvokomp. kit;0;0;;0;;0;;0;;0;4;4
+7534;nitro jednokomp. kit;0;0;;0;;0;;0;;0;4;4
+7535;alkidni jednokomp. kit;0;0;;0;;0;;0;;0;4;4
+7536;uljani jednokomp kit;0;0;;0;;0;;0;;0;4;4
+7537;akrilni jednokomp. vodorastvorni kit;0;0;;0;;0;;0;;0;4;4
+7539;ostali kitovi za antikorozivne sisteme;0;0;;0;;0;;0;;0;4;4
+7541;sredstva za hidro izolaziju;0;0;;0;;0;;0;;0;4;4
+7542;sredstva za zvucnu izolaziju;0;0;;0;;0;;0;;0;4;4
+7549;ostala sredstva za izolaciju;0;0;;0;;0;;0;;0;4;4
+75411;bitumenske trake na papiru,platnu i plastici;0;0;;0;;0;;0;;0;5;5
+75412;bitumenske mase za hidroizolaziju;0;0;;0;;0;;0;;0;5;5
+75413;bitumenske trake sa staklenom armaturom;0;0;;0;;0;;0;;0;5;5
+7351;prem. sredstva za privremenu zastitu;0;0;;0;;0;;0;;0;4;4
+7352;prem. sredstva u prahu (elektrostatska);0;0;;0;;0;;0;;0;4;4
+7353;protivpozarna prem. sredstva;0;0;;0;;0;;0;;0;4;4
+7354;premazna sredstva u gradjevinarstvu;0;0;;0;;0;;0;;0;4;4
+7355;premazna sredstva za drvo;0;0;;0;;0;;0;;0;4;4
+7356;premazna sredstva za industrijske podove;0;0;;0;;0;;0;;0;4;4
+7357;premazna sredstva za pecenje;0;0;;0;;0;;0;;0;4;4
+7359;ostala specijalna premazna sredstva;0;0;;0;;0;;0;;0;4;4
+73511;nesusiva prem. sred. za konzerviranje;0;0;;0;;0;;0;;0;5;5
+73512;susiva prem. sred, za konzerviranje;0;0;;0;;0;;0;;0;5;5
+73513;antikorozivna ulja za fine uredjaje;0;0;;0;;0;;0;;0;5;5
+73514;antikorozivna ulja za oruzje i orudje;0;0;;0;;0;;0;;0;5;5
+73515;susiva prem. sred. za obojene metale;0;0;;0;;0;;0;;0;5;5
+73516;susiva prem. sred. za ofarbane met. povrsine;0;0;;0;;0;;0;;0;5;5
+73517;prem. sred. za konzerviranje u namen. programu;0;0;;0;;0;;0;;0;5;5
+73519;ostala sredstva za konzerviranje;0;0;;0;;0;;0;;0;5;5
+73521;epoksidna prem. sred. u prahu;0;0;;0;;0;;0;;0;5;5
+73522;epoksiestarska prem. sred. u prahu;0;0;;0;;0;;0;;0;5;5
+73523;polestarska prem. sred. u prahu;0;0;;0;;0;;0;;0;5;5
+73529;ostala prem. sred. u prahu;0;0;;0;;0;;0;;0;5;5
+73531;sinteticka protivpozarna prem. sred.;0;0;;0;;0;;0;;0;5;5
+73532;neorganska protivpozarna prem. sred.(vodorast.);0;0;;0;;0;;0;;0;5;5
+73539;ostala protivpozar. prem. srdstva;0;0;;0;;0;;0;;0;5;5
+73591;prmazna sredstva protiv obrastaja;0;0;;0;;0;;0;;0;5;5
+73592;slovopisacke boje i boje za obelezavanje;0;0;;0;;0;;0;;0;5;5
+73599;ostala specijalna premazna sredstva;0;0;;0;;0;;0;;0;5;5
+4721;koks,ugalj i sl.;0;0;;0;;0;;0;;0;4;4
+4722;materijali za ter. obradu i sl.(katalizator...);0;0;;0;;0;;0;;0;4;4
+365;kleme;;;;;;;;;;;3;3
+364;zapt.met.prstenovi,cepovi...;;;;;;;;;;;3;3
+3642;zaptivi met. prstenovi,dist.prst...;;;;;;;;;;;4;4
+631;pripor za odrzavanje cistoce(metle,cetke...);;;;;;;;;;;3;3
+6311;metle;;;;;;;;;;;4;4
+6312;cetke;;;;;;;;;;;4;4
+632;sredsva za odrzavanje higijene(sapuni,paste...);;;;;;;;;;;3;3
+6321;pasta za ruke;;;;;;;;;;;4;4
+5113;delovi elektromotora i prateca oprema;;;;;;;;;;;4;4
+3721;got.pr.-kasete,rasps.ulja,redukt.,kabine,vrata..;;;;;;;;;;;4;4
+3723;delovi za ugradnju... gibanj, karika....;;;;;;;;;;;4;4
+1294;zica-armaturna mreza;;;;;;;;;;;4;4
+1295;zica-sito mreza;;;;;;;;;;;4;4
+333;podmazivaci,pumpe,meraci.regulatori...;;;;;;;;;;;3;3
+3331;podmazivaci;;;;;;;;;;;4;4
+3333;pumpe;;;;;;;;;;;4;4
+3334;regulat.,meraci prot.gasa,kompresori,razdel.gasa;;;;;;;;;;;4;4
+3335;prikljucne table,ploce i sl.;;;;;;;;;;;4;4
+18;Elektrode, elektrodni materijal i uredj. (rez.de;;;;;;;;;;;2;2
+181;Oblo`ene elektrode za runo elektrolu~no zavariva;;;;;;;;;;;3;3
+1811;Celulozne, rutilne i kisele oblo`ene elektrode;;;;;;;;;;;4;4
+1812;Rutilne visokoproduktivne elektrode;;;;;;;;;;;4;4
+1813;Bazi~ne elektrode za ugljeni~ne i niskolegirane;;;;;;;;;;;4;4
+1814;Bazi~ne niskolegirane elektrode za zvar.finozrni;;;;;;;;;;;4;4
+1815;Sred. i visokoleg. baz. ele. za ~el. otporne na;;;;;;;;;;;4;4
+1819;Ostale specijalne elektrode;;;;;;;;;;;4;4
+182;@ice za zavarivanje u za[titnoj atmosferi;;;;;;;;;;;3;3
+1816;Bazi~ne i rutilne elektrode za ner\aju]e i visok;;;;;;;;;;;4;4
+1817;Ele. za tvrdo nav.i spe.  ele. za tvrda nav. otp;;;;;;;;;;;4;4
+1818;Elektrode za zavarivanje livenih gvo`\a (sivog l;;;;;;;;;;;4;4
+184;Pra[kovi za zavarivanje;;;;;;;;;;;3;3
+1841;Pra[kovi za ugljeni~ne i konstrukcione ~elike;;;;;;;;;;;4;4
+1842;Pra[. za niskoleg.,legirane i mikroleg. rinozrne;;;;;;;;;;;4;4
+1843;Pra[kovi za visokilegirane i ner\aju]e ~elike;;;;;;;;;;;4;4
+185;@ice za TIG postupak;;;;;;;;;;;3;3
+1851;@ice za TIG postupak za ugljeni~ne i konstr.~eli;;;;;;;;;;;4;4
+1852;@ice za TIG postupak za legirane ~elike;;;;;;;;;;;4;4
+1821;@ice za zavarivanje ugljeni~nih i konstrukcijski;;;;;;;;;;;4;4
+1822;@ice za zav. u za[t. atm. niskoleg. finozrnih i;;;;;;;;;;;4;4
+1823;@ice za zav. u za[t. atm. ner\aju]. i visokoleg.;;;;;;;;;;;4;4
+183;@ice za zavarivanje pod pra[kom;;;;;;;;;;;3;3
+1831;@ice za zav. pod pra[kom za ugljeni~ne ~elike;;;;;;;;;;;4;4
+1832;@ice za zav. pod pra[kom za niskolegirane ~elike;;;;;;;;;;;4;4
+1833;@ice za zav. pod pra[kom za visokoleg. i ner\aju;;;;;;;;;;;4;4
+1853;@ice za TIG postupak za visokolegirane i ner\aju;;;;;;;;;;;4;4
+186;Punjene `ice za zavarivanje u za[titnoj atmosfer;;;;;;;;;;;3;3
+1861;Punjene `ice za zavarivanje ugljeni~nih i konstr;;;;;;;;;;;4;4
+1862;Punjena `ica za zavar. niskoleg., legiranih i mi;;;;;;;;;;;4;4
+1863;Punjene `ice za zavar. visoko legirani i ner\aju;;;;;;;;;;;4;4
+1871;ELEKTRODA ZA `LJEBLJENJE(GRAFITNE,ARC-AIR);;;;;;;;;;;4;4
+1881;Topitelji za oksi-acetilensko zavarivanje;;;;;;;;;;;4;4
+18811;BORAKS;;;;;;;;;;;5;5
+1882;Sprej za lak[e uklanjanje bobica;;;;;;;;;;;4;4
+18821;ESAB sprej;;;;;;;;;;;5;5
+18822;"""HIGH TECK"" sprej";;;;;;;;;;;5;5
+1885;Bolcnovi;;;;;;;;;;;4;4
+1886;Kerami~ki prstenovi;;;;;;;;;;;4;4
+189;Ostali proizvodi;;;;;;;;;;;3;3
+188;pomocni i dodatni materijal za zavarivanje;;;;;;;;;;;3;3
+187;elektrode za zljebljenje(grafitne,ARC-AIR);;;;;;;;;;;3;3
+81;rezervni delovi;;;;;;;;;;;2;2
+82;potrosni materijal;;;;;;;;;;;2;2
+811;rezervni delovi za aparate za zavarivanje;;;;;;;;;;;3;3
+8111;rervni delovi za zavarivanje(KEMPY);;;;;;;;;;;4;4
+8112;univerzalni delovi za sve aparate;;;;;;;;;;;4;4
+8119;maske,klesta za zav.,drzaci za masu...;;;;;;;;;;;4;4
+81191;klesta za zav.,stez.mase,spojke kabl.,tobolac...;;;;;;;;;;;5;5
+81121;dizne, mlaznice ,vodjice ,sobe...;;;;;;;;;;;5;5
+81192;maske za zavarivanje;;;;;;;;;;;5;5
+81122;polikabli , creva za zav. ,sajle, krivi vrat..;;;;;;;;;;;5;5
+81123;rezervni delovi za zavarivanje(Elektro);;;;;;;;;;;5;5
+3724;eht podizaci,esm podizaci...;;;;;;;;;;;4;4
+3725;lancanici;;;;;;;;;;;4;4
+81124;ostali delovi za aparate za zav.(tockici,bravice;;;;;;;;;;;5;5
+3733;rez.delovi za prevozna sredstva;;;;;;;;;;;4;4
+3726;dizalice.uredjaji za dizanje....;;;;;;;;;;;4;4
+4152;KAIS PLJOSNATI;;;;;;;;;;;4;4
+3227;valjci za lezaj;;;;;;;;;;;4;4
+5331;FILTERI ZA ELEKTRO SVRHE;;;;;;;;;;;4;4
+3714;gazista sa zicom;;;;;;;;;;;4;4
+3715;ograde , ravne platforme ,stepeniste;;;;;;;;;;;4;4
+37111;gazista lim-lim pocinkovana;;;;;;;;;;;5;5
+37112;gazista lim-lim crna;;;;;;;;;;;5;5
+37121;gazista sa istegnutim met.pocink.;;;;;;;;;;;5;5
+37122;gazista sa istegnutim met.crna;;;;;;;;;;;5;5
+37141;gazista sa zicom pocinkovana;;;;;;;;;;;5;5
+37142;gazista sa zicom crna;;;;;;;;;;;5;5
+3336;meraci i kontrolnici ulja;;;;;;;;;;;4;4
+3332;AGREGATI ZA PODMAZIVANJE;;;;;;;;;;;4;4
+52351;nozasti i ultrabrzi osiguraci;;;;;;;;;;;5;5
+52352;cevasti osiguraci;;;;;;;;;;;5;5
+52359;patroni,postolja,osnove,kape,kuc.(za osigurace);;;;;;;;;;;5;5
+37151;ograde;;;;;;;;;;;5;5
+37152;ravne platforme;;;;;;;;;;;5;5
+32213;uskocnici po crtezu;;;;;;;;;;;5;5
+4175;caure gumene;;;;;;;;;;;4;4
+3434;sklopke za vodu;;;;;;;;;;;4;4
+621;protivpoz.aparati;;;;;;;;;;;3;3
+3727;komandni pultovi....;;;;;;;;;;;4;4
+5691;senzori...;;;;;;;;;;;4;4
+3933;zastitnici,kutije,poklopci,kadice...;;;;;;;;;;;4;4
+3551;stezaci(stege);;;;;;;;;;;4;4
+3552;drzaci;;;;;;;;;;;4;4
+3435;sifoni za lav.,sifoni ostali...;;;;;;;;;;;4;4
+3337;kucista cel.opsega...;;;;;;;;;;;4;4
+5521;pretvaracki uredjaji i za napajanje;;;;;;;;;;;4;4
+5522;meraci i merni instrumenti;;;;;;;;;;;4;4
+5611;ZADAVAC VR. ,MODULI ZA NAPAJANJE...;;;;;;;;;;;4;4
+5617;enkoderi (davaci);;;;;;;;;;;4;4
+5591;kocioni otpornici pogona;;;;;;;;;;;4;4
+568;sklopovi za elektroniku;;;;;;;;;;;3;3
+5682;industrijski kontroleri;;;;;;;;;;;4;4
+5683;ultrazvucne glave;;;;;;;;;;;4;4
+5692;alarmi,uredjaji za prer,vode....;;;;;;;;;;;4;4
+592;oprema za posebne porudzbine(nejasno);;;;;;;;;;;4;4
+5264;kucista elektrour.;;;;;;;;;;;4;4
+5263;poklopci za kuc.,orm.,brave,krovni filtri...;;;;;;;;;;;4;4
+6313;kante;;;;;;;;;;;4;4
+5131;transformatori(trafoi);;;;;;;;;;;4;4
+5851;sirene;;;;;;;;;;;4;4
+4225;sifoni plasticni;;;;;;;;;;;4;4
+3934;gromobrani,oluci...;;;;;;;;;;;4;4
+4354;ostali izolacioni materijal;;;;;;;;;;;4;4
+4353;pur-pena;;;;;;;;;;;4;4
+4334;sintetic.proizv.-kofil filtri,creva trevira...;;;;;;;;;;;4;4
+4274;vezice;;;;;;;;;;;4;4
+4355;izolacione trake;;;;;;;;;;;4;4
+3931;tablice;;;;;;;;;;;4;4
+3932;epruvete;;;;;;;;;;;4;4
+821;kancelarijski materijal;;;;;;;;;;;3;3
+822;" razni potrosni materijal";;;;;;;;;;;3;3
+5121;agregati;;;;;;;;;;;4;4
+52353;automat.osiguraci;;;;;;;;;;;5;5
+52354;vicman;;;;;;;;;;;5;5
+5312;izolacioni nosaci-bakelitni;;;;;;;;;;;4;4
+5311;izolatori klasicni;;;;;;;;;;;4;4
+5636;pribor- grec ispravljaci;;;;;;;;;;;4;4
+5216;uzad,pletenice...;;;;;;;;;;;4;4
+5631;diode;;;;;;;;;;;4;4
+5632;tiristori;;;;;;;;;;;4;4
+5634;triaci;;;;;;;;;;;4;4
+5635;diaci;;;;;;;;;;;4;4
+567;integralna kola ,memorije..;;;;;;;;;;;3;3
+5641;potenciometri;;;;;;;;;;;4;4
+5642;otpornici;;;;;;;;;;;4;4
+566;magnetske kompnente;;;;;;;;;;;3;3
+5671;integralna kola;;;;;;;;;;;4;4
+5672;mikroprocesori;;;;;;;;;;;4;4
+5673;memorije;;;;;;;;;;;4;4
+5674;delovi za IC (podnozja,kucistya.. );;;;;;;;;;;4;4
+5621;kodezatori keramicki i ostali;;;;;;;;;;;4;4
+5622;kodezatori elektrolitski;;;;;;;;;;;4;4
+3338;razni delovi za hidrauliku,SKLOPOVI...;;;;;;;;;;;4;4
+5651;el. mag. kartice;;;;;;;;;;;4;4
+5652;stampane ploce(prazne);;;;;;;;;;;4;4
+5261;kutije razvodne;;;;;;;;;;;4;4
+5262;ormari razvodni;;;;;;;;;;;4;4
+3633;viljuske;;;;;;;;;;;4;4
+3622;caure;;;;;;;;;;;4;4
+5811;altenatori,alnaseri,regl.,osig.,pribor...;;;;;;;;;;;4;4
+5271;utikaci;;;;;;;;;;;4;4
+5272;uticnice-prikljucnice;;;;;;;;;;;4;4
+57;elektricni merni istrumenti;;;;;;;;;;;2;2
+571;elektricni mer. istr. za merenje napona.struje..;;;;;;;;;;;3;3
+5711;voltmetri;;;;;;;;;;;4;4
+5722;ampermetri;;;;;;;;;;;4;4
+1526;nosac Z;;;;;;;;;;;4;4
+5553;irc;;;;;;;;;;;4;4
+5831;ampule ulja;;;;;;;;;;;4;4
+5841;releji;;;;;;;;;;;4;4
+5842;pribor za rel.;;;;;;;;;;;4;4
+3634;poluge,klackalice...;;;;;;;;;;;4;4
+3621;zupcanici;;;;;;;;;;;4;4
+3914;sarke;;;;;;;;;;;4;4
+5554;nosac napona, drzac kosog polozaja,regulatori...;;;;;;;;;;;4;4
+5675;tastature rac., zvucnici,racunari...;;;;;;;;;;;4;4
+5712;ampermetri;;;;;;;;;;;4;4
+3513;lanci u sklopu sa drugim delovima;;;;;;;;;;;4;4
+52355;topljivi osiguraci;;;;;;;;;;;5;5
+3915;okov-ostalo;;;;;;;;;;;4;4
+399;gotova roba-nerazjasnjenja;;;;;;;;;;;3;3
+7529;smese za zaptivanje ostalo;;;;;;;;;;;4;4
+499;nemetali ostalo-nerazjasnjeno;;;;;;;;;;;3;3
+5523;pribor za merace,pret.uredj.iuredj.za napajanje;;;;;;;;;;;4;4
+18823;ESAB SPREJ;;;;;;;;;;;5;5
+5679;softveri;;;;;;;;;;;4;4
+5676;operatvni paneli i sl..;;;;;;;;;;;4;4
+595;razni mas. delovi za ELEKTRO uredjaje;;;;;;;;;;;3;3
+5951;delovi za IPSEN pec;;;;;;;;;;;4;4
+4357;proizvodi od sundjera;;;;;;;;;;;4;4
+5952;merne letve,ploce ... za ELEKTRO;;;;;;;;;;;4;4
+5291;stubovi,konzole,ucvrsci,energ.lanci...;;;;;;;;;;;4;4
+5689;RAZNI ELEKTRONSKI DELOVI ZA APARATE;;;;;;;;;;;4;4
+3729;razni got.delovi i sklopovi za ugradnju;;;;;;;;;;;4;4
+4271;kape plasticne za vijke;;;;;;;;;;;4;4
+4272;umetci plasticni;;;;;;;;;;;4;4
+4273;tipli plasticni;;;;;;;;;;;4;4
+4279;komponente plasticne ostalo(oznake,         );;;;;;;;;;;4;4
+352;navrtka zatezna;;;;;;;;;;;3;3
+6322;sapuni;;;;;;;;;;;4;4
+4913;cement,pesak...;;;;;;;;;;;4;4
+3228;plocica-podlozni prsten;;;;;;;;;;;4;4
+7911;ostali hem. proizvodi;;;;;;;;;;;4;4
+4531;drvena lamperija;;;;;;;;;;;4;4
+4642;staklena tkanina;;;;;;;;;;;4;4
+5242;DVOPOLNE PRIKLJUCNICE;;;;;;;;;;;4;4
+5269;kutije instal.-ostalo;;;;;;;;;;;4;4
+4232;PLASTICNA PLATNA;;;;;;;;;;;4;4
+4233;VRECE PLASTICNE;;;;;;;;;;;4;4
+5491;UREDAJI ZA BATERIJE...;;;;;;;;;;;4;4
+454;PROIZV.OD PRERADENOG DRVETA;;;;;;;;;;;3;3
+4541;IVERICA;;;;;;;;;;;4;4
+3144;blok zakovice,suplje...;;;;;;;;;;;4;4
+3145;zakovice po skici;;;;;;;;;;;4;4
+4591;drveni modeli;;;;;;;;;;;4;4
+4343;Papirne trake,rolne,ulosci...;;;;;;;;;;;4;4
+8113;UREDAJI ZA ZAV.(dodavac zice-miroks;;;;;;;;;;;4;4
+1891;APARATI ZA ZAVARIVANJE;;;;;;;;;;;4;4
+3427;hidranti ipribor za hidrante;;;;;;;;;;;4;4
+622;pribor za protivpozar.aparate;;;;;;;;;;;3;3
+3439;ostali vodoinstal.mater.;;;;;;;;;;;4;4
+5719;rez.delovi za mer.inst.za mer.napona struje;;;;;;;;;;;4;4
+83;netipicna prateca oprema koja ide uz proizvod;;;;;;;;;;;2;2
+831;prateca dokumentacija(crtezi,standardi,diskete.);;;;;;;;;;;3;3
+3339;hidraul.mat.za posebne porudz.;;;;;;;;;;;4;4
+5681;radio komande;;;;;;;;;;;4;4
+5684;antene;;;;;;;;;;;4;4
+5132;GENERATORI;;;;;;;;;;;4;4
+64;zdravstvena zast.sredstva;;;;;;;;;;;2;2
+641;apoteke,lekovi...;;;;;;;;;;;3;3
+3728;MASINE-KOMPLET;;;;;;;;;;;4;4
+4176;GUMENI UMETCI;;;;;;;;;;;4;4
+5643;delovi otpornika.potenciometra;;;;;;;;;;;4;4
+1892;materijali za lemljenje;;;;;;;;;;;4;4
+3433;VODOMERI;;;;;;;;;;;4;4
+3213;zglobne glave;;;;;;;;;;;4;4
+34133;PRIBOR ZA VENTILE I REDUCIRE;;;;;;;;;;;5;5
+4643;stakla za prevozna sred,-sofersajbne...;;;;;;;;;;;4;4
+5991;dokumentacija i standardi;;;;;;;;;;;4;4
+3939;razna metalna gotova roba;;;;;;;;;;;4;4
+5133;pribor za tranformatore i generatore;;;;;;;;;;;4;4
+5391;EL.IZOLAC.prostirke i druge izolacije;;;;;;;;;;;4;4
+4911;SILICA GEL;;;;;;;;;;;4;4
+4912;MODELI OD VOSKA;;;;;;;;;;;4;4
+4914;KERAMIKA;;;;;;;;;;;4;4
+491;CEMENT,VOSAC,KREC,KERAMIKA...;;;;;;;;;;;3;3
+8114;REZ.DELOVI ZA APAR.ZA UPUCAVANJE BOLCNOVA;;;;;;;;;;;4;4
+3328;napajaci;;;;;;;;;;;4;4
+3329;razvodnici;;;;;;;;;;;4;4
+34134;NAVIJCI;;;;;;;;;;;5;5
+5592;VIBRATORI;;;;;;;;;;;4;4
+6323;DETERDZENTI;;;;;;;;;;;4;4
+583;KLEME, AMPULE;;;;;;;;;;;3;3
+5832;KLEME;;;;;;;;;;;4;4
+587;ELEKTRICNI PREK.;;;;;;;;;;;3;3
+5871;PREKIDACI;;;;;;;;;;;4;4
+3935;NOSACI,PRODUZETCI,POLUTKE CEVI...;;;;;;;;;;;4;4
+5713;UNIVERZALNI MERNI INSTRUMENTI;;;;;;;;;;;4;4
+1191;LIMOVI-RF;;;;;;;;;;;4;4
+4542;LAMPERIJA;;;;;;;;;;;4;4
+3613;OPRUZNI PRSTEN;;;;;;;;;;;4;4
+5693;MONITORI,KAMERE -sa pratecom opremom;;;;;;;;;;;4;4
+5699;RAZNI ELEM.ZA ELEKTRONIKU I TELEKOMUN.;;;;;;;;;;;4;4
+3319;OSTALI DELOVI(mlaznice...;;;;;;;;;;;4;4
+5292;RAZNI ELEMENTI ZA MONTAZU;;;;;;;;;;;4;4
+642;ostala prema za apoteke i zdras. zastitu;;;;;;;;;;;3;3
+1529;nosaci -ostalo;;;;;;;;;;;4;4
+4335;konac za sivenje;;;;;;;;;;;4;4
+5812;KABLOVI;;;;;;;;;;;4;4
+3734;REZERVNI DELOVI ZA TERM.OBRADU;;;;;;;;;;;4;4
+4712;ostali mater.za peskarenje-GRIT,...;;;;;;;;;;;4;4
+3149;zakovice ostale;;;;;;;;;;;4;4
+4358;pluta;;;;;;;;;;;4;4
+4164;gume za transportna sred.-kompleti;;;;;;;;;;;4;4
+4515;FOSNE;;;;;;;;;;;4;4
+37153;stepeniste;;;;;;;;;;;5;5
+629;vatrogasna zastitna sred.-ostalo;;;;;;;;;;;3;3
+4644;CREVA OD FIBER-GLASA;;;;;;;;;;;4;4
+4251;plasticni elementi po crtezu;;;;;;;;;;;4;4
+3214;specificni lezajevi-po crtezu;;;;;;;;;;;4;4
+4543;LESONIT;;;;;;;;;;;4;4
+3623;DOBOSI;;;;;;;;;;;4;4
+2;ALAT I PRIBOR;1;0;;0;;0;;1;osnovni podaci;1;1;1
+21;rezni alat i pribor za rez. alat;1;0;;0;;0;;1;osnovni podaci;1;2;2
+218;izmenljive plocice,nosaci plocica i rez. delovi;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2181;izmenljive plocice;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21811;izm.ploc. od tm za strug. i univerzalne;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21812;izm ploc. od tm za glodanje;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21813;izm.ploc. od tm za busenje;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21815;izm.ploc. od keramike;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21819;izm.ploc. od tm za strug. ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2182;nosaci plocica;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21821;nosaci plocica(sistem pritezanja polugom*i vijko;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21829;nosaci plocica ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2185;...;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2186;...;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2189;izm.ploc. ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+211;rezni alat za glodanje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2111;glodala nasadna;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21111;"glodala nas. testerasta(JUS K.D2.150,151,160;DIN";1;0;;0;;0;;1;osnovni podaci;1;5;5
+21112;"glodala nas. valjkasta(JUS K.D2.020,025;DIN 884,";1;0;;0;;0;;1;osnovni podaci;1;5;5
+21113;glodala nas. ceona(JUS K.D2.021,022,023,024,030.;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21114;glodala nas.kotur.(JUS K.D2.040,041,042,043,045,;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21115;glodala nasadna za zljebove(JUS K.D2.049);1;0;;0;;0;;1;osnovni podaci;1;5;5
+21116;glodala nas.ugaona (JUS K.D2.070.071,072,073,074;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21117;"glodala nas. polukr.,..(JUS K.D2.080,081,084;DIN";1;0;;0;;0;;1;osnovni podaci;1;5;5
+21118;glodala nasadna u garnituri;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21119;glodala nasadna za skidanje ivica;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2112;glodala sa drskom;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21121;"glodala vreten. sa VD drskom(JUS K.D2.090,095;DI";1;0;;0;;0;;1;osnovni podaci;1;5;5
+21122;"glodala vreten. sa MK drs.(JUS K.D2.092,096,097;";1;0;;0;;0;;1;osnovni podaci;1;5;5
+21123;glodala vret.za tesku obr.sa um.,iz pl.(G.425,43;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21124;glodala sa drs. za zljeb.(JUS K.D2.110,111,112,1;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21125;glodala sa drs.za t-zljeb.(JUS K.D2.138,140,141);1;0;;0;;0;;1;osnovni podaci;1;5;5
+21126;glodala sa drskom ugaona(JUS K.D2.145 * DIN 1833;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21128;glodala sa drskom u garnituri;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21129;ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2113;glodacke glave;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21131;glodacke glave sa promenljivim plocicama(FRESKOP;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21134;glodacke glave sa nozevima(za istrugivanje,VHU,V;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2114;glodala rotaciona (BIAX);1;0;;0;;0;;1;osnovni podaci;1;4;4
+21141;rotaciona glodala  od hss;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21142;glodala rotaciona od tm;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2119;rezni alat za glodanje ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+212;rezni alat za busenje i obradu otvora;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2121;burgije;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21211;burgije sa valjkastom drskom minjaturne;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21212;burgije sa VD normalne (kratke)JUS K.D3.020*DIN;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21213;burgije sa VD duge+vrlo duge(J-K.D3.021,045*D-34;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21214;burgije sa MK drskom normalne(JUS K.D3.022*DIN 3;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21215;burgije sa MK d.duge+v.duge(J-K.D3.024,046*D-341;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21216;burgije sa plocicama od TM materijala;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21218;burgije stepenaste i za konicna busenja;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2125;prosirivaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21251;prosirivaci od hss;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21252;prosirivaci od tm;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21253;prosirivaci sa plocicama od tm;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2123;razvrtaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21231;razvrtaci rucni( JUS K.D3.121);1;0;;0;;0;;1;osnovni podaci;1;5;5
+21232;razvrtaci mas. sa valj. drskom (JUS K.D3.130,131;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21233;razvrtaci mas.SA MK drskom (JUS K.D3.132);1;0;;0;;0;;1;osnovni podaci;1;5;5
+21234;razvrtaci mas.  ceoni za kor. bus.(JUS .D3.135);1;0;;0;;0;;1;osnovni podaci;1;5;5
+21235;razvrtaci masinski nasaadni (JUS K.D3.170);1;0;;0;;0;;1;osnovni podaci;1;5;5
+21236;razvrtaci mas sa MK za rupe zako. (JUS K.D3.201);1;0;;0;;0;;1;osnovni podaci;1;5;5
+21237;razvrtaci KONICNI;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21238;razvrtaci masinski razni,po crt. i sl.;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2124;upustaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21241;"upustaci spiralni(J-300,302,303*DIN 344,3;1863,4";1;0;;0;;0;;1;osnovni podaci;1;5;5
+21242;upustaci ceoni ( JUS 310,311* DIN 373,375);1;0;;0;;0;;1;osnovni podaci;1;5;5
+21244;"upustaci konicni(JUS 321,3,6 * DIN 334,5;347)";1;0;;0;;0;;1;osnovni podaci;1;5;5
+21245;upustaci nasadni(J-340,1* DIN 222)+Drzaci,vodjic;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2122;zabusivaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21221;zabusivaci od 60 stepeni;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21222;zabusivaci od 60/120 stepeni;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21223;zabusivaci..;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2126;krune za dubinsko busenje;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2127;r. alat za busenje i obradu otvora specijalni;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21271;r. alat za busenje i obradu otvora standardni;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21272;r. alat za busenje i obradu otvora nestandardni;1;0;;0;;0;;1;osnovni podaci;1;5;5
+213;rezni alat za rezanje navoja;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2131;ureznici;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21311;ureznici rucni za M-navoj (DIN 352,2181);1;0;;0;;0;;1;osnovni podaci;1;5;5
+21312;ureznici rucni za sve navoje osim M-navoja(DIN 3;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21313;ureznici masinski za M-navoj(DIN 376,371,374,352;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21314;ureznici mas. za sve navoje osim M-nav.(DIN 374,;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21315;ureznici masinski za navrtke(JUS K.D3.040);1;0;;0;;0;;1;osnovni podaci;1;5;5
+21319;Ureznici za trapezni navoj;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2132;nareznice;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21321;"nareznice okrugle za M-navoj(JUS K.D6.200;DIN 22";1;0;;0;;0;;1;osnovni podaci;1;5;5
+21322;"nareznice okrugle za M-navoj(fini)(JUS K D6.201;";1;0;;0;;0;;1;osnovni podaci;1;5;5
+21323;nareznice okrugle za sve navoje osim M-navoja;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21325;nareznice sestougaone;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21326;nareznice okrugle zvocaste za automate;1;0;;0;;0;;1;osnovni podaci;1;5;5
+214;rezni alat za struganje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2141;nozevi sa izmenljivim plocicama;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21411;nozevi sa izm.plocicama sa stezanjem kroz otvor;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21412;nozevi sa izm. plocicama i stezanjem odozgo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21413;nozevi sa izm. plocicama  sa st. kroz otvor i od;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21414;nozevi sa izm. tangencijalnim plocicama;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21415;nozevi sa izm. plocicama za obradu zljebova;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21416;nozevi sa izm. plocicama sa modularnim prihvatom;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21417;nozevi sa izm. plocicama i okruglom drskom;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21419;nozevi sa izm. plocicama  ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2142;nozevi sa lemljenim plocicama;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21421;nozevi sa lemlj. plocicama pravi(JUS K.C1.051,05;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21422;nozevi sa lemlj. plocicama savijeni(JUS K.C1.052;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21425;nozevi sa lemlj. pl.za usecanje i ods.(JUS K.C1.;0;0;;0;;0;;1;osnovni podaci;1;5;5
+21424;nozevi sa lemlj. plocicama za unut. obradu(JUS K;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21423;nozevi sa lemlj. plocicama za bocnu obradu(JUS K;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21426;nozevi sa lemlj. plocicama za navoj (JUS K.C1.06;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21427;nozevi sa lemljenim plocicama sa okruglom drskom;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21429;nozevi sa leljenim plocicama ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2143;nozevi od brzoreznog celika;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21431;nozevi od brzoreznog cel. sa kvadratnim presekom;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21432;nozevi od brzoreznog cel. sa pravougaonim presek;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21433;nozevi od brzoreznog cel. sa trouglastim preseko;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21434;nozevi od brzoreznog cel. sa trapeznim presekom;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21435;nozevi od brzoreznog cel. sa okruglim presekom;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21436;nozevi od brzoreznog cel. specijalnog oblika;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21438;nozevi od brzoreznog cel. obradjen na radni obli;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21439;nozevi od brzoreznog celika ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2146;nozevi dijamantski;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2149;ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+215;rezni alat za testerisanje i provlacenje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2151;testere masinske;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21511;testere masinske kruzne jednodelne;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21512;testere masinske kruzne sa izmenljiim zub. i seg;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21513;testere masinske lisnate;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21519;testere masinske ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21521;testere rucne lisnate - jednostrano ozubljene;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21522;testere rucne lisnate - dvostrano ozubljene;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21529;testere rucne ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2155;provlakaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21551;provlakaci standardni;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21552;provlakaci specijalni;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21559;provlakaci ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2159;rezni alat za testerisanje i provlacenje ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+216;rezni alat za brusenje,glacanje i poliranje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2161;brusne ploce(FLEX);1;0;;0;;0;;1;osnovni podaci;1;4;4
+21611;brusne ploce za brusenje i ostrenje;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21618;brusne ploce za secenje metala;1;0;;0;;0;;1;osnovni podaci;1;6;6
+21617;brusne ploce za ostrenje spec. alata (glodala za;1;0;;0;;0;;1;osnovni podaci;1;6;6
+21612;brusne ploce za sec. metala;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21614;brusne ploce dijamantske;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21619;ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2162;brusevi,tocila , obruci i lonci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21613;brusne gumirane ploce(Fiber diskovi);1;0;;0;;0;;1;osnovni podaci;1;5;5
+21622;brusevi za unutrasnje brusenje;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21629;brusevi dijamantski,tocila;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21651;papir brusni u tabacima;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21652;papir brusni u rolnama;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21653;platno brusno u tabacima;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21639;rezni alat za brusenje ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2165;alat za brusenje od papira;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21661;ploce od filca;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21662;ploce od krpa;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21663;ploce od vune;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21666;filcani cepovi sa drskom;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21669;alat za brus.i poliranje(prah za brus. ,paste...;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2168;poravnjivaci brusnih ploca;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21681;poravnjaci brusnih ploca sa ugradjenim dijamant.;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21682;poravnjaci brusnih ploca sa tockicima;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21683;poravnjaci brusnih ploca od brusnog materijala;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21684;poravnjaci brusnih ploca od impregniranog dijam.;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21689;poravnjaci brusnih ploca ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2169;alat za brusenje (drzaci br. ploca ...);1;0;;0;;0;;1;osnovni podaci;1;4;4
+217;rezni alat za ozubljenje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2171;rezni alat za ozubljenje glodanjem;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21711;glodala modulna odvalna;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21712;glodala modulna plocasta;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2172;rezni alat za ozubljenje rendisanjem;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21721;kruzni zupcasti nozevi, plocasti;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21722;kruzni zupcasti nozevi zvonasti;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21729;alat za ozubljenje rendisanjem ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2175;specijalni alat za ozubljenje i pribor;1;0;;0;;0;;1;osnovni podaci;1;4;4
+21751;nozevi za konicno ozubljenje sa pravim zubima;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21752;nozevi za ciklopaloidno ozubljenje;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21753;glave za ciklopaloidno ozubljenje sa ume;1;0;;0;;0;;1;osnovni podaci;1;5;5
+21759;specijalni alat za ozubljenje ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+22;merni,konrolni alat ,istrumenti i merila;1;0;;0;;0;;1;osnovni podaci;1;2;2
+221;merni i kontrolni alat;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2211;pomicna merila;1;0;;0;;0;;1;osnovni podaci;1;4;4
+22111;pomicna merila univererzalna(subleri);1;0;;0;;0;;1;osnovni podaci;1;5;5
+22114;pomicna merila digitalna i pom. merila sa satom;1;0;;0;;0;;1;osnovni podaci;1;5;5
+22116;pomicna merila za zupcanike(zubomeri);1;0;;0;;0;;1;osnovni podaci;1;5;5
+22119;pomicna merila ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2212;mikrometri;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2215;kontrolni cepovi;1;0;;0;;0;;1;osnovni podaci;1;4;4
+22151;kontrolni cepovi glatki;1;0;;0;;0;;1;osnovni podaci;1;5;5
+22152;kontrolni cepovi navojni(mm -navoj);1;0;;0;;0;;1;osnovni podaci;1;5;5
+22159;mikrometri ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2218;paralelne krajnje mere,sabloni,etaloni...;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2219;merni stolovi,drzaci i ostali pribor za merenje;1;0;;0;;0;;1;osnovni podaci;1;4;4
+222;...;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2221;kontrolni cepovi;1;0;;0;;0;;1;osnovni podaci;1;4;4
+22211;kontrolni cepovi glatki;1;0;;0;;0;;1;osnovni podaci;1;5;5
+22212;kontrolni cepovi navojni;1;0;;0;;0;;1;osnovni podaci;1;5;5
+22213;kontrolni cepovi konusni;1;0;;0;;0;;1;osnovni podaci;1;5;5
+22214;kontrolni cepovi podesavajuci;1;0;;0;;0;;1;osnovni podaci;1;5;5
+22215;kontrolni cepovi za ozljeb.,po crtezu i sl. ...;1;0;;0;;0;;1;osnovni podaci;1;5;5
+22216;kontrolni cepovi za ozubljenje;1;0;;0;;0;;1;osnovni podaci;1;5;5
+22219;kontrolni cepovi ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2222;kontrolne racve;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2224;kontrolni stapovi;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2225;kontrolne kuglice;1;0;;0;;0;;1;osnovni podaci;1;4;4
+22181;etaloni(paralelne krajnje mere);1;0;;0;;0;;1;osnovni podaci;1;5;5
+22182;sabloni;1;0;;0;;0;;1;osnovni podaci;1;5;5
+22184;kontrolne sipke;1;0;;0;;0;;1;osnovni podaci;1;5;5
+22189;etaloni ostalo;1;0;;0;;0;;1;osnovni podaci;1;5;5
+223;merila za uglove,duzinu,obelezavanje i polozaj;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2231;uglomeri i ugaonici;1;0;;0;;0;;1;osnovni podaci;1;4;4
+22311;uglomeri;1;0;;0;;0;;1;osnovni podaci;1;5;5
+22312;ugaonici;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2232;lupe,prizme,libele;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2239;merila ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+224;istrumenti za merenje vremena,br. obrtaja,buke..;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2241;hronometri;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2242;stoperice;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2243;meraci broja obrtaja;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2244;brojaci impulsa;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2249;istrumenti za merenje vremena i broja obr. ostal;1;0;;0;;0;;1;osnovni podaci;1;4;4
+225;istrumenti za merenje pritiska i temperature;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2251;reducir ventili,manometri...,razni meraci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2252;barometri;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2253;pirometri;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2254;termometri;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2259;istrumenti za merenje pritiska i temperature ost;1;0;;0;;0;;1;osnovni podaci;1;4;4
+226;istrumenti za merenje elktricnih velicina;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2261;ommetri;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2262;ampermetri;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2263;voltmetri;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2266;univerzalni pribor za merenje el. velicina;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2269;istrumenti za merenje el. velicina ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+227;istrumenti za merenje mase i sile;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2271;terazije;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2272;vage;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2273;dinamometi;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2278;tegovi;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2279;istrumenti za merenje mase i sile ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+229;merni istrumenti ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+23;stezni alat i pomocni pribor;1;0;;0;;0;;1;osnovni podaci;1;2;2
+24;alati za obradu metala deformisanjem;1;0;;0;;0;;1;osnovni podaci;1;2;2
+241;alati za obradu lima;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2411;alati za obradu lima odvajanjem materijala;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2412;alati za obradu lima savijanjem;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2413;alati za obradu lima izvlacenjem;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2414;alati za obradu lima oblikovanjem;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2415;alati za obradu lima kombinovanim operacijama;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2416;alati za obradu lima sklapanje delova hlad. obr.;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2418;alati za obradu lima - elementi alata;1;0;;0;;0;;1;osnovni podaci;1;4;4
+24181;delovi konstrukcijskog karaktera;1;0;;0;;0;;1;osnovni podaci;1;5;5
+24182;delovi tehnoloskog karaktera;1;0;;0;;0;;1;osnovni podaci;1;5;5
+24183;pomocni elementi;1;0;;0;;0;;1;osnovni podaci;1;5;5
+242;alati za kovanje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2421;na cekicima;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2422;krivajnim presama;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2423;na frikcionim presama;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2425;alati za odsecanje (krzanje) venca;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2426;alati za probojanje danca na otkivcima;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2428;elementi alata;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2429;alati za kovanje ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+243;alati za valjanje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+249;alati za valjanje ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+25;alati za livenje i sinterovanje;1;0;;0;;0;;1;osnovni podaci;1;2;2
+251;kalupi za livenje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+255;kalupi za livenje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+258;modeli za livenje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2581;modeli za livenje za celicni liv;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2582;modeli za livenje za sivi liv;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2585;modeli za livenje za aluminijum i legure;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2586;modeli za livenje za bakar i legure;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2589;modeli za livenje ostalo;1;0;;0;;0;;1;osnovni podaci;1;4;4
+259;alati za livenje i sinterovanje ostalo;1;0;;0;;0;;1;osnovni podaci;1;3;3
+27;alati za rucnu obradu;1;0;;0;;0;;1;osnovni podaci;1;2;2
+271;rucni alat za hvatanje,stezanje,odvijanje....;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2711;klesta;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2713;odvijaci(srafcigeri);1;0;;0;;0;;1;osnovni podaci;1;4;4
+27131;odvijaci pljosnati;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27132;odvijaci krstasti;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27139;odvijaci ...;1;0;;0;;0;;1;osnovni podaci;1;5;5
+2714;izvlakaci(radapcigeri);1;0;;0;;0;;1;osnovni podaci;1;4;4
+27141;izvlakaci dokraki;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27142;izvlakaci trokraki;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27143;izvlakaci..;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27151;stege rucne;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27152;stege masinske;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27153;....;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27154;..;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27155;strugarska srca;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27156;....;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27157;.;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27114;klesta kovacka...,klesta za zljebove;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27117;klesta za zicu;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27113;klesta za cevi univerz.(ROCANGLE);1;0;;0;;0;;1;osnovni podaci;1;5;5
+27116;klesta za uskocnike;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27115;klesta za mehanicarska,elrktricarska,stolarska..;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27112;klesta univrzalna(PAPAGJKE);1;0;;0;;0;;1;osnovni podaci;1;5;5
+27111;klesta kombinovana(MOTORCANGLE);1;0;;0;;0;;1;osnovni podaci;1;5;5
+27119;klesta za nitovanje,sl...;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27121;kljucevi otvoreni(viljuskasti);1;0;;0;;0;;1;osnovni podaci;1;5;5
+27122;kljucevi okasti;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27125;klucevi nasadni;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27175;kljucevi podesavajuci;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27123;kljucevi cevasti;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27127;klucevi kombinovani;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27124;kljucevi imbus;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27126;kljucevi moment;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27311;turpije pljosnate;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27312;turpije poluokrugle;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27183;turpije okrugle;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27314;turpije trouglaste;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27315;turpije cetvrtaste;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27316;turpije specificnog oblika;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27317;turpije za testere,navoj...;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27318;turpije u garnituri;1;0;;0;;0;;1;osnovni podaci;1;5;5
+27319;Drske za turpije...;1;0;;0;;0;;1;osnovni podaci;1;5;5
+272;rucni alat za udaranje,probijanje...;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2721;cekici;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2722;nakovanji;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2723;sekaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2724;probijaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2725;oblikaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2726;izbijaci;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2727;drzalice za alat;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2729;r...;1;0;;0;;0;;1;osnovni podaci;1;4;4
+273;rucni alat za turpijanje,rezanje i sl.;1;0;;0;;0;;1;osnovni podaci;1;3;3
+2731;turpije;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2732;makaze;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2733;testere rucne;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2734;razni rucni alat za rez. i sec;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2735;striper za blankiranje(noz);1;0;;0;;0;;1;osnovni podaci;1;4;4
+2737;sekire,krampovi...;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2738;r...;1;0;;0;;0;;1;osnovni podaci;1;4;4
+2739;r..;1;0;;0;;0;;1;osnovni podaci;1;4;4
+274;rucni alat za zavarivanje ,lemljenje,kaljenje i;1;0;;0;;0;;1;osnovni podaci;1;3;3
+275;rucni alat (razne garniture);1;0;;0;;0;;1;osnovni podaci;1;3;3
+276;rucni alat za ciscenje i farbanje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+277;rucni alat za ambalaziranje i oznacavanje;1;0;;0;;0;;1;osnovni podaci;1;3;3
+278;rucni alat za elekricarske radove;1;0;;0;;0;;1;osnovni podaci;1;3;3
+279;elktricne rucne masine i druge naprave;1;0;;0;;0;;1;osnovni podaci;1;3;3
+29;alat i pribor ostalo;1;0;;0;;0;;1;osnovni podaci;1;2;2
+2234;merne trake,metri,lenjiri,..;0;0;;0;;0;;0;;0;4;4
+2236;sestari,obelezivzci,..;0;0;;0;;0;;0;;0;4;4
+2223;kontrolni prstenovi;0;0;;0;;0;;0;;0;4;4
+2217;...;0;0;;0;;0;;0;;0;4;4
+22113;dubinometri;0;0;;0;;0;;0;;0;5;5
+22121;mikrometri za unutrasnje merenje -stapasti;0;0;;0;;0;;0;;0;5;5
+22122;mikrometri za unurasnje merenje-dvokraki;0;0;;0;;0;;0;;0;5;5
+22123;mikrometri za unutranje merenje -trokraki;0;0;;0;;0;;0;;0;5;5
+22231;kontrolni navojni prstenovi;0;0;;0;;0;;0;;0;5;5
+22232;kontrolni prstenovi glatki, ...;0;0;;0;;0;;0;;0;5;5
+22341;merne trake,metri...;0;0;;0;;0;;0;;0;5;5
+22342;lenjiri;0;0;;0;;0;;0;;0;5;5
+22361;...;0;0;;0;;0;;0;;0;5;5
+22362;sestari;0;0;;0;;0;;0;;0;5;5
+22363;obelezivaci;0;0;;0;;0;;0;;0;5;5
+22321;lupe;0;0;;0;;0;;0;;0;5;5
+22322;libele;0;0;;0;;0;;0;;0;5;5
+22323;prizme;0;0;;0;;0;;0;;0;5;5
+22343;ploce za tusiranje;0;0;;0;;0;;0;;0;5;5
+22344;regleri za tusiranje;0;0;;0;;0;;0;;0;5;5
+22191;merni stolovi;0;0;;0;;0;;0;;0;5;5
+22192;merni stalci;0;0;;0;;0;;0;;0;5;5
+22185;mere za popunj.(merni listici,merac pukotina);0;0;;0;;0;;0;;0;5;5
+22541;termometri ...;0;0;;0;;0;;0;;0;5;5
+22542;termometri digitalni;0;0;;0;;0;;0;;0;5;5
+22431;brojaci obrtaja...;0;0;;0;;0;;0;;0;5;5
+2245;fonometri;0;0;;0;;0;;0;;0;4;4
+22451;fonometri...;0;0;;0;;0;;0;;0;5;5
+21217;burgije za nemetale(beton,kamen,drvo...);0;0;;0;;0;;0;;0;5;5
+2133;navojna glodala,navojne glave;0;0;;0;;0;;0;;0;4;4
+2134;navojni nozevi;0;0;;0;;0;;0;;0;4;4
+2135;pribor za rezni navojni alat;0;0;;0;;0;;0;;0;4;4
+21351;okretaci nareznica;0;0;;0;;0;;0;;0;5;5
+21352;okretaci ureznika;0;0;;0;;0;;0;;0;5;5
+21331;glodala valjkasta za metricki navoj;0;0;;0;;0;;0;;0;5;5
+21332;glodala koturata za trapezni navoj(JUS K.D2.135*;0;0;;0;;0;;0;;0;5;5
+21714;glodala plocasta za lancanike;0;0;;0;;0;;0;;0;5;5
+21715;glodala plocasta za ozljebljenje;0;0;;0;;0;;0;;0;5;5
+21717;glodala konusna odvalna za paloidno ozubljenje;0;0;;0;;0;;0;;0;5;5
+21716;glodala za ozljebljenje(modulna i odvalna);0;0;;0;;0;;0;;0;5;5
+21718;glodala prstasta za cilindricne zupcanike;0;0;;0;;0;;0;;0;5;5
+2712;kljucevi;0;0;;0;;0;;0;;0;4;4
+2761;cetke;0;0;;0;;0;;0;;0;4;4
+2771;celicna slova i brojevi;0;0;;0;;0;;0;;0;4;4
+2772;zumbe;0;0;;0;;0;;0;;0;4;4
+2773;strugaci za sanduke;0;0;;0;;0;;0;;0;4;4
+2164;turpije brusne i belegije;0;0;;0;;0;;0;;0;4;4
+2166;alat za poliranje;0;0;;0;;0;;0;;0;4;4
+2147;nozevi za makaze..;0;0;;0;;0;;0;;0;4;4
+21713;glodala odvalna za lancanike;0;0;;0;;0;;0;;0;5;5
+21719;glodala puzna za puzne zupcanike;0;0;;0;;0;;0;;0;5;5
+27211;cekici bravarski,rucni;0;0;;0;;0;;0;;0;5;5
+27212;cekici drveni,plasticni,gumeni i sl.;0;0;;0;;0;;0;;0;5;5
+2715;stege(mengele);0;0;;0;;0;;0;;0;4;4
+27331;listovi za testere rucne;0;0;;0;;0;;0;;0;5;5
+27332;ramovi za testre rucne;0;0;;0;;0;;0;;0;5;5
+27333;testere rucne komlet;0;0;;0;;0;;0;;0;5;5
+27321;makaze za lim rucne;0;0;;0;;0;;0;;0;5;5
+27322;makaze za plasticne cevi;0;0;;0;;0;;0;;0;5;5
+27231;sekaci pljosnati;0;0;;0;;0;;0;;0;5;5
+2728;rucni alat za obelezavanje;0;0;;0;;0;;0;;0;4;4
+27281;igle za obelezavanje;0;0;;0;;0;;0;;0;5;5
+27282;kirneri i paralelni obeleziv.;0;0;;0;;0;;0;;0;5;5
+27711;celicna slova;0;0;;0;;0;;0;;0;5;5
+27712;celicni brojevi;0;0;;0;;0;;0;;0;5;5
+27721;zumbe...;0;0;;0;;0;;0;;0;5;5
+27731;strugaci za sanduke kasikasti(trouglasti);0;0;;0;;0;;0;;0;5;5
+2741;rucni alat za ...;0;0;;0;;0;;0;;0;4;4
+2742;rucni alat za lemljenje;0;0;;0;;0;;0;;0;4;4
+27421;el. lemila;0;0;;0;;0;;0;;0;5;5
+2743;rucni alat za zavarivanje gas. secenje,kaljenje;0;0;;0;;0;;0;;0;4;4
+27431;plamenici(breneri) za zavarivanje,grejanje...;0;0;;0;;0;;0;;0;5;5
+2791;busilice;0;0;;0;;0;;0;;0;4;4
+2792;brusilice;0;0;;0;;0;;0;;0;4;4
+27911;busilice elektricne;0;0;;0;;0;;0;;0;5;5
+27912;busilice pneumatske;0;0;;0;;0;;0;;0;5;5
+27921;brusilice elektricne;0;0;;0;;0;;0;;0;5;5
+27922;brusilice pneumatske;0;0;;0;;0;;0;;0;5;5
+2799;razne naprave za podmazivanje,podizanje...;0;0;;0;;0;;0;;0;4;4
+27991;mazalice;0;0;;0;;0;;0;;0;5;5
+21723;kruzni zupcasti nozevi sa drskom;0;0;;0;;0;;0;;0;5;5
+2775;aparati za amalaziranje i rezevni delovi za amal;0;0;;0;;0;;0;;0;4;4
+27751;aparati za ambalaziranje;0;0;;0;;0;;0;;0;5;5
+27714;elektropisaljke i pneum. pisaljke;0;0;;0;;0;;0;;0;5;5
+27611;cetke celicne;0;0;;0;;0;;0;;0;5;5
+27612;cetke...;0;0;;0;;0;;0;;0;5;5
+2763;pistolji za farbanje,silikon...,aparati;0;0;;0;;0;;0;;0;4;4
+27631;pistolji za farb., i razzni aparate za boj. i su;0;0;;0;;0;;0;;0;5;5
+27632;pistolji za silikon;0;0;;0;;0;;0;;0;5;5
+2793;testere;0;0;;0;;0;;0;;0;4;4
+27931;testere elektricne;0;0;;0;;0;;0;;0;5;5
+2794;uvrtaci pneumatski,odvijaci...;0;0;;0;;0;;0;;0;4;4
+27941;uvrtaci pnematski;0;0;;0;;0;;0;;0;5;5
+2798;razne rucne masine;0;0;;0;;0;;0;;0;4;4
+27981;aparati za savijanje cevi;0;0;;0;;0;;0;;0;5;5
+27982;masine za rezanje navoja;0;0;;0;;0;;0;;0;5;5
+22186;etaloni za kontrolu aparata za merenje tvrdoce;0;0;;0;;0;;0;;0;5;5
+27983;makaze za lim(elktricne...);0;0;;0;;0;;0;;0;5;5
+27992;hidraulicni agregat i hidr. cilindri;0;0;;0;;0;;0;;0;5;5
+21514;segmenti za testere;0;0;;0;;0;;0;;0;5;5
+27919;busilice ostalo(stalak za busilice...);0;0;;0;;0;;0;;0;5;5
+27993;mlaznice;0;0;;0;;0;;0;;0;5;5
+22193;merne kontrone ploce;0;0;;0;;0;;0;;0;5;5
+2246;uredjaji za merenje tvrdoce,naprslina...;0;0;;0;;0;;0;;0;4;4
+22461;uredjaji za merenje tvrdoce;0;0;;0;;0;;0;;0;5;5
+22462;uredjaji za nerenje naprslina;0;0;;0;;0;;0;;0;5;5
+22313;uredjaji za kontrolu geom. uglova;0;0;;0;;0;;0;;0;5;5
+2797;dizalice i naprave za hvatanje tereta;0;0;;0;;0;;0;;0;4;4
+27971;dizalice;0;0;;0;;0;;0;;0;5;5
+27972;lanci za dizalice;0;0;;0;;0;;0;;0;5;5
+27973;hvataljke za limove;0;0;;0;;0;;0;;0;5;5
+21621;brusevi profilni(na osovinici);0;0;;0;;0;;0;;0;5;5
+21654;platno brusno u rolnama;0;0;;0;;0;;0;;0;5;5
+21641;turpije brusne;0;0;;0;;0;;0;;0;5;5
+21642;belegije;0;0;;0;;0;;0;;0;5;5
+21624;brusevi segmentni;0;0;;0;;0;;0;;0;5;5
+21625;brusni obruci i lonci;0;0;;0;;0;;0;;0;5;5
+21691;drzaci brusnih ploca;0;0;;0;;0;;0;;0;5;5
+2183;rezervni delovi za nosace i plocice;0;0;;0;;0;;0;;0;4;4
+21831;podloske;0;0;;0;;0;;0;;0;5;5
+21832;vijci;0;0;;0;;0;;0;;0;5;5
+21825;nosaci plocica specijalno izredjeni(po crtezu);0;0;;0;;0;;0;;0;5;5
+27942;odvijaci pneumatski;0;0;;0;;0;;0;;0;5;5
+27943;cekici pnumatski;0;0;;0;;0;;0;;0;5;5
+21219;burgije u garnituri;0;0;;0;;0;;0;;0;5;5
+2213;uredjaji za un. merenje(subitori) i satovi;0;0;;0;;0;;0;;0;4;4
+2216;kontrolni prstenovi;0;0;;0;;0;;0;;0;4;4
+22112;visinometri;0;0;;0;;0;;0;;0;5;5
+22115;varomtri;0;0;;0;;0;;0;;0;5;5
+22117;pomicna merila(sestari sipkasti);0;0;;0;;0;;0;;0;5;5
+22125;mikrometri za spoljasnje merenje-sa satom;0;0;;0;;0;;0;;0;5;5
+22126;mikrometri za spoljasnje merenje - za navoj;0;0;;0;;0;;0;;0;5;5
+22127;mikrometri za spoljasnje merenje - za zupcanike;0;0;;0;;0;;0;;0;5;5
+22128;mikrometri za sp. merenje(i unutr.)posebnih obli;0;0;;0;;0;;0;;0;5;5
+22131;ueedji za un. merenje(subitori);0;0;;0;;0;;0;;0;5;5
+22132;merni satovi,komparateri...;0;0;;0;;0;;0;;0;5;5
+22124;mikrometri za spoljasnje merenje - standardni;0;0;;0;;0;;0;;0;5;5
+22129;mikrometri(delovi..);0;0;;0;;0;;0;;0;5;5
+22153;kontrolni cepovi navojni ( colovni navoj );0;0;;0;;0;;0;;0;5;5
+22161;kontrolni navojni prstenovi (mm - navoj);0;0;;0;;0;;0;;0;5;5
+22162;kontrolni navojni prstenovi (colovni navoj);0;0;;0;;0;;0;;0;5;5
+22163;kontrolni prstenovi glatki;0;0;;0;;0;;0;;0;5;5
+231;stezne glave,podeone glave,podeoni stolovi,apara;0;0;;0;;0;;0;;0;3;3
+2311;stezne glave;0;0;;0;;0;;0;;0;4;4
+23111;stezne glave za busenje;0;0;;0;;0;;0;;0;5;5
+23112;stezne glave za struganje;0;0;;0;;0;;0;;0;5;5
+23113;stezne glave ...;0;0;;0;;0;;0;;0;5;5
+23114;stezne glave za rezanje navoja;0;0;;0;;0;;0;;0;5;5
+23115;stezne glave ...............;0;0;;0;;0;;0;;0;5;5
+2312;podeone glave,stolovi,aparati...;0;0;;0;;0;;0;;0;4;4
+23121;podeone glave;0;0;;0;;0;;0;;0;5;5
+23122;podeoni stolovi;0;0;;0;;0;;0;;0;5;5
+23123;podeoni aparati;0;0;;0;;0;;0;;0;5;5
+23124;podeoni diskovi;0;0;;0;;0;;0;;0;5;5
+232;caure za st.glave,trnovi,nosaci alata reduciri,n;0;0;;0;;0;;0;;0;3;3
+2321;caure za st. glave i umetci;0;0;;0;;0;;0;;0;4;4
+23211;caure za stez. glave;0;0;;0;;0;;0;;0;5;5
+23212;umetci za st. glave;0;0;;0;;0;;0;;0;5;5
+2322;reduciri i nastavci;0;0;;0;;0;;0;;0;4;4
+23221;reduciri,borstangle;0;0;;0;;0;;0;;0;5;5
+23222;nastavci;0;0;;0;;0;;0;;0;5;5
+2323;trnovi,nosaci alata..;0;0;;0;;0;;0;;0;4;4
+23231;trnovi;0;0;;0;;0;;0;;0;5;5
+23232;nosaci alata;0;0;;0;;0;;0;;0;5;5
+233;elenenti za stezanje i siljci;0;0;;0;;0;;0;;0;3;3
+2331;elementi za stezanje;0;0;;0;;0;;0;;0;4;4
+2332;siljci i vrhovi za siljke;0;0;;0;;0;;0;;0;4;4
+23311;sape;0;0;;0;;0;;0;;0;5;5
+23312;vijci za stezanje;0;0;;0;;0;;0;;0;5;5
+23313;stezni ulosci za T-zljebove;0;0;;0;;0;;0;;0;5;5
+23314;stezaci kompletni;0;0;;0;;0;;0;;0;5;5
+23315;stezne celjusti;0;0;;0;;0;;0;;0;5;5
+23316;podmetaci i podupiraci;0;0;;0;;0;;0;;0;5;5
+23317;cepovi za centriranje;0;0;;0;;0;;0;;0;5;5
+23321;siljci;0;0;;0;;0;;0;;0;5;5
+23322;vrhovi za siljke;0;0;;0;;0;;0;;0;5;5
+27713;pecati za ukucavanje;0;0;;0;;0;;0;;0;5;5
+27752;rezervni delovi za amalaziranje;0;0;;0;;0;;0;;0;5;5
+22187;etaloni za hrapavost...(rigotest),kontrolu vara;0;0;;0;;0;;0;;0;5;5
+27261;izbijaci..;0;0;;0;;0;;0;;0;5;5
+21833;ostali rezer.delovi za plocice..;0;0;;0;;0;;0;;0;5;5
+2719;ostali alat za hvatanje i stezanje;0;0;;0;;0;;0;;0;4;4
+27191;radle za stezanje stakla;0;0;;0;;0;;0;;0;5;5
+27192;set alalta za vadjenje vijaka;0;0;;0;;0;;0;;0;5;5
+27128;kljucevi kukasti;0;0;;0;;0;;0;;0;5;5
+27732;strugac za sanduke pljosnati i ost.;0;0;;0;;0;;0;;0;5;5
+27733;strugac za sanduke pneumatski;0;0;;0;;0;;0;;0;5;5
+27341;busilice rucne;0;0;;0;;0;;0;;0;5;5
+27283;sestari bravarski;0;0;;0;;0;;0;;0;5;5
+21710;modulna profilna glodala;0;0;;0;;0;;0;;0;5;5
+27984;rezac cevi;0;0;;0;;0;;0;;0;5;5
+2764;sudovi za boju,kadice..,;0;0;;0;;0;;0;;0;4;4
+27985;masina za brusenje parketa;0;0;;0;;0;;0;;0;5;5
+2765;lopatice(spaklne);0;0;;0;;0;;0;;0;4;4
+27994;kantice za podmazivanje;0;0;;0;;0;;0;;0;5;5
+21246;upustaci spec(po crtezu);0;0;;0;;0;;0;;0;5;5
+22324;VISAK;0;0;;0;;0;;0;;0;5;5
+27271;drzalice za cekice;0;0;;0;;0;;0;;0;5;5
+27432;gorionici (breneri) za gas. secenje;0;0;;0;;0;;0;;0;5;5
+27435;aparati za zavarivanje;0;0;;0;;0;;0;;0;5;5
+27433;plemenici i gorionici u garnituri;0;0;;0;;0;;0;;0;5;5
+27437;rezervni delovi za zavarivanje..;0;0;;0;;0;;0;;0;5;5
+22511;reducir ventili;0;0;;0;;0;;0;;0;5;5
+22512;manometar;0;0;;0;;0;;0;;0;5;5
+27232;sekac spicasti;0;0;;0;;0;;0;;0;5;5
+22661;unimetri;0;0;;0;;0;;0;;0;5;5
+27233;sekaci rucni;0;0;;0;;0;;0;;0;5;5
+27213;cekici(ravnjaci);0;0;;0;;0;;0;;0;5;5
+27234;sekaci revolver;0;0;;0;;0;;0;;0;5;5
+27753;klesta za amalaziranje(za signodu);0;0;;0;;0;;0;;0;5;5
+25436;goronik za vadjenje korena vara;0;0;;0;;0;;0;;0;5;5
+27436;gorinik za vadjenje korena vara;0;0;;0;;0;;0;;0;5;5
+27438;klesta varilacka,cekici;0;0;;0;;0;;0;;0;5;5
+27313;turpije okrugle;0;0;;0;;0;;0;;0;5;5
+27986;elktricni frezer za ob. ivica i rez.delovi;0;0;;0;;0;;0;;0;5;5
+27129;kljucevi neiskreci i razni specijalni kljucevi;0;0;;0;;0;;0;;0;5;5
+2291;uredjaj za merenje vibracija;0;0;;0;;0;;0;;0;0;
+21132;glodacke glave sa promenljivim plocicama(MEDISON;0;0;;0;;0;;0;;0;5;5
+21335;glave za rezanje navoja;0;0;;0;;0;;0;;0;5;5
+21261;krune za dubinsko busenje;0;0;;0;;0;;0;;0;5;5
+27241;probijaci;0;0;;0;;0;;0;;0;5;5
+2751;garniture alata(odvijaci,kljucevi,klesta....);0;0;;0;;0;;0;;0;4;4
+2752;torbe za alat,kasete za alat;0;0;;0;;0;;0;;0;4;4
+28;razni pribor i prirucni alat;0;0;;0;;0;;0;;0;2;2
+281;alat-elektro;0;0;;0;;0;;0;;0;3;3
+27439;maske za zavarivanje,stakla...;0;0;;0;;0;;0;;0;5;5
+27987;SEKATOR;0;0;;0;;0;;0;;0;5;5
+27251;oblikaci za nitovanje;0;0;;0;;0;;0;;0;5;5
+27284;dornovi za natezanje;0;0;;0;;0;;0;;0;5;5
+27371;sekire;0;0;;0;;0;;0;;0;5;5
+2767;maske za farbanje;0;0;;0;;0;;0;;0;4;4
+27521;torbe za alat;0;0;;0;;0;;0;;0;5;5
+27522;kasete za alat;0;0;;0;;0;;0;;0;5;5
+27999;razni delovi za hidrauliku......;0;0;;0;;0;;0;;0;5;5
+289;razni alat;0;0;;0;;0;;0;;0;3;3
+22513;merac protoka gasa;0;0;;0;;0;;0;;0;5;5
+27998;razni delovi za alat...(reduktori..);0;0;;0;;0;;0;;0;5;5
+27552;kasete za alat;0;0;;0;;0;;0;;0;5;5
+27133;odvijaci nasadni;0;0;;0;;0;;0;;0;5;5
+27134;odvijaci(garniture raznih odvijaca);0;0;;0;;0;;0;;0;5;5
+21626;brusevi lepezasti(na osovinici);0;0;;0;;0;;0;;0;5;5
+21627;brusevi lamelni-diskovi(LBD);0;0;;0;;0;;0;;0;5;5
+21623;brusevi za spoljasnje brusenje;0;0;;0;;0;;0;;0;5;5
+27422;vakum pumpice;0;0;;0;;0;;0;;0;5;5
+282;gradjevinski,zidarski,molerski alat;0;0;;0;;0;;0;;0;3;3
+2167;alat za ciscenje i brusenje /zicani,policlean,..;0;0;;0;;0;;0;;0;4;4
+21671;alat za ciscenje i brusenje zicani;0;0;;0;;0;;0;;0;5;5
+21672;alat za ciscenje i brusenje policlean;0;0;;0;;0;;0;;0;5;5
+27974;trake zapodizanje i prenos tereta;0;0;;0;;0;;0;;0;5;5
+27975;magneti za podizanje tereta;0;0;;0;;0;;0;;0;5;5
+27932;rez.del.za el.testere;0;0;;0;;0;;0;;0;5;5
+3127;navrke po crtezu;;;;;;;;;;;4;4
+3137;podloske po crtezu;;;;;;;;;;;4;4
+52171;buzir creva,sapa creva,cevi..;0;0;;0;;0;;0;R;0;5;5
+52172;krajnji zavrsci kabla(papucice,hilzne,...);0;0;;0;;0;;0;R;0;5;5
+52174;veziv. materijal za kablove(vezice,obujmice,seln;0;0;;0;;0;;0;R;0;5;5
+52175;oznake( oznake,markeri,natpisne ploce...);0;0;;0;;0;;0;R;0;5;5
+52173;delovi za uvod kabla(uvodnici,reduciri,adapteri,;0;0;;0;;0;;0;R;0;5;5
+52176;konekcije(konektori,stipaljke,prikljucni element;0;0;;0;;0;;0;R;0;5;5
+52177;kabl.razvod(kleme,krajnje i pregr.ploc,separator;0;0;;0;;0;;0;R;0;5;5
+52178;nosaci,drzaci kabla,slep kabal,kabal kolica i de;0;0;;0;;0;;0;R;0;5;5
+52179;kabl. glave,dobosi i ostali elektromontzni mater;0;0;;0;;0;;0;R;0;5;5
+3428;Hidromehanicka opr. (sonde,pretvaraci,meraci...);;;;;;;;;;;4;4
+4544;sper;;;;;;;;;;;4;4
+22188;digitalni uredj. za merenje debljine...;;;;;;;;;;;5;5
+22544;termo-hidro barometri...;;;;;;;;;;;5;5
+2292;uredji za merenje odstupanja(balansiranje);;;;;;;;;;;4;4
+21515;testere za otvore u limu;;;;;;;;;;;5;5
+27929;rezervni delovi za brusilice(pn/el);;;;;;;;;;;5;5
+2293;Uredjai za kontrolu kvaliteta premaza;;;;;;;;;;;4;4
+74134;Razredjivaci za protivpozarne boje;;;;;;;;;;;5;5
+22391;Geodetski instrumenti;;;;;;;;;;;5;5
+2776;Aparati i delovi za spajanje plast. folija;;;;;;;;;;;4;4
+27761;Aparati za spajanje plast. folija;;;;;;;;;;;5;5
+27762;Delovi za aparate za spaj. plast. folia;;;;;;;;;;;5;5
+3154;bolcni;;;;;;;;;;;4;4
+22545;razni uredjaji za merenje temperature;;;;;;;;;;;5;5
+4179;Razne gumene komponente;;;;;;;;;;;4;4
+27144;Navlakaci;;;;;;;;;;;5;5
+2294;uredjai za snimaje (kamere...);;;;;;;;;;;4;4
+2295;uredji za merenje vibracija;;;;;;;;;;;4;4
+11614;cevi pocinkovane;;;;;;;;;;;5;5
+22194;podloske za ivelaciju;;;;;;;;;;;5;5
+5594;rez. delovi,izolazije ,moduli...;;;;;;;;;;;4;4
+21135;glave za razbusivanje;;;;;;;;;;;5;5
+4135;Gajtani gumeni;;;;;;;;;;;4;4
+11295;Sito...;;;;;;;;;;;5;5
+21137;Glodacke glave sa izmenljivim plocicama BDS;;;;;;;;;;;5;5
+21316;Ureznici za slepu prolaznu rupu;;;;;;;;;;;5;5
+21127;glodala vreten. sa drsk. za kovacke kalupe;;;;;;;;;;;5;5
+11293;pletena zica,istegnuti metal,grif platno...;;;;;;;;;;;4;4
+21471;nozevi za makaze;;;;;;;;;;;5;5
+4516;Trupci...;;;;;;;;;;;4;4
+27944;Pnematski iglicari...;;;;;;;;;;;5;5
+2716;Stege,stalci za cevi...;;;;;;;;;;;4;4
+21138;Rezarvni delovi za gl. glave;;;;;;;;;;;5;5
+3138;Podloske-Distanceri;;;;;;;;;;;4;4
+11527;Nosaci,profili po crtezu i komadu;;;;;;;;;;;5;5

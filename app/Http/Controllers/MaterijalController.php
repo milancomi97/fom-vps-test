@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UpdateMaterijalRequest;
 use App\Models\Materijal;
 use Illuminate\Http\Request;
+use PDF;
 
 class MaterijalController extends Controller
 {
@@ -13,19 +14,20 @@ class MaterijalController extends Controller
      */
     public function index()
     {
-        $materijals = Materijal::all();
+        $materijals = Materijal::with('category')->get();
 
         $materijalData = [];
         foreach ($materijals as $materijal) {
             $materijalData[] = [
-                $materijal->category_id,
+                $materijal->category->name,
                 $materijal->sifra_materijala,
                 $materijal->naziv_materijala,
                 $materijal->standard,
                 $materijal->dimenzija,
                 $materijal->tezina,
                 $materijal->sifra_standarda,
-                $materijal->id
+                $materijal->id,
+                $materijal->category->id
             ];
         }
 
@@ -111,5 +113,18 @@ class MaterijalController extends Controller
             ],  404 );
         }
 
+    }
+
+    public function pdfExport(Request $request){
+
+        $materijalIds = explode(',',$request->materijal_ids);
+
+
+
+        $filteredData = Materijal::whereIn('id',$materijalIds)->get();
+        $data =$filteredData->toArray();
+        $pdf = PDF::loadView('pdftemplates.materijal_pdf',compact('data'));
+//        $pdf = PDF::loadView('materijal_pdf',$filteredData);
+       return $pdf->download('materijal_pdf.pdf');
     }
 }

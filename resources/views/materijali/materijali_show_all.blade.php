@@ -62,12 +62,25 @@
                             </div>
                             <div class="col-lg-4 offset-lg-4 offset-sm-0 offset-md-0 col-6 offset-0" style=" display: flex; justify-content: flex-end;">
 
+
+                                <form name="export-pdf-form" id="export-pdf-form" method="post" action="{{url('/materijals_pdf')}}">
+                                    @csrf
+                                        <input type="hidden" id="materijal_ids" name="materijal_ids" class="form-control" >
+                                    <button class="btn btn-secondary" id="export-pdf"><a class="text-light"
+                                                                                         href="#">Export PDF
+                                            &nbsp; &nbsp; <i class="fa fa-file-export" aria-hidden="true"></i>
+                                        </a>
+
+                                    </button>                                </form>
+
+
                                 <button class="btn btn-success"><a class="text-light"
-                                                                   href="{{route('materijal.create')}}">Dodaj materijala
+                                                                   href="{{route('materijal.create')}}">Dodaj materijal
                                         &nbsp; &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
                                     </a>
 
                                 </button>
+
                             </div>
                         </div>
                     </div>
@@ -93,8 +106,6 @@
 
     <script>
         $(document).ready(function () {
-
-
             var table = $('#table_id').DataTable({
                 data: {!! $materijals !!},
                 scrollX: true,
@@ -227,6 +238,17 @@
                 $('.alert-remove').click();
             }
             table.draw();
+
+            $("#export-pdf-form").submit(function (e) {
+                var filteredDataIds = [];
+                var filteredData = table.rows({ filter: 'applied' }).data().toArray();
+                filteredData.forEach(function(rowData) {
+                    filteredDataIds.push(rowData[7]);
+                    }
+                )
+                $("#materijal_ids").val(filteredDataIds);
+                return true;
+            })
         });
 
     </script>
