@@ -66,14 +66,12 @@
                                 <form name="export-pdf-form" id="export-pdf-form" method="post" action="{{url('/materijals_pdf')}}">
                                     @csrf
                                         <input type="hidden" id="materijal_ids" name="materijal_ids" class="form-control" >
-                                    <button class="btn btn-secondary" id="export-pdf"><a class="text-light"
-                                                                                         href="#">Export PDF
+                                    <button class="btn btn-secondary" type="submit" id="export-pdf"><a class="text-light"
+                                                                                        >Export PDF
                                             &nbsp; &nbsp; <i class="fa fa-file-export" aria-hidden="true"></i>
                                         </a>
-
-                                    </button>                                </form>
-
-
+                                    </button>
+                                </form>
                                 <button class="btn btn-success"><a class="text-light"
                                                                    href="{{route('materijal.create')}}">Dodaj materijal
                                         &nbsp; &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>

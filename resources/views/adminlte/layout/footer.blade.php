@@ -3,8 +3,14 @@
 <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
-        <h5>Title</h5>
-        <p>Sidebar content</p>
+        <h5>Podešavnje</h5>
+        <p></p>
+        <p></p>
+        <a href="{{ url('/user/permissions_config') }}"><p>Podešavanje pristupa</p></a>
+        <a href=""> <p>Podešavanje naloga</p></a>
+        <a href=""> <p>Odjavi se</p></a>
+
+
     </div>
 </aside>
 <!-- /.control-sidebar -->

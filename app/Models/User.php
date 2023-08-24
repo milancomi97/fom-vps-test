@@ -41,4 +41,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function permissionOne()
+    {
+        return $this->hasOne(UserPermission::class,'id','user_id');
+    }
+    public function permission()
+    {
+
+        return $this->belongsTo(UserPermission::class,'id','user_id');
+//        return $this->hasOne(UserPermission::class,'id','user_id');
+    }
+
 }

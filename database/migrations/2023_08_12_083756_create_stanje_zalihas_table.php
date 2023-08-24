@@ -29,7 +29,7 @@ return new class extends Migration {
             $table->integer('stanje_kolicina')->nullable();
             $table->integer('stanje_vrednost')->nullable();
             $table->integer('cena')->nullable();
-            $table->foreign('sifra_materijala')->references('sifra_materijala')->on('materijals')->onDelete('cascade');
+//            $table->foreign('sifra_materijala')->references('sifra_materijala')->on('materijals')->onDelete('cascade');
 
             $table->timestamps();
         });

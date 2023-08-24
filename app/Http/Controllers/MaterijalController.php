@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateMaterijalRequest;
 use App\Models\Materijal;
+use App\Models\StanjeZaliha;
 use Illuminate\Http\Request;
 use PDF;
 
@@ -119,11 +120,15 @@ class MaterijalController extends Controller
 
         $materijalIds = explode(',',$request->materijal_ids);
 
-
-
-        $filteredData = Materijal::whereIn('id',$materijalIds)->get();
-        $data =$filteredData->toArray();
-        $pdf = PDF::loadView('pdftemplates.materijal_pdf',compact('data'));
+        $sifra_materijala_ids = Materijal::whereIn('id',$materijalIds)->pluck('sifra_materijala')->all();
+        $filteredData = StanjeZaliha::whereIn('sifra_materijala',$sifra_materijala_ids)->get();
+        $stanjeMaterijala =$filteredData->toArray();
+        // SORTIRAJ PO MAGACINIMA
+        $stanjeMaterijalaSum=[];
+        foreach($stanjeMaterijala as $materijal){
+            $stanjeMaterijalaSum[$materijal['sifra_materijala']]='TEST';
+        }
+        $pdf = PDF::loadView('pdftemplates.materijal_pdf',compact('stanjeMaterijalaSum'));
 //        $pdf = PDF::loadView('materijal_pdf',$filteredData);
        return $pdf->download('materijal_pdf.pdf');
     }

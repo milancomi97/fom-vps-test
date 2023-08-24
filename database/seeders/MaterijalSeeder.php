@@ -24,7 +24,7 @@ class MaterijalSeeder extends Seeder
             try {
                 DB::table('materijals')->insert([
                     'category_id'=>(int)$materijal['GRUPA'],
-                    'sifra_materijala'=>$materijal['SIFRA_Materijala'],
+                    'sifra_materijala'=>(int)$materijal['SIFRA_Materijala'],
                     'naziv_materijala'=>$materijal['NAZIV_Materijala'],
                     'standard'=>$materijal['STANDARD'],
                     'dimenzija'=>$materijal['DIMENZIJA'],

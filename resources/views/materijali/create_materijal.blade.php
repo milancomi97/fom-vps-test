@@ -24,7 +24,7 @@
         <!-- Main content -->
         <div class="content pl-5 pr-5 ">
             <div class="container pl-5 pr-5 border">
-                <h2 class="pb-5 pt-2 text-center">Dodaj poslovnog partnera</h2>
+                <h2 class="pb-5 pt-2 text-center">Dodaj materijal</h2>
                 <div id="errorContainer"></div>
 
                 <form id="create_partner_form">

@@ -24,7 +24,7 @@ class StanjeZalihaSeeder extends Seeder
             try {
                 DB::table('stanje_zalihas')->insert([
                     'magacin_id'=>(int)$data['SM'],
-                    'sifra_materijala'=>$data['SIFRA_Materijala'],
+                    'sifra_materijala'=>(int)$data['SIFRA_Materijala'],
                     'naziv_materijala'=>$data['NAZIV'],
                     'dimenzija'=>$data['DIMENZIJA'],
                     'kvalitet'=>$data['KVALITET'],

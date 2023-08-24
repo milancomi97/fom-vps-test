@@ -23,7 +23,7 @@ return new class extends Migration {
         Schema::create('materijals', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
-            $table->string('sifra_materijala')->nullable();
+            $table->unsignedBigInteger('sifra_materijala')->nullable();
             $table->string('naziv_materijala')->nullable();
             $table->string('standard')->nullable();
             $table->string('dimenzija')->nullable();

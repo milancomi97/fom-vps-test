@@ -42,6 +42,16 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+
+
+        $user->permission()->create([
+            'role_name'=>'Super admin',
+            'user_id'=>$user->id,
+            'osnovni_podaci'=>true,
+            'finansijsko_k'=>true,
+            'materijalno_k'=>true
+        ]);
+
         event(new Registered($user));
 
         Auth::login($user);
