@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
             PartnerSeeder::class,
             CategorySeeder::class,
             StanjeZalihaSeeder::class,
-            MaterijalSeeder::class
+            MaterijalSeeder::class,
+            RadniciSeeder::class
         ]);
 
     }

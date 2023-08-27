@@ -19,8 +19,8 @@ return new class extends Migration
             $table->boolean('materijalno_k')->default(false);
             $table->boolean('pogonsko')->default(false);
             $table->boolean('magacini')->default(false);
-            $table->boolean('osnovna_sredstva')->default(false);
             $table->boolean('kadrovska_evidencija')->default(false);
+            $table->boolean('osnovna_sredstva')->default(false);
             $table->boolean('obracun_zarada')->default(false);
             $table->boolean('tehnologija')->default(false);
             $table->boolean('proizvodnja')->default(false);

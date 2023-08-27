@@ -45,11 +45,9 @@ class RegisteredUserController extends Controller
 
 
         $user->permission()->create([
-            'role_name'=>'Super admin',
+            'role_name'=>'role_name',
             'user_id'=>$user->id,
-            'osnovni_podaci'=>true,
-            'finansijsko_k'=>true,
-            'materijalno_k'=>true
+            'osnovni_podaci'=>false
         ]);
 
         event(new Registered($user));

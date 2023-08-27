@@ -7,8 +7,16 @@
         <p></p>
         <p></p>
         <a href="{{ url('/user/permissions_config') }}"><p>Podešavanje pristupa</p></a>
-        <a href=""> <p>Podešavanje naloga</p></a>
-        <a href=""> <p>Odjavi se</p></a>
+        <a href="{{ url('/user/index') }}"> <p>Podešavanje pristupa radnika</p></a>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+
+                <x-responsive-nav-link :href="route('logout')"
+                                       onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                    {{ __('Odjavi se') }}
+                </x-responsive-nav-link>
+            </form>
 
 
     </div>

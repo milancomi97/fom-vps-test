@@ -36,11 +36,39 @@ class UserConfigController extends Controller
 
         }
         $userPermission->update($permissionData);
-        // TODO RESPONSE TO Users
+        return redirect()->back();
+    }
+    /**
+     * Display a listing of the resource.
+     */
+
+
+    public function index()
+    {
+
+        $users = User::all();
+
+        $userData = [];
+        foreach ($users as $user) {
+            $userData[] = [
+                $user->ime,
+                $user->prezime,
+                $user->email,
+                $user->datum_odlaska,
+                $user->active,
+                $user->id
+            ];
+        }
+
+        return view('users.user_show_all', ['users' => json_encode($userData)]);
     }
 
-    public function showAllUsers(){
 
+    public function permissionsConfigByUserId(Request $request)
+    {
+        $userData =User::with('permission')->find($request->user_id);
+        return view('auth.user-permissions-config', ['userData' => $userData,'permissions'=>$userData->permission]);
     }
+
 
 }

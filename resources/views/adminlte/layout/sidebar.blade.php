@@ -1,4 +1,8 @@
 <!-- Main Sidebar Container -->
+@php
+    $userData=Auth::user()->load(['permission']);
+    $permissions = $userData->permission;
+@endphp
 <aside class="main-sidebar sidebar-light-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{route('dashboard')}}" class="brand-link">
@@ -37,200 +41,211 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item menu">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-circle"></i>
-                        <p>
-                            Osnovni podaci
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('partner.create')}}" class="nav-link">
-                                <i class="fas fa-circle  nav-icon"></i>
-                                <p class="small">Poslovni partneri (kreiraj)</p>
+                @if($permissions->osnovni_podaci)
+                    <li class="nav-item menu">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon far fa-circle"></i>
+                                <p>
+                                    Osnovni podaci
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('partner.index')}}" class="nav-link">
-                                <i class="fas fa-circle  nav-icon"></i>
-                                <p class="small">Poslovni partneri (pregled)</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item menu">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-circle"></i>
-                        <p class="small">
-                            Finansijsko knjigovodstvo
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-circle  nav-icon"></i>
-                                <p>Komitenti - Partneri</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item menu">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-circle"></i>
-                        <p class="small">
-                            Materijalno knjigovodstvo
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{route('partner.create')}}" class="nav-link">
+                                        <i class="fas fa-circle  nav-icon"></i>
+                                        <p class="small">Poslovni partneri (kreiraj)</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('partner.index')}}" class="nav-link">
+                                        <i class="fas fa-circle  nav-icon"></i>
+                                        <p class="small">Poslovni partneri (pregled)</p>
+                                    </a>
+                                </li>
+                            </ul>
+                    </li>
+                @endif
+                @if($permissions->finansijsko_k)
+                    <li class="nav-item menu">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon far fa-circle"></i>
+                            <p class="small">
+                                Finansijsko knjigovodstvo
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p>Komitenti - Partneri</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                @if($permissions->materijalno_k)
+                    <li class="nav-item menu">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon far fa-circle"></i>
+                            <p class="small">
+                                Materijalno knjigovodstvo
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
 
-                        <li class="nav-item">
-                            <a href="{{route('materijal.create')}}" class="nav-link">
-                                <i class="fas fa-circle  nav-icon"></i>
-                                <p class="small">Materijali (kreiraj)</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('materijal.index')}}" class="nav-link">
-                                <i class="fas fa-circle  nav-icon"></i>
-                                <p class="small">Materijali (pregled)</p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="{{route('materijal.create')}}" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Materijali (kreiraj)</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('materijal.index')}}" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Materijali (pregled)</p>
+                                </a>
+                            </li>
 
 
-                    </ul>
-                </li>
-                <li class="nav-item menu">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-circle"></i>
-                        <p>
-                            Magacini
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-circle  nav-icon"></i>
-                                <p>Komitenti - Partneri</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item menu">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-circle"></i>
-                        <p class="small">
-                            Pogonsko knjigovodstvo
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-circle  nav-icon"></i>
-                                <p>Komitenti - Partneri</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item menu">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-circle"></i>
-                        <p>
-                            Osnovna sredstva
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-circle  nav-icon"></i>
-                                <p>Komitenti - Partneri</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item menu">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-circle"></i>
-                        <p>
-                            Kadrovska evidencija
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-circle  nav-icon"></i>
-                                <p>Komitenti - Partneri</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item menu ">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-circle"></i>
-                        <p class="small">
-                            Obračun zarada i naknada
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-circle  nav-icon"></i>
-                                <p>Komitenti - Partneri</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item menu">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-circle"></i>
-                        <p>
-                            Tehnologija
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-circle  nav-icon"></i>
-                                <p>Komitenti - Partneri</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                {{--                <li class="nav-item">--}}
-                {{--                    <a href="#" class="nav-link">--}}
-                {{--                        <i class="nav-icon far fa-circle"></i>--}}
-                {{--                        <p class="small">--}}
-                {{--                            BPZ - Program za obračun nakanada prako zavoda--}}
-                {{--                        </p>--}}
-                {{--                    </a>--}}
-                {{--                </li>--}}
-                <li class="nav-item menu">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon far fa-circle"></i>
-                        <p>
-                            Proizvodnja
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fas fa-circle  nav-icon"></i>
-                                <p>Komitenti - Partneri</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
+                @endif
+                @if($permissions->magacini)
+                    <li class="nav-item menu">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon far fa-circle"></i>
+                            <p>
+                                Magacini
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p>Komitenti - Partneri</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                @if($permissions->pogonsko)
+                    <li class="nav-item menu">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon far fa-circle"></i>
+                            <p class="small">
+                                Pogonsko knjigovodstvo
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p>Komitenti - Partneri</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                @if($permissions->osnovna_sredstva)
+                    <li class="nav-item menu">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon far fa-circle"></i>
+                            <p>
+                                Osnovna sredstva
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p>Komitenti - Partneri</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                @if($permissions->kadrovska_evidencija)
+                    <li class="nav-item menu">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon far fa-circle"></i>
+                            <p>
+                                Kadrovska evidencija
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p>Komitenti - Partneri</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                @if($permissions->obracun_zarada)
+                    <li class="nav-item menu ">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon far fa-circle"></i>
+                            <p class="small">
+                                Obračun zarada i naknada
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p>Komitenti - Partneri</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                @if($permissions->tehnologija)
+                    <li class="nav-item menu">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon far fa-circle"></i>
+                            <p>
+                                Tehnologija
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p>Komitenti - Partneri</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+                @if($permissions->proizvodnja)
+                    <li class="nav-item menu">
+                        <a href="#" class="nav-link active">
+                            <i class="nav-icon far fa-circle"></i>
+                            <p>
+                                Proizvodnja
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p>Komitenti - Partneri</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

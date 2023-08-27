@@ -36,6 +36,9 @@ Route::get('/templatetheme', function () {
 Route::post('/materijals_pdf', [\App\Http\Controllers\MaterijalController::class, 'pdfExport'])->name('profile.edit');
 
 Route::get('/user/permissions_config', [\App\Http\Controllers\Auth\UserConfigController::class, 'permissionsConfig']);
+Route::get('/user/permissions_config_by_user', [\App\Http\Controllers\Auth\UserConfigController::class, 'permissionsConfigByUserId']);
+Route::get('/user/index', [\App\Http\Controllers\Auth\UserConfigController::class, 'index']);
+
 Route::post('/user/permissions_config_update', [\App\Http\Controllers\Auth\UserConfigController::class, 'permissionsUpdate']);
 
 Route::resource("/partner", \App\Http\Controllers\PartnerController::class);

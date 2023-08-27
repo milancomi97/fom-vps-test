@@ -23,7 +23,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" style="font-size: 20px" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                {{Auth::user()->email}}
+                {{Auth::user()->ime}} &nbsp; {{Auth::user()->prezime}} &nbsp;&nbsp;
                 <i class="fas fa-th-large"></i>
             </a>
         </li>
