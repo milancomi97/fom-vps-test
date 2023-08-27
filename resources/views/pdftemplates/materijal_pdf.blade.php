@@ -29,7 +29,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach ($data as $materijal)
+        @foreach ($stanjeMaterijalaSum as $materijal)
             <tr>
                 <td>{{ $materijal['naziv_materijala'] }}</td>
                 <td>{{ $materijal['sifra_materijala'] }}</td>
