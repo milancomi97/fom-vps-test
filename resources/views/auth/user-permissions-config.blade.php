@@ -113,7 +113,7 @@
                     <div class="row pt-5 mb-5">
                         <div class="col-md-12">
                             <div class="float-right">
-                                <a href="{{url('user/index'))}}"> <button type="button" class="btn btn-success">Pregled radnika</button></a>
+                                <a href="{{url('user/index')}}"> <button type="button" class="btn btn-success">Pregled radnika</button></a>
                                 <button type="submit" class="btn btn-primary  ml-2">Sačuvaj izmene</button>
                             </div>
                         </div>
