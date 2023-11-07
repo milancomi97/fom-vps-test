@@ -41,11 +41,10 @@
         <section class="content-header">
             <div class="container-fluid pl-5">
                 <div class="row mb-2 mt-5">
-                    <div class="col-lg-5 ">
-
-                        <h1 class="title-mobile title-tablet title ">Pregled poslovnih partnera</h1>
+                    <div class="col-lg-12 mb-5">
+                        <h1 class="title-mobile title-tablet title text-center ">Pregled poslovnih partnera</h1>
                     </div>
-                    <div class="col-lg-7 ">
+                    <div class="col-lg-12 ">
                         <div class="row">
                             <div class="col-lg-2 col-sm-2 col-3" style=" display: flex; justify-content: flex-start;">
                                 <button class="btn btn-primary"><a class="text-light" target="_blank"
@@ -61,9 +60,8 @@
                                 </button>
                             </div>
                             <div class="col-lg-4 offset-lg-4 offset-sm-0 offset-md-0 col-6 offset-0" style=" display: flex; justify-content: flex-end;">
-
                                 <button class="btn btn-success"><a class="text-light"
-                                                                   href="{{route('partner.create')}}">Dodaj partnera
+                                                                   href="{{route('partner.create')}}">Dodaj novog
                                         &nbsp; &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
                                     </a>
 
@@ -102,7 +100,7 @@
                 language: {
                     search: '<i class="fas fa-search"></i>&nbsp;&nbsp;&nbsp;&nbsp;Pretraga&nbsp;:',
                     info: "_START_ - _END_ od ukupno _TOTAL_ poslovnih partnera",
-                    lengthMenu: "Prikaži &nbsp;&nbsp; _MENU_ &nbsp;&nbsp; poslovnih partnera",
+                    lengthMenu: "Prikaži &nbsp;&nbsp; _MENU_ ",
                     infoFiltered: "(Filtrirano od _MAX_ ukupno poslovnih partnera)",
                     paginate: {
                         first: "Prvi",

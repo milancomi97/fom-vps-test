@@ -18,7 +18,7 @@
 </style>
 {{--<div class="page-break"></div>--}}
 <div class="container">
-    <h1 class="title">Konacan izveštaj materijala</h1>
+    <h1 class="title">Stanje zaliha</h1>
     <table class="table table-bordered">
         <thead>
         <tr>

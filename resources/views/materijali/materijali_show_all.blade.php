@@ -60,7 +60,7 @@
                                         NBS</a>
                                 </button>
                             </div>
-                            <div class="col-lg-4 offset-lg-4 offset-sm-0 offset-md-0 col-6 offset-0" style=" display: flex; justify-content: flex-end;">
+                            <div class="col-lg-4 offset-lg-4 offset-sm-0 offset-md-0 col-6 offset-0" style=" display: flex; justify-content: flex-start;">
 
 
                                 <form name="export-pdf-form" id="export-pdf-form" method="post" action="{{url('/materijals_pdf')}}">
@@ -72,7 +72,7 @@
                                         </a>
                                     </button>
                                 </form>
-                                <button class="btn btn-success"><a class="text-light"
+                                <button class="btn btn-success" style="margin-left: 2em;"><a class="text-light"
                                                                    href="{{route('materijal.create')}}">Dodaj materijal
                                         &nbsp; &nbsp; <i class="fa fa-plus" aria-hidden="true"></i>
                                     </a>

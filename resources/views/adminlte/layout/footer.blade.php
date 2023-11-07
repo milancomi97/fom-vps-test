@@ -3,17 +3,19 @@
 <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
-        <h5>Podešavnje</h5>
+        <h5>Podešavnja</h5>
         <p></p>
         <p></p>
-        <a href="{{ url('/user/permissions_config') }}"><p>Podešavanje pristupa</p></a>
-        <a href="{{ url('/user/index') }}"> <p>Podešavanje pristupa radnika</p></a>
+        <a href="{{ url('/user/permissions_config') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Podešavanje pristupa</p></a>
+        <a href="{{ url('/user/index') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Podešavanje pristupa radnika</p></a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
 
                 <x-responsive-nav-link :href="route('logout')"
                                        onclick="event.preventDefault();
-                                        this.closest('form').submit();">
+                                        this.closest('form').submit();" style="padding-left:0 !important;">
+                    <i class="fa fa-sign-out-alt" aria-hidden="true"></i>
+
                     {{ __('Odjavi se') }}
                 </x-responsive-nav-link>
             </form>

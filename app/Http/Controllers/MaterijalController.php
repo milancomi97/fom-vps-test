@@ -126,7 +126,13 @@ class MaterijalController extends Controller
         // SORTIRAJ PO MAGACINIMA
         $stanjeMaterijalaSum=[];
         foreach($stanjeMaterijala as $materijal){
+
             $stanjeMaterijalaSum[$materijal['sifra_materijala']]='TEST';
+
+
+
+
+
         }
         $pdf = PDF::loadView('pdftemplates.materijal_pdf',compact('stanjeMaterijalaSum'));
 //        $pdf = PDF::loadView('materijal_pdf',$filteredData);

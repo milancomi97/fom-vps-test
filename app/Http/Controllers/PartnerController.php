@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Enums\PartnerFields;
 use App\Models\Partner;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Session;
 
 
@@ -16,6 +18,7 @@ class PartnerController extends Controller
     public function index()
     {
 
+        Log::channel('user_action')->debug('Test custom logger');
         $partners = Partner::all();
 
         $partnerData = [];
