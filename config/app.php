@@ -163,6 +163,8 @@ return [
         /*
          * Application Service Providers...
          */
+        App\Providers\RepositoryServiceProvider::class,
+        App\Providers\ModuleServiceProvider::class,
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,

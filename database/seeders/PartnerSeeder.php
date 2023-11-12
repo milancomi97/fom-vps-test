@@ -15,25 +15,25 @@ class PartnerSeeder extends Seeder
      */
     public function run(): void
     {
-        $partners = $this->getPartnerArray2();
+        $datas = $this->getPartnerArray2();
 
-        foreach ($partners as $partner) {
+        foreach ($datas as $data) {
             DB::table('partners')->insert([
-                'name' => $partner['name'],
-                'email' => $partner['email'],
-                'short_name' => $partner['short_name'],
-                'contact_employee' => $partner['contact_employee'],
-                'pib' => $partner['pib'],
-                'phone' => $partner['phone'],
-                'web_site' =>$partner['web_site'],
-                'sifra_delatnosti' => $partner['sifra_delatnosti'],
-                'odgovorno_lice' => $partner['odgovorno_lice'],
-                'maticni_broj' => $partner['maticni_broj'],
-                'mesto' => $partner['mesto'],
-                'pripada_pdvu' => $partner['pripada_pdvu'] =="1",
-                'active' =>$partner['active'] =="1",
-                'address' => $partner['address'],
-                'internal_sifra' =>$partner['internal_sifra']
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'short_name' => $data['short_name'],
+                'contact_employee' => $data['contact_employee'],
+                'pib' => $data['pib'],
+                'phone' => $data['phone'],
+                'web_site' =>$data['web_site'],
+                'sifra_delatnosti' => $data['sifra_delatnosti'],
+                'odgovorno_lice' => $data['odgovorno_lice'],
+                'maticni_broj' => $data['maticni_broj'],
+                'mesto' => $data['mesto'],
+                'pripada_pdvu' => $data['pripada_pdvu'] =="1",
+                'active' =>$data['active'] =="1",
+                'address' => $data['address'],
+                'internal_sifra' =>$data['internal_sifra']
 
             ]);
         }
@@ -44,42 +44,42 @@ class PartnerSeeder extends Seeder
     {
         $file = Storage::disk('local')->readStream('backup/PoslovniPartneri.csv');
         if ($file !== false) {
-            $partners = [];
+            $datas = [];
             while (($row = fgetcsv($file)) !== false) {
-                $partners[] = $row;
+                $datas[] = $row;
             }
             fclose($file);
 
             // Use the $data array as needed
-            print_r($partners);
+            print_r($datas);
         } else {
             echo "Failed to open the CSV file.";
         }
 
-        $partnerDataArray = [];
-        foreach ($partners as $key => $partner) {
+        $dataDataArray = [];
+        foreach ($datas as $key => $data) {
 
             if ($key == 0) {
                 continue;
             } else {
-                $partnerData = (explode(";", $partner[0]));
+                $dataData = (explode(";", $data[0]));
 
-                foreach ($partnerData as $keyPartner => $partnerField) {
+                foreach ($dataData as $keyPartner => $dataField) {
 
-                    $columnNames = explode(";", $partners[0][0]);
+                    $columnNames = explode(";", $datas[0][0]);
 
                     try {
-                        $partnerDataArray[$key][$columnNames[$keyPartner]] = $partnerField;
+                        $dataDataArray[$key][$columnNames[$keyPartner]] = $dataField;
                     } catch (\Exception $exception){
 
                     }
 
-//                        $partnerDataArray[$key][$columnNames[$keyPartner]] = $partnerField;
+//                        $dataDataArray[$key][$columnNames[$keyPartner]] = $dataField;
                 }
             }
         }
 
-        return $partnerDataArray;
+        return $dataDataArray;
     }
 
 
