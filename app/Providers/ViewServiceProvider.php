@@ -28,7 +28,7 @@ class ViewServiceProvider extends ServiceProvider
             $path = Str::before($dir, "\\$modelClassName");
             $this->loadViewsFrom("$path\\".$modelClassName.'\views',Str::lower($modelClassName));
 
-            view()->composerobra('*', function ($view) {
+            view()->composer('*', function ($view) {
                 $view->with('permissions',
                     Auth::user()->load(['permission'])->permission);
             });
