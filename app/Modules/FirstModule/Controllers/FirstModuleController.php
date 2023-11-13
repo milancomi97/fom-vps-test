@@ -7,9 +7,7 @@ use App\Models\FirstModule;
 use App\Modules\FirstModule\Repository\FirstModuleRepositoryInterface;
 use App\Modules\FirstModule\Service\EfaktureSubmitService;
 use Illuminate\Http\Request;
-use GuzzleHttp\Psr7\Request as RequestGuzzle;
 use GuzzleHttp\Client;
-use SimpleXMLElement;
 
 class FirstModuleController extends Controller
 {

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Modules\FirstModule\Controllers\FirstModuleController;
+use App\Modules\Obracunzarada\Controllers\ObracunZaradaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +47,12 @@ Route::resource("/partner", \App\Http\Controllers\PartnerController::class);
 Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
 
 
+Route::middleware('auth')->group(function () {
+    Route::get('obracunzarada/index', [ObracunZaradaController::class, 'index']);
+    Route::resource('firstmodule', FirstModuleController::class);
+    Route::post('getNbsData',[FirstModuleController::class,'sendSoapRequest']);
+
+});
 
 
 require __DIR__.'/auth.php';

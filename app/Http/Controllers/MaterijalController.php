@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateMaterijalRequest;
 use App\Models\Materijal;
 use App\Models\StanjeZaliha;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class MaterijalController extends Controller

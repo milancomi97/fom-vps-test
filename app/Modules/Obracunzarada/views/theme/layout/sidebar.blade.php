@@ -1,7 +1,8 @@
 <!-- Main Sidebar Container -->
 @php
-    $userData=Auth::user()->load(['permission']);
-    $permissions = $userData->permission;
+
+//$permissions = app/Providers/ModuleServiceProvider.php:34
+
 @endphp
 <aside class="main-sidebar sidebar-light-primary elevation-4">
     <!-- Brand Logo -->

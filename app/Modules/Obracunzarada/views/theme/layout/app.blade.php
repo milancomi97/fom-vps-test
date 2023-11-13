@@ -20,15 +20,17 @@
     @yield('custom-styles')
 </head>
 <style>
-    html {zoom: 83% !important;}
+    html {
+        zoom: 83% !important;
+    }
 </style>
 
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-    @include('adminlte.layout.header')
-    @include('adminlte.layout.sidebar')
+    @include('obracunzarada::theme.layout.header')
+    @include('obracunzarada::theme.layout.sidebar')
     @yield('content')
-    @include('adminlte.layout.footer')
+    @include('obracunzarada::theme.layout.footer')
 
 
 </div>

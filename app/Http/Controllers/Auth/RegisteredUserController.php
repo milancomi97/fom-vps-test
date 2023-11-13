@@ -47,7 +47,9 @@ class RegisteredUserController extends Controller
         $user->permission()->create([
             'role_name'=>'role_name',
             'user_id'=>$user->id,
-            'osnovni_podaci'=>false
+            'osnovni_podaci'=>true,
+            'obracun_zarada'=>true,
+            'kadrovska_evidencija'=>true
         ]);
 
         event(new Registered($user));
