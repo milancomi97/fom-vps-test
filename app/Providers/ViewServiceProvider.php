@@ -21,10 +21,16 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        foreach (glob(base_path('app/Modules/*')) ?: [] as $dir) {
+        foreach (glob(base_path('app\Modules\*')) ?: [] as $dir) {
+//      LINUX      foreach (glob(base_path('app/Modules/*')) ?: [] as $dir) {
             $modelClassName = class_basename($dir);
             $path = Str::before($dir, "\\$modelClassName");
-            $this->loadViewsFrom($path.'/views',Str::lower($modelClassName));
+            $this->loadViewsFrom("$path\\".$modelClassName.'\views',Str::lower($modelClassName));
+
+            view()->composer('*', function ($view) {
+                $view->with('permissions',
+                    Auth::user()->load(['permission'])->permission);
+            });
 
 //            $this->publishes([
 //                "$path\\".$modelClassName.'\views' => resource_path('views\vendor\\'.Str::lower($modelClassName)),
