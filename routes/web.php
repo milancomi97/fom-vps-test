@@ -46,8 +46,6 @@ Route::resource("/partner", \App\Http\Controllers\PartnerController::class);
 Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
 
 
-Route::resource('firstmodule', FirstModuleController::class);
-Route::post('getNbsData',[FirstModuleController::class,'sendSoapRequest']);
 
 
 require __DIR__.'/auth.php';
