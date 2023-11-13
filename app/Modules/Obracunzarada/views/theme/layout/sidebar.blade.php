@@ -2,7 +2,7 @@
 @php
 
 //$permissions = app/Providers/ModuleServiceProvider.php:34
-
+$permissions = Auth::user()->load(['permission'])->permission;
 @endphp
 <aside class="main-sidebar sidebar-light-primary elevation-4">
     <!-- Brand Logo -->

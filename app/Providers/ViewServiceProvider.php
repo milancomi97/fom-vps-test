@@ -36,10 +36,12 @@ class ViewServiceProvider extends ServiceProvider
 
             $this->loadViewsFrom($path.'/views',Str::lower($modelClassName));
 
-            view()->composer('*', function ($view) {
-                $view->with('permissions',
-                    Auth::user()->load(['permission'])->permission);
-            });
+//            if(Auth::user()){
+//            view()->composer('*', function ($view) {
+//                $view->with('permissions',
+//                    Auth::user()->load(['permission'])->permission);
+//            });
+//            }
 
 //            $this->publishes([
 //                "$path\\".$modelClassName.'\views' => resource_path('views\vendor\\'.Str::lower($modelClassName)),
