@@ -32,8 +32,9 @@ class ViewServiceProvider extends ServiceProvider
 
            // LINUX            $this->loadViewsFrom($path.'/views',Str::lower($modelClassName));
 // WINDOWS            $this->loadViewsFrom("$path\\".$modelClassName.'\views',Str::lower($modelClassName));
-            $this->loadViewsFrom($path.'/views',Str::lower($modelClassName));
             Log::channel('vps_debug')->debug('$viewPath:'.$path.'/views');
+
+            $this->loadViewsFrom($path.'/views',Str::lower($modelClassName));
 
             view()->composer('*', function ($view) {
                 $view->with('permissions',
