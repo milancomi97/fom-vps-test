@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Modules\FirstModule\Controllers\FirstModuleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,5 +44,10 @@ Route::post('/user/permissions_config_update', [\App\Http\Controllers\Auth\UserC
 
 Route::resource("/partner", \App\Http\Controllers\PartnerController::class);
 Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
+
+
+Route::resource('firstmodule', FirstModuleController::class);
+Route::post('getNbsData',[FirstModuleController::class,'sendSoapRequest']);
+
 
 require __DIR__.'/auth.php';
