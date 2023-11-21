@@ -102,25 +102,25 @@ class PartnerController extends Controller
     public function update(Request $request, Partner $partner)
     {
         $input = $request->all();
-            $partner->update([
-                PartnerFields::FIELD_ADDRESS->value => $input[PartnerFields::FIELD_ADDRESS->value],
-                PartnerFields::FIELD_CONTACT_EMPLOYEE->value => $input[PartnerFields::FIELD_CONTACT_EMPLOYEE->value],
-                PartnerFields::FIELD_EMAIL->value => $input[PartnerFields::FIELD_EMAIL->value],
-                PartnerFields::FIELD_MATICNI_BROJ->value => $input[PartnerFields::FIELD_MATICNI_BROJ->value],
-                PartnerFields::FIELD_MESTO->value => intval($input[PartnerFields::FIELD_MESTO->value]),
-                PartnerFields::FIELD_NAME->value => $input[PartnerFields::FIELD_NAME->value],
-                PartnerFields::FIELD_ODGOVORNO_LICE->value => $input[PartnerFields::FIELD_ODGOVORNO_LICE->value],
-                PartnerFields::FIELD_PHONE->value => $input[PartnerFields::FIELD_PHONE->value],
+        $partner->update([
+            PartnerFields::FIELD_ADDRESS->value => $input[PartnerFields::FIELD_ADDRESS->value],
+            PartnerFields::FIELD_CONTACT_EMPLOYEE->value => $input[PartnerFields::FIELD_CONTACT_EMPLOYEE->value],
+            PartnerFields::FIELD_EMAIL->value => $input[PartnerFields::FIELD_EMAIL->value],
+            PartnerFields::FIELD_MATICNI_BROJ->value => $input[PartnerFields::FIELD_MATICNI_BROJ->value],
+            PartnerFields::FIELD_MESTO->value => intval($input[PartnerFields::FIELD_MESTO->value]),
+            PartnerFields::FIELD_NAME->value => $input[PartnerFields::FIELD_NAME->value],
+            PartnerFields::FIELD_ODGOVORNO_LICE->value => $input[PartnerFields::FIELD_ODGOVORNO_LICE->value],
+            PartnerFields::FIELD_PHONE->value => $input[PartnerFields::FIELD_PHONE->value],
 //                PartnerFields::FIELD_PIB->value => $input[PartnerFields::FIELD_PIB->value],
-                PartnerFields::FIELD_PRIPADA_PDVU->value => $input[PartnerFields::FIELD_PRIPADA_PDVU->value] == 'true',
-                PartnerFields::FIELD_SHORTNAME->value => $input[PartnerFields::FIELD_SHORTNAME->value],
-                PartnerFields::FIELD_SIFRA_DELATNOSTI->value => $input[PartnerFields::FIELD_SIFRA_DELATNOSTI->value],
-                PartnerFields::FIELD_WEB_SITE->value => $input[PartnerFields::FIELD_WEB_SITE->value],
-                PartnerFields::FIELD_ADDRESS->value => $input[PartnerFields::FIELD_ADDRESS->value],
-                PartnerFields::FIELD_ACTIVE->value => $input[PartnerFields::FIELD_ACTIVE->value] == 'true'
+            PartnerFields::FIELD_PRIPADA_PDVU->value => $input[PartnerFields::FIELD_PRIPADA_PDVU->value] == 'true',
+            PartnerFields::FIELD_SHORTNAME->value => $input[PartnerFields::FIELD_SHORTNAME->value],
+            PartnerFields::FIELD_SIFRA_DELATNOSTI->value => $input[PartnerFields::FIELD_SIFRA_DELATNOSTI->value],
+            PartnerFields::FIELD_WEB_SITE->value => $input[PartnerFields::FIELD_WEB_SITE->value],
+            PartnerFields::FIELD_ADDRESS->value => $input[PartnerFields::FIELD_ADDRESS->value],
+            PartnerFields::FIELD_ACTIVE->value => $input[PartnerFields::FIELD_ACTIVE->value] == 'true'
 //                PartnerFields::FIELD_INTERNAL_SIFRA->value => $input[PartnerFields::FIELD_INTERNAL_SIFRA->value]
-            ]);
-            Session::flash('message', 'Partner:  ' . $partner->name . '  je uspešno izmenjen.');
+        ]);
+        Session::flash('message', 'Partner:  ' . $partner->name . '  je uspešno izmenjen.');
     }
 
     /**

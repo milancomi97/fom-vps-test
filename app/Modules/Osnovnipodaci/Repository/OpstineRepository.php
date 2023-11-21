@@ -16,4 +16,14 @@ class OpstineRepository extends BaseRepository implements OpstineRepositoryInter
     {
         parent::__construct($model);
     }
+
+    public function getSelectOptionData(){
+        $data= $this->getAll();
+        $resultCollection = $data->map(function ($item) {
+            $newValue = $item['sifra_drzave'] . ' ' . $item['naziv_opstine'];
+
+            return $item['id'] = $newValue;
+        });
+        return $resultCollection->toArray();
+    }
 }

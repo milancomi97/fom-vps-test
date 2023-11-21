@@ -16,4 +16,11 @@ class PodaciofirmiRepository extends BaseRepository implements PodaciofirmiRepos
     {
         parent::__construct($model);
     }
+
+    public function createCompany(array $data){
+           $data['obaveznik_revizije'] = ($data['obaveznik_revizije'] ?? '')  =='on';
+           $data['status'] = ($data['status'] ?? '') =='on';
+
+           return $this->create($data);
+    }
 }

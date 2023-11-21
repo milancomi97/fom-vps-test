@@ -208,7 +208,7 @@
                     <div class="row pt-5 mb-5">
                         <div class="col-md-12">
                             <div class="float-right">
-                                <a href="{{route('partner.index')}}"> <button type="button" class="btn btn-success">Nazad</button></a>
+                                <a href="{{route('radnici.index')}}"> <button type="button" class="btn btn-success">Nazad</button></a>
                                 <button type="submit" class="btn btn-primary dodaj_partnera ml-2">Sačuvaj partnera</button>
                             </div>
                         </div>
@@ -259,7 +259,7 @@
                     data.push({name: 'active', value: active});
 
                     $.ajax({
-                        url: '{{ route('partner.store') }}', // Replace with your server URL
+                        url: '{{ route('radnici.store') }}', // Replace with your server URL
                         type: 'POST', // Use POST method to send data
                         data: $.param(data),
                         success: function (response) {
@@ -284,7 +284,7 @@
                                     }
                                 });
                             }else{
-                                window.location.href = '{{route('partner.index')}}'
+                                window.location.href = '{{route('radnici.index')}}'
                             }
 
                         },

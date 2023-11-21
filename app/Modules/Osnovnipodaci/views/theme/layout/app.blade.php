@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="sr">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,12 +25,12 @@
     }
 </style>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini sidebar-collapse">
 <div class="wrapper">
-    @include('obracunzarada::theme.layout.header')
-    @include('obracunzarada::theme.layout.sidebar')
+    @include('osnovnipodaci::theme.layout.header')
+    @include('osnovnipodaci::theme.layout.sidebar')
     @yield('content')
-    @include('obracunzarada::theme.layout.footer')
+    @include('osnovnipodaci::theme.layout.footer')
 
 
 </div>

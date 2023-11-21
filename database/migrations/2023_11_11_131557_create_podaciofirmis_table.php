@@ -21,9 +21,8 @@ return new class extends Migration
             $table->string('pravna_forma', 30)->nullable();
             $table->integer('maticni_broj')->nullable();
             $table->date('datum_osnivanja')->nullable();
-            $table->string('adresa_sedista', 5)->nullable();
-            $table->string('naziv_opstine', 50)->nullable();
-            $table->integer('sifra_opstine')->nullable();
+            $table->string('adresa_sedista', 50)->nullable();
+            $table->unsignedBigInteger('opstina_id')->nullable();
             $table->string('ulica_broj_slovo', 50)->nullable();
             $table->integer('broj_poste')->nullable();
             $table->integer('pib')->nullable();
@@ -36,9 +35,9 @@ return new class extends Migration
             $table->string('internet_adresa', 50)->nullable();
             $table->string('zakonski_zastupnik_ime_prezime', 50)->nullable();
             $table->string('zakonski_zastupnik_funkcija', 50)->nullable();
-            $table->string('zakonski_zastupnik_jmbg', 13)->nullable();
-            $table->string('obveznik_revizije', 2)->nullable();
-            $table->string('velicina_po_razvrstavanju', 1)->nullable();
+            $table->string('zakonski_zastupnik_jmbg', 50)->nullable();
+            $table->boolean('obaveznik_revizije')->nullable();
+            $table->string('velicina_po_razvrstavanju', 50)->nullable();
             $table->timestamps();
         });
     }

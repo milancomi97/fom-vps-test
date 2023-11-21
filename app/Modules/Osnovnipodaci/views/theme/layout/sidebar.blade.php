@@ -1,8 +1,8 @@
 <!-- Main Sidebar Container -->
 @php
 
-//$permissions = app/Providers/ModuleServiceProvider.php:34
-
+    $userData=Auth::user()->load(['permission']);
+    $permissions = $userData->permission;
 @endphp
 <aside class="main-sidebar sidebar-light-primary elevation-4">
     <!-- Brand Logo -->
@@ -53,17 +53,50 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
+                                    <a href="{{route('firmapodaci.view')}}" class="nav-link">
+                                        <i class="fas fa-circle  nav-icon"></i>
+                                        <p>Podaci o firmi</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link ml-3" >
+                                        <p>Poslovni partneri</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
                                     <a href="{{route('partner.create')}}" class="nav-link">
                                         <i class="fas fa-circle  nav-icon"></i>
-                                        <p class="small">Poslovni partneri (kreiraj)</p>
+                                        <p class="small">Unos poslovnog partnera</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('partner.index')}}" class="nav-link">
                                         <i class="fas fa-circle  nav-icon"></i>
-                                        <p class="small">Poslovni partneri (pregled)</p>
+                                        <p class="small">Pregled poslovnih partnera</p>
                                     </a>
                                 </li>
+
+                                <li class="nav-item ">
+                                    <a href="#" class="nav-link ml-3">
+                                        <p >Radnici</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('radnici.create')}}" class="nav-link">
+                                        <i class="fas fa-circle  nav-icon"></i>
+                                        <p class="small">Unos radnika</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{route('radnici.index')}}" class="nav-link">
+                                        <i class="fas fa-circle  nav-icon"></i>
+                                        <p class="small">Pregled radnika</p>
+                                    </a>
+                                </li>
+
+
                             </ul>
                     </li>
                 @endif

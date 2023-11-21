@@ -18,8 +18,7 @@ class Podaciofirmi extends Model
         'maticni_broj',
         'datum_osnivanja',
         'adresa_sedista',
-        'naziv_opstine',
-        'sifra_opstine',
+        'opstina_id',
         'ulica_broj_slovo',
         'broj_poste',
         'pib',
@@ -33,7 +32,7 @@ class Podaciofirmi extends Model
         'zakonski_zastupnik_ime_prezime',
         'zakonski_zastupnik_funkcija',
         'zakonski_zastupnik_jmbg',
-        'obveznik_revizije',
+        'obaveznik_revizije',
         'velicina_po_razvrstavanju'
     ];
 }

@@ -16,10 +16,8 @@ return new class extends Migration
             $table->integer('interni_maticni_broj')->nullable();
             $table->string('ime')->nullable();
             $table->string('prezime')->nullable();
-            $table->string('srednje_ime', 15)->nullable();
-            $table->string('name')->nullable();
+            $table->string('srednje_ime', 255)->nullable();
             $table->string('slika_zaposlenog', 255)->nullable();
-            $table->string('datum_odlaska')->nullable();
             $table->string('maticni_broj')->nullable();
             $table->string('troskovno_mesto')->nullable();
             $table->boolean('active')->nullable();
@@ -27,10 +25,10 @@ return new class extends Migration
             $table->string('jmbg', 13)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->string('telefon_poslovni', 30)->nullable();
+            $table->string('telefon_poslovni', 255)->nullable();
             $table->rememberToken();
-            $table->string('licna_karta_broj_mesto_rodjenja', 40)->nullable();
-            $table->string('adresa_ulica_broj', 50)->nullable();
+            $table->string('licna_karta_broj_mesto_rodjenja', 255)->nullable();
+            $table->string('adresa_ulica_broj', 255)->nullable();
             $table->unsignedBigInteger('opstina_id')->comment('Relacija opstine')->nullable();
             $table->unsignedBigInteger('drzava_id')->comment('Relacija drzava')->nullable();
             $table->unsignedBigInteger('sifra_mesta_troska_id')->comment('Relacija organizacione jedinice')->nullable();

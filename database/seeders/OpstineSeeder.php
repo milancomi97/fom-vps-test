@@ -13,15 +13,16 @@ class OpstineSeeder extends Seeder
         $datas = $this->getDataFromCsv();
 
         foreach ($datas as $data) {
-            DB::table('categories')->insert([
-
+            DB::table('opstines')->insert([
+                'naziv_opstine' => $data['naziv_opstine'],
+                'sifra_drzave' =>  $data['sifra'],
+                'sifra_opstine' => $data['sifra_sa_kontrolnim_brojem']
             ]);
         }
-
     }
 
     public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/GRU.csv');
+        $filePath = storage_path('app/backup/sifarnik_opstina.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

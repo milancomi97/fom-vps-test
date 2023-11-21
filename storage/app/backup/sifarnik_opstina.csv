@@ -1,0 +1,197 @@
+redni_broj;naziv_opstine;sifra;sifra_sa_kontrolnim_brojem
+1;Ada;201;77-201
+2;Aleksandrovac;1;95-001
+3;Aleksinac;2;92-002
+4;Alibunar;202;74-002
+5;Apatin;203;71-203
+6;Aranđelovac;3;89-003
+7;Arilje;4;86-004
+8;Babušnica;6;80-006
+9;Bajina Bašta;7;77-007
+10;Barajevo;10;68-010
+11;Batočina;8;74-008
+12;Bač;204;68-204
+13;Bačka Palanka;205;65-205
+14;Bačka Topola;206;62-206
+15;Bački Petrovac;207;59-207
+16;Bela Palanka;9;71-009
+17;Bela Crkva;209;53-209
+18;Beočin;210;50-210
+19;Bečej;208;56-208
+20;Blace;23;29-023
+21;Bogatić;24;26-024
+22;Bojnik;25;23-025
+23;Boljevac;26;20-026
+24;Bor;27;17-027
+25;Bosilegrad;28;14-028
+26;Brus;29;11-029
+27;Bujanovac;30;08-030
+28;Valjevo;107;68-107
+29;Varvarin;108;65-108
+30;Velika Plana;109;62-109
+31;Veliko Gradište;110;59-110
+32;Vitina;321;08-321
+33;Vladimirci;112;53-112
+34;Vladičin Han;111;56-111
+35;Vlasotince;113;50-113
+36;Voždovac;19;41-019
+37;Vranje;114;47-114
+38;Vračar;20;38-020
+39;Vrbas;240;57-240
+40;Vrnjačka Banja;115;44-115
+41;Vršac;241;54-241
+42;Vučitrn;322;05-322
+43;Gadžin Han;39;78-039
+44;Glogovac;304;59-304
+45;Gnjilane;305;56-305
+46;Golubac;40;75-040
+47;Gora;331;75-331
+48;Gornji Milanovac;41;72-041
+49;Grocka;12;62-012
+50;Despotovac;36;87-036
+51;Dečani;301;68-301
+52;Dimitrovgrad;37;84-037
+53;Doljevac;38;81-038
+54;Đakovica;303;62-303
+55;Žabalj;243;48-243
+56;Žabari;117;38-117
+57;Žagubica;118;35
+58;Žitište;244;45
+59;Žitorađa;119;32
+60;Zaječar;116;41
+61;Zvezdara;22;32
+62;Zvečan;330;78
+63;Zemun;21;35
+64;Zrenjanin;242;51
+65;Zubin Potok;324;96
+66;Ivanjica;42;69
+67;Inđija;212;44
+68;Irig;213;41
+69;Istok;306;53
+70;Jagodina;96;4
+71;Kanjiža;214;38
+72;Kačanik;307;50
+73;Kikinda;215;35
+74;Kladovo;43;66
+75;Klina;308;47
+76;Knić;44;63
+77;Knjaževac;45;60
+78;Kovačica;216;32
+79;Kovin;217;29
+80;Kosjerić;48;51
+81;Kosovo Polje;328;84
+82;Kosovska Kamenica;309;44
+83;Kosovska Mitrovica;310;41
+84;Koceljeva;46;57
+85;Kragujevac;49;48
+86;Kraljevo;50;45
+87;Krupanj;51;42
+88;Kruševac;52;39
+89;Kula;218;26
+90;Kuršumlija;54;33
+91;Kučevo;53;36
+92;Lazarevac;56;27
+93;Lajkovac;55;30
+94;Lapovo;121;26
+95;Lebane;57;24
+96;Leposavić;311;38
+97;Leskovac;58;21
+98;Lipljan;312;35
+99;Loznica;59;18
+100;Lučani;60;15
+101;Ljig;61;12
+102;Ljubovija;62;9
+103;Majdanpek;63;6
+104;Mali Zvornik;65;97
+105;Mali Iđoš;219;23
+106;Malo Crniće;66;94
+107;Medveđa;67;91
+108;Mediana;128;5
+109;Merošina;68;88
+110;Mionica;69;85
+111;Mladenovac;70;82
+112;Negotin;72;76
+113;Niška Banja;122;23
+114;Nova Varoš;74;70
+115;Nova Crnja;220;20
+116;Novi Beograd;13;59
+117;Novi Bečej;221;17
+118;Novi Kneževac;222;14
+119;Novi Pazar;75;67
+120;Novi Sad;223;11
+121;Novo Brdo;329;81
+122;Obilić;327;87
+123;Obrenovac;14;56
+124;Opovo;225;5
+125;Orahovac;313;32
+126;Osečina;76;64
+127;Odžaci;224;8
+128;Palilula;15;53
+129;Palilula (Niš);127;8
+130;Pantelej;125;14
+131;Pančevo;226;2
+132;Paraćin;77;61
+133;Petrovaradin;247;36
+134;Petrovac na Mlavi;78;58
+135;Peć;314;29
+136;Pećinci;227;96
+137;Pirot;79;55
+138;Plandište;228;93
+139;Podujevo;315;26-315
+140;Požarevac;80;52-080
+141;Požega;81;49-081
+142;Preševo;82;46-082
+143;Priboj na Limu;83;43-083
+144;Prizren;317;20-317
+145;Prijepolje;84;40-084
+146;Priština;316;23-316
+147;Prokuplje;85;37-085
+148;Ražanj;88;28-088
+149;Rakovica;120;29-120
+150;Rača;86;34-086
+151;Raška;87;31-087
+152;Rekovac;89;25-089
+153;Ruma;229;90-229
+154;Savski venac;16;50-016
+155;Svilajnac;97;98-097
+156;Svrljig;98;95-098
+157;Senta;231;84-231
+158;Sečanj;230;87-230
+159;Sjenica;91;19-091
+160;Smederevo;92;16-092
+161;Smederevska Palanka;93;13-093
+162;Sokobanja;94;10-094
+163;Sombor;232;81-232
+164;Sopot;17;47-017
+165;Srbica;318;17-318
+166;Srbobran;233;78-233
+167;Sremska Mitrovica;234;75-234
+168;Sremski Karlovci;250;27-250
+169;Stara Pazova;235;72-235
+170;Stari grad;18;44-018
+171;Stragari;123;20-123
+172;Subotica;236;69-236
+173;Suva Reka;319;14-319
+174;Surdulica;95;07-095
+175;Surčin;124;17-124
+176;Temerin;238;63-238
+177;Titel;239;60-239
+178;Topola;101;86-101
+179;Trgovište;102;83-102
+180;Trstenik;103;80-103
+181;Tutin;104;77-104
+182;Ćićevac;32;02-032
+183;Ćuprija;33;96-033
+184;Ub;105;74-105
+185;Užice;100;89-100
+186;Uroševac;320;11-320
+187;Crveni krst;126;11-126
+188;Crna Trava;31;05-031
+189;Čajetina;35;90-035
+190;Čačak;34;93-034
+191;Čoka;211;47-211
+192;Čukarica;11;65-011
+193;Šabac;99;92-099
+194;Šid;237;66-237
+195;Štimlje;325;93-325
+196;Štrpce;326;90-326

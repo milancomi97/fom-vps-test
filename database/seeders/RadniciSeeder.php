@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Seeder;
@@ -27,7 +28,7 @@ class RadniciSeeder extends Seeder
                 'active' => (bool)$radnik['Aktivan'],
                 'ime' => $radnik['Ime'],
                 'prezime' => $radnik['Prezime'],
-                'datum_odlaska' => $radnik['Datum_odlaska'],
+                'datum_prestanka_radnog_odnosa' => $radnik['Datum_odlaska'] == '' ? null : Carbon::createFromFormat('m/d/Y', $radnik['Datum_odlaska'])->format('Y-m-d'),
                 'troskovno_mesto' => $radnik['trosk_mesto'],
                 'maticni_broj' => $radnik['mat_broj'],
                 'email' => $radnik['mat_broj'] . $radnik['Ime'] . '@fom.com',

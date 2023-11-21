@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Modules\FirstModule\Controllers\FirstModuleController;
 use App\Modules\Obracunzarada\Controllers\ObracunZaradaController;
+use App\Modules\Osnovnipodaci\Controllers\FirmaController;
+use App\Modules\Osnovnipodaci\Controllers\RadniciController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,7 +54,34 @@ Route::middleware('auth')->group(function () {
     Route::resource('firstmodule', FirstModuleController::class);
     Route::post('getNbsData',[FirstModuleController::class,'sendSoapRequest']);
 
+
+
+
+    //** Osnovni podaci  */
+    // Radnici
+    Route::get('osnovnipodaci/radnici/index',[RadniciController::class,'index'])->name('radnici.index');
+
+    Route::get('osnovnipodaci/radnici/create',[RadniciController::class,'create'])->name('radnici.create');
+    Route::post('osnovnipodaci/radnici/store',[RadniciController::class,'store'])->name('radnici.store');
+    Route::get('osnovnipodaci/radnici/{radnikId}/edit',[RadniciController::class,'edit'])->name('radnici.edit');
+    Route::post('osnovnipodaci/radnici/{radnikId}/update',[RadniciController::class,'update'])->name('radnici.update');
+
+
+    // Firma podaci
+    Route::get('osnovnipodaci/firmapodaci/index',[FirmaController::class,'view'])->name('firmapodaci.view');
+    Route::get('osnovnipodaci/firmapodaci/edit',[FirmaController::class,'edit'])->name('firmapodaci.edit');
+    Route::post('osnovnipodaci/firmapodaci/update',[FirmaController::class,'update'])->name('firmapodaci.update');
+
+
+
+
+
+
 });
+
+
+
+
 
 
 require __DIR__.'/auth.php';

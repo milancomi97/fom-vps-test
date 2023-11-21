@@ -216,7 +216,7 @@
                     <div class="row pt-5 mb-5">
                         <div class="col-md-12">
                             <div class="float-right">
-                                <a href="{{route('partner.index')}}"> <button type="button" class="btn btn-success">Nazad</button></a>
+                                <a href="{{route('radnici.index')}}"> <button type="button" class="btn btn-success">Nazad</button></a>
                                 <button type="submit" class="btn btn-primary izmeni_partnera ml-2">Sačuvaj izmene</button>
                             </div>
                         </div>
@@ -253,7 +253,7 @@
                     type: 'PATCH', // Use POST method to send data
                     data: $.param(data),
                     success: function (response) {
-                        window.location.href = '{{route('partner.index')}}'
+                        window.location.href = '{{route('radnici.index')}}'
                     },
                     error: function (xhr, status, error) {
                         console.log(xhr.responseText);

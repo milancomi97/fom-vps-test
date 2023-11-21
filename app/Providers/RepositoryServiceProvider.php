@@ -30,6 +30,8 @@ use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepository;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\PodaciofirmiRepository;
 use App\Modules\Osnovnipodaci\Repository\PodaciofirmiRepositoryInterface;
+use App\Modules\Osnovnipodaci\Repository\RadniciRepository;
+use App\Modules\Osnovnipodaci\Repository\RadniciRepositoryInterface;
 use App\Repository\BaseRepository;
 use App\Repository\BaseRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -49,6 +51,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(OpstineRepositoryInterface::class, OpstineRepository::class);
         $this->app->bind(OrganizacionecelineRepositoryInterface::class, OrganizacionecelineRepository::class);
         $this->app->bind(PodaciofirmiRepositoryInterface::class, PodaciofirmiRepository::class);
+        $this->app->bind(RadniciRepositoryInterface::class, RadniciRepository::class);
 
         // Kadrovska Evidencija Modul
         $this->app->bind(RadnamestaRepositoryInterface::class, RadnamestaRepository::class);

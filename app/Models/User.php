@@ -18,9 +18,27 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'interni_maticni_broj',
+        'ime',
+        'prezime',
+        'srednje_ime',
+        'slika_zaposlenog',
+        'maticni_broj',
+        'troskovno_mesto',
+        'active',
         'email',
+        'jmbg',
+        'email_verified_at',
         'password',
+        'telefon_poslovni',
+        'licna_karta_broj_mesto_rodjenja',
+        'adresa_ulica_broj',
+        'opstina_id',
+        'drzava_id',
+        'sifra_mesta_troska_id',
+        'status_ugovor_id',
+        'datum_zasnivanja_radnog_odnosa',
+        'datum_prestanka_radnog_odnosa',
     ];
 
     /**
@@ -44,12 +62,13 @@ class User extends Authenticatable
 
     public function permissionOne()
     {
-        return $this->hasOne(UserPermission::class,'id','user_id');
+        return $this->hasOne(UserPermission::class, 'id', 'user_id');
     }
+
     public function permission()
     {
 
-        return $this->belongsTo(UserPermission::class,'id','user_id');
+        return $this->belongsTo(UserPermission::class, 'id', 'user_id');
 //        return $this->hasOne(UserPermission::class,'id','user_id');
     }
 

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('opstines', function (Blueprint $table) {
             $table->id();
-            $table->integer('sifra_opstine')->nullable();
+            $table->string('sifra_opstine')->nullable();
             $table->string('naziv_opstine', 30)->nullable();
-            $table->integer('sifra_drzave' )->nullable();
+            $table->string('sifra_drzave' )->nullable();
             $table->timestamps();
         });
     }
