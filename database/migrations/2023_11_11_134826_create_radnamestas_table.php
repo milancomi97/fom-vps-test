@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('radnamestas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('rbrm_sifra_radnog_mesta')->nullable();
+            $table->integer('rbrm_sifra_radnog_mesta')->nullable();
             $table->string('narm_naziv_radnog_mesta')->nullable();
             $table->boolean('status_active')->default(true)->nullable();
             $table->date('dident_datum_otvaranja_sifre')->nullable();

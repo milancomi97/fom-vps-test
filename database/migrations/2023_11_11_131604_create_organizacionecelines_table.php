@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('organizacionecelines', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sifra_troskovnog_mesta')->nullable();
+            $table->integer('sifra_troskovnog_mesta')->nullable();
             $table->string('naziv_troskovnog_mesta', 50)->nullable();
             $table->timestamps();
         });

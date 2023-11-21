@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('strucnakvalifikacijas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sifra_kvalifikacije')->nullable();
+            $table->integer('sifra_kvalifikacije')->nullable();
             $table->string('naziv_kvalifikacije', 35)->nullable();
             $table->timestamps();
         });

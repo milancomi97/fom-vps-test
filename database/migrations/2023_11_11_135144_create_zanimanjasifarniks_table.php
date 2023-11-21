@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('zanimanjasifarniks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sifra_zanimanja')->nullable();
+            $table->integer('sifra_zanimanja')->nullable(); // Mora da ima nule proveri to/ TEXT
             $table->string('naziv_zanimanja', 60)->nullable();
             $table->timestamps();
         });
