@@ -1,0 +1,793 @@
+SIFRA;NAZIV
+00100;Predsedik Korporacije
+00200;Zam.predsednika Korporacije
+00300;Predsednik za poslovne funkcije
+00900;Podpredsednik za program
+01500;Savetnik predsednika Korporacije
+02000;Ruk.Agencije u inostr. (delegat)
+02300;Zamenik direktora
+02400;Tehnicki direktor
+02500;Pomoc.dir.FOM-a za kvalitet
+02600;Savetnik direktora FOM-a d.o.o.
+02700;Glavni inzenjer
+02800;Vodeci inzenjer
+03000;Poslovni sekretar
+03100;Komercijalni direktor
+03200;Savetnik direktora FOM-a za plasman
+03400;Direktor sek.inzenjering
+03501;Zam.dir.prodaje
+03600;Ruk.kontrole opreme i ul.mat.
+03700;Rukovod.sektora prodaje
+03800;Sef biroa
+03900;Gl.ref.prodaje
+04000;Sam.referent prodaje
+04100;Referent prodaje
+04200;Poslovo|a prodavice-racunopolagac
+04300;Prodavac-racunopolagac
+04400;Prodavac-racunopolagac
+04500;Kasir
+04600;Direktor direkcije za marketing
+04700;Pomoc.dir.FOM-a za inzenjering
+04800;Sef odelj.marketinga
+04900;Vodeci marketing inzenjer
+05000;Sam.marketing inzenjer
+05100;Marketing inzenjer
+05200;Struzni prevodilac
+05300;Prevodilac
+05400;Direktor sektora SN
+05500;Ruk.sek.nabavke i skladista
+05600;Sef kooperacije
+05700;Sef nabavke
+05800;Sef skladista
+05900;Glavni ref.nabavke
+06000;Gl.ref.kooperacije
+06100;Sam.referent nabavke
+06101;Sam.ref.kooperacije
+06200;Referent nabavke
+06300;Referent kooperacije
+06400;Poslovodja magacina
+06500;Glavni magacioner
+06600;Sam.magacioner mas. delova
+06700;Magacioner
+06800;Direktor sektora PR
+06900;Ruk.sek.(projekt.konstruis. i razvoja)
+07000;Ref.reatestacije mat.
+07100;Glavni projetant
+07200;Vodeci projektant
+07300;Vodeci konstruktor
+07400;Samostalni projektant
+07500;Samostalni konstruktor
+07600;Projektant
+07700;Projektant-tehnicar
+07800;Konstruktor
+07900;Ref.tehnic.dokumentacije
+08000;Arhivar dokumentacije
+08100;Direktor kvaliteta
+08200;Rukovodilac programa
+08300;Rukovodilac projekta
+08400;Sef razvoja tehnolog.i investicija
+08500;Visi naucni saradnik
+08600;Naucni savetnik
+08700;Visi naucni saradnik
+08800;Naucni saradnik
+08900;Naucni istracivac saradnik
+09000;Istracivac-konsultant
+09100;Istracivac-vodeci saradnik
+09200;Istracivac - visi saradnik
+09300;Istracivac-sam.saradnik
+09400;Istracivac-strucni saradnik
+09500;Vodeci saradnik
+09600;Visi saradnik
+09700;Sam.tehnicki saradnik
+09900;Tehnicki saradnik
+10000;Direktor sektora PP
+10100;"Ruk.sek.TPP-a; tehnologije"
+10200;Sef odelj.ekspedicije
+10300;Gl.projektant tehnol.procesa
+10400;Glavni tehnolog
+10500;Vodeci tehnolog
+10600;Vodeci normirac
+10700;Samostalni tehnolog
+10800;Samostalni normirac
+10900;Tehnolog
+11000;Normirac
+11100;Rukovodilac plana
+11200;Sef plana
+11300;Glavni planer
+11400;Samostalni planer
+11500;Planer
+11600;Sef mat.evidencije
+11700;Gl.ref.mat.evidencije
+11800;Sam.ref.mater.evidencije
+11900;Ref.materijalne evidencije
+12000;Lanser
+12100;Direktor sek.proizvodnje
+12200;Ruk.kontrole mas.obrade i montace
+12300;"Upravnik (proiz.,pogona,fazne montace)"
+12400;Sef masin.odrcavanja
+12500;Poslovo|a proizvoda
+12600;Brigadir gas.rez.i isprav.
+12700;"Brigadir (u proizv.,transportu i odrcav."
+12800;"Instruktor (m.strug.,glod., bravara i sl"
+12900;Ruk.sek.operat.i radionic.pripr.
+13000;Sef operat.pripr. TMO
+13100;Materijalni poslovodja
+13200;Vodeci referent OPP
+13300;Ing.u pog.mas.odrcav.
+13400;Sam.ref.OPP proizvodnje
+13500;Planer za prac.proizvod.
+13600;Referent OPP
+13700;Dispecer
+13800;Laborant
+13900;Admin.slucbenik-poenter
+14000;Ing.u pog.za elektroniku
+14100;Transportni radnik
+14200;Garderober
+14300;M.strugarski poslovi K6
+14400;M.strugarski poslovi K5
+14500;M.strug.posl.na karuselu K4
+14600;M.strugarski poslovi K3
+14700;M.glodacki poslovi K5
+14800;M.glodacki poslovi K4
+14900;M.glodacki poslovi K3
+15000;Metalobusacki poslovi  K6
+15100;Metalobusacki poslovi  K5
+15200;Metalobusacki poslovi  K4
+15300;Metalobusacki poslovi  K3
+15400;Metalobrusacki poslovi  K5
+15500;Metalobrusacki poslovi  K4
+15600;Metalobrusacki poslovi  K3
+15700;Metalobrusacki poslovi  K2
+15800;Metalorendisacki poslovi    K5
+15900;Metalorendisacki poslovi    K4
+16000;Metalorendisacki poslovi    K3
+16100;Metalopreserski poslovi     K5
+16200;Metalopreserski poslovi     K4
+16300;Metalopreserski poslovi     K3
+16400;Metalopreserski poslovi     K2
+16500;Poslovi ostrenja alata  K5
+16600;Poslovi ostrenja alata  K4
+16700;Poslovi ostrenja alata  K3
+16800;Brav.posl. crtaca na met.   K5
+16900;Bravarski poslovi  K4
+17000;Bravarski poslovi  K3
+17100;Bravarski poslovi  K2
+17200;Limarski poslovi    K5
+17300;Limarski poslovi    K4
+17400;Limarski poslovi    K3
+17500;Limarski poslovi    K2
+17600;Autolimarski poslovi  K5
+17700;Autolimarski poslovi  K4
+17800;Autolimarski poslovi  K3
+17900;Autolimarski poslovi  K2
+18000;Posl.izdav.alata  K3
+18100;Posl.izdav.alata  K2
+18200;Kovacki poslovi    K5
+18300;Kovacki poslovi    K4
+18400;Kovacki poslovi    K3
+18500;Kovacki poslovi    K2
+18600;El.zavarivacki posl.K5
+18700;El.zavarivacki posl.K4
+18800;El.zavarivacki posl.K3
+18900;El.zavarivacki posl.K2
+19000;Posl.gas.rez.i zavar. K5
+19100;Posl.gas.rez.i zavar. K4
+19200;Posl.gas.rez.i zavar. K3
+19300;Posl.gas.rez.i zavar. K2
+19400;Poslovi alatnicara   K5
+19500;Poslovi alatnicara   K4
+19600;Poslovi alatnicara   K3
+19700;Posl.peskar.na aut.peskari K-5
+19800;Posl.peskar.na aut.peskari K-4
+19900;Posl.peskarenja   K-2
+20000;Monterski radovi     K5
+20100;Monterski radovi      K4
+20200;Monterski radovi     K3
+20300;Monterski radovi     K2
+20400;Vodoinstalaterski posl.K5
+20500;Vodoinstalaterski posl.K4
+20600;Vodoinstalaterski posl.K3
+20700;Poslovi autoperaca-podmaz. K2
+20800;Poslovi locaca par.kotlova K3
+20900;Poslovi locaca par.kotlova K2
+21000;Automehanicarski posl.K5
+21100;Automehanicarski posl.K4
+21200;Automehanicarski posl.K3
+21300;Autoelektricarski posl. K5
+21400;Autoelektricarski posl. K4
+21500;Autoelektricarski posl. K3
+21600;Poslovi preciznog mehanic. K5
+21700;Poslovi preciznog mehanic. K4
+21800;Poslovi preciznog mehanic. K3
+21900;Posl.elektroinstalatera K5
+22000;Posl.elektroinstalatera K4
+22100;Posl.elektroinstalatera K3
+22200;Posl.elektroinstalatera K2
+22300;Elektromonterski poslovi   K5
+22400;Elektromonterski poslovi   K4
+22500;Elektromonterski poslovi   K3
+22600;Elektromonterski poslovi   K2
+22700;El.mehanicarski posl.K5
+22800;El.mehanicarski posl.K4
+22900;El.mehanicarski posl.K3
+23000;El.mehanicarski posl.K2
+23100;Elektronicarski posl.K5
+23200;Elektronicarski posl.K4
+23300;Elektronicarski posl.K3
+23400;Elektric.posl.-automaticar K5
+23500;Elektricarski posl.K4
+23600;Elektricarski posl.K3
+23700;Elektricarski posl.K2
+23800;Stolarski poslovi          K5
+23900;Stolarski poslovi          K4
+24000;Stolarski poslovi          K3
+24100;Stolarski poslovi          K2
+24200;Modelarski poslovi         K5
+24300;Modelarski poslovi         K4
+24400;Modelarski poslovi         K3
+24500;Livacki poslovi            K5
+24600;Livacki poslovi            K4
+24700;Livacki poslovi            K3
+24800;Termoobradjivacki posl. K5
+24900;Termoobradjivacki posl. K4
+25000;Termoobradjivacki posl. K3
+25100;Termoobradjivacki posl. K2
+25200;Poslovi galvanizera        K5
+25300;Poslovi galvanizera        K4
+25400;Poslovi galvanizera        K3
+25500;Poslovi galvanizera        K2
+25600;Polimerski poslovi         K4
+25700;Polimerski poslovi         K3
+25800;Tapaterski poslovi         K4
+25900;Tapaterski poslovi         K3
+26000;M.farbarski poslovi K5
+26100;M.farbarski poslovi K4
+26200;M.farbarski poslovi K3
+26300;M.farbarski poslovi K2
+26400;Molersko-farbarski poslovi
+26500;Molersko-farbarski poslovi K3
+26600;Molersko-farbarski poslovi K2
+26700;Poslovi firmopisca         K5
+26800;Poslovi firmopisca         K3
+26900;Poslovi firmopisca         K2
+27000;Poslovi masinovodj.manerv. K3
+27100;Posl.voz.traktora K2
+27200;Posl.voz.teret.mot.voz.K5
+27300;Posl.voz.teret.voz.K3
+27400;Posl.voz.put.voz. K5
+27500;Posl.voz.put.voz. K3
+27600;Posl.voz.viljuskara K-2
+27700;Posl.voz.elektrokolica K2
+27800;Posl.rukov.aut.dizalice K5
+27900;Posl.rukov.aut.dizalice K4
+28000;Posl.rukovaoca dizalice K3
+28100;Posl.ruk.most.dizalicom K3
+28200;Posl.ruk.most.dizalicom K2
+28300;Posl.ruk.energ.postr.K5
+28400;Posl.ruk.energ.postr.K4
+28500;Posl.ruk.energ.postr.K3
+28600;Posl.ruk.gra|.postr.mas.K5
+28700;Posl.ruk.gra|.postr.mas.K4
+28800;Posl.ruk.gra|.postr.mas.K3
+28900;Posl.distribuc.tehn.gasova K5
+29000;Posl.distribuc.tehn.gasova K4
+29100;Posl.distribuc.tehn.gasova K3
+29200;Posl.odrcav.alata K5
+29300;Posl.odrcav.alata K4
+29400;Posl.odrcav.alata K3
+29600;Posl.odrcav.ATC i TT instal.K4
+29700;Posl.odrcav.mas.i uredj.K5
+29800;Posl.odrcav.mas.i uredj.K4
+29900;Posl.odrcav.mas.i uredj.K3
+30000;Posl.el.odrcav.postr.TO K5
+30100;Posl.el.odrcav.postr.TO K4
+30200;Posl.el.odrcav.postr.TO K3
+30300;Posl.odrc.mas.sist.i NC mas.K5
+30400;Posl.odrc.mas.sist.i NC mas.K4
+30500;Posl.mas.odrc.postroj.TO  K5
+30600;Posl.mas.odrc.postroj.TO  K4
+30700;Posl.mas.odrc.postroj.TO  K3
+30800;Posl.odrc.energ.postr.i inst.K2
+30900;Posl.odrc.vod.inst.i kanal.K5
+31000;Posl.odrc.vod.inst.i kanal.K4
+31100;Posl.odrc.vod.inst.i kanal.K3
+31200;Posl.odrc.vod.inst.i kanal.K2
+31300;Posl.odrcav.taloc.i fek.kanaliz. K2
+31400;Poslovi telefoniste              K4
+31500;Poslovi telefoniste              K3
+31600;Zidarski poslovi                 K5
+31700;Zidarski poslovi                 K3
+31800;Zidarski poslovi                 K2
+31900;Armiracki poslovi                K5
+32000;Armiracki poslovi                K3
+32100;Armiracki poslovi                K2
+32200;Graverski poslovi                K3
+32300;Poslovi sitostampe               K4
+32400;Poslovi sitostampe               K3
+32500;Posl.na podiz. i odrcav.zelenila K4
+32600;Posl.na podiz. i odrcav.zelenila K3
+32700;Posl.na podiz. i odrcav.zelenila K2
+32800;Poslovi peglanja
+32900;Poslovi sivenja
+33000;Poslovi manerviste
+33100;Direktor sektora KK
+33200;Ruk.sek.tehnic.kontrole
+33300;Sef tehnicke kontrole
+33400;Vodeci kontrolor
+33500;Kontrolor Ulazne kontrole
+33600;Ref.atestne i prat.dokum.
+33700;Poslovi servisiranja
+33800;Ing.nadzora za kvalitet mat.
+33900;Incenjer nadzora
+34000;Incenjer geodezije
+34100;Tehnicar geodezije
+34200;Direktor sektora FO
+34300;Rukovodilac slucbe OK
+34400;Sef odelj.finansija
+34500;Gl.ref.plana i analize
+34600;Sam.ref.plana i analize
+34700;Ref.plana i analize
+34900;Sam.ref.fin.operative
+35000;Ref.finansijske operative
+35100;Gl.ref.knjigovodstva
+35200;Sam.ref.knjigovodstva
+35300;Referent knjigovodstva
+35400;Gl.tehnicki saradnik
+35500;Sam.strucni saradnik
+35600;Strucni saradnik
+35700;Glavni saradnik
+35800;Samostalni saradnik
+35900;Likvidator stednje
+36000;Procenitelj stete
+36100;Preuzimac rizika
+36200;Referent osiguranja
+36300;Sef proizvodnje pog. T.O.
+36400;Vod.kontrolor opreme za MIK
+36500;Vodeci kontrol.normativ.-pravn.poslova
+36600;Kontrolor materijalno finan.poslovanja
+36700;Kontrolor obracuna LD
+36800;Kontrolor tehnoloske vode
+36900;Direktor zavoda za informatiku
+37000;Sef odrcav.pog. T.O.
+37100;Rukovodilac projekta IS
+37200;Gl.projektant inf.sist.
+37300;Vod.projektant inf.sistema
+37400;Vod.programer aplikat.softvera
+37500;Vodeci sistem programer
+37600;Sam.projektant inform.sist.
+37700;Sam.programer aplikat.softv.
+37800;Projektant inform.sistema
+37900;Programer aplikat.softvera
+38000;Operater prip.na racunaru
+38100;Operater na sistemu
+38200;Kontrolor unosa i obrade podataka
+38300;Administrator tehn.dok.
+38400;"Ruk.pravnih,kadr.i opstih posl."
+38500;Sef odeljenja ZNR
+38600;Gl.ref.za pravne posl.
+38700;Sam.ref.za pravne poslove
+38800;Ref.za pravne poslove
+38900;Gl.ref.za kadrov.posl.
+39000;Sam.ref.za kadrov.posl.
+39100;Ref.za kadrovske poslove
+39200;Vod.saradnik za razvoj kadrova
+39300;Visi sarad.za razvoj kadrova
+39400;Sam.sarad.za razvoj i obraz.kadr.
+39500;Gl.finansijer incenjeringa
+39600;Pedagog
+39700;Savetnik za ekonomske poslove
+39800;Socijalni radnik
+39900;Sam.ref.opstih poslova
+40000;Ref.za opste poslove
+40100;Bibliotekar
+40200;Administrat.sekretar
+40300;Daktilograf
+40400;Kurir
+40500;^istacica
+40600;Vodeci incenjer ZNR
+40700;Incenjer ZNR
+40800;Sam.ref.ekspedicije
+40900;Referent ekspedicije
+41000;Ruk.sek.odbrane i samozast.
+41200;"Sef odeljenja,slucbe"
+41300;Samostalni referent
+41400;Referent
+41500;Koordinator za pripremu
+41600;Zam.komandira smena
+41700;Brigadir kranovodja
+41800;Posl.bezbednosti -vatrogasac
+41900;Poslovi bezbednosti vratara
+42000;Poslovi na recepciji
+42100;Vozac - vatrogasac
+42200;Mehanicar - vatrogasac
+42300;Ruk.odelj.tehnolog.za raz.i investic.
+42400;Sef farbarskih radova
+42500;Brigadir
+42600;Samostalni tehnolog AKZ
+42800;Vod.kontrolor mas.obrade i mont.rad.
+42900;Konobar
+43000;Kuvar  K3
+43100;Kuvar  K2
+43200;Poslasticarski poslovi
+43300;Mesarski poslovi
+43400;Kafe - kuvar
+43500;Priprema i servisiranje hrane
+43600;Perac sudja
+43700;Gl.i odgovorni urednik
+43800;Zam.glav.i odgovor.urednika
+43900;Novinar -urednik
+44000;Tehnicki urednik
+44100;Radio tehnicar
+44200;Fotoreporter
+44300;Fotolaborant
+44400;Upravnik muzeja
+44500;Kustos
+44600;Pripravnik
+02701;Gl.ing.za projektov.i razvoj
+02702;Gl.ing.za zavarivanje
+33401;Vod.kontrolor bravar.montac.rad.
+33403;Vodeci kontrolor TO
+33404;Vodeci kontrolor TMO
+33405;Vodeci kontrolor PIO
+33406;Vod.kontrolor zavarivanja
+33407;Vodeci kontrolor AKZ
+02801;Vodeci ing.kalkulacije
+02802;Vodeci incenjer TPP
+02803;Vodeci incenjer za AKZ
+02804;Vodeci incenjer OK
+33301;Sef odelj.kontrole kvalit.opreme
+33302;Sef ul.kontrole u RPR
+33303;Sef odelj.kontrole kvalit.reduktora i TO
+33304;Sef kontrole TMO
+33305;Sef kontrole u PIO
+03701;Rukovodilac biroa
+03702;Ruk.prodaje za rud.opremu i met.konstr.
+03703;Rukovodilac ekspedicije
+35201;Sam.ref.knjigovod.uvoza i izvoza
+35202;Sam.ref.knjigovodstva kontista
+35203;Sam.ref.knjig.pogon.knjigovo|a
+35204;Sam.ref.knjig.mater.knjigovo|a
+35205;Sam.ref.knjig.osnov.sredstava
+35301;Ref.materijal.knjigovodstva
+06102;Sam.ref.ekster.kooperacije
+06103;Sam.ref.interne KOO
+06104;Sam.ref.nabav.vodj.odelj.dn
+33501;Kontrolor UK i 114 grane
+33502;Kontrolor RPR
+33503;Kontrolor AKZ
+33504;Kontrolor fazne obrade
+33505;Kontrolor termicke obrade
+33506;Kontrolor obrade
+06901;Ruk.projektov.za reduktore
+06902;Ruk.biroa za dizalice
+06903;Ruk.projekt.za rud.opremu i cel.konstr
+06904;Ruk.proj.za diz.tr.ure|.i metalur.opr.
+06905;Ruk.biroa za celic.konstr.
+06906;Ruk.projekt.za energet.opremu
+06907;Rukovod.projekt.za razvoj
+33507;Kontrolor bravar.montac.posl.
+33508;Kontrolor bravar.i zavar.posl.
+10101;Ruk.tehnolog.izrade opreme
+10102;Ruk.tehnolog.reduktora i TMO
+10103;Ruk.razvoja programiranja
+33509;Kontrolor zavarivac.posl.
+10901;Tehnolog mas.odrcavanja
+10701;Sam.tehnolog-mas.odrcav.
+12301;Upravnik pogona TMO
+12302;Upravnik pogona TO
+12303;Upravnik pog.Izrade opreme
+12304;Upravnik odrcavanja
+35001;Ref.fin.operat.obrac.LD-naknade
+35002;Ref.obracuna-naknade
+34401;Sef knjigovodstva
+12401;Sef mas.obrade i mont.u pog.TMO
+12402;Regler masina
+12403;Sef proizvodnje reduktora
+12404;Sef radionice pripr.radova
+12405;Sef brav.radionice I
+12406;Sef brav.radionice II
+12407;Sef ul.kontrole i kontrole u RPR
+12719;Brigadir automehan.posl.
+12718;Brigadir m.farbar.posl.
+12701;Brigadir mas.montace
+12702;Brigadir transporta i kranovo|a
+12703;Brigadir montace reduktora
+12704;Brigadir termicke obrade
+12705;Brigadir mas.odrcavanja
+12706;Brigadir obelecav.na metalu
+12707;Brigad.na prot.pesk.i farbari
+12708;Brigadir ruc.obrade met.brus.
+12709;Brigadir busackih posl.
+12710;Brigadir transporta
+12711;Brigadir dizalicara
+12712;Brigadir bravar.posl.
+12713;Brigadir el.zavariv.posl.
+12714;Brigadir autog.ispravljanja
+12715;Brigadir dizal.tran.radnik
+12716;xxx
+12717;Brigadir cistacica
+16901;Brav.posl. sec.na makaz. K4
+16902;Posl.sec.na testerama K-4
+16903;Brav.posl.ruc.obrad.met. brus. K3
+16904;xxx
+16905;Br.posl.savij.i isprav.na valjcima K4
+16906;Sef transporta
+16907;Bravarski poslovi  K5
+40501;^istac na odrc.sanit.cvora
+19201;Posl.gas.rez.met.rucno  K-3
+19202;Posl.gas.rez.met.na mas. K-3
+16801;Brav.posl. sec.na makaz. K5
+16802;Brav.posl.ruc.obrad.met. brus. K5
+16803;Brav.posl.na busilici  K5
+16908;Br.posl.savij.i isprav.na valjcima K5
+16800;xxx
+34402;Sef odelj.za plan i analizu
+19001;Posl.gas.rez.met.rucno  K-5
+19002;Posl.gas.rez.met.na mas. K-5
+19003;Posl.gas.rez.i isprav. K-5
+19801;xxx
+13901;Admin.sluc.-poenter-daktilograf
+12601;Poslovodja II smene
+12602;Poslovodja m.strugar.posl.
+12603;Poslovodja busackih poslova
+12604;Poslovodja glodackih poslova
+12605;Poslovodja m.brusackih posl.
+12606;Poslovodja transporta
+12607;Poslovodja ostraca
+12608;Poslovo|a ozub.i m.glod.posl.
+12609;Posl.m.strug.posl.na tes.mas.
+12610;Posl.gas.rez.i obel.na met.i sec.na mak.
+12611;Poslovodja gas.rez.na kopirkama
+12612;Posl.na peskari i sec.na testeri
+12613;Posl.busaca i rucne obrade
+12614;Poslovo|a bravarskih posl.
+12615;Poslovo|a m.farbar.posl.
+12616;Poslovo|a posl.na autog.isprav.
+12617;Poslovo|a mas.odrcavanja
+12618;Poslovo|a el.odrcavanja
+33101;Ing.obezbe|.kvaliteta
+13601;Ref.za sindikalna pitanja
+13602;Ref.OPP za tehnic.dokument.
+34901;Sam.ref.fin.operat.-dobavljaci
+34902;Sam.referent kupaca
+34903;Sam.ref.fin.operat.-obracun LD
+34904;Sam.ref.obracuna-kredita
+34905;Sam.ref.fin.operat.-blagajne
+19301;Posl.gas.rez.i isprav. K-2
+40001;Referent ZNR i PPZ
+40002;Referent PPZ
+13001;Sef radionic.i operat.pripr.
+05801;Sef magac.alatnice i ostrac.
+02200;"Direktor HK GOSA - FOM;d.o.o."
+06401;Poslovo|a alatnice
+13002;Sef operat.pripr.Reduktora
+14001;Magac.gotovih delova
+14002;Magac.u magacinu AKZ
+14003;Magac.u magac.elektrode
+17002;Br.posl.ruc.obrad.met.brus. K3
+17003;Brav.posl.na busilici  K3
+13301;Ing.u pog.el.odrcav.sistema
+13302;Ing.u pog.za regulatore
+80100;Gl.referent KOO
+80200;Referent interne KOO
+80300;Garderober - cistac
+80400;Posl.ruk.most.diz.K3-tr.rad.
+80500;Transportni radnik-cistac
+80600;Magacioner-odrcav.alata
+80700;Ing.u pogonu-tehnolog
+80800;Posl.voz.vilj.trak.- tr.rad.
+80900;Sef el.odrcavanja
+03704;Ruk.prodaje za energ.i procesnu opremu
+80201;Ref.nabavke i ekst.KOO
+06701;Magacioner-kartotekar
+14101;Tr.radnik-signalista dizalice
+13003;Sef transp.sa obavez.potpis.teh.ispr.voz
+08101;Kopirant
+02301;"Zam.dir.""GOSA-FOM"";d.o.o."
+02302;Zam.dir.fin.i opst.posl.
+02703;Gl.ing.za kalkulacije
+35206;Sam.ref.mater.obaveza
+34906;Sam.ref.likvidature
+34801;Gl.ref.fin.operat.-obrac.LD
+35601;Strucni saradnik finans.posl.
+36201;Gl.ref.osig.osnov.sredstava
+40301;Daktilograf telexa i telefaxa
+40201;Tehnicki sekretar direktora Drustva
+06501;Gl.magac.alatnice odrcav.
+06702;Posl.izdav.alata-kartotekar K3
+06601;Samostalni magacioner
+13902;Administrat.slucbenik
+03801;Sef odelj.prodaje EO i dizalice
+30602;Posl.odrcav.mas. K-5
+13401;Sam.referent OPP
+80501;Tr.radnik - cistac u pogonu
+80801;xxx
+28001;Posl.voz.dizalice K-2
+80401;Posl.ruk.most.diz.K2-tr.rad.
+27601;Posl.voz.viljus.- tr.rad. K2
+03801;Sef odelj.prodaje EO i dizalica
+80701;Incenjer u pogonu
+40503;^istac
+14601;M.strugarski poslovi K4
+12503;Poslovodja proizvoda u raduktorima
+12603;Poslovodja m.glodac.posl.
+13303;Ing.u pog.za el.odrc.postr.TO
+27601;Poslovi vozaca viljuskara
+14004;Magacioner el.delova
+19004;Posl.gas.rez.i isprav. K-4
+12501;Poslovodja el.zavarivac.posl.
+19302;Posl.gas.rez.i isprav. K-3
+12408;Sef radionice
+42501;Operativ.tehnic.za odrc.racun.opreme
+12619;Sef radionice III
+14619;M.glodac.posl.ozub.K-4
+14702;M.glod.posl.portalke K-5
+30603;Posl.odrcav.mas. K-4
+19203;Posl.gas.rez.met.na mas. K-4
+17004;Brav.posl.na busilici  K4
+16909;Br.posl.ruc.obrad.met.brus. K4
+19204;Posl.gas.rez.met.rucno  K-4
+19804;Posl.peskar.na aut.peskari K-3
+12620;Poslov.gas.rez.ob.mat.sec.na mak.i bus
+17005;Brav.posl.odrcav.kranova  K3
+16911;Posl.sec.na testerama K-3
+16910;Posl.sec.na testerama K-5
+27602;Posl.voz.viljuskara K-3
+12502;Poslovodja
+14004;Magacioner el.delova
+27605;Posl.voz.viljus.- tr.rad. K3
+30604;Posl.odrcav.mas. K-3
+04701;Pomoc.dir.FOM-a za plasman
+14501;M.strug.posl.na karuselu K5
+14620;M.glodac.posl.ozub.K-5
+14301;M.strug.posl.na teskim mas. K-6
+28101;Posl.rukovaoca dizalice K2
+16804;Br.posl.ruc.obrade met.brus. K-4
+12720;Zam.brigad.zavar.posl.
+12305;Zam.upravnika pog.IO
+10104;Ruk.biroa za inf.sistem
+12621;Poslovo|a mas.montace
+13604;Ref.za pracenje proizvodnje
+13603;Ref.OPP - proizvodnje
+12622;Poslovodja na pesk.i sec.na testeri
+14703;M.glod.posl.portalke K-4
+14006;Alatnicar-magac.u alat.PIO
+14005;Magac.za popr.alata u pog.PIO
+12721;Brigadir montacnih radova
+30801;Posl.odrc.el.postroj.i instal.K4
+13304;Ing.el.tehn.za odrcav.el.instal.i masin
+23401;El.poslovi automaticara K4
+30802;Posl.odrc.el.postroj.i instal.K3
+13701;Dispecer masin.odrcavanja
+13702;Dispecer T.O.
+12722;Gl.smenski majstor
+12723;Brigadir TO (smenski)
+02805;Vodeci ing.u tehnolog. IO
+10501;Vod.tehnolog za program.NC mas.
+10902;Tehnolog u tehnol.TMO i Reduktori
+10903;Tehnolog AKZ
+10401;Gl.tehnolog za prog.NC mas.
+10402;Gl.tehnolog za konstr.opreme
+10403;Gl.tehnolog za gra|ev.konstr.
+12010;Glavni lanser
+37910;Programer NU masina
+03705;Ruk.odeljenja plasmana
+02806;Vod.incenjer za dizalice
+02807;Vod.incenjer projekta
+02704;Incenjer projekta
+13605;Referent realizacije
+43401;Kafe kuvar-kurir
+02303;Zamenik dir.sektora PR
+33306;Sef za standardizaciju
+07910;Gl.ref.tehn.dok.i arhive
+02705;Gl.ing.za incenjer.posl.
+04702;Pomoc.dir.FOM-a za TPP i proizv.
+04703;Pomoc.dir.FOM-a za finansije
+35110;Gl.ref.fin.operative
+34907;Sam.ref.internih obaveza
+35003;Sam.ref.fin.operat.-kupaca
+35004;Sam.ref.fin.operat.-likvidature
+06602;Sam.magacioner-kartotekar
+40003;Referent ZNR
+35302;Ref.knjigovodstva-uvoza i izvoza
+33510;Glavni kontrolor
+33610;Ref.za godisnje odmore
+33511;Kontrolor fazne kontrole TMO
+33512;Kontrolor fazne mas.obrade
+33513;Kontrolor u RJ Reduktori
+33620;Gl.ref.obezbe|.kvaliteta
+27201;Posl.voz.putnic.-ter.voz.K3
+02706;Gl.ing.za program cel.konstruk.
+33514;Glavni kontrolor TMO
+33515;Kontrolor bravar.mas.radova
+10105;Ruk.tehnolog.za mas.obradu
+10106;Ruk.pripreme sektora PP
+33516;Kontrolor masinske obrade
+33517;Gl.kontrol.opreme za merenje i kontr
+12724;Brigadir el.odrc.TMO
+12725;Brigadir m.bravara za TMO
+12726;Brigadir el.odrcavanja
+12727;Brigadir el.odrc.za PIO i TMO
+12728;Brigadir m.bravara za kranove
+12729;Brigadir m.bravara za PIO
+29901;Mehanic.na odrc.mas.i dizalica K3
+10502;Vod.tehnolog u tehnolog.I.O.
+35111;Ruk.odeljenja marketinga
+08401;Sef za standardizac.-inc.obezbe|.kvalit.
+12409;Sef masin.obrade TMO
+12410;Sef proizvodnje u pog. TMO
+80802;Posl.voz.traktora i viljus. K2
+33801;Incenjer AKZ
+13305;Incenjer u pog.TMO
+06502;Gl.magac. u alatnici PIO
+06503;Gl.magac.alatnice Reduktora
+06908;Ruk.biroa za rudar.opremu
+30601;Posl.odrc.mas.i peci K5
+30605;Posl.odrc.masina K4-u TMO
+10503;Posl.odrcav.alata-ure|aja
+33518;Kontrolor rucno-bravar.radova
+12306;"Upravnik pog.""Reduktori"""
+12411;Sef mas.obrade i mont.u pog.Reduktori
+23101;Elektronicar
+12623;Poslovo|a borverskih radova
+40504;^istacica i odrc.sanit.cvora
+50000;"Predsednik sindikata HK ""GOSA"""
+50001;Predsed.sindik.podruc.doo FOM
+13306;Incenjer u pog.TO
+07901;Ref.za prijem i otpremu poste
+06909;Ruk.biroa za elektroopremu
+40901;Ref.interne ekspedicije
+27101;Posl.voz.traktora K2-tr.rad.
+12412;Ing.zavariv.u pogonu
+04704;Pomoc.dir.sektora incenjeringa
+33201;Ruk.kontrole Reduktora i TMO
+33202;Rukovod.kontrole PIO
+02707;Gl.ing.za metalursku opremu
+10904;Tehnolog u tehnolog.TMO
+10905;Tehnolog u tehnolog.CNC
+38101;Operater u tehnol.za raz.i invest.posl.
+14007;Magacioner HTZ opreme
+18601;Projektant-ing. spec.za zavar.
+13606;Ref.za pracenje gotove robe
+35303;Ref.fin.operat.-obrac.LD
+35304;Ref.fin.operat.-blagajnik
+35305;Ref.fin.operat.-likvidature
+35005;Sam.ref.fin.operat.-inter.obaveza
+35006;Sam.ref.fin.operat.-obrac.kred.
+10504;Vodeci tehnolog AKZ
+38102;Operater na racunaru
+02709;Gl.incenjer AKZ
+10404;Gl.tehnolog za mas.obradu
+36202;Ref.osigur.osnov.sredstava
+06910;Ruk.biroa za hidromehan.opremu
+13004;Sef operat.pripr. IO
+10505;Vod.tehnolog u tehnolog.M.O.
+33519;Kontrolor bravar.radova
+33307;Sef odelj.KK UK i PR
+33402;Vodeci kontrolor mas.obrade
+04901;Gl.ref.marketinga
+41401;Referent marketinga
+12413;Sef mas.obrade i montace
+27901;Posl.rukov.auto diz.K4-tr.rad.
+14618;M.glodac.posl.ozub.K-3
+18101;Posl.izdav.alata  K4
+14201;Garderober-cistac u pog.
+14008;Magac.u magacinu farbe
+02808;Vodeci ing.geodezije
+10405;Gl.tehnolog za zavarivanje
+04705;Pomoc.dir.FOM-a za proizvodnju
+02710;Gl.ing.za koksnu i metalur.opremu
+02711;Gl.ing.za rudarsku opremu
+02712;Gl.ing.za energet.opr.i dizal.
+10406;Gl.tehnolog u tehnol.TMO
+13309;Incenjer masinstva
+03706;Ruk.prodaje za metalur.opr.i tr.ure|.
+39501;Gl.komercijal.incenjeringa
+10407;Gl.tehnolog AKZ
+02708;Gl.ing.za procesnu opr.i NP
+02713;Gl.ing.za rudar.opr.i cel.konstrukc.
+02714;Gl.ekonomista za finans.posl.
+04001;Sam.ref.marketinga
+02716;Gl.ekonomista za komerc.posl.
+41501;Koordinator za zavar.po EN 719
+12414;VD Sef biroa mas.odrcavanja

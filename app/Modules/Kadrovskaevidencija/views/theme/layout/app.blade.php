@@ -25,12 +25,12 @@
     }
 </style>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini sidebar-collapse">
 <div class="wrapper">
-    @include('obracunzarada::theme.layout.header')
-    @include('obracunzarada::theme.layout.sidebar')
+    @include('kadrovskaevidencija::theme.layout.header')
+    @include('kadrovskaevidencija::theme.layout.sidebar')
     @yield('content')
-    @include('obracunzarada::theme.layout.footer')
+    @include('kadrovskaevidencija::theme.layout.footer')
 
 
 </div>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('strucnakvalifikacijas', function (Blueprint $table) {
             $table->id();
             $table->integer('sifra_kvalifikacije')->nullable();
-            $table->string('naziv_kvalifikacije', 35)->nullable();
+            $table->string('naziv_kvalifikacije', 255)->nullable();
             $table->timestamps();
         });
     }

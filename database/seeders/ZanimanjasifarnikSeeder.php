@@ -13,15 +13,17 @@ class ZanimanjasifarnikSeeder extends Seeder
         $datas = $this->getDataFromCsv();
 
         foreach ($datas as $data) {
-            DB::table('categories')->insert([
-
+            DB::table('zanimanjasifarniks')->insert([
+                'sifra_zanimanja'=>$data['SIFRA'],
+                'naziv_zanimanja'=>$data['NAZIV']
             ]);
         }
 
     }
 
+
     public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/GRU.csv');
+        $filePath = storage_path('app/backup/ZANIMANJA.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

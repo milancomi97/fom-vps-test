@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vrstaradasifarniks', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('sifra_statusa')->nullable();
-            $table->string('naziv_statusa', 50)->nullable();
+            $table->string('naziv_statusa', 255)->nullable();
             $table->integer('svp_sifra_vrste_placanja')->nullable();
             $table->timestamps();
         });

@@ -13,15 +13,16 @@ class RadnamestaSeeder extends Seeder
         $datas = $this->getDataFromCsv();
 
         foreach ($datas as $data) {
-            DB::table('categories')->insert([
-
+            DB::table('radnamestas')->insert([
+                'rbrm_sifra_radnog_mesta' => $data['RBRM'],
+                'narm_naziv_radnog_mesta' => $data['NARM']
             ]);
         }
 
     }
 
     public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/GRU.csv');
+        $filePath = storage_path('app/backup/Radna_mesta.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

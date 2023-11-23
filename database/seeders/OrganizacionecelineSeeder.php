@@ -13,15 +13,18 @@ class OrganizacionecelineSeeder extends Seeder
         $datas = $this->getDataFromCsv();
 
         foreach ($datas as $data) {
-            DB::table('categories')->insert([
-
+            DB::table('organizacionecelines')->insert([
+                'sifra_troskovnog_mesta' =>$data['sifra_troskovnog_mesta'],
+                'naziv_troskovnog_mesta' =>$data['naziv'],
+                'active'=>$data['Aktivno_Neaktivno'] == "TAČNO",
             ]);
         }
 
     }
 
-    public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/GRU.csv');
+    public function getDataFromCsv()
+    {
+        $filePath = storage_path('app/backup/TroskovnaMesta.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

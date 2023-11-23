@@ -13,15 +13,16 @@ class StrucnakvalifikacijaSeeder extends Seeder
         $datas = $this->getDataFromCsv();
 
         foreach ($datas as $data) {
-            DB::table('categories')->insert([
-
+            DB::table('strucnakvalifikacijas')->insert([
+                'sifra_kvalifikacije' => $data['SIFRA'],
+                'naziv_kvalifikacije' => $data['NAZIV']
             ]);
         }
 
     }
 
     public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/GRU.csv');
+        $filePath = storage_path('app/backup/STRUCNA_.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

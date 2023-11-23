@@ -14,14 +14,14 @@ return new class extends Migration
     {
         Schema::create('podaciofirmis', function (Blueprint $table) {
             $table->id();
-            $table->string('naziv_firme', 50)->nullable();
-            $table->string('poslovno_ime', 50)->nullable();
-            $table->string('skraceni_naziv_firme', 50)->nullable();
-            $table->boolean('status')->nullable();
-            $table->string('pravna_forma', 30)->nullable();
+            $table->string('naziv_firme', 255)->nullable();
+            $table->string('poslovno_ime', 255)->nullable();
+            $table->string('skraceni_naziv_firme', 255)->nullable();
+            $table->string('status')->nullable();
+            $table->string('pravna_forma', 255)->nullable();
             $table->integer('maticni_broj')->nullable();
             $table->date('datum_osnivanja')->nullable();
-            $table->string('adresa_sedista', 50)->nullable();
+            $table->string('adresa_sedista', 255)->nullable();
             $table->unsignedBigInteger('opstina_id')->nullable();
             $table->string('ulica_broj_slovo', 50)->nullable();
             $table->integer('broj_poste')->nullable();
@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('zakonski_zastupnik_ime_prezime', 50)->nullable();
             $table->string('zakonski_zastupnik_funkcija', 50)->nullable();
             $table->string('zakonski_zastupnik_jmbg', 50)->nullable();
-            $table->boolean('obaveznik_revizije')->nullable();
+            $table->string('obaveznik_revizije')->nullable();
             $table->string('velicina_po_razvrstavanju', 50)->nullable();
             $table->timestamps();
         });

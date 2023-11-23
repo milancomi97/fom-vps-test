@@ -59,7 +59,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link" >
+                                <a href="#" class="nav-link ml-3" >
                                     <p>Poslovni partneri</p>
                                 </a>
                             </li>
@@ -77,8 +77,8 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item ">
+                                <a href="#" class="nav-link ml-3">
                                     <p >Radnici</p>
                                 </a>
                             </li>
@@ -95,7 +95,17 @@
                                     <p class="small">Pregled radnika</p>
                                 </a>
                             </li>
-
+                            <li class="nav-item ">
+                                <a href="#" class="nav-link ml-3">
+                                    <p >Organizacione Celine</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('organizacioneceline.index')}}" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Pregled troškovnih mesta</p>
+                                </a>
+                            </li>
 
                         </ul>
                     </li>
@@ -214,10 +224,49 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            <li class="nav-item ">
+                                <a href="#" class="nav-link ml-3">
+                                    <p >Zanimanja</p>
+                                </a>
+                            </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{{route('zanimanjasifarnik.index')}}" class="nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
-                                    <p>Komitenti - Partneri</p>
+                                    <p class="small">Pregled šifarnika zanimanja</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item ">
+                                <a href="#" class="nav-link ml-3">
+                                    <p >Radna mesta</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('radnamesta.index')}}" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Pregled šifarnika radnih mesta</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="#" class="nav-link ml-3">
+                                    <p >Stručna kvalifikacija</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('strucnakvalifikacija.index')}}" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Pregled šifarnika stručnih kvalifikacija</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="#" class="nav-link ml-3">
+                                    <p >Vrsta rada</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('vrstaradasifarnik.index')}}" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Pregled šifarnika vrste rada</p>
                                 </a>
                             </li>
                         </ul>
