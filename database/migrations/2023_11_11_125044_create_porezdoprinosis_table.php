@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('opis0_opis_iznos_poreskog_oslobadjanja', 35)->nullable();
             $table->decimal('izn1_iznos_poreskog_oslobadjanja', 10, 2)->nullable();
 
-
             $table->string('oppor_opis_poreza', 35)->nullable();
             $table->decimal('p1_porez', 10, 2)->nullable();
 
