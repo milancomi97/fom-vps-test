@@ -25,10 +25,10 @@ class DatabaseSeeder extends Seeder
             OrganizacionecelineSeeder::class,
             PodaciofirmiSeeder::class,
             CategorySeeder::class,
-//            PartnerSeeder::class,
-//            StanjeZalihaSeeder::class,
-//            MaterijalSeeder::class,
-//            RadniciSeeder::class,
+            PartnerSeeder::class,
+            StanjeZalihaSeeder::class,
+            MaterijalSeeder::class,
+            RadniciSeeder::class,
             OpstineSeeder::class
         ]);
 
