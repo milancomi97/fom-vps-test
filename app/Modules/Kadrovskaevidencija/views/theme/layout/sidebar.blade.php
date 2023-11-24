@@ -319,7 +319,17 @@
                                 </a>
                             </li>
 
-
+                            <li class="nav-item ">
+                                <a href="#" class="nav-link ml-3">
+                                    <p >Minimalne bruto osnovice</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('minimalnebrutoosnovice.index')}}" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Pregled minimalnih bruto osnovica</p>
+                                </a>
+                            </li>
 
 
 

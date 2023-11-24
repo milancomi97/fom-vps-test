@@ -7,6 +7,7 @@ use App\Modules\Kadrovskaevidencija\Controllers\StrucnakvalifikacijaController;
 use App\Modules\Kadrovskaevidencija\Controllers\VrstaradasifarnikController;
 use App\Modules\Kadrovskaevidencija\Controllers\ZanimanjasifarnikController;
 use App\Modules\Obracunzarada\Controllers\KreditoriController;
+use App\Modules\Obracunzarada\Controllers\MinimalnebrutoosnoviceController;
 use App\Modules\Obracunzarada\Controllers\OblikradaController;
 use App\Modules\Obracunzarada\Controllers\ObracunZaradaController;
 use App\Modules\Obracunzarada\Controllers\VrsteplacanjaController;
@@ -67,11 +68,11 @@ Route::middleware('auth')->group(function () {
 
 
 
-    //** Modular logic, custom router cause problem, didnt load properly Facades and Laravel core */
-    //** Modules containts Repository for advanced database logic, Views and Controlers and Services for Bussines Logic */
+    //** Modular logic, custom router cause problem, didn't load properly Facades and Laravel core */
+    //** Modules contains Repository for advanced database logic, Views and Controllers and Services for Business Logic */
     //** Static files theme,css etc are in public */
     //** Models, Migrations and Seeders are located in Core Laravel folder structure */
-    //** Module architecture stand for customizations based on old Serbian ERP which is reffactored in Laravel read Confluence for more*/
+    //** Module architecture stand for customizations based on old Serbian ERP which is refactored in Laravel read Confluence for more*/
 
 
 
@@ -145,6 +146,12 @@ Route::middleware('auth')->group(function () {
     Route::get('obracunzarada/kreditori/index',[KreditoriController::class,'index'])->name('kreditori.index');
     Route::get('obracunzarada/kreditori/{id}/edit',[KreditoriController::class,'edit'])->name('kreditori.edit');
     Route::post('obracunzarada/kreditori/post',[KreditoriController::class,'update'])->name('kreditori.update');
+
+    // Minimalne bruto osnovice
+
+    Route::get('obracunzarada/minimalnebrutoosnovice/index',[MinimalnebrutoosnoviceController::class,'index'])->name('minimalnebrutoosnovice.index');
+    Route::get('obracunzarada/minimalnebrutoosnovice/{id}/edit',[MinimalnebrutoosnoviceController::class,'edit'])->name('minimalnebrutoosnovice.edit');
+    Route::post('obracunzarada/minimalnebrutoosnovice/post',[MinimalnebrutoosnoviceController::class,'update'])->name('minimalnebrutoosnovice.update');
 
 });
 
