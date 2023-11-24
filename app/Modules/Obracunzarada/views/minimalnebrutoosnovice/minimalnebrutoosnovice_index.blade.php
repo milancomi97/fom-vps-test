@@ -14,7 +14,7 @@
             <!-- Main content -->
             <!-- /.content -->
 
-            <h1 class="text-center"> Pregled kreditora </h1>
+            <h1 class="text-center"> Pregled Minimalnih bruto osnovica </h1>
             @if(count($data) > 0)
                 <table class="table table-bordered table-striped mt-5">
                     <thead>

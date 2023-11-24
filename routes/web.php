@@ -10,6 +10,7 @@ use App\Modules\Obracunzarada\Controllers\KreditoriController;
 use App\Modules\Obracunzarada\Controllers\MinimalnebrutoosnoviceController;
 use App\Modules\Obracunzarada\Controllers\OblikradaController;
 use App\Modules\Obracunzarada\Controllers\ObracunZaradaController;
+use App\Modules\Obracunzarada\Controllers\PorezdobrinosiController;
 use App\Modules\Obracunzarada\Controllers\VrsteplacanjaController;
 use App\Modules\Osnovnipodaci\Controllers\FirmaController;
 use App\Modules\Osnovnipodaci\Controllers\OrganizacionecelineController;
@@ -152,6 +153,12 @@ Route::middleware('auth')->group(function () {
     Route::get('obracunzarada/minimalnebrutoosnovice/index',[MinimalnebrutoosnoviceController::class,'index'])->name('minimalnebrutoosnovice.index');
     Route::get('obracunzarada/minimalnebrutoosnovice/{id}/edit',[MinimalnebrutoosnoviceController::class,'edit'])->name('minimalnebrutoosnovice.edit');
     Route::post('obracunzarada/minimalnebrutoosnovice/post',[MinimalnebrutoosnoviceController::class,'update'])->name('minimalnebrutoosnovice.update');
+
+    // Porez i doprinosi
+
+    Route::get('obracunzarada/porezdoprinosi/index',[PorezdobrinosiController::class,'index'])->name('porezdoprinosi.index');
+    Route::get('obracunzarada/porezdoprinosi/{id}/edit',[PorezdobrinosiController::class,'edit'])->name('porezdoprinosi.edit');
+    Route::post('obracunzarada/porezdoprinosi/post',[PorezdobrinosiController::class,'update'])->name('porezdoprinosi.update');
 
 });
 
