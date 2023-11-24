@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Modules\FirstModule\Controllers\FirstModuleController;
 use App\Modules\Kadrovskaevidencija\Controllers\RadnamestaController;
@@ -62,7 +63,9 @@ Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('obracunzarada/index', [ObracunZaradaController::class, 'index']);
+//    Route::middleware(['auth','customrole'])->group(function () {
+
+        Route::get('obracunzarada/index', [ObracunZaradaController::class, 'index']);
     Route::resource('firstmodule', FirstModuleController::class);
     Route::post('getNbsData',[FirstModuleController::class,'sendSoapRequest']);
 
@@ -168,7 +171,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
+Route::get('nopermission',[PermissionController::class,'index'])->name('noPermission');
 
 
 
