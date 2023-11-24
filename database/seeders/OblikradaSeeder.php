@@ -6,32 +6,26 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use League\Csv\Reader;
 
-class KreditoriSeeder extends Seeder
+class OblikradaSeeder extends Seeder
 {
     public function run(): void
     {
         $datas = $this->getDataFromCsv();
 
         foreach ($datas as $data) {
-            DB::table('kreditoris')->insert([
-                'sifk_sifra_kreditora' => $data['SIFK'],
-                'imek_naziv_kreditora' => $data['IMEKREDITORA'],
-                'sediste_kreditora' => $data['SEDISTE'],
-                'tekuci_racun_za_uplatu' => $data['ZRAC'],
-                'partija_kredita' => $data['PART']
-//                POBR
-
+            DB::table('oblikradas')->insert([
+                'sifra_oblika_rada' => $data['SIFRA'],
+                'naziv_oblika_rada' => $data['NAZIV']
             ]);
         }
 
     }
 
     public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/DKRE2.csv');
+        $filePath = storage_path('app/backup/PRO.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
         return $csv;
     }
-
 }

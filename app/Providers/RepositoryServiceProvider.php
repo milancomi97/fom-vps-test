@@ -18,6 +18,7 @@ use App\Modules\Obracunzarada\Repository\KreditoriRepository;
 use App\Modules\Obracunzarada\Repository\KreditoriRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepository;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\OblikradaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepository;
 use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
@@ -65,7 +66,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IsplatnamestaRepositoryInterface::class, IsplatnamestaRepository::class);
         $this->app->bind(KreditoriRepositoryInterface::class, KreditoriRepository::class);
         $this->app->bind(MinimalnebrutoosnoviceRepositoryInterface::class, MinimalnebrutoosnoviceRepository::class);
-
+        $this->app->bind(OblikradaRepositoryInterface::class,\App\Modules\Obracunzarada\Repository\OblikradaRepository::class);
 
     }
 

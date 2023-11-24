@@ -282,14 +282,55 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="fas fa-circle  nav-icon"></i>
-                                    <p>Komitenti - Partneri</p>
+
+                            <li class="nav-item ">
+                                <a href="#" class="nav-link ml-3">
+                                    <p >Oblik rada</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{route('oblikrada.index')}}" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Pregled oblika rada</p>
+                                </a>
+                            </li>
+
+
+                            <li class="nav-item ">
+                                <a href="#" class="nav-link ml-3">
+                                    <p >Vrste plaćanja</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('vrsteplacanja.index')}}" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Pregled vrste plaćanja</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="#" class="nav-link ml-3">
+                                    <p >Kreditori</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('kreditori.index')}}" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Pregled kreditora</p>
+                                </a>
+                            </li>
+
+
+
+
+
+
+
+
+
+
                         </ul>
                     </li>
+
                 @endif
                 @if($permissions->tehnologija)
                     <li class="nav-item menu">

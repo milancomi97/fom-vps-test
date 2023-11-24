@@ -6,7 +6,10 @@ use App\Modules\Kadrovskaevidencija\Controllers\RadnamestaController;
 use App\Modules\Kadrovskaevidencija\Controllers\StrucnakvalifikacijaController;
 use App\Modules\Kadrovskaevidencija\Controllers\VrstaradasifarnikController;
 use App\Modules\Kadrovskaevidencija\Controllers\ZanimanjasifarnikController;
+use App\Modules\Obracunzarada\Controllers\KreditoriController;
+use App\Modules\Obracunzarada\Controllers\OblikradaController;
 use App\Modules\Obracunzarada\Controllers\ObracunZaradaController;
+use App\Modules\Obracunzarada\Controllers\VrsteplacanjaController;
 use App\Modules\Osnovnipodaci\Controllers\FirmaController;
 use App\Modules\Osnovnipodaci\Controllers\OrganizacionecelineController;
 use App\Modules\Osnovnipodaci\Controllers\RadniciController;
@@ -23,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//** OLD Presentation logic, should be refactored  */
 Route::get('/', function () {
     return view('welcome');
 });
@@ -59,10 +63,19 @@ Route::middleware('auth')->group(function () {
     Route::resource('firstmodule', FirstModuleController::class);
     Route::post('getNbsData',[FirstModuleController::class,'sendSoapRequest']);
 
+    //** OLD Presentation logic, should be refactored  END */
 
 
 
-    //** Osnovni podaci  */
+    //** Modular logic, custom router cause problem, didnt load properly Facades and Laravel core */
+    //** Modules containts Repository for advanced database logic, Views and Controlers and Services for Bussines Logic */
+    //** Static files theme,css etc are in public */
+    //** Models, Migrations and Seeders are located in Core Laravel folder structure */
+    //** Module architecture stand for customizations based on old Serbian ERP which is reffactored in Laravel read Confluence for more*/
+
+
+
+    //** Osnovni podaci modul  */
     // Radnici
     Route::get('osnovnipodaci/radnici/index',[RadniciController::class,'index'])->name('radnici.index');
 
@@ -85,10 +98,10 @@ Route::middleware('auth')->group(function () {
     Route::post('osnovnipodaci/organizacioneceline/post',[OrganizacionecelineController::class,'update'])->name('organizacioneceline.update');
 
 
-    //** Osnovni podaci  KRAJ */
+    //** Osnovni podaci modul  KRAJ */
 
 
-    //** Kadrovska Evidencija   */
+    //** Kadrovska Evidencija modul   */
 
     // Zanimanja
     Route::get('kadrovskaevidencija/zanimanjasifarnik/index',[ZanimanjasifarnikController::class,'index'])->name('zanimanjasifarnik.index');
@@ -110,7 +123,28 @@ Route::middleware('auth')->group(function () {
     Route::get('kadrovskaevidencija/vrstaradasifarnik/{id}/edit',[VrstaradasifarnikController::class,'edit'])->name('vrstaradasifarnik.edit');
     Route::post('kadrovskaevidencija/vrstaradasifarnik/post',[VrstaradasifarnikController::class,'update'])->name('vrstaradasifarnik.update');
 
+    //** Kadrovska Evidencija modul kraj   */
 
+
+    //** Obračun zarada  modul */
+
+    // Oblik rada
+
+    Route::get('obracunzarada/oblikrada/index',[OblikradaController::class,'index'])->name('oblikrada.index');
+    Route::get('obracunzarada/oblikrada/{id}/edit',[OblikradaController::class,'edit'])->name('oblikrada.edit');
+    Route::post('obracunzarada/oblikrada/post',[OblikradaController::class,'update'])->name('oblikrada.update');
+
+    // Vrste placanja
+
+    Route::get('obracunzarada/vrsteplacanja/index',[VrsteplacanjaController::class,'index'])->name('vrsteplacanja.index');
+    Route::get('obracunzarada/vrsteplacanja/{id}/edit',[VrsteplacanjaController::class,'edit'])->name('vrsteplacanja.edit');
+    Route::post('obracunzarada/vrsteplacanja/post',[VrsteplacanjaController::class,'update'])->name('vrsteplacanja.update');
+
+    // Kreditori
+
+    Route::get('obracunzarada/kreditori/index',[KreditoriController::class,'index'])->name('kreditori.index');
+    Route::get('obracunzarada/kreditori/{id}/edit',[KreditoriController::class,'edit'])->name('kreditori.edit');
+    Route::post('obracunzarada/kreditori/post',[KreditoriController::class,'update'])->name('kreditori.update');
 
 });
 

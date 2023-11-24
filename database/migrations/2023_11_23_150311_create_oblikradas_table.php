@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('oblikradas', function (Blueprint $table) {
             $table->id();
             $table->string('sifra_oblika_rada', 35)->nullable();
-            $table->integer('naziv_oblika_rada')->nullable();
+            $table->string('naziv_oblika_rada')->nullable();
 
 
             $table->timestamps();

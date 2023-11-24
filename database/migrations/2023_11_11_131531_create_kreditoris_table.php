@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('kreditoris', function (Blueprint $table) {
             $table->id();
-            $table->integer('sifk_sifra_kreditora', )->nullable();
-            $table->string('imek_naziv_kreditora', 30)->nullable();
-            $table->string('sediste_kreditora', 15)->nullable();
-            $table->string('tekuci_racun_za_uplatu', 30)->nullable();
-            $table->string('partija_kredita', 25)->nullable();
+            $table->string('sifk_sifra_kreditora', )->nullable();
+            $table->string('imek_naziv_kreditora', 255)->nullable();
+            $table->string('sediste_kreditora', 255)->nullable();
+            $table->string('tekuci_racun_za_uplatu', 255)->nullable();
+            $table->string('partija_kredita', 255)->nullable();
             $table->timestamps();
         });
     }
