@@ -344,10 +344,17 @@
                                 </a>
                             </li>
 
-
-
-
-
+                            <li class="nav-item ">
+                                <a href="#" class="nav-link ml-3">
+                                    <p >Matična datoteka radnika</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('maticnadatotekaradnika.index')}}" class="nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Forme matična datoteka radnika</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 

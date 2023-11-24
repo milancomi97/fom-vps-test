@@ -7,6 +7,7 @@ use App\Modules\Kadrovskaevidencija\Controllers\StrucnakvalifikacijaController;
 use App\Modules\Kadrovskaevidencija\Controllers\VrstaradasifarnikController;
 use App\Modules\Kadrovskaevidencija\Controllers\ZanimanjasifarnikController;
 use App\Modules\Obracunzarada\Controllers\KreditoriController;
+use App\Modules\Obracunzarada\Controllers\MaticnadatotekaradnikaController;
 use App\Modules\Obracunzarada\Controllers\MinimalnebrutoosnoviceController;
 use App\Modules\Obracunzarada\Controllers\OblikradaController;
 use App\Modules\Obracunzarada\Controllers\ObracunZaradaController;
@@ -159,6 +160,10 @@ Route::middleware('auth')->group(function () {
     Route::get('obracunzarada/porezdoprinosi/index',[PorezdobrinosiController::class,'index'])->name('porezdoprinosi.index');
     Route::get('obracunzarada/porezdoprinosi/{id}/edit',[PorezdobrinosiController::class,'edit'])->name('porezdoprinosi.edit');
     Route::post('obracunzarada/porezdoprinosi/post',[PorezdobrinosiController::class,'update'])->name('porezdoprinosi.update');
+
+    // Maticna datoteka radnika
+
+    Route::get('obracunzarada/maticnadatotekaradnika/index',[MaticnadatotekaradnikaController::class,'index'])->name('maticnadatotekaradnika.index');
 
 });
 
