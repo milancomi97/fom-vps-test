@@ -1,6 +1,24 @@
 @extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
+    <link rel="stylesheet" href="{{asset('admin_assets/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('admin_assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+
+    <style>
+    .input-group-text{
+        min-width:200px
+    }
+
+    .select2-selection__rendered {
+        line-height: 31px !important;
+    }
+    .select2-container .select2-selection--single {
+        height: 40px !important;
+    }
+    .select2-selection__arrow {
+        height: 34px !important;
+    }
+</style>
 
 @endsection
 
@@ -13,265 +31,196 @@
             <!-- /.content-header -->
             <!-- Main content -->
             <!-- /.content -->
-            <h1 class="text-center"> Maticna datoteka radnika sve forme su samo generisane po skracenim nazivima za pocetak </h1>
-
-            <div class="container mt-5 mb-5">
-                <h1>Matična datoteka radnika - MDR</h1>
-                <form>
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="mbrd">MBRD</label>
-                            <input type="text" class="form-control" id="mbrd" placeholder="Enter MBRD (7 characters)" maxlength="7">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="rbrm">RBRM</label>
-                            <input type="text" class="form-control" id="rbrm" placeholder="Enter RBRM (3 characters)" maxlength="3">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="rbim">RBIM</label>
-                            <input type="text" class="form-control" id="rbim" placeholder="Enter RBIM (3 characters)" maxlength="3">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="zrac">ZRAC</label>
-                            <input type="text" class="form-control" id="zrac" placeholder="Enter ZRAC (20 characters)" maxlength="20">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="p_r">P_R</label>
-                            <input type="text" class="form-control" id="p_r" placeholder="Enter P_R (1 character)" maxlength="1">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="brcl">BRCL</label>
-                            <input type="text" class="form-control" id="brcl" placeholder="Enter BRCL (4 characters)" maxlength="4">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="mrad">MRAD</label>
-                            <input type="text" class="form-control" id="mrad" placeholder="Enter MRAD (1 character)" maxlength="1">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="ggst">GGST</label>
-                            <input type="number" class="form-control" id="ggst" placeholder="Enter GGST (2 digits)" min="0" max="99">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="mmst">MMST</label>
-                            <input type="number" class="form-control" id="mmst" placeholder="Enter MMST (2 digits)" min="0" max="99">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="koef">KOEF</label>
-                            <input type="number" class="form-control" id="koef" placeholder="Enter KOEF (12 digits)" min="0" max="999999999999">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="koef1">KOEF1</label>
-                            <input type="number" class="form-control" id="koef1" placeholder="Enter KOEF1 (12 digits)" min="0" max="999999999999">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="rbss">RBSS</label>
-                            <input type="text" class="form-control" id="rbss" placeholder="Enter RBSS (2 characters)" maxlength="2">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="rbps">RBPS</label>
-                            <input type="text" class="form-control" id="rbps" placeholder="Enter RBPS (2 characters)" maxlength="2">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="rbop">RBOP</label>
-                            <input type="text" class="form-control" id="rbop" placeholder="Enter RBOP (3 characters)" maxlength="3">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="jmbg">JMBG</label>
-                            <input type="text" class="form-control" id="jmbg" placeholder="Enter JMBG (13 characters)" maxlength="13">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="preb">PREB</label>
-                            <input type="number" class="form-control" id="preb" placeholder="Enter PREB (5,3)" step="0.001" min="0" max="99999.999">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="rbtc">RBTC</label>
-                            <input type="text" class="form-control" id="rbtc" placeholder="Enter RBTC (8 characters)" maxlength="8">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="prpb">PRPB</label>
-                            <input type="number" class="form-control" id="prpb" placeholder="Enter PRPB (5,3)" step="0.001" min="0" max="99999.999">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="pol">POL</label>
-                            <input type="text" class="form-control" id="pol" placeholder="Enter POL (1 character)" maxlength="1">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="rj">RJ</label>
-                            <input type="text" class="form-control" id="rj" placeholder="Enter RJ (3 characters)" maxlength="3">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="brig">BRIG</label>
-                            <input type="text" class="form-control" id="brig" placeholder="Enter BRIG (5 characters)" maxlength="5">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="ulica">ULICA</label>
-                            <input type="text" class="form-control" id="ulica" placeholder="Enter ULICA (20 characters)" maxlength="20">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="opstina">OPSTINA</label>
-                            <input type="text" class="form-control" id="opstina" placeholder="Enter OPSTINA (3 characters)" maxlength="3">
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <label for="drzava">DRŽAVA</label>
-                            <input type="text" class="form-control" id="drzava" placeholder="Enter DRŽAVA (5 characters)" maxlength="5">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="prosecni_iznos">Prosečni iznos</label>
-                            <input type="number" class="form-control" id="prosecni_iznos" placeholder="Enter Prosečni iznos" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="prosecni_sati">Prosečni sati</label>
-                            <input type="number" class="form-control" id="prosecni_sati" placeholder="Enter Prosečni sati" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="dani">DANI</label>
-                            <input type="number" class="form-control" id="dani" placeholder="Enter DANI (3 digits)" min="0" max="999">
-                        </div>
-                    </div>
-
-                    <button class="btn btn-primary" type="submit">Sačuvaj podatke</button>
-                </form>
-            </div>
-
-            <div class="container mt-5 mb-5">
-                <h1> PRVA ISPLATA i kumulirane druga, treća, </h1>
-                <form>
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="izneto1">IZNETO1</label>
-                            <input type="number" class="form-control" id="izneto1" placeholder="Enter IZNETO1 (12,2)" step="0.01" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="porosl1">POROSL1</label>
-                            <input type="number" class="form-control" id="porosl1" placeholder="Enter POROSL1 (12,2)" step="0.01" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="sip1">SIP1</label>
-                            <input type="number" class="form-control" id="sip1" placeholder="Enter SIP1 (12,2)" step="0.01" min="0">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="brosn1">BROSN1</label>
-                            <input type="number" class="form-control" id="brosn1" placeholder="Enter BROSN1 (12,2)" step="0.01" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="pior1">PIOR1</label>
-                            <input type="number" class="form-control" id="pior1" placeholder="Enter PIOR1 (12,2)" step="0.01" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="piop1">PIOP1</label>
-                            <input type="number" class="form-control" id="piop1" placeholder="Enter PIOP1 (12,2)" step="0.01" min="0">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="zdrr1">ZDRR1</label>
-                            <input type="number" class="form-control" id="zdrr1" placeholder="Enter ZDRR1 (12,2)" step="0.01" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="zdrp1">ZDRP1</label>
-                            <input type="number" class="form-control" id="zdrp1" placeholder="Enter ZDRP1 (12,2)" step="0.01" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="onezr1">ONEZR1</label>
-                            <input type="number" class="form-control" id="onezr1" placeholder="Enter ONEZR1 (12,2)" step="0.01" min="0">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="onezp1">ONEZP1</label>
-                            <input type="number" class="form-control" id="onezp1" placeholder="Enter ONEZP1 (12,2)" step="0.01" min="0">
-                        </div>
-                    </div>
-
-                    <button class="btn btn-primary" type="submit">Sačuvaj podatke</button>
-                </form>
-            </div>
+            <h1 class="text-center"> Maticna datoteka radnika </h1>
             <div class="container mt-5">
-                <h1>Konačna isplata</h1>
-                <form>
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="izneto">IZNETO</label>
-                            <input type="number" class="form-control" id="izneto" placeholder="Enter IZNETO (12)" step="1" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="porosl">POROSL</label>
-                            <input type="number" class="form-control" id="porosl" placeholder="Enter POROSL (12)" step="1" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="sip">SIP</label>
-                            <input type="number" class="form-control" id="sip" placeholder="Enter SIP (12,2)" step="0.01" min="0">
-                        </div>
-                    </div>
+                <div class="row justify-content-center">
+                    <div class="container mt-5">
+                        <form>
 
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="brosn">BROSN</label>
-                            <input type="number" class="form-control" id="brosn" placeholder="Enter BROSN (12)" step="1" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="pior">PIOR</label>
-                            <input type="number" class="form-control" id="pior" placeholder="Enter PIOR (12)" step="1" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="piop">PIOP</label>
-                            <input type="number" class="form-control" id="piop" placeholder="Enter PIOP (12)" step="1" min="0">
-                        </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="col-md-4 mb-3">
-                            <label for="zdrr">ZDRR</label>
-                            <input type="number" class="form-control" id="zdrr" placeholder="Enter ZDRR (12)" step="1" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="zdrp">ZDRP</label>
-                            <input type="number" class="form-control" id="zdrp" placeholder="Enter ZDRP (12)" step="1" min="0">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="onezr">ONEZR</label>
-                            <input type="number" class="form-control" id="onezr" placeholder="Enter ONEZR (12)" step="1" min="0">
-                        </div>
-                    </div>
+                            <!-- 1. Maticni broj, Select option -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="maticni_broj">Maticni broj</span>
+                                </div>
+                                <select class="custom-select maticni_broj" id="maticni_broj" aria-describedby="maticni_broj"></select>
+                            </div>
 
-                    <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="onezp">ONEZP</label>
-                            <input type="number" class="form-control" id="onezp" placeholder="Enter ONEZP (12)" step="1" min="0">
-                        </div>
-                    </div>
+                            <!-- 2. Prezime i Ime, text field -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="prezime_ime">Prezime i Ime</span>
+                                </div>
+                                <input type="text" class="form-control" id="prezime_ime" aria-describedby="prezime_ime">
+                            </div>
 
-                    <button class="btn btn-primary" type="submit">Sačuvaj podatke</button>
-                </form>
+                            <!-- 3. Troskovni centar, text field -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="troskovni_centar">Troskovni centar</span>
+                                </div>
+                                <input type="text" class="form-control" id="troskovni_centar" aria-describedby="troskovni_centar">
+                            </div>
+
+                            <!-- 4. Radno mesto, select option -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="radno_mesto">Radno mesto</span>
+                                </div>
+                                <select class="custom-select" id="radno_mesto" aria-describedby="radno_mesto"></select>
+                            </div>
+
+                            <!-- 5. Isplatno mesto, Select option -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="isplatno_mesto">Isplatno mesto</span>
+                                </div>
+                                <select class="custom-select" id="isplatno_mesto" aria-describedby="isplatno_mesto"></select>
+                            </div>
+
+                            <!-- 6. Partija tekuceg racuna, text field -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="partija_racuna">Partija tekuceg racuna</span>
+                                </div>
+                                <input type="text" class="form-control" id="partija_racuna" aria-describedby="partija_racuna">
+                            </div>
+
+                            <!-- 7. Redosled u poentazi, text field -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="redosled_poentazi">Redosled u poentazi</span>
+                                </div>
+                                <input type="text" class="form-control" id="redosled_poentazi" aria-describedby="redosled_poentazi">
+                            </div>
+
+                            <!-- 8. Vrsta rada, select option -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="vrsta_rada">Vrsta rada</span>
+                                </div>
+                                <select class="custom-select" id="vrsta_rada" aria-describedby="vrsta_rada"></select>
+                            </div>
+
+                            <!-- 9. Radna jedinica, text field -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="radna_jedinica">Radna jedinica</span>
+                                </div>
+                                <input type="text" class="form-control" id="radna_jedinica" aria-describedby="radna_jedinica">
+                            </div>
+
+                            <!-- 10. Godine, text field -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="godine">Godine</span>
+                                </div>
+                                <input type="text" class="form-control" id="godine" aria-describedby="godine">
+                            </div>
+
+                            <!-- 11. Meseci, text field -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="meseci">Meseci</span>
+                                </div>
+                                <input type="text" class="form-control" id="meseci" aria-describedby="meseci">
+                            </div>
+
+                            <!-- 12. Minuli rad aktivan, boolean -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" aria-label="Minuli rad aktivan" id="minuli_rad_aktivan">
+                                    </div>
+                                </div>
+                                <label for="minuli_rad_aktivan" class="form-control">Minuli rad aktivan</label>
+                            </div>
+
+                            <!-- 13. Stvarna strucna sprema, select option -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="stvarna_strucna_sprema">Stvarna strucna sprema</span>
+                                </div>
+                                <select class="custom-select" id="stvarna_strucna_sprema" aria-describedby="stvarna_strucna_sprema"></select>
+                            </div>
+
+                            <!-- 14. Priznata strucna sprema, select option -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="priznata_strucna_sprema">Priznata strucna sprema</span>
+                                </div>
+                                <select class="custom-select" id="priznata_strucna_sprema" aria-describedby="priznata_strucna_sprema"></select>
+                            </div>
+
+                            <!-- 15. Koefinicijent slozenosti, text field -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="koefinicijent_slozenosti">Koefinicijent slozenosti</span>
+                                </div>
+                                <input type="text" class="form-control" id="koefinicijent_slozenosti" aria-describedby="koefinicijent_slozenosti">
+                            </div>
+
+                            <!-- 16. Opstina, select option -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="opstina">Opstina</span>
+                                </div>
+                                <select class="custom-select" id="opstina" aria-describedby="opstina"></select>
+                            </div>
+
+                            <!-- 17. Licni broj gradjana, text field -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="licni_broj_gradjana">Licni broj gradjana</span>
+                                </div>
+                                <input type="text" class="form-control" id="licni_broj_gradjana" aria-describedby="licni_broj_gradjana">
+                            </div>
+
+                            <!-- 18. Pol, Radio buttons -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="pol">Pol</span>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="pol" id="male" value="male">
+                                        <label class="form-check-label" for="male">Muški</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="pol" id="female" value="female">
+                                        <label class="form-check-label" for="female">Ženski</label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- 19. Sati za nadoknade, text field -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="sati_za_nadoknade">Sati za nadoknade</span>
+                                </div>
+                                <input type="text" class="form-control" id="sati_za_nadoknade" aria-describedby="sati_za_nadoknade">
+                            </div>
+
+                            <!-- 20. Prosek za nadoknade, text field -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="prosek_za_nadoknade">Prosek za nadoknade</span>
+                                </div>
+                                <input type="text" class="form-control" id="prosek_za_nadoknade" aria-describedby="prosek_za_nadoknade">
+                            </div>
+
+                            <!-- 21. Ulica i broj, text field -->
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="ulica_i_broj">Ulica i broj</span>
+                                </div>
+                                <input type="text" class="form-control" id="ulica_i_broj" aria-describedby="ulica_i_broj">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>                </div>
             </div>
         </div>
         <!-- /.content-wrapper -->
@@ -281,5 +230,43 @@
 
 
 @section('custom-scripts')
+
+    <script src="{{asset('admin_assets/plugins/select2/js/select2.full.min.js')}}"></script>
+
+    <script>
+
+        $(function () {
+            $('.maticni_broj').select2({
+                minimumInputLength: 3,
+                language: {
+                inputTooShort: function (args) {
+                    var remainingChars = args.minimum - args.input.length;
+
+                    return 'Unesi ' + remainingChars + ' ili vise karaktera';
+                }},
+                ajax: {
+                    url: '{!! route('radnici.findByMat') !!}',
+                    dataType: 'json',
+                    delay: 500,
+                    data: function (params) {
+                        return {
+                            q: params.term, // search term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data
+                        };
+                    },
+                    cache: true
+                }
+            }).on('select2:select', function (e) {
+                alert('select event');
+            });
+        });
+
+    </script>
+
+
 @endsection
 

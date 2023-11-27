@@ -129,4 +129,24 @@ class RadniciController extends Controller
         }
     }
 
+    public function findByMat(Request $request){
+        $inputString = $request->q;
+
+
+
+//                $test = User::where('maticni_broj', 'like', '%' . $inputString . '%')
+//            ->orWhere('ime', 'like', '%' . $inputString . '%')->get();
+//        $data2 = $this->radniciRepositoryInterface->likeOrLike('maticni_broj','prezime',$inputString);
+
+
+        $data2 = $this->radniciRepositoryInterface->like('maticni_broj',$inputString);
+        $result =$data2->map(function ($item) {
+            return ['id'=>$item['id'],'text' =>$item['ime'] .' '. $item['prezime']];
+        });
+
+        $test="test";
+        return response()->json($result);
+    }
+//interni_maticni_broj
+//maticni_broj
 }

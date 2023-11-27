@@ -4,7 +4,7 @@
     $userData=Auth::user()->load(['permission']);
     $permissions = $userData->permission;
 @endphp
-<aside class="main-sidebar sidebar-light-primary elevation-4">
+<aside class="main-sidebar extend-sidebar sidebar-light-primary elevation-4">
     <!-- Brand Logo -->
     {{--    <a href="{{route('dashboard')}}" class="brand-link">--}}
     {{--        <img src="{{asset('admin_assets/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo"--}}
@@ -44,7 +44,7 @@
                      with font-awesome or any other icon font library -->
                 @if($permissions->osnovni_podaci)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link nav-link-extend active">
                             <i class="nav-icon far fa-circle"></i>
                             <p>
                                 Osnovni podaci
@@ -53,55 +53,55 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{route('firmapodaci.view')}}" class="nav-link">
+                                <a href="{{route('firmapodaci.view')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p>Podaci o firmi</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link ml-3" >
+                                <a href="#" class="nav-link nav-link-extend ml-3" >
                                     <p>Poslovni partneri</p>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{route('partner.create')}}" class="nav-link">
+                                <a href="{{route('partner.create')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Unos poslovnog partnera</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('partner.index')}}" class="nav-link">
+                                <a href="{{route('partner.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled poslovnih partnera</p>
                                 </a>
                             </li>
 
                             <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
+                                <a href="#" class="nav-link nav-link-extend ml-3">
                                     <p >Radnici</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('radnici.create')}}" class="nav-link">
+                                <a href="{{route('radnici.create')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Unos radnika</p>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{route('radnici.index')}}" class="nav-link">
+                                <a href="{{route('radnici.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled radnika</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
+                                <a href="#" class="nav-link nav-link-extend ml-3">
                                     <p >Organizacione Celine</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('organizacioneceline.index')}}" class="nav-link">
+                                <a href="{{route('organizacioneceline.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled troškovnih mesta</p>
                                 </a>
@@ -112,7 +112,7 @@
                 @endif
                 @if($permissions->finansijsko_k)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link nav-link-extend active">
                             <i class="nav-icon far fa-circle"></i>
                             <p class="small">
                                 Finansijsko knjigovodstvo
@@ -121,7 +121,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="#" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p>Komitenti - Partneri</p>
                                 </a>
@@ -131,7 +131,7 @@
                 @endif
                 @if($permissions->materijalno_k)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link nav-link-extend active">
                             <i class="nav-icon far fa-circle"></i>
                             <p class="small">
                                 Materijalno knjigovodstvo
@@ -141,13 +141,13 @@
                         <ul class="nav nav-treeview">
 
                             <li class="nav-item">
-                                <a href="{{route('materijal.create')}}" class="nav-link">
+                                <a href="{{route('materijal.create')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Materijali (kreiraj)</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('materijal.index')}}" class="nav-link">
+                                <a href="{{route('materijal.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Materijali (pregled)</p>
                                 </a>
@@ -159,7 +159,7 @@
                 @endif
                 @if($permissions->magacini)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link nav-link-extend active">
                             <i class="nav-icon far fa-circle"></i>
                             <p>
                                 Magacini
@@ -168,7 +168,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="#" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p>Komitenti - Partneri</p>
                                 </a>
@@ -178,7 +178,7 @@
                 @endif
                 @if($permissions->pogonsko)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link nav-link-extend active">
                             <i class="nav-icon far fa-circle"></i>
                             <p class="small">
                                 Pogonsko knjigovodstvo
@@ -187,7 +187,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="#" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p>Komitenti - Partneri</p>
                                 </a>
@@ -197,7 +197,7 @@
                 @endif
                 @if($permissions->osnovna_sredstva)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link nav-link-extend active">
                             <i class="nav-icon far fa-circle"></i>
                             <p>
                                 Osnovna sredstva
@@ -206,7 +206,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="#" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p>Komitenti - Partneri</p>
                                 </a>
@@ -216,7 +216,7 @@
                 @endif
                 @if($permissions->kadrovska_evidencija)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link nav-link-extend active">
                             <i class="nav-icon far fa-circle"></i>
                             <p>
                                 Kadrovska evidencija
@@ -225,46 +225,46 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
+                                <a href="#" class="nav-link nav-link-extend ml-3">
                                     <p >Zanimanja</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('zanimanjasifarnik.index')}}" class="nav-link">
+                                <a href="{{route('zanimanjasifarnik.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled šifarnika zanimanja</p>
                                 </a>
                             </li>
 
                             <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
+                                <a href="#" class="nav-link nav-link-extend ml-3">
                                     <p >Radna mesta</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('radnamesta.index')}}" class="nav-link">
+                                <a href="{{route('radnamesta.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled šifarnika radnih mesta</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
+                                <a href="#" class="nav-link nav-link-extend ml-3">
                                     <p >Stručna kvalifikacija</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('strucnakvalifikacija.index')}}" class="nav-link">
+                                <a href="{{route('strucnakvalifikacija.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled šifarnika stručnih kvalifikacija</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
+                                <a href="#" class="nav-link nav-link-extend ml-3">
                                     <p >Vrsta rada</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('vrstaradasifarnik.index')}}" class="nav-link">
+                                <a href="{{route('vrstaradasifarnik.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled šifarnika vrste rada</p>
                                 </a>
@@ -274,7 +274,7 @@
                 @endif
                 @if($permissions->obracun_zarada)
                     <li class="nav-item menu ">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link nav-link-extend active">
                             <i class="nav-icon far fa-circle"></i>
                             <p class="small">
                                 Obračun zarada i naknada
@@ -284,12 +284,12 @@
                         <ul class="nav nav-treeview">
 
                             <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
+                                <a href="#" class="nav-link nav-link-extend ml-3">
                                     <p >Oblik rada</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('oblikrada.index')}}" class="nav-link">
+                                <a href="{{route('oblikrada.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled oblika rada</p>
                                 </a>
@@ -297,35 +297,35 @@
 
 
                             <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
+                                <a href="#" class="nav-link nav-link-extend ml-3">
                                     <p >Vrste plaćanja</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('vrsteplacanja.index')}}" class="nav-link">
+                                <a href="{{route('vrsteplacanja.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled vrste plaćanja</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
+                                <a href="#" class="nav-link nav-link-extend ml-3">
                                     <p >Kreditori</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('kreditori.index')}}" class="nav-link">
+                                <a href="{{route('kreditori.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled kreditora</p>
                                 </a>
                             </li>
 
                             <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
+                                <a href="#" class="nav-link nav-link-extend ml-3">
                                     <p >Minimalne bruto osnovice</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('minimalnebrutoosnovice.index')}}" class="nav-link">
+                                <a href="{{route('minimalnebrutoosnovice.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled minimalnih bruto osnovica</p>
                                 </a>
@@ -333,24 +333,24 @@
 
 
                             <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
+                                <a href="#" class="nav-link nav-link-extend ml-3">
                                     <p >Porez i doprinosi</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('porezdoprinosi.index')}}" class="nav-link">
+                                <a href="{{route('porezdoprinosi.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled poreza i doprinosa</p>
                                 </a>
                             </li>
 
                             <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
+                                <a href="#" class="nav-link nav-link-extend ml-3">
                                     <p >Matična datoteka radnika</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('maticnadatotekaradnika.index')}}" class="nav-link">
+                                <a href="{{route('maticnadatotekaradnika.index')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Forme matična datoteka radnika</p>
                                 </a>
@@ -361,7 +361,7 @@
                 @endif
                 @if($permissions->tehnologija)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link nav-link-extend active">
                             <i class="nav-icon far fa-circle"></i>
                             <p>
                                 Tehnologija
@@ -370,7 +370,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="#" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p>Komitenti - Partneri</p>
                                 </a>
@@ -380,7 +380,7 @@
                 @endif
                 @if($permissions->proizvodnja)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link nav-link-extend active">
                             <i class="nav-icon far fa-circle"></i>
                             <p>
                                 Proizvodnja
@@ -389,7 +389,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="#" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p>Komitenti - Partneri</p>
                                 </a>

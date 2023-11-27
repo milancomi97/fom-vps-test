@@ -28,7 +28,7 @@
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
     @include('obracunzarada::theme.layout.header')
-    @include('obracunzarada::theme.layout.sidebar')
+    @include('firstmodule::adminlte.layout.sidebar')
     @yield('content')
     @include('obracunzarada::theme.layout.footer')
 

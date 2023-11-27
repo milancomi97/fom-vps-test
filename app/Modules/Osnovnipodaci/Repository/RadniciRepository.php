@@ -28,4 +28,10 @@ class RadniciRepository extends BaseRepository implements RadniciRepositoryInter
         $attributes['active'] = ( $attributes['active'] ?? "") =='on';
         return $this->create($attributes);
     }
+
+//
+//    public function likeOrLike(array, $attributes):{
+//
+//        return $this->model;
+//    }
 }

@@ -28,7 +28,7 @@
 <body class="hold-transition sidebar-mini sidebar-collapse">
 <div class="wrapper">
     @include('osnovnipodaci::theme.layout.header')
-    @include('osnovnipodaci::theme.layout.sidebar')
+    @include('firstmodule::adminlte.layout.sidebar')
     @yield('content')
     @include('osnovnipodaci::theme.layout.footer')
 

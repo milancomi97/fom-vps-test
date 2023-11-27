@@ -84,6 +84,7 @@ Route::middleware('auth')->group(function () {
     //** Osnovni podaci modul  */
     // Radnici
     Route::get('osnovnipodaci/radnici/index',[RadniciController::class,'index'])->name('radnici.index');
+    Route::get('osnovnipodaci/radnici/findByMat',[RadniciController::class,'findByMat'])->name('radnici.findByMat');
 
     Route::get('osnovnipodaci/radnici/create',[RadniciController::class,'create'])->name('radnici.create');
     Route::post('osnovnipodaci/radnici/store',[RadniciController::class,'store'])->name('radnici.store');
