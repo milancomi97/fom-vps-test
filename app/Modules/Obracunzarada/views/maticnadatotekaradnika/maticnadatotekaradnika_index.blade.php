@@ -243,7 +243,10 @@
                     var remainingChars = args.minimum - args.input.length;
 
                     return 'Unesi ' + remainingChars + ' ili vise karaktera';
-                }},
+                },
+                    noResults: function () { return 'Nema rezultata'; },
+                    searching: function () { return 'Pretražujem...'; }
+                },
                 ajax: {
                     url: '{!! route('radnici.findByMat') !!}',
                     dataType: 'json',
@@ -261,12 +264,43 @@
                     cache: true
                 }
             }).on('select2:select', function (e) {
-                alert('select event');
+                debugger;
+                var selectedRadnikId = e.params.data.id;
+                getRadnikDataById(selectedRadnikId)
             });
         });
+
+        function getRadnikDataById(id){
+            alert(id);
+        }
 
     </script>
 
 
 @endsection
 
+{{--errorLoading: function () {--}}
+{{--return 'The results could not be loaded.';--}}
+{{--},--}}
+{{--inputTooLong: function (args) {--}}
+{{--var overChars = args.input.length - args.maximum;--}}
+
+{{--return 'Please delete ' + overChars + ' character' + (overChars > 1 ? 's' : '');--}}
+{{--},--}}
+{{--inputTooShort: function (args) {--}}
+{{--var remainingChars = args.minimum - args.input.length;--}}
+
+{{--return 'Please add ' + remainingChars + ' or more character' + (remainingChars > 1 ? 's' : '');--}}
+{{--},--}}
+{{--loadingMore: function () {--}}
+{{--return 'Loading more results…';--}}
+{{--},--}}
+{{--maximumSelected: function (args) {--}}
+{{--return 'You can only select ' + args.maximum + ' item' + (args.maximum > 1 ? 's' : '');--}}
+{{--},--}}
+{{--noResults: function () {--}}
+{{--return 'No results found';--}}
+{{--},--}}
+{{--searching: function () {--}}
+{{--return 'Searching…';--}}
+{{--}--}}
