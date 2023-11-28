@@ -31,7 +31,7 @@
             <!-- /.content-header -->
             <!-- Main content -->
             <!-- /.content -->
-            <h1 class="text-center"> Maticna datoteka radnika </h1>
+            <h1 class="text-center"> Matična datoteka radnika </h1>
             <div class="container mt-5">
                 <div class="row justify-content-center">
                     <div class="container mt-5">
@@ -41,9 +41,9 @@
                             <!-- 1. Maticni broj, Select option -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="maticni_broj">Maticni broj</span>
+                                    <span class="input-group-text" id="maticni_broj">Matični broj</span>
                                 </div>
-                                <select class="custom-select maticni_broj" id="maticni_broj" aria-describedby="maticni_broj"></select>
+                                <select class="custom-select maticni_broj" id="maticni_broj" aria-describedby="maticni_broj"><option>pretraga po mat. br.</option></select>
                             </div>
 
                             <!-- 2. Prezime i Ime, text field -->
@@ -57,7 +57,7 @@
                             <!-- 3. Troskovni centar, text field -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text" id="troskovni_centar">Troskovni centar</span>
+                                    <span class="input-group-text" id="troskovni_centar">Troškovni centar</span>
                                 </div>
                                 <input type="text" class="form-control" id="troskovni_centar" aria-describedby="troskovni_centar">
                             </div>
