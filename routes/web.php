@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
-use App\Modules\FirstModule\Controllers\FirstModuleController;
+use App\Modules\CoreModule\Controllers\CoreModuleController;
 use App\Modules\Kadrovskaevidencija\Controllers\RadnamestaController;
 use App\Modules\Kadrovskaevidencija\Controllers\StrucnakvalifikacijaController;
 use App\Modules\Kadrovskaevidencija\Controllers\VrstaradasifarnikController;
@@ -66,8 +66,8 @@ Route::middleware('auth')->group(function () {
 //    Route::middleware(['auth','customrole'])->group(function () {
 
         Route::get('obracunzarada/index', [ObracunZaradaController::class, 'index']);
-    Route::resource('firstmodule', FirstModuleController::class);
-    Route::post('getNbsData',[FirstModuleController::class,'sendSoapRequest']);
+    Route::resource('coremodule', CoreModuleController::class);
+    Route::post('getNbsData',[CoreModuleController::class,'sendSoapRequest']);
 
     //** OLD Presentation logic, should be refactored  END */
 

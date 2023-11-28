@@ -1,4 +1,4 @@
-@extends('firstmodule::adminlte.layout.app')
+@extends('coremodule::adminlte.layout.app')
 
 @section('custom-styles')
     <style>

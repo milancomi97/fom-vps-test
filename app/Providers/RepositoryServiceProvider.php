@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Modules\FirstModule\Repository\FirstModuleRepository;
-use App\Modules\FirstModule\Repository\FirstModuleRepositoryInterface;
+use App\Modules\CoreModule\Repository\CoreModuleRepository;
+use App\Modules\CoreModule\Repository\CoreModuleRepositoryInterface;
 use App\Modules\Kadrovskaevidencija\Repository\RadnamestaRepository;
 use App\Modules\Kadrovskaevidencija\Repository\RadnamestaRepositoryInterface;
 use App\Modules\Kadrovskaevidencija\Repository\StrucnakvalifikacijaRepository;
@@ -45,7 +45,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(BaseRepositoryInterface::class, BaseRepository::class);
-        $this->app->bind(FirstModuleRepositoryInterface::class, FirstModuleRepository::class);
+        $this->app->bind(CoreModuleRepositoryInterface::class, CoreModuleRepository::class);
 
         // Osnovni podaci
         $this->app->bind(DrzaveRepositoryInterface::class, DrzaveRepository::class);

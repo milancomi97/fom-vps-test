@@ -1,19 +1,19 @@
 <?php declare(strict_types=1);
 
-namespace App\Modules\FirstModule\Controllers;
+namespace App\Modules\CoreModule\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\FirstModule;
-use App\Modules\FirstModule\Repository\FirstModuleRepositoryInterface;
-use App\Modules\FirstModule\Service\EfaktureSubmitService;
+use \App\Models\CoreModule;
+use App\Modules\CoreModule\Repository\CoreModuleRepositoryInterface;
+use App\Modules\CoreModule\Service\EfaktureSubmitService;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 
-class FirstModuleController extends Controller
+class CoreModuleController extends Controller
 {
     public function __construct(
-        private readonly FirstModuleRepositoryInterface $firstModuleRepository,
-        private readonly EfaktureSubmitService $efaktureSubmitService
+        private readonly CoreModuleRepositoryInterface $coreModuleRepository,
+        private readonly EfaktureSubmitService         $efaktureSubmitService
     ) {
     }
 
@@ -22,9 +22,9 @@ class FirstModuleController extends Controller
      */
     public function index()
     {
-        $this->firstModuleRepository->create(['name'=>time()]);
+        $this->coreModuleRepository->create(['name'=>time()]);
         $data = $this->efaktureSubmitService->sendInvoiceToEfakture();
-        return view('firstmodule::firstmodule.create_firstmodule');
+        return view('coremodule::coremodule.create_coremodule');
 
     }
 
@@ -33,7 +33,7 @@ class FirstModuleController extends Controller
      */
     public function create()
     {
-        return view('firstmodule.create_firstmodule');
+        return view('coremodule.create_coremodule');
 
     }
 
@@ -48,7 +48,7 @@ class FirstModuleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(FirstModule $firstmodule)
+    public function show(CoreModule $coremodule)
     {
         //
     }
@@ -56,7 +56,7 @@ class FirstModuleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(FirstModule $firstmodule)
+    public function edit(CoreModule $coremodule)
     {
         //
     }
@@ -64,7 +64,7 @@ class FirstModuleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, FirstModule $firstmodule)
+    public function update(Request $request, CoreModule $coremodule)
     {
         //
     }
@@ -72,7 +72,7 @@ class FirstModuleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(FirstModule $firstmodule)
+    public function destroy(CoreModule $coremodule)
     {
         //
     }

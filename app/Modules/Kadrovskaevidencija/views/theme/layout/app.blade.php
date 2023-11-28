@@ -28,7 +28,7 @@
 <body class="hold-transition sidebar-mini sidebar-collapse">
 <div class="wrapper">
     @include('kadrovskaevidencija::theme.layout.header')
-    @include('firstmodule::theme.layout.sidebar')
+    @include('coremodule::theme.layout.sidebar')
     @yield('content')
     @include('kadrovskaevidencija::theme.layout.footer')
 
