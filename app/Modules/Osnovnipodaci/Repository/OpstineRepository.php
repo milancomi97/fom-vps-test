@@ -19,11 +19,12 @@ class OpstineRepository extends BaseRepository implements OpstineRepositoryInter
 
     public function getSelectOptionData(){
         $data= $this->getAll();
-        $resultCollection = $data->map(function ($item) {
-            $newValue = $item['sifra_drzave'] . ' ' . $item['naziv_opstine'];
+        $resultCollection = $data->sortBy('sifra_opstine')->map(function ($item) {
+            $newValue = $item['sifra_opstine'] . ' ' . $item['naziv_opstine'];
 
             return $item['id'] = $newValue;
         });
         return $resultCollection->toArray();
     }
 }
+// sifra_opstine

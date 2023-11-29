@@ -13,10 +13,11 @@ class OpstineSeeder extends Seeder
         $datas = $this->getDataFromCsv();
 
         foreach ($datas as $data) {
+
             DB::table('opstines')->insert([
                 'naziv_opstine' => $data['naziv_opstine'],
-                'sifra_drzave' =>  $data['sifra'],
-                'sifra_opstine' => $data['sifra_sa_kontrolnim_brojem']
+                'sifra_opstine' =>  $data['sifra'],
+                'sifra_opstine_kontrolni_broj' => $data['sifra_sa_kontrolnim_brojem']
             ]);
         }
     }

@@ -129,9 +129,9 @@ class RadniciController extends Controller
         }
     }
 
-    public function findByMat(Request $request){
+    public function findByMat(Request $request)
+    {
         $inputString = $request->q;
-
 
 
 //                $test = User::where('maticni_broj', 'like', '%' . $inputString . '%')
@@ -139,13 +139,21 @@ class RadniciController extends Controller
 //        $data2 = $this->radniciRepositoryInterface->likeOrLike('maticni_broj','prezime',$inputString);
 
 
-        $data2 = $this->radniciRepositoryInterface->like('maticni_broj',$inputString);
-        $result =$data2->map(function ($item) {
-            return ['id'=>$item['id'],'text' =>$item['ime'] .' '. $item['prezime']];
+        $userCollection = $this->radniciRepositoryInterface->like('maticni_broj', $inputString);
+        $result = $userCollection->map(function ($item) {
+            return ['id' => $item['id'], 'text' => $item['maticni_broj'] . ' - ' . $item['prezime'] . ' ' . $item['ime'] . ' - jmbg: ' . $item['jmbg']];
         });
 
-        $test="test";
         return response()->json($result);
+    }
+
+
+    public function getById(Request $request){
+
+        $userId = $request->radnikId;
+        $userData = $this->radniciRepositoryInterface->getById($userId);
+        $userArray = $userData->toArray();
+        return response()->json($userArray);
     }
 //interni_maticni_broj
 //maticni_broj

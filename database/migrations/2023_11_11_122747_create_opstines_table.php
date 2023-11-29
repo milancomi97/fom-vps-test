@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('sifra_opstine')->nullable();
             $table->string('naziv_opstine', 30)->nullable();
-            $table->string('sifra_drzave' )->nullable();
+            $table->string('sifra_opstine_kontrolni_broj' )->nullable();
             $table->timestamps();
         });
     }
