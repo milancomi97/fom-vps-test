@@ -28,13 +28,13 @@
             <!-- /.content-header -->
             <!-- Main content -->
             <!-- /.content -->
-            <h1 class="text-center"> Izmena radnika a </h1>
+            <h1 class="text-center"> Izmena radnika  {!! $radnik->prezime !!} &nbsp;  {!! $radnik->ime!!} </h1>
             <div class="container mt-5">
                 <form method="POST" action="{{ route('radnici.update', ['radnikId' => $radnik->id]) }}">
                     @csrf
                     <div class="form-group">
                         <label for="interni_maticni_broj">Maticni Broj</label>
-                        <input type="number" class="form-control" id="interni_maticni_broj" value="{{$radnik->interni_maticni_broj}}" name="interni_maticni_broj">
+                        <input type="number" class="form-control" id="interni_maticni_broj" value="{{$radnik->maticni_broj}}" name="interni_maticni_broj">
                     </div>
                     <!-- String -->
                     <div class="form-group">
@@ -49,7 +49,7 @@
                     <!-- String -->
                     <div class="form-group">
                         <label for="ime">Ime</label>
-                        <input type="text" class="form-control" id="ime" name="ime">
+                        <input type="text" class="form-control" id="ime" name="ime" value="{{$radnik->ime}}">
                     </div>
 
                     <!-- String -->
@@ -60,16 +60,17 @@
 
                     <!-- String -->
                     <div class="form-group">
-                        <label for="troskovno_mesto">Troškovno Mesto</label>
-                        <select id="troskovno_mesto" class="custom-select form-control" name="troskovno_mesto">
-                            @foreach($trosMesta as $value => $label)
-                                @if($value ==$radnik->troskovno_mesto)
+                        <label for="sifra_mesta_troska_id">Troškovno Mesto</label>
+                        <select id="sifra_mesta_troska_id" class="custom-select form-control" name="sifra_mesta_troska_id">
+                            @foreach($troskMesta as $value => $label)
+                                @if($label ==$radnik->sifra_mesta_troska_id)
                                 <option selected value="{{ $value }}">{{ $label }}</option>
                                 @else
                                 <option  value="{{ $value }}">{{ $label }}</option>
                                 @endif
                             @endforeach
                         </select>
+                        <h1>{!! $radnik->sifra_mesta_troska_id!!}</h1>
                     </div>
 
                     <!-- String -->
@@ -109,8 +110,8 @@
                     <div class="form-group">
                         <label for="opstina_id">Opstina</label>
                         <select id="opstina_id" class="custom-select form-control" name="opstina_id">
-                            @foreach($gradovi as $value => $label)
-                                @if($value ==$radnik->troskovno_mesto)
+                            @foreach($opstine as $value => $label)
+                                @if($value ==$radnik->opstina_id)
                                     <option selected value="{{ $value }}">{{ $label }}</option>
                                 @else
                                     <option  value="{{ $value }}">{{ $label }}</option>
@@ -123,7 +124,7 @@
                         <label for="drzava_id">Država</label>
                         <select id="drzava_id" class="custom-select form-control" name="drzava_id">
                             @foreach($drzave as $value => $label)
-                                @if($value ==$radnik->troskovno_mesto)
+                                @if($value ==$radnik->drzava_id)
                                     <option selected value="{{ $value }}">{{ $label }}</option>
                                 @else
                                     <option  value="{{ $value }}">{{ $label }}</option>

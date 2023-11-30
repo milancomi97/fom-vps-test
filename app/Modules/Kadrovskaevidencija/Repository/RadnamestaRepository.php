@@ -16,4 +16,15 @@ class RadnamestaRepository extends BaseRepository implements RadnamestaRepositor
     {
         parent::__construct($model);
     }
+
+    public function getSelectOptionData(): array
+    {
+        $data= $this->getAll();
+        $resultCollection = $data->sortBy('rbrm_sifra_radnog_mesta')->map(function ($item) {
+            $newValue = $item['rbrm_sifra_radnog_mesta'] . ' ' . $item['narm_naziv_radnog_mesta'];
+
+            return $item['id'] = $newValue;
+        });
+        return $resultCollection->toArray();
+    }
 }

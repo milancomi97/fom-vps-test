@@ -16,4 +16,15 @@ class IsplatnamestaRepository extends BaseRepository implements IsplatnamestaRep
     {
         parent::__construct($model);
     }
+
+    public function getSelectOptionData(): array
+    {
+        $data= $this->getAll();
+        $resultCollection = $data->sortBy('rbim_sifra_isplatnog_mesta')->map(function ($item) {
+            $newValue = $item['rbim_sifra_isplatnog_mesta'] . ' ' . $item['naim_naziv_isplatnog_mesta'];
+
+            return $item['id'] = $newValue;
+        });
+        return $resultCollection->toArray();
+    }
 }

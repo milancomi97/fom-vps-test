@@ -7,4 +7,5 @@ use App\Repository\BaseRepositoryInterface;
 interface VrstaradasifarnikRepositoryInterface extends BaseRepositoryInterface
 {
 
+    public function getSelectOptionData();
 }

@@ -3,6 +3,8 @@
 namespace App\Modules\Osnovnipodaci\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Osnovnipodaci\Repository\OpstineRepositoryInterface;
+use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\RadniciRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -10,7 +12,11 @@ use App\Models\User;
 class RadniciController extends Controller
 {
 
-    public function __construct(private readonly RadniciRepositoryInterface $radniciRepositoryInterface)
+    public function __construct(
+        private readonly RadniciRepositoryInterface $radniciRepositoryInterface,
+        private readonly OpstineRepositoryInterface $opstineInterface,
+        private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface
+    )
     {
     }
 
@@ -84,13 +90,10 @@ class RadniciController extends Controller
     public function edit(Request $request)
     {
         $userId = $request->radnikId;
+        $opstine = $this->opstineInterface->getSelectOptionData();
 
        $radnik =  User::findOrFail($userId);
-        $gradovi = [
-            1=>'Smederevska Palanka',
-            2=>'Velika Plana',
-            3=>'Kragujevac'
-        ];
+
         $drzave = [
             1=>'Srbija',
             2=>'Francuska',
@@ -107,7 +110,7 @@ class RadniciController extends Controller
         return view('osnovnipodaci::radnici.radnici_edit',
             [
                 'radnik' => $radnik,
-                'gradovi' => $gradovi,
+                'opstine' => $opstine,
                 'drzave'=>$drzave,
                 'trosMesta'=>$trosMesta
             ]);
@@ -129,31 +132,30 @@ class RadniciController extends Controller
         }
     }
 
-    public function findByMat(Request $request)
+
+    public function editRadnik(Request $request)
     {
-        $inputString = $request->q;
+        $userId = $request->user_id;
+        $opstine = $this->opstineInterface->getSelectOptionData();
+
+        $radnik =  User::findOrFail($userId);
+
+        $drzave = [
+            1=>'Srbija',
+            2=>'Francuska',
+            3=>'Italija'
+        ];
+        $troskMesta = $this->organizacionecelineInterface->getSelectOptionData();
 
 
-//                $test = User::where('maticni_broj', 'like', '%' . $inputString . '%')
-//            ->orWhere('ime', 'like', '%' . $inputString . '%')->get();
-//        $data2 = $this->radniciRepositoryInterface->likeOrLike('maticni_broj','prezime',$inputString);
+        return view('osnovnipodaci::radnici.radnici_edit',
+            [
+                'radnik' => $radnik,
+                'opstine' => $opstine,
+                'drzave'=>$drzave,
+                'troskMesta'=>$troskMesta
+            ]);
 
-
-        $userCollection = $this->radniciRepositoryInterface->like('maticni_broj', $inputString);
-        $result = $userCollection->map(function ($item) {
-            return ['id' => $item['id'], 'text' => $item['maticni_broj'] . ' - ' . $item['prezime'] . ' ' . $item['ime'] . ' - jmbg: ' . $item['jmbg']];
-        });
-
-        return response()->json($result);
-    }
-
-
-    public function getById(Request $request){
-
-        $userId = $request->radnikId;
-        $userData = $this->radniciRepositoryInterface->getById($userId);
-        $userArray = $userData->toArray();
-        return response()->json($userArray);
     }
 //interni_maticni_broj
 //maticni_broj

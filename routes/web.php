@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\UserConfigController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Modules\CoreModule\Controllers\CoreModuleController;
@@ -52,11 +53,11 @@ Route::get('/templatetheme', function () {
 
 Route::post('/materijals_pdf', [\App\Http\Controllers\MaterijalController::class, 'pdfExport'])->name('profile.edit');
 
-Route::get('/user/permissions_config', [\App\Http\Controllers\Auth\UserConfigController::class, 'permissionsConfig']);
-Route::get('/user/permissions_config_by_user', [\App\Http\Controllers\Auth\UserConfigController::class, 'permissionsConfigByUserId']);
-Route::get('/user/index', [\App\Http\Controllers\Auth\UserConfigController::class, 'index']);
+Route::get('/user/permissions_config', [UserConfigController::class, 'permissionsConfig']);
+Route::get('/user/permissions_config_by_user', [UserConfigController::class, 'permissionsConfigByUserId']);
+Route::get('/user/index', [UserConfigController::class, 'index']);
 
-Route::post('/user/permissions_config_update', [\App\Http\Controllers\Auth\UserConfigController::class, 'permissionsUpdate']);
+Route::post('/user/permissions_config_update', [UserConfigController::class, 'permissionsUpdate']);
 
 Route::resource("/partner", \App\Http\Controllers\PartnerController::class);
 Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
@@ -83,13 +84,20 @@ Route::middleware('auth')->group(function () {
 
     //** Osnovni podaci modul  */
     // Radnici
+    // Radnici Maticna datoteka radnika
     Route::get('osnovnipodaci/radnici/index',[RadniciController::class,'index'])->name('radnici.index');
-    Route::get('osnovnipodaci/radnici/findByMat',[RadniciController::class,'findByMat'])->name('radnici.findByMat');
-    Route::get('osnovnipodaci/radnici/getById',[RadniciController::class,'getById'])->name('radnici.getById');
+    Route::get('osnovnipodaci/maticnadatotekaradnika/findByMat',[MaticnadatotekaradnikaController::class,'findByMat'])->name('radnici.findByMat');
+    Route::get('osnovnipodaci/maticnadatotekaradnika/findByPrezime',[MaticnadatotekaradnikaController::class,'findByPrezime'])->name('radnici.findByPrezime');
+    Route::get('osnovnipodaci/maticnadatotekaradnika/getById',[MaticnadatotekaradnikaController::class,'getById'])->name('radnici.getById');
+    Route::post('osnovnipodaci/maticnadatotekaradnika/store',[MaticnadatotekaradnikaController::class,'store'])->name('maticnadatotekaradnika.store');
+
+    // Radnici Maticna datoteka radnika END
 
     Route::get('osnovnipodaci/radnici/create',[RadniciController::class,'create'])->name('radnici.create');
     Route::post('osnovnipodaci/radnici/store',[RadniciController::class,'store'])->name('radnici.store');
-    Route::get('osnovnipodaci/radnici/{radnikId}/edit',[RadniciController::class,'edit'])->name('radnici.edit');
+//    Route::get('osnovnipodaci/radnici/{radnikId}/edit',[RadniciController::class,'edit'])->name('radnici.edit');
+    Route::get('osnovnipodaci/radnici/edit_table',[RadniciController::class,'editRadnik'])->name('radnici.edit_table');
+
     Route::post('osnovnipodaci/radnici/{radnikId}/update',[RadniciController::class,'update'])->name('radnici.update');
 
 

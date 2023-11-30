@@ -16,4 +16,15 @@ class OrganizacionecelineRepository extends BaseRepository implements Organizaci
     {
         parent::__construct($model);
     }
+
+    public function getSelectOptionData(): array
+    {
+        $data= $this->getAll();
+        $resultCollection = $data->sortBy('sifra_troskovnog_mesta')->map(function ($item) {
+            $newValue = $item['sifra_troskovnog_mesta'] . ' ' . $item['naziv_troskovnog_mesta'];
+
+            return $item['id'] = $newValue;
+        });
+        return $resultCollection->toArray();
+    }
 }

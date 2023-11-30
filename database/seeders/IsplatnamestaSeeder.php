@@ -14,14 +14,18 @@ class IsplatnamestaSeeder extends Seeder
 
         foreach ($datas as $data) {
             DB::table('isplatnamestas')->insert([
-
+                'rbim_sifra_isplatnog_mesta' => $data['RBIM'],
+                'naim_naziv_isplatnog_mesta' => $data['NAIM'],
+                'tekuci_racun_banke' => $data['ZRAC'],
+                'pb_poziv_na_broj' => $data['PB'],
+                'partija_racuna' => $data['PART']
             ]);
         }
 
     }
 
     public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/GRU.csv');
+        $filePath = storage_path('app/backup/DIMR.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

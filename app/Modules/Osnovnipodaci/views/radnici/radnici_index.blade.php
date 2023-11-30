@@ -97,7 +97,11 @@
                         title: 'Action',
                         render: function (data, type) {
                             var userUrl = "{!! url('user/permissions_config_by_user?user_id=')!!}"+ data;
-                            return '<a href="' + userUrl + '"><div class="col-lg-5"><button type="button" class="btn btn-outline-light"><i class="fas fa-edit edit" data-id="' + data + '" style="font-size: 1em; color: #007BFF;"  aria-hidden="true"></i></button></div></div></a>'
+                            var editUrl = "{!! url('osnovnipodaci/radnici/edit_table?user_id=')!!}"+ data;
+
+                            return '<a href="' + userUrl + '"><div class="col-lg-5"><button type="button" class="btn btn-outline-light"><i class="fas fa-edit edit" data-id="' + data + '" style="font-size: 1em; color: #007BFF;"  aria-hidden="true"></i></button></div></div></a>' +
+                                '<a href="' + editUrl + '"><div class="col-lg-5"><button type="button" class="btn btn-outline-light"><i class="fas fa-edit edit" data-id="' + data + '" style="font-size: 1em; color: #0000CO;"  aria-hidden="true"></i></button></div></div></a>'
+                                {{--''{{ route('radnamesta.edit', ['id' => $item->id]) }}--}}
                         }
                     }
                 ],

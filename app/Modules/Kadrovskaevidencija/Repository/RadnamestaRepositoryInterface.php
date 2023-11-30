@@ -7,4 +7,6 @@ use App\Repository\BaseRepositoryInterface;
 interface RadnamestaRepositoryInterface extends BaseRepositoryInterface
 {
 
+    public function getSelectOptionData();
+
 }

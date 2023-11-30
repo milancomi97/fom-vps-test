@@ -6,5 +6,8 @@ use App\Repository\BaseRepositoryInterface;
 
 interface OpstineRepositoryInterface extends BaseRepositoryInterface
 {
-
+    /**
+     * @return array
+     */
+    public function getSelectOptionData(): array;
 }

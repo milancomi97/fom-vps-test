@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('srednje_ime', 255)->nullable();
             $table->string('slika_zaposlenog', 255)->nullable();
             $table->string('maticni_broj')->nullable();
-            $table->string('troskovno_mesto')->nullable();
+//            $table->string('troskovno_mesto')->nullable();
             $table->boolean('active')->nullable();
             $table->string('email')->unique();
             $table->string('jmbg', 13)->nullable();
