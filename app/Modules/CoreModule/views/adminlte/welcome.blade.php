@@ -15,7 +15,7 @@
 
     <!-- Main content -->
     <div class="content">
-        <h3>Početna stranica</h3>
+        <h3>Početna stranica WELCOME</h3>
     </div>
     <!-- /.content -->
 </div>

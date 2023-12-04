@@ -21,9 +21,11 @@ class OrganizacionecelineRepository extends BaseRepository implements Organizaci
     {
         $data= $this->getAll();
         $resultCollection = $data->sortBy('sifra_troskovnog_mesta')->map(function ($item) {
-            $newValue = $item['sifra_troskovnog_mesta'] . ' ' . $item['naziv_troskovnog_mesta'];
+            $newValue = [
+                'value'=>$item['sifra_troskovnog_mesta'] . ' ' . $item['naziv_troskovnog_mesta'],
+                'key'=>$item['sifra_troskovnog_mesta']];
 
-            return $item['id'] = $newValue;
+            return $item['sifra_troskovnog_mesta'] = $newValue;
         });
         return $resultCollection->toArray();
     }

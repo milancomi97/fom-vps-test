@@ -64,13 +64,12 @@
                         <select id="sifra_mesta_troska_id" class="custom-select form-control" name="sifra_mesta_troska_id">
                             @foreach($troskMesta as $value => $label)
                                 @if($label ==$radnik->sifra_mesta_troska_id)
-                                <option selected value="{{ $value }}">{{ $label }}</option>
+                                <option selected value="{{ $label['key'] }}">{{ $label['value'] }}</option>
                                 @else
-                                <option  value="{{ $value }}">{{ $label }}</option>
+                                <option  value="{{ $label['key'] }}">{{ $label['value'] }}</option>
                                 @endif
                             @endforeach
                         </select>
-                        <h1>{!! $radnik->sifra_mesta_troska_id!!}</h1>
                     </div>
 
                     <!-- String -->
@@ -112,9 +111,9 @@
                         <select id="opstina_id" class="custom-select form-control" name="opstina_id">
                             @foreach($opstine as $value => $label)
                                 @if($value ==$radnik->opstina_id)
-                                    <option selected value="{{ $value }}">{{ $label }}</option>
+                                    <option selected value="{{ $value }}">{{ $label['value'] }}</option>
                                 @else
-                                    <option  value="{{ $value }}">{{ $label }}</option>
+                                    <option  value="{{ $value }}">{{ $label['value'] }}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -160,9 +159,10 @@
                     <!-- Boolean -->
                     <div class="form-group">
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="active" name="active">
+                            <input type="checkbox"
+                                   {{$radnik->active ? 'checked' : ''}}
+                                   class="form-control" id="active" name="active">
                             <label class="form-check-label" for="active">Aktivan</label>
-                            {{$radnik->active}}
                         </div>
                     </div>
 

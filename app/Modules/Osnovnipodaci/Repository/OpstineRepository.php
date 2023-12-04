@@ -26,7 +26,7 @@ class OpstineRepository extends BaseRepository implements OpstineRepositoryInter
         $resultCollection = $data->sortBy('sifra_opstine')->map(function ($item) {
             $newValue = $item['sifra_opstine'] . ' ' . $item['naziv_opstine'];
 
-            return $item['id'] = $newValue;
+            return $item['id'] =['key'=> $item['sifra_opstine'],'value' => $newValue];
         });
         return $resultCollection->toArray();
     }

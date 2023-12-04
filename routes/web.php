@@ -86,10 +86,6 @@ Route::middleware('auth')->group(function () {
     // Radnici
     // Radnici Maticna datoteka radnika
     Route::get('osnovnipodaci/radnici/index',[RadniciController::class,'index'])->name('radnici.index');
-    Route::get('osnovnipodaci/maticnadatotekaradnika/findByMat',[MaticnadatotekaradnikaController::class,'findByMat'])->name('radnici.findByMat');
-    Route::get('osnovnipodaci/maticnadatotekaradnika/findByPrezime',[MaticnadatotekaradnikaController::class,'findByPrezime'])->name('radnici.findByPrezime');
-    Route::get('osnovnipodaci/maticnadatotekaradnika/getById',[MaticnadatotekaradnikaController::class,'getById'])->name('radnici.getById');
-    Route::post('osnovnipodaci/maticnadatotekaradnika/store',[MaticnadatotekaradnikaController::class,'store'])->name('maticnadatotekaradnika.store');
 
     // Radnici Maticna datoteka radnika END
 
@@ -177,6 +173,12 @@ Route::middleware('auth')->group(function () {
     // Maticna datoteka radnika
 
     Route::get('obracunzarada/maticnadatotekaradnika/index',[MaticnadatotekaradnikaController::class,'index'])->name('maticnadatotekaradnika.index');
+    Route::get('obracunzarada/maticnadatotekaradnika/create',[MaticnadatotekaradnikaController::class,'create'])->name('maticnadatotekaradnika.create');
+    Route::get('obracunzarada/maticnadatotekaradnika/findByMat',[MaticnadatotekaradnikaController::class,'findByMat'])->name('radnici.findByMat');
+    Route::get('obracunzarada/maticnadatotekaradnika/findByPrezime',[MaticnadatotekaradnikaController::class,'findByPrezime'])->name('radnici.findByPrezime');
+    Route::get('obracunzarada/maticnadatotekaradnika/getById',[MaticnadatotekaradnikaController::class,'getById'])->name('radnici.getById');
+    Route::post('obracunzarada/maticnadatotekaradnika/store',[MaticnadatotekaradnikaController::class,'store'])->name('maticnadatotekaradnika.store');
+
 
 });
 

@@ -29,9 +29,4 @@ class RadniciRepository extends BaseRepository implements RadniciRepositoryInter
         return $this->create($attributes);
     }
 
-//
-//    public function likeOrLike(array, $attributes):{
-//
-//        return $this->model;
-//    }
 }

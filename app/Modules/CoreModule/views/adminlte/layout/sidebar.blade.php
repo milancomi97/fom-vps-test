@@ -350,7 +350,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('maticnadatotekaradnika.index')}}" class="nav-link nav-link-extend">
+                                <a href="{{route('maticnadatotekaradnika.create')}}" class="nav-link nav-link-extend">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Forme matična datoteka radnika</p>
                                 </a>

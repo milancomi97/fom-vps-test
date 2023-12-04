@@ -27,10 +27,10 @@
 
 <body class="hold-transition sidebar-mini sidebar-collapse">
 <div class="wrapper">
-    @include('osnovnipodaci::theme.layout.header')
+    @include('coremodule::adminlte.layout.header')
     @include('coremodule::adminlte.layout.sidebar')
     @yield('content')
-    @include('osnovnipodaci::theme.layout.footer')
+    @include('coremodule::adminlte.layout.footer')
 
 
 </div>

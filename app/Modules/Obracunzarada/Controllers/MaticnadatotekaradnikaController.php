@@ -7,6 +7,7 @@ use App\Modules\Kadrovskaevidencija\Repository\RadnamestaRepositoryInterface;
 use App\Modules\Kadrovskaevidencija\Repository\StrucnakvalifikacijaRepositoryInterface;
 use App\Modules\Kadrovskaevidencija\Repository\VrstaradasifarnikRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\OpstineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\RadniciRepositoryInterface;
@@ -22,13 +23,19 @@ class MaticnadatotekaradnikaController extends Controller
         private readonly VrstaradasifarnikRepositoryInterface $vrstaradasifarnikInterface,
         private readonly StrucnakvalifikacijaRepositoryInterface $strucnakvalifikacijaInterface,
         private readonly RadniciRepositoryInterface $radniciRepositoryInterface,
-        private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface
-
-    )
-    {
+        private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
+        private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface
+    ) {
     }
 
     public function index(){
+
+        $test="test";
+        $maticnadatotekaradnikaData = $this->maticnadatotekaradnikaInterface->getAll();
+
+        return view('obracunzarada::maticnadatotekaradnika.maticnadatotekaradnika_index', ['maticnadatotekaradnika'=>json_encode($maticnadatotekaradnikaData)]);
+    }
+    public function create(){
 
         $radnaMesta = $this->radnamestaInterface->getSelectOptionData();
         $opstine = $this->opstineInterface->getSelectOptionData();
@@ -37,7 +44,7 @@ class MaticnadatotekaradnikaController extends Controller
         $kvalifikacije =  $this->strucnakvalifikacijaInterface->getSelectOptionData();
         $troskMesta = $this->organizacionecelineInterface->getSelectOptionData(); // ADD KEY
 
-        return view('obracunzarada::maticnadatotekaradnika.maticnadatotekaradnika_index',
+        return view('obracunzarada::maticnadatotekaradnika.maticnadatotekaradnika_create',
             [
                 'opstine'=>$opstine,
                 'radnaMesta'=>$radnaMesta,
@@ -58,7 +65,7 @@ class MaticnadatotekaradnikaController extends Controller
 //        $data2 = $this->radniciRepositoryInterface->likeOrLike('maticni_broj','prezime',$inputString);
 
 
-        $userCollection = $this->radniciRepositoryInterface->like('maticni_broj', $inputString)->where('active',true);;
+        $userCollection = $this->radniciRepositoryInterface->like('maticni_broj', $inputString);
         $result = $userCollection->map(function ($item) {
             return ['id' => $item['id'], 'text' => $item['maticni_broj'] . ' - ' . $item['prezime'] . ' ' . $item['srednje_ime'] . '. ' .$item['ime'] . ' - jmbg: ' . $item['jmbg']];
         });
@@ -70,7 +77,7 @@ class MaticnadatotekaradnikaController extends Controller
     {
         $inputString = $request->q;
 
-        $userCollection = $this->radniciRepositoryInterface->like('prezime', $inputString)->where('active',true);
+        $userCollection = $this->radniciRepositoryInterface->like('prezime', $inputString);
         $result = $userCollection->map(function ($item) {
             return ['id' => $item['id'], 'text' => $item['maticni_broj'] . ' - ' . $item['prezime'] . ' '.$item['srednje_ime'] . '. ' . $item['ime'] . ' - jmbg: ' . $item['jmbg']];
         });
@@ -88,7 +95,33 @@ class MaticnadatotekaradnikaController extends Controller
 
 
     public function store(Request $request){
+
+//maticni_broj
+//prezime
+//ime
+//radno_mesto
+//isplatno_mesto
+//tekuci_racun
+//redosled_poentazi
+//vrsta_rada
+//radna_jedinica
+//brigada
+//godine
+//meseci
+//minuli_rad_aktivan
+//stvarna_strucna_sprema
+//priznata_strucna_sprema
+//osnovna_zarada
+//jmbg
+//pol_muski
+//prosecni_sati
+//prosecna_zarada
+//adresa_ulica_broj
+//opstina_id
+        $request->all();
+        $this->maticnadatotekaradnikaInterface->createMaticnadatotekaradnika($request->all());
         $test='testt';
+        return redirect()->route('maticnadatotekaradnika.index');
     }
 
 }

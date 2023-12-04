@@ -1,31 +1,6 @@
 @extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
-    <link rel="stylesheet" href="{{asset('admin_assets/plugins/select2/css/select2.min.css')}}">
-    <link rel="stylesheet" href="{{asset('admin_assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
-
-    <style>
-        .input-group-text {
-            min-width: 200px
-        }
-
-        .select2-selection__rendered {
-            line-height: 31px !important;
-            padding-left: 0 !important;
-        }
-
-        .select2-container .select2-selection--single {
-            height: 40px !important;
-        }
-
-        .select2-selection__arrow {
-            height: 34px !important;
-        }
-        .error {
-            border: 1px solid red;
-        }
-    </style>
-
 @endsection
 
 @section('content')
@@ -37,294 +12,251 @@
             <!-- /.content-header -->
             <!-- Main content -->
             <!-- /.content -->
-            <h1 class="text-center"> Matična datoteka radnika </h1>
-            <div class="container mt-5">
-
-                <div class="row justify-content-center">
-                    <h3 id="error-validator-text" class="text-danger d-none font-weight-bold">- Popunite sva polja -</h3>
-
-                    <div class="container mt-5">
-                        <form id="maticnadatotekaradnika" method="post" action="{{ route('maticnadatotekaradnika.store')}}">
-                            @csrf
-                            <!-- 1. Maticni broj, Select option -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold"
-                                          id="span_maticni_broj">Matični broj:</span>
-                                </div>
-                                <select class="custom-select maticni_broj" id="maticni_broj"
-                                        aria-describedby="maticni_broj">
-                                    <option>pretraga po mat. br.</option>
-                                </select>
-
-{{--                                <input type="hidden" id="maticni_broj_value">--}}
-                            </div>
-
-                            <!-- 2.1 Prezime, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_prezime">Prezime:</span>
-                                </div>
-                                <select class="custom-select prezime" id="prezime"
-                                        aria-describedby="prezime">
-                                    <option value="0">pretraga po prezimenu</option>
-                                </select>
-{{--                                <input type="hidden" id="prezime_value">--}}
-
-                                {{--                                <input type="text" class="form-control" id="prezime" aria-describedby="prezime">--}}
-                            </div>
-                            <!-- 2.2  Ime, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_ime">Ime:</span>
-                                </div>
-                                <input type="text" class="form-control" id="ime" aria-describedby="ime">
-                            </div>
-
-                            <!-- 3. Troskovni centar, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_sifra_mesta_troska_id">Troškovno mesto:</span>
-                                </div>
-                                <select class="custom-select" id="sifra_mesta_troska_id" aria-describedby="sifra_mesta_troska_id">
-                                    <option value="0">Izaberite troškovno mesto</option>
-                                    @foreach($troskMesta as $value => $label)
-                                        <option value="{{ $value }}">{{ $label }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+            <h1 class="text-center"> PRIKAZ MDR </h1>
+            <div class="data">
+                {!! $maticnadatotekaradnika!!}
+            </div>
 
 
 
-                            <!-- 4. Radno mesto, select option -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold"
-                                          id="span_radno_mesto">Radno mesto:</span>
-                                </div>
-                                <select class="custom-select" id="radno_mesto" aria-describedby="radno_mesto">
-                                    <option value="0">Izaberite radno mesto</option>
-                                    @foreach($radnaMesta as $value => $label)
-                                        <option value="{{ $value }}">{{ $label }}</option>
-                                    @endforeach
+
+            <div class="container">
+                <h1> Primer  1</h1>
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Employee
+                        </div>
+                        <div class="panel-body">
+                            <table class="table table-condensed table-striped">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Fist Name</th>
+                                    <th>Last Name</th>
+                                    <th>City</th>
+                                    <th>State</th>
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                <tr data-toggle="collapse" data-target="#demo1" class="accordion-toggle">
+                                    <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                                    <td>Carlos</td>
+                                    <td>Mathias</td>
+                                    <td>Leme</td>
+                                    <td>SP</td>
+                                    <td>new</td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="12" class="hiddenRow">
+                                        <div class="accordian-body collapse" id="demo1">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr class="info">
+                                                    <th>Job</th>
+                                                    <th>Company</th>
+                                                    <th>Salary</th>
+                                                    <th>Date On</th>
+                                                    <th>Date off</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody>
+
+                                                <tr data-toggle="collapse"  class="accordion-toggle" data-target="#demo10">
+                                                    <td> <a href="#">Enginner Software</a></td>
+                                                    <td>Google</td>
+                                                    <td>U$8.00000 </td>
+                                                    <td> 2016/09/27</td>
+                                                    <td> 2017/09/27</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-default btn-sm">
+                                                            <i class="glyphicon glyphicon-cog"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td colspan="12" class="hiddenRow">
+                                                        <div class="accordian-body collapse" id="demo10">
+                                                            <table class="table table-striped">
+                                                                <thead>
+                                                                <tr>
+                                                                    <td><a href="#"> XPTO 1</a></td>
+                                                                    <td>XPTO 2</td>
+                                                                    <td>Obs</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>item 1</th>
+                                                                    <th>item 2</th>
+                                                                    <th>item 3 </th>
+                                                                    <th>item 4</th>
+                                                                    <th>item 5</th>
+                                                                    <th>Actions</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td>item 1</td>
+                                                                    <td>item 2</td>
+                                                                    <td>item 3</td>
+                                                                    <td>item 4</td>
+                                                                    <td>item 5</td>
+                                                                    <td>
+                                                                        <a href="#" class="btn btn-default btn-sm">
+                                                                            <i class="glyphicon glyphicon-cog"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>Scrum Master</td>
+                                                    <td>Google</td>
+                                                    <td>U$8.00000 </td>
+                                                    <td> 2016/09/27</td>
+                                                    <td> 2017/09/27</td>
+                                                    <td> <a href="#" class="btn btn-default btn-sm">
+                                                            <i class="glyphicon glyphicon-cog"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
 
 
-                                </select>
-                            </div>
-
-                            <!-- 5. Isplatno mesto, Select option -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_isplatno_mesto">Isplatno mesto:</span>
-                                </div>
-                                <select class="custom-select" id="isplatno_mesto"
-                                        aria-describedby="isplatno_mesto">
-                                    <option value="0">Izaberite isplatno mesto</option>
-                                    @foreach($isplatnaMesta as $value => $label)
-                                        <option value="{{ $value }}">{{ $label }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <!-- 6. Partija tekuceg racuna, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_tekuci_racun">Tekuci racun:</span>
-                                </div>
-                                <input type="text" class="form-control" id="tekuci_racun"
-                                       aria-describedby="tekuci_racun">
-                            </div>
-
-                            <!-- 7. Redosled u poentazi, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_redosled_poentazi">Redosled u poentazi:</span>
-                                </div>
-                                <input type="text" class="form-control" id="redosled_poentazi"
-                                      value="9999" aria-describedby="redosled_poentazi">
-                            </div>
-
-                            <!-- 8. Vrsta rada, select option -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold"
-                                          id="span_vrsta_rada">Vrsta rada:</span>
-                                </div>
-                                <select class="custom-select" id="vrsta_rada" aria-describedby="vrsta_rada">
-                                    <option value="0">Izaberite vrstu rada</option>
-                                    @foreach($vrstaRada as $value => $label)
-                                        <option value="{{ $value }}">{{ $label }}</option>
-                                    @endforeach
-                                </select>
+                                                <tr>
+                                                    <td>Back-end</td>
+                                                    <td>Google</td>
+                                                    <td>U$8.00000 </td>
+                                                    <td> 2016/09/27</td>
+                                                    <td> 2017/09/27</td>
+                                                    <td> <a href="#" class="btn btn-default btn-sm">
+                                                            <i class="glyphicon glyphicon-cog"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
 
 
-                            </div>
-
-                            <!-- 9. Radna jedinica, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_radna_jedinica">Radna jedinica:</span>
-                                </div>
-                                <input type="text" class="form-control" id="radna_jedinica"
-                                       aria-describedby="radna_jedinica">
-                            </div>
-
-                            <!-- 9.1 Brigada, text field -->
-
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_brigada">Brigada:</span>
-                                </div>
-                                <input type="text" class="form-control" id="brigada"
-                                       aria-describedby="brigada">
-                            </div>
+                                                <tr>
+                                                    <td>Front-end</td>
+                                                    <td>Google</td>
+                                                    <td>U$8.00000 </td>
+                                                    <td> 2016/09/27</td>
+                                                    <td> 2017/09/27</td>
+                                                    <td> <a href="#" class="btn btn-default btn-sm">
+                                                            <i class="glyphicon glyphicon-cog"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
 
 
-                            <!-- 10. Godine, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_godine">Godine:</span>
-                                </div>
-                                <input type="number" class="form-control" value="0" id="godine" max="99" aria-describedby="godine">
-                            </div>
-                            <!-- 11. Meseci, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_meseci">Meseci:</span>
-                                </div>
-                                <input type="number" class="form-control" value="0" max="11" id="meseci" aria-describedby="meseci">
-                            </div>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </td>
+                                </tr>
 
 
-                            <!-- 12. Minuli rad aktivan, boolean -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_minuli_rad_aktivan">Minuli rad aktivan:</span>
-                                </div>
-                                <div class="col col-1">
-                                    <input type="checkbox" class="form-control" aria-label="Minuli rad aktivan" checked="checked"
-                                           id="minuli_rad_aktivan">
 
-                                </div>
+                                <tr data-toggle="collapse" data-target="#demo2" class="accordion-toggle">
+                                    <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                                    <td>Silvio</td>
+                                    <td>Santos</td>
+                                    <td>São Paulo</td>
+                                    <td>SP</td>
+                                    <td> new</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" class="hiddenRow"><div id="demo2" class="accordian-body collapse">Demo2</div></td>
+                                </tr>
+                                <tr data-toggle="collapse" data-target="#demo3" class="accordion-toggle">
+                                    <td><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+                                    <td>John</td>
+                                    <td>Doe</td>
+                                    <td>Dracena</td>
+                                    <td>SP</td>
+                                    <td> New</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6" class="hiddenRow"><div id="demo3" class="accordian-body collapse">Demo3 sadasdasdasdasdas</div></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-                            </div>
-
-                            <!-- 13. Stvarna strucna sprema, select option -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_stvarna_strucna_sprema">Stvarna stručna sprema:</span>
-                                </div>
-                                {{--                                $kvalifikacije--}}
-                                <select class="custom-select" id="stvarna_strucna_sprema"
-                                        aria-describedby="stvarna_strucna_sprema">
-                                    <option value="0">Izaberite stručnu spremu</option>
-                                    @foreach($kvalifikacije as $value => $label)
-                                        <option value="{{ $value }}">{{ $label }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <!-- 14. Priznata strucna sprema, select option -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_priznata_strucna_sprema">Priznata stručna sprema:</span>
-                                </div>
-                                <select class="custom-select" id="priznata_strucna_sprema"
-                                        aria-describedby="priznata_strucna_sprema">
-                                    <option value="0">Izaberite stručnu spremu</option>
-                                    @foreach($kvalifikacije as $value => $label)
-                                        <option value="{{ $value }}">{{ $label }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <!-- 15. Koefinicijent slozenosti, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_osnovna_zarada">Osnovna zarada:</span>
-                                </div>
-                                <input type="text" class="form-control" id="osnovna_zarada"
-                                       aria-describedby="osnovna_zarada">
-                            </div>
-
-                            <!-- 16. Opstina, select option -->
-
-                            <!-- 17. Licni broj gradjana, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_jmbg">JMBG:</span>
-                                </div>
-                                <input type="text" class="form-control" id="jmbg"
-                                       aria-describedby="span_jmbg">
-                            </div>
-
-                            <!-- 18. Pol, Radio buttons -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_pol">Pol:</span>
-                                </div>
-                                <div class="form-group ml-5"
-                                     style="display: flex; align-items: center; justify-content: center; margin-bottom: 0">
-                                    <div class="form-check form-check-inline ">
-                                        <input class="form-check-input" type="radio" name="pol" id="male" checked="checked" >
-                                        <label class="form-check-label" for="male">Muški</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="pol" id="female"
-                                               value="female">
-                                        <label class="form-check-label" for="female">Ženski</label>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <!-- 19. Sati za nadoknade, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_prosecni_sati">Prosečni sati:</span>
-                                </div>
-                                <input type="text" class="form-control" id="prosecni_sati" value="0"
-                                       aria-describedby="prosecni_sati">
-                            </div>
-
-                            <!-- 20. Prosek za nadoknade, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_prosecna_zarada">Prosečna zarada:</span>
-                                </div>
-                                <input type="text" class="form-control" id="prosecna_zarada"
-                                       value="0"
-                                       aria-describedby="prosecna_zarada">
-                            </div>
-
-                            <!-- 21. Ulica i broj, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_adresa_ulica_broj">Ulica i broj:</span>
-                                </div>
-                                <input type="text" class="form-control" id="adresa_ulica_broj"
-                                       aria-describedby="adresa_ulica_broj">
-                            </div>
-
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_opstina">Opština:</span>
-                                </div>
-                                <select class="custom-select" id="opstina_id" aria-describedby="opstina">
-                                    <option value="0">Izaberite opštinu</option>
-                                    @foreach($opstine as $value => $label)
-                                        <option value="{{ $value }}">{{ $label }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 text-center mt-2  mb-5">
-                                    <button type="submit" class="btn btn-primary btn-lg">Sačuvaj</button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
+
                 </div>
+            </div>
+
+
+
+
+            <div class="container">
+                <h1> Primer  2</h1>
+                <table class="table table-bordered table-sm ">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Column</th>
+                        <th>Column</th>
+                        <th>Column</th>
+                        <th>Column</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-1" aria-expanded="false" aria-controls="group-of-rows-1">
+                        <td><i class="fa fa-folder"></i></td>
+                        <td>data</td>
+                        <td>data</td>
+                        <td>data</td>
+                    </tr>
+                    </tbody>
+                    <tbody id="group-of-rows-1" class="collapse">
+                    <tr class="table-warning">
+                        <td><i class="fa fa-folder-open"></i> child row</td>
+                        <td>data 1</td>
+                        <td>data 1</td>
+                        <td>data 1</td>
+                    </tr>
+                    <tr class="table-warning">
+                        <td><i class="fa fa-folder-open"></i> child row</td>
+                        <td>data 1</td>
+                        <td>data 1</td>
+                        <td>data 1</td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr class="clickable" data-toggle="collapse" data-target="#group-of-rows-2" aria-expanded="false" aria-controls="group-of-rows-2">
+                        <td><i class="fa fa-folder"></i></td>
+                        <td>data</td>
+                        <td>data</td>
+                        <td>data</td>
+                    </tr>
+                    </tbody>
+                    <tbody id="group-of-rows-2" class="collapse">
+                    <tr class="table-warning">
+                        <td><i class="fa fa-folder-open"></i> child row</td>
+                        <td>data 2</td>
+                        <td>data 2</td>
+                        <td>data 2</td>
+                    </tr>
+                    <tr class="table-warning">
+                        <td><i class="fa fa-folder-open"></i> child row</td>
+                        <td>data 2</td>
+                        <td>data 2</td>
+                        <td>data 2</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
         <!-- /.content-wrapper -->
@@ -334,243 +266,5 @@
 
 
 @section('custom-scripts')
-
-    <script src="{{asset('admin_assets/plugins/select2/js/select2.full.min.js')}}"></script>
-
-    <script>
-
-        $(function () {
-
-            // Maticni broj pretraga
-            $('.maticni_broj').select2({
-                minimumInputLength: 3,
-                language: {
-                    inputTooShort: function (args) {
-                        var remainingChars = args.minimum - args.input.length;
-
-                        return 'Unesi ' + remainingChars + ' ili vise karaktera';
-                    },
-                    noResults: function () {
-                        return 'Nema rezultata';
-                    },
-                    searching: function () {
-                        return 'Pretražujem...';
-                    }
-                },
-                ajax: {
-                    url: '{!! route('radnici.findByMat') !!}',
-                    dataType: 'json',
-                    delay: 1000,
-                    data: function (params) {
-                        return {
-                            q: params.term, // search term
-                        };
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: data
-                        };
-                    },
-                    cache: true
-                }
-            }).on('select2:select', function (e) {
-                var selectedRadnikId = e.params.data.id;
-                getRadnikDataById(selectedRadnikId)
-            });
-
-            // Maticni broj pretraga END
-
-            // Prezime pretraga
-            $('.prezime').select2({
-                minimumInputLength: 4,
-                language: {
-                    inputTooShort: function (args) {
-                        var remainingChars = args.minimum - args.input.length;
-
-                        return 'Unesi ' + remainingChars + ' ili vise karaktera';
-                    },
-                    noResults: function () {
-                        return 'Nema rezultata';
-                    },
-                    searching: function () {
-                        return 'Pretražujem...';
-                    }
-                },
-                ajax: {
-                    url: '{!! route('radnici.findByPrezime') !!}',
-                    dataType: 'json',
-                    delay: 1000,
-                    data: function (params) {
-                        return {
-                            q: params.term, // search term
-                        };
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: data
-                        };
-                    },
-                    cache: false
-                }
-            }).on('select2:select', function (e) {
-                var selectedRadnikId = e.params.data.id;
-                getRadnikDataById(selectedRadnikId)
-            });
-
-            // Prezime pretraga END
-
-
-        });
-
-
-
-
-
-        function getRadnikDataById(id) {
-
-            var postData = {
-                radnikId: id
-            };
-
-            $.ajax({
-                url: '{!! route('radnici.getById') !!}',
-                method: 'GET',
-                dataType: 'json',
-                data: postData,
-                success: function (response) {
-
-                    $('#ime').val(response.ime)
-                    $('#troskovni_centar').val(response.troskovno_mesto)
-                    $('#adresa_ulica_broj').val(response.adresa_ulica_broj)
-                    $("#opstina_id").val(response.opstina_id)
-                    $("#sifra_mesta_troska_id").val(response.sifra_mesta_troska_id)
-                    $("#jmbg").val(response.jmbg)
-
-                    debugger
-                    var prezimeOption = new Option(response.prezime, response.prezime, true, true);
-                    $('#prezime').append(prezimeOption).trigger('change');
-                    var maticniOption = new Option(response.maticni_broj, response.maticni_broj, true, true);
-                    $('#maticni_broj').append(maticniOption).trigger('change');
-                    debugger;
-                    // maticni_broj
-                    // maticni_broj_value
-                    // prezime
-                    // prezime_value
-                    // response.opstina_id
-                    //
-                    // opstina_id
-                    // sifra_mesta_troska_id
-                    // status_ugovor_id
-                    // $('#mySelect2').val('1'); // Select the option with a value of '1'
-                    // $('#mySelect2').trigger('change');
-                    // {
-                    //     "id": 6,
-                    //     "interni_maticni_broj": null,
-                    //     "ime": "MILADIN",
-                    //     "prezime": "JANJIC",
-                    //     "srednje_ime": null,
-                    //     "slika_zaposlenog": null,
-                    //     "maticni_broj": "0003123",
-                    //     "troskovno_mesto": "90000000",
-                    //     "active": 0,
-                    //     "email": "0003123MILADIN@fom.com",
-                    //     "jmbg": null,
-                    //     "email_verified_at": null,
-                    //     "telefon_poslovni": null,
-                    //     "licna_karta_broj_mesto_rodjenja": null,
-                    //     "adresa_ulica_broj": null,
-                    //     "opstina_id": null,
-                    //     "drzava_id": null,
-                    //     "sifra_mesta_troska_id": null,
-                    //     "status_ugovor_id": null,
-                    //     "datum_zasnivanja_radnog_odnosa": null,
-                    //     "datum_prestanka_radnog_odnosa": "1909-07-01",
-                    //     "created_at": null,
-                    //     "updated_at": null
-                    // }
-
-
-                    // Handle the successful response here
-                    $('#result').html('Data from the server: ' + JSON.stringify(response));
-                },
-                error: function (error) {
-                    // Handle errors here
-                    console.error('Error:', error);
-                }
-            });
-
-        }
-
-
-        $('#maticnadatotekaradnika').submit(function (event) {
-            var isValid = true;
-
-            // Loop through each input field
-            $(this).find(':input').each(function () {
-                // $(this).find(':input[required]').each(function () {
-
-                if($(this)[0].id==='tekuci_racun' || $(this)[0].id==='radna_jedinica' || $(this)[0].id==='brigada'){
-                    return;
-                }
-
-                if ($(this).val().trim() === '') {
-                    isValid = false;
-                    $(this).addClass('error');
-                } else {
-                    $(this).removeClass('error');
-                }
-            });
-
-            $(this).find('select').each(function () {
-                if ($(this).val() === '0') {
-                    isValid = false;
-                    $(this).addClass('error');
-                } else {
-                    $(this).removeClass('error');
-                }
-            });
-            $(window).scroll(function () {
-                if ($(this).scrollTop() > 100) {
-                    $('#scrollToTopBtn').fadeIn();
-                } else {
-                    $('#scrollToTopBtn').fadeOut();
-                }
-            });
-                if (!isValid) {
-                // Prevent form submission if validation fails
-                $('#error-validator-text').removeClass('d-none');
-                    $('html, body').animate({ scrollTop: 0 }, 800);
-
-                    event.preventDefault();
-            }
-        });
-
-    </script>
-
 @endsection
 
-{{--errorLoading: function () {--}}
-{{--return 'The results could not be loaded.';--}}
-{{--},--}}
-{{--inputTooLong: function (args) {--}}
-{{--var overChars = args.input.length - args.maximum;--}}
-
-{{--return 'Please delete ' + overChars + ' character' + (overChars > 1 ? 's' : '');--}}
-{{--},--}}
-{{--inputTooShort: function (args) {--}}
-{{--var remainingChars = args.minimum - args.input.length;--}}
-
-{{--return 'Please add ' + remainingChars + ' or more character' + (remainingChars > 1 ? 's' : '');--}}
-{{--},--}}
-{{--loadingMore: function () {--}}
-{{--return 'Loading more results…';--}}
-{{--},--}}
-{{--maximumSelected: function (args) {--}}
-{{--return 'You can only select ' + args.maximum + ' item' + (args.maximum > 1 ? 's' : '');--}}
-{{--},--}}
-{{--noResults: function () {--}}
-{{--return 'No results found';--}}
-{{--},--}}
-{{--searching: function () {--}}
-{{--return 'Searching…';--}}
-{{--}--}}

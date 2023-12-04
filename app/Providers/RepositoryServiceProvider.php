@@ -16,8 +16,11 @@ use App\Modules\Obracunzarada\Repository\IsplatnamestaRepository;
 use App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\KreditoriRepository;
 use App\Modules\Obracunzarada\Repository\KreditoriRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepository;
+use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepository;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\OblikradaRepository;
 use App\Modules\Obracunzarada\Repository\OblikradaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepository;
 use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepositoryInterface;
@@ -66,7 +69,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IsplatnamestaRepositoryInterface::class, IsplatnamestaRepository::class);
         $this->app->bind(KreditoriRepositoryInterface::class, KreditoriRepository::class);
         $this->app->bind(MinimalnebrutoosnoviceRepositoryInterface::class, MinimalnebrutoosnoviceRepository::class);
-        $this->app->bind(OblikradaRepositoryInterface::class,\App\Modules\Obracunzarada\Repository\OblikradaRepository::class);
+        $this->app->bind(OblikradaRepositoryInterface::class, OblikradaRepository::class);
+        $this->app->bind(MaticnadatotekaradnikaRepositoryInterface::class, MaticnadatotekaradnikaRepository::class);
 
     }
 
