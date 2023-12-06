@@ -28,6 +28,8 @@ use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\DrzaveRepository;
 use App\Modules\Osnovnipodaci\Repository\DrzaveRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepository;
+use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\OpstineRepository;
 use App\Modules\Osnovnipodaci\Repository\OpstineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepository;
@@ -70,7 +72,13 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(KreditoriRepositoryInterface::class, KreditoriRepository::class);
         $this->app->bind(MinimalnebrutoosnoviceRepositoryInterface::class, MinimalnebrutoosnoviceRepository::class);
         $this->app->bind(OblikradaRepositoryInterface::class, OblikradaRepository::class);
+
+        // kraj sifarnika
+        // BBL
+
         $this->app->bind(MaticnadatotekaradnikaRepositoryInterface::class, MaticnadatotekaradnikaRepository::class);
+        $this->app->bind(DatotekaobracunskihkoeficijenataRepositoryInterface::class, DatotekaobracunskihkoeficijenataRepository::class);
+
 
     }
 

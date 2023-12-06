@@ -10,6 +10,7 @@ use App\Modules\Kadrovskaevidencija\Controllers\VrstaradasifarnikController;
 use App\Modules\Kadrovskaevidencija\Controllers\ZanimanjasifarnikController;
 use App\Modules\Obracunzarada\Controllers\KreditoriController;
 use App\Modules\Obracunzarada\Controllers\MaticnadatotekaradnikaController;
+use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihkoeficijenataController;
 use App\Modules\Obracunzarada\Controllers\MinimalnebrutoosnoviceController;
 use App\Modules\Obracunzarada\Controllers\OblikradaController;
 use App\Modules\Obracunzarada\Controllers\ObracunZaradaController;
@@ -179,6 +180,9 @@ Route::middleware('auth')->group(function () {
     Route::get('obracunzarada/maticnadatotekaradnika/getById',[MaticnadatotekaradnikaController::class,'getById'])->name('radnici.getById');
     Route::post('obracunzarada/maticnadatotekaradnika/store',[MaticnadatotekaradnikaController::class,'store'])->name('maticnadatotekaradnika.store');
 
+    // Mesecna datotekaobracunskihkoeficijenata
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/create',[DatotekaobracunskihkoeficijenataController::class,'create'])->name('datotekaobracunskihkoeficijenata.create');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/store',[DatotekaobracunskihkoeficijenataController::class,'store'])->name('datotekaobracunskihkoeficijenata.store');
 
 });
 

@@ -327,7 +327,7 @@
                             <li class="nav-item">
                                 <a href="{{route('minimalnebrutoosnovice.index')}}" class="nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
-                                    <p class="small">Pregled minimalnih bruto osnovica</p>
+                                    <p class="small">Pregled MBO</p>
                                 </a>
                             </li>
 
@@ -352,12 +352,69 @@
                             <li class="nav-item">
                                 <a href="{{route('maticnadatotekaradnika.create')}}" class="nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
-                                    <p class="small">Forme matična datoteka radnika</p>
+                                    <p class="small">Kreiraj MDR</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
 
+                    <li class="nav-header">
+                        <i class="nav-icon fas fa-file"></i>
+                        &nbsp;       &nbsp; Obračun zarada i naknada
+
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-circle"></i>
+                            <p>
+                                Poentaža
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview" style="display: none;">
+                            <li class="nav-item">
+                                <a href="{{route('datotekaobracunskihkoeficijenata.create')}}"  class="nav-link">
+                                    <i class="far fa-circle nav-icon "></i>
+                                    <p class="small">Mesečna tabela sa poentažom </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>
+                                        Primer sa tri nivoa
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview" style="display: none;">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-dot-circle nav-icon"></i>
+                                            <p>Level 3</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-dot-circle nav-icon"></i>
+                                            <p>Level 3</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-dot-circle nav-icon"></i>
+                                            <p>Level 3</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Level 2</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
                 @endif
                 @if($permissions->tehnologija)
                     <li class="nav-item menu">
