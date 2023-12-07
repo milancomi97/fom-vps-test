@@ -183,6 +183,7 @@ Route::middleware('auth')->group(function () {
     // Mesecna datotekaobracunskihkoeficijenata
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/create',[DatotekaobracunskihkoeficijenataController::class,'create'])->name('datotekaobracunskihkoeficijenata.create');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/store',[DatotekaobracunskihkoeficijenataController::class,'store'])->name('datotekaobracunskihkoeficijenata.store');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show',[DatotekaobracunskihkoeficijenataController::class,'show'])->name('datotekaobracunskihkoeficijenata.show');
 
 });
 

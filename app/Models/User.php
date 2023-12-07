@@ -67,9 +67,11 @@ class User extends Authenticatable
 
     public function permission()
     {
-
         return $this->belongsTo(UserPermission::class, 'id', 'user_id');
-//        return $this->hasOne(UserPermission::class,'id','user_id');
     }
 
+    public function maticnadatotekaradnika()
+    {
+        return $this->belongsTo(Maticnadatotekaradnika::class, 'id', 'user_id');
+    }
 }

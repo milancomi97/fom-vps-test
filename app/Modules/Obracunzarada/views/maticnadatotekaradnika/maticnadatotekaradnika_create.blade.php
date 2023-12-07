@@ -47,6 +47,7 @@
                         <form id="maticnadatotekaradnika" method="post" action="{{ route('maticnadatotekaradnika.store')}}">
                             @csrf
                             <!-- 1. Maticni broj, Select option -->
+                            <input type="hidden" name="user_id" id="user_id">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text font-weight-bold"
@@ -443,17 +444,17 @@
                     $('#ime').val(response.ime)
                     debugger;
                     $('#adresa_ulica_broj').val(response.adresa_ulica_broj)
-                    debugger;
                     $("#opstina_id").val(response.opstina_id)
                     $("#sifra_mesta_troska_id").val(response.sifra_mesta_troska_id)
                     $("#jmbg").val(response.jmbg)
+                    $('#user_id').val(response.id);
 
-                    debugger
+
+
                     var prezimeOption = new Option(response.prezime, response.prezime, true, true);
                     $('#prezime').append(prezimeOption).trigger('change');
                     var maticniOption = new Option(response.maticni_broj, response.maticni_broj, true, true);
                     $('#maticni_broj').append(maticniOption).trigger('change');
-                    debugger;
                     // maticni_broj
                     // maticni_broj_value
                     // prezime

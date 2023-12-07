@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('mesecnatabelapoentazas', function (Blueprint $table) {
             $table->id();
-
+            $table->unsignedBigInteger('organizaciona_celina_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('obracunski_koef_id');
+            $table->json('vrste_placanja');
+            $table->date('datum');
+            $table->string('maticni_broj');
+            $table->string('ime');
+            $table->string('prezime');
+            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
             $table->timestamps();
         });
     }

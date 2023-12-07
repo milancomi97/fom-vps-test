@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('vrsteplacanjas', function (Blueprint $table) {
             $table->id();
-            $table->integer('rbvp_sifra_vrste_placanja')->nullable();
+            $table->string('rbvp_sifra_vrste_placanja')->nullable();
             $table->string('naziv_naziv_vrste_placanja', 255)->nullable();
             $table->string('formula_formula_za_obracun', 255)->nullable();
             $table->timestamps();

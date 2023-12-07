@@ -72,6 +72,8 @@
 
 @section('custom-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         let currentMonth = new Date().getMonth();
         let currentYear = new Date().getFullYear();
@@ -108,7 +110,8 @@
           <p>Mesečni fond sati: ${monthData.mesecni_fond_sati}</p>
           <p>Rate: ${monthData.rate}</p>
           <p>User: ${monthData.user}</p>
-          <button type="button" class='btn btn-success create-mesecna-poentaza' data-month='${monthData.currMonth}' data-year='${monthData.currYear}'>Kreiraj obračun</button>
+          <button type="button" class='btn btn-success create-mesecna-poentaza' data-month='${monthData.currMonth}' data-year='${monthData.currYear}'>Otvorite mesec</button>
+          <button type="button" class='btn btn-warning index-mesecna-poentaza' data-month_id='${monthData.month_id}'>Prikaz podataka</button>
         </div>
       `;
 
@@ -130,6 +133,7 @@
                     rate: 'Default Rate',
                     user: 'Default User',
                     mesecni_fond_sati: data.mesecni_fond_sati,
+                    month_id: data.id,
                     currYear: currentYear,
                     currMonth: month
                 };
@@ -196,6 +200,17 @@
             $(document).on('click', 'body .create-mesecna-poentaza', function (e) {
                 debugger;
 
+                Swal.fire({
+                    title: 'Da li želite da otvorite mesec?',
+                    text: "Unesi dinamicki kasnije",
+                    icon: 'warning',
+                    confirmButtonText: 'Obriši',
+                    cancelButtonText: 'Odustani',
+                    showCancelButton: true,
+                    showCloseButton: true,
+                    confirmButtonColor: "#cc3f44",
+
+                })
 
                 var year = $(this).data('year');
                 var month = $(this).data('month')
@@ -225,6 +240,16 @@
                 });
 
             });
+            $(document).on('click', 'body .index-mesecna-poentaza', function (e) {
+
+                debugger;
+                var id = $(this).data('month_id');
+                 var newPageUrl = '{{url('obracunzarada/datotekaobracunskihkoeficijenata/show?month_id=')}}'+id;
+                 window.location.href = newPageUrl;
+            });
+
+
+            // // Change the current page's location to the new URL
         });
     </script>
 @endsection

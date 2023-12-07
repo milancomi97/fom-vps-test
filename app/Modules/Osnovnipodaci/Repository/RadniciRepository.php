@@ -29,4 +29,8 @@ class RadniciRepository extends BaseRepository implements RadniciRepositoryInter
         return $this->create($attributes);
     }
 
+    public function getAllActive(){
+       return $this->model->with('maticnadatotekaradnika')->where('active',1)->get();
+    }
+
 }

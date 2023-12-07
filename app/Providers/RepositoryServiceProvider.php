@@ -18,6 +18,8 @@ use App\Modules\Obracunzarada\Repository\KreditoriRepository;
 use App\Modules\Obracunzarada\Repository\KreditoriRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepository;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepository;
+use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepository;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\OblikradaRepository;
@@ -78,8 +80,7 @@ class RepositoryServiceProvider extends ServiceProvider
 
         $this->app->bind(MaticnadatotekaradnikaRepositoryInterface::class, MaticnadatotekaradnikaRepository::class);
         $this->app->bind(DatotekaobracunskihkoeficijenataRepositoryInterface::class, DatotekaobracunskihkoeficijenataRepository::class);
-
-
+        $this->app->bind(MesecnatabelapoentazaRepositoryInterface::class, MesecnatabelapoentazaRepository::class);
     }
 
     /**

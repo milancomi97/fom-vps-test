@@ -101,4 +101,9 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return $this->model->with($relation)->get();
     }
+
+    public function where($column, $value)
+    {
+        return $this->model->where($column,$value)->get();
+    }
 }

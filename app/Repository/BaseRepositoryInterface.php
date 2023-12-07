@@ -51,6 +51,13 @@ interface BaseRepositoryInterface
 
     /**
      * @param $column
+     * @param $value
+     * @return mixed
+     */
+    public function where($column, $value);
+
+    /**
+     * @param $column
      * @param $start
      * @param $end
      * @return mixed
