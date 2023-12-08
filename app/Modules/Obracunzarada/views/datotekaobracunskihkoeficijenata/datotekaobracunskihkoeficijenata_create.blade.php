@@ -52,8 +52,6 @@
                     @csrf
                 </form>
                 <div id="monthContainer" class="carousel slide " data-ride="carousel">
-
-
                     <div class="carousel-inner">
                         <div class="month-card">
                             <h5></h5>
@@ -73,6 +71,7 @@
 @section('custom-scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_create/calendar_logic.js') }}"></script>
 
     <script>
         let currentMonth = new Date().getMonth();
@@ -103,17 +102,36 @@
 
                     const monthData = getMonthData(i);
 
-                    monthCard.innerHTML = `
-        <div class="month-card ${currentActiveClass}">
-          <h5>${monthData.month}</h5>
-          <p>Status: ${monthData.status}</p>
-          <p>Mesečni fond sati: ${monthData.mesecni_fond_sati}</p>
-          <p>Rate: ${monthData.rate}</p>
-          <p>User: ${monthData.user}</p>
-          <button type="button" class='btn btn-success create-mesecna-poentaza' data-month='${monthData.currMonth}' data-year='${monthData.currYear}'>Otvorite mesec</button>
-          <button type="button" class='btn btn-warning index-mesecna-poentaza' data-month_id='${monthData.month_id}'>Prikaz podataka</button>
-        </div>
-      `;
+                    $('<h5>').text(monthData.month).appendTo(monthCard);
+                    $('<p>').text(`Status: ${monthData.status}`).appendTo(monthCard);
+                    $('<p>').text(`Mesečni fond sati: ${monthData.mesecni_fond_sati}`).appendTo(monthCard);
+                    $('<p>').text(`Rate: ${monthData.rate}`).appendTo(monthCard);
+                    $('<p>').text(`User: ${monthData.user}`).appendTo(monthCard);
+
+                    $('<button>').attr({
+                        'type': 'button',
+                        'class': 'btn btn-success create-mesecna-poentaza',
+                        'data-month': monthData.currMonth,
+                        'data-year': monthData.currYear
+                    }).text('Otvorite mesec').appendTo(monthCard);
+
+                    $('<button>').attr({
+                        'type': 'button',
+                        'class': 'btn btn-warning index-mesecna-poentaza',
+                        'data-month_id': monthData.month_id
+                    }).text('Prikaz podataka').appendTo(monthCard);
+
+      //               monthCard.innerHTML = `
+      //   <div class="month-card ${currentActiveClass}">
+      //     <h5>${monthData.month}</h5>
+      //     <p>Status: ${monthData.status}</p>
+      //     <p>Mesečni fond sati: ${monthData.mesecni_fond_sati}</p>
+      //     <p>Rate: ${monthData.rate}</p>
+      //     <p>User: ${monthData.user}</p>
+      //     <button type="button" class='btn btn-success create-mesecna-poentaza' data-month='${monthData.currMonth}' data-year='${monthData.currYear}'>Otvorite mesec</button>
+      //     <button type="button" class='btn btn-warning index-mesecna-poentaza' data-month_id='${monthData.month_id}'>Prikaz podataka</button>
+      //   </div>
+      // `;
 
                     monthContainer.appendChild(monthCard);
                 }
@@ -126,7 +144,6 @@
 
             var data = getFromDatabase(date)
             if (data) {
-                debugger;
                 return {
                     month: new Date(currentYear, month).toLocaleString('sr-Latn', {month: 'long'}),
                     status: data.status,
@@ -198,7 +215,6 @@
         $(document).ready(function () {
             // Attach a click event handler to the button
             $(document).on('click', 'body .create-mesecna-poentaza', function (e) {
-                debugger;
 
                 Swal.fire({
                     title: 'Da li želite da otvorite mesec?',
@@ -216,7 +232,6 @@
                 var month = $(this).data('month')
                 var _token = $('input[name="_token"]').val();
 
-                debugger;
                 $.ajax({
                     url: '{{ route('datotekaobracunskihkoeficijenata.store') }}', // Replace with your server URL
                     type: 'POST', // Use POST method to send data
@@ -226,7 +241,6 @@
                         _token: _token
                     },
                     success: function (response) {
-                        debugger;
                         if (response.status) {
                             location.reload()
                         } else {
@@ -234,7 +248,6 @@
                         }
                     },
                     error: function (response) {
-                        debugger;
                         $("#statusMessage").text("Greska: " + response.message).addClass("error");
                     }
                 });
@@ -242,7 +255,6 @@
             });
             $(document).on('click', 'body .index-mesecna-poentaza', function (e) {
 
-                debugger;
                 var id = $(this).data('month_id');
                  var newPageUrl = '{{url('obracunzarada/datotekaobracunskihkoeficijenata/show?month_id=')}}'+id;
                  window.location.href = newPageUrl;
