@@ -140,7 +140,6 @@
 
                     event.stopImmediatePropagation();
                     $("#loader").show();
-                    debugger;
 
                     var input_value = event.target.value;
                     var input_key = event.target.dataset.vrstaPlacanjaKey
