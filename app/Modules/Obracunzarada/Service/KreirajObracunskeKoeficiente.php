@@ -39,6 +39,7 @@ class KreirajObracunskeKoeficiente
                 'maticni_broj'=>$radnik->maticni_broj,
                 'ime'=>$radnik->ime,
                 'prezime'=>$radnik->prezime,
+                'srednje_ime'=>$radnik->srednje_ime,
                 'obracunski_koef_id'=>$datotekaobracunskihkoeficijenata->id
             ];
         }

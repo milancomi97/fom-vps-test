@@ -28,7 +28,7 @@
     }
 </style>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini  sidebar-collapse">
 <div class="wrapper">
     @include('coremodule::adminlte.layout.header')
     @include('coremodule::adminlte.layout.sidebar')

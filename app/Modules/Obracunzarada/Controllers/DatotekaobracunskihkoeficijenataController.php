@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
+use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
 use Illuminate\Http\Request;
 
 class DatotekaobracunskihkoeficijenataController extends Controller
@@ -13,7 +14,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
     public function __construct(
         private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface,
         private readonly KreirajObracunskeKoeficiente                        $kreirajObracunskeKoeficiente,
-        private readonly MesecnatabelapoentazaRepositoryInterface            $mesecnatabelapoentazaInterface
+        private readonly MesecnatabelapoentazaRepositoryInterface            $mesecnatabelapoentazaInterface,
+        private readonly UpdateVrstePlacanjaJson $updateVrstePlacanjaJson
     )
     {
     }
@@ -101,6 +103,25 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         }
         $message = 'Podaci ne postoje, unesi nov mesec';
 
+        return response()->json(['message' => $message, 'status' => true], 200);
+    }
+
+
+
+    public function update(Request $request)
+    {
+        $input_value = $request->input_value;
+        $input_key = $request->input_key;
+        $record_id = $request->record_id;
+        $radnikEvidencija = $this->mesecnatabelapoentazaInterface->getById($record_id);
+        $status = $this->updateVrstePlacanjaJson->execute($radnikEvidencija,$input_key,$input_value);
+
+        if($status){
+            $message = 'Podatak je uspesno izmenjen';
+        } else{
+            $message = 'Doslo je do greske';
+
+        }
         return response()->json(['message' => $message, 'status' => true], 200);
     }
 }

@@ -7,6 +7,7 @@ $(document).ready(function () {
 
     $('#submitFormBtn').on('click', function () {
 
+        debugger;
         // Swal.fire({
         //     title: 'Da li želite da otvorite mesec?',
         //     text: "Unesi dinamicki kasnije",
@@ -19,8 +20,8 @@ $(document).ready(function () {
         //
         // })
 
-        var year = $(this).data('year');
-        var month = $(this).data('month')
+        var year = $('.create-mesecna-poentaza').data('year');
+        var month = $('.create-mesecna-poentaza').data('month')
         var _token = $('input[name="_token"]').val();
 
         $.ajax({

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('datum');
             $table->string('maticni_broj');
             $table->string('prezime');
+            $table->string('srednje_ime')->nullable();
             $table->string('ime');
             $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
             $table->timestamps();

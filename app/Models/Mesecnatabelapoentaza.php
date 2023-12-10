@@ -15,7 +15,9 @@ class Mesecnatabelapoentaza extends Model
         'user_id',
         'datum',
         'maticni_broj',
+        'prezime',
+        'srednje_ime',
         'ime',
-        'prezime'
+
     ];
 }

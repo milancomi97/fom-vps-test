@@ -30,7 +30,7 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
         $unserializedVrstePlacanja= $result->map(function ($mesecnaTabelaPoentaza) {
             // Transform each item (user) by returning the desired value
             $mesecnaTabelaPoentaza['vrste_placanja'] =  json_decode($mesecnaTabelaPoentaza['vrste_placanja'],true);
-
+            $mesecnaTabelaPoentaza['ime'] =  $mesecnaTabelaPoentaza['prezime'] .' ' . $mesecnaTabelaPoentaza['srednje_ime']  .' ' . $mesecnaTabelaPoentaza['ime'];
             return $mesecnaTabelaPoentaza;
         });
         return $result->groupBy('organizaciona_celina_id');
@@ -55,7 +55,8 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
         unset($tableHeaders['created_at']);
         unset($tableHeaders['updated_at']);
         unset($tableHeaders['vrste_placanja']);
-
+        unset($tableHeaders['srednje_ime']);
+        unset($tableHeaders['prezime']);
         $tableKeys =array_keys($tableHeaders);
         foreach ($vrstePlacanja as $key => $value) {
             array_push($tableKeys,$value['key']);
