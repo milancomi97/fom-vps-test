@@ -8,44 +8,57 @@ use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterfac
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
 use Illuminate\Http\Request;
 
-class DatotekaobracunskihkoeficijenataController  extends Controller
+class DatotekaobracunskihkoeficijenataController extends Controller
 {
     public function __construct(
         private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface,
-        private readonly KreirajObracunskeKoeficiente $kreirajObracunskeKoeficiente,
-        private readonly MesecnatabelapoentazaRepositoryInterface $mesecnatabelapoentazaInterface
+        private readonly KreirajObracunskeKoeficiente                        $kreirajObracunskeKoeficiente,
+        private readonly MesecnatabelapoentazaRepositoryInterface            $mesecnatabelapoentazaInterface
     )
     {
     }
-    public function show(Request $request){
 
-        $id= $request->month_id;
+    public function show(Request $request)
+    {
+
+        $id = $request->month_id;
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
-        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->where('obracunski_koef_id',$id);
-        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show', ['monthData'=>$monthData->toArray(),'mesecnaTabelaPoentaza'=>$mesecnaTabelaPoentaza->toArray()]);
+        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->where('obracunski_koef_id', $id);
+
+        $mesecnaTabelaPotenrazaTable= $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
+        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
+
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show',
+            [
+                'monthData' => $monthData->toArray(),
+                'mesecnaTabelaPoentaza' => $mesecnaTabelaPoentaza->toArray(),
+                'mesecnaTabelaPotenrazaTable'=>$mesecnaTabelaPotenrazaTable,
+                'tableHeaders'=>$tableHeaders
+            ]);
 
 
     }
 
-    public function create(){
+    public function create()
+    {
 
         $data = $this->datotekaobracunskihkoeficijenataInterface->getAll();
-        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_create', ['datotekaobracunskihkoeficijenata'=>json_encode($data)]);
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_create', ['datotekaobracunskihkoeficijenata' => json_encode($data)]);
     }
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         try {
             $result = $this->datotekaobracunskihkoeficijenataInterface->createMesecnatabelapoentaza($request->all());
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $message = $e->getMessage();
-            return response()->json(['message' => 'Podatak postoji','status'=>false], 200 );
+            return response()->json(['message' => 'Podatak postoji', 'status' => false], 200);
 
         }
 
-        if($result->id){
-            $test="test";
+        if ($result->id) {
+            $test = "test";
         }
         $resultOk = $this->kreirajObracunskeKoeficiente->execute($result);
 
@@ -53,10 +66,41 @@ class DatotekaobracunskihkoeficijenataController  extends Controller
             $resultDatoteka = $this->mesecnatabelapoentazaInterface->createMany($resultOk);
         } catch (\Exception $e) {
             $result->delete();
-            return response()->json(['message' => 'Greska kod generisanja obracunskih koeficijenata','status'=>false], 200 );
+            return response()->json(['message' => 'Greska kod generisanja obracunskih koeficijenata', 'status' => false], 200);
 
         }
-        return response()->json(['message' => 'Podatak uspesno kreiran','status'=>true], 200);
+        return response()->json(['message' => 'Podatak uspesno kreiran', 'status' => true], 200);
     }
 
+    public function check(Request $request)
+    {
+
+        $id = $request->month_id;
+        $radniciData = $this->mesecnatabelapoentazaInterface->where('obracunski_koef_id', $id);
+
+        if ($radniciData->count()) {
+            $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
+
+
+            if ($monthData->status == '1') {
+
+                $message = 'Mesec je otvoren i potrebno je da poenteri unesu podatke za : ' . $radniciData->count() . ' radnika.';
+
+            } else if ($monthData->status == '2') {
+
+                $message = 'Mesec je treba da potvrde odredjene osobe';
+
+            } else if ($monthData->status == '3') {
+
+                $message = 'Mesec je spreman za obradu';
+
+            } else {
+
+                $message = 'Podaci ne postoje, unesi nov mesec';
+            }
+        }
+        $message = 'Podaci ne postoje, unesi nov mesec';
+
+        return response()->json(['message' => $message, 'status' => true], 200);
+    }
 }

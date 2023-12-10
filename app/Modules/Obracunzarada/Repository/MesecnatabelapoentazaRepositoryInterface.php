@@ -7,5 +7,8 @@ use App\Repository\BaseRepositoryInterface;
 interface MesecnatabelapoentazaRepositoryInterface extends BaseRepositoryInterface
 {
     public function createMany($array);
+    public function groupForTable($column, $value);
+    public function getTableHeaders($array);
+
 }
 

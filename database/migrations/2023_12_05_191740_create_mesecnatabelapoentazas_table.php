@@ -19,8 +19,8 @@ return new class extends Migration
             $table->json('vrste_placanja');
             $table->date('datum');
             $table->string('maticni_broj');
-            $table->string('ime');
             $table->string('prezime');
+            $table->string('ime');
             $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
             $table->timestamps();
         });
