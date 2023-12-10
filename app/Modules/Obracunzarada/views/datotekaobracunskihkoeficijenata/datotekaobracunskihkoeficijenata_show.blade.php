@@ -37,8 +37,8 @@
             height: 64px;
             margin: 8px;
             border-radius: 50%;
-            border: 6px solid red;
-            border-color: red transparent red transparent;
+            border: 6px solid #2c6fa9;
+            border-color: #2c6fa9 transparent #2c6fa9 transparent;
             animation: lds-dual-ring 1.5s linear infinite;
         }
         @keyframes lds-dual-ring {
@@ -54,10 +54,10 @@
 
 @section('content')
     <div class="container main-container mb-5">
-        <p id="statusMessage" class="text-success"></p>
-        <div id="status"></div>
+{{--        <p id="statusMessage" class="text-success"></p>--}}
         <div class="loader-container" style="text-align: center">
             <div id="loader" class="lds-dual-ring" style="display: none;"></div>
+            <h3 id="statusMessage" class="text-success text-center"></h3>
 
         </div>
         <form>
@@ -89,7 +89,7 @@
 
 
 
-
+        {{$tabindex=1}}
         @foreach($mesecnaTabelaPotenrazaTable as $key => $radnikData)
             <div>
                 <h3 class="text-center"> Organizaciona celina: {{$key}}</h3>
@@ -111,6 +111,7 @@
                                 <td class="vrsta_placanja_td"><input type="text" data-record-id="{{$value['id']}}"
                                                                      class="vrsta_placanja_input" data-toggle="tooltip"
                                                                      data-placement="top"
+                                                                     tabindex="{{$tabindex++}}"
                                                                      title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{ $vrstaPlacanja['value']}}>
                                 </td>
                             @endforeach
@@ -140,7 +141,8 @@
 
                     event.stopImmediatePropagation();
                     $("#loader").show();
-
+                    $('input').prop('disabled', true);
+                    debugger
                     var input_value = event.target.value;
                     var input_key = event.target.dataset.vrstaPlacanjaKey
                     var record_id = event.target.dataset.recordId
@@ -159,11 +161,13 @@
                         success: function (response) {
                             $("#statusMessage").text(response.message).addClass("text-success");
                             $("#loader").hide();
+                            $('input').prop('disabled', false);
 
                         },
                         error: function (response) {
                             $("#statusMessage").text("Greska: " + response.message).addClass("text-danger");
                             $("#loader").hide();
+                            $('input').prop('disabled', false);
 
                         }
                     });
@@ -171,6 +175,38 @@
 
                 }
             });
+
+            $('input').keydown(function(e) {
+                // Check if the pressed key is an arrow key
+                if (e.which === 37 || e.which === 38 || e.which === 39 || e.which === 40) {
+                    e.preventDefault(); // Prevent the default behavior of arrow keys
+
+                    // Get the current tabindex
+                    var currentTabIndex = parseInt($(this).attr('tabindex'));
+
+                    // Check which arrow key is pressed and focus on the next/previous input field
+                    switch (e.which) {
+                        case 37: // Left arrow
+                            focusInput(currentTabIndex - 1);
+                            break;
+                        case 38: // Up arrow
+                            focusInput(currentTabIndex - 1);
+                            break;
+                        case 39: // Right arrow
+                            focusInput(currentTabIndex + 1);
+                            break;
+                        case 40: // Down arrow
+                            focusInput(currentTabIndex + 1);
+                            break;
+                    }
+                }
+            });
+            function focusInput(tabindex) {
+                debugger;
+                if (tabindex > 0 && tabindex <= $('input').length) {
+                    $('input[tabindex="' + tabindex + '"]').focus();
+                }
+            }
         });
     </script>
 @endsection
