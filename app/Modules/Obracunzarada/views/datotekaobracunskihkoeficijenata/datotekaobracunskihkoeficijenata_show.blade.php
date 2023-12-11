@@ -29,28 +29,24 @@
             margin: 10px 0; /* Add margin for spacing if needed */
         }
 
-        .lds-dual-ring {
-            display: inline-block;
-            width: 80px;
-            height: 80px;
+        .loading {
+            height: 0;
+            width: 0;
+            padding: 15px;
+            border: 6px solid #ccc;
+            border-right-color: #5091fee8;
+            border-radius: 22px;
+            -webkit-animation: rotate 1s infinite linear;
+            /* left, top and position just for the demo! */
+            position: absolute;
+            left: 50%
         }
-        .lds-dual-ring:after {
-            content: " ";
-            display: block;
-            width: 64px;
-            height: 64px;
-            margin: 8px;
-            border-radius: 50%;
-            border: 6px solid #2c6fa9;
-            border-color: #2c6fa9 transparent #2c6fa9 transparent;
-            animation: lds-dual-ring 1.5s linear infinite;
-        }
-        @keyframes lds-dual-ring {
-            0% {
-                transform: rotate(0deg);
-            }
+
+        @-webkit-keyframes rotate {
+            /* 100% keyframe for  clockwise.
+               use 0% instead for anticlockwise */
             100% {
-                transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
             }
         }
     </style>
@@ -58,20 +54,18 @@
 
 @section('content')
     <div class="container main-container mb-5">
-{{--        <p id="statusMessage" class="text-success"></p>--}}
         <div class="loader-container" style="text-align: center">
-            <div id="loader" class="lds-dual-ring" style="display: none;"></div>
+            <h2>Evidencija rada i odsustvovanje radnika datum: <b>{!! $monthData!!}</b></h2>
             <h3 id="statusMessage" class="text-success text-center"></h3>
-
         </div>
         <form>
             @csrf
         </form>
-        <h2>Evidencija rada i odsustvovanje radnika datum: <b>{!! $monthData!!}</b></h2>
-
+            <div class="loading" style="display: none;">
+            </div>
         @foreach($mesecnaTabelaPotenrazaTable as $key => $organizacionacelina)
             <div class="mt-5">
-                <h3 class="text-center"> Organizaciona celina: {{$key}} - &nbsp; {{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}</h3>
+                <h3 class="text-center"> Organizaciona celina: <b>{{$key}} </b> - &nbsp{{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}.</h3>
                 <div class="divider"></div>
                 <table class="table table-striped">
                     <thead>
@@ -112,14 +106,12 @@
     <script>
         let storeRoute ='{!! route('datotekaobracunskihkoeficijenata.update') !!}'
 </script>
-    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show/ajax_logic.js') }}"></script>
-
     <script>
 
         $(function () {
             setTimeout(function(){
                 $('input').prop('disabled', false);
-            }, 5000);
+            }, 3000);
 
             $('[data-toggle="tooltip"]').tooltip()
 
@@ -150,5 +142,6 @@
             // }
         });
     </script>
+    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show/ajax_logic.js') }}"></script>
 @endsection
 
