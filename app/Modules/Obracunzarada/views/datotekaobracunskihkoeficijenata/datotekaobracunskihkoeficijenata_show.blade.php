@@ -7,6 +7,10 @@
             width: 250px;
         }
 
+        .tooltip {
+            font-weight:800;
+            font-size: large;
+        }
         .main-container{
             margin-left:100px !important;
         }
@@ -63,36 +67,11 @@
         <form>
             @csrf
         </form>
-        <h1>Evidencija rada i odsustvovanje radnika datum: {!! $monthData['datum'] !!}</h1>
+        <h2>Evidencija rada i odsustvovanje radnika datum: <b>{!! $monthData!!}</b></h2>
 
-
-{{--        <div>--}}
-{{--            <table class="table table-striped">--}}
-{{--                <thead>--}}
-{{--                <tr>--}}
-{{--                    @foreach($mesecnaTabelaPoentaza[0] as $key => $value)--}}
-{{--                        <th>{{ $key }}</th>--}}
-{{--                    @endforeach--}}
-{{--                </tr>--}}
-{{--                </thead>--}}
-{{--                <tbody>--}}
-{{--                @foreach($mesecnaTabelaPoentaza as $poentaza)--}}
-{{--                    <tr>--}}
-{{--                        @foreach($poentaza as $value)--}}
-{{--                            <td>{{ $value }}</td>--}}
-{{--                        @endforeach--}}
-{{--                    </tr>--}}
-{{--                @endforeach--}}
-{{--                </tbody>--}}
-{{--            </table>--}}
-{{--        </div>--}}
-
-
-
-        {{$tabindex=1}}
-        @foreach($mesecnaTabelaPotenrazaTable as $key => $radnikData)
-            <div>
-                <h3 class="text-center"> Organizaciona celina: {{$key}}</h3>
+        @foreach($mesecnaTabelaPotenrazaTable as $key => $organizacionacelina)
+            <div class="mt-5">
+                <h3 class="text-center"> Organizaciona celina: {{$key}} - &nbsp; {{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}</h3>
                 <div class="divider"></div>
                 <table class="table table-striped">
                     <thead>
@@ -103,15 +82,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($radnikData as $value)
+                    @foreach($organizacionacelina as $value)
                         <tr>
                             <td>{{ $value['maticni_broj'] }}</td>
                             <td class="ime_prezime">{{ $value['ime'] }}</td>
                             @foreach( $value['vrste_placanja'] as $vrstaPlacanja)
-                                <td class="vrsta_placanja_td"><input type="text" data-record-id="{{$value['id']}}"
+                                <td class="vrsta_placanja_td"><input type="number" data-record-id="{{$value['id']}}"
+                                                                     min="0"
+                                                                     disabled="disabled"
                                                                      class="vrsta_placanja_input" data-toggle="tooltip"
                                                                      data-placement="top"
-                                                                     tabindex="{{$tabindex++}}"
                                                                      title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{ $vrstaPlacanja['value']}}>
                                 </td>
                             @endforeach
@@ -132,81 +112,42 @@
     <script>
         let storeRoute ='{!! route('datotekaobracunskihkoeficijenata.update') !!}'
 </script>
+    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show/ajax_logic.js') }}"></script>
+
     <script>
+
         $(function () {
+            setTimeout(function(){
+                $('input').prop('disabled', false);
+            }, 5000);
+
             $('[data-toggle="tooltip"]').tooltip()
 
-            $(".vrsta_placanja_td").on('focusout', function (event) {
-                if (event.target.value !== '') {
-
-                    event.stopImmediatePropagation();
-                    $("#loader").show();
-                    $('input').prop('disabled', true);
-                    debugger
-                    var input_value = event.target.value;
-                    var input_key = event.target.dataset.vrstaPlacanjaKey
-                    var record_id = event.target.dataset.recordId
-                    var _token = $('input[name="_token"]').val();
-
-
-                    $.ajax({
-                        url: storeRoute,
-                        type: 'POST',
-                        data: {
-                            _token: _token,
-                            input_value: input_value,
-                            input_key: input_key,
-                            record_id: record_id
-                        },
-                        success: function (response) {
-                            $("#statusMessage").text(response.message).addClass("text-success");
-                            $("#loader").hide();
-                            $('input').prop('disabled', false);
-
-                        },
-                        error: function (response) {
-                            $("#statusMessage").text("Greska: " + response.message).addClass("text-danger");
-                            $("#loader").hide();
-                            $('input').prop('disabled', false);
-
-                        }
-                    });
-
-
-                }
-            });
-
-            $('input').keydown(function(e) {
-                // Check if the pressed key is an arrow key
-                if (e.which === 37 || e.which === 38 || e.which === 39 || e.which === 40) {
-                    e.preventDefault(); // Prevent the default behavior of arrow keys
-
-                    // Get the current tabindex
-                    var currentTabIndex = parseInt($(this).attr('tabindex'));
-
-                    // Check which arrow key is pressed and focus on the next/previous input field
-                    switch (e.which) {
-                        case 37: // Left arrow
-                            focusInput(currentTabIndex - 1);
-                            break;
-                        case 38: // Up arrow
-                            focusInput(currentTabIndex - 1);
-                            break;
-                        case 39: // Right arrow
-                            focusInput(currentTabIndex + 1);
-                            break;
-                        case 40: // Down arrow
-                            focusInput(currentTabIndex + 1);
-                            break;
-                    }
-                }
-            });
-            function focusInput(tabindex) {
-                debugger;
-                if (tabindex > 0 && tabindex <= $('input').length) {
-                    $('input[tabindex="' + tabindex + '"]').focus();
-                }
-            }
+            // $('input').keydown(function(e) {
+            //     // Check if the pressed key is an arrow key
+            //     if (e.which === 37 || e.which === 39) {
+            //         e.preventDefault(); // Prevent the default behavior of arrow keys
+            //
+            //         // Get the current tabindex
+            //         var currentTabIndex = parseInt($(this).attr('tabindex'));
+            //
+            //         // Check which arrow key is pressed and focus on the next/previous input field
+            //         switch (e.which) {
+            //             case 37: // Left arrow
+            //                 focusInput(currentTabIndex - 1);
+            //                 break;
+            //             case 39: // Right arrow
+            //                 focusInput(currentTabIndex + 1);
+            //                 break;
+            //         }
+            //     }
+            // });
+            // function focusInput(tabindex) {
+            //     debugger;
+            //     if (tabindex > 0 && tabindex <= $('input').length) {
+            //         $('input[tabindex="' + tabindex + '"]').focus();
+            //     }
+            // }
         });
     </script>
 @endsection

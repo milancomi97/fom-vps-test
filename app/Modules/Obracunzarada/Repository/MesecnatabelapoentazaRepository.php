@@ -25,7 +25,7 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
     {
 
 //        $result = $this->model->orderBy('maticni_broj','asc')->where($column, $value)->get()->groupBy('organizaciona_celina_id');
-        $result = $this->model->orderBy('maticni_broj','asc')->where($column, $value)->get();
+        $result = $this->model->with('organizacionecelina')->orderBy('organizaciona_celina_id')->orderBy('maticni_broj','asc')->where($column, $value)->get();
 
         $unserializedVrstePlacanja= $result->map(function ($mesecnaTabelaPoentaza) {
             // Transform each item (user) by returning the desired value

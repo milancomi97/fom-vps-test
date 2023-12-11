@@ -99,11 +99,11 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function with($relation)
     {
-        return $this->model->with($relation)->get();
+        return $this->model->with($relation);
     }
 
     public function where($column, $value)
     {
-        return $this->model->where($column,$value)->get();
+        return $this->model->where($column,$value);
     }
 }

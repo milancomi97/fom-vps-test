@@ -14,6 +14,7 @@ class OrganizacionecelineSeeder extends Seeder
 
         foreach ($datas as $data) {
             DB::table('organizacionecelines')->insert([
+                'id'=>$data['sifra_troskovnog_mesta'],
                 'sifra_troskovnog_mesta' =>$data['sifra_troskovnog_mesta'],
                 'naziv_troskovnog_mesta' =>$data['naziv'],
                 'active'=>$data['Aktivno_Neaktivno'] == "TAČNO",

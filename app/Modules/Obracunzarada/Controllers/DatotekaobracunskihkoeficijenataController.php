@@ -8,6 +8,7 @@ use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterfac
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
 use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
 use Illuminate\Http\Request;
+use \Carbon\Carbon;
 
 class DatotekaobracunskihkoeficijenataController extends Controller
 {
@@ -25,15 +26,17 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
         $id = $request->month_id;
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
-        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->where('obracunski_koef_id', $id);
+        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->with('organizacionecelina')->where('obracunski_koef_id', $id)->get();
 
         $mesecnaTabelaPotenrazaTable= $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
         $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
 
+        $inputDate = Carbon::parse($monthData->datum);
+        $formattedDate = $inputDate->format('m.Y');
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show',
             [
-                'monthData' => $monthData->toArray(),
-                'mesecnaTabelaPoentaza' => $mesecnaTabelaPoentaza->toArray(),
+                'monthData' => $formattedDate,
+                'mesecnaTabelaPoentaza' => $mesecnaTabelaPoentaza,
                 'mesecnaTabelaPotenrazaTable'=>$mesecnaTabelaPotenrazaTable,
                 'tableHeaders'=>$tableHeaders
             ]);
@@ -78,7 +81,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
     {
 
         $id = $request->month_id;
-        $radniciData = $this->mesecnatabelapoentazaInterface->where('obracunski_koef_id', $id);
+        $radniciData = $this->mesecnatabelapoentazaInterface->where('obracunski_koef_id', $id)->get();
 
         if ($radniciData->count()) {
             $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);

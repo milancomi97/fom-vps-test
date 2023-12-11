@@ -20,4 +20,10 @@ class Mesecnatabelapoentaza extends Model
         'ime',
 
     ];
+
+    public function organizacionecelina()
+    {
+        return $this->belongsTo(Organizacioneceline::class,'organizaciona_celina_id');
+    }
+
 }
