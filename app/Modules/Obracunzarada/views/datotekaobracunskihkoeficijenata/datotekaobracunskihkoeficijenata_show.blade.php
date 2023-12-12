@@ -64,6 +64,8 @@
             <div class="loading" style="display: none;">
             </div>
         @foreach($mesecnaTabelaPotenrazaTable as $key => $organizacionacelina)
+
+            @if(isset($troskovnaMestaPermission[$key]) && $troskovnaMestaPermission[$key])
             <div class="mt-5">
                 <h3 class="text-center"> Organizaciona celina: <b>{{$key}} </b> - &nbsp{{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}.</h3>
                 <div class="divider"></div>
@@ -94,13 +96,12 @@
                     </tbody>
                 </table>
             </div>
+            @endif
         @endforeach
 
     </div>
     </div>
 @endsection
-
-
 
 @section('custom-scripts')
     <script>
@@ -115,33 +116,7 @@
 
             $('[data-toggle="tooltip"]').tooltip()
 
-            // $('input').keydown(function(e) {
-            //     // Check if the pressed key is an arrow key
-            //     if (e.which === 37 || e.which === 39) {
-            //         e.preventDefault(); // Prevent the default behavior of arrow keys
-            //
-            //         // Get the current tabindex
-            //         var currentTabIndex = parseInt($(this).attr('tabindex'));
-            //
-            //         // Check which arrow key is pressed and focus on the next/previous input field
-            //         switch (e.which) {
-            //             case 37: // Left arrow
-            //                 focusInput(currentTabIndex - 1);
-            //                 break;
-            //             case 39: // Right arrow
-            //                 focusInput(currentTabIndex + 1);
-            //                 break;
-            //         }
-            //     }
-            // });
-            // function focusInput(tabindex) {
-            //     debugger;
-            //     if (tabindex > 0 && tabindex <= $('input').length) {
-            //         $('input[tabindex="' + tabindex + '"]').focus();
-            //     }
-            // }
         });
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show/ajax_logic.js') }}"></script>
 @endsection
-

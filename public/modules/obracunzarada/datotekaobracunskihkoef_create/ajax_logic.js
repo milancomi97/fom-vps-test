@@ -1,13 +1,34 @@
 $(document).ready(function () {
     // Attach a click event handler to the button
     $(document).on('click', 'body .create-mesecna-poentaza', function (e) {
-        $('#myModal').modal('show');
+
+        var _token = $('input[name="_token"]').val();
+        var year = $('.create-mesecna-poentaza').data('year');
+        var month = $('.create-mesecna-poentaza').data('month')
+        $.ajax({
+            url: getStoreDataRoute,
+            type: 'POST',
+            data: {
+                month:month,
+                year:year,
+                _token: _token
+            },
+            success: function (response) {
+                $('#myModal').modal('show');
+                $("#kalendarski_broj_dana_modal").val(response.kalendarski_broj_dana)
+                $("#mesecni_fond_sati_modal").val(response.mesecni_fond_sati)
+                $("#month_modal").val(parseInt(month)+1)
+                $("#year_modal").val(year)
+            },
+            error: function (response) {
+            }
+        });
+
 
     });
 
     $('#submitFormBtn').on('click', function () {
 
-        debugger;
         // Swal.fire({
         //     title: 'Da li želite da otvorite mesec?',
         //     text: "Unesi dinamicki kasnije",
@@ -22,6 +43,9 @@ $(document).ready(function () {
 
         var year = $('.create-mesecna-poentaza').data('year');
         var month = $('.create-mesecna-poentaza').data('month')
+        var prosecni_godisnji_fond_sati = $('#prosecni_godisnji_fond_sati_modal').val()
+        var cena_rada_tekuci = $('#cena_rada_tekuci_modal').val()
+        var cena_rada_prethodni = $('#cena_rada_prethodni_modal').val()
         var _token = $('input[name="_token"]').val();
 
         $.ajax({
@@ -30,6 +54,9 @@ $(document).ready(function () {
             data: {
                 year: year,
                 month: month,
+                prosecni_godisnji_fond_sati:prosecni_godisnji_fond_sati,
+                cena_rada_tekuci:cena_rada_tekuci,
+                cena_rada_prethodni:cena_rada_prethodni,
                 _token: _token
             },
             success: function (response) {

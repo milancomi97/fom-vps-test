@@ -21,14 +21,19 @@ class DatotekaobracunskihkoeficijenataRepository extends BaseRepository implemen
 
     public function createMesecnatabelapoentaza($array)
     {
-        $month = $array['month'];
+        $month = (int)$array['month'] + 1;
         $year =$array['year'];
-        $startOfMonth = Carbon::create($year, $month, 1);
+        $startOfMonth = Carbon::create($year, (int)$month+1, 1);
         $workingDays = $this->calculateWorkingHour($startOfMonth);
         $workingHours= $workingDays * 8;
+        $endOfMonth = $startOfMonth->copy()->endOfMonth();
+
         $data =[
-            'kalendarski_broj_data'=>(int)$workingDays,
+            'kalendarski_broj_data'=>$endOfMonth->format('d'),
             'mesecni_fond_sati'=>$workingHours,
+            'prosecni_godisnji_fond_sati'=>$array['prosecni_godisnji_fond_sati'],
+            'cena_rada_tekuci'=>$array['cena_rada_tekuci'],
+            'cena_rada_prethodni'=>$array['cena_rada_prethodni'],
             'datum'=>$startOfMonth,
             'status'=>1
         ];
@@ -36,7 +41,7 @@ class DatotekaobracunskihkoeficijenataRepository extends BaseRepository implemen
        return $this->create($data);
     }
 
-    private function calculateWorkingHour($startOfMonth){
+    public function calculateWorkingHour($startOfMonth){
 
         $endOfMonth = $startOfMonth->copy()->endOfMonth();
 

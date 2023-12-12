@@ -34,7 +34,7 @@ function updateMonthContainer(activeMonth) {
                 'data-month_id': monthData.month_id,
                 'data-year': monthData.currYear,
                 'data-month': monthData.currMonth
-            }).text('Prikaz podataka').appendTo(monthCard);
+            }).text('Prikaz poentaže').appendTo(monthCard);
 
             $('<button>').attr({
                 'type': 'button',

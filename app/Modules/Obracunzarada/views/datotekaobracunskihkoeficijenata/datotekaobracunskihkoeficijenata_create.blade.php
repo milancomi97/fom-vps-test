@@ -80,21 +80,37 @@
                     <form id="myForm">
 
                         <div class="form-group">
-                            <label for="exampleFormControlInput2">Mesec</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput2" >
+                            <label for="month_modal">Mesec</label>
+                            <input type="text" class="form-control" id="month_modal" >
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput3">Godina</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput3" >
+                            <label for="year_modal">Godina</label>
+                            <input type="text" class="form-control" id="year_modal" >
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleFormControlInput4">Kalendarski broj dana u mesecu</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput4" >
+                            <label for="kalendarski_broj_dana_modal">Kalendarski broj dana u mesecu</label>
+                            <input type="text" class="form-control" id="kalendarski_broj_dana_modal" >
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput5">Mesecni fond sati</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput5" >
+                            <label for="mesecni_fond_sati_modal">Mesecni fond sati</label>
+                            <input type="text" class="form-control" id="mesecni_fond_sati_modal" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="prosecni_godisnji_fond_sati_modal">Prosecni godisnji fond sati</label>
+                            <input type="text" class="form-control" id="prosecni_godisnji_fond_sati_modal" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cena_rada_tekuci_modal">Cena rada tekući</label>
+                            <input type="text" class="form-control" id="cena_rada_tekuci_modal" >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="cena_rada_prethodni_modal">Cena rada prethodni</label>
+                            <input type="text" class="form-control" id="cena_rada_prethodni_modal" >
                         </div>
 
                         <div class="form-group">
@@ -103,13 +119,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleFormControlInput7">Prosecni godisnji fond sati</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput7" >
-                        </div>
-
-                        <div class="form-group">
-                            <label for="exampleFormControlInput8">Period isplate</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput8" >
+                            <label for="period_isplate_modal">Period isplate</label>
+                            <input type="date" class="form-control" id="period_isplate_modal" >
                         </div>
                         <!-- Add more form elements as needed -->
                     </form>
@@ -131,6 +142,7 @@
     <script>
         let databaseData = {!! $datotekaobracunskihkoeficijenata !!};
         let storeRoute ='{!! route('datotekaobracunskihkoeficijenata.store') !!}'
+        let getStoreDataRoute ='{!! route('datotekaobracunskihkoeficijenata.getStoreData') !!}'
         let checkRoute ='{!! route('datotekaobracunskihkoeficijenata.check') !!}'
         let showRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show?month_id=')!!}'
 

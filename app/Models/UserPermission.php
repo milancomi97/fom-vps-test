@@ -22,6 +22,7 @@ class UserPermission extends Model
         'proizvodnja',
         'role_name',
         'user_id',
+        'troskovna_mesta_poenter',
         'user_permissions_id'
     ];
 }

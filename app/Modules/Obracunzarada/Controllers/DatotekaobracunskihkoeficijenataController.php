@@ -3,6 +3,8 @@
 namespace App\Modules\Obracunzarada\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
@@ -24,6 +26,9 @@ class DatotekaobracunskihkoeficijenataController extends Controller
     public function show(Request $request)
     {
 
+        $user_id = auth()->user()->id;
+        $userPermission = UserPermission::where('user_id',$user_id)->first();
+        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter,true);
         $id = $request->month_id;
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
         $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->with('organizacionecelina')->where('obracunski_koef_id', $id)->get();
@@ -38,7 +43,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
                 'monthData' => $formattedDate,
                 'mesecnaTabelaPoentaza' => $mesecnaTabelaPoentaza,
                 'mesecnaTabelaPotenrazaTable'=>$mesecnaTabelaPotenrazaTable,
-                'tableHeaders'=>$tableHeaders
+                'tableHeaders'=>$tableHeaders,
+                'troskovnaMestaPermission' =>$troskovnaMestaPermission
             ]);
 
 
@@ -48,6 +54,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
     {
 
         $data = $this->datotekaobracunskihkoeficijenataInterface->getAll();
+
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_create', ['datotekaobracunskihkoeficijenata' => json_encode($data)]);
     }
 
@@ -77,6 +84,24 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         return response()->json(['message' => 'Podatak uspesno kreiran', 'status' => true], 200);
     }
 
+    public function getStoreData(Request $request){
+        $month = $request['month'];
+        $year =$request['year'];
+        $startOfMonth = Carbon::create($year, $month, 1);
+        $workingDays = $this->datotekaobracunskihkoeficijenataInterface->calculateWorkingHour($startOfMonth);
+        $endOfMonth = $startOfMonth->copy()->endOfMonth();
+        $workingHours= $workingDays * 8;
+        $data =[
+            'kalendarski_broj_radnih_dana'=>(int)$workingDays,
+            'mesecni_fond_sati'=>$workingHours,
+            'datum'=>$startOfMonth,
+            'kalendarski_broj_dana'=>$endOfMonth->format('d'),
+            'status'=>1
+        ];
+
+        return response()->json($data);
+    }
+
     public function check(Request $request)
     {
 
@@ -93,7 +118,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
             } else if ($monthData->status == '2') {
 
-                $message = 'Mesec je treba da potvrde odredjene osobe';
+                $message = 'Mesec treba da potvrde odredjene osobe';
 
             } else if ($monthData->status == '3') {
 

@@ -56,6 +56,10 @@ Route::post('/materijals_pdf', [\App\Http\Controllers\MaterijalController::class
 
 Route::get('/user/permissions_config', [UserConfigController::class, 'permissionsConfig']);
 Route::get('/user/permissions_config_by_user', [UserConfigController::class, 'permissionsConfigByUserId']);
+
+
+Route::post('/user/permissions_poenter', [UserConfigController::class, 'permissionsUpdatePoenter'])->name('permissionsUpdatePoenter.update');
+
 Route::get('/user/index', [UserConfigController::class, 'index']);
 
 Route::post('/user/permissions_config_update', [UserConfigController::class, 'permissionsUpdate']);
@@ -183,6 +187,8 @@ Route::middleware('auth')->group(function () {
     // Mesecna datotekaobracunskihkoeficijenata
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/create',[DatotekaobracunskihkoeficijenataController::class,'create'])->name('datotekaobracunskihkoeficijenata.create');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/store',[DatotekaobracunskihkoeficijenataController::class,'store'])->name('datotekaobracunskihkoeficijenata.store');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getstoredata',[DatotekaobracunskihkoeficijenataController::class,'getStoreData'])->name('datotekaobracunskihkoeficijenata.getStoreData');
+
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update',[DatotekaobracunskihkoeficijenataController::class,'update'])->name('datotekaobracunskihkoeficijenata.update');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/check',[DatotekaobracunskihkoeficijenataController::class,'check'])->name('datotekaobracunskihkoeficijenata.check');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show',[DatotekaobracunskihkoeficijenataController::class,'show'])->name('datotekaobracunskihkoeficijenata.show');
