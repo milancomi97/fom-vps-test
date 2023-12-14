@@ -44,7 +44,7 @@
                      with font-awesome or any other icon font library -->
                 @if($permissions->osnovni_podaci)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon far fa-circle"></i>
                             <p>
                                 Osnovni podaci
@@ -58,10 +58,10 @@
                                     <p>Podaci o firmi</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link ml-3" >
-                                    <p>Poslovni partneri</p>
-                                </a>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Poslovni partneri
+
                             </li>
 
                             <li class="nav-item">
@@ -77,10 +77,10 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
-                                    <p >Radnici</p>
-                                </a>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Radnici
+
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('radnici.create')}}" class="nav-link">
@@ -95,10 +95,10 @@
                                     <p class="small">Pregled radnika</p>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
-                                    <p >Organizacione Celine</p>
-                                </a>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Organizacione Celine
+
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('organizacioneceline.index')}}" class="nav-link">
@@ -216,7 +216,7 @@
                 @endif
                 @if($permissions->kadrovska_evidencija)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon far fa-circle"></i>
                             <p>
                                 Kadrovska evidencija
@@ -224,10 +224,9 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
-                                    <p >Zanimanja</p>
-                                </a>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Zanimanja
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('zanimanjasifarnik.index')}}" class="nav-link">
@@ -235,11 +234,9 @@
                                     <p class="small">Pregled šifarnika zanimanja</p>
                                 </a>
                             </li>
-
-                            <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
-                                    <p >Radna mesta</p>
-                                </a>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Radna mesta
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('radnamesta.index')}}" class="nav-link">
@@ -247,10 +244,9 @@
                                     <p class="small">Pregled šifarnika radnih mesta</p>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
-                                    <p >Stručna kvalifikacija</p>
-                                </a>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Stručna kvalifikacija
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('strucnakvalifikacija.index')}}" class="nav-link">
@@ -258,10 +254,9 @@
                                     <p class="small">Pregled šifarnika stručnih kvalifikacija</p>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
-                                    <p >Vrsta rada</p>
-                                </a>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Vrsta rada
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('vrstaradasifarnik.index')}}" class="nav-link">
@@ -274,7 +269,7 @@
                 @endif
                 @if($permissions->obracun_zarada)
                     <li class="nav-item menu ">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon far fa-circle"></i>
                             <p class="small">
                                 Obračun zarada i naknada
@@ -283,10 +278,9 @@
                         </a>
                         <ul class="nav nav-treeview">
 
-                            <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
-                                    <p >Oblik rada</p>
-                                </a>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Oblik rada
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('oblikrada.index')}}" class="nav-link">
@@ -294,12 +288,9 @@
                                     <p class="small">Pregled oblika rada</p>
                                 </a>
                             </li>
-
-
-                            <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
-                                    <p >Vrste plaćanja</p>
-                                </a>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Vrste plaćanja
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('vrsteplacanja.index')}}" class="nav-link">
@@ -307,10 +298,9 @@
                                     <p class="small">Pregled vrste plaćanja</p>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
-                                    <p >Kreditori</p>
-                                </a>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Kreditori
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('kreditori.index')}}" class="nav-link">
@@ -318,11 +308,9 @@
                                     <p class="small">Pregled kreditora</p>
                                 </a>
                             </li>
-
-                            <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
-                                    <p >Minimalne bruto osnovice</p>
-                                </a>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Minimalne bruto osnovice
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('minimalnebrutoosnovice.index')}}" class="nav-link">
@@ -330,12 +318,9 @@
                                     <p class="small">Pregled MBO</p>
                                 </a>
                             </li>
-
-
-                            <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
-                                    <p >Porez i doprinosi</p>
-                                </a>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Porez i doprinosi
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('porezdoprinosi.index')}}" class="nav-link">
@@ -343,11 +328,9 @@
                                     <p class="small">Pregled poreza i doprinosa</p>
                                 </a>
                             </li>
-
-                            <li class="nav-item ">
-                                <a href="#" class="nav-link ml-3">
-                                    <p >Matična datoteka radnika</p>
-                                </a>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Matična datoteka radnika
                             </li>
                             <li class="nav-item">
                                 <a href="{{route('maticnadatotekaradnika.create')}}" class="nav-link">
@@ -355,27 +338,32 @@
                                     <p class="small">Kreiraj MDR</p>
                                 </a>
                             </li>
+                            <li class="nav-header">
+                                <i class="nav-icon fas fa-file"></i>
+                                Poentaža
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="nav-link">
+                                    <i class="fas fa-circle nav-icon "></i>
+                                    <p class="small">Datoteka obračunskih koeficienata</p>
+                                </a>
+                            </li>
                         </ul>
-                    </li>
-
-                    <li class="nav-header">
-                        <i class="nav-icon fas fa-file"></i>
-                        &nbsp;       &nbsp; Obračun zarada i naknada
 
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-circle"></i>
                             <p>
-                                Poentaža
+                                Primer sa tri nivoa
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview" style="display: none;">
                             <li class="nav-item">
-                                <a href="{{route('datotekaobracunskihkoeficijenata.create')}}"  class="nav-link">
+                                <a href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="nav-link">
                                     <i class="far fa-circle nav-icon "></i>
-                                    <p class="small">Mesečna tabela sa poentažom </p>
+                                    <p class="small">Datoteka obracunskih koeficienata</p>
                                 </a>
                             </li>
                             <li class="nav-item">

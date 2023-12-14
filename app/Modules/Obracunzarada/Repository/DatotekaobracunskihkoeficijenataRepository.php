@@ -21,9 +21,9 @@ class DatotekaobracunskihkoeficijenataRepository extends BaseRepository implemen
 
     public function createMesecnatabelapoentaza($array)
     {
-        $month = (int)$array['month'] + 1;
+        $month = (int)$array['month'];
         $year =$array['year'];
-        $startOfMonth = Carbon::create($year, (int)$month+1, 1);
+        $startOfMonth = Carbon::create($year, (int)$month, 1);
         $workingDays = $this->calculateWorkingHour($startOfMonth);
         $workingHours= $workingDays * 8;
         $endOfMonth = $startOfMonth->copy()->endOfMonth();
