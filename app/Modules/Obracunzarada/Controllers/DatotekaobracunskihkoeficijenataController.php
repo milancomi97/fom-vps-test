@@ -8,6 +8,7 @@ use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
+use App\Modules\Obracunzarada\Service\UpdateNapomena;
 use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
@@ -18,7 +19,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface,
         private readonly KreirajObracunskeKoeficiente                        $kreirajObracunskeKoeficiente,
         private readonly MesecnatabelapoentazaRepositoryInterface            $mesecnatabelapoentazaInterface,
-        private readonly UpdateVrstePlacanjaJson $updateVrstePlacanjaJson
+        private readonly UpdateVrstePlacanjaJson $updateVrstePlacanjaJson,
+        private readonly UpdateNapomena $updateNapomena
     )
     {
     }
@@ -142,7 +144,12 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         $input_key = $request->input_key;
         $record_id = $request->record_id;
         $radnikEvidencija = $this->mesecnatabelapoentazaInterface->getById($record_id);
-        $status = $this->updateVrstePlacanjaJson->execute($radnikEvidencija,$input_key,$input_value);
+        if($input_key=='napomena'){
+            $status = $this->updateNapomena->execute($radnikEvidencija,$input_key,$input_value);
+
+        }else{
+            $status = $this->updateVrstePlacanjaJson->execute($radnikEvidencija,$input_key,$input_value);
+        }
 
         if($status){
             $message = 'Podatak je uspesno izmenjen';

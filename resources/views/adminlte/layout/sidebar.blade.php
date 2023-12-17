@@ -43,8 +43,8 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 @if($permissions->osnovni_podaci)
-                    <li class="nav-item menu">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item menu ">
+                        <a href="#" class="nav-link bg-secondary">
                             <i class="nav-icon far fa-circle"></i>
                             <p>
                                 Osnovni podaci
@@ -215,8 +215,8 @@
                     </li>
                 @endif
                 @if($permissions->kadrovska_evidencija)
-                    <li class="nav-item menu">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item menu ">
+                        <a href="#" class="nav-link bg-secondary">
                             <i class="nav-icon far fa-circle"></i>
                             <p>
                                 Kadrovska evidencija
@@ -269,7 +269,7 @@
                 @endif
                 @if($permissions->obracun_zarada)
                     <li class="nav-item menu ">
-                        <a href="#" class="nav-link">
+                        <a href="#" class="nav-link bg-secondary">
                             <i class="nav-icon far fa-circle"></i>
                             <p class="small">
                                 Obračun zarada i naknada

@@ -17,7 +17,8 @@ class Mesecnatabelapoentaza extends Model
         'maticni_broj',
         'prezime',
         'srednje_ime',
-        'ime'
+        'ime',
+        'napomena'
     ];
 
     public function organizacionecelina()

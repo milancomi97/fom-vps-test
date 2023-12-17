@@ -49,6 +49,13 @@
                 -webkit-transform: rotate(360deg);
             }
         }
+
+        .napomena_td{
+            text-align:center
+        }
+        .napomena{
+            font-size: 20px;
+        }
     </style>
 @endsection
 
@@ -75,6 +82,7 @@
                         @foreach($tableHeaders as $keyheader =>$header)
                             <th>{{ $header }}</th>
                         @endforeach
+                        <th>Napomena</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -91,6 +99,13 @@
                                                                      title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{ $vrstaPlacanja['value']}}>
                                 </td>
                             @endforeach
+                            <td class="napomena_td" data-napomena-value="{{$value['napomena']}}" data-radnik-name="{{$value['ime']}}" data-record-id="{{$value['id']}}">
+                                    @if($value['napomena'])
+                                        <span class="napomena text-danger">   <i class="fas fa-sticky-note"></i></span>
+                                    @else
+                                        <span class="napomena text-primary">  <i class="fas fa-plus" aria-hidden="true"></i></span>
+                                    @endif
+                            </td>
                             @endforeach
                         </tr>
                     </tbody>
@@ -101,6 +116,41 @@
 
     </div>
     </div>
+    <!-- Modal -->
+    <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Unos Napomene:</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Your form goes here -->
+                    <h3 class="" id="radnik_modal"></h3>
+                    <form id="myForm">
+                        <div class="form-group">
+                            <label for="napomena_text_old">Napomena</label>
+                            <textarea class="form-control" disabled id="napomena_text_old" rows="5"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="napomena_text">Unesi napomenu</label>
+                            <textarea class="form-control" id="napomena_text" rows="5"></textarea>
+                        </div>
+
+                        <input type="hidden" name="record_id_modal" id="record_id_modal">
+                        <!-- Add more form elements as needed -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+                    <button type="button" class="btn btn-primary" id="submitFormBtn">Sačuvaj</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('custom-scripts')
@@ -110,6 +160,61 @@
     <script>
 
         $(function () {
+
+
+            $(document).on('click', 'body .napomena_td', function (event) {
+                const row = $(this);
+                $('#myModal').modal('show');
+                var record_id = event.currentTarget.dataset.recordId
+                var napomenaData = event.currentTarget.dataset.napomenaValue;
+                var radnikNameData = event.currentTarget.dataset.radnikName;
+
+                $('#radnik_modal').text(radnikNameData);
+
+                $('#napomena_text').val('')
+                $('#napomena_text_old').val(napomenaData)
+                $('#record_id_modal').val(null);
+                $('#record_id_modal').val(record_id);
+
+            });
+
+            $('#submitFormBtn').on('click', function (event) {
+
+                var napomena_text = $('#napomena_text').val()
+
+                if (napomena_text !== '') {
+                    event.stopImmediatePropagation();
+                    var record_id = $('#record_id_modal').val();
+                    debugger;
+
+                    var _token = $('input[name="_token"]').val();
+                    $.ajax({
+                        url: storeRoute,
+                        type: 'POST',
+                        data: {
+                            record_id:record_id,
+                            input_value:napomena_text,
+                            input_key:'napomena',
+                            _token: _token
+                        },
+                        success: function (response) {
+                            if (response.status) {
+                                location.reload()
+                            } else {
+                                // $("#statusMessage").text(response.message).addClass("text-danger");
+                            }
+                        },
+                        error: function (response) {
+                            // $("#statusMessage").text("Greska: " + response.message).addClass("error");
+                        }
+                    });
+                }else{
+                    $('#myModal').modal('hide');
+
+                }
+            });
+
+
             setTimeout(function(){
                 $('input').prop('disabled', false);
             }, 3000);

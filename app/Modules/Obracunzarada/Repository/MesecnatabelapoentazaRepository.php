@@ -57,6 +57,7 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
         unset($tableHeaders['vrste_placanja']);
         unset($tableHeaders['srednje_ime']);
         unset($tableHeaders['prezime']);
+        unset($tableHeaders['napomena']);
         $tableKeys =array_keys($tableHeaders);
         foreach ($vrstePlacanja as $key => $value) {
             array_push($tableKeys,$value['key']);
