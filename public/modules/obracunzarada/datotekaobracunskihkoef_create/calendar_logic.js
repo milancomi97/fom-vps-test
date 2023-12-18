@@ -46,7 +46,7 @@ function updateMonthContainer(activeMonth) {
 
             $('<button>').attr({
                 'type': 'button',
-                'class': 'btn btn-danger odobri-mesecna-poentaza col-lg-3 mt-1 border',
+                'class': 'btn btn-danger odobravanje-mesecna-poentaza col-lg-3 mt-1 border',
                 'data-month_id': monthData.month_id,
                 'data-month': monthData.currMonth,
                 'data-year': monthData.currYear

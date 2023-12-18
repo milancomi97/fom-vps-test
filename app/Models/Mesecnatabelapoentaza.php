@@ -18,7 +18,8 @@ class Mesecnatabelapoentaza extends Model
         'prezime',
         'srednje_ime',
         'ime',
-        'napomena'
+        'napomena',
+        'status_poentaze'
     ];
 
     public function organizacionecelina()

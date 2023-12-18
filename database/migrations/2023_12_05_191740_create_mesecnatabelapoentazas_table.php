@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('srednje_ime')->nullable();
             $table->string('ime');
             $table->string('napomena')->nullable();
+            $table->integer('status_poentaze')->nullable();
             $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
             $table->foreign('organizaciona_celina_id')->references('id')->on('organizacionecelines');
 

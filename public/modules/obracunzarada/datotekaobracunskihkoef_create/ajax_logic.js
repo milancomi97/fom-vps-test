@@ -76,6 +76,11 @@ $(document).ready(function () {
         window.location.href = showRoute + id;
     });
 
+    $(document).on('click', 'body .odobravanje-mesecna-poentaza', function (e) {
+        var id = $(this).data('month_id');
+        window.location.href = odobravanjeRoute + id;
+    });
+
     $(document).on('click', 'body .check-mesecna-poentaza', function (e) {
 
         var month_id = $(this).data('month_id')

@@ -145,6 +145,7 @@
         let getStoreDataRoute ='{!! route('datotekaobracunskihkoeficijenata.getStoreData') !!}'
         let checkRoute ='{!! route('datotekaobracunskihkoeficijenata.check') !!}'
         let showRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show?month_id=')!!}'
+        let odobravanjeRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje?month_id=')!!}'
 
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_create/calendar_logic.js') }}"></script>

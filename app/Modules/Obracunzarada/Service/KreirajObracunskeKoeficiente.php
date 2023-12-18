@@ -40,7 +40,8 @@ class KreirajObracunskeKoeficiente
                 'ime'=>$radnik->ime,
                 'prezime'=>$radnik->prezime,
                 'srednje_ime'=>$radnik->srednje_ime,
-                'obracunski_koef_id'=>$datotekaobracunskihkoeficijenata->id
+                'obracunski_koef_id'=>$datotekaobracunskihkoeficijenata->id,
+                'status_poentaze'=>1
             ];
         }
 

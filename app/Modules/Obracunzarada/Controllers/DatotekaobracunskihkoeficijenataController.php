@@ -5,6 +5,7 @@ namespace App\Modules\Obracunzarada\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserPermission;
+use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
@@ -52,6 +53,33 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
     }
 
+    public function odobravanje(Request $request)
+    {
+
+        $user_id = auth()->user()->id;
+        $userPermission = UserPermission::where('user_id',$user_id)->first();
+        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter,true);
+        $id = $request->month_id;
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
+        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->with('organizacionecelina')->where('obracunski_koef_id', $id)->get();
+
+        $mesecnaTabelaPotenrazaTable= $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
+        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
+
+        $inputDate = Carbon::parse($monthData->datum);
+        $formattedDate = $inputDate->format('m.Y');
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_odobravanje',
+            [
+                'monthData' => $formattedDate,
+                'mesecnaTabelaPoentaza' => $mesecnaTabelaPoentaza,
+                'mesecnaTabelaPotenrazaTable'=>$mesecnaTabelaPotenrazaTable,
+                'tableHeaders'=>$tableHeaders,
+                'troskovnaMestaPermission' =>$troskovnaMestaPermission,
+                'statusRadnikaOK'=>StatusRadnikaObracunskiKoef::all()
+            ]);
+
+
+    }
     public function create()
     {
 
@@ -147,7 +175,11 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         if($input_key=='napomena'){
             $status = $this->updateNapomena->execute($radnikEvidencija,$input_key,$input_value);
 
-        }else{
+        }elseif($input_key=='status_poentaze'){
+            $radnikEvidencija->status_poentaze = (int)$input_value;
+            $status =  $radnikEvidencija->save();
+        }
+        else{
             $status = $this->updateVrstePlacanjaJson->execute($radnikEvidencija,$input_key,$input_value);
         }
 
