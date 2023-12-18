@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     // Status logic
     $(document).on('click', 'body .status_td', function (event) {
-        debugger
+
         $('#statusModal').modal('show');
         var radnikNameData = event.currentTarget.dataset.radnikName;
         var status = event.currentTarget.dataset.statusValue;
@@ -54,9 +54,7 @@ $(document).ready(function () {
         var radnikNameData = event.currentTarget.dataset.radnikName;
 
         $('#radnik_modal').text(radnikNameData);
-
-        $('#napomena_text').val('')
-        $('#napomena_text_old').val(napomenaData)
+        $('#napomena_text_old')[0].innerHTML=napomenaData;
         $('#record_id_modal').val(null);
         $('#record_id_modal').val(record_id);
 

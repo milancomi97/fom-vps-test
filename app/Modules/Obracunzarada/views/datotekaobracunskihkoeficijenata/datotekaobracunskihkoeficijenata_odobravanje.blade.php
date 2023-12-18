@@ -179,7 +179,8 @@
                     <form id="myForm">
                         <div class="form-group">
                             <label for="napomena_text_old">Napomena</label>
-                            <textarea class="form-control" disabled id="napomena_text_old" rows="5"></textarea>
+                            <div id="napomena_text_old">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="napomena_text">Unesi napomenu</label>

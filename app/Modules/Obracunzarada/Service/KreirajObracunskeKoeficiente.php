@@ -27,7 +27,6 @@ class KreirajObracunskeKoeficiente
         $organizacioneCeline = $this->organizacionecelineInterface->getAll();
 
         $vrstePlacanjaUpdated= $this->updateVrstePlacanja($vrstePlacanja,$datotekaobracunskihkoeficijenata);
-        // todo apply topli obrok
         $placanja=[];
 
         foreach ($radnici as $key =>$radnik){

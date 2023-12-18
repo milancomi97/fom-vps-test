@@ -34,7 +34,6 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
             return $mesecnaTabelaPoentaza;
         });
         return $result->groupBy('organizaciona_celina_id');
-        // TODO: Implement groupForTable() method.
     }
 
     public function getTableHeaders($mesecnatabelapoentaza)

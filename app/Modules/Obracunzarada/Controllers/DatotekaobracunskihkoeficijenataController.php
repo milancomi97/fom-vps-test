@@ -47,7 +47,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
                 'mesecnaTabelaPoentaza' => $mesecnaTabelaPoentaza,
                 'mesecnaTabelaPotenrazaTable'=>$mesecnaTabelaPotenrazaTable,
                 'tableHeaders'=>$tableHeaders,
-                'troskovnaMestaPermission' =>$troskovnaMestaPermission
+                'troskovnaMestaPermission' =>$troskovnaMestaPermission,
+                'statusRadnikaOK'=>StatusRadnikaObracunskiKoef::all()
             ]);
 
 

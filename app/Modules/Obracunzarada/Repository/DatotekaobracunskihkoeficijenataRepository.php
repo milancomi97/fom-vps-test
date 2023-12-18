@@ -37,7 +37,6 @@ class DatotekaobracunskihkoeficijenataRepository extends BaseRepository implemen
             'datum'=>$startOfMonth,
             'status'=>1
         ];
-        // TODO: Implement createMesecnatabelaPoentaza() method.
        return $this->create($data);
     }
 
