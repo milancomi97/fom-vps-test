@@ -78,8 +78,8 @@
 
 @section('content')
     <div class="container main-container mb-5">
+        <h2>Evidencija rada i odsustvovanje radnika datum: <b>{!! $monthData!!}</b></h2>
         <div class="loader-container" style="text-align: center">
-            <h2>Evidencija rada i odsustvovanje radnika datum: <b>{!! $monthData!!}</b></h2>
             <h3 id="statusMessage" class="text-success text-center"></h3>
         </div>
         <form>

@@ -47,6 +47,8 @@ $(document).ready(function () {
         var cena_rada_tekuci = $('#cena_rada_tekuci_modal').val()
         var cena_rada_prethodni = $('#cena_rada_prethodni_modal').val()
         var _token = $('input[name="_token"]').val();
+debugger;
+        if(prosecni_godisnji_fond_sati !=='' && cena_rada_tekuci!=='' && cena_rada_prethodni!==''){
 
         $.ajax({
             url: storeRoute,
@@ -70,6 +72,9 @@ $(document).ready(function () {
                 $("#statusMessage").text("Greska: " + response.message).addClass("error");
             }
         });
+        }
+
+
     });
     $(document).on('click', 'body .index-mesecna-poentaza', function (e) {
         var id = $(this).data('month_id');
