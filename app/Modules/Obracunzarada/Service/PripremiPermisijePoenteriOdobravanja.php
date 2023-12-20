@@ -42,6 +42,7 @@ class PripremiPermisijePoenteriOdobravanja
     private function resolveJsonFields($users,$statuses){
 
         $usersData = [];
+        if($users!==null){
         if($statuses == null){
             $userIds = json_decode($users);
             foreach ($userIds as $userId){
@@ -65,6 +66,8 @@ class PripremiPermisijePoenteriOdobravanja
             // TODO
             $test="test";
 //            $usersData[$userId]= $statuses;
+        }
+
         }
 
         return $usersData;

@@ -26,10 +26,10 @@ class DatabaseSeeder extends Seeder
             ZanimanjasifarnikSeeder::class,
             OrganizacionecelineSeeder::class,
             PodaciofirmiSeeder::class,
-            CategorySeeder::class,
             PartnerSeeder::class,
-            StanjeZalihaSeeder::class,
-            MaterijalSeeder::class,
+//            CategorySeeder::class,
+//            StanjeZalihaSeeder::class,
+//            MaterijalSeeder::class,
             RadniciSeeder::class
         ]);
 

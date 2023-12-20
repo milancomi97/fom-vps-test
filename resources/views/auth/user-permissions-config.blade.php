@@ -33,6 +33,28 @@
                     <div class="row">
                         <div class="card card-secondary w-100">
                             <div class="card-header">
+                                <h3 class="card-title">Generalno podešavanje:</h3>
+                            </div>
+                            <div class="card-body">
+                                <!-- Minimal style -->
+                                <div class="row border-bottom mt-5">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="role_name">Tip korisnika:</label>
+                                            <input type="text" id="role_name" name="role_name" class="form-control" value="{{$permissions->role_name}}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="card card-secondary w-100">
+                            <div class="card-header">
                                 <h3 class="card-title">Podešavanje modula:</h3>
                             </div>
                             <div class="card-body">

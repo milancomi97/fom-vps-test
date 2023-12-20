@@ -16,10 +16,10 @@ return new class extends Migration
             $table->unsignedBigInteger('organizaciona_celina_id');
             $table->unsignedBigInteger('obracunski_koef_id');
 
-            $table->integer('status');
-            $table->json('poenteri_ids');
+            $table->integer('status')->nullable();
+            $table->json('poenteri_ids')->nullable();
             $table->json('poenteri_status')->nullable();
-            $table->json('odgovorna_lica_ids');
+            $table->json('odgovorna_lica_ids')->nullable();
             $table->json('odgovorna_lica_status')->nullable();
             $table->date('datum')->nullable();
 

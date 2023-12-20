@@ -98,6 +98,7 @@ class UserConfigController extends Controller
         }
         $troskovnaMestaPoenter = $this->updateTroskovnaMestaData($request->input('troskovna_mesta_data'));
         $permissionData['troskovna_mesta_poenter'] = $troskovnaMestaPoenter;
+        $permissionData['role_name'] = $input['role_name'];
         $userPermission->update($permissionData);
         return redirect()->back();
     }
