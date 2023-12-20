@@ -11,6 +11,8 @@ class Organizacioneceline extends Model
 
     protected $fillable = [
         'sifra_troskovnog_mesta',
-        'naziv_troskovnog_mesta'
+        'naziv_troskovnog_mesta',
+        'poenteri_ids',
+        'odgovorna_lica_ids'
     ];
 }

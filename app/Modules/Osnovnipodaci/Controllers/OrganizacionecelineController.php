@@ -4,13 +4,18 @@ namespace App\Modules\Osnovnipodaci\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
+use App\Modules\Osnovnipodaci\Repository\RadniciRepository;
 use Illuminate\Http\Request;
 
 class OrganizacionecelineController  extends Controller
 {
 
 
-    public function __construct(readonly private OrganizacionecelineRepositoryInterface $organizacionecelineInterface)
+    public function __construct(
+        readonly private OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
+        private readonly RadniciRepository $radniciInterface,
+
+    )
     {
     }
 
@@ -23,13 +28,18 @@ class OrganizacionecelineController  extends Controller
 
     public function edit($id){
         $data = $this->organizacionecelineInterface->getById($id);
-        return view('osnovnipodaci::organizacioneceline.organizacioneceline_edit', ['data' => $data]);
+        $radnici = $this->radniciInterface->getAllActive();
+
+        return view('osnovnipodaci::organizacioneceline.organizacioneceline_edit', ['radnici'=>$radnici,'data' => $data]);
 
     }
 
     public function update(Request $request){
         $updateData = $request->all();
         unset($updateData['_token']);
+
+        $updateData['poenteri_ids'] = json_encode($updateData['poenteri_ids'] );
+        $updateData['odgovorna_lica_ids'] = json_encode($updateData['odgovorna_lica_ids'] );
         $data = $this->organizacionecelineInterface->update($request->id,$updateData);
         return redirect()->route('organizacioneceline.index');
     }

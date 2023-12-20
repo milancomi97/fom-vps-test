@@ -24,6 +24,8 @@ use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepository;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\OblikradaRepository;
 use App\Modules\Obracunzarada\Repository\OblikradaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepository;
+use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepository;
 use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
@@ -81,6 +83,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(MaticnadatotekaradnikaRepositoryInterface::class, MaticnadatotekaradnikaRepository::class);
         $this->app->bind(DatotekaobracunskihkoeficijenataRepositoryInterface::class, DatotekaobracunskihkoeficijenataRepository::class);
         $this->app->bind(MesecnatabelapoentazaRepositoryInterface::class, MesecnatabelapoentazaRepository::class);
+        $this->app->bind(PermesecnatabelapoentRepositoryInterface::class, PermesecnatabelapoentRepository::class);
+
+
     }
 
     /**

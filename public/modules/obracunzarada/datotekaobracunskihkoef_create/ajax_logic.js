@@ -44,6 +44,7 @@ $(document).ready(function () {
         var year = $('.create-mesecna-poentaza').data('year');
         var month = $('.create-mesecna-poentaza').data('month')
         var prosecni_godisnji_fond_sati = $('#prosecni_godisnji_fond_sati_modal').val()
+        var kalendarski_broj_dana =  $('#kalendarski_broj_dana_modal').val()
         var cena_rada_tekuci = $('#cena_rada_tekuci_modal').val()
         var cena_rada_prethodni = $('#cena_rada_prethodni_modal').val()
         var _token = $('input[name="_token"]').val();
@@ -58,6 +59,7 @@ debugger;
                 month: month,
                 prosecni_godisnji_fond_sati:prosecni_godisnji_fond_sati,
                 cena_rada_tekuci:cena_rada_tekuci,
+                kalendarski_broj_dana:kalendarski_broj_dana,
                 cena_rada_prethodni:cena_rada_prethodni,
                 _token: _token
             },

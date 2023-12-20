@@ -17,7 +17,10 @@ return new class extends Migration
             $table->id();
             $table->integer('sifra_troskovnog_mesta')->nullable();
             $table->string('naziv_troskovnog_mesta', 255)->nullable();
+            $table->json('poenteri_ids')->nullable();
+            $table->json('odgovorna_lica_ids')->nullable();
             $table->boolean('active')->nullable();
+//            "[""64"", ""678""]","[""63"", ""679""]"
 
             $table->timestamps();
         });
