@@ -158,7 +158,10 @@
                         </tbody>
                     </table>
                     <h1>Naziv role trenutnog korisnika: {{$userPermission->role_name}}</h1>
+                    @if(isset($mesecnaTabelaPoentazaPermissions[$key]))
+
                     <div class="row">
+
                         <div class="col-4">
 
                             <h4>Poenteri:</h4>
@@ -205,6 +208,7 @@
 
                         </div>
                     </div>
+                    @endif
                     @endif
                     @endforeach
 
