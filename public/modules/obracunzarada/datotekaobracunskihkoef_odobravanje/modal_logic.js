@@ -64,7 +64,7 @@ $(document).ready(function () {
                     var user_status = response.data.user_status;
                     var selectOptions = response.data.select_options;
                     var selectElement = $("#status_admin");
-
+                    selectElement.empty();
                     // Loop through the array and append options to the select element
                     $.each(selectOptions, function (index, value) {
                         selectElement.append($("<option></option>")
