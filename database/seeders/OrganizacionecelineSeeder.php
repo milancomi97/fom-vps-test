@@ -18,6 +18,8 @@ class OrganizacionecelineSeeder extends Seeder
                 'sifra_troskovnog_mesta' =>$data['sifra_troskovnog_mesta'],
                 'naziv_troskovnog_mesta' =>$data['naziv'],
                 'active'=>$data['Aktivno_Neaktivno'] == "TAČNO",
+                'poenteri_ids'=>'["2691", "2692"]',
+                'odgovorna_lica_ids'=>'["2691", "2692"]'
             ]);
         }
 

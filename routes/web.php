@@ -8,6 +8,7 @@ use App\Modules\Kadrovskaevidencija\Controllers\RadnamestaController;
 use App\Modules\Kadrovskaevidencija\Controllers\StrucnakvalifikacijaController;
 use App\Modules\Kadrovskaevidencija\Controllers\VrstaradasifarnikController;
 use App\Modules\Kadrovskaevidencija\Controllers\ZanimanjasifarnikController;
+use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihStatusController;
 use App\Modules\Obracunzarada\Controllers\KreditoriController;
 use App\Modules\Obracunzarada\Controllers\MaticnadatotekaradnikaController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihkoeficijenataController;
@@ -194,7 +195,9 @@ Route::middleware('auth')->group(function () {
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show',[DatotekaobracunskihkoeficijenataController::class,'show'])->name('datotekaobracunskihkoeficijenata.show');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje',[DatotekaobracunskihkoeficijenataController::class,'odobravanje'])->name('datotekaobracunskihkoeficijenata.odobravanje');
 
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/permissionStatusUpdate',[DatotekaobracunskihkoeficijenataController::class,'permissionStatusUpdate'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatus');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/permissionStatusUpdate',[DatotekaobracunskihStatusController::class,'permissionStatusUpdate'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatus');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updatePermissionStatusAdministrator',[DatotekaobracunskihStatusController::class,'updatePermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatusAdministrator');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getPermissionStatusAdministrator',[DatotekaobracunskihStatusController::class,'getPermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.getPermissionStatusAdministrator');
 });
 
 

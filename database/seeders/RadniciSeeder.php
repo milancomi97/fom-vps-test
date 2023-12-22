@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Modules\Obracunzarada\Consts\UserRoles;
 use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\QueryException;
@@ -37,7 +38,7 @@ class RadniciSeeder extends Seeder
 
             $user = User::where('maticni_broj', $radnik['mat_broj'])->get();
             $user[0]->permission()->create([
-                'role_name' => 'role_name',
+                'role_id' => UserRoles::ADMINISTRATOR,
                 'user_id' => $user[0]->id,
                 'osnovni_podaci' => true,
                 'obracun_zarada' => true,

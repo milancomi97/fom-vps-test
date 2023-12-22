@@ -24,11 +24,14 @@ class PermesecnatabelapoentRepository extends BaseRepository implements Permesec
     public function updateStatus($array)
     {
         $record = $this->getById($array['recordId']);
-        $data = [$array['userId'] =>$array['status']];
         if($array['statusType'] =='odgovorna_lica_status'){
-            $record->odgovorna_lica_status=json_encode($data);
+           $odgovornaLicaData =  json_decode($record->odgovorna_lica_status,true);
+           $odgovornaLicaData[$array['userId']]= $array['status'];
+            $record->odgovorna_lica_status = json_encode($odgovornaLicaData);
         } elseif ($array['statusType'] = 'poenteri_status'){
-            $record->poenteri_status = json_encode($data);
+            $poenteriData = json_decode($record->poenteri_status,true);
+            $poenteriData[$array['userId']]= $array['status'];
+            $record->poenteri_status = json_encode($poenteriData);
         }
         return $record->save();
     }

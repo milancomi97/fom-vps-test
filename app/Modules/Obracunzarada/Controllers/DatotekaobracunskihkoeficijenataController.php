@@ -206,11 +206,4 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         return response()->json(['message' => $message, 'status' => true], 200);
     }
 
-    public function permissionStatusUpdate(Request $request){
-        $data = $request->all();
-        $status =$this->permesecnatabelapoentInterface->updateStatus($data);
-        $message='test';
-        return response()->json(['message' => $message, 'status' => true], 200);
-
-    }
 }

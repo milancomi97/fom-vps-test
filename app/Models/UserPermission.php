@@ -20,7 +20,7 @@ class UserPermission extends Model
         'obracun_zarada',
         'tehnologija',
         'proizvodnja',
-        'role_name',
+        'role_id',
         'user_id',
         'troskovna_mesta_poenter',
         'user_permissions_id'

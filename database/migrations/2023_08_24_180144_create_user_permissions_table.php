@@ -25,7 +25,7 @@ return new class extends Migration
             $table->boolean('tehnologija')->default(false);
             $table->boolean('proizvodnja')->default(false);
             $table->json('troskovna_mesta_poenter')->nullable();
-            $table->string('role_name')->nullable();
+            $table->integer('role_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

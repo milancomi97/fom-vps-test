@@ -39,7 +39,7 @@ class PripremiPermisijePoenteriOdobravanja
         return $mesecnaTabelaPoentazaPermissions;
     }
 
-    private function resolveJsonFields($users,$statuses){
+    public function resolveJsonFields($users,$statuses){
 
         $usersData = [];
         if($users!==null){

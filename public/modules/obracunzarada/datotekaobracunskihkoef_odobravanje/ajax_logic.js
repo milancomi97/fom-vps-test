@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
     $(document).on('click', 'body .change-status', function (event) {
 
         var statusType = event.target.dataset.statusType;

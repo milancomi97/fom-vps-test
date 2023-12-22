@@ -29,7 +29,7 @@ class DatotekaobracunskihkoeficijenataRepository extends BaseRepository implemen
         $endOfMonth = $startOfMonth->copy()->endOfMonth();
 
         $data =[
-            'kalendarski_broj_data'=>$endOfMonth->format('d'),
+            'kalendarski_broj_dana'=>$endOfMonth->format('d'),
             'mesecni_fond_sati'=>$workingHours,
             'prosecni_godisnji_fond_sati'=>$array['prosecni_godisnji_fond_sati'],
             'cena_rada_tekuci'=>$array['cena_rada_tekuci'],
