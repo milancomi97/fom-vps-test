@@ -35,6 +35,8 @@
                     <tr>
                         <th>Sifra troskovnog mesta</th>
                         <th>Naziv Troskovnog Mesta</th>
+                        <th>Poenteri</th>
+                        <th>Odgovorna lica</th>
                         <th>Active</th>
                         <th>Action</th>
                     </tr>
@@ -44,6 +46,8 @@
                         <tr>
                             <td>{{ $item->sifra_troskovnog_mesta }}</td>
                             <td>{{ $item->naziv_troskovnog_mesta }}</td>
+                            <td>{{ $item->poenteri_ids}}</td>
+                            <td>{{ $item->odgovorna_lica_ids}}</td>
                             <td>{{ $item->active ? 'Yes' : 'No' }}</td>
                             <td>
                                 <!-- Edit button -->
