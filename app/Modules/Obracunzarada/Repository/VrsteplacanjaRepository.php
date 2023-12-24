@@ -16,15 +16,52 @@ class VrsteplacanjaRepository extends BaseRepository implements VrsteplacanjaRep
         parent::__construct($model);
     }
 
-    public function getKoeficientAll(){
-        $data = $this->model->take(20)->get();
+    public function getVrstePlacanjaData(){
+        $data = $this->model->take(20)->get()->sortBy('redosled_poentaza_zaglavlje');
 
         $filteredData =$data->map(function ($item) {
             $newValue = strtolower(str_replace(' ', '_',  $item['naziv_naziv_vrste_placanja']));
 
 
-            return $item['id'] =['key'=> $item['rbvp_sifra_vrste_placanja'],'name' => $newValue,'value'=>''];
+            return $item['id'] =[
+                'key'=> $item['rbvp_sifra_vrste_placanja'],
+                'name' => $newValue,'value'=>'',
+                'id'=>$item['id']
+            ];
         });
        return $filteredData;
     }
+
+
+    public function getVrstePlacanjaOpis(){
+        $data = $this->model->take(32)->get()->sortBy('redosled_poentaza_opis');
+
+        $filteredData =$data->map(function ($item) {
+            return $item['id'] =[
+                'key'=> $item['rbvp_sifra_vrste_placanja'],
+                'name' => $item['naziv_naziv_vrste_placanja']
+            ];
+        });
+
+
+        return $this->createList($filteredData);
+    }
+
+    public function createList($items){
+    $itemCount = count($items);
+
+    $html = '<div class="row">';
+
+    for ($i = 0; $i < $itemCount; $i++) {
+        $html .= '<div class="col-2">';
+            $html .= '<p class="vrste_placanja_description" >' . $items[$i]['key'] .' - '. $items[$i]['name'] . '</p>';
+        $html .= '</div>';
+        if($i ==4 || $i==9 || $i==14 || $i==19 || $i==24 || $i==29){
+            $html .= '<div class="col-2"></div>';
+        }
+    }
+    $html .= '</div>';
+
+    return $html;
+}
 }

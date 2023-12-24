@@ -12,6 +12,8 @@ class Vrsteplacanja extends Model
     protected $fillable = [
         'rbvp_sifra_vrste_placanja',
         'naziv_naziv_vrste_placanja',
-        'formula_formula_za_obracun'
+        'formula_formula_za_obracun',
+        'redosled_poentaza_zaglavlje',
+        'redosled_poentaza_opis'
     ];
 }

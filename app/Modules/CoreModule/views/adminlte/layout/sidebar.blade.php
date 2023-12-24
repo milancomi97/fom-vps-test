@@ -53,7 +53,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{route('firmapodaci.view')}}" class="nav-link">
+                                <a href="{{route('firmapodaci.view')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p>Podaci o firmi</p>
                                 </a>
@@ -65,13 +65,13 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{route('partner.create')}}" class="nav-link">
+                                <a href="{{route('partner.create')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Unos poslovnog partnera</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('partner.index')}}" class="nav-link">
+                                <a href="{{route('partner.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled poslovnih partnera</p>
                                 </a>
@@ -83,14 +83,14 @@
 
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('radnici.create')}}" class="nav-link">
+                                <a href="{{route('radnici.create')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Unos radnika</p>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{route('radnici.index')}}" class="nav-link">
+                                <a href="{{route('radnici.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled radnika</p>
                                 </a>
@@ -101,7 +101,7 @@
 
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('organizacioneceline.index')}}" class="nav-link">
+                                <a href="{{route('organizacioneceline.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled troškovnih mesta</p>
                                 </a>
@@ -141,13 +141,13 @@
                         <ul class="nav nav-treeview">
 
                             <li class="nav-item">
-                                <a href="{{route('materijal.create')}}" class="nav-link">
+                                <a href="{{route('materijal.create')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Materijali (kreiraj)</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('materijal.index')}}" class="nav-link">
+                                <a href="{{route('materijal.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Materijali (pregled)</p>
                                 </a>
@@ -229,7 +229,7 @@
                                 Zanimanja
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('zanimanjasifarnik.index')}}" class="nav-link">
+                                <a href="{{route('zanimanjasifarnik.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled šifarnika zanimanja</p>
                                 </a>
@@ -239,7 +239,7 @@
                                 Radna mesta
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('radnamesta.index')}}" class="nav-link">
+                                <a href="{{route('radnamesta.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled šifarnika radnih mesta</p>
                                 </a>
@@ -249,7 +249,7 @@
                                 Stručna kvalifikacija
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('strucnakvalifikacija.index')}}" class="nav-link">
+                                <a href="{{route('strucnakvalifikacija.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled šifarnika stručnih kvalifikacija</p>
                                 </a>
@@ -259,7 +259,7 @@
                                 Vrsta rada
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('vrstaradasifarnik.index')}}" class="nav-link">
+                                <a href="{{route('vrstaradasifarnik.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled šifarnika vrste rada</p>
                                 </a>
@@ -283,7 +283,7 @@
                                 Oblik rada
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('oblikrada.index')}}" class="nav-link">
+                                <a href="{{route('oblikrada.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled oblika rada</p>
                                 </a>
@@ -293,7 +293,7 @@
                                 Vrste plaćanja
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('vrsteplacanja.index')}}" class="nav-link">
+                                <a href="{{route('vrsteplacanja.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled vrste plaćanja</p>
                                 </a>
@@ -303,7 +303,7 @@
                                 Kreditori
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('kreditori.index')}}" class="nav-link">
+                                <a href="{{route('kreditori.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled kreditora</p>
                                 </a>
@@ -313,7 +313,7 @@
                                 Minimalne bruto osnovice
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('minimalnebrutoosnovice.index')}}" class="nav-link">
+                                <a href="{{route('minimalnebrutoosnovice.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled MBO</p>
                                 </a>
@@ -323,7 +323,7 @@
                                 Porez i doprinosi
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('porezdoprinosi.index')}}" class="nav-link">
+                                <a href="{{route('porezdoprinosi.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Pregled poreza i doprinosa</p>
                                 </a>
@@ -333,7 +333,7 @@
                                 Matična datoteka radnika
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('maticnadatotekaradnika.create')}}" class="nav-link">
+                                <a href="{{route('maticnadatotekaradnika.create')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
                                     <p class="small">Kreiraj MDR</p>
                                 </a>
@@ -343,66 +343,65 @@
                                 Poentaža
                             </li>
                             <li class="nav-item">
-                                <a href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="nav-link">
+                                <a href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle nav-icon "></i>
                                     <p class="small">Datoteka obracunskih koeficienata</p>
                                 </a>
                             </li>
                         </ul>
-
                     </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-circle"></i>
-                            <p>
-                                Primer sa tri nivoa
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview" style="display: none;">
-                            <li class="nav-item">
-                                <a href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="nav-link">
-                                    <i class="far fa-circle nav-icon "></i>
-                                    <p class="small">Datoteka obracunskih koeficienata</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>
-                                        Primer sa tri nivoa
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview" style="display: none;">
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="far fa-dot-circle nav-icon"></i>
-                                            <p>Level 3</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="far fa-dot-circle nav-icon"></i>
-                                            <p>Level 3</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="far fa-dot-circle nav-icon"></i>
-                                            <p>Level 3</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Level 2</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="#" class="nav-link">--}}
+{{--                            <i class="nav-icon fas fa-circle"></i>--}}
+{{--                            <p>--}}
+{{--                                Primer sa tri nivoa--}}
+{{--                                <i class="right fas fa-angle-left"></i>--}}
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                        <ul class="nav nav-treeview" style="display: none;">--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="nav-link">--}}
+{{--                                    <i class="far fa-circle nav-icon "></i>--}}
+{{--                                    <p class="small">Datoteka obracunskih koeficienata</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="#" class="nav-link">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>--}}
+{{--                                        Primer sa tri nivoa--}}
+{{--                                        <i class="right fas fa-angle-left"></i>--}}
+{{--                                    </p>--}}
+{{--                                </a>--}}
+{{--                                <ul class="nav nav-treeview" style="display: none;">--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="#" class="nav-link">--}}
+{{--                                            <i class="far fa-dot-circle nav-icon"></i>--}}
+{{--                                            <p>Level 3</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="#" class="nav-link">--}}
+{{--                                            <i class="far fa-dot-circle nav-icon"></i>--}}
+{{--                                            <p>Level 3</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="#" class="nav-link">--}}
+{{--                                            <i class="far fa-dot-circle nav-icon"></i>--}}
+{{--                                            <p>Level 3</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                </ul>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="#" class="nav-link">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>Level 2</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </li>--}}
                 @endif
                 @if($permissions->tehnologija)
                     <li class="nav-item menu">

@@ -29,6 +29,7 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
 
         $unserializedVrstePlacanja= $result->map(function ($mesecnaTabelaPoentaza) {
             // Transform each item (user) by returning the desired value
+            // TODO SORT VRSTE PLACANJA
             $mesecnaTabelaPoentaza['vrste_placanja'] =  json_decode($mesecnaTabelaPoentaza['vrste_placanja'],true);
             $mesecnaTabelaPoentaza['ime'] =  $mesecnaTabelaPoentaza['prezime'] .' ' . $mesecnaTabelaPoentaza['srednje_ime']  .' ' . $mesecnaTabelaPoentaza['ime'];
             return $mesecnaTabelaPoentaza;

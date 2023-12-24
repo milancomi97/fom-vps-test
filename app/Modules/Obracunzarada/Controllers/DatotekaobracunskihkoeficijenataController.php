@@ -9,6 +9,7 @@ use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
 use App\Modules\Obracunzarada\Service\KreirajPermisijePoenteriOdobravanja;
 use App\Modules\Obracunzarada\Service\PripremiPermisijePoenteriOdobravanja;
@@ -27,7 +28,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         private readonly UpdateNapomena                                      $updateNapomena,
         private readonly PermesecnatabelapoentRepositoryInterface            $permesecnatabelapoentInterface,
         private readonly KreirajPermisijePoenteriOdobravanja $kreirajPermisijePoenteriOdobravanja,
-        private readonly PripremiPermisijePoenteriOdobravanja $pripremiPermisijePoenteriOdobravanja
+        private readonly PripremiPermisijePoenteriOdobravanja $pripremiPermisijePoenteriOdobravanja,
+        private readonly VrsteplacanjaRepository $vrsteplacanjaInterface
     )
     {
     }
@@ -82,6 +84,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
                 'mesecnaTabelaPotenrazaTable' => $mesecnaTabelaPotenrazaTable,
                 'mesecnaTabelaPoentazaPermissions'=>$mesecnaTabelaPoentazaPermissions,
                 'tableHeaders' => $tableHeaders,
+                'vrstePlacanjaDescription'=>$this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
                 'troskovnaMestaPermission' => $troskovnaMestaPermission,
                 'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
                 'userPermission'=>$userPermission

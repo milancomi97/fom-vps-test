@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('rbvp_sifra_vrste_placanja')->nullable();
             $table->string('naziv_naziv_vrste_placanja', 255)->nullable();
             $table->string('formula_formula_za_obracun', 255)->nullable();
+            $table->integer('redosled_poentaza_zaglavlje')->nullable();
+            $table->integer('redosled_poentaza_opis')->nullable();
             $table->timestamps();
         });
     }

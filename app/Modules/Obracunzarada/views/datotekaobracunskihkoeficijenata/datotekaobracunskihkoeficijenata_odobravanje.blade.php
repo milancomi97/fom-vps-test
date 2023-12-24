@@ -8,9 +8,20 @@
             width: 250px;
         }
 
+        .end_org_celina {
+            height: 100px;
+            border-bottom-color: red;
+            border-bottom-style: dashed;
+            border-bottom-width: 2px;
+        }
+
         .tooltip {
             font-weight: 800;
             font-size: large;
+        }
+
+        .vrste_placanja_description {
+            margin-bottom: 0;
         }
 
         .main-container {
@@ -102,11 +113,9 @@
         @foreach($mesecnaTabelaPotenrazaTable as $key => $organizacionacelina)
 
             @if(isset($troskovnaMestaPermission[$key]) && $troskovnaMestaPermission[$key])
-                <div class="table-div">
-
+                <div class="table-div mt-5">
                     <h3 class="text-center"> Organizaciona celina: <b>{{$key}} </b> -
                         &nbsp{{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}.</h3>
-
                     <div class="divider"></div>
                     <table class="table table-striped">
                         <thead>
@@ -158,55 +167,56 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="container-fluid">
+                        {!! $vrstePlacanjaDescription !!}
+                    </div>
                     @if(isset($mesecnaTabelaPoentazaPermissions[$key]))
-                        <div class="row">
-
-                            <div class="col-2">
+                        <div class="row mt-5 mb-5 border">
+                            <div class="col-3">
                             </div>
-                            <div class="col-3 ">
-
-                                <h4>Poenteri:</h4>
+                            <div class="col-3">
+                                <h2>Poenteri:</h2>
                                 <div class="d-flex flex-column align-items-start">
-                                @foreach($mesecnaTabelaPoentazaPermissions[$key]['poenterData'] as $poenterId => $poenterStatusData)
-                                    @if($userPermission->role_id == UserRoles::ADMINISTRATOR)
+                                    @foreach($mesecnaTabelaPoentazaPermissions[$key]['poenterData'] as $poenterId => $poenterStatusData)
+                                        @if($userPermission->role_id == UserRoles::ADMINISTRATOR)
                                             <button class="administrator-config btn btn-link"
                                                     data-permission-record-id='{{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}'
                                                     data-user-id='{{$poenterId}}'
                                                     data-status-type='poenteri_status'
-                                                >
+                                            >
                                                 {{$poenterStatusData['name'] }} -
                                                 <b> {{StatusPoenteraObracunskiKoef::all()[$poenterStatusData['status']]}}</b>
                                             </button>
-                                    @else
-                                        <p>{{$poenterStatusData['name'] }} -
-                                            <b> {{StatusPoenteraObracunskiKoef::all()[$poenterStatusData['status']]}}</b>
-                                        </p>
-                                    @endif
-                                @endforeach
+                                        @else
+                                            <p>{{$poenterStatusData['name'] }} -
+                                                <b> {{StatusPoenteraObracunskiKoef::all()[$poenterStatusData['status']]}}</b>
+                                            </p>
+                                        @endif
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="col-3">
-                                <h4>Odgovorna lica:</h4>
+                                <h2>Odgovorna lica:</h2>
                                 <div class="d-flex flex-column align-items-start">
-                                @foreach($mesecnaTabelaPoentazaPermissions[$key]['odgovornaLicaData'] as $odgovornoLiceId => $odgovornaLicaDataStatusData)
+                                    @foreach($mesecnaTabelaPoentazaPermissions[$key]['odgovornaLicaData'] as $odgovornoLiceId => $odgovornaLicaDataStatusData)
                                         @if($userPermission->role_id == UserRoles::ADMINISTRATOR)
-                                        <button class="administrator-config btn btn-link"
-                                                data-permission-record-id='{{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}'
-                                                data-user-id='{{$odgovornoLiceId}}'
-                                                data-status-type='odgovorna_lica_status'
-                                        >
-                                            {{$odgovornaLicaDataStatusData['name'] }} -
-                                            <b> {{StatusPoenteraObracunskiKoef::all()[$odgovornaLicaDataStatusData['status']]}}</b>
-                                        </button>
-                                    @else
-                                    <p>{{$odgovornaLicaDataStatusData['name'] }} -
-                                        <b> {{StatusOdgovornihLicaObracunskiKoef::all()[$odgovornaLicaDataStatusData['status']]}}</b>
-                                    </p>
-                                    @endif
-                                @endforeach
+                                            <button class="administrator-config btn btn-link"
+                                                    data-permission-record-id='{{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}'
+                                                    data-user-id='{{$odgovornoLiceId}}'
+                                                    data-status-type='odgovorna_lica_status'
+                                            >
+                                                {{$odgovornaLicaDataStatusData['name'] }} -
+                                                <b> {{StatusPoenteraObracunskiKoef::all()[$odgovornaLicaDataStatusData['status']]}}</b>
+                                            </button>
+                                        @else
+                                            <p>{{$odgovornaLicaDataStatusData['name'] }} -
+                                                <b> {{StatusOdgovornihLicaObracunskiKoef::all()[$odgovornaLicaDataStatusData['status']]}}</b>
+                                            </p>
+                                        @endif
+                                    @endforeach
+                                </div>
                             </div>
-                            </div>
-                            <div class="col-4 text-right">
+                            <div class="col-3 text-right">
                                 @if(isset($mesecnaTabelaPoentazaPermissions[$key]['odgovornaLicaData'][auth()->user()->id]))
                                     <button class="change-status btn btn-primary"
                                             style="display: none"
@@ -245,6 +255,8 @@
                             </div>
                         </div>
                     @endif
+                    <div class="end_org_celina"></div>
+
                     @endif
                     @endforeach
 

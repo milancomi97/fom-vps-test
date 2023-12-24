@@ -23,7 +23,7 @@ class KreirajObracunskeKoeficiente
         $radnici = $this->radniciInterface->getAllActive();
 
         $mesecnaTabelaPoentaza =$this->mesecnatabelapoentazaInterface->getAll();
-        $vrstePlacanja = $this->vrsteplacanjaInterface->getKoeficientAll();
+        $vrstePlacanja = $this->vrsteplacanjaInterface->getVrstePlacanjaData();
         $organizacioneCeline = $this->organizacionecelineInterface->getAll();
 
         $vrstePlacanjaUpdated= $this->updateVrstePlacanja($vrstePlacanja,$datotekaobracunskihkoeficijenata);

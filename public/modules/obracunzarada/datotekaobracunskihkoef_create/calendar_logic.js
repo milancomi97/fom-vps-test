@@ -15,11 +15,29 @@ function updateMonthContainer(activeMonth) {
 
             const monthData = getMonthData(i);
 
-            $('<h5>').text(monthData.month).appendTo(monthCard);
-            $('<p>').text(`Status: ${monthData.status}`).appendTo(monthCard);
-            $('<p>').text(`Mesečni fond sati: ${monthData.mesecni_fond_sati}`).appendTo(monthCard);
-            $('<p>').text(`Rate: ${monthData.rate}`).appendTo(monthCard);
-            $('<p>').text(`User: ${monthData.user}`).appendTo(monthCard);
+            var list = $('<ul class="list-group"></ul>');
+
+
+            $.each([
+            {'label':'Kalendarski broj dana', 'val':`${monthData.kalendarski_broj_dana}`},
+            {'label':'Prosečni godišnji fond sati', 'val':`${monthData.prosecni_godisnji_fond_sati}`},
+            {'label':'Mesečni fond sati', 'val':`${monthData.mesecni_fond_sati}`},
+            {'label':'Cena rada tekući', 'val':`${monthData.cena_rada_tekuci}`},
+            {'label':'Cena rada prethodni', 'val':`${monthData.cena_rada_prethodni}`},
+            ], function(key, value) {
+
+                if(value.val !=='undefined'){
+                    list.append($('<li class="list-group-item">' +  value.label + ': ' + value.val + '</li>'));
+                }else {
+                    list.append($('<li class="list-group-item">' +  value.label + '</li>'));
+
+                }
+            });
+
+            // Dodaj listu na stranicu
+            $(monthCard).append(list);
+
+
 
             $('<button>').attr({
                 'type': 'button',
@@ -61,10 +79,11 @@ function updateMonthContainer(activeMonth) {
 function updateMonth(activeMonth) {
 
     const monthYearElement = document.getElementById('monthYear');
-    monthYearElement.innerText = new Date(currentYear, activeMonth).toLocaleString('sr-Latn', {
+    const monthName = new Date(currentYear, activeMonth).toLocaleString('sr-Latn', {
         month: 'long',
         year: 'numeric'
     });
+    monthYearElement.innerText = monthName.charAt(0).toUpperCase() + monthName.slice(1);
 }
 
 function getMonthData(month) {
@@ -76,8 +95,10 @@ function getMonthData(month) {
         fullData = {
             month: new Date(currentYear, month).toLocaleString('sr-Latn', {month: 'long'}),
             status: data.status,
-            rate: 'Default Rate',
-            user: 'Default User',
+            kalendarski_broj_dana:data.kalendarski_broj_dana,
+            prosecni_godisnji_fond_sati:data.prosecni_godisnji_fond_sati,
+            cena_rada_tekuci:data.cena_rada_tekuci,
+            cena_rada_prethodni:data.cena_rada_prethodni,
             mesecni_fond_sati: data.mesecni_fond_sati,
             month_id: data.id,
             currYear: currentYear,
@@ -87,10 +108,9 @@ function getMonthData(month) {
         fullData = {
             month: new Date(currentYear, month).toLocaleString('sr-Latn', {month: 'long'}),
             status: '0',
-            rate: 'Default Rate',
-            user: 'Default User',
             currYear: currentYear,
-            currMonth: month
+            currMonth: month,
+            noData:true
         };
     }
     return fullData
