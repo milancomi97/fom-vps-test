@@ -36,10 +36,10 @@
 @endsection
 
 @section('content')
-    <div class="container mb-5">
+    <div class="container mt-5 mb-5">
         <div id="statusMessage"></div>
-        <div class="container mb-5">
-            <div id="monthSlider" class="border mb-5">
+        <div class="container mb-5 ">
+            <div id="monthSlider" class="border mb-5  mt-5">
                 <div class="row">
                     <div class="col-1">
                         <button class="btn btn-link" onclick="prevMonth()">&lt;</button>

@@ -15,7 +15,7 @@ function updateMonthContainer(activeMonth) {
 
             const monthData = getMonthData(i);
 
-            var list = $('<ul class="list-group"></ul>');
+            var list = $('<ul class="list-group mb-5"></ul>');
 
 
             $.each([
@@ -39,37 +39,38 @@ function updateMonthContainer(activeMonth) {
 
 
 
-            $('<button>').attr({
-                'type': 'button',
-                'class': 'btn btn-success create-mesecna-poentaza col-lg-3 mt-1 border',
-                'data-month': monthData.currMonth,
-                'data-year': monthData.currYear
-            }).text('Otvorite mesec').appendTo(monthCard);
+            if(monthData.status){
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-secondary check-mesecna-poentaza col-lg-3 mt-1 border',
+                    'data-month_id': monthData.month_id,
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Provera statusa/detalji').appendTo(monthCard);
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-danger odobravanje-mesecna-poentaza col-lg-3 mt-1 border',
+                    'data-month_id': monthData.month_id,
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Odobravanje').appendTo(monthCard);
 
-            $('<button>').attr({
-                'type': 'button',
-                'class': 'btn btn-primary index-mesecna-poentaza col-lg-3 mt-1 border',
-                'data-month_id': monthData.month_id,
-                'data-year': monthData.currYear,
-                'data-month': monthData.currMonth
-            }).text('Prikaz poentaže').appendTo(monthCard);
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-primary index-mesecna-poentaza col-lg-3 mt-1 border',
+                    'data-month_id': monthData.month_id,
+                    'data-year': monthData.currYear,
+                    'data-month': monthData.currMonth
+                }).text('Prikaz poentaže').appendTo(monthCard);
 
-            $('<button>').attr({
-                'type': 'button',
-                'class': 'btn btn-secondary check-mesecna-poentaza col-lg-3 mt-1 border',
-                'data-month_id': monthData.month_id,
-                'data-month': monthData.currMonth,
-                'data-year': monthData.currYear
-            }).text('Provera statusa/detalji').appendTo(monthCard);
-
-            $('<button>').attr({
-                'type': 'button',
-                'class': 'btn btn-danger odobravanje-mesecna-poentaza col-lg-3 mt-1 border',
-                'data-month_id': monthData.month_id,
-                'data-month': monthData.currMonth,
-                'data-year': monthData.currYear
-            }).text('Odobravanje').appendTo(monthCard);
-
+            }else{
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-success create-mesecna-poentaza col-lg-3 mt-1 border',
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Otvorite mesec').appendTo(monthCard);
+            }
             monthContainer.appendChild(monthCard);
         }
 
@@ -107,7 +108,7 @@ function getMonthData(month) {
     } else {
         fullData = {
             month: new Date(currentYear, month).toLocaleString('sr-Latn', {month: 'long'}),
-            status: '0',
+            status: false,
             currYear: currentYear,
             currMonth: month,
             noData:true
