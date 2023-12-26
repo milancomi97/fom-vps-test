@@ -22,52 +22,39 @@
                 <form action="{{ route('minimalnebrutoosnovice.update', ['id' => $data->id]) }}" method="post">
                     @csrf
                     <div class="form-group">
-                        <label for="mesec">Mesec:</label>
-                        <input type="text" class="form-control" id="mesec" name="mesec" value="{{ $data->mesec }}">
+                        <label for="mesec">Mesec i Godina:</label>
+                        <input type="text" class="form-control" id="M_G_mesec_dodina" name="M_G_mesec_dodina" value="{{ $data->M_G_mesec_dodina }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="NT1_prosecna_mesecna_zarada_u_republici">Prosečna mesečna osnovica:</label>
+                        <input type="text" class="form-control" id="NT1_prosecna_mesecna_zarada_u_republici" name="NT1_prosecna_mesecna_zarada_u_republici" value="{{ $data->NT1_prosecna_mesecna_zarada_u_republici }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="godina">Godina:</label>
-                        <input type="text" class="form-control" id="godina" name="godina" value="{{ $data->godina }}">
+                        <label for="STOPA2_minimalna_neto_zarada_po_satu">Minimalna neto zarada po satu:</label>
+                        <input type="text" class="form-control" id="STOPA2_minimalna_neto_zarada_po_satu" name="STOPA2_minimalna_neto_zarada_po_satu" value="{{ $data->STOPA2_minimalna_neto_zarada_po_satu }}">
                     </div>
 
                     <div class="form-group">
-                        <label for="nt1_prosecna_mesecna_osnovica">Prosečna mesečna osnovica:</label>
-                        <input type="text" class="form-control" id="nt1_prosecna_mesecna_osnovica" name="nt1_prosecna_mesecna_osnovica" value="{{ $data->nt1_prosecna_mesecna_osnovica }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="stopa2_minimalna_neto_zarada_po_satu">Minimalna neto zarada po satu:</label>
-                        <input type="text" class="form-control" id="stopa2_minimalna_neto_zarada_po_satu" name="stopa2_minimalna_neto_zarada_po_satu" value="{{ $data->stopa2_minimalna_neto_zarada_po_satu }}">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="stopa6_koeficijent_najvise_osnovice_za_obracun_doprinos">Koeficijent najviše osnovice za obračun dobrinos:</label>
-                        <input type="text" class="form-control" id="stopa6_koeficijent_najvise_osnovice_za_obracun_doprinos" name="stopa6_koeficijent_najvise_osnovice_za_obracun_doprinos" value="{{ $data->stopa6_koeficijent_najvise_osnovice_za_obracun_doprinos }}">
+                        <label for="STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos">Koeficijent najviše osnovice za obračun dobrinos:</label>
+                        <input type="text" class="form-control" id="STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos" name="STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos" value="{{ $data->STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos }}">
                     </div>
 
 
                     <div class="form-group">
-                        <label for="p1_stopa_poreza">Stopa poreza:</label>
-                        <input type="text" class="form-control" id="p1_stopa_poreza" name="p1_stopa_poreza" value="{{ $data->p1_stopa_poreza }}">
+                        <label for="P1_stopa_poreza">Stopa poreza:</label>
+                        <input type="text" class="form-control" id="P1_stopa_poreza" name="P1_stopa_poreza" value="{{ $data->P1_stopa_poreza }}">
                     </div>
 
 
                     <div class="form-group">
-                        <label for="stopa1_koeficijent_za_obracun_neto_na_bruto">Koeficijent za obračun neto na bruto:</label>
-                        <input type="text" class="form-control" id="stopa1_koeficijent_za_obracun_neto_na_bruto" name="stopa1_koeficijent_za_obracun_neto_na_bruto" value="{{ $data->stopa1_koeficijent_za_obracun_neto_na_bruto }}">
+                        <label for="STOPA1_koeficijent_za_obracun_neto_na_bruto">Koeficijent za obračun neto na bruto:</label>
+                        <input type="text" class="form-control" id="STOPA1_koeficijent_za_obracun_neto_na_bruto" name="STOPA1_koeficijent_za_obracun_neto_na_bruto" value="{{ $data->STOPA1_koeficijent_za_obracun_neto_na_bruto }}">
                     </div>
 
-
                     <div class="form-group">
-                        <label for="nt3_najniza_osnovica_za_placanje_doprinos">Najniža osnovica za plaćanje dobrinosa:</label>
-                        <input type="text" class="form-control" id="nt3_najniza_osnovica_za_placanje_doprinos" name="nt3_najniza_osnovica_za_placanje_doprinos" value="{{ $data->nt3_najniza_osnovica_za_placanje_doprinos }}">
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="nt2_minimalna_bruto_zarada">Minimalna bruto zarada:</label>
-                        <input type="text" class="form-control" id="nt2_minimalna_bruto_zarada" name="nt2_minimalna_bruto_zarada" value="{{ $data->nt2_minimalna_bruto_zarada }}">
+                        <label for="NT2_minimalna_bruto_zarada">Minimalna bruto zarada:</label>
+                        <input type="text" class="form-control" id="NT2_minimalna_bruto_zarada" name="NT2_minimalna_bruto_zarada" value="{{ $data->NT2_minimalna_bruto_zarada }}">
                     </div>
 
 

@@ -69,7 +69,6 @@
                       console.log(key)
                       console.log(data[key])
 
-                      debugger
                           const h1Element = document.createElement("h1");
                           h1Element.textContent = 'Račun broj:' +  key
 
@@ -80,7 +79,7 @@
                           for (const attr in data[key]) {
                               const pElement = document.createElement("p");
                               pElement.classList.add("infoAcc");
-                              debugger;
+
                               if(attr =='InitializationDate' || attr =='ChangeDate'|| attr =='UpdateDate'){
                                   var dateValue = new Date(data[key][attr]);
                                   pElement.textContent = attr + ' : ' + dateValue.getDay() +'.'+(dateValue.getMonth()+1) +'.'+dateValue.getFullYear();

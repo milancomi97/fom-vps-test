@@ -345,7 +345,7 @@
                             <li class="nav-item">
                                 <a href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle nav-icon "></i>
-                                    <p class="small">Datoteka obracunskih koeficienata</p>
+                                    <p class="small">Datoteka obračunskih koeficienata</p>
                                 </a>
                             </li>
                         </ul>
@@ -362,7 +362,7 @@
 {{--                            <li class="nav-item">--}}
 {{--                                <a href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="nav-link">--}}
 {{--                                    <i class="far fa-circle nav-icon "></i>--}}
-{{--                                    <p class="small">Datoteka obracunskih koeficienata</p>--}}
+{{--                                    <p class="small">Datoteka obračunskih koeficienata</p>--}}
 {{--                                </a>--}}
 {{--                            </li>--}}
 {{--                            <li class="nav-item">--}}

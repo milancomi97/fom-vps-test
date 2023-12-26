@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="content">
             <!-- Content Header (Page header) -->
             <div class="content-header">
@@ -19,9 +19,7 @@
                 <table class="table table-bordered table-striped mt-5">
                     <thead>
                     <tr>
-                        <th>Mesec</th>
-                        <th>Godina</th>
-                        <th>Opis iznosa poreskog oslobadjanja</th>
+                        <th>Mesec i godina</th>
                         <th>Iznos poreskog oslobadjanja</th>
                         <th>Opis poreza</th>
                         <th>Porez</th>
@@ -36,31 +34,27 @@
                         <th>Zdravstveno osiguranje na teret poslodavca</th>
                         <th>Opis pio na teret poslodavca</th>
                         <th>Pio na teret poslodavca</th>
-                        <th>Ukupni doprinosi na teret poslodavca</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($data as $item)
                         <tr>
-                            <td>{{ $item->mesec }}</td>
-                            <td>{{ $item->godina }}</td>
-                            <td>{{ $item->opis0_opis_iznos_poreskog_oslobadjanja }}</td>
-                            <td>{{ $item->izn1_iznos_poreskog_oslobadjanja }}</td>
-                            <td>{{ $item->oppor_opis_poreza }}</td>
-                            <td>{{ $item->p1_porez }}</td>
-                            <td>{{ $item->opis1_opis_zdravstvenog_osiguranja_na_teret_radnika }}</td>
-                            <td>{{ $item->zdro_zdravstveno_osiguranje_na_teret_radnika }}</td>
-                            <td>{{ $item->opis2_opis_pio_na_teret_radnika }}</td>
-                            <td>{{ $item->pio_pio_na_teret_radnika }}</td>
-                            <td>{{ $item->opis3_opis_osiguranja_od_nezaposlenosti_na_teret_radnika }}</td>
-                            <td>{{ $item->onez_osiguranje_od_nezaposlenosti_na_teret_radnika }}</td>
-                            <td>{{ $item->ukdop_ukupni_doprinosi_na_teret_radnika }}</td>
-                            <td>{{ $item->opis4_opis_zdravstvenog_osiguranja_na_teret_poslodavca }}</td>
-                            <td>{{ $item->dopzp_zdravstveno_osiguranje_na_teret_poslodavca }}</td>
-                            <td>{{ $item->opis5_opis_pio_na_teret_poslodavca }}</td>
-                            <td>{{ $item->dopp_pio_na_teret_poslodavca }}</td>
-                            <td>{{ $item->ukdopp_ukupni_doprinosi_na_teret_poslodavca }}</td>
+                            <td>{{ $item->M_G_mesec_godina }}</td>
+                            <td>{{ $item->IZN1_iznos_poreskog_oslobodjenja }}</td>
+                            <td>{{ $item->OPPOR_opis_poreza }}</td>
+                            <td>{{ $item->P1_porez_na_licna_primanja }}</td>
+                            <td>{{ $item->OPIS1_opis_zdravstvenog_osiguranja_na_teret_radnika }}</td>
+                            <td>{{ $item->ZDRO_zdravstveno_osiguranje_na_teret_radnika }}</td>
+                            <td>{{ $item->OPIS2_opis_pio_na_teret_radnika }}</td>
+                            <td>{{ $item->PIO_pio_na_teret_radnika }}</td>
+                            <td>{{ $item->OPIS3_opis_osiguranja_od_nezaposlenosti_na_teret_radnika }}</td>
+                            <td>{{ $item->ONEZ_osiguranje_od_nezaposlenosti_na_teret_radnika }}</td>
+                            <td>{{ $item->UKDOPR_ukupni_doprinosi_na_teret_radnika }}</td>
+                            <td>{{ $item->OPIS4_opis_zdravstvenog_osiguranja_na_teret_poslodavca }}</td>
+                            <td>{{ $item->DOPRA_zdravstveno_osiguranje_na_teret_poslodavca }}</td>
+                            <td>{{ $item->OPIS5_opis_pio_na_teret_poslodavca }}</td>
+                            <td>{{ $item->DOPRB_pio_na_teret_poslodavca }}</td>
                             <td>
                                 <!-- Edit button -->
                                 <a href="{{ route('porezdoprinosi.edit', ['id' => $item->id]) }}" class="btn btn-primary btn-sm">Izmeni</a>

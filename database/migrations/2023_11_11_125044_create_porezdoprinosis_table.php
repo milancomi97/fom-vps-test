@@ -13,37 +13,33 @@ return new class extends Migration
     {
         Schema::create('porezdoprinosis', function (Blueprint $table) {
             $table->id();
-            $table->integer('mesec')->nullable();
-            $table->integer('godina')->nullable();
-
-            $table->string('opis0_opis_iznos_poreskog_oslobadjanja', 35)->nullable();
-            $table->decimal('izn1_iznos_poreskog_oslobadjanja', 10, 2)->nullable();
-
-            $table->string('oppor_opis_poreza', 35)->nullable();
-            $table->decimal('p1_porez', 10, 2)->nullable();
+            $table->integer('M_G_mesec_godina')->nullable();
+            $table->decimal('IZN1_iznos_poreskog_oslobodjenja', 10, 2)->nullable();
+            $table->string('OPPOR_opis_poreza', 35)->nullable();
+            $table->decimal('P1_porez_na_licna_primanja', 10, 2)->nullable();
 
             // Radnik
 
-            $table->string('opis1_opis_zdravstvenog_osiguranja_na_teret_radnika', 35)->nullable();
-            $table->decimal('zdro_zdravstveno_osiguranje_na_teret_radnika', 10, 2)->nullable();
+            $table->string('OPIS1_opis_zdravstvenog_osiguranja_na_teret_radnika', 35)->nullable();
+            $table->decimal('ZDRO_zdravstveno_osiguranje_na_teret_radnika', 10, 2)->nullable();
 
 
-            $table->string('opis2_opis_pio_na_teret_radnika', 35)->nullable();
-            $table->decimal('pio_pio_na_teret_radnika', 10, 2)->nullable();
+            $table->string('OPIS2_opis_pio_na_teret_radnika', 35)->nullable();
+            $table->decimal('PIO_pio_na_teret_radnika', 10, 2)->nullable();
 
-            $table->string('opis3_opis_osiguranja_od_nezaposlenosti_na_teret_radnika', 35)->nullable();
-            $table->decimal('onez_osiguranje_od_nezaposlenosti_na_teret_radnika', 10, 2)->nullable();
+            $table->string('OPIS3_opis_osiguranja_od_nezaposlenosti_na_teret_radnika', 35)->nullable();
+            $table->decimal('ONEZ_osiguranje_od_nezaposlenosti_na_teret_radnika', 10, 2)->nullable();
 
-            $table->decimal('ukdop_ukupni_doprinosi_na_teret_radnika', 10, 2)->nullable();
+            $table->decimal('UKDOPR_ukupni_doprinosi_na_teret_radnika', 10, 2)->nullable();
 
             // poslodavac
-            $table->string('opis4_opis_zdravstvenog_osiguranja_na_teret_poslodavca', 35)->nullable();
-            $table->decimal('dopzp_zdravstveno_osiguranje_na_teret_poslodavca', 10, 2)->nullable();
+            $table->string('OPIS4_opis_zdravstvenog_osiguranja_na_teret_poslodavca', 35)->nullable();
+            $table->decimal('DOPRA_zdravstveno_osiguranje_na_teret_poslodavca', 10, 2)->nullable();
 
-            $table->string('opis5_opis_pio_na_teret_poslodavca', 35)->nullable();
-            $table->decimal('dopp_pio_na_teret_poslodavca', 11, 6)->nullable();
+            $table->string('OPIS5_opis_pio_na_teret_poslodavca', 35)->nullable();
+            $table->decimal('DOPRB_pio_na_teret_poslodavca', 11, 6)->nullable();
 
-            $table->decimal('ukdopp_ukupni_doprinosi_na_teret_poslodavca', 10, 2)->nullable();
+            $table->decimal('UKDOPP_ukupni_doprinosi_na_teret_poslodavca', 10, 2)->nullable();
             $table->timestamps();
         });
     }

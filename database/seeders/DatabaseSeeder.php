@@ -13,10 +13,10 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            MinimalnebrutoosnoviceSeeder::class,
+            PorezdoprinosiSeeder::class,
             IsplatnamestaSeeder::class,
             OpstineSeeder::class,
-            PorezdoprinosiSeeder::class,
-            MinimalnebrutoosnoviceSeeder::class,
             KreditoriSeeder::class,
             VrsteplacanjaSeeder::class,
             OblikradaSeeder::class,
@@ -27,9 +27,9 @@ class DatabaseSeeder extends Seeder
             OrganizacionecelineSeeder::class,
             PodaciofirmiSeeder::class,
             PartnerSeeder::class,
-//            CategorySeeder::class,
-//            StanjeZalihaSeeder::class,
-//            MaterijalSeeder::class,
+           CategorySeeder::class,
+           StanjeZalihaSeeder::class,
+         MaterijalSeeder::class,
             RadniciSeeder::class
         ]);
 

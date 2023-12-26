@@ -15,6 +15,7 @@ $(document).ready(function () {
             },
             success: function (response) {
                 $('#myModal').modal('show');
+                $('.modal-backdrop').hide();
                 $("#kalendarski_broj_dana_modal").val(response.kalendarski_broj_dana)
                 $("#mesecni_fond_sati_modal").val(response.mesecni_fond_sati)
                 $("#month_modal").val(parseInt(month)+1)

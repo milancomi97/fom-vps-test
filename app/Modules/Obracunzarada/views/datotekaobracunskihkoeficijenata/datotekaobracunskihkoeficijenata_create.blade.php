@@ -119,11 +119,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="period_isplate_od_modal">Period isplate</label>
+                            <label for="period_isplate_od_modal">Period isplate od</label>
                             <input type="date" class="form-control" id="period_isplate_od_modal" >
                         </div>
                         <div class="form-group">
-                            <label for="period_isplate_do_modal">Period isplate</label>
+                            <label for="period_isplate_do_modal">Period isplate do</label>
                             <input type="date" class="form-control" id="period_isplate_do_modal" >
                         </div>
                         <!-- Add more form elements as needed -->

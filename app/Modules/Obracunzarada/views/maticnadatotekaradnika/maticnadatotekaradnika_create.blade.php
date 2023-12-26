@@ -367,7 +367,6 @@
                         };
                     },
                     processResults: function (data) {
-                        debugger;
                         return {
                             results: data
                         };
@@ -407,7 +406,6 @@
                         };
                     },
                     processResults: function (data) {
-                        debugger;
                         return {
                             results: data
                         };
@@ -442,7 +440,6 @@
                 success: function (response) {
 
                     $('#ime').val(response.ime)
-                    debugger;
                     $('#adresa_ulica_broj').val(response.adresa_ulica_broj)
                     $("#opstina_id").val(response.opstina_id)
                     $("#sifra_mesta_troska_id").val(response.sifra_mesta_troska_id)
@@ -516,10 +513,7 @@
                     return;
                 }
 
-
-                debugger;
                 if ($(this).val().trim() === '') {
-                    debugger;
                     isValid = false;
                     $(this).addClass('error');
                 } else {

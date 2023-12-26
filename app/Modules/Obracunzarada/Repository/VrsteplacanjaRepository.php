@@ -17,7 +17,9 @@ class VrsteplacanjaRepository extends BaseRepository implements VrsteplacanjaRep
     }
 
     public function getVrstePlacanjaData(){
-        $data = $this->model->take(20)->get()->sortBy('redosled_poentaza_zaglavlje');
+        $data = $this->model->take(19)->get()->sortBy('redosled_poentaza_zaglavlje');
+        // Prvo sortiraj pa onda kada dodjes do 19, prestani
+        // Treba da bude 19
 
         $filteredData =$data->map(function ($item) {
             $newValue = strtolower(str_replace(' ', '_',  $item['naziv_naziv_vrste_placanja']));
@@ -34,8 +36,9 @@ class VrsteplacanjaRepository extends BaseRepository implements VrsteplacanjaRep
 
 
     public function getVrstePlacanjaOpis(){
-        $data = $this->model->take(32)->get()->sortBy('redosled_poentaza_opis');
+        $data = $this->model->take(31)->get()->sortBy('redosled_poentaza_opis');
 
+        // TREBA DA BUDE 31;
         $filteredData =$data->map(function ($item) {
             return $item['id'] =[
                 'key'=> $item['rbvp_sifra_vrste_placanja'],

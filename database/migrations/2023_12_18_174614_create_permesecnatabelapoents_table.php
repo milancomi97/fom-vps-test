@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('datum')->nullable();
 
             $table->foreign('organizaciona_celina_id')->references('id')->on('organizacionecelines');
-            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas');
+            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
             $table->timestamps();
         });
     }

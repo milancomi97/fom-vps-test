@@ -115,12 +115,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         $obracunskiKoefId = $result;
 
         try {
-            // Nakon otvaranja meseca, kreira se svakom radniku podatak
-            // Pomocna tabela za obracun raznih placanja trenutnog meseca
-
             $resultDatoteka = $this->mesecnatabelapoentazaInterface->createMany($resultOk);
-            // Zatim se otvara pomocna tabela za statuse Odobravanja i evidentiranje poentera.
-            // I dodeljuju se Poenteri i Odgvorna lica iz sifarnika
             $resultPMB = $this->kreirajPermisijePoenteriOdobravanja->execute($obracunskiKoefId);
             $resultPermission = $this->permesecnatabelapoentInterface->createMany($resultPMB);
 

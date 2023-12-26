@@ -40,7 +40,7 @@ $(document).ready(function () {
     $(document).on('click', 'body .administrator-config', function (event) {
 
         $('#statusAdminModal').modal('show');
-
+        $('.modal-backdrop').hide();
         debugger;
         var statusType = event.currentTarget.dataset.statusType;
         var userId = event.currentTarget.dataset.userId;
@@ -96,7 +96,6 @@ $(document).ready(function () {
         var userId=$('#user_id_status_admin_modal').val()
         var type=$('#status_type_admin_modal').val()
 
-        debugger;
         $.ajax({
             url: updateStatusAdministratorRoute,
             type: 'POST',
@@ -123,6 +122,7 @@ $(document).ready(function () {
     $(document).on('click', 'body .status_td', function (event) {
 
         $('#statusModal').modal('show');
+        $('.modal-backdrop').hide();
         var radnikNameData = event.currentTarget.dataset.radnikName;
         var status = event.currentTarget.dataset.statusValue;
         var record_id = event.currentTarget.dataset.recordId
@@ -169,6 +169,7 @@ $(document).ready(function () {
     $(document).on('click', 'body .napomena_td', function (event) {
         const row = $(this);
         $('#myModal').modal('show');
+        $('.modal-backdrop').hide();
         var record_id = event.currentTarget.dataset.recordId
         var napomenaData = event.currentTarget.dataset.napomenaValue;
         var radnikNameData = event.currentTarget.dataset.radnikName;
@@ -187,7 +188,6 @@ $(document).ready(function () {
         if (napomena_text !== '') {
             event.stopImmediatePropagation();
             var record_id = $('#record_id_modal').val();
-            debugger;
 
             var _token = $('input[name="_token"]').val();
             $.ajax({

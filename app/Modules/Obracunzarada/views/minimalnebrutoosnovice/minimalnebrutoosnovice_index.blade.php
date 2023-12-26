@@ -19,14 +19,12 @@
                 <table class="table table-bordered table-striped mt-5">
                     <thead>
                     <tr>
-                        <th>Mesec</th>
-                        <th>Godina</th>
+                        <th>Mesec Godina</th>
                         <th>Prosečna mesečna osnovica</th>
                         <th>Minimalna neto zarada po satu</th>
                         <th>Koeficijent najviše osnovice za obračun dobrinos</th>
                         <th>Stopa poreza</th>
                         <th>Koeficijent za obračun neto na bruto</th>
-                        <th>Najniža osnovica za plaćanje dobrinosa</th>
                         <th>Minimalna bruto zarada</th>
                         <th>Action</th>
                     </tr>
@@ -34,15 +32,13 @@
                     <tbody>
                     @foreach($data as $item)
                         <tr>
-                            <td>{{ $item->mesec }}</td>
-                            <td>{{ $item->godina }}</td>
-                            <td>{{ $item->nt1_prosecna_mesecna_osnovica }}</td>
-                            <td>{{ $item->stopa2_minimalna_neto_zarada_po_satu }}</td>
-                            <td>{{ $item->stopa6_koeficijent_najvise_osnovice_za_obracun_doprinos }}</td>
-                            <td>{{ $item->p1_stopa_poreza }}</td>
-                            <td>{{ $item->stopa1_koeficijent_za_obracun_neto_na_bruto }}</td>
-                            <td>{{ $item->nt3_najniza_osnovica_za_placanje_doprinos }}</td>
-                            <td>{{ $item->nt2_minimalna_bruto_zarada }}</td>
+                            <td>{{ $item->M_G_mesec_dodina }}</td>
+                            <td>{{ $item->NT1_prosecna_mesecna_zarada_u_republici }}</td>
+                            <td>{{ $item->STOPA2_minimalna_neto_zarada_po_satu }}</td>
+                            <td>{{ $item->STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos }}</td>
+                            <td>{{ $item->P1_stopa_poreza }}</td>
+                            <td>{{ $item->STOPA1_koeficijent_za_obracun_neto_na_bruto }}</td>
+                            <td>{{ $item->NT2_minimalna_bruto_zarada }}</td>
                             <td>
                                 <!-- Edit button -->
                                 <a href="{{ route('minimalnebrutoosnovice.edit', ['id' => $item->id]) }}" class="btn btn-primary btn-sm">Izmeni</a>
