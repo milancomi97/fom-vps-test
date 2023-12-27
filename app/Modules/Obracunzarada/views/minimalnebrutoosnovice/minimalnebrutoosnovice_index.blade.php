@@ -19,13 +19,13 @@
                 <table class="table table-bordered table-striped mt-5">
                     <thead>
                     <tr>
-                        <th>Mesec Godina</th>
-                        <th>Prosečna mesečna osnovica</th>
-                        <th>Minimalna neto zarada po satu</th>
-                        <th>Koeficijent najviše osnovice za obračun dobrinos</th>
-                        <th>Stopa poreza</th>
-                        <th>Koeficijent za obračun neto na bruto</th>
-                        <th>Minimalna bruto zarada</th>
+                        <th>Mesec Godina M_G</th>
+                        <th>Prosečna mesečna zarada u republici NT1</th>
+                        <th>Minimalna neto zarada po satu STOPA2</th>
+                        <th>Koeficijent najviše osnovice za obračun dobrinos STOPA6</th>
+                        <th>Stopa poreza P1</th>
+                        <th>Koeficijent za obračun neto na bruto STOPA1</th>
+                        <th>Minimalna bruto zarada NT2</th>
                         <th>Action</th>
                     </tr>
                     </thead>

@@ -19,21 +19,21 @@
                 <table class="table table-bordered table-striped mt-5">
                     <thead>
                     <tr>
-                        <th>Mesec i godina</th>
-                        <th>Iznos poreskog oslobadjanja</th>
-                        <th>Opis poreza</th>
-                        <th>Porez</th>
-                        <th>Opis zdravstvenog osiguranja na teret radnika</th>
-                        <th>Zdravstveno osiguranje na teret radnika</th>
-                        <th>Opis PIO na teret radnika</th>
-                        <th>Pio na teret radnika</th>
-                        <th>Opis osiguranja od nezaposljenosti na teret radnika</th>
-                        <th>Osiguranje od nezaposlenosti na teret radnika</th>
-                        <th>Ukupni doprinosi na teret radnika</th>
-                        <th>Opis zdravstvenog osiguranja na teret poslodavca</th>
-                        <th>Zdravstveno osiguranje na teret poslodavca</th>
-                        <th>Opis pio na teret poslodavca</th>
-                        <th>Pio na teret poslodavca</th>
+                        <th>Mesec i godina M_G</th>
+                        <th>Iznos poreskog oslobadjanja IZN1</th>
+                        <th>Opis poreza OPPOR</th>
+                        <th>Porez P1</th>
+                        <th>Opis zdravstvenog osiguranja na teret radnika OPIS1</th>
+                        <th>Zdravstveno osiguranje na teret radnika ZDRO</th>
+                        <th>Opis PIO na teret radnika OPIS2</th>
+                        <th>Pio na teret radnika PIO</th>
+                        <th>Opis osiguranja od nezaposljenosti na teret radnika OPIS3</th>
+                        <th>Osiguranje od nezaposlenosti na teret radnika ONEZ</th>
+                        <th>Ukupni doprinosi na teret radnika UKDOPR</th>
+                        <th>Opis zdravstvenog osiguranja na teret poslodavca OPIS4</th>
+                        <th>Zdravstveno osiguranje na teret poslodavca DOPRA</th>
+                        <th>Opis pio na teret poslodavca OPIS5</th>
+                        <th>Pio na teret poslodavca DOPRB</th>
                         <th>Action</th>
                     </tr>
                     </thead>
