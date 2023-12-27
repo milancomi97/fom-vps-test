@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('minimalnebrutoosnovices', function (Blueprint $table) {
             $table->id();
-            $table->integer('M_G_mesec_dodina')->nullable();
+            $table->string('M_G_mesec_dodina')->nullable();
             $table->decimal('NT1_prosecna_mesecna_zarada_u_republici', 10, 2)->nullable();
             $table->decimal('STOPA2_minimalna_neto_zarada_po_satu', 10, 2)->nullable();
             $table->decimal('STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos', 10, 2)->nullable();

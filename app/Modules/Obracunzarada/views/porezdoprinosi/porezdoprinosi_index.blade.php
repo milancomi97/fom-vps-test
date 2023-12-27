@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
-        <div class="content">
+    <div class="ml-5 container-fluid">
+        <div class="ml-5 content">
             <!-- Content Header (Page header) -->
             <div class="content-header">
             </div>

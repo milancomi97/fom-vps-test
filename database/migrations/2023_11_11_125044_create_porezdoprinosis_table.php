@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('porezdoprinosis', function (Blueprint $table) {
             $table->id();
-            $table->integer('M_G_mesec_godina')->nullable();
+            $table->string('M_G_mesec_godina')->nullable();
             $table->decimal('IZN1_iznos_poreskog_oslobodjenja', 10, 2)->nullable();
             $table->string('OPPOR_opis_poreza', 35)->nullable();
             $table->decimal('P1_porez_na_licna_primanja', 10, 2)->nullable();
