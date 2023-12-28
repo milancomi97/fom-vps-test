@@ -1,4 +1,4 @@
-@extends('osnovnipodaci::theme.layout.app')
+@extends('obracunzarada::theme.layout.app')
 
 
 @section('custom-styles')
@@ -18,7 +18,7 @@
             <!-- Main content -->
             <!-- /.content -->
             <h1 class="text-center"> Pregled radnika </h1>
-            <div class="container " style="min-width:90%" >
+            <div class="container" >
                     <table id="table_id" class="display" style="width:100%">
                         <form class="delete-form">{!! csrf_field() !!}</form>
                     </table>
@@ -40,7 +40,7 @@
 
             var table = $('#table_id').DataTable({
                 data: {!! $users !!},
-                scrollX: true,
+                scrollX: false,
                 decimal: ",",
                 language: {
                     search: '<i class="fas fa-search"></i>&nbsp;&nbsp;&nbsp;&nbsp;Pretraga&nbsp;:',
@@ -108,6 +108,7 @@
             });
 
             table.draw();
+            table.columns.adjust().draw()
         });
 
     </script>

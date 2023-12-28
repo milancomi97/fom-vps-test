@@ -53,7 +53,7 @@ function updateMonthContainer(activeMonth) {
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Odobravanje').appendTo(monthCard);
+                }).text('Priprema poentaže').appendTo(monthCard);
 
                 $('<button>').attr({
                     'type': 'button',
@@ -61,7 +61,7 @@ function updateMonthContainer(activeMonth) {
                     'data-month_id': monthData.month_id,
                     'data-year': monthData.currYear,
                     'data-month': monthData.currMonth
-                }).text('Prikaz poentaže').appendTo(monthCard);
+                }).text('Unos poentaže').appendTo(monthCard);
 
             }else{
                 $('<button>').attr({

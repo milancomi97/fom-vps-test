@@ -179,11 +179,15 @@ Route::middleware('auth')->group(function () {
     // Maticna datoteka radnika
 
     Route::get('obracunzarada/maticnadatotekaradnika/index',[MaticnadatotekaradnikaController::class,'index'])->name('maticnadatotekaradnika.index');
+    Route::get('obracunzarada/maticnadatotekaradnika/edit',[MaticnadatotekaradnikaController::class,'edit'])->name('maticnadatotekaradnika.edit');
     Route::get('obracunzarada/maticnadatotekaradnika/create',[MaticnadatotekaradnikaController::class,'create'])->name('maticnadatotekaradnika.create');
     Route::get('obracunzarada/maticnadatotekaradnika/findByMat',[MaticnadatotekaradnikaController::class,'findByMat'])->name('radnici.findByMat');
     Route::get('obracunzarada/maticnadatotekaradnika/findByPrezime',[MaticnadatotekaradnikaController::class,'findByPrezime'])->name('radnici.findByPrezime');
     Route::get('obracunzarada/maticnadatotekaradnika/getById',[MaticnadatotekaradnikaController::class,'getById'])->name('radnici.getById');
     Route::post('obracunzarada/maticnadatotekaradnika/store',[MaticnadatotekaradnikaController::class,'store'])->name('maticnadatotekaradnika.store');
+
+
+
 
     // Mesecna datotekaobracunskihkoeficijenata
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/create',[DatotekaobracunskihkoeficijenataController::class,'create'])->name('datotekaobracunskihkoeficijenata.create');

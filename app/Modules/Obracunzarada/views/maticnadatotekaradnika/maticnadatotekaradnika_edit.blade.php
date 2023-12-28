@@ -58,26 +58,28 @@
                                 </div>
                                 <select class="custom-select maticni_broj" id="MBRD_maticni_broj"
                                         name="MBRD_maticni_broj"
-                                        aria-describedby="span_maticni_broj">
+                                        aria-describedby="span_maticni_broj"
+                                >
                                     <option>pretraga po mat. br.</option>
                                 </select>
 
                                 {{--                                <input type="hidden" id="maticni_broj_value">--}}
                             </div>
-
-                            <!-- 2.1 Prezime, text field -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_prezime">Prezime:</span>
-                                </div>
-                                <select class="custom-select prezime" id="PREZIME_prezime" name="PREZIME_prezime"
-                                        aria-describedby="span_prezime">
-                                    <option value="0">pretraga po prezimenu</option>
-                                </select>
                                 {{--                                <input type="hidden" id="prezime_value">--}}
 
                                 {{--                                <input type="text" class="form-control" id="prezime" aria-describedby="prezime">--}}
                             </div>
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text font-weight-bold" id="span_prezime">Prezime:</span>
+                                </div>
+                                <input type="text" class="form-control" id="PREZIME_prezime" aria-describedby="span_prezime"
+                                       value="{{$radnikData->PREZIME_prezime}}"
+                                       name="PREZIME_prezime"
+                                >
+                            </div>
+
                             <!-- 2.2  Ime, text field -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">

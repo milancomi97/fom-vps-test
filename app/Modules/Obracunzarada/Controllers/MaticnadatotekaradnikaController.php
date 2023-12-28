@@ -31,7 +31,23 @@ class MaticnadatotekaradnikaController extends Controller
     public function index(){
 
         $test="test";
-        $maticnadatotekaradnikaData = $this->maticnadatotekaradnikaInterface->getAll();
+        $maticnadatotekaradnika = $this->maticnadatotekaradnikaInterface->getAll();
+        $maticnadatotekaradnikaData=[];
+//        Matični
+//Prezime
+//Ime
+//Aktivan
+//Action
+        foreach ($maticnadatotekaradnika as $radnik) {
+            $maticnadatotekaradnikaData[] = [
+                $radnik->MBRD_maticni_broj,
+                $radnik->PREZIME_prezime,
+                $radnik->IME_ime,
+                $radnik->ACTIVE_aktivan,
+                $radnik->id
+            ];
+        }
+
 
         return view('obracunzarada::maticnadatotekaradnika.maticnadatotekaradnika_index', ['maticnadatotekaradnika'=>json_encode($maticnadatotekaradnikaData)]);
     }
@@ -52,6 +68,30 @@ class MaticnadatotekaradnikaController extends Controller
                 'vrstaRada'=>$vrstaRada,
                 'kvalifikacije'=>$kvalifikacije,
                 'troskMesta' =>$troskMesta
+            ]);
+
+    }
+
+    public function edit(Request $request){
+
+        $radnikId = $request->radnik_id;
+        $maticnadatotekaradnikData = $this->maticnadatotekaradnikaInterface->getById($radnikId);
+        $radnaMesta = $this->radnamestaInterface->getSelectOptionData();
+        $opstine = $this->opstineInterface->getSelectOptionData();
+        $isplatnaMesta = $this->isplatnamestaInterface->getSelectOptionData(); // add key
+        $vrstaRada = $this->vrstaradasifarnikInterface->getSelectOptionData(); // add key
+        $kvalifikacije =  $this->strucnakvalifikacijaInterface->getSelectOptionData();
+        $troskMesta = $this->organizacionecelineInterface->getSelectOptionData(); // ADD KEY
+
+        return view('obracunzarada::maticnadatotekaradnika.maticnadatotekaradnika_edit',
+            [
+                'opstine'=>$opstine,
+                'radnaMesta'=>$radnaMesta,
+                'isplatnaMesta'=>$isplatnaMesta,
+                'vrstaRada'=>$vrstaRada,
+                'kvalifikacije'=>$kvalifikacije,
+                'troskMesta' =>$troskMesta,
+                'radnikData'=>$maticnadatotekaradnikData
             ]);
 
     }
