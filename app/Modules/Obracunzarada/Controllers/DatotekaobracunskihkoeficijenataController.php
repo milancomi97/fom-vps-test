@@ -17,6 +17,7 @@ use App\Modules\Obracunzarada\Service\UpdateNapomena;
 use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
+use function Psy\debug;
 
 class DatotekaobracunskihkoeficijenataController extends Controller
 {
@@ -49,6 +50,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
         $inputDate = Carbon::parse($monthData->datum);
         $formattedDate = $inputDate->format('m.Y');
+        $vrstePlacanja = $this->vrsteplacanjaInterface->getAll();
+
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show',
             [
                 'monthData' => $formattedDate,
@@ -56,7 +59,40 @@ class DatotekaobracunskihkoeficijenataController extends Controller
                 'mesecnaTabelaPotenrazaTable' => $mesecnaTabelaPotenrazaTable,
                 'tableHeaders' => $tableHeaders,
                 'troskovnaMestaPermission' => $troskovnaMestaPermission,
-                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all()
+                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
+                'vrstePlacanja' => $vrstePlacanja->toJson()
+            ]);
+
+
+    }
+
+
+    public function showAll(Request $request)
+    {
+
+        $user_id = auth()->user()->id;
+        $userPermission = UserPermission::where('user_id', $user_id)->first();
+        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
+        $id = $request->month_id;
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
+        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->with('organizacionecelina')->where('obracunski_koef_id', $id)->get();
+
+        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
+        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
+
+        $inputDate = Carbon::parse($monthData->datum);
+        $formattedDate = $inputDate->format('m.Y');
+        $vrstePlacanja = $this->vrsteplacanjaInterface->getAll();
+
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_all',
+            [
+                'monthData' => $formattedDate,
+                'mesecnaTabelaPoentaza' => $mesecnaTabelaPoentaza,
+                'mesecnaTabelaPotenrazaTable' => $mesecnaTabelaPotenrazaTable,
+                'tableHeaders' => $tableHeaders,
+                'troskovnaMestaPermission' => $troskovnaMestaPermission,
+                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
+                'vrstePlacanja' => $vrstePlacanja->toJson()
             ]);
 
 

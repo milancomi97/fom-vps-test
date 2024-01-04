@@ -1,36 +1,88 @@
 $(document).ready(function () {
 
-    $(document).on('focusout', 'body .vrsta_placanja_td', function (event) {
-        if (event.target.value !== '') {
-            event.stopImmediatePropagation();
-            $(".loading").show();
-            $('input').prop('disabled', true);
+    // Sample JSON data
+    var jsonData = [
+        { "sifra": "001", "naziv": "Naziv test", "email": "22", "phone": "1234567890", "address": "12345" },
+        { "sifra": "002", "naziv": "Naziv test 2", "email": "22", "phone": "9876543210", "address": "12345" }
+    ];
+    var selectOptions = '';
+    for (var key in vrstePlacanjaData) {
+        selectOptions += '<option value="' + vrstePlacanjaData[key]['id']  + '">' + vrstePlacanjaData[key]['rbvp_sifra_vrste_placanja'] +' - '+ vrstePlacanjaData[key]['naziv_naziv_vrste_placanja'] + '</option>';
+    }
+    // Function to populate the table with JSON data
+    function populateTable(vrsteData) {
+        var tbody = $('#editableTable tbody');
 
-            var input_value = event.target.value;
-            var input_key = event.target.dataset.vrstaPlacanjaKey
-            var record_id = event.target.dataset.recordId
-            var _token = $('input[name="_token"]').val();
 
-            $.ajax({
-                url: storeRoute,
-                type: 'POST',
-                data: {
-                    _token: _token,
-                    input_value: input_value,
-                    input_key: input_key,
-                    record_id: record_id
-                },
-                success: function (response) {
-                    $("#statusMessage").text(response.message).addClass("text-success");
-                    $(".loading").hide();
-                    $('input').prop('disabled', false);
-                },
-                error: function (response) {
-                    $("#statusMessage").text("Greska: " + response.message).addClass("text-danger");
-                    $(".loading").hide();
-                    $('input').prop('disabled', false);
-                }
-            });
-        }
+
+        $.each(vrsteData, function (index, item) {
+            var row = '<tr>' +
+                '<td><input disabled type="text" class="form-control" name="sifra[]" value="' + item.sifra + '"></td>' +
+                '<td><input disabled type="text" class="form-control" name="naziv[]" value="' + item.naziv + '"></td>' +
+                '<td><input type="text" class="form-control" name="email[]" value="' + item.email + '"></td>' +
+                '<td><input type="text" class="form-control" name="phone[]" value="' + item.phone + '"></td>' +
+                '<td><input type="text" class="form-control" name="address[]" value="' + item.address + '"></td>' +
+                '<td><input type="text" class="form-control" name="address[]" value="' + item.address + '"></td>' +
+                '<td><input type="text" class="form-control" name="address[]" value="' + item.address + '"></td>' +
+                '<td><button type="button" class="btn btn-danger btn-sm delete-row">Obriši</button></td>' +
+                '</tr>';
+
+            if(vrsteData.length-1 == index){
+                row += '<tr>' +
+                    '<td><select class="form-control new-vrste-placanja" name="sifra[]">' + selectOptions + '</select></td>' +
+                    '<td><input type="text" class="form-control  nov-naziv" name="naziv[]" value=""></td>' +
+                    '<td><input type="text" class="form-control" name="email[]" value=""></td>' +
+                    '<td><input type="text" class="form-control" name="phone[]" value=""></td>' +
+                    '<td><input type="text" class="form-control" name="address[]" value=""></td>' +
+                    '<td><input type="text" class="form-control" name="address[]" value=""></td>' +
+                    '<td><input type="text" class="form-control" name="address[]" value=""></td>' +
+                    '<td><button type="button" class="btn btn-success btn-sm add-row">Dodaj</button></td>' +
+                    '</tr>';
+            }
+            tbody.append(row);
+        });
+
+        // TODO ADD LAST INDEX COLUMN, ADD, SELECT2, SAVE ALL BUTTONS
+    }
+
+    // Call the function to populate the table
+    populateTable(jsonData);
+
+    // Add row button click event
+    $(document).on('click', 'body  .add-row',function (event) {
+        var newRow ='<tr>' +
+                '<td><select class="form-control new-vrste-placanja" name="sifra[]">' + selectOptions + '</select></td>' +
+                '<td><input type="text" class="form-control nov-naziv" name="naziv[]" value=""></td>' +
+                '<td><input type="text" class="form-control" name="email[]" value=""></td>' +
+                '<td><input type="text" class="form-control" name="phone[]" value=""></td>' +
+                '<td><input type="text" class="form-control" name="address[]" value=""></td>' +
+                '<td><input type="text" class="form-control" name="address[]" value=""></td>' +
+                '<td><input type="text" class="form-control" name="address[]" value=""></td>' +
+                '<td><button type="button" class="btn btn-success btn-sm add-row">Dodaj</button></td>' +
+                '</tr>';
+
+        $('#editableTable tbody').append(newRow);
+        $(this).removeClass('btn-success');
+        $(this).addClass('btn-danger');
+
+        $(this).text("Obriši");
+        $(this).removeClass('add-row');
+        $(this).addClass('delete-row');
     });
+
+
+    $(document).on('change', 'body .new-vrste-placanja', function (event) {
+
+        var selectedOption = $('option:selected', this);
+        var siblingElement = $(event.currentTarget).parent().siblings()[0];
+
+        var nazivInput = $(siblingElement).children('.nov-naziv');
+        nazivInput.val(selectedOption.text().trim().split(' - ')[1]);
+    });
+    // Delete row button click event
+    $('#editableTable').on('click', '.delete-row', function () {
+        $(this).closest('tr').remove();
+    });
+
+
 });

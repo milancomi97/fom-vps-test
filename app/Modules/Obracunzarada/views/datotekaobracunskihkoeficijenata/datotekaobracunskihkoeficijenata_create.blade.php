@@ -148,7 +148,7 @@
         let storeRoute ='{!! route('datotekaobracunskihkoeficijenata.store') !!}'
         let getStoreDataRoute ='{!! route('datotekaobracunskihkoeficijenata.getStoreData') !!}'
         let checkRoute ='{!! route('datotekaobracunskihkoeficijenata.check') !!}'
-        let showRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show?month_id=')!!}'
+        let showRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_all?month_id=')!!}'
         let odobravanjeRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje?month_id=')!!}'
 
     </script>
