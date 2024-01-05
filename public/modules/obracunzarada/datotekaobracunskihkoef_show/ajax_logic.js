@@ -1,13 +1,9 @@
 $(document).ready(function () {
 
-    // Sample JSON data
-    var jsonData = [
-        { "sifra": "001", "naziv": "Naziv test", "email": "22", "phone": "1234567890", "address": "12345" },
-        { "sifra": "002", "naziv": "Naziv test 2", "email": "22", "phone": "9876543210", "address": "12345" }
-    ];
+    var jsonData =  vrstePlacanjaData;
     var selectOptions = '';
-    for (var key in vrstePlacanjaData) {
-        selectOptions += '<option value="' + vrstePlacanjaData[key]['id']  + '">' + vrstePlacanjaData[key]['rbvp_sifra_vrste_placanja'] +' - '+ vrstePlacanjaData[key]['naziv_naziv_vrste_placanja'] + '</option>';
+    for (var key in vrstePlacanja) {
+        selectOptions += '<option value="' + vrstePlacanja[key]['id']  + '">' + vrstePlacanja[key]['rbvp_sifra_vrste_placanja'] +' - '+ vrstePlacanja[key]['naziv_naziv_vrste_placanja'] + '</option>';
     }
     // Function to populate the table with JSON data
     function populateTable(vrsteData) {
@@ -17,13 +13,13 @@ $(document).ready(function () {
 
         $.each(vrsteData, function (index, item) {
             var row = '<tr>' +
-                '<td><input disabled type="text" class="form-control" name="sifra[]" value="' + item.sifra + '"></td>' +
-                '<td><input disabled type="text" class="form-control" name="naziv[]" value="' + item.naziv + '"></td>' +
-                '<td><input type="text" class="form-control" name="email[]" value="' + item.email + '"></td>' +
-                '<td><input type="text" class="form-control" name="phone[]" value="' + item.phone + '"></td>' +
-                '<td><input type="text" class="form-control" name="address[]" value="' + item.address + '"></td>' +
-                '<td><input type="text" class="form-control" name="address[]" value="' + item.address + '"></td>' +
-                '<td><input type="text" class="form-control" name="address[]" value="' + item.address + '"></td>' +
+                '<td><input disabled type="text" class="form-control" name="sifra[]" value="' + item.key + '"></td>' +
+                '<td><input disabled type="text" class="form-control" name="naziv[]" value="' + item.name + '"></td>' +
+                '<td><input type="text" class="form-control col-width" name="email[]" value="' + item.value + '"></td>' +
+                '<td><input type="text" class="form-control col-width" name="phone[]" value="' + item.name + '"></td>' +
+                '<td><input type="text" class="form-control col-width" name="address[]" value="' + item.name + '"></td>' +
+                '<td><input type="text" class="form-control col-width" name="address[]" value="' + item.name + '"></td>' +
+                '<td><input type="text" class="form-control col-width" name="address[]" value="' + item.name + '"></td>' +
                 '<td><button type="button" class="btn btn-danger btn-sm delete-row">Obriši</button></td>' +
                 '</tr>';
 
@@ -31,11 +27,11 @@ $(document).ready(function () {
                 row += '<tr>' +
                     '<td><select class="form-control new-vrste-placanja" name="sifra[]">' + selectOptions + '</select></td>' +
                     '<td><input type="text" class="form-control  nov-naziv" name="naziv[]" value=""></td>' +
-                    '<td><input type="text" class="form-control" name="email[]" value=""></td>' +
-                    '<td><input type="text" class="form-control" name="phone[]" value=""></td>' +
-                    '<td><input type="text" class="form-control" name="address[]" value=""></td>' +
-                    '<td><input type="text" class="form-control" name="address[]" value=""></td>' +
-                    '<td><input type="text" class="form-control" name="address[]" value=""></td>' +
+                    '<td><input type="text" class="form-control col-width" name="email[]" value=""></td>' +
+                    '<td><input type="text" class="form-control col-width" name="phone[]" value=""></td>' +
+                    '<td><input type="text" class="form-control col-width" name="address[]" value=""></td>' +
+                    '<td><input type="text" class="form-control col-width" name="address[]" value=""></td>' +
+                    '<td><input type="text" class="form-control col-width" name="address[]" value=""></td>' +
                     '<td><button type="button" class="btn btn-success btn-sm add-row">Dodaj</button></td>' +
                     '</tr>';
             }
@@ -53,11 +49,11 @@ $(document).ready(function () {
         var newRow ='<tr>' +
                 '<td><select class="form-control new-vrste-placanja" name="sifra[]">' + selectOptions + '</select></td>' +
                 '<td><input type="text" class="form-control nov-naziv" name="naziv[]" value=""></td>' +
-                '<td><input type="text" class="form-control" name="email[]" value=""></td>' +
-                '<td><input type="text" class="form-control" name="phone[]" value=""></td>' +
-                '<td><input type="text" class="form-control" name="address[]" value=""></td>' +
-                '<td><input type="text" class="form-control" name="address[]" value=""></td>' +
-                '<td><input type="text" class="form-control" name="address[]" value=""></td>' +
+                '<td><input type="text" class="form-control col-width" name="email[]" value=""></td>' +
+                '<td><input type="text" class="form-control col-width" name="phone[]" value=""></td>' +
+                '<td><input type="text" class="form-control col-width" name="address[]" value=""></td>' +
+                '<td><input type="text" class="form-control col-width" name="address[]" value=""></td>' +
+                '<td><input type="text" class="form-control col-width" name="address[]" value=""></td>' +
                 '<td><button type="button" class="btn btn-success btn-sm add-row">Dodaj</button></td>' +
                 '</tr>';
 

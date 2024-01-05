@@ -13,6 +13,9 @@
         .nov-naziv{
             width: 250px;
         }
+        .col-width{
+            width: 100px;
+        }
     </style>
 @endsection
 
@@ -22,8 +25,11 @@
     <div class="container">
         <div class="container mt-5">
             <!-- Left Column - Form -->
-            <div class="col-md-12" id="form-column">
-                <h1>Milan Dimitrijevic (dodaj podatke o radniku)</h1>
+            <div class="col-md-12 text-center" id="form-column">
+              <h1> {{$mesecnaTabelaPoentaza->maticni_broj}}
+               {{$mesecnaTabelaPoentaza->prezime}}
+               {{$mesecnaTabelaPoentaza->ime}}
+              </h1>
             </div>
             <table class="table table-bordered" id="editableTable">
                 <thead>
@@ -48,7 +54,9 @@
 
 @section('custom-scripts')
     <script>
-        var vrstePlacanjaData = {!! $vrstePlacanja !!}
+        var vrstePlacanja = {!! $vrstePlacanja !!};
+        var vrstePlacanjaData = {!! $vrstePlacanjaData !!}
+
     </script>
 
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show/ajax_logic.js') }}"></script>

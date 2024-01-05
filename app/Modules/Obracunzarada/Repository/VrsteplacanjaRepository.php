@@ -17,7 +17,7 @@ class VrsteplacanjaRepository extends BaseRepository implements VrsteplacanjaRep
     }
 
     public function getVrstePlacanjaData(){
-        $data = $this->model->take(19)->get()->sortBy('redosled_poentaza_zaglavlje');
+        $data = $this->model->all()->sortBy('redosled_poentaza_zaglavlje');
         // Prvo sortiraj pa onda kada dodjes do 19, prestani
         // Treba da bude 19
 
@@ -31,12 +31,12 @@ class VrsteplacanjaRepository extends BaseRepository implements VrsteplacanjaRep
                 'id'=>$item['id']
             ];
         });
-       return $filteredData;
+       return $filteredData->take(19);
     }
 
 
     public function getVrstePlacanjaOpis(){
-        $data = $this->model->take(31)->get()->sortBy('redosled_poentaza_opis');
+        $data = $this->model->all()->sortBy('redosled_poentaza_opis');
 
         // TREBA DA BUDE 31;
         $filteredData =$data->map(function ($item) {
@@ -47,24 +47,26 @@ class VrsteplacanjaRepository extends BaseRepository implements VrsteplacanjaRep
         });
 
 
-        return $this->createList($filteredData);
+        return $this->createList($filteredData->take(31));
     }
 
-    public function createList($items){
-    $itemCount = count($items);
+    public function createList($items) {
+        $html = '<div class="row">';
+        $count = 0;
 
-    $html = '<div class="row">';
+        foreach ($items as $item) {
+            $html .= '<div class="col-2">';
+            $html .= '<p class="vrste_placanja_description">' . $item['key'] . ' - ' . $item['name'] . '</p>';
+            $html .= '</div>';
 
-    for ($i = 0; $i < $itemCount; $i++) {
-        $html .= '<div class="col-2">';
-            $html .= '<p class="vrste_placanja_description" >' . $items[$i]['key'] .' - '. $items[$i]['name'] . '</p>';
-        $html .= '</div>';
-        if($i ==4 || $i==9 || $i==14 || $i==19 || $i==24 || $i==29){
-            $html .= '<div class="col-2"></div>';
+            $count++;
+            if ($count % 5 === 0) {
+                $html .= '<div class="col-2"></div>';
+            }
         }
-    }
-    $html .= '</div>';
 
-    return $html;
-}
+        $html .= '</div>';
+
+        return $html;
+    }
 }
