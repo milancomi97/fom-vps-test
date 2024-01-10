@@ -239,4 +239,20 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         return response()->json(['message' => $message, 'status' => true], 200);
     }
 
+    public function updateAll(Request $request)
+    {
+        $vrsteRadaData = $request->vrste_rada;
+        $record_id =$request->record_id;
+        $radnikEvidencija = $this->mesecnatabelapoentazaInterface->getById($record_id);
+        $status = $this->updateVrstePlacanjaJson->executeAll($radnikEvidencija,$vrsteRadaData);
+
+        if($status){
+            $message='uspesno promenjen';
+            return response()->json(['message' => $message, 'status' => true], 200);
+
+        }
+        $message='greska';
+        return response()->json(['message' => $message, 'status' => false], 200);
+    }
+
 }

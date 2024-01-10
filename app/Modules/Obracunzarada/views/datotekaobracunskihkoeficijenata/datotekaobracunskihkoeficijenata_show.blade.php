@@ -21,11 +21,16 @@
 
 @section('content')
 
+    <h1 class="text-center mt-5"> Unos poentaže:</h1>
 
     <div class="container">
+
         <div class="container mt-5">
+            <div class="container text-center">
+                <button data-record-id="{{$mesecnaTabelaPoentaza->id}}"  class="btn btn-primary btn-lg text-center submitBtn">Sačuvaj izmene</button>
+            </div>
             <!-- Left Column - Form -->
-            <div class="col-md-12 text-center" id="form-column">
+            <div class="col-md-12 text-center mt-5"  id="form-column">
               <h1> {{$mesecnaTabelaPoentaza->maticni_broj}}
                {{$mesecnaTabelaPoentaza->prezime}}
                {{$mesecnaTabelaPoentaza->ime}}
@@ -46,6 +51,12 @@
                 <tbody>
                 </tbody>
             </table>
+            <div>
+
+            </div>
+        </div>
+        <div class="container mb-5 mt-5 text-center">
+            <button data-record-id="{{$mesecnaTabelaPoentaza->id}}"  class="btn btn-primary btn-lg text-center submitBtn" >Sačuvaj izmene</button>
         </div>
     </div>
 
@@ -55,7 +66,8 @@
 @section('custom-scripts')
     <script>
         var vrstePlacanja = {!! $vrstePlacanja !!};
-        var vrstePlacanjaData = {!! $vrstePlacanjaData !!}
+        var vrstePlacanjaData = {!! $vrstePlacanjaData !!};
+        var storeAllRoute = '{!! route('datotekaobracunskihkoeficijenata.updateall') !!}';
 
     </script>
 

@@ -9,7 +9,7 @@ use App\Modules\Osnovnipodaci\Repository\RadniciRepository;
 
 class UpdateVrstePlacanjaJson
 {
-    public function __construct()
+    public function __construct(readonly private VrsteplacanjaRepositoryInterface $vrsteplacanjaInterface)
     {
     }
 
@@ -35,5 +35,40 @@ class UpdateVrstePlacanjaJson
         foreach ($vrstePlacanja as $placanje) {
         }
         return true;
+    }
+
+    public  function executeAll($radnikEvidencija,$vrstePlacanjaData){
+
+        $currentVrstePlacanja = json_decode($radnikEvidencija->vrste_placanja,true);
+
+        $newVrstePlacanja = [];
+        foreach ($vrstePlacanjaData as $vrstaPlacanja){
+            $updated=false;
+            foreach ($currentVrstePlacanja as $currentVrsta){
+                if($currentVrsta['key'] == $vrstaPlacanja['key']){
+                    $currentVrsta['value'] = $vrstaPlacanja['value'];
+                    $updated=true;
+                }
+                array_push($newVrstePlacanja,$currentVrsta);
+            }
+            if(!$updated){
+                $vrstePlacanjaAdditional = $this->getAdditionalData($vrstaPlacanja['key']);
+                $newVrstePlacanja[$vrstaPlacanja['key']] =[
+                    'value' => $vrstaPlacanja['value'],
+                    'key'=>$vrstaPlacanja['key'],
+                    'id'=>$vrstePlacanjaAdditional->id,
+                    'name'=>$vrstePlacanjaAdditional->naziv_naziv_vrste_placanja
+                ];
+            }
+
+        }
+
+        $radnikEvidencija->vrste_placanja = json_encode($newVrstePlacanja);
+        $radnikEvidencija->save();
+        return $radnikEvidencija;
+    }
+
+    private function getAdditionalData($key){
+        return $this->vrsteplacanjaInterface->where('rbvp_sifra_vrste_placanja',$key)->first();
     }
 }
