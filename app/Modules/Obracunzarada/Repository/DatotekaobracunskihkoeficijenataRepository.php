@@ -34,6 +34,7 @@ class DatotekaobracunskihkoeficijenataRepository extends BaseRepository implemen
             'prosecni_godisnji_fond_sati'=>$array['prosecni_godisnji_fond_sati'],
             'cena_rada_tekuci'=>$array['cena_rada_tekuci'],
             'cena_rada_prethodni'=>$array['cena_rada_prethodni'],
+            'vrednost_akontacije'=>$array['vrednost_akontacije'],
             'datum'=>$startOfMonth,
             'status'=>1
         ];

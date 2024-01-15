@@ -59,6 +59,7 @@ return new class extends Migration
             $table->unsignedBigInteger('opstina_id')->nullable(); // sifra opstine 4 broja
             $table->timestamps();
             $table->unsignedBigInteger('user_id')->nullable();
+
             $table->unsignedBigInteger('troskovno_mesto_id'); // novo
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

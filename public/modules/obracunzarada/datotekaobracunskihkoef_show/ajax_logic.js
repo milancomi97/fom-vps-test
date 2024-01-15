@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
     var jsonData = vrstePlacanjaData;
-    var selectOptions = '';
+    var selectOptions ='<option value="">Izaberi vrstu plaćanja</option>'
     for (var key in vrstePlacanja) {
         selectOptions += '<option value="' + vrstePlacanja[key]['rbvp_sifra_vrste_placanja'] + '">' + vrstePlacanja[key]['rbvp_sifra_vrste_placanja'] + ' - ' + vrstePlacanja[key]['naziv_naziv_vrste_placanja'] + '</option>';
     }
@@ -13,6 +13,8 @@ $(document).ready(function () {
 
         $.each(vrsteData, function (index, item) {
 
+            if(item.value !==''){
+
             var row = `
   <tr class="vrste-placanja-data_tr">
     <td>
@@ -20,16 +22,18 @@ $(document).ready(function () {
       <input disabled type="text" class="form-control" name="sifra" value="${item.key}">
     </td>
     <td><input disabled type="text" class="form-control" name="naziv" value="${item.name}"></td>
-    <td><input type="number" class="form-control col-width" name="value" value="${item.value}"></td>
-    <td><input type="text" class="form-control col-width" name="phone" value="${item.name}"></td>
-    <td><input type="text" class="form-control col-width" name="address" value="${item.name}"></td>
-    <td><input type="text" class="form-control col-width" name="address" value="${item.name}"></td>
-    <td><input type="text" class="form-control col-width" name="address" value="${item.name}"></td>
+    <td><input type="number" class="form-control col-width" name="value" value=""></td>
+    <td><input type="text" class="form-control col-width" name="phone" value=""></td>
+    <td><input type="text" class="form-control col-width" name="address" value=""></td>
+    <td><input type="text" class="form-control col-width" name="address" value=""></td>
+    <td><input type="text" class="form-control col-width" name="address" value=""></td>
     <td><button type="button" class="btn btn-danger btn-sm delete-row">Obriši</button></td>
   </tr>
 `;
 
-            if (vrsteData.length - 1 == index) {
+            }
+
+            if (vrsteData.length - 1 === index) {
                 row += `
   <tr class="vrste-placanja-data_tr">
     <td>
@@ -58,12 +62,14 @@ $(document).ready(function () {
     $(document).on('click', 'body  .add-row', function (event) {
 
         var column  = $(event.target).parent().parent();
+        var vrstePlacanjaKey= column.find('.nov-key')
 
+        if(vrstePlacanjaKey.val() !==''){
+        debugger;
         var hiddenInput  = column.find('.vrste-placanja-data')
         var vrstePlacanjaId =  column.find('.nov-id')
         var vrstePlacanjaName = column.find('.nov-naziv')
         var vrstePlacanjaValue = column.find('.nov-value')
-        var vrstePlacanjaKey= column.find('.nov-key')
 
         hiddenInput.data('vrste-id',vrstePlacanjaId.val());
         hiddenInput.data('vrste-name',vrstePlacanjaName.val());
@@ -93,6 +99,7 @@ $(document).ready(function () {
         $(this).text("Obriši");
         $(this).removeClass('add-row');
         $(this).addClass('delete-row');
+        }
     });
 
 

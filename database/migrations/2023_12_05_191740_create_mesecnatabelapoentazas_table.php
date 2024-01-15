@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mesecnatabelapoentazas', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('organizaciona_celina_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('obracunski_koef_id');
             $table->json('vrste_placanja');
             $table->date('datum');
@@ -26,6 +26,9 @@ return new class extends Migration
             $table->integer('status_poentaze')->nullable();
             $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
             $table->foreign('organizaciona_celina_id')->references('id')->on('organizacionecelines');
+//            $table->foreign('id')->references('user_mdr_id')->on('maticnadatotekaradnikas')->onDelete('cascade');
+            $table->unsignedBigInteger('user_mdr_id')->nullable();
+            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
 
             $table->timestamps();
         });

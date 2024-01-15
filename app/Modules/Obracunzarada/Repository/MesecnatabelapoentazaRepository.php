@@ -18,6 +18,7 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
 
     public function createMany($array)
     {
+
         return $this->model->insert($array);
     }
 
@@ -58,6 +59,7 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
         unset($tableHeaders['srednje_ime']);
         unset($tableHeaders['prezime']);
         unset($tableHeaders['napomena']);
+        unset($tableHeaders['user_mdr_id']);
         unset($tableHeaders['status_poentaze']);
 
         $tableKeys =array_keys($tableHeaders);

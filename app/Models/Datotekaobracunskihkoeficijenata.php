@@ -18,6 +18,7 @@ class Datotekaobracunskihkoeficijenata extends Model
         'cena_rada_prethodni',
         'tip_todo',
         'period_isplate_od',
-        'period_isplate_do'
+        'period_isplate_do',
+        'vrednost_akontacije'
     ];
 }

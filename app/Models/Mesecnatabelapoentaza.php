@@ -26,5 +26,8 @@ class Mesecnatabelapoentaza extends Model
     {
         return $this->belongsTo(Organizacioneceline::class,'organizaciona_celina_id');
     }
-
+    public function maticnadatotekaradnika()
+    {
+        return $this->belongsTo(Maticnadatotekaradnika::class, 'user_id');
+    }
 }

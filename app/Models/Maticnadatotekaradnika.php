@@ -34,4 +34,9 @@ class Maticnadatotekaradnika extends Model
         'opstina_id',
         'user_id'
     ];
+
+    public function mesecnatabelapoentaza()
+    {
+        return $this->hasOne(Mesecnatabelapoentaza::class);
+    }
 }

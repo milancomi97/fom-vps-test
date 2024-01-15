@@ -70,13 +70,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Unos obracunskih koeficijenata za mesec:</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Unos obračunskih koeficijenata za mesec:</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <!-- Your form goes here -->
+
                     <form id="myForm">
 
                         <div class="form-group">
@@ -107,6 +108,10 @@
                             <input type="text" class="form-control" id="cena_rada_tekuci_modal" >
                         </div>
 
+                        <div class="form-group">
+                            <label for="vrednost_akontacije_modal">Vrednost početne akontacije</label>
+                            <input type="number" class="form-control" id="vrednost_akontacije_modal" >
+                        </div>
 
                         <div class="form-group">
                             <label for="cena_rada_prethodni_modal">Cena rada prethodni</label>
@@ -129,6 +134,7 @@
                         <!-- Add more form elements as needed -->
                     </form>
                 </div>
+                <div class="text-center text-danger" id="statusModalMessage"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
                     <button type="button" class="btn btn-primary" id="submitFormBtn">Sačuvaj</button>

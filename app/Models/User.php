@@ -62,7 +62,7 @@ class User extends Authenticatable
 
     public function permissionOne()
     {
-        return $this->hasOne(UserPermission::class, 'id', 'user_id');
+        return $this->hasOne(UserPermission::class, 'user_id','id' );
     }
 
     public function permission()
@@ -72,6 +72,6 @@ class User extends Authenticatable
 
     public function maticnadatotekaradnika()
     {
-        return $this->belongsTo(Maticnadatotekaradnika::class, 'id', 'user_id');
+        return $this->hasOne(Maticnadatotekaradnika::class, 'user_id', 'id');
     }
 }

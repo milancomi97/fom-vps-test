@@ -42,7 +42,7 @@
                     <th>Sifra vrste placanja</th>
                     <th>Naziv vrste placanja</th>
                     <th>Sati</th>
-                    <th>Unos</th>
+                    <th>Iznos</th>
                     <th>Procenat</th>
                     <th>RJ</th>
                     <th>Brigada</th>

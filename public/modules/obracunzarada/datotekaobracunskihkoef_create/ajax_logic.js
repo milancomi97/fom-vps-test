@@ -50,10 +50,11 @@ $(document).ready(function () {
         var cena_rada_prethodni = $('#cena_rada_prethodni_modal').val()
         var period_isplate_do = $('#period_isplate_do_modal').val()
         var period_isplate_od = $('#period_isplate_od_modal').val()
+        var vrednost_akontacije = $('#vrednost_akontacije_modal').val()
 
         var _token = $('input[name="_token"]').val();
 
-        if(prosecni_godisnji_fond_sati !=='' && cena_rada_tekuci!=='' && cena_rada_prethodni!==''){
+        if(prosecni_godisnji_fond_sati !=='' && cena_rada_tekuci!=='' && cena_rada_prethodni!=='' && vrednost_akontacije!==''){
 
         $.ajax({
             url: storeRoute,
@@ -67,6 +68,7 @@ $(document).ready(function () {
                 cena_rada_prethodni:cena_rada_prethodni,
                 period_isplate_do:period_isplate_do,
                 period_isplate_od:period_isplate_od,
+                vrednost_akontacije:vrednost_akontacije,
                 _token: _token
             },
             success: function (response) {
@@ -80,6 +82,9 @@ $(document).ready(function () {
                 $("#statusMessage").text("Greska: " + response.message).addClass("error");
             }
         });
+        }else {
+            $("#statusModalMessage").text("Popunite sva polja").addClass("error");
+
         }
 
 

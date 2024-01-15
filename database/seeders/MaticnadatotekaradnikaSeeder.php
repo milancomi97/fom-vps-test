@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use League\Csv\Reader;
@@ -13,7 +14,8 @@ class MaticnadatotekaradnikaSeeder extends Seeder
         $datas = $this->getDataFromCsv();
 
         foreach ($datas as $data) {
-            DB::table('maticnadatotekaradnikas')->insert([
+            DB::table('maticnadatotekaradnikas')->insert(
+                $this->userExists([
                 'MBRD_maticni_broj' => $data['MBRD'],
                 'PREZIME_prezime' => $data['PREZIME'],
                 'IME_ime' => $data['IME'],
@@ -58,14 +60,31 @@ class MaticnadatotekaradnikaSeeder extends Seeder
                 'IZNETO_ukupna_bruto_zarada' => $data['IZNETO'],
                 'KFAK_korektivni_faktor' => $data['KFAK'],
 //                'opstina_id' => $data['testtt'],
-//                'user_id' => $data['testtt'],
                 'troskovno_mesto_id' => (int) $data['RBTC']
 
-            ]);
+            ]));
         }
 
     }
 
+    private function updateUserId($maticniBroj){
+       $user = User::where('maticni_broj',$maticniBroj)->get();
+     if(isset($user[0])) {
+        $id = $user[0]->id;
+     }
+     return $id ?? 0;
+    }
+    private function userExists($data){
+        $user = User::where('maticni_broj',$data['MBRD_maticni_broj'])->get();
+        if(isset($user[0])){
+
+            var_dump($user[0]->id);
+            $data['user_id'] =  $user[0]->id;
+            return $data;
+        }
+        return $data;
+
+    }
     public function getDataFromCsv()
     {
         $filePath = storage_path('app/backup/MDR_3.csv');
