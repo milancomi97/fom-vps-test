@@ -194,6 +194,9 @@ Route::middleware('auth')->group(function () {
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/store',[DatotekaobracunskihkoeficijenataController::class,'store'])->name('datotekaobracunskihkoeficijenata.store');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getstoredata',[DatotekaobracunskihkoeficijenataController::class,'getStoreData'])->name('datotekaobracunskihkoeficijenata.getStoreData');
 
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getmonthbyid',[DatotekaobracunskihkoeficijenataController::class,'getMonthDataById'])->name('datotekaobracunskihkoeficijenata.getMonthDataById');
+
+
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update',[DatotekaobracunskihkoeficijenataController::class,'update'])->name('datotekaobracunskihkoeficijenata.update');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/check',[DatotekaobracunskihkoeficijenataController::class,'check'])->name('datotekaobracunskihkoeficijenata.check');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all',[DatotekaobracunskihkoeficijenataController::class,'showAll'])->name('datotekaobracunskihkoeficijenata.show_all');

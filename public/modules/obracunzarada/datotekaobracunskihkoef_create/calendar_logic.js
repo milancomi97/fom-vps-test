@@ -10,6 +10,7 @@ function updateMonthContainer(activeMonth) {
         var currentActiveClass = i === activeMonth;
         if (currentActiveClass) {
             const monthCard = document.createElement('div');
+
             monthCard.classList.add('carousel-item');
             monthCard.classList.add('active');
 
@@ -19,11 +20,12 @@ function updateMonthContainer(activeMonth) {
 
 
             $.each([
-            {'label':'Kalendarski broj dana', 'val':`${monthData.kalendarski_broj_dana}`},
-            {'label':'Prosečni godišnji fond sati', 'val':`${monthData.prosecni_godisnji_fond_sati}`},
-            {'label':'Mesečni fond sati', 'val':`${monthData.mesecni_fond_sati}`},
-            {'label':'Cena rada tekući', 'val':`${monthData.cena_rada_tekuci}`},
-            {'label':'Cena rada prethodni', 'val':`${monthData.cena_rada_prethodni}`},
+                {'label': 'Kalendarski broj dana', 'val': `${monthData.kalendarski_broj_dana}`},
+                {'label': 'Prosečni godišnji fond sati', 'val': `${monthData.prosecni_godisnji_fond_sati}`},
+                {'label': 'Mesečni fond sati', 'val': `${monthData.mesecni_fond_sati}`},
+                {'label': 'Cena rada tekući', 'val': `${monthData.cena_rada_tekuci}`},
+                {'label': 'Cena rada prethodni', 'val': `${monthData.cena_rada_prethodni}`},
+                {'label': 'Vrednost akontacije', 'val': `${monthData.vrednost_akontacije}`},
             ], function(key, value) {
 
                 if(value.val !=='undefined'){
@@ -34,7 +36,6 @@ function updateMonthContainer(activeMonth) {
                 }
             });
 
-            // Dodaj listu na stranicu
             $(monthCard).append(list);
 
 
@@ -42,7 +43,7 @@ function updateMonthContainer(activeMonth) {
             if(monthData.status){
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-info izmena-mesecna-poentaza col-lg-6 mt-1 border',
+                    'class': 'btn btn-info update-mesecna-poentaza col-lg-12 mt-1 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
@@ -50,7 +51,7 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-primary index-mesecna-poentaza col-lg-6 mt-1 border',
+                    'class': 'btn btn-primary index-mesecna-poentaza col-lg-12 mt-1 border',
                     'data-month_id': monthData.month_id,
                     'data-year': monthData.currYear,
                     'data-month': monthData.currMonth
@@ -59,7 +60,7 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-warning update-akontacija-mesecna-poentaza col-lg-6 mt-1 border',
+                    'class': 'btn btn-warning update-akontacija-mesecna-poentaza col-lg-12 mt-1 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
@@ -67,29 +68,41 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-danger odobravanje-mesecna-poentaza col-lg-6 mt-1 border',
+                    'class': 'btn btn-danger odobravanje-mesecna-poentaza col-lg-12 mt-1 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
                 }).text('Priprema poentaže').appendTo(monthCard);
 
 
+
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-secondary check-mesecna-poentaza col-lg-6 mt-1 border',
+                    'class': 'btn btn-secondary check-mesecna-poentaza col-lg-12 mt-1 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Provera statusa/detalji').appendTo(monthCard);
+                }).text('Formiranje fiksnih plaćanja').appendTo(monthCard);
+
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-dark krediti-mesecna-poentaza col-lg-12 mt-1 border',
+                    'data-month_id': monthData.month_id,
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Formiranje Kredita').appendTo(monthCard);
+
 
             }else{
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-success create-mesecna-poentaza col-lg-6 mt-1 border',
+                    'class': 'btn btn-success create-mesecna-poentaza col-lg-12 mt-1 border',
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
                 }).text('Otvorite mesec').appendTo(monthCard);
             }
+
+
             monthContainer.appendChild(monthCard);
         }
 
@@ -122,7 +135,8 @@ function getMonthData(month) {
             mesecni_fond_sati: data.mesecni_fond_sati,
             month_id: data.id,
             currYear: currentYear,
-            currMonth: month
+            currMonth: month,
+            vrednost_akontacije: data.vrednost_akontacije
         };
     } else {
         fullData = {

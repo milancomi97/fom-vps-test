@@ -32,7 +32,8 @@ class KreirajObracunskeKoeficiente
 
                 $data[] = [
                     'organizaciona_celina_id' => $radnik->sifra_mesta_troska_id,
-                    'vrste_placanja' => json_encode($vrstePlacanjaUpdated),
+//                    'vrste_placanja' => json_encode($vrstePlacanjaUpdated),
+                    'vrste_placanja'=> $this->updateRadnaJedinicaBrigada($vrstePlacanjaUpdated,$radnik),
                     'user_id' => $radnik->id,
                     'datum' => $datotekaobracunskihkoeficijenata->datum->format('Y-m-d'),
                     'maticni_broj' => $radnik->maticni_broj,
@@ -52,11 +53,14 @@ class KreirajObracunskeKoeficiente
     private function updateVrstePlacanja($vrstePlacanja, $datotekaobracunskihkoeficijenata)
     {
         $vrstePlacanjaUpdated = [];
-        foreach ($vrstePlacanja as &$placanje) {
-            $test = "testt";
-            if ($placanje['key'] == '001' || $placanje['key'] == '019') {
-                $placanje['value'] = $datotekaobracunskihkoeficijenata->mesecni_fond_sati;
+        foreach ($vrstePlacanja as $placanje) {
 
+            if ($placanje['key'] == '001' || $placanje['key'] == '019') {
+                $placanje['sati'] = (int) $datotekaobracunskihkoeficijenata->mesecni_fond_sati;
+                $placanje['iznos'] ='';
+                $placanje['procenat'] ='';
+                $placanje['RJ_radna_jedinica'] ='';
+                $placanje['BRIG_brigada'] ='';
             }
 
             $vrstePlacanjaUpdated[] = $placanje;
@@ -73,12 +77,28 @@ class KreirajObracunskeKoeficiente
         $akontacijaVrstaPlacanja = $this->vrsteplacanjaInterface->where('rbvp_sifra_vrste_placanja', '061')->first();
         $vrstePlacanjaUpdated[] = [
             'key' => '061',
-            'value' => $datotekaobracunskihkoeficijenata->vrednost_akontacije,
+            'sati' => 0,
             'id' => $akontacijaVrstaPlacanja->id,
-            'name'=> strtolower(str_replace(' ', '_', $akontacijaVrstaPlacanja->naziv_naziv_vrste_placanja))
+            'name'=> strtolower(str_replace(' ', '_', $akontacijaVrstaPlacanja->naziv_naziv_vrste_placanja)),
+            'iznos'=>(int) $datotekaobracunskihkoeficijenata->vrednost_akontacije,
+            'procenat'=>'',
+            'RJ_radna_jedinica'=>'',
+            'BRIG_brigada'=>''
         ];
 
         return $vrstePlacanjaUpdated;
 
+    }
+
+    private function updateRadnaJedinicaBrigada($vrstePlacanja,$radnik)
+    {
+        $vrstePlacanjaUpdated = [];
+        foreach ($vrstePlacanja as $placanje) {
+            $placanje['RJ_radna_jedinica'] = $radnik->maticnadatotekaradnika->RJ_radna_jedinica;
+            $placanje['BRIG_brigada'] = $radnik->maticnadatotekaradnika->BRIG_brigada;
+            $vrstePlacanjaUpdated[] = $placanje;
+        }
+
+        return json_encode($vrstePlacanjaUpdated);
     }
 }

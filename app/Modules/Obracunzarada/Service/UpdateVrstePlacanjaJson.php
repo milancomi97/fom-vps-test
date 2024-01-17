@@ -13,7 +13,7 @@ class UpdateVrstePlacanjaJson
     {
     }
 
-    public function execute($radnikEvidencija, $input_key, $input_value)
+    public function updateSatiByKey($radnikEvidencija, $input_key, $input_value)
     {
 
         $vrstePlacanje = json_decode($radnikEvidencija->vrste_placanja, true);
@@ -22,7 +22,7 @@ class UpdateVrstePlacanjaJson
 
             foreach ($vrstePlacanje as &$placanje) {
                 if ($placanje['key'] == $input_key) {
-                    $placanje['value'] = $input_value;
+                    $placanje['sati'] = (int) $input_value;
                 }
             }
             $radnikEvidencija->vrste_placanja = json_encode($vrstePlacanje);
@@ -37,38 +37,47 @@ class UpdateVrstePlacanjaJson
         return true;
     }
 
-    public  function executeAll($radnikEvidencija,$vrstePlacanjaData){
+    public function updateAll($radnikEvidencija, $vrstePlacanjaData)
+    {
 
-        $currentVrstePlacanja = json_decode($radnikEvidencija->vrste_placanja,true);
-
+        $currentVrstePlacanja = json_decode($radnikEvidencija->vrste_placanja, true);
+        $radnikEvidencija->load('maticnadatotekaradnika');
         $newVrstePlacanja = [];
-        foreach ($vrstePlacanjaData as $vrstaPlacanja){
-            $updated=false;
-            foreach ($currentVrstePlacanja as $currentVrsta){
-                if($currentVrsta['key'] == $vrstaPlacanja['key']){
-                    $currentVrsta['value'] = $vrstaPlacanja['value'];
-                    $updated=true;
+        foreach ($vrstePlacanjaData as $vrstaPlacanja) {
+            $updated = false;
+            foreach ($currentVrstePlacanja as &$currentVrsta) {
+                if ($currentVrsta['key'] == $vrstaPlacanja['key']) {
+                    $currentVrsta['sati'] = (int) $vrstaPlacanja['sati'] ?? 0;
+                    $currentVrsta['iznos'] = $vrstaPlacanja['iznos'] ?? '';
+                    $currentVrsta['procenat'] = $vrstaPlacanja['procenat'] ?? '';
+                    $currentVrsta['BRIG_brigada'] = $vrstaPlacanja['BRIG_brigada'] ?? $radnikEvidencija->maticnadatotekaradnika->BRIG_brigada;
+                    $currentVrsta['RJ_radna_jedinica'] = $vrstaPlacanja['RJ_radna_jedinica'] ?? $radnikEvidencija->maticnadatotekaradnika->RJ_radna_jedinica;
+                    $updated = true;
                 }
-                array_push($newVrstePlacanja,$currentVrsta);
             }
-            if(!$updated){
+            if (!$updated) {
                 $vrstePlacanjaAdditional = $this->getAdditionalData($vrstaPlacanja['key']);
-                $newVrstePlacanja[$vrstaPlacanja['key']] =[
-                    'value' => $vrstaPlacanja['value'],
-                    'key'=>$vrstaPlacanja['key'],
-                    'id'=>$vrstePlacanjaAdditional->id,
-                    'name'=>$vrstePlacanjaAdditional->naziv_naziv_vrste_placanja
+                $currentVrstePlacanja[$vrstaPlacanja['key']] = [
+                    'key' => $vrstaPlacanja['key'],
+                    'id' => $vrstePlacanjaAdditional->id,
+                    'name' => $vrstePlacanjaAdditional->naziv_naziv_vrste_placanja,
+                    'sati' => (int) $vrstaPlacanja['sati'] ?? 0,
+                    'iznos' => $vrstaPlacanja['iznos'] ?? '',
+                    'procenat' => $vrstaPlacanja['procenat'] ?? '',
+                    'BRIG_brigada' => $vrstaPlacanja['BRIG_brigada'] ?? $radnikEvidencija->maticnadatotekaradnika->BRIG_brigada,
+                    'RJ_radna_jedinica' => $vrstaPlacanja['RJ_radna_jedinica'] ?? $radnikEvidencija->maticnadatotekaradnika->RJ_radna_jedinica,
                 ];
             }
 
         }
 
-        $radnikEvidencija->vrste_placanja = json_encode($newVrstePlacanja);
+        $radnikEvidencija->vrste_placanja = json_encode($currentVrstePlacanja);
         $radnikEvidencija->save();
         return $radnikEvidencija;
     }
 
-    private function getAdditionalData($key){
-        return $this->vrsteplacanjaInterface->where('rbvp_sifra_vrste_placanja',$key)->first();
+    private function getAdditionalData($key)
+    {
+        return $this->vrsteplacanjaInterface->where('rbvp_sifra_vrste_placanja', $key)->first();
     }
 }

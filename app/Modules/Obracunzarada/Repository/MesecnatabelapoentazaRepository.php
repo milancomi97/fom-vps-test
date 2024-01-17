@@ -26,16 +26,18 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
     {
 
 //        $result = $this->model->orderBy('maticni_broj','asc')->where($column, $value)->get()->groupBy('organizaciona_celina_id');
-        $result = $this->model->with('organizacionecelina')->orderBy('organizaciona_celina_id')->orderBy('maticni_broj','asc')->where($column, $value)->get();
+        $result = $this->model->with('organizacionecelina','maticnadatotekaradnika')->orderBy('organizaciona_celina_id')->orderBy('maticni_broj','asc')->where($column, $value)->get();
 
         $unserializedVrstePlacanja= $result->map(function ($mesecnaTabelaPoentaza) {
             // Transform each item (user) by returning the desired value
             // TODO SORT VRSTE PLACANJA
             $mesecnaTabelaPoentaza['vrste_placanja'] =  json_decode($mesecnaTabelaPoentaza['vrste_placanja'],true);
             $mesecnaTabelaPoentaza['ime'] =  $mesecnaTabelaPoentaza['prezime'] .' ' . $mesecnaTabelaPoentaza['srednje_ime']  .' ' . $mesecnaTabelaPoentaza['ime'];
+            $mesecnaTabelaPoentaza['BRCL_REDOSLED'] = (int)$mesecnaTabelaPoentaza->maticnadatotekaradnika->BRCL_redosled_poentazi;
             return $mesecnaTabelaPoentaza;
         });
-        return $result->groupBy('organizaciona_celina_id');
+
+        return $unserializedVrstePlacanja->sortBy('BRCL_REDOSLED')->sortBy('organizaciona_celina_id')->groupBy('organizaciona_celina_id');
     }
 
     public function getTableHeaders($mesecnatabelapoentaza)
@@ -53,6 +55,7 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
         unset($tableHeaders['user_id']);
         unset($tableHeaders['obracunski_koef_id']);
         unset($tableHeaders['datum']);
+        unset($tableHeaders['BRCL_REDOSLED']);
         unset($tableHeaders['created_at']);
         unset($tableHeaders['updated_at']);
         unset($tableHeaders['vrste_placanja']);

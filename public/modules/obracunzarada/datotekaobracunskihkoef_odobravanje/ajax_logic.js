@@ -40,6 +40,7 @@ $(document).ready(function () {
             var record_id = event.target.dataset.recordId
             var _token = $('input[name="_token"]').val();
 
+            debugger;
             $.ajax({
                 url: storeRoute,
                 type: 'POST',

@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('datotekaobracunskihkoeficijenatas', function (Blueprint $table) {
             $table->id();
             $table->date('datum')->nullable()->unique();
+            $table->integer('mesec')->nullable();
+            $table->integer('godina')->nullable();
             $table->string('status')->nullable();
             $table->integer('kalendarski_broj_dana')->nullable();
             $table->float('prosecni_godisnji_fond_sati')->nullable();
-            $table->float('vrednost_akontacije')->nullable();
+            $table->integer('vrednost_akontacije')->nullable();
             $table->integer('mesecni_fond_sati')->nullable();
             $table->string('cena_rada_tekuci')->nullable();
             $table->string('cena_rada_prethodni')->nullable();

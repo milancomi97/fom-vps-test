@@ -27,8 +27,13 @@ class VrsteplacanjaRepository extends BaseRepository implements VrsteplacanjaRep
 
             return $item['id'] =[
                 'key'=> $item['rbvp_sifra_vrste_placanja'],
-                'name' => $newValue,'value'=>'',
-                'id'=>$item['id']
+                'name' => $newValue,
+                'sati'=>0,
+                'id'=>$item['id'],
+                'iznos'=>'',
+                'procenat'=>'',
+                'RJ_radna_jedinica'=>'',
+                'BRIG_brigada'=>''
             ];
         });
        return $filteredData->take(19);

@@ -140,7 +140,7 @@
                                                                          class="vrsta_placanja_input"
                                                                          data-toggle="tooltip"
                                                                          data-placement="top"
-                                                                         title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{ $vrstaPlacanja['value']}}>
+                                                                         title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{ $vrstaPlacanja['sati']}}>
                                     </td>
                                 @endforeach
                                 <td class="napomena_td" data-napomena-value="{{$value['napomena']}}"

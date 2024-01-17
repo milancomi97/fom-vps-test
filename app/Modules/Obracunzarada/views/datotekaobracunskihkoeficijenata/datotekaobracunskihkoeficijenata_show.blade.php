@@ -39,8 +39,8 @@
             <table class="table table-bordered" id="editableTable">
                 <thead>
                 <tr>
-                    <th>Sifra vrste placanja</th>
-                    <th>Naziv vrste placanja</th>
+                    <th>Šifra vrste plaćanja</th>
+                    <th>Naziv vrste plaćanja</th>
                     <th>Sati</th>
                     <th>Iznos</th>
                     <th>Procenat</th>

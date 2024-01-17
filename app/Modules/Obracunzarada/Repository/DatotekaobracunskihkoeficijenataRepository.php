@@ -36,6 +36,8 @@ class DatotekaobracunskihkoeficijenataRepository extends BaseRepository implemen
             'cena_rada_prethodni'=>$array['cena_rada_prethodni'],
             'vrednost_akontacije'=>$array['vrednost_akontacije'],
             'datum'=>$startOfMonth,
+            'mesec'=>$array['month'],
+            'godina'=>$array['year'],
             'status'=>1
         ];
        return $this->create($data);

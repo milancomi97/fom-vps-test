@@ -45,7 +45,7 @@
                         <button class="btn btn-link" onclick="prevMonth()">&lt;</button>
                     </div>
                     <div class="col-10 text-center">
-                        <h5 id="monthYear"></h5>
+                        <h3 id="monthYear"></h3>
                     </div>
                     <div class="col-1 text-right">
                         <button class="btn btn-link" onclick="nextMonth()">&gt;</button>
@@ -54,7 +54,7 @@
                 <form>
                     @csrf
                 </form>
-                <div id="monthContainer" class="carousel slide " data-ride="carousel">
+                <div id="monthContainer" class="carousel slide mt-5" data-ride="carousel">
 
                 </div>
             </div>
@@ -80,26 +80,27 @@
 
                     <form id="myForm">
 
+                        <input name="month_id" id="month_id" type="hidden">
                         <div class="form-group">
                             <label for="month_modal">Mesec</label>
-                            <input type="text" class="form-control" id="month_modal" >
+                            <input disabled type="text" class="form-control" id="month_modal" >
                         </div>
                         <div class="form-group">
                             <label for="year_modal">Godina</label>
-                            <input type="text" class="form-control" id="year_modal" >
+                            <input disabled type="text" class="form-control" id="year_modal" >
                         </div>
 
                         <div class="form-group">
                             <label for="kalendarski_broj_dana_modal">Kalendarski broj dana u mesecu</label>
-                            <input type="text" class="form-control" id="kalendarski_broj_dana_modal" >
+                            <input disabled type="text" class="form-control" id="kalendarski_broj_dana_modal" >
                         </div>
                         <div class="form-group">
-                            <label for="mesecni_fond_sati_modal">Mesecni fond sati</label>
+                            <label for="mesecni_fond_sati_modal">Mesečni fond sati</label>
                             <input type="text" class="form-control" id="mesecni_fond_sati_modal" >
                         </div>
 
                         <div class="form-group">
-                            <label for="prosecni_godisnji_fond_sati_modal">Prosecni godisnji fond sati</label>
+                            <label for="prosecni_godisnji_fond_sati_modal">Prosečni godišnji fond sati</label>
                             <input type="text" class="form-control" id="prosecni_godisnji_fond_sati_modal" >
                         </div>
 
@@ -109,15 +110,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="vrednost_akontacije_modal">Vrednost početne akontacije</label>
-                            <input type="number" class="form-control" id="vrednost_akontacije_modal" >
-                        </div>
-
-                        <div class="form-group">
                             <label for="cena_rada_prethodni_modal">Cena rada prethodni</label>
                             <input type="text" class="form-control" id="cena_rada_prethodni_modal" >
                         </div>
-
+                        <div class="form-group">
+                            <label for="vrednost_akontacije_modal">Vrednost početne akontacije</label>
+                            <input type="number" class="form-control" id="vrednost_akontacije_modal" >
+                        </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput6">Tip</label>
                             <input type="text" class="form-control" id="exampleFormControlInput6" >
@@ -156,6 +155,7 @@
         let checkRoute ='{!! route('datotekaobracunskihkoeficijenata.check') !!}'
         let showRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_all?month_id=')!!}'
         let odobravanjeRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje?month_id=')!!}'
+        let getMonthDataByIdRoute = '{{ route('datotekaobracunskihkoeficijenata.getMonthDataById') }}'
 
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_create/calendar_logic.js') }}"></script>

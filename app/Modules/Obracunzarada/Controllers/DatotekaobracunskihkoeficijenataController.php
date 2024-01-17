@@ -138,6 +138,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
     public function store(Request $request)
     {
+
         try {
             $result = $this->datotekaobracunskihkoeficijenataInterface->createMesecnatabelapoentaza($request->all());
         } catch (\Exception $e) {
@@ -227,7 +228,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
             $radnikEvidencija->status_poentaze = (int)$input_value;
             $status = $radnikEvidencija->save();
         } else {
-            $status = $this->updateVrstePlacanjaJson->execute($radnikEvidencija, $input_key, $input_value);
+            $status = $this->updateVrstePlacanjaJson->updateSatiByKey($radnikEvidencija, $input_key, $input_value);
         }
 
         if ($status) {
@@ -241,10 +242,10 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
     public function updateAll(Request $request)
     {
-        $vrsteRadaData = $request->vrste_rada;
+        $vrstePlacanjaData = $request->vrste_placanja;
         $record_id =$request->record_id;
         $radnikEvidencija = $this->mesecnatabelapoentazaInterface->getById($record_id);
-        $status = $this->updateVrstePlacanjaJson->executeAll($radnikEvidencija,$vrsteRadaData);
+        $status = $this->updateVrstePlacanjaJson->updateAll($radnikEvidencija,$vrstePlacanjaData);
 
         if($status){
             $message='uspesno promenjen';
@@ -255,4 +256,10 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         return response()->json(['message' => $message, 'status' => false], 200);
     }
 
+
+    public function getMonthDataById(Request $request){
+
+        $data = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+        return response()->json($data);
+    }
 }

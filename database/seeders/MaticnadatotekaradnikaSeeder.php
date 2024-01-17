@@ -78,7 +78,6 @@ class MaticnadatotekaradnikaSeeder extends Seeder
         $user = User::where('maticni_broj',$data['MBRD_maticni_broj'])->get();
         if(isset($user[0])){
 
-            var_dump($user[0]->id);
             $data['user_id'] =  $user[0]->id;
             return $data;
         }

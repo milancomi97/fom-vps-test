@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Datotekaobracunskihkoeficijenata extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'datum',
         'status',
@@ -19,6 +20,8 @@ class Datotekaobracunskihkoeficijenata extends Model
         'tip_todo',
         'period_isplate_od',
         'period_isplate_do',
-        'vrednost_akontacije'
+        'vrednost_akontacije',
+        'mesec',
+        'godina'
     ];
 }
