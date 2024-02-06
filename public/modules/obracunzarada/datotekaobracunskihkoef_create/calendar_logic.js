@@ -78,7 +78,7 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-secondary check-mesecna-poentaza col-lg-12 mt-1 border',
+                    'class': 'btn btn-secondary index-fiksnap-mesecna-poentaza col-lg-12 mt-1 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear

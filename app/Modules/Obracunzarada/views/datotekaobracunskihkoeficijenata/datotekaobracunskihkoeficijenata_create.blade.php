@@ -152,7 +152,6 @@
         let databaseData = {!! $datotekaobracunskihkoeficijenata !!};
         let storeRoute ='{!! route('datotekaobracunskihkoeficijenata.store') !!}'
         let getStoreDataRoute ='{!! route('datotekaobracunskihkoeficijenata.getStoreData') !!}'
-        let checkRoute ='{!! route('datotekaobracunskihkoeficijenata.check') !!}'
         let showRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_all?month_id=')!!}'
 
         let showAkontacijeRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_all_akontacije?month_id=')!!}'
