@@ -154,6 +154,20 @@ debugger;
         window.location.href = odobravanjeRoute + id;
     });
 
+    $(document).on('click', 'body .index-akontacija-mesecna-poentaza', function (e) {
+        var id = $(this).data('month_id');
+        window.location.href = showAkontacijeRoute + id;
+    });
+
+    $(document).on('click', 'body .index-fiksnap-mesecna-poentaza', function (e) {
+        var id = $(this).data('month_id');
+        window.location.href = showFiksnapRoute + id;
+    });
+
+    $(document).on('click', 'body .index-krediti-mesecna-poentaza', function (e) {
+        var id = $(this).data('month_id');
+        window.location.href = showKreditiRoute + id;
+    });
 
 
     $(document).on('click', 'body .update-mesecna-poentaza', function (e) {
@@ -191,26 +205,6 @@ debugger;
     });
 
 
-    $(document).on('click', 'body .check-mesecna-poentaza', function (e) {
-
-        var month_id = $(this).data('month_id')
-        var _token = $('input[name="_token"]').val();
-
-        $.ajax({
-            url: checkRoute,
-            type: 'POST',
-            data: {
-                month_id:month_id,
-                _token: _token
-            },
-            success: function (response) {
-                $("#check_data").text(response.message).addClass("text-danger");
-            },
-            error: function (response) {
-                $("#check_data").text("Greska: " + response.message).addClass("error");
-            }
-        });
-    });
 
 
 });
