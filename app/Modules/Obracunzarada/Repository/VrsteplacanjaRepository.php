@@ -24,7 +24,7 @@ class VrsteplacanjaRepository extends BaseRepository implements VrsteplacanjaRep
         $filteredData =$data->map(function ($item) {
             $newValue = strtolower(str_replace(' ', '_',  $item['naziv_naziv_vrste_placanja']));
 
-
+ // Otvaranje praznih Vrsta placanja
             return $item['id'] =[
                 'key'=> $item['rbvp_sifra_vrste_placanja'],
                 'name' => $newValue,
