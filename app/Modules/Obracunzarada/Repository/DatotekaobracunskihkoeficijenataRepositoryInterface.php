@@ -7,5 +7,6 @@ use App\Repository\BaseRepositoryInterface;
 interface DatotekaobracunskihkoeficijenataRepositoryInterface extends BaseRepositoryInterface
 {
     public function createMesecnatabelapoentaza($array);
+    public function updateMesecnatabelapoentaza($array);
 
 }

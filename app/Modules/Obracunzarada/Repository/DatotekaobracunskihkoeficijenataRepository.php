@@ -59,4 +59,29 @@ class DatotekaobracunskihkoeficijenataRepository extends BaseRepository implemen
         }
         return $workingDays;
     }
+    public function updateMesecnatabelapoentaza($array)
+    {
+        $month = (int)$array['month'];
+        $year =$array['year'];
+        $startOfMonth = Carbon::create($year, (int)$month, 1);
+        $workingDays = $this->calculateWorkingHour($startOfMonth);
+        $workingHours= $workingDays * 8;
+        $endOfMonth = $startOfMonth->copy()->endOfMonth();
+
+        $data =[
+            'kalendarski_broj_dana'=>$endOfMonth->format('d'),
+            'mesecni_fond_sati'=>$workingHours,
+            'prosecni_godisnji_fond_sati'=>$array['prosecni_godisnji_fond_sati'],
+            'cena_rada_tekuci'=>$array['cena_rada_tekuci'],
+            'cena_rada_prethodni'=>$array['cena_rada_prethodni'],
+            'vrednost_akontacije'=>$array['vrednost_akontacije'],
+            'datum'=>$startOfMonth,
+            'mesec'=>$array['month'],
+            'godina'=>$array['year'],
+            'status'=>1
+        ];
+        return $this->create($data);
+    }
+
+
 }

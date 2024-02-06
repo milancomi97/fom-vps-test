@@ -154,6 +154,13 @@
         let getStoreDataRoute ='{!! route('datotekaobracunskihkoeficijenata.getStoreData') !!}'
         let checkRoute ='{!! route('datotekaobracunskihkoeficijenata.check') !!}'
         let showRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_all?month_id=')!!}'
+
+        let showAkontacijeRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_all_akontacije?month_id=')!!}'
+        let showFiksnapRoute ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_all_fiksnap?month_id=') !!}'
+        let showKreditiRoute ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_all_krediti?month_id=') !!}'
+
+        let storeUpdateRoute ='{!! route('datotekaobracunskihkoeficijenata.store_update') !!}'
+
         let odobravanjeRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje?month_id=')!!}'
         let getMonthDataByIdRoute = '{{ route('datotekaobracunskihkoeficijenata.getMonthDataById') }}'
 

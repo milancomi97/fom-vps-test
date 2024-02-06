@@ -71,4 +71,24 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
         }
         return $tableKeys;
     }
+
+    public function groupForTableAkontacije($column, $value)
+    {
+
+//        $result = $this->model->orderBy('maticni_broj','asc')->where($column, $value)->get()->groupBy('organizaciona_celina_id');
+        $result = $this->model->with('organizacionecelina','maticnadatotekaradnika')->orderBy('organizaciona_celina_id')->orderBy('maticni_broj','asc')->where($column, $value)->get();
+
+        $unserializedVrstePlacanja= $result->map(function ($mesecnaTabelaPoentaza) {
+            // Transform each item (user) by returning the desired value
+           $vrstePlacanjaArray = json_decode($mesecnaTabelaPoentaza['vrste_placanja'],true);
+            $mesecnaTabelaPoentaza['vrste_placanja'] =  $vrstePlacanjaArray;
+            $mesecnaTabelaPoentaza['vrste_placanja_akontacija']= collect($vrstePlacanjaArray)->where('key', '061')->first();
+            $mesecnaTabelaPoentaza['ime'] =  $mesecnaTabelaPoentaza['prezime'] .' ' . $mesecnaTabelaPoentaza['srednje_ime']  .' ' . $mesecnaTabelaPoentaza['ime'];
+            $mesecnaTabelaPoentaza['BRCL_REDOSLED'] = (int)$mesecnaTabelaPoentaza->maticnadatotekaradnika->BRCL_redosled_poentazi;
+            return $mesecnaTabelaPoentaza;
+        });
+
+        return $unserializedVrstePlacanja->sortBy('BRCL_REDOSLED')->sortBy('organizaciona_celina_id')->groupBy('organizaciona_celina_id');
+    }
+
 }

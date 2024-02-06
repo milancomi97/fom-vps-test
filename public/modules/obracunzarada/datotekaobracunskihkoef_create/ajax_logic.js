@@ -46,7 +46,51 @@ $(document).ready(function () {
         var month_id = $('#month_id').val();
 debugger;
         if(month_id !==''){
+            var year = $('.create-mesecna-poentaza').data('year');
+            var month = $('.create-mesecna-poentaza').data('month')
+            var prosecni_godisnji_fond_sati = $('#prosecni_godisnji_fond_sati_modal').val()
+            var kalendarski_broj_dana =  $('#kalendarski_broj_dana_modal').val()
+            var cena_rada_tekuci = $('#cena_rada_tekuci_modal').val()
+            var cena_rada_prethodni = $('#cena_rada_prethodni_modal').val()
+            var period_isplate_do = $('#period_isplate_do_modal').val()
+            var period_isplate_od = $('#period_isplate_od_modal').val()
+            var vrednost_akontacije = $('#vrednost_akontacije_modal').val()
 
+            var _token = $('input[name="_token"]').val();
+            debugger;
+            if(prosecni_godisnji_fond_sati !=='' && cena_rada_tekuci!=='' && cena_rada_prethodni!=='' && vrednost_akontacije!==''){
+
+                $.ajax({
+                    url: storeUpdateRoute,
+                    type: 'POST',
+                    data: {
+                        month_id:month_id,
+                        year: year,
+                        month: month,
+                        prosecni_godisnji_fond_sati:prosecni_godisnji_fond_sati,
+                        cena_rada_tekuci:cena_rada_tekuci,
+                        kalendarski_broj_dana:kalendarski_broj_dana,
+                        cena_rada_prethodni:cena_rada_prethodni,
+                        period_isplate_do:period_isplate_do,
+                        period_isplate_od:period_isplate_od,
+                        vrednost_akontacije:vrednost_akontacije,
+                        month_id:month_id,
+                        _token: _token
+                    },
+                    success: function (response) {
+                        if (response.status) {
+                            location.reload()
+                        } else {
+                            $("#statusMessage").text(response.message).addClass("text-danger");
+                        }
+                    },
+                    error: function (response) {
+                        $("#statusMessage").text("Greska: " + response.message).addClass("error");
+                    }
+                });
+            }else {
+                $("#statusModalMessage").text("Popunite sva polja").addClass("error");
+            }
 
         } else {
             var year = $('.create-mesecna-poentaza').data('year');
@@ -92,7 +136,8 @@ debugger;
                 });
             }else {
                 $("#statusModalMessage").text("Popunite sva polja").addClass("error");
-            }        }
+            }
+        }
 
 
 
@@ -101,6 +146,8 @@ debugger;
         var id = $(this).data('month_id');
         window.location.href = showRoute + id;
     });
+
+
 
     $(document).on('click', 'body .odobravanje-mesecna-poentaza', function (e) {
         var id = $(this).data('month_id');

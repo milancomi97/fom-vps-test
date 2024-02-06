@@ -47,7 +47,7 @@ function updateMonthContainer(activeMonth) {
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Izmena trenutne poentaže').appendTo(monthCard);
+                }).text('Ažuriranje obračunskih koeficijenata').appendTo(monthCard);
 
                 $('<button>').attr({
                     'type': 'button',
@@ -60,7 +60,7 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-warning update-akontacija-mesecna-poentaza col-lg-12 mt-1 border',
+                    'class': 'btn btn-warning index-akontacija-mesecna-poentaza col-lg-12 mt-1 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
@@ -82,7 +82,7 @@ function updateMonthContainer(activeMonth) {
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Formiranje fiksnih plaćanja').appendTo(monthCard);
+                }).text('Unos fiksnih plaćanja po radniku').appendTo(monthCard);
 
                 $('<button>').attr({
                     'type': 'button',
