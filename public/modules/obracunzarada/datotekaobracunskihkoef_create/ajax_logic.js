@@ -169,6 +169,11 @@ debugger;
         window.location.href = showKreditiRoute + id;
     });
 
+    $(document).on('click', 'body .index-mesecna-obrada-priprema', function (e) {
+        var id = $(this).data('month_id');
+        window.location.href = showObradaRoute + id;
+    });
+
 
     $(document).on('click', 'body .update-mesecna-poentaza', function (e) {
         var _token = $('input[name="_token"]').val();

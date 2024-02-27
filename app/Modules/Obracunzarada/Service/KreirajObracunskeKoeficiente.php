@@ -18,13 +18,18 @@ class KreirajObracunskeKoeficiente
     {
     }
 
-    public function execute($datotekaobracunskihkoeficijenata)
+    public function otvoriAktivneRadnike($datotekaobracunskihkoeficijenata)
     {
 
+        // 1. Svi aktivni
+        // 2. Dodeli
+        // Dodati logiku koja radi update za vrste placanja  || Varijablina
+        // Dodati logiku za akontacije
+        // Optimizovati logiku sa sto manje querija i ako moze kroz jedan foreach, i da ide kroz array/kolekcija umesto Queru
         $radnici = $this->radniciInterface->getAllActive();
-        $vrstePlacanja = $this->vrsteplacanjaInterface->getVrstePlacanjaData();
 
-        $vrstePlacanjaUpdated = $this->updateVrstePlacanja($vrstePlacanja, $datotekaobracunskihkoeficijenata);
+        $vrstePlacanja = $this->getPoenterVrstePlacanjaInitData($datotekaobracunskihkoeficijenata);
+
         $placanja = [];
 
         foreach ($radnici as $key => $radnik) {
@@ -32,8 +37,8 @@ class KreirajObracunskeKoeficiente
 
                 $data[] = [
                     'organizaciona_celina_id' => $radnik->sifra_mesta_troska_id,
-//                    'vrste_placanja' => json_encode($vrstePlacanjaUpdated),
-                    'vrste_placanja'=> $this->updateRadnaJedinicaBrigada($vrstePlacanjaUpdated,$radnik),
+//                    'vrste_placanja' => $vrstePlacanja,
+                    'vrste_placanja'=> $vrstePlacanja,
                     'user_id' => $radnik->id,
                     'datum' => $datotekaobracunskihkoeficijenata->datum->format('Y-m-d'),
                     'maticni_broj' => $radnik->maticni_broj,
@@ -66,7 +71,6 @@ class KreirajObracunskeKoeficiente
             $vrstePlacanjaUpdated[] = $placanje;
         }
 
-        $vrstePlacanjaUpdated = $this->addAkontacijaInitial($vrstePlacanjaUpdated, $datotekaobracunskihkoeficijenata);
         return $vrstePlacanjaUpdated;
 
     }
@@ -92,6 +96,7 @@ class KreirajObracunskeKoeficiente
 
     private function updateRadnaJedinicaBrigada($vrstePlacanja,$radnik)
     {
+        //
         $vrstePlacanjaUpdated = [];
         foreach ($vrstePlacanja as $placanje) {
             $placanje['RJ_radna_jedinica'] = $radnik->maticnadatotekaradnika->RJ_radna_jedinica;
@@ -100,5 +105,77 @@ class KreirajObracunskeKoeficiente
         }
 
         return json_encode($vrstePlacanjaUpdated);
+    }
+
+    public function getPoenterVrstePlacanjaInitData($datotekaobracunskihkoeficijenata){
+        $data = $this->vrsteplacanjaInterface->getAll()->sortBy('redosled_poentaza_zaglavlje');
+        // Prvo sortiraj pa onda kada dodjes do 19, prestani
+        // Treba da bude 19
+
+        $fondSati = $datotekaobracunskihkoeficijenata->mesecni_fond_sati;
+        $filteredData =$data->map(function ($item) use ($fondSati) {
+
+            $newValue = strtolower(str_replace(' ', '_',  $item['naziv_naziv_vrste_placanja']));
+            $mesecniFondSati = 0;
+
+            if($item['rbvp_sifra_vrste_placanja'] == '001' || $item['rbvp_sifra_vrste_placanja'] =='019' ){
+                // Uslovi za otvaranje radnika varijabilna vrste placanja poenterska
+                $mesecniFondSati = (int) $fondSati;
+            }
+
+            // Otvaranje praznih Vrsta placanja
+            return $item['id'] =[
+                'key'=> $item['rbvp_sifra_vrste_placanja'],
+                'name' => $newValue,
+                'sati'=>$mesecniFondSati,
+                'id'=>$item['id'],
+                'iznos'=>'',
+                'procenat'=>'',
+                'RJ_radna_jedinica'=>'',
+                'BRIG_brigada'=>'',
+                'redosled_poentaza_zaglavlje' =>$item['redosled_poentaza_zaglavlje']
+            ];
+        });
+        return $filteredData->take(19);
+    }
+
+
+    public function dodeliPocetnaPoenterPlacanja($idsRadnika,$mesecniFondSati,$mesecId){
+
+        $data = [];
+        foreach ($idsRadnika as $radnik){
+            $data[]=[
+                'user_dpsm_id' =>$radnik->id,
+                'sati'=>$mesecniFondSati,
+                'maticni_broj'=>$radnik->maticni_broj,
+                'sifra_vrste_placanja'=>'001',
+                'obracunski_koef_id'=>$mesecId
+            ];
+            $data[]=[
+                'user_dpsm_id' =>$radnik->id,
+                'sati'=>$mesecniFondSati,
+                'maticni_broj'=>$radnik->maticni_broj,
+                'sifra_vrste_placanja'=>'019',
+                'obracunski_koef_id'=>$mesecId
+            ];
+        }
+        return $data;
+
+    }
+
+    public function dodeliPocetneAkontacijePlacanja($idsRadnika,$vrednostAkontacije,$mesecId){
+
+        $data = [];
+        foreach ($idsRadnika as $radnik){
+            $data[]=[
+                'user_dpsm_id' =>$radnik->id,
+                'iznos' =>$vrednostAkontacije,
+                'maticni_broj'=>$radnik->maticni_broj,
+                'sifra_vrste_placanja'=>'019',
+                'obracunski_koef_id'=>$mesecId
+
+            ];
+        }
+        return $data;
     }
 }

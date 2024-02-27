@@ -114,13 +114,13 @@
                             <input type="text" class="form-control" id="cena_rada_prethodni_modal" >
                         </div>
                         <div class="form-group">
-                            <label for="vrednost_akontacije_modal">Vrednost početne akontacije</label>
+                            <label for="vrednost_akontacije_modal">Vrednost akontacije</label>
                             <input type="number" class="form-control" id="vrednost_akontacije_modal" >
                         </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput6">Tip</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput6" >
-                        </div>
+{{--                        <div class="form-group">--}}
+{{--                            <label for="exampleFormControlInput6">Tip</label>--}}
+{{--                            <input type="text" class="form-control" id="exampleFormControlInput6" >--}}
+{{--                        </div>--}}
 
                         <div class="form-group">
                             <label for="period_isplate_od_modal">Period isplate od</label>
@@ -162,6 +162,8 @@
 
         let odobravanjeRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje?month_id=')!!}'
         let getMonthDataByIdRoute = '{{ route('datotekaobracunskihkoeficijenata.getMonthDataById') }}'
+
+        let showObradaRoute ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index?month_id=') !!}'
 
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_create/calendar_logic.js') }}"></script>

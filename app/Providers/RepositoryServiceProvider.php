@@ -12,6 +12,14 @@ use App\Modules\Kadrovskaevidencija\Repository\VrstaradasifarnikRepository;
 use App\Modules\Kadrovskaevidencija\Repository\VrstaradasifarnikRepositoryInterface;
 use App\Modules\Kadrovskaevidencija\Repository\ZanimanjasifarnikRepository;
 use App\Modules\Kadrovskaevidencija\Repository\ZanimanjasifarnikRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmAkontacijeRepository;
+use App\Modules\Obracunzarada\Repository\DpsmAkontacijeRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepository;
+use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmKreditiRepository;
+use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepository;
+use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\IsplatnamestaRepository;
 use App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\KreditoriRepository;
@@ -24,6 +32,10 @@ use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepository;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\OblikradaRepository;
 use App\Modules\Obracunzarada\Repository\OblikradaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepository;
+use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepository;
+use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepository;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepository;
@@ -81,10 +93,22 @@ class RepositoryServiceProvider extends ServiceProvider
         // BBL
 
         $this->app->bind(MaticnadatotekaradnikaRepositoryInterface::class, MaticnadatotekaradnikaRepository::class);
-        $this->app->bind(DatotekaobracunskihkoeficijenataRepositoryInterface::class, DatotekaobracunskihkoeficijenataRepository::class);
         $this->app->bind(MesecnatabelapoentazaRepositoryInterface::class, MesecnatabelapoentazaRepository::class);
         $this->app->bind(PermesecnatabelapoentRepositoryInterface::class, PermesecnatabelapoentRepository::class);
 
+
+        // Unos DPSM
+        // Poenteri prvo
+        $this->app->bind(DatotekaobracunskihkoeficijenataRepositoryInterface::class, DatotekaobracunskihkoeficijenataRepository::class);
+
+        $this->app->bind(DpsmPoentazaslogRepositoryInterface::class, DpsmPoentazaslogRepository::class);
+        $this->app->bind(DpsmAkontacijeRepositoryInterface::class, DpsmAkontacijeRepository::class);
+        $this->app->bind(DpsmFiksnaPlacanjaRepositoryInterface::class, DpsmFiksnaPlacanjaRepository::class);
+        $this->app->bind(DpsmKreditiRepositoryInterface::class, DpsmKreditiRepository::class);
+
+        // Obrada
+        $this->app->bind(ObradaZaraPoRadnikuRepositoryInterface::class, ObradaZaraPoRadnikuRepository::class);
+        $this->app->bind(ObradaDkopSveVrstePlacanjaRepositoryInterface::class, ObradaDkopSveVrstePlacanjaRepository::class);
 
     }
 

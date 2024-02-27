@@ -26,6 +26,9 @@ return new class extends Migration
             $table->integer('tip_todo')->nullable();
             $table->date('period_isplate_od')->nullable();
             $table->date('period_isplate_do')->nullable();
+
+            // odaj kontrolno bolje OBPL, da li je mesec true/false zatvoren otvoren KOE
+            // To polje sluzi da se validira, da li je mesec arhiviran.
             $table->timestamps();
         });
     }

@@ -43,7 +43,7 @@ function updateMonthContainer(activeMonth) {
             if(monthData.status){
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-info update-mesecna-poentaza col-lg-12 mt-1 border',
+                    'class': 'btn btn-info update-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
@@ -51,7 +51,7 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-primary index-mesecna-poentaza col-lg-12 mt-1 border',
+                    'class': 'btn btn-primary index-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-year': monthData.currYear,
                     'data-month': monthData.currMonth
@@ -60,15 +60,15 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-warning index-akontacija-mesecna-poentaza col-lg-12 mt-1 border',
+                    'class': 'btn btn-warning index-akontacija-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Formiranje akontacije').appendTo(monthCard);
+                }).text('Unos akontacije').appendTo(monthCard);
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-danger odobravanje-mesecna-poentaza col-lg-12 mt-1 border',
+                    'class': 'btn btn-danger odobravanje-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
@@ -78,7 +78,7 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-secondary index-fiksnap-mesecna-poentaza col-lg-12 mt-1 border',
+                    'class': 'btn btn-secondary index-fiksnap-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
@@ -86,17 +86,24 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-dark index-krediti-mesecna-poentaza col-lg-12 mt-1 border',
+                    'class': 'btn btn-dark index-krediti-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Formiranje Kredita').appendTo(monthCard);
+                }).text('Unos Kredita').appendTo(monthCard);
 
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-success index-mesecna-obrada-priprema offset-1 col-lg-5 mt-3 border',
+                    'data-month_id': monthData.month_id,
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Obrada podataka').appendTo(monthCard);
 
             }else{
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-success create-mesecna-poentaza col-lg-12 mt-1 border',
+                    'class': 'btn btn-success create-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
                 }).text('Otvorite mesec').appendTo(monthCard);

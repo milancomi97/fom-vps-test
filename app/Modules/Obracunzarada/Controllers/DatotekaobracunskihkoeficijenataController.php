@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmAkontacijeRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
@@ -19,172 +21,172 @@ use Illuminate\Http\Request;
 use \Carbon\Carbon;
 use function Psy\debug;
 
+
 class DatotekaobracunskihkoeficijenataController extends Controller
 {
     public function __construct(
         private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface,
-        private readonly KreirajObracunskeKoeficiente                        $kreirajObracunskeKoeficiente,
+        private readonly KreirajObracunskeKoeficiente                        $kreirajObracunskeKoeficienteService,
         private readonly MesecnatabelapoentazaRepositoryInterface            $mesecnatabelapoentazaInterface,
         private readonly UpdateVrstePlacanjaJson                             $updateVrstePlacanjaJson,
         private readonly UpdateNapomena                                      $updateNapomena,
         private readonly PermesecnatabelapoentRepositoryInterface            $permesecnatabelapoentInterface,
         private readonly KreirajPermisijePoenteriOdobravanja $kreirajPermisijePoenteriOdobravanja,
         private readonly PripremiPermisijePoenteriOdobravanja $pripremiPermisijePoenteriOdobravanja,
-        private readonly VrsteplacanjaRepository $vrsteplacanjaInterface
+        private readonly VrsteplacanjaRepository $vrsteplacanjaInterface,
+        private readonly DpsmPoentazaslogRepositoryInterface $dpsmPoentazaslogInterface,
+        private readonly DpsmAkontacijeRepositoryInterface $dpsmAkontacijeInterface
     )
     {
     }
 
-    public function show(Request $request)
-    {
-
-        $user_id = auth()->user()->id;
-        $userPermission = UserPermission::where('user_id', $user_id)->first();
-        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
-        $id = $request->radnik_id;
-        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($id);
-        $month_id = $mesecnaTabelaPoentaza->obracunski_koef_id;
-        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($month_id);
-
-
-        $inputDate = Carbon::parse($monthData->datum);
-        $formattedDate = $inputDate->format('m.Y');
-        $vrstePlacanja = $this->vrsteplacanjaInterface->getAll();
-
-        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show',
-            [
-                'monthData' => $formattedDate,
-                'mesecnaTabelaPoentaza' => $mesecnaTabelaPoentaza,
-                'troskovnaMestaPermission' => $troskovnaMestaPermission,
-                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
-                'vrstePlacanja' => $vrstePlacanja->toJson(),
-                'vrstePlacanjaData' => $mesecnaTabelaPoentaza->vrste_placanja
-            ]);
-
-
-    }
+//    public function show(Request $request)
+//    {
+//
+//        $user_id = auth()->user()->id;
+//        $userPermission = UserPermission::where('user_id', $user_id)->first();
+//        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
+//        $id = $request->radnik_id;
+//        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($id);
+//        $month_id = $mesecnaTabelaPoentaza->obracunski_koef_id;
+//        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($month_id);
+//
+//
+//        $inputDate = Carbon::parse($monthData->datum);
+//        $formattedDate = $inputDate->format('m.Y');
+//        $vrstePlacanja = $this->vrsteplacanjaInterface->getAll();
+//
+//        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show',
+//            [
+//                'monthData' => $formattedDate,
+//                'mesecnaTabelaPoentaza' => $mesecnaTabelaPoentaza,
+//                'troskovnaMestaPermission' => $troskovnaMestaPermission,
+//                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
+//                'vrstePlacanja' => $vrstePlacanja->toJson(),
+//                'vrstePlacanjaData' => $mesecnaTabelaPoentaza->vrste_placanja
+//            ]);
+//    }
 
 
-
-    public function showAll(Request $request)
-    {
-
-        $user_id = auth()->user()->id;
-        $userPermission = UserPermission::where('user_id', $user_id)->first();
-        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
-        $id = $request->month_id;
-        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
-
-        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
-        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
-        $mesecnaTabelaPoentazaPermissions = $this->pripremiPermisijePoenteriOdobravanja->execute('obracunski_koef_id', $id);
-
-        $inputDate = Carbon::parse($monthData->datum);
-        $formattedDate = $inputDate->format('m.Y');
-
-        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_all',
-            [
-                'formattedDate' => $formattedDate,
-                'monthData'=>$monthData,
-                'mesecnaTabelaPotenrazaTable' => $mesecnaTabelaPotenrazaTable,
-                'mesecnaTabelaPoentazaPermissions'=>$mesecnaTabelaPoentazaPermissions,
-                'tableHeaders' => $tableHeaders,
-                'vrstePlacanjaDescription'=>$this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
-                'troskovnaMestaPermission' => $troskovnaMestaPermission,
-                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
-                'userPermission'=>$userPermission
-            ]);
-
-
-    }
-
-    public function showAllAkontacije(Request $request)
-    {
-
-        $user_id = auth()->user()->id;
-        $userPermission = UserPermission::where('user_id', $user_id)->first();
-        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
-        $id = $request->month_id;
-        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
-
-        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTableAkontacije('obracunski_koef_id', $id);
-        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
-        $mesecnaTabelaPoentazaPermissions = $this->pripremiPermisijePoenteriOdobravanja->execute('obracunski_koef_id', $id);
-
-        $inputDate = Carbon::parse($monthData->datum);
-        $formattedDate = $inputDate->format('m.Y');
-
-        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_all_akontacije',
-            [
-                'formattedDate' => $formattedDate,
-                'monthData'=>$monthData,
-                'mesecnaTabelaPotenrazaTable' => $mesecnaTabelaPotenrazaTable,
-                'mesecnaTabelaPoentazaPermissions'=>$mesecnaTabelaPoentazaPermissions,
-                'tableHeaders' => $tableHeaders,
-                'vrstePlacanjaDescription'=>$this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
-                'troskovnaMestaPermission' => $troskovnaMestaPermission,
-                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
-                'userPermission'=>$userPermission
-            ]);
-
-
-    }
-
-    public function showAkontacije(Request $request)
-    {
-
-        $user_id = auth()->user()->id;
-        $userPermission = UserPermission::where('user_id', $user_id)->first();
-        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
-        $id = $request->radnik_id;
-        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($id);
-        $month_id = $mesecnaTabelaPoentaza->obracunski_koef_id;
-        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($month_id);
-
-
-        $inputDate = Carbon::parse($monthData->datum);
-        $formattedDate = $inputDate->format('m.Y');
-        $vrstePlacanja = $this->vrsteplacanjaInterface->getAll();
-        $vrednostAkontacije = collect(json_decode($mesecnaTabelaPoentaza->vrste_placanja,true))->where('key', '061')->first();
-
-        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_akontacije',
-            [
-                'monthData' => $formattedDate,
-                'mesecnaTabelaPoentaza' => $mesecnaTabelaPoentaza,
-                'troskovnaMestaPermission' => $troskovnaMestaPermission,
-                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
-                'vrstePlacanja' => $vrstePlacanja->toJson(),
-                'vrstePlacanjaData' => $mesecnaTabelaPoentaza->vrste_placanja,
-                'vrednostAkontacije' =>$vrednostAkontacije,
-                'mesecna_tabela_poentaza_id' =>$mesecnaTabelaPoentaza->id
-            ]);
-
-
-    }
-
-    public function updateAkontacije(Request $request)
-    {
-
-        $id = $request->mesecna_tabela_poentaza_id;
-        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($id);
-
-        $vrednostAkontacije = $request->vrednost_akontacije;
-
-        $vrsteRadaData = json_decode($mesecnaTabelaPoentaza->vrste_placanja,true);
-        foreach ($vrsteRadaData as &$vrstaRada) {
-            // Check if 'KLJUC' is '061'
-            if ($vrstaRada['key'] == '061') {
-                $vrstaRada['iznos'] = (int) $vrednostAkontacije;
-
-            }
-        }
-
-        $mesecnaTabelaPoentaza->vrste_placanja = json_encode($vrsteRadaData);
-        $mesecnaTabelaPoentaza->save();
-
-        return redirect()->route('datotekaobracunskihkoeficijenata.show_all_akontacije', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id]);
-
-    }
+//    public function showAll(Request $request)
+//    {
+//
+//        $user_id = auth()->user()->id;
+//        $userPermission = UserPermission::where('user_id', $user_id)->first();
+//        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
+//        $id = $request->month_id;
+//        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
+//
+//        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
+//        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
+//        $mesecnaTabelaPoentazaPermissions = $this->pripremiPermisijePoenteriOdobravanja->execute('obracunski_koef_id', $id);
+//
+//        $inputDate = Carbon::parse($monthData->datum);
+//        $formattedDate = $inputDate->format('m.Y');
+//
+//        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_all',
+//            [
+//                'formattedDate' => $formattedDate,
+//                'monthData'=>$monthData,
+//                'mesecnaTabelaPotenrazaTable' => $mesecnaTabelaPotenrazaTable,
+//                'mesecnaTabelaPoentazaPermissions'=>$mesecnaTabelaPoentazaPermissions,
+//                'tableHeaders' => $tableHeaders,
+//                'vrstePlacanjaDescription'=>$this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
+//                'troskovnaMestaPermission' => $troskovnaMestaPermission,
+//                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
+//                'userPermission'=>$userPermission
+//            ]);
+//
+//
+//    }
+//
+//    public function showAllAkontacije(Request $request)
+//    {
+//
+//        $user_id = auth()->user()->id;
+//        $userPermission = UserPermission::where('user_id', $user_id)->first();
+//        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
+//        $id = $request->month_id;
+//        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
+//
+//        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTableAkontacije('obracunski_koef_id', $id);
+//        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
+//        $mesecnaTabelaPoentazaPermissions = $this->pripremiPermisijePoenteriOdobravanja->execute('obracunski_koef_id', $id);
+//
+//        $inputDate = Carbon::parse($monthData->datum);
+//        $formattedDate = $inputDate->format('m.Y');
+//
+//        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_all_akontacije',
+//            [
+//                'formattedDate' => $formattedDate,
+//                'monthData'=>$monthData,
+//                'mesecnaTabelaPotenrazaTable' => $mesecnaTabelaPotenrazaTable,
+//                'mesecnaTabelaPoentazaPermissions'=>$mesecnaTabelaPoentazaPermissions,
+//                'tableHeaders' => $tableHeaders,
+//                'vrstePlacanjaDescription'=>$this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
+//                'troskovnaMestaPermission' => $troskovnaMestaPermission,
+//                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
+//                'userPermission'=>$userPermission
+//            ]);
+//
+//
+//    }
+//
+//    public function showAkontacije(Request $request)
+//    {
+//
+//        $user_id = auth()->user()->id;
+//        $userPermission = UserPermission::where('user_id', $user_id)->first();
+//        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
+//        $id = $request->radnik_id;
+//        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($id);
+//        $month_id = $mesecnaTabelaPoentaza->obracunski_koef_id;
+//        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($month_id);
+//
+//
+//        $inputDate = Carbon::parse($monthData->datum);
+//        $formattedDate = $inputDate->format('m.Y');
+//        $vrstePlacanja = $this->vrsteplacanjaInterface->getAll();
+//        $vrednostAkontacije = collect(json_decode($mesecnaTabelaPoentaza->vrste_placanja,true))->where('key', '061')->first();
+//
+//        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_akontacije',
+//            [
+//                'monthData' => $formattedDate,
+//                'mesecnaTabelaPoentaza' => $mesecnaTabelaPoentaza,
+//                'troskovnaMestaPermission' => $troskovnaMestaPermission,
+//                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
+//                'vrstePlacanja' => $vrstePlacanja->toJson(),
+//                'vrstePlacanjaData' => $mesecnaTabelaPoentaza->vrste_placanja,
+//                'vrednostAkontacije' =>$vrednostAkontacije,
+//                'mesecna_tabela_poentaza_id' =>$mesecnaTabelaPoentaza->id
+//            ]);
+//
+//
+//    }
+//
+//    public function updateAkontacije(Request $request)
+//    {
+//
+//        $id = $request->mesecna_tabela_poentaza_id;
+//        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($id);
+//
+//        $vrednostAkontacije = $request->vrednost_akontacije;
+//
+//        $vrsteRadaData = json_decode($mesecnaTabelaPoentaza->vrste_placanja,true);
+//        foreach ($vrsteRadaData as &$vrstaRada) {
+//            // Check if 'KLJUC' is '061'
+//            if ($vrstaRada['key'] == '061') {
+//                $vrstaRada['iznos'] = (int) $vrednostAkontacije;
+//
+//            }
+//        }
+//
+//        $mesecnaTabelaPoentaza->vrste_placanja = json_encode($vrsteRadaData);
+//        $mesecnaTabelaPoentaza->save();
+//
+//        return redirect()->route('datotekaobracunskihkoeficijenata.show_all_akontacije', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id]);
+//
+//    }
 
     public function odobravanje(Request $request)
     {
@@ -229,23 +231,44 @@ class DatotekaobracunskihkoeficijenataController extends Controller
     {
 
         try {
-            $result = $this->datotekaobracunskihkoeficijenataInterface->createMesecnatabelapoentaza($request->all());
+            // Osnovni podaci o otvorenom mesecu
+            $osnovniPodaciMesec = $this->datotekaobracunskihkoeficijenataInterface->createMesecnatabelapoentaza($request->all());
         } catch (\Exception $e) {
             $message = $e->getMessage();
             return response()->json(['message' => 'Podatak postoji', 'status' => false], 200);
 
         }
 
-        $resultOk = $this->kreirajObracunskeKoeficiente->execute($result);
-        $obracunskiKoefId = $result;
-
         try {
-            $resultDatoteka = $this->mesecnatabelapoentazaInterface->createMany($resultOk);
-            $resultPMB = $this->kreirajPermisijePoenteriOdobravanja->execute($obracunskiKoefId);
+
+            // Podaci o radnicima sa 001 i 019 vrstama plaćanja
+            $podaciRadniciMesec = $this->kreirajObracunskeKoeficienteService->otvoriAktivneRadnike($osnovniPodaciMesec);
+            $resultDatoteka = $this->mesecnatabelapoentazaInterface->createMany($podaciRadniciMesec);
+            // Podaci o radnicima sa 001 i 019 vrstama plaćanja END
+
+            // Poenteri i odgovorna lica permisije odobravanja START
+            $resultPMB = $this->kreirajPermisijePoenteriOdobravanja->execute($osnovniPodaciMesec);
             $resultPermission = $this->permesecnatabelapoentInterface->createMany($resultPMB);
+            // Poenteri i odgovorna lica permisije odobravanja END
+
+            $idRadnikaZaMesec = $this->mesecnatabelapoentazaInterface->where('obracunski_koef_id', $osnovniPodaciMesec->id)->select(['id','maticni_broj'])->get();
+
+            // Poenter Vrsta Placanja START
+            $poenterPlacanja = $this->kreirajObracunskeKoeficienteService->dodeliPocetnaPoenterPlacanja($idRadnikaZaMesec,$osnovniPodaciMesec->mesecni_fond_sati,$osnovniPodaciMesec->id);
+            $akontacijePlacanjaResult = $this->dpsmPoentazaslogInterface->createMany($poenterPlacanja);
+
+
+
+            // Poenter Vrsta Placanja  END
+
+            // Akontacije START
+            $akontacijePlacanjaData = $this->kreirajObracunskeKoeficienteService->dodeliPocetneAkontacijePlacanja($idRadnikaZaMesec,$osnovniPodaciMesec->vrednost_akontacije,$osnovniPodaciMesec->id);
+            $akontacijePlacanjaResult = $this->dpsmAkontacijeInterface->createMany($akontacijePlacanjaData);
+
+
 
         } catch (\Exception $e) {
-            $result->delete();
+            $osnovniPodaciMesec->delete();
             return response()->json(['message' => 'Greska kod generisanja obracunskih koeficijenata', 'status' => false], 200);
 
         }
@@ -263,7 +286,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
         }
 
-        $resultOk = $this->kreirajObracunskeKoeficiente->execute($result);
+        $resultOk = $this->kreirajObracunskeKoeficienteService->otvoriAktivneRadnike($result);
         $obracunskiKoefId = $result;
 
         try {
@@ -356,22 +379,22 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         }
         return response()->json(['message' => $message, 'status' => true], 200);
     }
-
-    public function updateAll(Request $request)
-    {
-        $vrstePlacanjaData = $request->vrste_placanja;
-        $record_id =$request->record_id;
-        $radnikEvidencija = $this->mesecnatabelapoentazaInterface->getById($record_id);
-        $status = $this->updateVrstePlacanjaJson->updateAll($radnikEvidencija,$vrstePlacanjaData);
-
-        if($status){
-            $message='uspesno promenjen';
-            return response()->json(['message' => $message, 'status' => true], 200);
-
-        }
-        $message='greska';
-        return response()->json(['message' => $message, 'status' => false], 200);
-    }
+//
+//    public function updateAll(Request $request)
+//    {
+//        $vrstePlacanjaData = $request->vrste_placanja;
+//        $record_id =$request->record_id;
+//        $radnikEvidencija = $this->mesecnatabelapoentazaInterface->getById($record_id);
+//        $status = $this->updateVrstePlacanjaJson->updateAll($radnikEvidencija,$vrstePlacanjaData);
+//
+//        if($status){
+//            $message='uspesno promenjen';
+//            return response()->json(['message' => $message, 'status' => true], 200);
+//
+//        }
+//        $message='greska';
+//        return response()->json(['message' => $message, 'status' => false], 200);
+//    }
 
 
     public function getMonthDataById(Request $request){
@@ -412,35 +435,5 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
     }
 
-    public function showAllKrediti(Request $request)
-    {
 
-        $user_id = auth()->user()->id;
-        $userPermission = UserPermission::where('user_id', $user_id)->first();
-        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
-        $id = $request->month_id;
-        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
-
-        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTableAkontacije('obracunski_koef_id', $id);
-        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
-        $mesecnaTabelaPoentazaPermissions = $this->pripremiPermisijePoenteriOdobravanja->execute('obracunski_koef_id', $id);
-
-        $inputDate = Carbon::parse($monthData->datum);
-        $formattedDate = $inputDate->format('m.Y');
-
-        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_all_krediti',
-            [
-                'formattedDate' => $formattedDate,
-                'monthData'=>$monthData,
-                'mesecnaTabelaPotenrazaTable' => $mesecnaTabelaPotenrazaTable,
-                'mesecnaTabelaPoentazaPermissions'=>$mesecnaTabelaPoentazaPermissions,
-                'tableHeaders' => $tableHeaders,
-                'vrstePlacanjaDescription'=>$this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
-                'troskovnaMestaPermission' => $troskovnaMestaPermission,
-                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
-                'userPermission'=>$userPermission
-            ]);
-
-
-    }
 }

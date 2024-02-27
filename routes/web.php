@@ -9,12 +9,17 @@ use App\Modules\Kadrovskaevidencija\Controllers\StrucnakvalifikacijaController;
 use App\Modules\Kadrovskaevidencija\Controllers\VrstaradasifarnikController;
 use App\Modules\Kadrovskaevidencija\Controllers\ZanimanjasifarnikController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihStatusController;
+use App\Modules\Obracunzarada\Controllers\DpsmAkontacijeController;
+use App\Modules\Obracunzarada\Controllers\DpsmFiksnaPlacanjaController;
+use App\Modules\Obracunzarada\Controllers\DpsmKreditiController;
+use App\Modules\Obracunzarada\Controllers\DpsmPoentazaslogController;
 use App\Modules\Obracunzarada\Controllers\KreditoriController;
 use App\Modules\Obracunzarada\Controllers\MaticnadatotekaradnikaController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihkoeficijenataController;
 use App\Modules\Obracunzarada\Controllers\MinimalnebrutoosnoviceController;
 use App\Modules\Obracunzarada\Controllers\OblikradaController;
 use App\Modules\Obracunzarada\Controllers\ObracunZaradaController;
+use App\Modules\Obracunzarada\Controllers\ObradaPripremaController;
 use App\Modules\Obracunzarada\Controllers\PorezdobrinosiController;
 use App\Modules\Obracunzarada\Controllers\VrsteplacanjaController;
 use App\Modules\Osnovnipodaci\Controllers\FirmaController;
@@ -198,28 +203,40 @@ Route::middleware('auth')->group(function () {
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/store_update',[DatotekaobracunskihkoeficijenataController::class,'storeUpdate'])->name('datotekaobracunskihkoeficijenata.store_update');
 
+    // POENTERSKI UNOS
+
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update',[DatotekaobracunskihkoeficijenataController::class,'update'])->name('datotekaobracunskihkoeficijenata.update');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/check',[DatotekaobracunskihkoeficijenataController::class,'check'])->name('datotekaobracunskihkoeficijenata.check');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje',[DatotekaobracunskihkoeficijenataController::class,'odobravanje'])->name('datotekaobracunskihkoeficijenata.odobravanje');
 
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all',[DatotekaobracunskihkoeficijenataController::class,'showAll'])->name('datotekaobracunskihkoeficijenata.show_all');
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show',[DatotekaobracunskihkoeficijenataController::class,'show'])->name('datotekaobracunskihkoeficijenata.show');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updateall',[DatotekaobracunskihkoeficijenataController::class,'updateall'])->name('datotekaobracunskihkoeficijenata.updateall');
+    // UNOS VARIJABILNIH
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all',[DpsmPoentazaslogController::class,'showAll'])->name('datotekaobracunskihkoeficijenata.show_all');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show',[DpsmPoentazaslogController::class,'show'])->name('datotekaobracunskihkoeficijenata.show');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updateall',[DpsmPoentazaslogController::class,'updateall'])->name('datotekaobracunskihkoeficijenata.updateall');
 
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_akontacije',[DatotekaobracunskihkoeficijenataController::class,'showAllAkontacije'])->name('datotekaobracunskihkoeficijenata.show_all_akontacije');
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_akontacije',[DatotekaobracunskihkoeficijenataController::class,'showAkontacije'])->name('datotekaobracunskihkoeficijenata.show_akontacije');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_akontacije',[DatotekaobracunskihkoeficijenataController::class,'updateAkontacije'])->name('datotekaobracunskihkoeficijenata.update_akontacije');
+    // AKONTACIJE
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_akontacije',[DpsmAkontacijeController::class,'showAllAkontacije'])->name('datotekaobracunskihkoeficijenata.show_all_akontacije');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_akontacije',[DpsmAkontacijeController::class,'showAkontacije'])->name('datotekaobracunskihkoeficijenata.show_akontacije');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_akontacije',[DpsmAkontacijeController::class,'updateAkontacije'])->name('datotekaobracunskihkoeficijenata.update_akontacije');
 
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_fiksnap',[DatotekaobracunskihkoeficijenataController::class,'showAllFiksnap'])->name('datotekaobracunskihkoeficijenata.show_all_fiksnap');
+
+    // FIKSNA PLACANJA
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_fiksnap',[DpsmFiksnaPlacanjaController::class,'showAllFiksnap'])->name('datotekaobracunskihkoeficijenata.show_all_fiksnap');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_fiksnap',[DpsmFiksnaPlacanjaController::class,'showFiksnap'])->name('datotekaobracunskihkoeficijenata.show_fiksnap');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_fiksnap',[DpsmFiksnaPlacanjaController::class,'updateFiksnap'])->name('datotekaobracunskihkoeficijenata.update_fiksnap');
+
+
+    // KREDITI
+      Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_krediti',[DpsmKreditiController::class,'showAllKrediti'])->name('datotekaobracunskihkoeficijenata.show_all_krediti');
 //    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_fiksnap',[DatotekaobracunskihkoeficijenataController::class,'showAkontacije'])->name('datotekaobracunskihkoeficijenata.show_akontacije');
 //    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_fiksnap',[DatotekaobracunskihkoeficijenataController::class,'updateAkontacije'])->name('datotekaobracunskihkoeficijenata.update_akontacije');
 
 
-      Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_krediti',[DatotekaobracunskihkoeficijenataController::class,'showAllKrediti'])->name('datotekaobracunskihkoeficijenata.show_all_krediti');
-//    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_fiksnap',[DatotekaobracunskihkoeficijenataController::class,'showAkontacije'])->name('datotekaobracunskihkoeficijenata.show_akontacije');
-//    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_fiksnap',[DatotekaobracunskihkoeficijenataController::class,'updateAkontacije'])->name('datotekaobracunskihkoeficijenata.update_akontacije');
+
+    // Mesecna Obrada
 
 
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index',[ObradaPripremaController::class,'obradaIndex'])->name('datotekaobracunskihkoeficijenata.mesecna_obrada_index');
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/permissionStatusUpdate',[DatotekaobracunskihStatusController::class,'permissionStatusUpdate'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatus');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updatePermissionStatusAdministrator',[DatotekaobracunskihStatusController::class,'updatePermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatusAdministrator');

@@ -30,7 +30,7 @@
 
             <div class="form-group mt-5 mb-5">
                 <label for="vrednost_akontacije">Vrednost akontacije:</label>
-                <input type="number" name="vrednost_akontacije" class="form-control" id="vrednost_akontacije" value="{{$vrednostAkontacije['iznos']}}">
+                <input type="number" name="vrednost_akontacije" class="form-control" id="vrednost_akontacije" value="{{$vrednostAkontacije}}">
                 <input type="hidden" name="mesecna_tabela_poentaza_id" value="{{$mesecna_tabela_poentaza_id}}">
             </div>
             <div class="text-center">

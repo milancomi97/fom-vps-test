@@ -16,6 +16,7 @@
         .col-width{
             width: 100px;
         }
+
     </style>
 @endsection
 

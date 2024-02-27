@@ -1,3 +1,44 @@
+{{--@php use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef; @endphp--}}
+{{--@extends('obracunzarada::theme.layout.app')--}}
+
+{{--@section('custom-styles')--}}
+{{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"/>--}}
+{{--    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css"/>--}}
+
+{{--    <style>--}}
+{{--        .new-vrste-placanja{--}}
+{{--            width: 250px;--}}
+{{--        }--}}
+
+{{--        .nov-naziv{--}}
+{{--            width: 250px;--}}
+{{--        }--}}
+{{--        .col-width{--}}
+{{--            width: 100px;--}}
+{{--        }--}}
+
+{{--    </style>--}}
+{{--@endsection--}}
+
+{{--@section('content')--}}
+
+{{--    <h1 class="text-center mt-5">Priprema obrade:</h1>--}}
+
+{{--    <div class="container mb-5">--}}
+
+{{--        <h3> Odradili logiku da se prikazu svi radnici i da se čekiraju zatim čekiranima da se prikažu obračuni</h3>--}}
+{{--        <h3> Pre nego što se otvori ova stranica da se popune pomocne tabele, pre očitavanja radnika</h3>--}}
+{{--<h4> Na prikazu radnika možemo ispisati obrađene informacije</h4>--}}
+
+{{--    </div>--}}
+
+
+{{--@endsection--}}
+
+{{--@section('custom-scripts')--}}
+{{--    <script>--}}
+{{--    </script>--}}
+{{--@endsection--}}
 @php use App\Modules\Obracunzarada\Consts\StatusOdgovornihLicaObracunskiKoef;use App\Modules\Obracunzarada\Consts\StatusPoenteraObracunskiKoef;use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;use App\Modules\Obracunzarada\Consts\UserRoles; @endphp
 @extends('obracunzarada::theme.layout.app')
 
@@ -93,14 +134,21 @@
 @endsection
 
 @section('content')
-{{--    <div class="container main-container mb-5">--}}
-        <div class="container mb-5">
+    {{--    <div class="container main-container mb-5">--}}
+    <div class="container mb-5">
 
-        <h2 class="text-center">Evidencija fiksnih plaćanja radnika</h2>
-            <h1 class="text-center"><b>{!! $formattedDate!!}</b></h1>
+        <h2 class="text-center">Obrada radnika</h2>
+        <h1 class="text-center"><b>{!! $formattedDate!!}</b></h1>
 
 
-        <div class="container mt-5 ">
+        <button class="btn btn-primary">
+            Štampaj podatke za sve
+        </button>
+
+        <button class="btn btn-primary">
+            Obradi podatke za štiklirane
+        </button>
+        <div class="container mt-5">
             <ul class="list-group">
                 <li class="list-group-item">Kalendarski broj dana: {{$monthData->kalendarski_broj_dana}}</li>
                 <li class="list-group-item">Prosečni godišnji fond
@@ -133,12 +181,13 @@
                             <th>Prezime ime</th>
                             <th>Napomena</th>
                             <th>STATUS</th>
-                            <th>Vrednost fiksnih plaćanja</th>
-                            <th>Izmena fiksnih plaćanja</th>
+                            <th>CHECK BOX</th>
+                            <th>Prikaži podatke o zaradi</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($organizacionacelina as $value)
+
                             <tr>
                                 <td>{{ $value['maticni_broj'] }}</td>
                                 <td class="ime_prezime">{{ $value['ime'] }}</td>
@@ -164,13 +213,18 @@
                                 </td>
                                 <td class="izmena_akontacije_td text-center font-weight-bold">
 
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox">
+                                        </div>
+                                    </div>
                                     {{$value['vrste_placanja_akontacija']}}
                                 </td>
 
                                 <td class="izmena_akontacije_td"
                                     data-record-id="{{$value['id']}}">
-                                    <a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_fiksnap?radnik_id=').$value['id']!!}">
-                                    <span class="napomena text-info">   <i class="fas fa-edit"></i></span>
+                                    <a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_akontacije?radnik_id=').$value['id']!!}">
+                                        <span class="napomena text-info">   <i class="fas fa-edit"></i></span>
                                     </a>
                                 </td>
                                 @endforeach
@@ -187,9 +241,9 @@
                                 <h2>Poenteri:</h2>
                                 <div class="d-flex flex-column align-items-start">
                                     @foreach($mesecnaTabelaPoentazaPermissions[$key]['poenterData'] as $poenterId => $poenterStatusData)
-                                            <p>{{$poenterStatusData['name'] }} -
-                                                <b> {{StatusPoenteraObracunskiKoef::all()[$poenterStatusData['status']]}}</b>
-                                            </p>
+                                        <p>{{$poenterStatusData['name'] }} -
+                                            <b> {{StatusPoenteraObracunskiKoef::all()[$poenterStatusData['status']]}}</b>
+                                        </p>
                                     @endforeach
                                 </div>
                             </div>
@@ -198,9 +252,9 @@
                                 <div class="d-flex flex-column align-items-start">
                                     @foreach($mesecnaTabelaPoentazaPermissions[$key]['odgovornaLicaData'] as $odgovornoLiceId => $odgovornaLicaDataStatusData)
 
-                                            <p>{{$odgovornaLicaDataStatusData['name'] }} -
-                                                <b> {{StatusOdgovornihLicaObracunskiKoef::all()[$odgovornaLicaDataStatusData['status']]}}</b>
-                                            </p>
+                                        <p>{{$odgovornaLicaDataStatusData['name'] }} -
+                                            <b> {{StatusOdgovornihLicaObracunskiKoef::all()[$odgovornaLicaDataStatusData['status']]}}</b>
+                                        </p>
                                     @endforeach
                                 </div>
                             </div>
@@ -352,6 +406,6 @@
 
         });
     </script>
-    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show_all_fiksnap/ajax_logic.js') }}"></script>
-    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show_all_fiksnap/modal_logic.js') }}"></script>
+    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_obrada_index/ajax_logic.js') }}"></script>
+    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_obrada_index/modal_logic.js') }}"></script>
 @endsection

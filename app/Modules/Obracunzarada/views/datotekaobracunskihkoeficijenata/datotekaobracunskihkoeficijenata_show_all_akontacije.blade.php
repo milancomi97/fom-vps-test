@@ -96,8 +96,12 @@
 {{--    <div class="container main-container mb-5">--}}
         <div class="container mb-5">
 
-        <h2>Evidencija akontacija radnika datum: <b>{!! $formattedDate!!}</b></h2>
-        <div class="container ">
+        <h2 class="text-center">Evidencija akontacija radnika</h2>
+            <h1 class="text-center"><b>{!! $formattedDate!!}</b></h1>
+
+
+
+        <div class="container mt-5">
             <ul class="list-group">
                 <li class="list-group-item">Kalendarski broj dana: {{$monthData->kalendarski_broj_dana}}</li>
                 <li class="list-group-item">Prosečni godišnji fond
@@ -136,6 +140,7 @@
                         </thead>
                         <tbody>
                         @foreach($organizacionacelina as $value)
+
                             <tr>
                                 <td>{{ $value['maticni_broj'] }}</td>
                                 <td class="ime_prezime">{{ $value['ime'] }}</td>
@@ -161,7 +166,7 @@
                                 </td>
                                 <td class="izmena_akontacije_td text-center font-weight-bold">
 
-                                    {{$value['vrste_placanja_akontacija']['iznos']}}
+                                    {{$value['vrste_placanja_akontacija']}}
                                 </td>
 
                                 <td class="izmena_akontacije_td"

@@ -30,4 +30,10 @@ class Mesecnatabelapoentaza extends Model
     {
         return $this->belongsTo(Maticnadatotekaradnika::class, 'user_mdr_id');
     }
+
+    public function dpsmakontacije()
+    {
+        // $related , $foreignKey = null, $localKey = null)
+        return $this->hasOne(DpsmAkontacije::class,'user_dpsm_id');
+    }
 }

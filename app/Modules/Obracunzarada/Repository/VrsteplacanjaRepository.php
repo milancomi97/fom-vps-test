@@ -16,30 +16,6 @@ class VrsteplacanjaRepository extends BaseRepository implements VrsteplacanjaRep
         parent::__construct($model);
     }
 
-    public function getVrstePlacanjaData(){
-        $data = $this->model->all()->sortBy('redosled_poentaza_zaglavlje');
-        // Prvo sortiraj pa onda kada dodjes do 19, prestani
-        // Treba da bude 19
-
-        $filteredData =$data->map(function ($item) {
-            $newValue = strtolower(str_replace(' ', '_',  $item['naziv_naziv_vrste_placanja']));
-
- // Otvaranje praznih Vrsta placanja
-            return $item['id'] =[
-                'key'=> $item['rbvp_sifra_vrste_placanja'],
-                'name' => $newValue,
-                'sati'=>0,
-                'id'=>$item['id'],
-                'iznos'=>'',
-                'procenat'=>'',
-                'RJ_radna_jedinica'=>'',
-                'BRIG_brigada'=>''
-            ];
-        });
-       return $filteredData->take(19);
-    }
-
-
     public function getVrstePlacanjaOpis(){
         $data = $this->model->all()->sortBy('redosled_poentaza_opis');
 

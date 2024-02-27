@@ -16,6 +16,7 @@
         .col-width{
             width: 100px;
         }
+
     </style>
 @endsection
 
@@ -23,28 +24,54 @@
 
     <h1 class="text-center mt-5">Izmena Fiksnih plaćanja:</h1>
 
-    <div class="container mb-5">
-        <h1  class="text-center mt-5" >{{$mesecnaTabelaPoentaza->maticni_broj .' ' .$mesecnaTabelaPoentaza->prezime  . ' ' . $mesecnaTabelaPoentaza->ime }}</h1>
-        <form method="post" action="{{ route('datotekaobracunskihkoeficijenata.update_akontacije') }}">
-            @csrf
+    <div class="container">
 
-            <div class="form-group mt-5 mb-5">
-                <label for="vrednost_akontacije">Vrednost akontacije:</label>
-                <input type="number" name="vrednost_akontacije" class="form-control" id="vrednost_akontacije" value="{{$vrednostAkontacije['iznos']}}">
-                <input type="hidden" name="mesecna_tabela_poentaza_id" value="{{$mesecna_tabela_poentaza_id}}">
+        <div class="container mt-5">
+            <div class="container text-center">
+                <button data-record-id="{{$mesecnaTabelaPoentaza->id}}"  class="btn btn-primary btn-lg text-center submitBtn">Sačuvaj izmene</button>
             </div>
-            <div class="text-center">
-
-            <button type="submit" class="btn btn-primary btn-lg mb-5">Izmeni</button>
+            <!-- Left Column - Form -->
+            <div class="col-md-12 text-center mt-5"  id="form-column">
+                <h1> {{$mesecnaTabelaPoentaza->maticni_broj}}
+                    {{$mesecnaTabelaPoentaza->prezime}}
+                    {{$mesecnaTabelaPoentaza->ime}}
+                </h1>
+            </div>
+            <table class="table table-bordered" id="editableTable">
+                <thead>
+                <tr>
+                    <th>Šifra vrste plaćanja</th>
+                    <th>Naziv vrste plaćanja</th>
+                    <th>Sati</th>
+                    <th>Iznos</th>
+                    <th>Procenat</th>
+                    <th>RJ</th>
+                    <th>Brigada</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div>
 
             </div>
-        </form>
+        </div>
+        <div class="container mb-5 mt-5 text-center">
+            <button data-record-id="{{$mesecnaTabelaPoentaza->id}}"  class="btn btn-primary btn-lg text-center submitBtn" >Sačuvaj izmene</button>
+        </div>
     </div>
+
 
 
 @endsection
 
 @section('custom-scripts')
     <script>
+        var vrstePlacanja = {!! $vrstePlacanja !!};
+        var vrstePlacanjaData = {!! $vrstePlacanjaData !!};
+        var storeAllRoute = '{!! route('datotekaobracunskihkoeficijenata.update_fiksnap') !!}';
+
     </script>
+
+    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show_fiksnap/ajax_logic.js') }}"></script>
 @endsection

@@ -15,6 +15,7 @@
             border-bottom-width: 2px;
         }
 
+
         .tooltip {
             font-weight: 800;
             font-size: large;
@@ -96,8 +97,9 @@
 {{--    <div class="container main-container mb-5">--}}
         <div class="container mb-5">
 
-        <h2>Evidencija rada i odsustvovanje radnika datum: <b>{!! $formattedDate!!}</b></h2>
-        <div class="container ">
+        <h2 class="text-center">Evidencija rada i odsustvovanje radnika VARIJABILNA</h2>
+            <h1 class="text-center" ><b>{!! $formattedDate!!}</b></h1>
+        <div class="container mt-5">
             <ul class="list-group">
                 <li class="list-group-item">Kalendarski broj dana: {{$monthData->kalendarski_broj_dana}}</li>
                 <li class="list-group-item">Prosečni godišnji fond
