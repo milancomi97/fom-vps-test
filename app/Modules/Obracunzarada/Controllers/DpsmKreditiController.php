@@ -9,6 +9,7 @@ use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmAkontacijeRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\KreditoriRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
@@ -29,6 +30,7 @@ class DpsmKreditiController extends Controller
         private readonly MesecnatabelapoentazaRepositoryInterface            $mesecnatabelapoentazaInterface,
         private readonly PripremiPermisijePoenteriOdobravanja $pripremiPermisijePoenteriOdobravanja,
         private readonly VrsteplacanjaRepository $vrsteplacanjaInterface,
+        private readonly KreditoriRepositoryInterface $kreditoriInteface
     )
     {
     }
@@ -75,7 +77,7 @@ class DpsmKreditiController extends Controller
         $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
         $id = $request->radnik_id;
         $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($id);
-        $mesecnaTabelaPoentaza->load('dpsmakontacije');
+//        $mesecnaTabelaPoentaza->load('dpsmakontacije');
         $month_id = $mesecnaTabelaPoentaza->obracunski_koef_id;
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($month_id);
 
@@ -86,18 +88,20 @@ class DpsmKreditiController extends Controller
 //        $vrednostAkontacije = collect(json_decode($mesecnaTabelaPoentaza->vrste_placanja,true))->where('key', '061')->first();
         $vrstePlacanja = $this->vrsteplacanjaInterface->where('DOVP_tip_vrste_placanja',false)->get();
 
-        $vrednostAkontacije = $mesecnaTabelaPoentaza->dpsmakontacije->iznos;
+//        $vrednostAkontacije = $mesecnaTabelaPoentaza->dpsmakontacije->iznos;
 
+        $kreditoriList = $this->kreditoriInteface->getAll();
+//        sifk_sifra_kreditora imek_naziv_kreditora
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_krediti',
             [
                 'monthData' => $formattedDate,
                 'mesecnaTabelaPoentaza' => $mesecnaTabelaPoentaza,
                 'troskovnaMestaPermission' => $troskovnaMestaPermission,
                 'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
-                'vrstePlacanja' => $vrstePlacanja->toJson(),
-                'vrstePlacanjaData' => '{}',
+                'listaKreditora' => $kreditoriList->toJson(),
+                'listaKreditoraData' => '{}',
 //                'vrstePlacanjaData' => $mesecnaTabelaPoentaza->vrste_placanja,
-                'vrednostAkontacije' =>$vrednostAkontacije,
+//                'vrednostAkontacije' =>$vrednostAkontacije,
                 'mesecna_tabela_poentaza_id' =>$mesecnaTabelaPoentaza->id
             ]);
 

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('maticni_broj')->nullable();
             $table->unsignedBigInteger('SIFK_sifra_kreditora')->nullable();
 
+            $table->string('IMEK_naziv_kreditora')->nullable();
+
             $table->string('PART_partija_poziv_na_broj')->nullable();
 
             $table->integer('GLAVN_glavnica')->nullable();

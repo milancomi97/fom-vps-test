@@ -168,7 +168,10 @@ class DpsmFiksnaPlacanjaController extends Controller
 
         }
 
-        return redirect()->route('datotekaobracunskihkoeficijenata.show_all_fiksnap', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id]);
+        return response()->json([
+            'status'=>true,
+            'url'=>url()->route('datotekaobracunskihkoeficijenata.show_all_fiksnap', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id])
+        ]);
 
     }
 
