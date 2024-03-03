@@ -56,6 +56,9 @@ class DpsmFiksnaPlacanjaController extends Controller
 
         $vrednostAkontacije = $mesecnaTabelaPoentaza->dpsmakontacije->iznos;
 
+        $fiksnapData = $this->dpsmFiksnaPlacanjaInteface->where('user_dpsm_id',$id)->get();
+
+
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_fiksnap',
             [
                 'monthData' => $formattedDate,
@@ -63,7 +66,7 @@ class DpsmFiksnaPlacanjaController extends Controller
                 'troskovnaMestaPermission' => $troskovnaMestaPermission,
                 'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
                 'vrstePlacanja' => $vrstePlacanja->toJson(),
-                'vrstePlacanjaData' => '{}',
+                'vrstePlacanjaData' => json_encode($fiksnapData),
 //                'vrstePlacanjaData' => $mesecnaTabelaPoentaza->vrste_placanja,
                 'vrednostAkontacije' =>$vrednostAkontacije,
                 'mesecna_tabela_poentaza_id' =>$mesecnaTabelaPoentaza->id
@@ -111,26 +114,60 @@ class DpsmFiksnaPlacanjaController extends Controller
 //        $id = $request->mesecna_tabela_poentaza_id;
         $userMonthId = $request->record_id;
         $vrstePlacanjaData = $request->vrste_placanja;
+        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($userMonthId);
 
         $data=[];
+        $fiksnapData = $this->dpsmFiksnaPlacanjaInteface->where('user_dpsm_id',$userMonthId)->get();
 
-        foreach ($vrstePlacanjaData as $vrstaPlacanja){
-            $data[]=[
-                'user_id'=>$userMonthId,
-                'key'=>$vrstaPlacanja['key'],
-                'sati'=>$vrstaPlacanja['sati'],
-            ];
+        if($vrstePlacanjaData){
+
+        if($fiksnapData->count()){
+            // TODO Update logic, ADD FLAG FOR ACTUAL
+            $oldData = array_column($fiksnapData->toArray(),'sifra_vrste_placanja');
+            foreach ($vrstePlacanjaData as $vrstaPlacanja){
+                $toUpdate = in_array($vrstaPlacanja['key'],$oldData);
+                if($toUpdate){
+
+                }else{
+                    $data=[
+                        'user_dpsm_id'=>(int) $userMonthId,
+                        'sifra_vrste_placanja'=>$vrstaPlacanja['key'] ?? '',
+                        'naziv_vrste_placanja'=>$vrstaPlacanja['naziv'] ?? '',
+                        'sati'=>$vrstaPlacanja['sati'] ?? '',
+                        'iznos'=>$vrstaPlacanja['iznos'] ?? '',
+                        'procenat'=>$vrstaPlacanja['procenat'] ?? 0,
+                        'obracunski_koef_id'=> $mesecnaTabelaPoentaza->obracunski_koef_id
+                    ];
+                    $this->dpsmFiksnaPlacanjaInteface->create($data);
+                }
+
+
+            }
+        } else{
+            foreach ($vrstePlacanjaData as $vrstaPlacanja){
+
+                $data=[
+                    'user_dpsm_id'=>(int) $userMonthId,
+                    'sifra_vrste_placanja'=>$vrstaPlacanja['key'] ?? '',
+                    'naziv_vrste_placanja'=>$vrstaPlacanja['naziv'] ?? '',
+                    'sati'=>$vrstaPlacanja['sati'] ?? '',
+                    'iznos'=>$vrstaPlacanja['iznos'] ?? '',
+                    'procenat'=>$vrstaPlacanja['procenat'] ?? 0,
+                    'obracunski_koef_id'=> $mesecnaTabelaPoentaza->obracunski_koef_id
+                ];
+
+                $this->dpsmFiksnaPlacanjaInteface->create($data);
+            }
         }
+
         // DODAJ user_dpsm_id kod Fiksnih placanja
         // do foreach
         // do Load, save or update
         // Ucitaj podatke o vrstama placanja
 
-        $akontacijeData = $this->dpsmFiksnaPlacanjaInteface->where('user_dpsm_id',$userMonthId)->first();
-        $akontacijeData->iznos = $request->vrednost_akontacije;
-        $akontacijeData->save();
 
-        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($userMonthId);
+        }
+
         return redirect()->route('datotekaobracunskihkoeficijenata.show_all_fiksnap', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id]);
 
     }

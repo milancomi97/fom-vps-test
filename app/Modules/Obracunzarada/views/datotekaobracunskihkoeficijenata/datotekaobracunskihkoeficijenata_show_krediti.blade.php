@@ -22,7 +22,7 @@
 
 @section('content')
 
-    <h1 class="text-center mt-5">Izmena Kredita:</h1>
+    <h1 class="text-center mt-5">Unos Kredita:</h1>
 
     <div class="container mb-5">
         <h1  class="text-center mt-5" >{{$mesecnaTabelaPoentaza->maticni_broj .' ' .$mesecnaTabelaPoentaza->prezime  . ' ' . $mesecnaTabelaPoentaza->ime }}</h1>

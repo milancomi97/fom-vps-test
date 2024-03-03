@@ -29,9 +29,9 @@ class DatabaseSeeder extends Seeder
             OrganizacionecelineSeeder::class,
             PodaciofirmiSeeder::class,
             PartnerSeeder::class,
-           CategorySeeder::class,
-           StanjeZalihaSeeder::class,
-           MaterijalSeeder::class,
+//           CategorySeeder::class,
+//           StanjeZalihaSeeder::class,
+//           MaterijalSeeder::class,
         ]);
 
     }

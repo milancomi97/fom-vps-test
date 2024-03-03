@@ -12,6 +12,7 @@ class DpsmFiksnaPlacanja extends Model
     protected $fillable = [
         'maticni_broj',
         'sifra_vrste_placanja',
+        'naziv_vrste_placanja',
         'SLOV_grupa_vrste_placanja',
         'sati',
         'iznos',

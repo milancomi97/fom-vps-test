@@ -6,9 +6,9 @@ $(document).ready(function () {
         selectOptions += '<option value="' + vrstePlacanja[key]['rbvp_sifra_vrste_placanja'] + '">' + vrstePlacanja[key]['rbvp_sifra_vrste_placanja'] + ' - ' + vrstePlacanja[key]['naziv_naziv_vrste_placanja'] + '</option>';
     }
 
-    debugger;
     // Function to populate the table with JSON data
     function populateTable(vrsteData) {
+
         var tbody = $('#editableTable tbody');
 
         var counter = 0;
@@ -20,14 +20,14 @@ $(document).ready(function () {
             var row = `
   <tr class="vrste-placanja-data_tr">
     <td>
-      <input disabled type="text" class="form-control" name="sifra" value="${item.key}">
+      <input disabled type="text" class="form-control" name="sifra" value="${item.sifra_vrste_placanja}">
     </td>
-    <td><input disabled type="text" class="form-control" name="naziv" value="${item.name}"></td>
+    <td><input disabled type="text" class="form-control" name="naziv" value="${item.naziv_vrste_placanja}"></td>
     <td><input type="number" class="form-control col-width" name="sati" value="${item.sati}"></td>
     <td><input type="number" class="form-control col-width" name="iznos" value="${item.iznos}"></td>
     <td><input type="number" class="form-control col-width" name="procenat" value="${item.procenat}"></td>
-    <td><input type="text" class="form-control col-width" name="RJ_radna_jedinica" value="${item.RJ_radna_jedinica}"></td>RJ_radna_jedinica
-    <td><input type="text" class="form-control col-width" name="BRIG_brigada" value="${item.BRIG_brigada}"></td>
+
+
     <td><button type="button" class="btn btn-danger btn-sm delete-row">Obriši</button></td>
   </tr>
 `;
@@ -45,8 +45,8 @@ $(document).ready(function () {
     <td><input type="number" class="form-control col-width " name="sati" value=""></td>
     <td><input type="number" class="form-control col-width" name="iznos" value=""></td>
     <td><input type="number" class="form-control col-width" name="procenat" value=""></td>
-    <td><input type="text" class="form-control col-width" name="RJ_radna_jedinica" value=""></td>
-    <td><input type="text" class="form-control col-width" name="BRIG_brigada" value=""></td>
+<!--    <td><input type="text" class="form-control col-width" name="RJ_radna_jedinica" value=""></td>-->
+<!--    <td><input type="text" class="form-control col-width" name="BRIG_brigada" value=""></td>-->
     <td><button type="button" class="btn btn-success btn-sm add-row">Dodaj</button></td>
   </tr>
 `;
@@ -64,8 +64,8 @@ $(document).ready(function () {
     <td><input type="number" class="form-control col-width " name="sati" value=""></td>
     <td><input type="number" class="form-control col-width" name="iznos" value=""></td>
     <td><input type="number" class="form-control col-width" name="procenat" value=""></td>
-    <td><input type="text" class="form-control col-width" name="RJ_radna_jedinica" value=""></td>
-    <td><input type="text" class="form-control col-width" name="BRIG_brigada" value=""></td>
+<!--    <td><input type="text" class="form-control col-width" name="RJ_radna_jedinica" value=""></td>-->
+<!--    <td><input type="text" class="form-control col-width" name="BRIG_brigada" value=""></td>-->
     <td><button type="button" class="btn btn-success btn-sm add-row">Dodaj</button></td>
   </tr>
 `;
@@ -101,8 +101,8 @@ $(document).ready(function () {
     <td><input type="number" class="form-control col-width" name="sati" value=""></td>
     <td><input type="number" class="form-control col-width" name="iznos"  value=""></td>
     <td><input type="number" class="form-control col-width" name="procenat" value=""></td>
-    <td><input type="text" class="form-control col-width" name="RJ_radna_jedinica" value=""></td>
-    <td><input type="text" class="form-control col-width" name="BRIG_brigada"  value=""></td>
+<!--    <td><input type="text" class="form-control col-width" name="RJ_radna_jedinica" value=""></td>-->
+<!--    <td><input type="text" class="form-control col-width" name="BRIG_brigada"  value=""></td>-->
     <td><button type="button" class="btn btn-success btn-sm add-row">Dodaj</button></td>
   </tr>
 `;
@@ -134,6 +134,7 @@ $(document).ready(function () {
     $(document).on('click', 'body .submitBtn', function (event) {
         event.stopImmediatePropagation();
 
+        debugger;
         var vrstePlacanjaInputs = $('.vrste-placanja-data_tr');
 
         //nova_vrsta_placanja
@@ -142,29 +143,29 @@ $(document).ready(function () {
         $.each(vrstePlacanjaInputs, function (index, input) {
             var data = {};
 
-            var key = $(input).find(':input[name="sifra"]')
+            debugger;
+            var naziv = $(input).find(':input[name="naziv"]');
+            var key = $(input).find(':input[name="sifra"]');
             var sati = $(input).find(':input[name="sati"]');
-            var iznos = $(input).find(':input[name="iznos"]')
+            var iznos = $(input).find(':input[name="iznos"]');
             var procenat = $(input).find(':input[name="procenat"]');
-            var RJ_radna_jedinica = $(input).find(':input[name="RJ_radna_jedinica"]');
-            var BRIG_brigada = $(input).find(':input[name="BRIG_brigada"]');
+            // var RJ_radna_jedinica = $(input).find(':input[name="RJ_radna_jedinica"]');
+            // var BRIG_brigada = $(input).find(':input[name="BRIG_brigada"]');
 
             key.val() !== '' ? data.key = key.val() : undefined;
             sati.val() !== 0 ? data.sati = sati.val() : undefined;
             iznos.val() !== '' ? data.iznos = iznos.val() : undefined;
             procenat.val() !== '' ? data.procenat = procenat.val() : undefined;
-            RJ_radna_jedinica.val() !== '' ? data.RJ_radna_jedinica = RJ_radna_jedinica.val() : undefined;
-            BRIG_brigada.val() !== '' ? data.BRIG_brigada = BRIG_brigada.val() : undefined;
+            // RJ_radna_jedinica.val() !== '' ? data.RJ_radna_jedinica = RJ_radna_jedinica.val() : undefined;
+            // BRIG_brigada.val() !== '' ? data.BRIG_brigada = BRIG_brigada.val() : undefined;
+            naziv.val() !== '' ? data.naziv = naziv.val() : undefined;
 
-            if(key.val() !=='' && !(iznos.val() > 0 && sati.val() > 0  && procenat.val() > 0)){
+            if(key.val() !=='' && (iznos.val() !=='' || sati.val() !==''  || procenat.val() !=='')){
                 vrstePlacanja.push(data);
             }
         });
 
-        debugger
-
             var _token = $('input[name="_token"]').val();
-        debugger;
 
         $.ajax({
                 url: storeAllRoute,

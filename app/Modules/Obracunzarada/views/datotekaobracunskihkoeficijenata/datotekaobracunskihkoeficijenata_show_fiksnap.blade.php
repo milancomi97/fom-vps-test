@@ -27,11 +27,11 @@
     <div class="container">
 
         <div class="container mt-5">
-            <div class="container text-center">
-                <button data-record-id="{{$mesecnaTabelaPoentaza->id}}"  class="btn btn-primary btn-lg text-center submitBtn">Sačuvaj izmene</button>
-            </div>
+{{--            <div class="container text-center">--}}
+{{--                <button data-record-id="{{$mesecnaTabelaPoentaza->id}}"  class="btn btn-primary btn-lg text-center submitBtn">Sačuvaj izmene</button>--}}
+{{--            </div>--}}
             <!-- Left Column - Form -->
-            <div class="col-md-12 text-center mt-5"  id="form-column">
+            <div class="col-md-12 text-center mt-5 mb-5"  id="form-column">
                 <h1> {{$mesecnaTabelaPoentaza->maticni_broj}}
                     {{$mesecnaTabelaPoentaza->prezime}}
                     {{$mesecnaTabelaPoentaza->ime}}
@@ -45,8 +45,8 @@
                     <th>Sati</th>
                     <th>Iznos</th>
                     <th>Procenat</th>
-                    <th>RJ</th>
-                    <th>Brigada</th>
+{{--                    <th>RJ</th>--}}
+{{--                    <th>Brigada</th>--}}
                 </tr>
                 </thead>
                 <tbody>
