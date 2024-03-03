@@ -20,6 +20,9 @@ class DpsmFiksnaPlacanja extends Model
         'POK2_obracun_minulog_rada',
         'datum',
         'RBMZ',
-        'RBOP'];
+        'RBOP',
+        'obracunski_koef_id',
+        'user_dpsm_id'
+    ];
 
 }

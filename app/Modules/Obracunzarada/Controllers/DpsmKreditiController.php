@@ -67,4 +67,42 @@ class DpsmKreditiController extends Controller
 
     }
 
+    public function showKrediti(Request $request)
+    {
+
+        $user_id = auth()->user()->id;
+        $userPermission = UserPermission::where('user_id', $user_id)->first();
+        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
+        $id = $request->radnik_id;
+        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($id);
+        $mesecnaTabelaPoentaza->load('dpsmakontacije');
+        $month_id = $mesecnaTabelaPoentaza->obracunski_koef_id;
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($month_id);
+
+
+        $inputDate = Carbon::parse($monthData->datum);
+        $formattedDate = $inputDate->format('m.Y');
+//        $vrstePlacanja = $this->vrsteplacanjaInterface->getAll();
+//        $vrednostAkontacije = collect(json_decode($mesecnaTabelaPoentaza->vrste_placanja,true))->where('key', '061')->first();
+        $vrstePlacanja = $this->vrsteplacanjaInterface->where('DOVP_tip_vrste_placanja',false)->get();
+
+        $vrednostAkontacije = $mesecnaTabelaPoentaza->dpsmakontacije->iznos;
+
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_krediti',
+            [
+                'monthData' => $formattedDate,
+                'mesecnaTabelaPoentaza' => $mesecnaTabelaPoentaza,
+                'troskovnaMestaPermission' => $troskovnaMestaPermission,
+                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
+                'vrstePlacanja' => $vrstePlacanja->toJson(),
+                'vrstePlacanjaData' => '{}',
+//                'vrstePlacanjaData' => $mesecnaTabelaPoentaza->vrste_placanja,
+                'vrednostAkontacije' =>$vrednostAkontacije,
+                'mesecna_tabela_poentaza_id' =>$mesecnaTabelaPoentaza->id
+            ]);
+
+
+    }
+
+
 }

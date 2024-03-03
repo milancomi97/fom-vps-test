@@ -8,6 +8,7 @@ use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmAkontacijeRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
@@ -29,7 +30,7 @@ class DpsmFiksnaPlacanjaController extends Controller
         private readonly MesecnatabelapoentazaRepositoryInterface            $mesecnatabelapoentazaInterface,
         private readonly PripremiPermisijePoenteriOdobravanja $pripremiPermisijePoenteriOdobravanja,
         private readonly VrsteplacanjaRepository $vrsteplacanjaInterface,
-        private readonly DpsmAkontacijeRepositoryInterface $dpsmAkontacijeInterface
+        private readonly DpsmFiksnaPlacanjaRepositoryInterface $dpsmFiksnaPlacanjaInteface
     )
     {
     }
@@ -62,7 +63,8 @@ class DpsmFiksnaPlacanjaController extends Controller
                 'troskovnaMestaPermission' => $troskovnaMestaPermission,
                 'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
                 'vrstePlacanja' => $vrstePlacanja->toJson(),
-                'vrstePlacanjaData' => $mesecnaTabelaPoentaza->vrste_placanja,
+                'vrstePlacanjaData' => '{}',
+//                'vrstePlacanjaData' => $mesecnaTabelaPoentaza->vrste_placanja,
                 'vrednostAkontacije' =>$vrednostAkontacije,
                 'mesecna_tabela_poentaza_id' =>$mesecnaTabelaPoentaza->id
             ]);
@@ -106,13 +108,29 @@ class DpsmFiksnaPlacanjaController extends Controller
     public function updateFiksnap(Request $request)
     {
 
-        $id = $request->mesecna_tabela_poentaza_id;
-        $akontacijeData = $this->dpsmAkontacijeInterface->where('user_dpsm_id',$id)->first();
+//        $id = $request->mesecna_tabela_poentaza_id;
+        $userMonthId = $request->record_id;
+        $vrstePlacanjaData = $request->vrste_placanja;
+
+        $data=[];
+
+        foreach ($vrstePlacanjaData as $vrstaPlacanja){
+            $data[]=[
+                'user_id'=>$userMonthId,
+                'key'=>$vrstaPlacanja['key'],
+                'sati'=>$vrstaPlacanja['sati'],
+            ];
+        }
+        // DODAJ user_dpsm_id kod Fiksnih placanja
+        // do foreach
+        // do Load, save or update
+        // Ucitaj podatke o vrstama placanja
+
+        $akontacijeData = $this->dpsmFiksnaPlacanjaInteface->where('user_dpsm_id',$userMonthId)->first();
         $akontacijeData->iznos = $request->vrednost_akontacije;
         $akontacijeData->save();
 
-        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($id);
-
+        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($userMonthId);
         return redirect()->route('datotekaobracunskihkoeficijenata.show_all_fiksnap', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id]);
 
     }

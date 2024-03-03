@@ -54,6 +54,27 @@ $(document).ready(function () {
             tbody.append(row);
         });
 
+        if(counter==0){
+            var row = `
+  <tr class="vrste-placanja-data_tr nova_vrsta_placanja">
+    <td>
+      <select class="form-control new-vrste-placanja nov-key" name="sifra">${selectOptions}</select>
+    </td>
+    <td><input type="text" disabled class="form-control nov-naziv" name="naziv" value=""></td>
+    <td><input type="number" class="form-control col-width " name="sati" value=""></td>
+    <td><input type="number" class="form-control col-width" name="iznos" value=""></td>
+    <td><input type="number" class="form-control col-width" name="procenat" value=""></td>
+    <td><input type="text" class="form-control col-width" name="RJ_radna_jedinica" value=""></td>
+    <td><input type="text" class="form-control col-width" name="BRIG_brigada" value=""></td>
+    <td><button type="button" class="btn btn-success btn-sm add-row">Dodaj</button></td>
+  </tr>
+`;
+            tbody.append(row);
+
+        }
+
+
+
     }
 
     // Call the function to populate the table

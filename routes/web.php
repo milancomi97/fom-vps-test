@@ -228,8 +228,8 @@ Route::middleware('auth')->group(function () {
 
     // KREDITI
       Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_krediti',[DpsmKreditiController::class,'showAllKrediti'])->name('datotekaobracunskihkoeficijenata.show_all_krediti');
-//    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_fiksnap',[DatotekaobracunskihkoeficijenataController::class,'showAkontacije'])->name('datotekaobracunskihkoeficijenata.show_akontacije');
-//    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_fiksnap',[DatotekaobracunskihkoeficijenataController::class,'updateAkontacije'])->name('datotekaobracunskihkoeficijenata.update_akontacije');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_krediti',[DpsmKreditiController::class,'showKrediti'])->name('datotekaobracunskihkoeficijenata.show_krediti');
+//    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_krediti',[DatotekaobracunskihkoeficijenataController::class,'updateAkontacije'])->name('datotekaobracunskihkoeficijenata.update_akontacije');
 
 
 

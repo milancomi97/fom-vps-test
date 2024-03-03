@@ -169,7 +169,7 @@
                                     {{$value['vrste_placanja_akontacija']}}
                                 </td>
 
-                                <td class="izmena_akontacije_td"
+                                <td class="izmena_akontacije_td text-center"
                                     data-record-id="{{$value['id']}}">
                                     <a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_akontacije?radnik_id=').$value['id']!!}">
                                     <span class="napomena text-info">   <i class="fas fa-edit"></i></span>

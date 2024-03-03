@@ -27,6 +27,12 @@ return new class extends Migration
             $table->string('RBMZ'); // Ovo skini
             $table->string('RBOP'); // Opstina, ovo skini
 
+            $table->unsignedBigInteger('obracunski_koef_id');
+            $table->unsignedBigInteger('user_dpsm_id')->nullable(); // Mesec-Radnik-id
+
+            $table->foreign('user_dpsm_id')->references('id')->on('mesecnatabelapoentazas')->onDelete('cascade');
+            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

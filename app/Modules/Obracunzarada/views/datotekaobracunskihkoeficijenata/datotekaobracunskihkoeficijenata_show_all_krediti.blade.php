@@ -134,8 +134,7 @@
                             <th>Prezime ime</th>
                             <th>Napomena</th>
                             <th>STATUS</th>
-                            <th>Vrednost akontacije</th>
-                            <th>Izmena akontacije</th>
+                            <th>Izmena kredita</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -163,14 +162,9 @@
                                                 class=" far fa-times-circle"></i></span>
                                     @endif
                                 </td>
-                                <td class="izmena_akontacije_td text-center font-weight-bold">
-
-                                    {{$value['vrste_placanja_akontacija']['iznos']}}
-                                </td>
-
-                                <td class="izmena_akontacije_td"
+                                <td class="izmena_akontacije_td text-center"
                                     data-record-id="{{$value['id']}}">
-                                    <a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_akontacije?radnik_id=').$value['id']!!}">
+                                    <a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_krediti?radnik_id=').$value['id']!!}">
                                     <span class="napomena text-info">   <i class="fas fa-edit"></i></span>
                                     </a>
                                 </td>
