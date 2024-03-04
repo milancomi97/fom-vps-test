@@ -12,6 +12,7 @@ class DpsmKrediti extends Model
     protected $fillable = [
         'maticni_broj',
         'SIFK_sifra_kreditora',
+        'IMEK_naziv_kreditora',
         'PART_partija_poziv_na_broj',
         'GLAVN_glavnica',
         'SALD_saldo',

@@ -45,8 +45,8 @@
                     <th>Sati</th>
                     <th>Iznos</th>
                     <th>Procenat</th>
-{{--                    <th>RJ</th>--}}
-{{--                    <th>Brigada</th>--}}
+                    <th>RJ</th>
+                    <th>Brigada</th>
                 </tr>
                 </thead>
                 <tbody>

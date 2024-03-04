@@ -68,9 +68,9 @@
     <script>
         var listaKreditora = {!! $listaKreditora !!};
         var listaKreditoraData = {!! $listaKreditoraData !!};
-        var storeAllRoute = '{!! route('datotekaobracunskihkoeficijenata.update_fiksnap') !!}';
+        var storeAllRoute = '{!! route('datotekaobracunskihkoeficijenata.update_krediti') !!}';
 
     </script>
 
-    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show_fiksnap/ajax_logic.js') }}"></script>
+    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show_krediti/ajax_logic.js') }}"></script>
 @endsection

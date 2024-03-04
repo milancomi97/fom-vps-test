@@ -80,7 +80,7 @@ function updateMonthContainer(activeMonth) {
 
                 $("<h1></h1>").attr({
                     'class': 'offset-1 col col-lg-5 mt-3 btn font-weight-bold EMPTY',
-                }).css('cursor','default').appendTo(monthCard);
+                }).text('Izveštaji obrada plata').css('cursor','default').appendTo(monthCard);
 
 
 
@@ -95,7 +95,7 @@ function updateMonthContainer(activeMonth) {
 
                 $("<h1></h1>").attr({
                     'class': 'offset-1 col col-lg-5 mt-3 btn font-weight-bold EMPTY',
-                }).css('cursor','default').appendTo(monthCard);
+                }).text('Poreska prijava').css('cursor','default').appendTo(monthCard);
 
 
                 // Akontacije
@@ -109,7 +109,7 @@ function updateMonthContainer(activeMonth) {
 
                 $("<h1></h1>").attr({
                     'class': 'offset-1 col col-lg-5 mt-3 btn font-weight-bold EMPTY',
-                }).css('cursor','default').appendTo(monthCard);
+                }).text('Priprema podataka za banke').css('cursor','default').appendTo(monthCard);
 
 
 
@@ -123,7 +123,7 @@ function updateMonthContainer(activeMonth) {
 
                 $("<h1></h1>").attr({
                     'class': 'offset-1 col col-lg-5 mt-3 btn font-weight-bold EMPTY',
-                }).css('cursor','default').appendTo(monthCard);
+                }).text('Arhiva').css('cursor','default').appendTo(monthCard);
 
 
 
