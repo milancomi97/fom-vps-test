@@ -20,7 +20,7 @@
                     <thead>
                     <tr>
                         <th>Mesec i godina M_G</th>
-                        <th>Iznos poreskog oslobadjanja IZN1</th>
+                        <th>Iznos poreskog oslobodjenja IZN1</th>
                         <th>Opis poreza OPPOR</th>
                         <th>Porez P1</th>
                         <th>Opis zdravstvenog osiguranja na teret radnika OPIS1</th>

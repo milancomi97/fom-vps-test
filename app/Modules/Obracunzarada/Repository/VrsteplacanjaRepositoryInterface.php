@@ -7,5 +7,6 @@ use App\Repository\BaseRepositoryInterface;
 interface VrsteplacanjaRepositoryInterface extends BaseRepositoryInterface
 {
 
+    public function getAllKeySifra();
 }
 

@@ -21,7 +21,12 @@ class DpsmFiksnaPlacanja extends Model
         'POK2_obracun_minulog_rada',
         'datum',
         'obracunski_koef_id',
-        'user_dpsm_id'
+        'user_dpsm_id',
+        'user_mdr_id'
     ];
 
+    public function maticnadatotekaradnika()
+    {
+        return $this->belongsTo(Maticnadatotekaradnika::class, 'user_mdr_id');
+    }
 }

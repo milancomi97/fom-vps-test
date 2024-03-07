@@ -50,4 +50,14 @@ class VrsteplacanjaRepository extends BaseRepository implements VrsteplacanjaRep
 
         return $html;
     }
+
+    public function getAllKeySifra(){
+        $data = $this->model->all()->toArray();
+
+        $keySifraArray=[];
+        foreach ($data as $vrstaPlacanja){
+            $keySifraArray[$vrstaPlacanja['rbvp_sifra_vrste_placanja']] = $vrstaPlacanja;
+        }
+        return $keySifraArray;
+    }
 }

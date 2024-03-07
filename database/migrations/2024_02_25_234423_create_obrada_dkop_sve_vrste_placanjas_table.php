@@ -42,11 +42,15 @@ return new class extends Migration
             $table->string('PART_partija_kredita')->nullable(); // DKRE Kreditori
             $table->string('POROSL_poresko_oslobodjenje')->nullable(); // DPOR
 
+
             $table->unsignedBigInteger('obracunski_koef_id')->nullable();
             $table->unsignedBigInteger('user_dpsm_id')->nullable(); // Mesec-Radnik-id
+            $table->unsignedBigInteger('user_mdr_id')->nullable();
 
             $table->foreign('user_dpsm_id')->references('id')->on('mesecnatabelapoentazas')->onDelete('cascade');
             $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
+            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
+            $table->string('tip_unosa')->nullable();
 
             $table->id();
             $table->timestamps();

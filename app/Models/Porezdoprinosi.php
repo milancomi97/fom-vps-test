@@ -12,8 +12,8 @@ class Porezdoprinosi extends Model
     protected $fillable = [
         'mesec',
         'godina',
-        'opis0_opis_iznos_poreskog_oslobadjanja',
-        'izn1_iznos_poreskog_oslobadjanja',
+        'opis0_opis_iznos_poreskog_oslobodjenja',
+        'izn1_iznos_poreskog_oslobodjenja',
         'oppor_opis_poreza',
         'p1_porez',
         'opis1_opis_zdravstvenog_osiguranja_na_teret_radnika',

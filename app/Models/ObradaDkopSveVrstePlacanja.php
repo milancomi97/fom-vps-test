@@ -29,6 +29,10 @@ class ObradaDkopSveVrstePlacanja extends Model
         'STSALD_Prethodni_saldo',
         'NEAK_neopravdana_akontacija',
         'PART_partija_kredita',
-        'POROSL_poresko_oslobodjenje'
+        'POROSL_poresko_oslobodjenje',
+        'obracunski_koef_id',
+        'user_dpsm_id',
+        'user_mdr_id',
+        'tip_unosa'
     ];
 }
