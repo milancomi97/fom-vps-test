@@ -8,12 +8,15 @@ use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmAkontacijeRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
 use App\Modules\Obracunzarada\Service\KreirajPermisijePoenteriOdobravanja;
+use App\Modules\Obracunzarada\Service\ObradaPripremaService;
 use App\Modules\Obracunzarada\Service\PripremiPermisijePoenteriOdobravanja;
 use App\Modules\Obracunzarada\Service\UpdateNapomena;
 use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
@@ -26,16 +29,16 @@ class ObradaPripremaController extends Controller
 {
     public function __construct(
         private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface,
-        private readonly KreirajObracunskeKoeficiente                        $kreirajObracunskeKoeficienteService,
         private readonly MesecnatabelapoentazaRepositoryInterface            $mesecnatabelapoentazaInterface,
         private readonly UpdateVrstePlacanjaJson                             $updateVrstePlacanjaJson,
-        private readonly UpdateNapomena                                      $updateNapomena,
-        private readonly PermesecnatabelapoentRepositoryInterface            $permesecnatabelapoentInterface,
-        private readonly KreirajPermisijePoenteriOdobravanja $kreirajPermisijePoenteriOdobravanja,
-        private readonly PripremiPermisijePoenteriOdobravanja $pripremiPermisijePoenteriOdobravanja,
-        private readonly VrsteplacanjaRepository $vrsteplacanjaInterface,
-        private readonly DpsmPoentazaslogRepositoryInterface $dpsmPoentazaslogInterface,
-        private readonly DpsmAkontacijeRepositoryInterface $dpsmAkontacijeInterface
+        private readonly VrsteplacanjaRepository                             $vrsteplacanjaInterface,
+        private readonly DpsmAkontacijeRepositoryInterface                   $dpsmAkontacijeInterface,
+        private readonly DpsmPoentazaslogRepositoryInterface                 $dpsmPoentazaslogInterface,
+        private readonly DpsmFiksnaPlacanjaRepositoryInterface $dpsmFiksnaPlacanjaInterface,
+        private readonly DpsmKreditiRepositoryInterface $dpsmKreditiInterface,
+        private readonly ObradaPripremaService $obradaPripremaService,
+
+
     )
     {
     }
@@ -48,7 +51,28 @@ class ObradaPripremaController extends Controller
         $userPermission = UserPermission::where('user_id', $user_id)->first();
         $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
         $id = $request->month_id;
-        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
+         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
+
+//        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->select('vrste_placanja','user_id','maticni_broj','obracunski_koef_id')->get();
+        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->get();
+
+        $poenteriPrepared =  $this->obradaPripremaService->pripremiUnosPoentera($poenteriData);
+
+
+
+        $allFiksnaPlacanjaData =$this->dpsmFiksnaPlacanjaInterface->where('obracunski_koef_id',$id)->get();
+            $allFiksnaPlacanjaPrepared = $this->obradaPripremaService->pripremiFiksnaPlacanja($allFiksnaPlacanjaData);
+
+            $akontacijeData = $this->dpsmAkontacijeInterface->where('obracunski_koef_id',$id)->get();
+            $akontacijePrepared = $this->obradaPripremaService->pripremiAkontacije($akontacijeData);
+
+            $varijabilnaData = $this->dpsmPoentazaslogInterface->where('obracunski_koef_id',$id)->get();
+            $varijabilnaPrepared = $this->obradaPripremaService->pripremiVarijabilnihPlacanja($varijabilnaData);
+
+
+
+             $kreditiData = $this->dpsmKreditiInterface->where('obracunski_koef_id',$id)->get();
+             $kreditiPrepared =  $this->obradaPripremaService->pripremiKredita($kreditiData);
 
 
 
