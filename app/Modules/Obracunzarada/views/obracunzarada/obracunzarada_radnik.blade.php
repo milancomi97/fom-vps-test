@@ -43,6 +43,12 @@
             text-decoration: underline;
         }
 
+        h1{
+            font-size: 1.3rem
+        }
+        h2{
+            font-size: 1.6rem
+        }
     </style>
 
 
@@ -118,223 +124,244 @@
             </div>
         </div>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-lg-8 p-3 border border-custom">
+                <h1 class="text-left header-custom">VP: Naziv vrste placanja</h1>
+            </div>
+            <div class="col-lg-2 p-3 border-left-disabled border border-custom">
+                <h1 class="text-center header-custom">Sati</h1>
+            </div>
+            <div class="col-lg-2 p-3 border-left-disabled border border-custom">
+                <h1 class="text-center header-custom">Iznos</h1>
+            </div>
+        </div>
+        @foreach($radnikData as $radnik)
+
+
+            @if($radnik['KESC_prihod_rashod_tip']=='P')
+                <div class="row">
+                    <div class="col-lg-8 p-2 ">
+                        <h2 class="text-center header-custom">{{$radnik['sifra_vrste_placanja']}} {{$radnik['naziv_vrste_placanja']}}</h2>
+                    </div>
+                    <div class="col-lg-2 p-2 ">
+                        <h2 class="text-right header-custom">{{$radnik['sati']  ?? 0}}</h2>
+                    </div>
+                    <div class="col-lg-2 p-2 ">
+                        <h2 class="text-right header-custom">{{$radnik['iznos'] ?? 0}} </h2>
+                    </div>
+                </div>
+            @endif
+        @endforeach
+
+
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-top border-top-custom border-bottom-custom">
-                <h2 class="text-left header-custom">1. BRUTO ZARADA :</h2>
+                <h1 class="text-left header-custom">1. BRUTO ZARADA :</h1>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-top border-top-custom border-bottom-custom">
-                <h3 class="text-right header-custom">184,00</h3>
+                <h2 class="text-right header-custom">184,00</h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-top border-top-custom border-bottom-custom">
-                <h3 class="text-right header-custom">143.164,01</h3>
+                <h2 class="text-right header-custom">143.164,01</h2>
             </div>
         </div>
 
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-left header-custom"> <b>-</b> IZNOS PORESKOG OSLOBODJENJA :</h3>
+                <h2 class="text-left header-custom"> <b>-</b> IZNOS PORESKOG OSLOBODJENJA :</h2>
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-right header-custom">25.000,00</h3>
+                <h2 class="text-right header-custom">25.000,00</h2>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-left header-custom"> <b>-</b> Oporezivi iznos zarade :</h3>
+                <h2 class="text-left header-custom"> <b>-</b> Oporezivi iznos zarade :</h2>
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-right header-custom">118.164,01</h3>
+                <h2 class="text-right header-custom">118.164,01</h2>
             </div>
         </div>
 
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-left header-custom">2. NETO ZARADA (1 - 5) :</h2>
+                <h1 class="text-left header-custom">2. NETO ZARADA (1 - 5) :</h1>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-right header-custom">184,00</h3>
+                <h2 class="text-right header-custom">184,00</h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-right header-custom">102.857,97</h3>
+                <h2 class="text-right header-custom">102.857,97</h2>
             </div>
         </div>
 
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-left header-custom">061 PRIMLJENA KONTACIJA</h2>
+                <h1 class="text-left header-custom">061 PRIMLJENA KONTACIJA</h1>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-right header-custom">0,00</h3>
+                <h2 class="text-right header-custom">0,00</h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-right header-custom">0,00</h3>
+                <h2 class="text-right header-custom">0,00</h2>
             </div>
         </div>
 
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-left header-custom">3. UK. OBUSTAVE :</h3>
+                <h2 class="text-left header-custom">3. UK. OBUSTAVE :</h2>
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-right header-custom">0,00</h3>
+                <h2 class="text-right header-custom">0,00</h2>
             </div>
         </div>
+
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-left header-custom">4. ZA ISPLATU (1 - 5 - 3 ) :</h3>
+                <h2 class="text-left header-custom">4. ZA ISPLATU (1 - 5 - 3 ) :</h2>
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-right header-custom">102.857,97</h3>
+                <h2 class="text-right header-custom">102.857,97</h2>
             </div>
         </div>
 
 
+
+        @foreach($radnikData as $radnik)
+
+
+            @if($radnik['KESC_prihod_rashod_tip']=='R')
+                <div class="row">
+                    <div class="col-lg-8 p-2 ">
+                        <h2 class="text-center header-custom">{{$radnik['sifra_vrste_placanja']}} {{$radnik['naziv_vrste_placanja']}}</h2>
+                    </div>
+                    <div class="col-lg-2 p-2 ">
+                        <h2 class="text-right header-custom">{{$radnik['sati']  ?? 0}}</h2>
+                    </div>
+                    <div class="col-lg-2 p-2 ">
+                        <h2 class="text-right header-custom">{{$radnik['iznos'] ?? 0}} </h2>
+                    </div>
+                </div>
+            @endif
+        @endforeach
         <div class="row">
             <div class="col-lg-8 p-2 ">
-                <h3 class="text-left header-custom">053 PENZIJSKO OS. 14,0%</h3>
+                <h2 class="text-center header-custom">053 PENZIJSKO OS. 14,0% OBRISI STATICAN HTML</h2>
             </div>
             <div class="col-lg-2 p-2 ">
-                <h3 class="text-right header-custom">0,0</h3>
+                <h2 class="text-right header-custom">0,0</h2>
             </div>
             <div class="col-lg-2 p-2 ">
-                <h3 class="text-right header-custom">20.052,96</h3>
+                <h2 class="text-right header-custom">20.052,96</h2>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-lg-8 p-2 ">
-                <h3 class="text-left header-custom">054 ZDRAVSTVENO O. 5,15%</h3>
-            </div>
-            <div class="col-lg-2 p-2 ">
-                <h3 class="text-right header-custom">0,0</h3>
-            </div>
-            <div class="col-lg-2 p-2 ">
-                <h3 class="text-right header-custom">7.372,95</h3>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-8 p-2 ">
-                <h3 class="text-left header-custom">055 NEZAPOSLENOST 0,75%</h3>
-            </div>
-            <div class="col-lg-2 p-2 ">
-                <h3 class="text-right header-custom">0,0</h3>
-            </div>
-            <div class="col-lg-2 p-2 ">
-                <h3 class="text-right header-custom">1.073,73</h3>
-            </div>
-        </div>
-
-
-
         <div class="row">
             <div class="col-lg-8 p-3  border-bottom border-top border-top-custom border-bottom-custom">
-                <h2 class="text-left header-custom">UKUPNI DOPRINOSI</h2>
+                <h1 class="text-left header-custom">UKUPNI DOPRINOSI</h1>
             </div>
             <div class="col-lg-2 p-3  border-bottom border-top border-top-custom border-bottom-custom">
-                <h3 class="text-right header-custom">0,00</h3>
+                <h2 class="text-right header-custom">0,00</h2>
             </div>
             <div class="col-lg-2 p-3  border-bottom border-top border-top-custom border-bottom-custom">
-                <h3 class="text-right header-custom">28.489,64</h3>
+                <h2 class="text-right header-custom">28.489,64</h2>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-left header-custom">050 POREZ ( 10 % )</h2>
+                <h1 class="text-left header-custom">050 POREZ ( 10 % )</h1>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-right header-custom">0,00</h3>
+                <h2 class="text-right header-custom">0,00</h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-right header-custom">11.816,40</h3>
+                <h2 class="text-right header-custom">11.816,40</h2>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-left header-custom">5. UKUPNI POREZI I DOPRINOSI (a + b) :</h2>
+                <h1 class="text-left header-custom">5. UKUPNI POREZI I DOPRINOSI (a + b) :</h1>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-right header-custom">0,00</h3>
+                <h2 class="text-right header-custom">0,00</h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-right header-custom">40.306,04</h3>
+                <h2 class="text-right header-custom">40.306,04</h2>
             </div>
         </div>
 
 
         <div class="row">
             <div class="col-lg-12 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-left header-custom"> Dodati tabele bruto neto po koef</h2>
+                <h1 class="text-left header-custom"> Dodati tabele bruto neto po koef</h1>
             </div>
 {{--            <div class="col-lg-2 p-3 border-bottom border-bottom-custom">--}}
-{{--                <h3 class="text-right header-custom">0,00</h3>--}}
+{{--                <h2 class="text-right header-custom">0,00</h2>--}}
 {{--            </div>--}}
 {{--            <div class="col-lg-2 p-3 border-bottom border-bottom-custom">--}}
-{{--                <h3 class="text-right header-custom">40.306,04</h3>--}}
+{{--                <h2 class="text-right header-custom">40.306,04</h2>--}}
 {{--            </div>--}}
         </div>
 
         <div class="row">
             <div class="col-lg-12 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-left header-custom">6. OBAVEZE NA TERET POSLODAVCA :</h3>
+                <h2 class="text-left header-custom">6. OBAVEZE NA TERET POSLODAVCA :</h2>
             </div>
 
         </div>
         <div class="row">
             <div class="col-lg-8 p-2 ">
-                <h3 class="text-left header-custom">Zdravstveno osiguranje (p)</h3>
+                <h2 class="text-left header-custom">Zdravstveno osiguranje (p)</h2>
             </div>
             <div class="col-lg-2 p-2 ">
-                <h3 class="text-right header-custom">5.15%</h3>
+                <h2 class="text-right header-custom">5.15%</h2>
             </div>
             <div class="col-lg-2 p-2 ">
-                <h3 class="text-right header-custom">7373</h3>
+                <h2 class="text-right header-custom">7373</h2>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-8 p-2 ">
-                <h3 class="text-left header-custom">Penzijsko-invalidsko osig.(p)</h3>
+                <h2 class="text-left header-custom">Penzijsko-invalidsko osig.(p)</h2>
             </div>
             <div class="col-lg-2 p-2 ">
-                <h3 class="text-right header-custom">10.00%</h3>
+                <h2 class="text-right header-custom">10.00%</h2>
             </div>
             <div class="col-lg-2 p-2 ">
-                <h3 class="text-right header-custom">14316</h3>
+                <h2 class="text-right header-custom">14316</h2>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-top border-top-custom border-bottom-custom">
-                <h3 class="text-left header-custom"><b>-</b>Ukupni doprinosi</h3>
+                <h2 class="text-left header-custom"><b>-</b>Ukupni doprinosi</h2>
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-top border-top-custom border-bottom-custom">
-                <h3 class="text-right header-custom">21689</h3>
+                <h2 class="text-right header-custom">21689</h2>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-left header-custom"><b>-</b>UKUPNA BRUTO ZARADA</h3>
+                <h2 class="text-left header-custom"><b>-</b>UKUPNA BRUTO ZARADA</h2>
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-                <h3 class="text-right header-custom">164853,35</h3>
+                <h2 class="text-right header-custom">164853,35</h2>
             </div>
         </div>
 

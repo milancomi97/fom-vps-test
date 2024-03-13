@@ -75,14 +75,14 @@ class ObradaPripremaController extends Controller
         $status = $this->dkopSveVrstePlacanjaInterface->createMany($poenteriPrepared);
 
 
-//        $allFiksnaPlacanjaData =$this->dpsmFiksnaPlacanjaInterface->where('obracunski_koef_id',$id)->get();
-//            $allFiksnaPlacanjaPrepared = $this->obradaPripremaService->pripremiFiksnaPlacanja($allFiksnaPlacanjaData);
+        $allFiksnaPlacanjaData =$this->dpsmFiksnaPlacanjaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->get();
+            $allFiksnaPlacanjaPrepared = $this->obradaPripremaService->pripremiFiksnaPlacanja($allFiksnaPlacanjaData,$vrstePlacanjaSifarnik,$poresDoprinosiSifarnik[0]);
 //
 //            $akontacijeData = $this->dpsmAkontacijeInterface->where('obracunski_koef_id',$id)->get();
 //            $akontacijePrepared = $this->obradaPripremaService->pripremiAkontacije($akontacijeData);
 //
-//            $varijabilnaData = $this->dpsmPoentazaslogInterface->where('obracunski_koef_id',$id)->get();
-//            $varijabilnaPrepared = $this->obradaPripremaService->pripremiVarijabilnihPlacanja($varijabilnaData);
+            $varijabilnaData = $this->dpsmPoentazaslogInterface->where('obracunski_koef_id',$id)->get();
+            $varijabilnaPrepared = $this->obradaPripremaService->pripremiVarijabilnihPlacanja($varijabilnaData,$vrstePlacanjaSifarnik,$poresDoprinosiSifarnik[0]);
 //
 //
 //

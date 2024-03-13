@@ -122,5 +122,20 @@ class DpsmPoentazaslogController extends Controller
     }
 
 
+    public function updateVarijabilna(Request $request)
+    {
+        // Logika za varijabilne vrste placanja
+        $vrstePlacanjaData = $request->vrste_placanja;
+        $record_id =$request->record_id;
+        $radnikEvidencija = $this->mesecnatabelapoentazaInterface->getById($record_id);
+        $status = $this->updateVrstePlacanjaJson->updateAll($radnikEvidencija,$vrstePlacanjaData);
 
+        if($status){
+            $message='uspesno promenjen';
+            return response()->json(['message' => $message, 'status' => true], 200);
+
+        }
+        $message='greska';
+        return response()->json(['message' => $message, 'status' => false], 200);
+    }
 }

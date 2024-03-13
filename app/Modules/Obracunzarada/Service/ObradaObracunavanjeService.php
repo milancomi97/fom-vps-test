@@ -32,10 +32,21 @@ class ObradaObracunavanjeService
 
     public function pripremaPodatakaRadnik($id) // Radnik napravi logiku za sve ostale radnike
     {
-        $slobaMaticniId = '0005245';
+//        $testMaticni = '0005399';
 
+        $testMaticni = '0004908';
+
+//        0005399
+//        0005399
+//0004021
+//0004202
+//0004337
+//0004770
+//0004870
+//0004908
+//0005091
         $radnikData = [];
-        $data = $this->dkopSveVrstePlacanjaInterface->where('maticni_broj', $slobaMaticniId)->where('obracunski_koef_id', $id)->with('maticnadatotekaradnika')->get()->groupBy('user_dpsm_id');
+        $data = $this->dkopSveVrstePlacanjaInterface->where('maticni_broj', $testMaticni)->where('obracunski_koef_id', $id)->with('maticnadatotekaradnika')->get()->groupBy('user_dpsm_id');
 
         foreach ($data as $radnik) {
 
