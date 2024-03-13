@@ -18,6 +18,7 @@ use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
 use App\Modules\Obracunzarada\Service\KreirajPermisijePoenteriOdobravanja;
+use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
 use App\Modules\Obracunzarada\Service\ObradaPripremaService;
 use App\Modules\Obracunzarada\Service\PripremiPermisijePoenteriOdobravanja;
 use App\Modules\Obracunzarada\Service\UpdateNapomena;
@@ -40,7 +41,8 @@ class ObradaPripremaController extends Controller
         private readonly DpsmKreditiRepositoryInterface $dpsmKreditiInterface,
         private readonly ObradaPripremaService $obradaPripremaService,
         private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface $dkopSveVrstePlacanjaInterface,
-        private readonly PorezdoprinosiRepositoryInterface $porezdoprinosiInterface
+        private readonly PorezdoprinosiRepositoryInterface $porezdoprinosiInterface,
+        private readonly ObradaObracunavanjeService $obradaObracunavanjeService
 
     )
     {
@@ -88,8 +90,12 @@ class ObradaPripremaController extends Controller
 //             $kreditiPrepared =  $this->obradaPripremaService->pripremiKredita($kreditiData);
 
 
+            $obradaData = $this->obradaObracunavanjeService->pripremaPodataka($id);
 
-        return response()->json('test');
+            // TODO Nastavi obradu svih
+
+            return redirect()->route('datotekaobracunskihkoeficijenata.obrada_radnik',['obracunski_koef_id'=>$id]);
+//            return view('obracunzarada::obracunzarada.obracunzarada_index');
 
     }
 

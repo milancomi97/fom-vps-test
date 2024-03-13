@@ -77,7 +77,6 @@ Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
 Route::middleware('auth')->group(function () {
 //    Route::middleware(['auth','customrole'])->group(function () {
 
-        Route::get('obracunzarada/index', [ObracunZaradaController::class, 'index']);
     Route::resource('coremodule', CoreModuleController::class);
     Route::post('getNbsData',[CoreModuleController::class,'sendSoapRequest']);
 
@@ -232,11 +231,19 @@ Route::middleware('auth')->group(function () {
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_krediti',[DpsmKreditiController::class,'updateKrediti'])->name('datotekaobracunskihkoeficijenata.update_krediti');
 
 
+    // Obracun zarada
+
+    Route::get('obracunzarada/index', [ObracunZaradaController::class, 'index']);
+
 
     // Mesecna Obrada
 
 
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index',[ObradaPripremaController::class,'obradaIndex'])->name('datotekaobracunskihkoeficijenata.mesecna_obrada_index');
+
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/obrada_radnik',[  ObracunZaradaController::class,'obradaRadnik'])->name('datotekaobracunskihkoeficijenata.obrada_radnik');
+
+
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/permissionStatusUpdate',[DatotekaobracunskihStatusController::class,'permissionStatusUpdate'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatus');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updatePermissionStatusAdministrator',[DatotekaobracunskihStatusController::class,'updatePermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatusAdministrator');

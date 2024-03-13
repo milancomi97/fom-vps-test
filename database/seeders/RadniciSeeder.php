@@ -43,7 +43,6 @@ class RadniciSeeder extends Seeder
                 'osnovni_podaci' => true,
                 'obracun_zarada' => true,
                 'kadrovska_evidencija' => true,
-                // TODO Remove after testing
                 'troskovna_mesta_poenter' => $this->poenterPermissionsTest()
             ]);
         }

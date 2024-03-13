@@ -38,7 +38,9 @@ class DatotekaobracunskihkoeficijenataRepository extends BaseRepository implemen
             'datum'=>$startOfMonth,
             'mesec'=>$array['month'],
             'godina'=>$array['year'],
-            'status'=>1
+            'status'=>1,
+//            'period_isplate_od'=>$array['period_isplate_od'],
+//            'period_isplate_do'=>$array['period_isplate_do']
         ];
        return $this->create($data);
     }

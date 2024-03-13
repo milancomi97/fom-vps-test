@@ -35,4 +35,9 @@ class ObradaDkopSveVrstePlacanja extends Model
         'user_mdr_id',
         'tip_unosa'
     ];
+
+    public function maticnadatotekaradnika()
+    {
+        return $this->belongsTo(Maticnadatotekaradnika::class, 'user_mdr_id');
+    }
 }
