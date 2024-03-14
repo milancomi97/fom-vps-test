@@ -31,17 +31,18 @@ class DpsmPoentazaslogController extends Controller
         private readonly UpdateVrstePlacanjaJson                             $updateVrstePlacanjaJson,
         private readonly UpdateNapomena                                      $updateNapomena,
         private readonly PermesecnatabelapoentRepositoryInterface            $permesecnatabelapoentInterface,
-        private readonly KreirajPermisijePoenteriOdobravanja $kreirajPermisijePoenteriOdobravanja,
-        private readonly PripremiPermisijePoenteriOdobravanja $pripremiPermisijePoenteriOdobravanja,
-        private readonly VrsteplacanjaRepository $vrsteplacanjaInterface,
-        private readonly DpsmPoentazaslogRepositoryInterface $dpsmPoentazaslogInterface,
-        private readonly DpsmAkontacijeRepositoryInterface $dpsmAkontacijeInterface
+        private readonly KreirajPermisijePoenteriOdobravanja                 $kreirajPermisijePoenteriOdobravanja,
+        private readonly PripremiPermisijePoenteriOdobravanja                $pripremiPermisijePoenteriOdobravanja,
+        private readonly VrsteplacanjaRepository                             $vrsteplacanjaInterface,
+        private readonly DpsmPoentazaslogRepositoryInterface                 $dpsmPoentazaslogInterface,
+        private readonly DpsmAkontacijeRepositoryInterface                   $dpsmAkontacijeInterface
+
     )
     {
     }
 
 
-        public function showAll(Request $request)
+    public function showAll(Request $request)
     {
 
         $user_id = auth()->user()->id;
@@ -60,20 +61,18 @@ class DpsmPoentazaslogController extends Controller
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_all',
             [
                 'formattedDate' => $formattedDate,
-                'monthData'=>$monthData,
+                'monthData' => $monthData,
                 'mesecnaTabelaPotenrazaTable' => $mesecnaTabelaPotenrazaTable,
-                'mesecnaTabelaPoentazaPermissions'=>$mesecnaTabelaPoentazaPermissions,
+                'mesecnaTabelaPoentazaPermissions' => $mesecnaTabelaPoentazaPermissions,
                 'tableHeaders' => $tableHeaders,
-                'vrstePlacanjaDescription'=>$this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
+                'vrstePlacanjaDescription' => $this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
                 'troskovnaMestaPermission' => $troskovnaMestaPermission,
                 'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
-                'userPermission'=>$userPermission
+                'userPermission' => $userPermission
             ]);
 
 
     }
-
-
 
 
     public function show(Request $request)
@@ -90,7 +89,8 @@ class DpsmPoentazaslogController extends Controller
 
         $inputDate = Carbon::parse($monthData->datum);
         $formattedDate = $inputDate->format('m.Y');
-        $vrstePlacanja = $this->vrsteplacanjaInterface->where('DOVP_tip_vrste_placanja',true)->get();
+        $vrstePlacanja = $this->vrsteplacanjaInterface->where('DOVP_tip_vrste_placanja', true)->get();
+        $variabilnaData = $this->dpsmPoentazaslogInterface->where('user_dpsm_id', $id)->get();
 
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show',
             [
@@ -99,43 +99,74 @@ class DpsmPoentazaslogController extends Controller
                 'troskovnaMestaPermission' => $troskovnaMestaPermission,
                 'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
                 'vrstePlacanja' => $vrstePlacanja->toJson(),
-                'vrstePlacanjaData' => $mesecnaTabelaPoentaza->vrste_placanja
+                'vrstePlacanjaData' => $variabilnaData->toJson(),
+                'mesecna_tabela_poentaza_id' =>$mesecnaTabelaPoentaza->id
             ]);
     }
 
-
-        public function updateAll(Request $request)
+    public function updateVariabilna(Request $request)
     {
-        // Logika za varijabilne vrste placanja
-        $vrstePlacanjaData = $request->vrste_placanja;
-        $record_id =$request->record_id;
-        $radnikEvidencija = $this->mesecnatabelapoentazaInterface->getById($record_id);
-        $status = $this->updateVrstePlacanjaJson->updateAll($radnikEvidencija,$vrstePlacanjaData);
 
-        if($status){
-            $message='uspesno promenjen';
-            return response()->json(['message' => $message, 'status' => true], 200);
+//        $id = $request->mesecna_tabela_poentaza_id;
+        $userMonthId = $request->record_id;
+        $vrstePlacanjaData = $request->vrste_placanja;
+        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($userMonthId);
+        $sifarnikVrstePlacanja = $this->vrsteplacanjaInterface->getAllKeySifra();
+
+        $data = [];
+        $fiksnapData = $this->dpsmPoentazaslogInterface->where('user_dpsm_id', $userMonthId)->get();
+
+        if ($vrstePlacanjaData) {
+
+            if ($fiksnapData->count()) {
+                // TODO Update logic, ADD FLAG FOR ACTUAL
+                $oldData = array_column($fiksnapData->toArray(), 'sifra_vrste_placanja');
+                foreach ($vrstePlacanjaData as $vrstaPlacanja) {
+                    $toUpdate = in_array($vrstaPlacanja['key'], $oldData);
+                    if ($toUpdate) {
+
+                    } else {
+                        $data = [
+                            'user_dpsm_id' => (int)$userMonthId,
+                            'sifra_vrste_placanja' => $vrstaPlacanja['key'] ?? '',
+                            'naziv_vrste_placanja' => $sifarnikVrstePlacanja[$vrstaPlacanja['key']]['naziv_naziv_vrste_placanja'],
+                            'sati' => $vrstaPlacanja['sati'] ?? '',
+                            'iznos' => $vrstaPlacanja['iznos'] ?? 0,
+                            'procenat' => $vrstaPlacanja['procenat'] ?? 0,
+                            'user_mdr_id'=>$mesecnaTabelaPoentaza->user_mdr_id,
+                            'obracunski_koef_id' => $mesecnaTabelaPoentaza->obracunski_koef_id
+                        ];
+                        $this->dpsmPoentazaslogInterface->create($data);
+                    }
+                }
+            } else {
+                foreach ($vrstePlacanjaData as $vrstaPlacanja) {
+
+                    $data = [
+                        'user_dpsm_id' => (int)$userMonthId,
+                        'sifra_vrste_placanja' => $vrstaPlacanja['key'] ?? '',
+                        'naziv_vrste_placanja' => $sifarnikVrstePlacanja[$vrstaPlacanja['key']]['naziv_naziv_vrste_placanja'],
+                        'sati' => $vrstaPlacanja['sati'] ?? '',
+                        'iznos' => $vrstaPlacanja['iznos'] ?? 0,
+                        'procenat' => $vrstaPlacanja['procenat'] ?? 0,
+                        'user_mdr_id'=>$mesecnaTabelaPoentaza->user_mdr_id,
+                        'obracunski_koef_id' => $mesecnaTabelaPoentaza->obracunski_koef_id
+                    ];
+
+                    $this->dpsmPoentazaslogInterface->create($data);
+                }
+            }
+
+            // DODAJ user_dpsm_id kod Fiksnih placanja
+            // do foreach
+            // do Load, save or update
+            // Ucitaj podatke o vrstama placanja
+
 
         }
-        $message='greska';
-        return response()->json(['message' => $message, 'status' => false], 200);
-    }
-
-
-    public function updateVarijabilna(Request $request)
-    {
-        // Logika za varijabilne vrste placanja
-        $vrstePlacanjaData = $request->vrste_placanja;
-        $record_id =$request->record_id;
-        $radnikEvidencija = $this->mesecnatabelapoentazaInterface->getById($record_id);
-        $status = $this->updateVrstePlacanjaJson->updateAll($radnikEvidencija,$vrstePlacanjaData);
-
-        if($status){
-            $message='uspesno promenjen';
-            return response()->json(['message' => $message, 'status' => true], 200);
-
-        }
-        $message='greska';
-        return response()->json(['message' => $message, 'status' => false], 200);
+        return response()->json([
+            'status'=>true,
+            'url'=>url()->route('datotekaobracunskihkoeficijenata.show_all', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id])
+        ]);
     }
 }

@@ -114,6 +114,7 @@ class DpsmFiksnaPlacanjaController extends Controller
 //        $id = $request->mesecna_tabela_poentaza_id;
         $userMonthId = $request->record_id;
         $vrstePlacanjaData = $request->vrste_placanja;
+        $sifarnikVrstePlacanja = $this->vrsteplacanjaInterface->getAllKeySifra();
         $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($userMonthId);
 
         $data=[];
@@ -132,10 +133,11 @@ class DpsmFiksnaPlacanjaController extends Controller
                     $data=[
                         'user_dpsm_id'=>(int) $userMonthId,
                         'sifra_vrste_placanja'=>$vrstaPlacanja['key'] ?? '',
-                        'naziv_vrste_placanja'=>$vrstaPlacanja['naziv'] ?? '',
+                        'naziv_vrste_placanja'=>$sifarnikVrstePlacanja[$vrstaPlacanja['key']]['naziv_naziv_vrste_placanja'],
                         'sati'=>$vrstaPlacanja['sati'] ?? '',
-                        'iznos'=>$vrstaPlacanja['iznos'] ?? '',
+                        'iznos'=>$vrstaPlacanja['iznos'] ?? 0,
                         'procenat'=>$vrstaPlacanja['procenat'] ?? 0,
+                        'user_mdr_id'=>$mesecnaTabelaPoentaza->user_mdr_id,
                         'obracunski_koef_id'=> $mesecnaTabelaPoentaza->obracunski_koef_id
                     ];
                     $this->dpsmFiksnaPlacanjaInteface->create($data);
@@ -149,9 +151,10 @@ class DpsmFiksnaPlacanjaController extends Controller
                 $data=[
                     'user_dpsm_id'=>(int) $userMonthId,
                     'sifra_vrste_placanja'=>$vrstaPlacanja['key'] ?? '',
-                    'naziv_vrste_placanja'=>$vrstaPlacanja['naziv'] ?? '',
+                    'naziv_vrste_placanja'=>$sifarnikVrstePlacanja[$vrstaPlacanja['key']]['naziv_naziv_vrste_placanja'],
                     'sati'=>$vrstaPlacanja['sati'] ?? '',
-                    'iznos'=>$vrstaPlacanja['iznos'] ?? '',
+                    'iznos'=>$vrstaPlacanja['iznos'] ?? 0,
+                    'user_mdr_id'=>$mesecnaTabelaPoentaza->user_mdr_id,
                     'procenat'=>$vrstaPlacanja['procenat'] ?? 0,
                     'obracunski_koef_id'=> $mesecnaTabelaPoentaza->obracunski_koef_id
                 ];

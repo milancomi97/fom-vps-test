@@ -254,8 +254,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
             $idRadnikaZaMesec = $this->mesecnatabelapoentazaInterface->where('obracunski_koef_id', $osnovniPodaciMesec->id)->select(['id','maticni_broj'])->get();
 
             // Poenter Vrsta Placanja START
-            $poenterPlacanja = $this->kreirajObracunskeKoeficienteService->dodeliPocetnaPoenterPlacanja($idRadnikaZaMesec,$osnovniPodaciMesec->mesecni_fond_sati,$osnovniPodaciMesec->id);
-            $akontacijePlacanjaResult = $this->dpsmPoentazaslogInterface->createMany($poenterPlacanja);
+//            $poenterPlacanja = $this->kreirajObracunskeKoeficienteService->dodeliPocetnaPoenterPlacanja($idRadnikaZaMesec,$osnovniPodaciMesec->mesecni_fond_sati,$osnovniPodaciMesec->id);
+//            $akontacijePlacanjaResult = $this->dpsmPoentazaslogInterface->createMany($poenterPlacanja);
 
 
 

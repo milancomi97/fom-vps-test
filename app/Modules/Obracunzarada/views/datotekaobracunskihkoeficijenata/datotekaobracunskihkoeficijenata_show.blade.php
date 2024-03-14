@@ -67,7 +67,7 @@
     <script>
         var vrstePlacanja = {!! $vrstePlacanja !!};
         var vrstePlacanjaData = {!! $vrstePlacanjaData !!};
-        var storeAllRoute = '{!! route('datotekaobracunskihkoeficijenata.updateall') !!}';
+        var storeAllRoute = '{!! route('datotekaobracunskihkoeficijenata.updateVariabilna') !!}';
 
     </script>
 

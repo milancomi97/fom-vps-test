@@ -4,6 +4,7 @@ namespace App\Modules\Obracunzarada\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
 use App\Modules\Osnovnipodaci\Repository\PodaciofirmiRepositoryInterface;
@@ -16,7 +17,8 @@ class ObracunZaradaController extends Controller
         private readonly ObradaObracunavanjeService $obradaObracunavanjeService,
         private readonly VrsteplacanjaRepositoryInterface $vrsteplacanjaInterface,
         private readonly PodaciofirmiRepositoryInterface $podaciofirmiInterface,
-        private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface
+        private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface,
+        private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface $obradaDkopSveVrstePlacanjaInterface
     )
     {
     }
@@ -53,6 +55,8 @@ class ObracunZaradaController extends Controller
         $date = new \DateTime($podaciMesec->datum);
         $formattedDate = $date->format('m.Y');
 
+        $dkopData = $this->obradaDkopSveVrstePlacanjaInterface->where('obracunski_koef_id',$id)->where('user_mdr_id',$mdrData['id'])->get();
+
         return view('obracunzarada::obracunzarada.obracunzarada_radnik',
             [
                 'radnikData'=>$radnikData,
@@ -60,6 +64,7 @@ class ObracunZaradaController extends Controller
                 'mdrData'=>$mdrData,
                 'podaciFirme'=>$podaciFirme,
                 'mdrPreparedData'=>$mdrPreparedData,
+                'dkopData'=>$dkopData,
                 'datum'=>$formattedDate,
                 'podaciMesec'=>$podaciMesec
             ]);

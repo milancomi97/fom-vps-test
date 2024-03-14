@@ -72,18 +72,29 @@ class ObradaPripremaController extends Controller
 //
 
 
-        $status = $this->dkopSveVrstePlacanjaInterface->createMany($poenteriPrepared);
+
 
 
         $allFiksnaPlacanjaData =$this->dpsmFiksnaPlacanjaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->get();
+        if($allFiksnaPlacanjaData->count()){
             $allFiksnaPlacanjaPrepared = $this->obradaPripremaService->pripremiFiksnaPlacanja($allFiksnaPlacanjaData,$vrstePlacanjaSifarnik,$poresDoprinosiSifarnik[0]);
-//
+            $status = $this->dkopSveVrstePlacanjaInterface->createMany($allFiksnaPlacanjaPrepared);
+        }
+
+
 //            $akontacijeData = $this->dpsmAkontacijeInterface->where('obracunski_koef_id',$id)->get();
 //            $akontacijePrepared = $this->obradaPripremaService->pripremiAkontacije($akontacijeData);
 //
             $varijabilnaData = $this->dpsmPoentazaslogInterface->where('obracunski_koef_id',$id)->get();
+        if($varijabilnaData->count()){
             $varijabilnaPrepared = $this->obradaPripremaService->pripremiVarijabilnihPlacanja($varijabilnaData,$vrstePlacanjaSifarnik,$poresDoprinosiSifarnik[0]);
-//
+            $status = $this->dkopSveVrstePlacanjaInterface->createMany($varijabilnaPrepared);
+
+        }
+
+            $status = $this->dkopSveVrstePlacanjaInterface->createMany($poenteriPrepared);
+
+            //
 //
 //
 //             $kreditiData = $this->dpsmKreditiInterface->where('obracunski_koef_id',$id)->get();

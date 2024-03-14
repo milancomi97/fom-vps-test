@@ -133,6 +133,7 @@ $(document).ready(function () {
         $(this).closest('tr').remove();
     });
 
+
     $(document).on('click', 'body .submitBtn', function (event) {
         event.stopImmediatePropagation();
 

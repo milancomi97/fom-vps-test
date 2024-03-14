@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     var jsonData = vrstePlacanjaData;
     var selectOptions ='<option value="">Izaberi vrstu plaćanja</option>'
+    debugger;
     for (var key in vrstePlacanja) {
         selectOptions += '<option value="' + vrstePlacanja[key]['rbvp_sifra_vrste_placanja'] + '">' + vrstePlacanja[key]['rbvp_sifra_vrste_placanja'] + ' - ' + vrstePlacanja[key]['naziv_naziv_vrste_placanja'] + '</option>';
     }
@@ -15,19 +16,19 @@ $(document).ready(function () {
 
         $.each(vrsteData, function (index, item) {
             counter++;
-            if(item.sati > 0 || item.iznos !== ''|| item.procenat !== ''){
+            if (item.sati > 0 || item.iznos !== '' || item.procenat !== '') {
 
-            var row = `
+                var row = `
   <tr class="vrste-placanja-data_tr">
     <td>
-      <input disabled type="text" class="form-control" name="sifra" value="${item.key}">
+      <input disabled type="text" class="form-control" name="sifra" value="${item.sifra_vrste_placanja}">
     </td>
-    <td><input disabled type="text" class="form-control" name="naziv" value="${item.name}"></td>
+    <td><input disabled type="text" class="form-control" name="naziv" value="${item.naziv_vrste_placanja}"></td>
     <td><input type="number" class="form-control col-width" name="sati" value="${item.sati}"></td>
     <td><input type="number" class="form-control col-width" name="iznos" value="${item.iznos}"></td>
     <td><input type="number" class="form-control col-width" name="procenat" value="${item.procenat}"></td>
-    <td><input type="text" class="form-control col-width" name="RJ_radna_jedinica" value="${item.RJ_radna_jedinica}"></td>RJ_radna_jedinica
-    <td><input type="text" class="form-control col-width" name="BRIG_brigada" value="${item.BRIG_brigada}"></td>
+    <td><input type="text" class="form-control col-width" name="RJ_radna_jedinica" value=""></td>
+    <td><input type="text" class="form-control col-width" name="BRIG_brigada" value=""></td>
     <td><button type="button" class="btn btn-danger btn-sm delete-row">Obriši</button></td>
   </tr>
 `;
@@ -54,6 +55,24 @@ $(document).ready(function () {
             tbody.append(row);
         });
 
+        if (counter == 0) {
+            var row = `
+  <tr class="vrste-placanja-data_tr nova_vrsta_placanja">
+    <td>
+      <select class="form-control new-vrste-placanja nov-key" name="sifra">${selectOptions}</select>
+    </td>
+    <td><input type="text" disabled class="form-control nov-naziv" name="naziv" value=""></td>
+    <td><input type="number" class="form-control col-width " name="sati" value=""></td>
+    <td><input type="number" class="form-control col-width" name="iznos" value=""></td>
+    <td><input type="number" class="form-control col-width" name="procenat" value=""></td>
+    <td><input type="text" class="form-control col-width" name="RJ_radna_jedinica" value=""></td>
+    <td><input type="text" class="form-control col-width" name="BRIG_brigada" value=""></td>
+    <td><button type="button" class="btn btn-success btn-sm add-row">Dodaj</button></td>
+  </tr>
+`;
+            tbody.append(row);
+
+        }
     }
 
     // Call the function to populate the table
@@ -115,12 +134,14 @@ $(document).ready(function () {
 
         var vrstePlacanjaInputs = $('.vrste-placanja-data_tr');
 
+
         //nova_vrsta_placanja
         var record_id = event.target.dataset.recordId
         var vrstePlacanja = [];
         $.each(vrstePlacanjaInputs, function (index, input) {
             var data = {};
 
+            var naziv = $(input).find(':input[name="naziv"]');
             var key = $(input).find(':input[name="sifra"]')
             var sati = $(input).find(':input[name="sati"]');
             var iznos = $(input).find(':input[name="iznos"]')
@@ -135,7 +156,7 @@ $(document).ready(function () {
             RJ_radna_jedinica.val() !== '' ? data.RJ_radna_jedinica = RJ_radna_jedinica.val() : undefined;
             BRIG_brigada.val() !== '' ? data.BRIG_brigada = BRIG_brigada.val() : undefined;
 
-            if(key.val() !=='' && !(iznos.val() > 0 && sati.val() > 0  && procenat.val() > 0)){
+            if(key.val() !=='' && (iznos.val() !=='' || sati.val() !==''  || procenat.val() !=='')){
                 vrstePlacanja.push(data);
             }
         });
@@ -154,7 +175,7 @@ $(document).ready(function () {
                     record_id: record_id
                 }, success: function (response) {
                     if (response.status) {
-                        location.reload()
+                        window.location.href = response.url;
                     } else {
                         // $("#statusMessage").text(response.message).addClass("text-danger");
                     }
