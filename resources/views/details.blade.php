@@ -22,7 +22,7 @@
 <script>
     setTimeout(function(){
         window.location.reload();
-    }, 5000);
+    }, 1000);
 </script>
 </body>
 </html>
