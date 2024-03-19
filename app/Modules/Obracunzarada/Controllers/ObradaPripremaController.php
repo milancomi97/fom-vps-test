@@ -18,6 +18,7 @@ use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
 use App\Modules\Obracunzarada\Service\KreirajPermisijePoenteriOdobravanja;
+use App\Modules\Obracunzarada\Service\ObradaFormuleService;
 use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
 use App\Modules\Obracunzarada\Service\ObradaPripremaService;
 use App\Modules\Obracunzarada\Service\PripremiPermisijePoenteriOdobravanja;
@@ -42,7 +43,8 @@ class ObradaPripremaController extends Controller
         private readonly ObradaPripremaService $obradaPripremaService,
         private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface $dkopSveVrstePlacanjaInterface,
         private readonly PorezdoprinosiRepositoryInterface $porezdoprinosiInterface,
-        private readonly ObradaObracunavanjeService $obradaObracunavanjeService
+        private readonly ObradaObracunavanjeService $obradaObracunavanjeService,
+        private readonly ObradaFormuleService $obradaFormuleService
 
     )
     {
@@ -68,7 +70,7 @@ class ObradaPripremaController extends Controller
             $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
 
             $poresDoprinosiSifarnik = $this->porezdoprinosiInterface->getAll();
-        $poenteriPrepared =  $this->obradaPripremaService->pripremiUnosPoentera($poenteriData,$vrstePlacanjaSifarnik,$poresDoprinosiSifarnik[0]);
+        $poenteriPrepared =  $this->obradaPripremaService->pripremiUnosPoentera($poenteriData,$vrstePlacanjaSifarnik,$poresDoprinosiSifarnik[0],$monthData);
 //
 
 
@@ -94,11 +96,47 @@ class ObradaPripremaController extends Controller
 
             $status = $this->dkopSveVrstePlacanjaInterface->createMany($poenteriPrepared);
 
+
+
+            $minuliRadData= $this->obradaPripremaService->pripremiMinuliRad($poenteriData,$vrstePlacanjaSifarnik,$poresDoprinosiSifarnik[0]);
+
+            $status = $this->dkopSveVrstePlacanjaInterface->createMany($minuliRadData);
+
+            $sveVrstePlacanjaData = $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $id)->get();
             //
 //
+            $sveVrstePlacanjaDataFormule = $this->obradaFormuleService->obradiFormule($sveVrstePlacanjaData); // G i EVAL odradi
+
+            $sveVrstePlacanjaDataSummarize= $this->obradaPripremaService->pripremaZaraPodatkePoRadniku($sveVrstePlacanjaData,$vrstePlacanjaSifarnik);
+
+
 //
 //             $kreditiData = $this->dpsmKreditiInterface->where('obracunski_koef_id',$id)->get();
 //             $kreditiPrepared =  $this->obradaPripremaService->pripremiKredita($kreditiData);
+
+
+
+
+
+
+            //  LOGIKA G SLOV da se napravi promenljiva koja ce da sumira po radniku vrednosti
+            // POK2 = G   ---
+
+            // ZARA
+            // prvi zbir SSZNNE = SATI ZARADE
+            // IZNETO = sumiranje zarade
+            //
+
+
+
+            // G - Glavno
+            // I - Medjuzbir,
+            // K - Nema minuli rad,
+
+
+
+
+
 
 
             $obradaData = $this->obradaObracunavanjeService->pripremaPodataka($id);
