@@ -7,6 +7,10 @@
     <style>
         body { font-family: Arial, sans-serif; }
         .info { margin-bottom: 20px; }
+
+        span{
+            font-weight: bolder;
+        }
     </style>
 </head>
 <body>
