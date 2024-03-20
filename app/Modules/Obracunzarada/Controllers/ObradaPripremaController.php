@@ -12,6 +12,7 @@ use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepositoryInterface;
@@ -38,20 +39,21 @@ class ObradaPripremaController extends Controller
         private readonly VrsteplacanjaRepository                             $vrsteplacanjaInterface,
         private readonly DpsmAkontacijeRepositoryInterface                   $dpsmAkontacijeInterface,
         private readonly DpsmPoentazaslogRepositoryInterface                 $dpsmPoentazaslogInterface,
-        private readonly DpsmFiksnaPlacanjaRepositoryInterface $dpsmFiksnaPlacanjaInterface,
-        private readonly DpsmKreditiRepositoryInterface $dpsmKreditiInterface,
-        private readonly ObradaPripremaService $obradaPripremaService,
-        private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface $dkopSveVrstePlacanjaInterface,
-        private readonly PorezdoprinosiRepositoryInterface $porezdoprinosiInterface,
-        private readonly ObradaObracunavanjeService $obradaObracunavanjeService,
-        private readonly ObradaFormuleService $obradaFormuleService
+        private readonly DpsmFiksnaPlacanjaRepositoryInterface               $dpsmFiksnaPlacanjaInterface,
+        private readonly DpsmKreditiRepositoryInterface                      $dpsmKreditiInterface,
+        private readonly ObradaPripremaService                               $obradaPripremaService,
+        private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface       $dkopSveVrstePlacanjaInterface,
+        private readonly PorezdoprinosiRepositoryInterface                   $porezdoprinosiInterface,
+        private readonly ObradaObracunavanjeService                          $obradaObracunavanjeService,
+        private readonly ObradaFormuleService                                $obradaFormuleService,
+        private readonly MinimalnebrutoosnoviceRepositoryInterface           $minimalnebrutoosnoviceInterface
 
     )
     {
     }
 
 
-        public function obradaIndex(Request $request)
+    public function obradaIndex(Request $request)
     {
 
 
@@ -61,25 +63,27 @@ class ObradaPripremaController extends Controller
         $id = $request->month_id;
 
 
-         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
 
         $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $id)->delete();
 //        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->select('vrste_placanja','user_id','maticni_broj','obracunski_koef_id')->get();
-        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->get();
+        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
 
-            $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
+        // TODO podaci za formule start
+        // $prviPodatakListaPlacanjaKojaSeObradjuje
+        $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
+        $poresDoprinosiSifarnik = $this->porezdoprinosiInterface->getAll()->first();
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
+        $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($monthData->datum);
 
-            $poresDoprinosiSifarnik = $this->porezdoprinosiInterface->getAll();
-        $poenteriPrepared =  $this->obradaPripremaService->pripremiUnosPoentera($poenteriData,$vrstePlacanjaSifarnik,$poresDoprinosiSifarnik[0],$monthData);
+        // todo podaci za formule end
+
+        $poenteriPrepared = $this->obradaPripremaService->pripremiUnosPoentera($poenteriData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData,$minimalneBrutoOsnoviceSifarnik);
 //
 
 
-
-
-
-        $allFiksnaPlacanjaData =$this->dpsmFiksnaPlacanjaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->get();
-        if($allFiksnaPlacanjaData->count()){
-            $allFiksnaPlacanjaPrepared = $this->obradaPripremaService->pripremiFiksnaPlacanja($allFiksnaPlacanjaData,$vrstePlacanjaSifarnik,$poresDoprinosiSifarnik[0]);
+        $allFiksnaPlacanjaData = $this->dpsmFiksnaPlacanjaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
+        if ($allFiksnaPlacanjaData->count()) {
+            $allFiksnaPlacanjaPrepared = $this->obradaPripremaService->pripremiFiksnaPlacanja($allFiksnaPlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik[0]);
             $status = $this->dkopSveVrstePlacanjaInterface->createMany($allFiksnaPlacanjaPrepared);
         }
 
@@ -87,27 +91,28 @@ class ObradaPripremaController extends Controller
 //            $akontacijeData = $this->dpsmAkontacijeInterface->where('obracunski_koef_id',$id)->get();
 //            $akontacijePrepared = $this->obradaPripremaService->pripremiAkontacije($akontacijeData);
 //
-            $varijabilnaData = $this->dpsmPoentazaslogInterface->where('obracunski_koef_id',$id)->get();
-        if($varijabilnaData->count()){
-            $varijabilnaPrepared = $this->obradaPripremaService->pripremiVarijabilnihPlacanja($varijabilnaData,$vrstePlacanjaSifarnik,$poresDoprinosiSifarnik[0]);
+        $varijabilnaData = $this->dpsmPoentazaslogInterface->where('obracunski_koef_id', $id)->get();
+        if ($varijabilnaData->count()) {
+            $varijabilnaPrepared = $this->obradaPripremaService->pripremiVarijabilnihPlacanja($varijabilnaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik);
             $status = $this->dkopSveVrstePlacanjaInterface->createMany($varijabilnaPrepared);
 
         }
 
-            $status = $this->dkopSveVrstePlacanjaInterface->createMany($poenteriPrepared);
+        $status = $this->dkopSveVrstePlacanjaInterface->createMany($poenteriPrepared);
 
 
+        $minuliRadData = $this->obradaPripremaService->pripremiMinuliRad($poenteriData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik);
 
-            $minuliRadData= $this->obradaPripremaService->pripremiMinuliRad($poenteriData,$vrstePlacanjaSifarnik,$poresDoprinosiSifarnik[0]);
+        $status = $this->dkopSveVrstePlacanjaInterface->createMany($minuliRadData);
 
-            $status = $this->dkopSveVrstePlacanjaInterface->createMany($minuliRadData);
-
-            $sveVrstePlacanjaData = $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $id)->get();
-            //
+        $sveVrstePlacanjaData = $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $id)->get();
+        //
 //
-            $sveVrstePlacanjaDataFormule = $this->obradaFormuleService->obradiFormule($sveVrstePlacanjaData); // G i EVAL odradi
+//            $sveVrstePlacanjaDataFormule = $this->obradaFormuleService->obradiFormule($sveVrstePlacanjaData); // G i EVAL odradi
 
-            $sveVrstePlacanjaDataSummarize= $this->obradaPripremaService->pripremaZaraPodatkePoRadniku($sveVrstePlacanjaData,$vrstePlacanjaSifarnik);
+
+
+        $sveVrstePlacanjaDataSummarize = $this->obradaPripremaService->pripremaZaraPodatkePoRadniku($sveVrstePlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
 
 
 //
@@ -115,35 +120,25 @@ class ObradaPripremaController extends Controller
 //             $kreditiPrepared =  $this->obradaPripremaService->pripremiKredita($kreditiData);
 
 
+        //  LOGIKA G SLOV da se napravi promenljiva koja ce da sumira po radniku vrednosti
+        // POK2 = G   ---
+
+        // ZARA
+        // prvi zbir SSZNNE = SATI ZARADE
+        // IZNETO = sumiranje zarade
+        //
 
 
+        // G - Glavno
+        // I - Medjuzbir,
+        // K - Nema minuli rad,
 
 
-            //  LOGIKA G SLOV da se napravi promenljiva koja ce da sumira po radniku vrednosti
-            // POK2 = G   ---
+        $obradaData = $this->obradaObracunavanjeService->pripremaPodataka($id);
 
-            // ZARA
-            // prvi zbir SSZNNE = SATI ZARADE
-            // IZNETO = sumiranje zarade
-            //
+        // TODO Nastavi obradu svih
 
-
-
-            // G - Glavno
-            // I - Medjuzbir,
-            // K - Nema minuli rad,
-
-
-
-
-
-
-
-            $obradaData = $this->obradaObracunavanjeService->pripremaPodataka($id);
-
-            // TODO Nastavi obradu svih
-
-            return redirect()->route('datotekaobracunskihkoeficijenata.obrada_radnik',['obracunski_koef_id'=>$id]);
+        return redirect()->route('datotekaobracunskihkoeficijenata.obrada_radnik', ['obracunski_koef_id' => $id]);
 //            return view('obracunzarada::obracunzarada.obracunzarada_index');
 
     }
@@ -163,7 +158,7 @@ class ObradaPripremaController extends Controller
 
         $inputDate = Carbon::parse($monthData->datum);
         $formattedDate = $inputDate->format('m.Y');
-        $vrstePlacanja = $this->vrsteplacanjaInterface->where('DOVP_tip_vrste_placanja',true)->get();
+        $vrstePlacanja = $this->vrsteplacanjaInterface->where('DOVP_tip_vrste_placanja', true)->get();
 
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show',
             [
@@ -177,23 +172,22 @@ class ObradaPripremaController extends Controller
     }
 
 
-        public function updateAll(Request $request)
+    public function updateAll(Request $request)
     {
         // Logika za varijabilne vrste placanja
         $vrstePlacanjaData = $request->vrste_placanja;
-        $record_id =$request->record_id;
+        $record_id = $request->record_id;
         $radnikEvidencija = $this->mesecnatabelapoentazaInterface->getById($record_id);
-        $status = $this->updateVrstePlacanjaJson->updateAll($radnikEvidencija,$vrstePlacanjaData);
+        $status = $this->updateVrstePlacanjaJson->updateAll($radnikEvidencija, $vrstePlacanjaData);
 
-        if($status){
-            $message='uspesno promenjen';
+        if ($status) {
+            $message = 'uspesno promenjen';
             return response()->json(['message' => $message, 'status' => true], 200);
 
         }
-        $message='greska';
+        $message = 'greska';
         return response()->json(['message' => $message, 'status' => false], 200);
     }
-
 
 
 }

@@ -7,5 +7,6 @@ use App\Repository\BaseRepositoryInterface;
 interface MinimalnebrutoosnoviceRepositoryInterface extends BaseRepositoryInterface
 {
 
+    public function getDataForCurrentMonth($date);
 }
 

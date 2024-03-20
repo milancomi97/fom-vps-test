@@ -13,23 +13,29 @@ class ObradaFormuleService
     )
     {
     }
-    public function obradiFormule($sveVrstePlacanjaData){
-        $sveVrstePlacanjaDataFiltered =[];
-
-        foreach ($sveVrstePlacanjaData as $vrstePlacanjaDatum){
-//            $iznos = $this->kalkulacijaFormule($vrstePlacanjaDatum,$vrstePlacanjaDatum);
-            // TODO PROVERI REDOSLED
-        }
-        return $sveVrstePlacanjaDataFiltered;
-}
-    public function kalkulacijaFormule($newPlacanje, $vrstaPlacanjaData)
+//    public function obradiFormule($sveVrstePlacanjaData){
+//        $sveVrstePlacanjaDataFiltered =[];
+//
+//        foreach ($sveVrstePlacanjaData as $vrstePlacanjaDatum){
+////            $iznos = $this->kalkulacijaFormule($vrstePlacanjaDatum,$vrstePlacanjaDatum);
+//            // TODO PROVERI REDOSLED
+//        }
+//        return $sveVrstePlacanjaDataFiltered;
+//}
+    public function kalkulacijaFormule($vrstaPlacanjaSlog,$vrstaPlacanjaSifData,$radnik,$poresDoprinosiSifarnik,$monthData,$minimalneBrutoOsnoviceSifarnik)
     {
 // Sample formula
-        $formula = "{ || (ZAR->IZNETO-ZAR->TOPLI)*KOP->PERC/100*MDR->KFAK }";
+        $formula = $vrstaPlacanjaSifData[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['formula_formula_za_obracun'];
 
+        $DATA='TEST';
         $data = [
-            'mdrData' => $newPlacanje,
-            'dvplData' => $vrstaPlacanjaData
+            'KOE'=>$monthData,
+            'KOP'=>$vrstaPlacanjaSlog,
+            'MDR'=>$vrstaPlacanjaSlog->maticnadatotekaradnika->toArray(),
+            'NTO'=>$minimalneBrutoOsnoviceSifarnik, // MINIMALNE BRUTO OSNOVICE // IZVUCI PRE
+            'POM'=>$vrstaPlacanjaSlog,
+            'POR'=>$poresDoprinosiSifarnik,
+            'ZAR'=> $radnik['ZAR'] ?? [],
         ];
 
             $formulaValues = $this->replaceVariables($formula, $data);
@@ -45,27 +51,27 @@ class ObradaFormuleService
     function replaceVariables($formula,$data)
     {
         $tableAliases = [
-            'KOE->BR_S' => "test",
-            'KOE->C_R' => "test",
-            'KOP->IZNO' => "test",
+            'KOE->BR_S' => "mesecni_fond_sati", // da se povuce vidi sa snezom
+            'KOE->C_R' => "cena_rada_tekuci",
+            'KOP->IZNO' => "iznos", // Imam trenutno
             'KOP->PERC' => "test",
-            'KOP->SATI' => "test",
-            'MDR->KFAK' => "test",
-            'MDR->KOEF' => "test",
-            'MDR->KOEF1' => "test",
+            'KOP->SATI' => "sati",
+            'MDR->KFAK' => "KFAK_korektivni_faktor", // Imam relaciju
+            'MDR->KOEF' => "KOEF_osnovna_zarada",
+            'MDR->KOEF1' => "KOEF1_prethodna_osnovna_zarada",
             'MDR->PR20' => "test",
             'MDR->PRCAS' => "test",
-            'MDR->PREB' => "test",
+            'MDR->PREB' => "PREB_prebacaj",
             'MDR->PRIZ' => "test",
             'MDR->PRPB' => "test",
-            'NTO->NT2' => "test",
+            'NTO->NT2' => "test", // MINIMALNE BRUTO OSNOVICE
             'NTO->STOPA1' => "test",
-            'POM->DOTA' => "test",
+            'POM->DOTA' => "test", // Pomocna
             'POM->IZNO' => "test",
             'POM->RAZL' => "test",
             'POR->IZN1' => "test",
             'POR->P1' => "test",
-            'ZAR->EFSATI' => "test",
+            'ZAR->EFSATI' => "test", //
             'ZAR->IPLAC' => "test",
             'ZAR->IZNETO' => "test",
             'ZAR->PREKOV' => "test",
@@ -88,7 +94,7 @@ class ObradaFormuleService
             $exist = preg_match('/' . $variable . '/', $formulaValues);
 
             if ($exist) {
-                $value = $this->getFieldValue($fieldDefinition, $data);
+                $value = $this->getFieldValue($variable,$fieldDefinition, $data);
                 $formulaValues = str_replace($variable, $value, $formulaValues);
             }
         }
@@ -116,8 +122,8 @@ class ObradaFormuleService
         foreach ($vrstePlacanjaSifarnik as $formulaPatern) {
 
             $tableAliases = [
-                'KOE->BR_S' => "test",
-                'KOE->C_R' => "test",
+                'KOE->BR_S' => "test", // Cena rada
+                'KOE->C_R' => "test", //  sati u mesecu
                 'KOP->IZNO' => "test",
                 'KOP->PERC' => "test",
                 'KOP->SATI' => "test",
@@ -179,14 +185,15 @@ class ObradaFormuleService
 
     }
 
-    public function getFieldValue($fieldDefinition, $data)
+    public function getFieldValue($variable,$fieldDefinition,$data)
     {
+        $table=strstr($variable, '->', true);
+       return (float) $data[$table][$fieldDefinition];
         //
 //        if('KOP->SATI'){
 //            $data
 //        }
 
-        return rand(10, 50);
     }
 
 
