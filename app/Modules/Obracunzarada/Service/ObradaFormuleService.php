@@ -25,7 +25,12 @@ class ObradaFormuleService
     public function kalkulacijaFormule($vrstaPlacanjaSlog,$vrstaPlacanjaSifData,$radnik,$poresDoprinosiSifarnik,$monthData,$minimalneBrutoOsnoviceSifarnik)
     {
 // Sample formula
-        $formula = $vrstaPlacanjaSifData[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['formula_formula_za_obracun'];
+        try {
+            $formula = $vrstaPlacanjaSifData[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['formula_formula_za_obracun'];
+
+        } catch (\Exception $exception){
+            $test="test";
+        }
 
         $DATA='TEST';
         $data = [
@@ -51,18 +56,18 @@ class ObradaFormuleService
     function replaceVariables($formula,$data)
     {
         $tableAliases = [
-            'KOE->BR_S' => "mesecni_fond_sati", // da se povuce vidi sa snezom
+            'KOE->BR_S' => "mesecni_fond_sati",
             'KOE->C_R' => "cena_rada_tekuci",
             'KOP->IZNO' => "iznos", // Imam trenutno
-            'KOP->PERC' => "test",
+            'KOP->PERC' => "procenat",
             'KOP->SATI' => "sati",
-            'MDR->KFAK' => "KFAK_korektivni_faktor", // Imam relaciju
+            'MDR->KFAK' => "KFAK_korektivni_faktor",
             'MDR->KOEF' => "KOEF_osnovna_zarada",
             'MDR->KOEF1' => "KOEF1_prethodna_osnovna_zarada",
             'MDR->PR20' => "test",
-            'MDR->PRCAS' => "test",
+            'MDR->PRCAS' => "PRCAS_ukupni_sati_za_ukupan_bruto_iznost", // prcas nadji
             'MDR->PREB' => "PREB_prebacaj",
-            'MDR->PRIZ' => "test",
+            'MDR->PRIZ' => "PRIZ_ukupan_bruto_iznos",
             'MDR->PRPB' => "test",
             'NTO->NT2' => "test", // MINIMALNE BRUTO OSNOVICE
             'NTO->STOPA1' => "test",
@@ -71,20 +76,21 @@ class ObradaFormuleService
             'POM->RAZL' => "test",
             'POR->IZN1' => "test",
             'POR->P1' => "test",
-            'ZAR->EFSATI' => "test", //
-            'ZAR->IPLAC' => "test",
-            'ZAR->IZNETO' => "test",
-            'ZAR->PREKOV' => "test",
-            'ZAR->SSNNE' => "test",
-            'ZAR->SSZNE' => "test",
-            'ZAR->TOPLI' => "test",
-            'ZAR->UKNETO' => "test",
-            'koe->br_s' => "test",
-            'por->izn1' => "test",
-            'por->p1' => "test",
-            'zar->prekov' => "test",
-            'zar->ssnne' => "test",
-            'zar->sszne' => "test"
+            'ZAR->EFSATI' => "EFSATI", //
+            'ZAR->IPLAC' => "test", // vrati nulu, posle
+            'ZAR->IZNETO' => "test", // Sve sto je G
+            'ZAR->PREKOV' => "PREK",
+            'ZAR->SSNNE' => "SSNNE",
+            'ZAR->SSZNE' => "SSZNE",
+            'ZAR->TOPLI' => "TOPSATI",
+            'ZAR->UKNETO' => "test",  // Sve sto je G
+//            'koe->br_s' => "test",
+//            'por->izn1' => "test",
+//            'por->p1' => "test",
+            'zar->prekov' => "PREK",
+            'zar->ssnne' => "SSNNE",
+            'zar->sszne' => "SSZNE",
+            'mdr->kfak'=>'KFAK_korektivni_faktor'
         ];
 
 
@@ -121,51 +127,7 @@ class ObradaFormuleService
         $checkData = [];
         foreach ($vrstePlacanjaSifarnik as $formulaPatern) {
 
-            $tableAliases = [
-                'KOE->BR_S' => "test", // Cena rada
-                'KOE->C_R' => "test", //  sati u mesecu
-                'KOP->IZNO' => "test",
-                'KOP->PERC' => "test",
-                'KOP->SATI' => "test",
-                'MDR->KFAK' => "test",
-                'MDR->KOEF' => "test",
-                'MDR->KOEF1' => "test",
-                'MDR->PR20' => "test",
-                'MDR->PRCAS' => "test",
-                'MDR->PREB' => "test",
-                'MDR->PRIZ' => "test",
-                'MDR->PRPB' => "test",
-                'NTO->NT2' => "test",
-                'NTO->STOPA1' => "test",
-                'POM->DOTA' => "test",
-                'POM->IZNO' => "test",
-                'POM->RAZL' => "test",
-                'POR->IZN1' => "test",
-                'POR->P1' => "test",
-                'ZAR->EFSATI' => "test",
-                'ZAR->IPLAC' => "test",
-                'ZAR->IZNETO' => "test",
-                'ZAR->PREKOV' => "test",
-                'ZAR->SSNNE' => "test",
-                'ZAR->SSZNE' => "test",
-                'ZAR->TOPLI' => "test",
-                'ZAR->UKNETO' => "test",
-                'koe->br_s' => "test",
-                'por->izn1' => "test",
-                'por->p1' => "test",
-                'zar->prekov' => "test",
-                'zar->ssnne' => "test",
-                'zar->sszne' => "test"
 
-            ];
-
-            // mdr->kfak
-            // zar->sszne
-            // zar->ssnne
-            // zar->prekov
-            // por->p1
-            // por->izn1
-            // koe->br_s
 
 
             $formulaValues = $formulaPatern['formula_formula_za_obracun'];
@@ -187,8 +149,20 @@ class ObradaFormuleService
 
     public function getFieldValue($variable,$fieldDefinition,$data)
     {
+        if($fieldDefinition =='cena_rada_tekuci'){
+            return 1;
+        }
+
+
+
+
         $table=strstr($variable, '->', true);
-       return (float) $data[$table][$fieldDefinition];
+
+        if(strtoupper($table) =='ZAR' && empty($data['ZAR'])){
+            // ZAR->IPLAC prva iteracija
+         return 0;
+        }
+       return (float) $data[strtoupper($table)][$fieldDefinition];
         //
 //        if('KOP->SATI'){
 //            $data
