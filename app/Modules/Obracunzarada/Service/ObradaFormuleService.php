@@ -158,9 +158,12 @@ class ObradaFormuleService
 
         $table=strstr($variable, '->', true);
 
-        if(strtoupper($table) =='ZAR' && empty($data['ZAR'])){
+        if(strtoupper($table) =='ZAR' && (empty($data['ZAR']) || $variable=='ZAR->IPLAC'|| $variable=='ZAR->UKNETO')){
             // ZAR->IPLAC prva iteracija
          return 0;
+        }
+        if($fieldDefinition=='test'){
+          $test='test';
         }
        return (float) $data[strtoupper($table)][$fieldDefinition];
         //

@@ -112,7 +112,7 @@ class ObradaPripremaController extends Controller
 
 
 
-        $sveVrstePlacanjaDataSummarize = $this->obradaPripremaService->pripremaZaraPodatkePoRadniku($sveVrstePlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
+        $sveVrstePlacanjaDataSummarize = $this->obradaPripremaService->pripremaZaraPodatkePoRadnikuBezMinulogRada($sveVrstePlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
 
 
 //
@@ -133,10 +133,6 @@ class ObradaPripremaController extends Controller
         // I - Medjuzbir,
         // K - Nema minuli rad,
 
-
-        $obradaData = $this->obradaObracunavanjeService->pripremaPodataka($id);
-
-        // TODO Nastavi obradu svih
 
         return redirect()->route('datotekaobracunskihkoeficijenata.obrada_radnik', ['obracunski_koef_id' => $id]);
 //            return view('obracunzarada::obracunzarada.obracunzarada_index');
