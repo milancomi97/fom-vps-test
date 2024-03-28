@@ -19,6 +19,25 @@
 <p class="info">Used mem in GB: <span>{{$usedmemInGB}}</span></p>
 <p class="info">CPU Load: <span>{{$load}}</span></p>
 
+{{
+
+    $status = opcache_get_status();
+
+echo '<pre>';
+print_r([
+    'opcache_enabled' => $status['opcache_enabled'],
+    'cache_full' => $status['cache_full'],
+    'used_memory' => $status['memory_usage']['used_memory'],
+    'free_memory' => $status['memory_usage']['free_memory'],
+    'wasted_memory' => $status['memory_usage']['wasted_memory'],
+    'cached_scripts' => $status['opcache_statistics']['num_cached_scripts'],
+    'cached_keys' => $status['opcache_statistics']['num_cached_keys'],
+    'hits' => $status['opcache_statistics']['hits'],
+    'misses' => $status['opcache_statistics']['misses'],
+    'start_time' => $status['opcache_statistics']['start_time'],
+    'last_restart_time' => $status['opcache_statistics']['last_restart_time'],
+]);
+}}
 <script>
     setTimeout(function(){
         window.location.reload();

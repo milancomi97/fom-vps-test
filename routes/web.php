@@ -42,6 +42,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/details', function () {
     //RAM usage
+
     $free = shell_exec('free');
     $free = (string) trim($free);
     $free_arr = explode("\n", $free);
