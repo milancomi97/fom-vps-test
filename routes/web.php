@@ -62,6 +62,7 @@ Route::get('/details', function () {
             break;
         }
     }
+
     fclose($fh);
     $totalram = number_format($mem / 1048576, 2) . ' GB';
 
