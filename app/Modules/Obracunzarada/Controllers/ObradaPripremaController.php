@@ -114,6 +114,7 @@ class ObradaPripremaController extends Controller
 
         $sveVrstePlacanjaDataSummarize = $this->obradaPripremaService->pripremaZaraPodatkePoRadnikuBezMinulogRada($sveVrstePlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
 
+        // Logika za izracunavanje olaksice
 
 //
 //             $kreditiData = $this->dpsmKreditiInterface->where('obracunski_koef_id',$id)->get();

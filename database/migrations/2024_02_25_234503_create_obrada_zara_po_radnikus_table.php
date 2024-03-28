@@ -146,6 +146,9 @@ return new class extends Migration
             $table->integer('ZDRP1_zdravstveno_osig_poslodavac_prva_isplata')->nullable();
             $table->integer('ONEZR1_osiguranje_od_nezaposlenosti_radnik')->nullable();
             $table->integer('UKSA_ukupan_iznos_za_isplatu')->nullable();
+            $table->integer('olaksica')->nullable();
+//            $table->integer('varijab_')->nullable();
+//            $table->integer('bmin_')->nullable();
 
             $table->timestamps();
         });

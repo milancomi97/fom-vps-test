@@ -49,7 +49,7 @@ class ObradaPripremaService
                     // DPOR
 
                     $newPlacanje['POROSL_poresko_oslobodjenje'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja;
-                    $newPlacanje['iznos'] =$vrstaPlacanja['sati']  * $cenaRada;
+                    $newPlacanje['iznos'] = $vrstaPlacanja['sati'] * $cenaRada;
 
                     $sveVrstePlacanjaPoenteri[] = $newPlacanje;
 //                }
@@ -232,7 +232,7 @@ class ObradaPripremaService
         return $data;
     }
 
-    public function pripremaZaraPodatkePoRadnikuBezMinulogRada($data, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik,$monthData,$minimalneBrutoOsnoviceSifarnik)
+    public function pripremaZaraPodatkePoRadnikuBezMinulogRada($data, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik)
     {
         // KORAK 1
         // PRIPREMA G
@@ -243,29 +243,28 @@ class ObradaPripremaService
             $gSumiranjeIznosSIZNNE = 0;
             $gSumiranjeSatiSSZNNE = 0;
             $gSumiranjePrekovremeni = 0;
-            $oSumiranjeZaradeSati =0;
-            $oSumiranjeZaradeIznos =0;
-            $oSumiranjeBolovanjaSati=0;
-            $oSumiranjeBolovanjaIznos= 0;
+            $oSumiranjeZaradeSati = 0;
+            $oSumiranjeZaradeIznos = 0;
+            $oSumiranjeBolovanjaSati = 0;
+            $oSumiranjeBolovanjaIznos = 0;
 
             $sSumiranjeIznosaObustava = 0;
-            $toplihObrokSati = 0;
+            $topliObrokSati = 0;
             $regresIznos = 0;
             $satiZarade = 0;
             $iznosZarade = 0;
             $prosecniSati = 0;
             $prosecniIznos = 0;
             $mdr = '';
-            $efektivniSati=0;
-            $efektivniIznos=0;
+            $efektivniSati = 0;
+            $efektivniIznos = 0;
             // PETLJA LOGIKE ZA SUMIRANJE START
 
             foreach ($radnik as $vrstaPlacanjaSlog) {
 //                array_map(function($subArray) {     return isset($subArray['SLOV_grupa_vrste_placanja']) ? $subArray['SLOV_grupa_vrste_placanja'] : null; }, $radnik->toArray());
 
                 if ($vrstaPlacanjaSlog['POK2_obracun_minulog_rada'] == 'G') {
-                    $iznos = $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog,$vrstePlacanjaSifarnik,$radnik,$poresDoprinosiSifarnik,$monthData,$minimalneBrutoOsnoviceSifarnik);
-
+                    $iznos = $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
 
 
                     if ($vrstaPlacanjaSlog['iznos'] !== null) {
@@ -273,26 +272,26 @@ class ObradaPripremaService
                     }
 
                     if ($vrstaPlacanjaSlog['sati'] !== null) {
-                        $gSumiranjeSatiSSZNNE +=$vrstaPlacanjaSlog['sati'];
+                        $gSumiranjeSatiSSZNNE += $vrstaPlacanjaSlog['sati'];
                     }
                 }
 
 
-                if($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] =='G'){
+                if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'G') {
 
                     $gSumiranjePrekovremeni += $vrstaPlacanjaSlog['sati'];
                 }
 
 
-                if($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'O'){
+                if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'O') {
 
                     $oSumiranjeZaradeSati += $vrstaPlacanjaSlog['sati'];
-                    $oSumiranjeZaradeIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog,$vrstePlacanjaSifarnik,$radnik,$poresDoprinosiSifarnik,$monthData,$minimalneBrutoOsnoviceSifarnik);
+                    $oSumiranjeZaradeIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
 
 
                 }
 
-                if($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'O'){
+                if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'O') {
 
                     $oSumiranjeBolovanjaSati += $vrstaPlacanjaSlog['sati'];
                     $oSumiranjeBolovanjaIznos += $vrstaPlacanjaSlog['iznos'];
@@ -300,7 +299,7 @@ class ObradaPripremaService
                 }
 
 
-                if($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] > 'S'){
+                if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] > 'S') {
 
                     $sSumiranjeIznosaObustava += $vrstaPlacanjaSlog['iznos'];
                 }
@@ -313,26 +312,26 @@ class ObradaPripremaService
 //
 //                }
 
-                if($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'L' && $vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'P'){
+                if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'L' && $vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'P') {
 
-                    $toplihObrokSati += $vrstaPlacanjaSlog['sati'];
+                    $topliObrokSati += $vrstaPlacanjaSlog['sati'];
                 }
 
-                if($vrstaPlacanjaSlog['sifra_vrste_placanja']=='058'){
+                if ($vrstaPlacanjaSlog['sifra_vrste_placanja'] == '058') {
 
                     $regresIznos += $vrstaPlacanjaSlog['iznos'];
 
                 }
 
 
-                if($vrstaPlacanjaSlog['POK1_grupisanje_sati_novca']=='1' || $vrstaPlacanjaSlog['POK1_grupisanje_sati_novca']=='3'){
+                if ($vrstaPlacanjaSlog['POK1_grupisanje_sati_novca'] == '1' || $vrstaPlacanjaSlog['POK1_grupisanje_sati_novca'] == '3') {
 
                     // PROVERI POK1 Podatak
                     $satiZarade += $vrstaPlacanjaSlog['sati'];
 
                 }
 
-                if($vrstaPlacanjaSlog['POK1_grupisanje_sati_novca']=='2' || $vrstaPlacanjaSlog['POK1_grupisanje_sati_novca']=='3' && $vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] !== 'O'){
+                if ($vrstaPlacanjaSlog['POK1_grupisanje_sati_novca'] == '2' || $vrstaPlacanjaSlog['POK1_grupisanje_sati_novca'] == '3' && $vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] !== 'O') {
 //                NAKNADNO U IZVESTAJIMA
                     // PROVERI POK1 Podatak
                     $iznosZarade += $vrstaPlacanjaSlog['iznos'];
@@ -340,12 +339,12 @@ class ObradaPripremaService
                 }
 
 
-                if($vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] =='1' || $vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] =='3'){
+                if ($vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] == '1' || $vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] == '3') {
 
                     $prosecniSati += $vrstaPlacanjaSlog['sati'];
                 }
 
-                if($vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] =='2' || $vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] =='3'){
+                if ($vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] == '2' || $vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] == '3') {
                     $prosecniIznos += $vrstaPlacanjaSlog['iznos'];
 
                 }
@@ -363,11 +362,10 @@ class ObradaPripremaService
                     }
                 }
 
-                if($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['EFSA_efektivni_sati']){
-                    $efektivniSati+=$vrstaPlacanjaSlog['sati'];
-                    $efektivniIznos+= $vrstaPlacanjaSlog['iznos'];
+                if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['EFSA_efektivni_sati']) {
+                    $efektivniSati += $vrstaPlacanjaSlog['sati'];
+                    $efektivniIznos += $vrstaPlacanjaSlog['iznos'];
                 }
-
 
 
             }
@@ -378,20 +376,20 @@ class ObradaPripremaService
             $radnik['ZAR'] = [
                 'SIZNNE' => $gSumiranjeIznosSIZNNE,
                 'SSZNNE' => $gSumiranjeSatiSSZNNE,
-                'PREK'=>$gSumiranjePrekovremeni,
-                'SSZNE'=>$oSumiranjeZaradeSati,
-                'SIZNE'=>$oSumiranjeZaradeIznos,
-                'SSNNE'=> $oSumiranjeBolovanjaSati,
-                'SINNE'=>$oSumiranjeBolovanjaIznos,
-                'SIOB'=>$sSumiranjeIznosaObustava,
-                'TOPSATI'=>$toplihObrokSati,
+                'PREK' => $gSumiranjePrekovremeni,
+                'SSZNE' => $oSumiranjeZaradeSati,
+                'SIZNE' => $oSumiranjeZaradeIznos,
+                'SSNNE' => $oSumiranjeBolovanjaSati,
+                'SINNE' => $oSumiranjeBolovanjaIznos,
+                'SIOB' => $sSumiranjeIznosaObustava,
+                'TOPSATI' => $topliObrokSati,
                 'REGR' => $regresIznos,
-                'sati_zarade'=>$satiZarade,
+                'sati_zarade' => $satiZarade,
                 'iznos_zarade' => $iznosZarade,
-                'prosecni_sati'=>$prosecniSati,
-                'prosecni_iznos'=>$prosecniIznos,
-                'EFSATI'=>$efektivniSati,
-                'EFIZNO'=>$efektivniIznos,
+                'prosecni_sati' => $prosecniSati,
+                'prosecni_iznos' => $prosecniIznos,
+                'EFSATI' => $efektivniSati,
+                'EFIZNO' => $efektivniIznos,
 //                'SINNE' => $iznosNaknada
 //                'OGRAN'=> $SumiranjeOgranicenja,
             ];
@@ -413,11 +411,6 @@ class ObradaPripremaService
 //            replace ZAR->P_R     with MDR->P_R  // P_R_U
 
 
-
-
-
-
-
 //            $radnik['POR'] = ;
             $radnik['MDR'] = $mdr ?? [];
 //            $radnik['KOE'] = ;
@@ -430,70 +423,76 @@ class ObradaPripremaService
         // PRIPREMA K
         // KORISTE SE PODACI OD G
 
-        return $this->pripremaZaraPodatkePoRadnikuKorakDva($groupRadnikData,$vrstePlacanjaSifarnik, $poresDoprinosiSifarnik,$monthData,$minimalneBrutoOsnoviceSifarnik);
+        $groupRadnikDataKorak2 = $this->pripremaZaraPodatkePoRadnikuKorakDva($groupRadnikData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
+
+        $groupRadnikDataKorak3 = $this->pripremaZaraPodatkePoRadnikuKorakTri($groupRadnikDataKorak2, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
+
+        return $groupRadnikDataKorak3;
+
     }
 
-    public function pripremaZaraPodatkePoRadnikuKorakDva($groupRadnikData,$vrstePlacanjaSifarnik, $poresDoprinosiSifarnik,$monthData,$minimalneBrutoOsnoviceSifarnik){
+    public function pripremaZaraPodatkePoRadnikuKorakDva($groupRadnikData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik)
+    {
 
         $newRadnikData = [];
         foreach ($groupRadnikData as $radnik) {
 
             $kSumiranjeIznosSIZNNE = $radnik['ZAR']['SIZNNE'];
-            $kSumiranjeSatiSSZNNE =  $radnik['ZAR']['SSZNNE'];
+            $kSumiranjeSatiSSZNNE = $radnik['ZAR']['SSZNNE'];
             $gSumiranjePrekovremeni = $radnik['ZAR']['PREK'];
-            $oSumiranjeZaradeSati =$radnik['ZAR']['SSZNE'];
-            $oSumiranjeZaradeIznos =$radnik['ZAR']['SIZNE'];
-            $oSumiranjeBolovanjaSati=$radnik['ZAR']['SSNNE'];
-            $oSumiranjeBolovanjaIznos= $radnik['ZAR']['SINNE'];
+            $oSumiranjeZaradeSati = $radnik['ZAR']['SSZNE'];
+            $oSumiranjeZaradeIznos = $radnik['ZAR']['SIZNE'];
+            $oSumiranjeBolovanjaSati = $radnik['ZAR']['SSNNE'];
+            $oSumiranjeBolovanjaIznos = $radnik['ZAR']['SINNE'];
 
             $sSumiranjeIznosaObustava = $radnik['ZAR']['SIOB'];
-            $toplihObrokSati = $radnik['ZAR']['TOPSATI'];
+            $topliObrokSati = $radnik['ZAR']['TOPSATI'];
             $regresIznos = $radnik['ZAR']['REGR'];
             $satiZarade = $radnik['ZAR']['sati_zarade'];
             $iznosZarade = $radnik['ZAR']['iznos_zarade'];
             $prosecniSati = $radnik['ZAR']['sati_zarade'];
             $prosecniIznos = $radnik['ZAR']['prosecni_iznos'];
             $mdr = '';
-            $efektivniSati=$radnik['ZAR']['EFSATI'];
-            $efektivniIznos=$radnik['ZAR']['EFIZNO'];
+            $efektivniSati = $radnik['ZAR']['EFSATI'];
+            $efektivniIznos = $radnik['ZAR']['EFIZNO'];
 
 
             foreach ($radnik as $key => $vrstaPlacanjaSlog) {
 
-                if($key =='ZAR' || $key=='MDR'){
-                 continue;
+                if ($key == 'ZAR' || $key == 'MDR') {
+                    continue;
                 }
 
 
                 if ($vrstaPlacanjaSlog['POK2_obracun_minulog_rada'] == 'K') {
 
-                    $iznos = $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog,$vrstePlacanjaSifarnik,$radnik,$poresDoprinosiSifarnik,$monthData,$minimalneBrutoOsnoviceSifarnik);
+                    $iznos = $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
 
                     if ($vrstaPlacanjaSlog['iznos'] !== null) {
                         $kSumiranjeIznosSIZNNE += $iznos;
                     }
 
                     if ($vrstaPlacanjaSlog['sati'] !== null) {
-                        $kSumiranjeSatiSSZNNE +=$vrstaPlacanjaSlog['sati'];
+                        $kSumiranjeSatiSSZNNE += $vrstaPlacanjaSlog['sati'];
                     }
                 }
 
 
-                if($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] =='G'){
+                if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'G') {
 
                     $gSumiranjePrekovremeni += $vrstaPlacanjaSlog['sati'];
                 }
 
 
-                if($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'O'){
+                if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'O') {
 
                     $oSumiranjeZaradeSati += $vrstaPlacanjaSlog['sati'];
-                    $oSumiranjeZaradeIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog,$vrstePlacanjaSifarnik,$radnik,$poresDoprinosiSifarnik,$monthData,$minimalneBrutoOsnoviceSifarnik);
+                    $oSumiranjeZaradeIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
 
 
                 }
 
-                if($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'O'){
+                if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'O') {
 
                     $oSumiranjeBolovanjaSati += $vrstaPlacanjaSlog['sati'];
                     $oSumiranjeBolovanjaIznos += $vrstaPlacanjaSlog['iznos'];
@@ -501,7 +500,7 @@ class ObradaPripremaService
                 }
 
 
-                if($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] > 'S'){
+                if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] > 'S') {
 
                     $sSumiranjeIznosaObustava += $vrstaPlacanjaSlog['iznos'];
                 }
@@ -514,26 +513,26 @@ class ObradaPripremaService
 //
 //                }
 
-                if($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'L' && $vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'P'){
+                if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'L' && $vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'P') {
 
-                    $toplihObrokSati += $vrstaPlacanjaSlog['sati'];
+                    $topliObrokSati += $vrstaPlacanjaSlog['sati'];
                 }
 
-                if($vrstaPlacanjaSlog['sifra_vrste_placanja']=='058'){
+                if ($vrstaPlacanjaSlog['sifra_vrste_placanja'] == '058') {
 
                     $regresIznos += $vrstaPlacanjaSlog['iznos'];
 
                 }
 
 
-                if($vrstaPlacanjaSlog['POK1_grupisanje_sati_novca']=='1' || $vrstaPlacanjaSlog['POK1_grupisanje_sati_novca']=='3'){
+                if ($vrstaPlacanjaSlog['POK1_grupisanje_sati_novca'] == '1' || $vrstaPlacanjaSlog['POK1_grupisanje_sati_novca'] == '3') {
 
                     // PROVERI POK1 Podatak
                     $satiZarade += $vrstaPlacanjaSlog['sati'];
 
                 }
 
-                if($vrstaPlacanjaSlog['POK1_grupisanje_sati_novca']=='2' || $vrstaPlacanjaSlog['POK1_grupisanje_sati_novca']=='3' && $vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] !== 'O'){
+                if ($vrstaPlacanjaSlog['POK1_grupisanje_sati_novca'] == '2' || $vrstaPlacanjaSlog['a_grupisanje_sati_novca'] == '3' && $vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] !== 'O') {
 //                NAKNADNO U IZVESTAJIMA
                     // PROVERI POK1 Podatak
                     $iznosZarade += $vrstaPlacanjaSlog['iznos'];
@@ -541,12 +540,12 @@ class ObradaPripremaService
                 }
 
 
-                if($vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] =='1' || $vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] =='3'){
+                if ($vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] == '1' || $vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] == '3') {
 
                     $prosecniSati += $vrstaPlacanjaSlog['sati'];
                 }
 
-                if($vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] =='2' || $vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] =='3'){
+                if ($vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] == '2' || $vrstaPlacanjaSlog['PROSEK_prosecni_obracun'] == '3') {
                     $prosecniIznos += $vrstaPlacanjaSlog['iznos'];
 
                 }
@@ -564,15 +563,10 @@ class ObradaPripremaService
                     }
                 }
 
-                if($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['EFSA_efektivni_sati']){
-                    $efektivniSati+=$vrstaPlacanjaSlog['sati'];
-                    $efektivniIznos+= $vrstaPlacanjaSlog['iznos'];
+                if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['EFSA_efektivni_sati']) {
+                    $efektivniSati += $vrstaPlacanjaSlog['sati'];
+                    $efektivniIznos += $vrstaPlacanjaSlog['iznos'];
                 }
-
-
-
-
-
 
             }
 
@@ -580,31 +574,130 @@ class ObradaPripremaService
             $radnik['ZAR'] = [
                 'SIZNNE' => $kSumiranjeIznosSIZNNE,
                 'SSZNNE' => $kSumiranjeSatiSSZNNE,
-                'PREK'=>$gSumiranjePrekovremeni,
-                'SSZNE'=>$oSumiranjeZaradeSati,
-                'SIZNE'=>$oSumiranjeZaradeIznos,
-                'SSNNE'=> $oSumiranjeBolovanjaSati,
-                'SINNE'=>$oSumiranjeBolovanjaIznos,
-                'SIOB'=>$sSumiranjeIznosaObustava,
-                'TOPSATI'=>$toplihObrokSati,
+                'PREK' => $gSumiranjePrekovremeni,
+                'SSZNE' => $oSumiranjeZaradeSati,
+                'SIZNE' => $oSumiranjeZaradeIznos,
+                'SSNNE' => $oSumiranjeBolovanjaSati,
+                'SINNE' => $oSumiranjeBolovanjaIznos,
+                'SIOB' => $sSumiranjeIznosaObustava,
+                'TOPSATI' => $topliObrokSati,
                 'REGR' => $regresIznos,
-                'sati_zarade'=>$satiZarade,
+                'sati_zarade' => $satiZarade,
                 'iznos_zarade' => $iznosZarade,
-                'prosecni_sati'=>$prosecniSati,
-                'prosecni_iznos'=>$prosecniIznos,
-                'EFSATI'=>$efektivniSati,
-                'EFIZNO'=>$efektivniIznos,
+                'prosecni_sati' => $prosecniSati,
+                'prosecni_iznos' => $prosecniIznos,
+                'EFSATI' => $efektivniSati,
+                'EFIZNO' => $efektivniIznos,
 //                'SINNE' => $iznosNaknada
 //                'OGRAN'=> $SumiranjeOgranicenja,
             ];
 
             // TODO UPDATE DATABASE WITH ZARA
-            $newRadnikData[]=$radnik;
+            $newRadnikData[] = $radnik;
         }
 
         return $newRadnikData;
     }
 
+    public function pripremaZaraPodatkePoRadnikuKorakTri($groupRadnikData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik)
+    {
+
+        $newRadnikData = [];
+        foreach ($groupRadnikData as $radnik) {
+
+            $kSumiranjeIznosSIZNNE = $radnik['ZAR']['SIZNNE'];
+            $kSumiranjeSatiSSZNNE = $radnik['ZAR']['SSZNNE'];
+            $gSumiranjePrekovremeni = $radnik['ZAR']['PREK'];
+            $oSumiranjeZaradeSati = $radnik['ZAR']['SSZNE'];
+            $oSumiranjeZaradeIznos = $radnik['ZAR']['SIZNE'];
+            $oSumiranjeBolovanjaSati = $radnik['ZAR']['SSNNE'];
+            $oSumiranjeBolovanjaIznos = $radnik['ZAR']['SINNE'];
+
+            $sSumiranjeIznosaObustava = $radnik['ZAR']['SIOB'];
+            $topliObrokSati = $radnik['ZAR']['TOPSATI'];
+            $topliObrokIznos = 0;
+            $regresIznos = $radnik['ZAR']['REGR'];
+            $satiZarade = $radnik['ZAR']['sati_zarade'];
+            $iznosZarade = $radnik['ZAR']['iznos_zarade'];
+            $prosecniSati = $radnik['ZAR']['sati_zarade'];
+            $prosecniIznos = $radnik['ZAR']['prosecni_iznos'];
+            $mdr = '';
+            $efektivniSati = $radnik['ZAR']['EFSATI'];
+            $efektivniIznos = $radnik['ZAR']['EFIZNO'];
+            $varijaIznos = 0;
+            $s = 0;
+            $ss = 0;
+
+
+            foreach ($radnik as $key => $vrstaPlacanjaSlog) {
+
+                if ($key == 'ZAR' || $key == 'MDR') {
+                    continue;
+                }
+
+                // end radnik loop
+                if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['OGRAN_ogranicenje_za_minimalac'] == '3') {
+                    $s += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);;
+                    $ss += $vrstaPlacanjaSlog['sati'];
+                }
+
+                if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['OGRAN_ogranicenje_za_minimalac'] == '2') {
+                    $s += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);;
+                }
+
+                if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['OGRAN_ogranicenje_za_minimalac'] == '1') {
+                    $ss += $vrstaPlacanjaSlog['sati'];
+                }
+
+
+                if ($vrstaPlacanjaSlog->SLOV_grupa_vrste_placanja == 'L' && $vrstaPlacanjaSlog->KESC_prihod_rashod_tip == 'P') {
+
+                    $topliObrokSati += $vrstaPlacanjaSlog['sati'];
+                    $topliObrokIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
+                }
+
+                if ($vrstaPlacanjaSlog->sifra_vrste_placanja == '058') {
+
+                    $regresIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
+                }
+
+                if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['VARI_minuli_rad'] == '2') {
+                    $varijaIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
+                }
+
+            }
+
+
+            // TODO POPAKUJ PO KOLONAMA
+            $radnik['ZAR'] = [
+                'SIZNNE' => $kSumiranjeIznosSIZNNE,
+                'SSZNNE' => $kSumiranjeSatiSSZNNE,
+                'PREK' => $gSumiranjePrekovremeni,
+                'SSZNE' => $oSumiranjeZaradeSati,
+                'SIZNE' => $oSumiranjeZaradeIznos,
+                'SSNNE' => $oSumiranjeBolovanjaSati,
+                'SINNE' => $oSumiranjeBolovanjaIznos,
+                'SIOB' => $sSumiranjeIznosaObustava,
+                'TOPSATI' => $topliObrokSati,
+                'TOPLI' => $topliObrokIznos,
+                'REGR' => $regresIznos,
+                'sati_zarade' => $satiZarade,
+                'iznos_zarade' => $iznosZarade,
+                'prosecni_sati' => $prosecniSati,
+                'prosecni_iznos' => $prosecniIznos,
+                'EFSATI' => $efektivniSati,
+                'EFIZNO' => $efektivniIznos,
+                'VARIJA' => $varijaIznos
+//                'SINNE' => $iznosNaknada
+//                'OGRAN'=> $SumiranjeOgranicenja,
+            ];
+
+            // TODO UPDATE DATABASE WITH ZARA
+            $newRadnikData[] = $radnik;
+        }
+
+        return $newRadnikData;
+    }
 
 
 }
