@@ -147,6 +147,17 @@ return new class extends Migration
             $table->integer('ONEZR1_osiguranje_od_nezaposlenosti_radnik')->nullable();
             $table->integer('UKSA_ukupan_iznos_za_isplatu')->nullable();
             $table->integer('olaksica')->nullable();
+            $table->integer('PREK_prekovremeni')->nullable();
+
+
+            $table->unsignedBigInteger('obracunski_koef_id')->nullable();
+            $table->unsignedBigInteger('user_dpsm_id')->nullable(); // Mesec-Radnik-id
+            $table->unsignedBigInteger('user_mdr_id')->nullable();
+
+            $table->foreign('user_dpsm_id')->references('id')->on('mesecnatabelapoentazas')->onDelete('cascade');
+            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
+            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
+
 //            $table->integer('varijab_')->nullable();
 //            $table->integer('bmin_')->nullable();
 

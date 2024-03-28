@@ -390,7 +390,6 @@ class ObradaPripremaService
                 'prosecni_iznos' => $prosecniIznos,
                 'EFSATI' => $efektivniSati,
                 'EFIZNO' => $efektivniIznos,
-//                'SINNE' => $iznosNaknada
 //                'OGRAN'=> $SumiranjeOgranicenja,
             ];
 
@@ -672,9 +671,9 @@ class ObradaPripremaService
             $radnik['ZAR'] = [
                 'SIZNNE' => $kSumiranjeIznosSIZNNE,
                 'SSZNNE' => $kSumiranjeSatiSSZNNE,
-                'PREK' => $gSumiranjePrekovremeni,
-                'SSZNE' => $oSumiranjeZaradeSati,
                 'SIZNE' => $oSumiranjeZaradeIznos,
+                'SSZNE' => $oSumiranjeZaradeSati,
+                'PREK' => $gSumiranjePrekovremeni,
                 'SSNNE' => $oSumiranjeBolovanjaSati,
                 'SINNE' => $oSumiranjeBolovanjaIznos,
                 'SIOB' => $sSumiranjeIznosaObustava,
@@ -687,16 +686,44 @@ class ObradaPripremaService
                 'prosecni_iznos' => $prosecniIznos,
                 'EFSATI' => $efektivniSati,
                 'EFIZNO' => $efektivniIznos,
-                'VARIJA' => $varijaIznos
+                'VARIJA' => $varijaIznos,
+                'MINIM'=> $s/$ss
 //                'SINNE' => $iznosNaknada
 //                'OGRAN'=> $SumiranjeOgranicenja,
             ];
 
             // TODO UPDATE DATABASE WITH ZARA
-            $newRadnikData[] = $radnik;
+
+            $newRadnikData[] = $this->prepareZaraData($radnik);
         }
 
         return $newRadnikData;
+    }
+
+    public function prepareZaraData($radnik)
+    {
+
+        $radnikData = [
+            'SSZNE_suma_sati_zarade' => $radnik['ZAR']['SSZNNE'],  //  proveriti duplikat
+            'SIZNE_ukupni_iznos_zarade' => $radnik['ZAR']['SIZNNE'], // OVO SUMIRATI
+            'SSZNE_suma_sati_zarade' => $radnik['ZAR']['SSZNE'],
+            'SIZNE_ukupni_iznos_zarade' => $radnik['ZAR']['SIZNE'],
+            'PREK_prekovremeni' => $radnik['ZAR']['PREK'],
+            'SSNNE_suma_sati_naknade' => $radnik['ZAR']['SSNNE'],
+            'SINNE_ukupni_iznos_naknade' => $radnik['ZAR']['SINNE'],
+            'SIOB_ukupni_iznos_obustava' => $radnik['ZAR']['SIOB'],
+            'TOPLI_obrok_sati' => $radnik['ZAR']['TOPSATI'],
+            'TOPLI_obrok_iznos' => $radnik['ZAR']['TOPLI'],
+            'REGRES_iznos_regresa' => $radnik['ZAR']['REGR'],
+            'SSZNE_suma_sati_zarade' => $radnik['ZAR']['sati_zarade'], // TODO proveriti duplikat
+            'SIZNE_ukupni_iznos_zarade' => $radnik['ZAR']['iznos_zarade'], // TODO proveriti duplikat
+            'PRIZ_prosecni_sati_godina' => $radnik['ZAR']['prosecni_sati'],
+            'PRIZ_prosecni_iznos_godina' => $radnik['ZAR']['prosecni_iznos'],
+            'EFSATI_ukupni_iznos_efektivnih_sati' => $radnik['ZAR']['EFSATI'],
+            'EFIZNO_kumulativ_iznosa_za_efektivne_sate' => $radnik['ZAR']['EFIZNO']
+        ];
+
+        return $radnikData;
     }
 
 
