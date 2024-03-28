@@ -37,9 +37,9 @@ print_r([
 ]);
 ?>
 <script>
-    setTimeout(function(){
-        window.location.reload();
-    }, 1000);
+    // setTimeout(function(){
+    //     window.location.reload();
+    // }, 1000);
 </script>
 </body>
 </html>
