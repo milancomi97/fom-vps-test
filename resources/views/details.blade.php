@@ -19,9 +19,7 @@
 <p class="info">Used mem in GB: <span>{{$usedmemInGB}}</span></p>
 <p class="info">CPU Load: <span>{{$load}}</span></p>
 
-{{
-
-    $status = opcache_get_status();
+<?php $status = opcache_get_status();
 
 echo '<pre>';
 print_r([
@@ -37,7 +35,7 @@ print_r([
     'start_time' => $status['opcache_statistics']['start_time'],
     'last_restart_time' => $status['opcache_statistics']['last_restart_time'],
 ]);
-}}
+?>
 <script>
     setTimeout(function(){
         window.location.reload();
