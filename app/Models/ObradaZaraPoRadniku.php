@@ -60,12 +60,13 @@ class ObradaZaraPoRadniku extends Model
         'ZDRR1_zdravstveno_osig_radnik_prva_isplata',
         'ZDRP1_zdravstveno_osig_poslodavac_prva_isplata',
         'ONEZR1_osiguranje_od_nezaposlenosti_radnik',
-        'UKSA_ukupan_iznos_za_isplatu',
+        'UKSA_ukupni_sati_za_isplatu',
         'olaksica',
         'PREK_prekovremeni',
         'obracunski_koef_id',
         'user_dpsm_id',
-        'user_mdr_id'
+        'user_mdr_id',
+        'solid'
     ];
 
 }

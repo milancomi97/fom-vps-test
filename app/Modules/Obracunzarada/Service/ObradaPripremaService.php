@@ -2,12 +2,14 @@
 
 namespace App\Modules\Obracunzarada\Service;
 
+use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 
 class ObradaPripremaService
 {
     public function __construct(
-        private readonly ObradaFormuleService $obradaFormuleService
+        private readonly ObradaFormuleService                   $obradaFormuleService,
+        private readonly ObradaZaraPoRadnikuRepositoryInterface $obradaZaraPoRadnikuInterface
     )
     {
     }
@@ -240,8 +242,8 @@ class ObradaPripremaService
         $groupRadnikData = $data->groupBy('user_mdr_id');
 
         foreach ($groupRadnikData as $radnik) {
-            $gSumiranjeIznosSIZNNE = 0;
-            $gSumiranjeSatiSSZNNE = 0;
+            $gSumiranjeIznosSIZNE = 0;
+            $gSumiranjeSatiSSZNE = 0;
             $gSumiranjePrekovremeni = 0;
             $oSumiranjeZaradeSati = 0;
             $oSumiranjeZaradeIznos = 0;
@@ -268,11 +270,11 @@ class ObradaPripremaService
 
 
                     if ($vrstaPlacanjaSlog['iznos'] !== null) {
-                        $gSumiranjeIznosSIZNNE += $iznos;
+                        $gSumiranjeIznosSIZNE += $iznos;
                     }
 
                     if ($vrstaPlacanjaSlog['sati'] !== null) {
-                        $gSumiranjeSatiSSZNNE += $vrstaPlacanjaSlog['sati'];
+                        $gSumiranjeSatiSSZNE += $vrstaPlacanjaSlog['sati'];
                     }
                 }
 
@@ -374,11 +376,11 @@ class ObradaPripremaService
 
             // LOGIKA ZA PREPISIVANJE i UPISIVANJE SUM START
             $radnik['ZAR'] = [
-                'SIZNNE' => $gSumiranjeIznosSIZNNE,
-                'SSZNNE' => $gSumiranjeSatiSSZNNE,
+                'SIZNE' => $gSumiranjeIznosSIZNE + $oSumiranjeZaradeIznos,
+                'SSZNE' => $gSumiranjeSatiSSZNE + $oSumiranjeZaradeSati,
                 'PREK' => $gSumiranjePrekovremeni,
-                'SSZNE' => $oSumiranjeZaradeSati,
-                'SIZNE' => $oSumiranjeZaradeIznos,
+//                'SSZNE' => $oSumiranjeZaradeSati,
+//                'SIZNE' => $oSumiranjeZaradeIznos,
                 'SSNNE' => $oSumiranjeBolovanjaSati,
                 'SINNE' => $oSumiranjeBolovanjaIznos,
                 'SIOB' => $sSumiranjeIznosaObustava,
@@ -426,6 +428,8 @@ class ObradaPripremaService
 
         $groupRadnikDataKorak3 = $this->pripremaZaraPodatkePoRadnikuKorakTri($groupRadnikDataKorak2, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
 
+//        $groupRadnikDataKorak4 = $this->pripremaZaraPodatkePoRadnikuKorakCetiri($groupRadnikDataKorak3, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
+
         return $groupRadnikDataKorak3;
 
     }
@@ -436,11 +440,12 @@ class ObradaPripremaService
         $newRadnikData = [];
         foreach ($groupRadnikData as $radnik) {
 
-            $kSumiranjeIznosSIZNNE = $radnik['ZAR']['SIZNNE'];
-            $kSumiranjeSatiSSZNNE = $radnik['ZAR']['SSZNNE'];
-            $gSumiranjePrekovremeni = $radnik['ZAR']['PREK'];
+//            $kSumiranjeIznosSIZNNE = $radnik['ZAR']['SIZNNE'];
+//            $kSumiranjeSatiSSZNNE = $radnik['ZAR']['SSZNNE'];
             $oSumiranjeZaradeSati = $radnik['ZAR']['SSZNE'];
             $oSumiranjeZaradeIznos = $radnik['ZAR']['SIZNE'];
+            $gSumiranjePrekovremeni = $radnik['ZAR']['PREK'];
+
             $oSumiranjeBolovanjaSati = $radnik['ZAR']['SSNNE'];
             $oSumiranjeBolovanjaIznos = $radnik['ZAR']['SINNE'];
 
@@ -571,11 +576,11 @@ class ObradaPripremaService
 
 
             $radnik['ZAR'] = [
-                'SIZNNE' => $kSumiranjeIznosSIZNNE,
-                'SSZNNE' => $kSumiranjeSatiSSZNNE,
-                'PREK' => $gSumiranjePrekovremeni,
+//                'SIZNNE' => $kSumiranjeIznosSIZNNE,
+//                'SSZNNE' => $kSumiranjeSatiSSZNNE,
                 'SSZNE' => $oSumiranjeZaradeSati,
                 'SIZNE' => $oSumiranjeZaradeIznos,
+                'PREK' => $gSumiranjePrekovremeni,
                 'SSNNE' => $oSumiranjeBolovanjaSati,
                 'SINNE' => $oSumiranjeBolovanjaIznos,
                 'SIOB' => $sSumiranjeIznosaObustava,
@@ -604,11 +609,12 @@ class ObradaPripremaService
         $newRadnikData = [];
         foreach ($groupRadnikData as $radnik) {
 
-            $kSumiranjeIznosSIZNNE = $radnik['ZAR']['SIZNNE'];
-            $kSumiranjeSatiSSZNNE = $radnik['ZAR']['SSZNNE'];
+//            $kSumiranjeIznosSIZNNE = $radnik['ZAR']['SIZNNE'];
+//            $kSumiranjeSatiSSZNNE = $radnik['ZAR']['SSZNNE'];
             $gSumiranjePrekovremeni = $radnik['ZAR']['PREK'];
             $oSumiranjeZaradeSati = $radnik['ZAR']['SSZNE'];
             $oSumiranjeZaradeIznos = $radnik['ZAR']['SIZNE'];
+
             $oSumiranjeBolovanjaSati = $radnik['ZAR']['SSNNE'];
             $oSumiranjeBolovanjaIznos = $radnik['ZAR']['SINNE'];
 
@@ -669,8 +675,8 @@ class ObradaPripremaService
 
             // TODO POPAKUJ PO KOLONAMA
             $radnik['ZAR'] = [
-                'SIZNNE' => $kSumiranjeIznosSIZNNE,
-                'SSZNNE' => $kSumiranjeSatiSSZNNE,
+//                'SIZNNE' => $kSumiranjeIznosSIZNNE,
+//                'SSZNNE' => $kSumiranjeSatiSSZNNE,
                 'SIZNE' => $oSumiranjeZaradeIznos,
                 'SSZNE' => $oSumiranjeZaradeSati,
                 'PREK' => $gSumiranjePrekovremeni,
@@ -687,27 +693,79 @@ class ObradaPripremaService
                 'EFSATI' => $efektivniSati,
                 'EFIZNO' => $efektivniIznos,
                 'VARIJA' => $varijaIznos,
-                'MINIM'=> $s/$ss
+                'MINIM' => $s / $ss,
+                'S' => $s,
+                'SS' => $ss
 //                'SINNE' => $iznosNaknada
 //                'OGRAN'=> $SumiranjeOgranicenja,
             ];
 
             // TODO UPDATE DATABASE WITH ZARA
-
-            $newRadnikData[] = $this->prepareZaraData($radnik);
+//            \App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface
+            $newRadnikData[] = $this->prepareZaraData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData);
         }
+
+        $this->obradaZaraPoRadnikuInterface->createMany($newRadnikData);
 
         return $newRadnikData;
     }
 
-    public function prepareZaraData($radnik)
+    public function prepareZaraData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData)
     {
 
+
+        $nt2 = (float)$minimalneBrutoOsnoviceSifarnik->NT1_prosecna_mesecna_zarada_u_republici;
+        // ZAR->OLAKSICA =
+
+        $olaksica = $nt2 / $monthData->mesecni_fond_sati;// NTO->NT2/KOE->BR_S
+
+
+//        foreach ($radnik as $key => $vrstaPlacanjaSlog) {
+//
+//            if ($key == 'ZAR' || $key == 'MDR') {
+//                continue;
+//            }
+//
+//            $test='TEST';
+//
+//        }
+
+        if ($olaksica > $radnik['ZAR']['MINIM']) {  // Olaksica ne sme da bude manja od minimalne propisane zarade
+
+            $tabelaKoristnikMinuliRadEnabled = 1; // TODO pronadji kolonu
+            if ($tabelaKoristnikMinuliRadEnabled == 1) {
+//                $radnik['ZAR']['SOLID'] =  0 ;//( ZAR->OLAKSICA -ZAR->MINIM)*SS
+
+                $solid = ($olaksica - $radnik['ZAR']['MINIM']) * $radnik['ZAR']['SS'];
+                $minsol = $solid * (int)$radnik['MDR']['GGST_godine_staza'] * 0.4 / 100; // TODO UBACITI VREDNOST INFORMACIJE O FIRMI
+
+            } else if ($tabelaKoristnikMinuliRadEnabled == 0) {
+//                replace ZAR->SOLID with (( ZAR->OLAKSICA -ZAR->MINIM)*SS)  //  NOVI OBracun za DRUMSKA i Solko i sve ostale
+//                $solid  =  ($olaksica -  $radnik['ZAR']['MINIM']) * $radnik['ZAR']['SS'];
+                $solid = ($olaksica - $radnik['ZAR']['MINIM']) * $radnik['ZAR']['SS'];
+
+            }
+        } elseif ($olaksica <= $radnik['ZAR']['MINIM']) {
+            $solid = 0;
+
+        }
+
+
+        $solid += $minsol ?? 0;
+
+
+//        if ZAR->IZNETO <= (NTO->NT1*NTO->STOPA6)
+//        replace ZAR->UKUPNO with ZAR->IZNETO  // za sve firme
+//           elseif ZAR->IZNETO > (NTO->NT1*NTO->STOPA6)
+//             replace ZAR->UKUPNO with (NTO->NT1*NTO->STOPA6)
+//           END
+
+
+        // DODAVANJA
         $radnikData = [
-            'SSZNE_suma_sati_zarade' => $radnik['ZAR']['SSZNNE'],  //  proveriti duplikat
-            'SIZNE_ukupni_iznos_zarade' => $radnik['ZAR']['SIZNNE'], // OVO SUMIRATI
-            'SSZNE_suma_sati_zarade' => $radnik['ZAR']['SSZNE'],
-            'SIZNE_ukupni_iznos_zarade' => $radnik['ZAR']['SIZNE'],
+
+            'SSZNE_suma_sati_zarade' => $radnik['ZAR']['SSZNE'] + $radnik['ZAR']['sati_zarade'],
+            'SIZNE_ukupni_iznos_zarade' => $radnik['ZAR']['SIZNE'] + $radnik['ZAR']['iznos_zarade'],
             'PREK_prekovremeni' => $radnik['ZAR']['PREK'],
             'SSNNE_suma_sati_naknade' => $radnik['ZAR']['SSNNE'],
             'SINNE_ukupni_iznos_naknade' => $radnik['ZAR']['SINNE'],
@@ -715,15 +773,39 @@ class ObradaPripremaService
             'TOPLI_obrok_sati' => $radnik['ZAR']['TOPSATI'],
             'TOPLI_obrok_iznos' => $radnik['ZAR']['TOPLI'],
             'REGRES_iznos_regresa' => $radnik['ZAR']['REGR'],
-            'SSZNE_suma_sati_zarade' => $radnik['ZAR']['sati_zarade'], // TODO proveriti duplikat
-            'SIZNE_ukupni_iznos_zarade' => $radnik['ZAR']['iznos_zarade'], // TODO proveriti duplikat
             'PRIZ_prosecni_sati_godina' => $radnik['ZAR']['prosecni_sati'],
             'PRIZ_prosecni_iznos_godina' => $radnik['ZAR']['prosecni_iznos'],
             'EFSATI_ukupni_iznos_efektivnih_sati' => $radnik['ZAR']['EFSATI'],
-            'EFIZNO_kumulativ_iznosa_za_efektivne_sate' => $radnik['ZAR']['EFIZNO']
+            'EFIZNO_kumulativ_iznosa_za_efektivne_sate' => $radnik['ZAR']['EFIZNO'],
+            'IZNETO_zbir_ukupni_iznos_naknade_i_naknade' => $radnik['ZAR']['SIZNE'] + $radnik['ZAR']['iznos_zarade'] + $solid,
+            'UKSA_ukupni_sati_za_isplatu' => $radnik['ZAR']['SSZNE'] + $radnik['ZAR']['sati_zarade'],
+            'solid' => $solid,
+            'user_dpsm_id' => $radnik[0]->user_dpsm_id,
+            'obracunski_koef_id' => $monthData->id,
+            'user_mdr_id' => $radnik[0]->user_mdr_id
         ];
 
+        // TODO na kraju DKOP ce da dobije jos jedan slog kod ranika koji su ispod minimalne bruto zarade  minuli rad
+
         return $radnikData;
+    }
+
+
+    public function pripremaZaraPodatkePoRadnikuKorakCetiri($groupRadnikData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik)
+    {
+        $newRadnikData = [];
+        foreach ($groupRadnikData as $radnik) {
+            foreach ($radnik as $key => $vrstaPlacanjaSlog) {
+
+
+                if ($key == 'ZAR' || $key == 'MDR') {
+                    continue;
+                }
+
+
+            }
+
+        }
     }
 
 

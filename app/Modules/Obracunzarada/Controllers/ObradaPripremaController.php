@@ -14,6 +14,7 @@ use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
@@ -46,8 +47,8 @@ class ObradaPripremaController extends Controller
         private readonly PorezdoprinosiRepositoryInterface                   $porezdoprinosiInterface,
         private readonly ObradaObracunavanjeService                          $obradaObracunavanjeService,
         private readonly ObradaFormuleService                                $obradaFormuleService,
-        private readonly MinimalnebrutoosnoviceRepositoryInterface           $minimalnebrutoosnoviceInterface
-
+        private readonly MinimalnebrutoosnoviceRepositoryInterface           $minimalnebrutoosnoviceInterface,
+        private readonly ObradaZaraPoRadnikuRepositoryInterface $obradaZaraPoRadnikuInterface
     )
     {
     }
@@ -65,6 +66,7 @@ class ObradaPripremaController extends Controller
 
 
         $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $id)->delete();
+        $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $id)->delete();
 //        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->select('vrste_placanja','user_id','maticni_broj','obracunski_koef_id')->get();
         $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
 
