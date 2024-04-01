@@ -150,9 +150,12 @@ class ObradaFormuleService
     public function getFieldValue($variable,$fieldDefinition,$data)
     {
         if($fieldDefinition =='cena_rada_tekuci'){
-            return 1;
+            return 1; // SAMO PRVI PUT
         }
 
+//        if(){
+//
+//        }
 
 
 
@@ -162,6 +165,11 @@ class ObradaFormuleService
             // ZAR->IPLAC prva iteracija
          return 0;
         }
+
+        if($variable=='MDR->PRPB'){
+            return 1;
+        }
+
         if($fieldDefinition=='test'){
           $test='test';
         }

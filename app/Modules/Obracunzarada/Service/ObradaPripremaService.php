@@ -76,10 +76,10 @@ class ObradaPripremaService
 
                 // RADNIK-MESEC
                 $newPlacanje['maticni_broj'] = $radnik['MBRD_maticni_broj'];
-                $newPlacanje['user_mdr_id'] = $radnik['user_mdr_id'];
+                $newPlacanje['user_mdr_id'] = $radnik['id'];
                 $newPlacanje['tip_unosa'] = 'fiksno_placanje';
                 $newPlacanje['obracunski_koef_id'] = $radnik['obracunski_koef_id'];
-                $newPlacanje['user_dpsm_id'] = $radnik['id'];
+                $newPlacanje['user_dpsm_id'] = $radnik['user_dpsm_id'];
                 // MDR
                 $newPlacanje['KOEF_osnovna_zarada'] = $radnik->KOEF_osnovna_zarada;
                 $newPlacanje['RBRM_radno_mesto'] = $radnik->RBRM_radno_mesto;
@@ -131,18 +131,18 @@ class ObradaPripremaService
 
                 // RADNIK-MESEC
                 $newPlacanje['maticni_broj'] = $radnik['MBRD_maticni_broj'];
-                $newPlacanje['user_mdr_id'] = $radnik['user_mdr_id'];
+                $newPlacanje['user_mdr_id'] =$radnik->id;
                 $newPlacanje['obracunski_koef_id'] = $radnik['obracunski_koef_id'];
 
                 $newPlacanje['tip_unosa'] = 'fiksno_placanje';
-                $newPlacanje['user_dpsm_id'] = $radnik['id'];
+                $newPlacanje['user_dpsm_id'] =$vrstaPlacanja['user_dpsm_id'];
                 // MDR
                 $newPlacanje['KOEF_osnovna_zarada'] = $radnik->KOEF_osnovna_zarada;
                 $newPlacanje['RBRM_radno_mesto'] = $radnik->RBRM_radno_mesto;
                 $newPlacanje['P_R_oblik_rada'] = $radnik->P_R_oblik_rada;
                 $newPlacanje['RBIM_isplatno_mesto_id'] = $radnik->RBIM_isplatno_mesto_id;
                 $newPlacanje['troskovno_mesto_id'] = $radnik->troskovno_mesto_id;
-                $newPlacanje['user_mdr_id'] = $vrstaPlacanja['user_mdr_id'];
+//                $newPlacanje['user_mdr_id'] = $vrstaPlacanja['user_mdr_id'];
                 $newPlacanje['obracunski_koef_id'] = $vrstaPlacanja['obracunski_koef_id'];
 
                 // DVPL
