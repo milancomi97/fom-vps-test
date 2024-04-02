@@ -33,6 +33,8 @@ class Podaciofirmi extends Model
         'zakonski_zastupnik_funkcija',
         'zakonski_zastupnik_jmbg',
         'obaveznik_revizije',
-        'velicina_po_razvrstavanju'
+        'velicina_po_razvrstavanju',
+        'minulirad_aktivan',
+        'minulirad'
     ];
 }

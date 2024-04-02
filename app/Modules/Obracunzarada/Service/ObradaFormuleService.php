@@ -22,7 +22,7 @@ class ObradaFormuleService
 //        }
 //        return $sveVrstePlacanjaDataFiltered;
 //}
-    public function kalkulacijaFormule($vrstaPlacanjaSlog,$vrstaPlacanjaSifData,$radnik,$poresDoprinosiSifarnik,$monthData,$minimalneBrutoOsnoviceSifarnik)
+    public function kalkulacijaFormule($vrstaPlacanjaSlog,$vrstaPlacanjaSifData,$radnik,$poresDoprinosiSifarnik,$monthData,$minimalneBrutoOsnoviceSifarnik,$pravilo)
     {
 // Sample formula
         try {

@@ -27,6 +27,8 @@ return new class extends Migration
             $table->integer('broj_poste')->nullable();
             $table->integer('pib')->nullable();
             $table->integer('sifra_delatnosti')->nullable();
+            $table->boolean('minulirad_aktivan')->nullable();
+            $table->float('minulirad')->nullable();
             $table->string('naziv_delatnosti', 80)->nullable();
             $table->string('racuni_u_bankama', 30)->nullable();
             $table->string('adresa_za_prijem_poste', 50)->nullable();

@@ -151,6 +151,8 @@ return new class extends Migration
             $table->integer('PREK_prekovremeni')->nullable();
 
 
+
+
             $table->unsignedBigInteger('obracunski_koef_id')->nullable();
             $table->unsignedBigInteger('user_dpsm_id')->nullable(); // Mesec-Radnik-id
             $table->unsignedBigInteger('user_mdr_id')->nullable();
