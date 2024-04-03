@@ -762,6 +762,7 @@ class ObradaPripremaService
 //           END
 
 
+        $radnik['ZAR']['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] = $radnik['ZAR']['SIZNE'] + $radnik['ZAR']['iznos_zarade'] + $solid;
         if ($radnik['ZAR']['IZNETO'] <= $minimalneBrutoOsnoviceSifarnik->NT1_prosecna_mesecna_zarada_u_republici * $minimalneBrutoOsnoviceSifarnik->STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos) {
             $radnik['ZAR']['IZNETO'] = $radnik['ZAR']['UKUPNO'];
 
@@ -769,6 +770,7 @@ class ObradaPripremaService
             $radnik['ZAR']['UKUPNO'] = $minimalneBrutoOsnoviceSifarnik->NT1_prosecna_mesecna_zarada_u_republici * $minimalneBrutoOsnoviceSifarnik->STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos;
         }
 
+        // TODO nemoj da zaokruzujes ni ovde
         $radnikData = [
             'SSZNE_suma_sati_zarade' => round($radnik['ZAR']['SSZNE'] + $radnik['ZAR']['sati_zarade']),
             'SIZNE_ukupni_iznos_zarade' => round($radnik['ZAR']['SIZNE'] + $radnik['ZAR']['iznos_zarade']),
@@ -794,7 +796,7 @@ class ObradaPripremaService
 
 //        {
 //          "id": 121,  asd
-////    ca  "M_G_mesec_dodinaa": "0123",se ZAR->IZNETO < NTO->STOPA3 .and. ZAR->IZNETO > 0 .and. (NTO->STOPA3/KOE->BR_S > ZAR->IZNETO/ZAR->UKSA)
+////    ca  "M_G_mesec_dodinaa": "0123",
 //          "NT1_prosecna_mesecna_zarada_u_republici": "360913.00",
 //          "STOPA2_minimalna_neto_zarada_po_satu": "230.00",// Za radnike koji nisu ceo mesec
 //          "STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos": "15.00",
@@ -805,11 +807,13 @@ class ObradaPripremaService
 //          "updated_at": null
 //      }
 
-
 //        if ZAR->UKSA <= KOE->BR_S
 //        IZBR2 = (NTO->STOPA3/KOE->BR_S*ZAR->UKSA)
 //                     IZBR6 = 0
 //                     IZBR50 = NTO->STOPA3
+
+
+        // if{ pocetak    case ZAR->IZNETO < NTO->STOPA3 .and. ZAR->IZNETO > 0 .and. (NTO->STOPA3/KOE->BR_S > ZAR->IZNETO/ZAR->UKSA)
 
         if ($radnikData['UKSA_ukupni_sati_za_isplatu'] <= $monthData->mesecni_fond_sati) {
             $izbr2 = $minimalneBrutoOsnoviceSifarnik->STOPA2_minimalna_neto_zarada_po_satu / $monthData->mesecni_fond_sati * $radnikData['UKSA_ukupni_sati_za_isplatu'];
@@ -834,7 +838,169 @@ class ObradaPripremaService
         }
 
 
-        // TODO na kraju DKOP ce da dobije jos jedan slog kod ranika koji su ispod minimalne bruto zarade  minuli rad
+        // endif case ZAR->IZNETO < NTO->STOPA3 .and. ZAR->IZNETO > 0 .and. (NTO->STOPA3/KOE->BR_S > ZAR->IZNETO/ZAR->UKSA)
+
+
+
+        //OBRACUN DOPRINOSA i UPOREDJIVANJE SA MINIMALNOM BRUTO ZARADOM
+
+
+
+
+//        DO CASE
+//               case ZAR->IZNETO <= NTO->NT1   // NT1_prosecna_mesecna_zarada_u_republici
+//                  IZBR1 = ZAR->IZNETO
+//               case ZAR->IZNETO > NTO->NT1
+//                  IZBR1 = ZAR->IZNETO
+//            endcase
+//
+
+        if($radnik['ZAR']['IZNETO'] <= $minimalneBrutoOsnoviceSifarnik->NT1_prosecna_mesecna_zarada_u_republici){
+            $izbr1 = $radnik['ZAR']['IZNETO'];
+        }elseif($radnik['ZAR']['IZNETO'] > $minimalneBrutoOsnoviceSifarnik->NT1_prosecna_mesecna_zarada_u_republici){
+            $izbr1 = $radnik['ZAR']['IZNETO'];
+        }
+
+        // PIO POCETAK
+
+        if($radnik['ZAR']['IZNETO'] < $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada && $radnik['ZAR']['IZNETO']>0 && ($minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati > $radnik['ZAR']['IZNETO']/$radnik['ZAR']['UKSA'])){
+//            if ZAR->UKSA <= KOE->BR_S
+//            IZBR2 = (NTO->NT2/KOE->BR_S*ZAR->UKSA)
+//                  IZBR6 = 0
+//                  IZBR50 = NTO->NT2
+//               endif
+
+            if($radnik['ZAR']['UKSA'] <=$monthData->mesecni_fond_sati){
+
+               // TODO add  $izbr2 = (NTO->NT2/KOE->BR_S*ZAR->UKSA)
+                    $izbr6= 0;
+                    $izbr50 =$minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
+            }
+            if($radnik['ZAR']['UKSA'] >$monthData->mesecni_fond_sati){
+//            if ZAR->UKSA > KOE->BR_S
+//            IZBR2 = (NTO->NT2/KOE->BR_S*KOE->BR_S)
+//                  IZBR6 = 0
+//                  IZBR50 = NTO->NT2
+//               endif
+
+                // TODO add   $izbr2 = (NTO->NT2/KOE->BR_S*KOE->BR_S)
+                $izbr6= 0;
+                $izbr50 =$minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
+            }
+
+
+
+        } elseif($radnik['ZAR']['UKSA'] >= $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada || ($minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada/$monthData->mesecni_fond_sati < $radnik['ZAR']['IZNETO'] / $radnik['ZAR']['UKSA'])){
+
+            $izbr6 = $radnik['ZAR']['IZNETO'];
+            $izbr2 = 0;
+            $izbr50 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
+//        case ZAR->IZNETO >= NTO->NT2 .or. (NTO->NT2/KOE->BR_S < ZAR->IZNETO/ZAR->UKSA)
+//               IZBR6 = ZAR->IZNETO
+//               IZBR2 = 0
+//               IZBR50 = NTO->NT2
+//         endcase
+        }
+
+        // PIO KRAJ
+        // ZDRAVSTVENO  i NEZAPOSLENOST POCETAK
+        if($radnik['ZAR']['IZNETO'] < $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada && $radnik['ZAR']['IZNETO']>0 && ($minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati > $radnik['ZAR']['IZNETO']/$radnik['ZAR']['UKSA'])){
+//            if ZAR->UKSA <= KOE->BR_S
+//            IZBR2 = (NTO->NT2/KOE->BR_S*ZAR->UKSA)
+//                  IZBR6 = 0
+//                  IZBR50 = NTO->NT2
+//               endif
+
+            if($radnik['ZAR']['UKSA'] <=$monthData->mesecni_fond_sati){
+
+                // TODO add  $izbr51 = (NTO->NT2/KOE->BR_S*ZAR->UKSA)
+                $izbr52= 0;
+                $izbr53 =$minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
+            }
+            if($radnik['ZAR']['UKSA'] >$monthData->mesecni_fond_sati){
+//            if ZAR->UKSA > KOE->BR_S
+//            $izbr51 = (NTO->NT2/KOE->BR_S*KOE->BR_S)
+//                  $izbr52 = 0
+//                  $izbr53 = NTO->NT2
+//               endif
+
+                // TODO add   $izbr51 = (NTO->NT2/KOE->BR_S*KOE->BR_S)
+                $izbr52= 0;
+                $izbr53 =$minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
+            }
+
+
+
+        } elseif($radnik['ZAR']['IZNETO'] >= $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada || ($minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada/$monthData->mesecni_fond_sati < $radnik['ZAR']['IZNETO'] / $radnik['ZAR']['UKSA'])){
+
+            $izbr51 = $radnik['ZAR']['IZNETO'];
+            $izbr52 = 0;
+            $izbr53 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
+//        case ZAR->IZNETO >= NTO->NT2 .or. (NTO->NT2/KOE->BR_S < ZAR->IZNETO/ZAR->UKSA)
+//               IZBR6 = ZAR->IZNETO
+//               IZBR2 = 0
+//               IZBR50 = NTO->NT2
+//         endcase
+        }
+
+        // ZDRAVSTVENO  i NEZAPOSLENOST KRAJ
+
+       // SOLID JE OBRACUNATI IZNOS MINIMALNE BRUTO ZARADE ZA RADNIKA POJEDINACNO
+
+        if($radnik['ZAR']['solid'] > 0){
+         // TODO   $radnik['ZAR']['IZBRBO1'] =  (ZAR->SOLID+ZAR->SINNE)+(ZAR->SINNE*ZAR->PERC/100)
+        }
+
+         // TODO  $radnik['ZAR']['OSNOV'] =  (IZBR50/KOE->BR_S)*(ZAR->SSZNE)
+
+
+        if($radnik['ZAR']['solid'] > 0){
+            // TODO   $radnik['ZAR']['IZBRBO2'] =  (ZAR->SIZNE + ZAR->SINNE + ZAR->SOLID)
+        }
+        // TODO  $radnik['ZAR']['OSNOV'] =  (IZBR53/KOE->BR_S)*(ZAR->SSZNE)
+
+        if($radnik['ZAR']['IZBRBO1'] < $radnik['ZAR']['IZBRBO2']){
+            $radnik['ZAR']['IZBRBO1'] = $radnik['ZAR']['IZBRBO2'];
+        }
+
+        $radnik['ZAR']['KONTROLA'] = $radnik['ZAR']['IZNETO'];
+
+
+        if($radnik['ZAR']['KONTROLA'] > $radnik['ZAR']['IZBRBO1']){
+            $radnik['ZAR']['IZBRBOL'] = $radnik['ZAR']['KONTROLA'];
+        }
+
+
+        if($radnik['ZAR']['IZBRBOL'] <=$minimalneBrutoOsnoviceSifarnik->NT1_prosecna_mesecna_zarada_u_republici*$minimalneBrutoOsnoviceSifarnik->STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos){
+
+            if($radnik['ZAR']['IZBRBOL'] > 0 ){
+                $radnik['ZAR']['UKUPNO'] =  $radnik['ZAR']['IZBRBOL'];
+            }elseif ($radnik['ZAR']['IZBRBO1'] > 0 ){
+                $radnik['ZAR']['UKUPNO'] =  $radnik['ZAR']['IZBRBO1'];
+            }
+
+            if($radnik['ZAR']['IZBRBOL'] + $radnik['ZAR']['IZBRBO1'] > NTO->NT1*NTO->STOPA6){
+//                $radnik['ZAR']['UKUPNO'] = NTO->NT1*NTO->STOPA6
+            }
+
+//            if (ZAR->IZBRBOL+ZAR->IZBRBO1)<= (NTO->NT1*NTO->STOPA6)
+//            replace ZAR->UKUPNO1   with ZAR->IZBRBO2
+//
+//         elseif (ZAR->IZBRBOL+ZAR->IZBRBO1) > (NTO->NT1*NTO->STOPA6) // OGRANICENJE NA PET NAJVISIH ZARADA
+//            replace ZAR->UKUPNO1   with (NTO->NT1*NTO->STOPA6) // BRUTO PROSECNA ZARADA x 5
+//         end
+//
+//
+//
+//          if ZAR->IZNETO <= (NTO->NT1*NTO->STOPA6)
+//          replace ZAR->UKUPNO with ZAR->IZNETO  // za sve firme
+//           elseif ZAR->IZNETO > (NTO->NT1*NTO->STOPA6)
+//             replace ZAR->UKUPNO with (NTO->NT1*NTO->STOPA6)
+//           END
+
+
+
+        }
 
         return $radnikData;
     }

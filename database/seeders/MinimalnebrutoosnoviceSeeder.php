@@ -21,6 +21,7 @@ class MinimalnebrutoosnoviceSeeder extends Seeder
                 'STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos' => str_replace(",", ".",$data['STOPA6']),
                 'P1_stopa_poreza' => str_replace(",", ".",$data['P1']),
                 'STOPA1_koeficijent_za_obracun_neto_na_bruto' => (int) str_replace(",", "",$data['STOPA1']),
+                // TODO replace zareza sredi,  dobar rezultat je otrpilike =  (1,1231215)
                 'NT2_minimalna_bruto_zarada' => str_replace(",", "",$data['NT2'])
 //                'NT3_najniza_osnovica_za_placanje_doprinos' => str_replace(",", ".",$data['NT3']),
             ]);
