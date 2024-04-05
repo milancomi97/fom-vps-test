@@ -29,6 +29,7 @@ class Mesecnatabelapoentaza extends Model
     }
     public function maticnadatotekaradnika()
     {
+//        return $this->hasOne(Maticnadatotekaradnika::class, 'id'); // GADJA TAMO
         return $this->belongsTo(Maticnadatotekaradnika::class, 'user_mdr_id');
     }
 
