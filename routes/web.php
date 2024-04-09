@@ -247,6 +247,7 @@ Route::middleware('auth')->group(function () {
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all',[DpsmPoentazaslogController::class,'showAll'])->name('datotekaobracunskihkoeficijenata.show_all');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show',[DpsmPoentazaslogController::class,'show'])->name('datotekaobracunskihkoeficijenata.show');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updateVariabilna',[DpsmPoentazaslogController::class,'updateVariabilna'])->name('datotekaobracunskihkoeficijenata.updateVariabilna');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/deleteVariabilna',[DpsmPoentazaslogController::class,'deleteVariabilna'])->name('datotekaobracunskihkoeficijenata.deleteVariabilna');
 
     // AKONTACIJE
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_akontacije',[DpsmAkontacijeController::class,'showAllAkontacije'])->name('datotekaobracunskihkoeficijenata.show_all_akontacije');

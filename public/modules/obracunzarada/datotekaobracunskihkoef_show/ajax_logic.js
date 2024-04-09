@@ -27,9 +27,10 @@ $(document).ready(function () {
     <td><input type="number" class="form-control col-width" name="sati" value="${item.sati}"></td>
     <td><input type="number" class="form-control col-width" name="iznos" value="${item.iznos}"></td>
     <td><input type="number" class="form-control col-width" name="procenat" value="${item.procenat}"></td>
+    <input type="hidden" name="update_id" value="${item.id}">
     <td><input type="text" class="form-control col-width" name="RJ_radna_jedinica" value=""></td>
     <td><input type="text" class="form-control col-width" name="BRIG_brigada" value=""></td>
-    <td><button type="button" class="btn btn-danger btn-sm delete-row">Obriši</button></td>
+    <td><button type="button" class="btn btn-danger btn-sm delete-row" data-delete-id="${item.id}">Obriši</button></td>
   </tr>
 `;
 
@@ -126,7 +127,33 @@ $(document).ready(function () {
     });
     // Delete row button click event
     $('#editableTable').on('click', '.delete-row', function () {
-        $(this).closest('tr').remove();
+        var deleteId = $(this).data('delete-id');
+        if(deleteId !==undefined){
+
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: deleteVrstaPlacanjaData,
+                type: 'POST',
+                data: {
+                    _token: _token,
+                    record_id: deleteId
+                }, success: function (response) {
+                    if (response.status) {
+                        window.location.reload();
+                    } else {
+                        // $("#statusMessage").text(response.message).addClass("text-danger");
+                    }
+                }, error: function (response) {
+
+                }
+            });
+
+
+        } else{
+            $(this).closest('tr').remove();
+        }
+
     });
 
     $(document).on('click', 'body .submitBtn', function (event) {
@@ -149,6 +176,8 @@ $(document).ready(function () {
             var RJ_radna_jedinica = $(input).find(':input[name="RJ_radna_jedinica"]');
             var BRIG_brigada = $(input).find(':input[name="BRIG_brigada"]');
 
+            var updateId = $(input).find(':input[name="update_id"]');
+
             key.val() !== '' ? data.key = key.val() : undefined;
             sati.val() !== 0 ? data.sati = sati.val() : undefined;
             iznos.val() !== '' ? data.iznos = iznos.val() : undefined;
@@ -156,15 +185,16 @@ $(document).ready(function () {
             RJ_radna_jedinica.val() !== '' ? data.RJ_radna_jedinica = RJ_radna_jedinica.val() : undefined;
             BRIG_brigada.val() !== '' ? data.BRIG_brigada = BRIG_brigada.val() : undefined;
 
+            updateId.val() !== '' ? data.updateId = updateId.val() : undefined;
+
+            debugger;
             if(key.val() !=='' && (iznos.val() !=='' || sati.val() !==''  || procenat.val() !=='')){
                 vrstePlacanja.push(data);
             }
         });
 
-        debugger
 
             var _token = $('input[name="_token"]').val();
-        debugger;
 
         $.ajax({
                 url: storeAllRoute,
@@ -180,7 +210,6 @@ $(document).ready(function () {
                         // $("#statusMessage").text(response.message).addClass("text-danger");
                     }
                 }, error: function (response) {
-
 
                 }
             });

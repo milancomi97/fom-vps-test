@@ -58,6 +58,11 @@ function updateMonthContainer(activeMonth) {
                     'data-year': monthData.currYear
                 }).text('Ažuriranje obračunskih koeficijenata').appendTo(monthCard);
 
+                // $("<h1></h1>").attr({
+                //     'class': 'offset-1 col col-lg-5 mt-3 btn font-weight-bold',
+                // }).css('cursor','default').text('Obrada').appendTo(monthCard);
+
+                // IBRISI BLANK POLJE OFFSET
 
                 $('<button>').attr({
                     'type': 'button',

@@ -117,13 +117,24 @@ class DpsmPoentazaslogController extends Controller
         $fiksnapData = $this->dpsmPoentazaslogInterface->where('user_dpsm_id', $userMonthId)->get();
 
         if ($vrstePlacanjaData) {
-
             if ($fiksnapData->count()) {
-                // TODO Update logic, ADD FLAG FOR ACTUAL
-                $oldData = array_column($fiksnapData->toArray(), 'sifra_vrste_placanja');
+
                 foreach ($vrstePlacanjaData as $vrstaPlacanja) {
-                    $toUpdate = in_array($vrstaPlacanja['key'], $oldData);
-                    if ($toUpdate) {
+                    if (isset($vrstaPlacanja['updateId'])) {
+                        $fiksnapDataOld = $this->dpsmPoentazaslogInterface->where('id', $vrstaPlacanja['updateId'])->first();
+                        $toUpdate = $fiksnapDataOld->count();
+
+                        if ($toUpdate) {
+
+                            $data = [
+                                'sati' => $vrstaPlacanja['sati'] ?? 0,
+                                'iznos' => $vrstaPlacanja['iznos'] ?? 0,
+                                'procenat' => $vrstaPlacanja['procenat'] ?? 0
+                            ];
+                            $this->dpsmPoentazaslogInterface->update($vrstaPlacanja['updateId'], $data);
+
+                            $test = 'test';
+                        }
 
                     } else {
                         $data = [
@@ -133,35 +144,13 @@ class DpsmPoentazaslogController extends Controller
                             'sati' => $vrstaPlacanja['sati'] ?? 0,
                             'iznos' => $vrstaPlacanja['iznos'] ?? 0,
                             'procenat' => $vrstaPlacanja['procenat'] ?? 0,
-                            'user_mdr_id'=>$mesecnaTabelaPoentaza->user_mdr_id,
+                            'user_mdr_id' => $mesecnaTabelaPoentaza->user_mdr_id,
                             'obracunski_koef_id' => $mesecnaTabelaPoentaza->obracunski_koef_id
                         ];
                         $this->dpsmPoentazaslogInterface->create($data);
                     }
                 }
-            } else {
-                foreach ($vrstePlacanjaData as $vrstaPlacanja) {
-
-                    $data = [
-                        'user_dpsm_id' => (int)$userMonthId,
-                        'sifra_vrste_placanja' => $vrstaPlacanja['key'] ?? '',
-                        'naziv_vrste_placanja' => $sifarnikVrstePlacanja[$vrstaPlacanja['key']]['naziv_naziv_vrste_placanja'],
-                        'sati' => $vrstaPlacanja['sati'] ?? 0,
-                        'iznos' => $vrstaPlacanja['iznos'] ?? 0,
-                        'procenat' => $vrstaPlacanja['procenat'] ?? 0,
-                        'user_mdr_id'=>$mesecnaTabelaPoentaza->user_mdr_id,
-                        'obracunski_koef_id' => $mesecnaTabelaPoentaza->obracunski_koef_id
-                    ];
-
-                    $this->dpsmPoentazaslogInterface->create($data);
-                }
             }
-
-            // DODAJ user_dpsm_id kod Fiksnih placanja
-            // do foreach
-            // do Load, save or update
-            // Ucitaj podatke o vrstama placanja
-
 
         }
         return response()->json([
@@ -169,4 +158,14 @@ class DpsmPoentazaslogController extends Controller
             'url'=>url()->route('datotekaobracunskihkoeficijenata.show_all', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id])
         ]);
     }
+    public function deleteVariabilna(Request $request)
+    {
+        $recordId = $request->record_id;
+        $this->dpsmPoentazaslogInterface->delete($recordId);
+
+        return response()->json([
+            'status'=>true
+        ]);
+    }
+
 }

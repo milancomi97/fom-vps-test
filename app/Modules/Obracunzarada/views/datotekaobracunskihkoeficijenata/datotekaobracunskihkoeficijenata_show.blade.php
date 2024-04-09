@@ -68,6 +68,7 @@
         var vrstePlacanja = {!! $vrstePlacanja !!};
         var vrstePlacanjaData = {!! $vrstePlacanjaData !!};
         var storeAllRoute = '{!! route('datotekaobracunskihkoeficijenata.updateVariabilna') !!}';
+        var deleteVrstaPlacanjaData = '{!! route('datotekaobracunskihkoeficijenata.deleteVariabilna') !!}';
 
     </script>
 
