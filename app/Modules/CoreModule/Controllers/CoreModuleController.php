@@ -33,7 +33,7 @@ class CoreModuleController extends Controller
      */
     public function create()
     {
-        return view('coremodule.create_coremodule');
+        return view('coremodule::coremodule.apr_example');
 
     }
 

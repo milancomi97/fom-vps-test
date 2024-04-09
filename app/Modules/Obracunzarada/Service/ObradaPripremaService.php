@@ -2,6 +2,7 @@
 
 namespace App\Modules\Obracunzarada\Service;
 
+use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 
@@ -9,7 +10,8 @@ class ObradaPripremaService
 {
     public function __construct(
         private readonly ObradaFormuleService                   $obradaFormuleService,
-        private readonly ObradaZaraPoRadnikuRepositoryInterface $obradaZaraPoRadnikuInterface
+        private readonly ObradaZaraPoRadnikuRepositoryInterface $obradaZaraPoRadnikuInterface,
+        private readonly DpsmKreditiRepositoryInterface         $dpsmKreditiInterface,
     )
     {
     }
@@ -703,12 +705,12 @@ class ObradaPripremaService
 //                'OGRAN'=> $SumiranjeOgranicenja,
             ];
 
-            // TODO UPDATE DATABASE WITH ZARA
-//            \App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface
             $radnik['ZAR2'] = $this->prepareZaraData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData);
             $radnik['DKOPADD'] = $this->prepareDKopData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik);
-            $this->prepareBrutoData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik);
-            // TODO DODAJ DKOPADD
+            $radnik['ZAR3'] = $radnik['DKOPADD']['ZAR3'];
+            $radnik['ZAR4'] = $this->prepareBrutoData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik);
+            $radnik['KREDADD'] = $this->prepareKrediti($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik);
+            $radnik['ZAR5'] = $radnik['KREDADD']['KREDADD']['ZAR5'];
             $newRadnikData[] = $radnik;
 
 
@@ -722,24 +724,27 @@ class ObradaPripremaService
 
     public function prepareBrutoData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik)
     {
-        $zar = $radnik['ZAR2'];
-//        $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] = $zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid'];
-//
-//        $zar['IZBRUTO'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
-//        $zar['SID'] = $zar['UKUPNO'] * ($poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika - $poresDoprinosiSifarnik->ZDRO_zdravstveno_osiguranje_na_teret_radnika - $poresDoprinosiSifarnik->ONEZ_osiguranje_od_nezaposlenosti_na_teret_radnika ) + $zar['UKUPNO'] * ($poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika - $poresDoprinosiSifarnik->PIO_pio_na_teret_radnika);
-//        $zar['SIP'] = $zar['SIPPR'] + $zar['SIPBOL'];
-//        $zar['SIP_D'] = $zar['SIPPR'] + $zar['SID'] + $zar['SIDBOL'] + $zar['SIPBOL'];
-//
-//        if($zar['UKSA']- $zar['PREKOV'] < $monthData->mesecni_fond_sati){
-//            $zar['POROSL'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja/$monthData->mesecni_fond_sati *($zar['UKSA_ukupni_sati_za_isplatu']-$zar['PREK_prekovremeni']);
-//        }
-//
-//        if($zar['UKSA']- $zar['PREKOV'] >= $monthData->mesecni_fond_sati){
-//            $zar['POROSL'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja;
-//        }
-//
-//        $zar['NETO'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - $zar['SIP'] - $zar['SID'];
+        $zar = $radnik['ZAR3'];
+        $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] = $zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid'];
+
+        $zar['IZBRUTO'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
+        $zar['SID'] = $zar['UKUPNO'] * ($poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika - $poresDoprinosiSifarnik->ZDRO_zdravstveno_osiguranje_na_teret_radnika - $poresDoprinosiSifarnik->ONEZ_osiguranje_od_nezaposlenosti_na_teret_radnika) + $zar['UKUPNO'] * ($poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika - $poresDoprinosiSifarnik->PIO_pio_na_teret_radnika);
+        $zar['SIP'] = $zar['SIPPR'] + $zar['SIPBOL'];
+        $zar['SIP_D'] = $zar['SIPPR'] + $zar['SID'] + $zar['SIDBOL'] + $zar['SIPBOL'];
+
+        if ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni'] < $monthData->mesecni_fond_sati) {
+            $zar['POROSL'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja / $monthData->mesecni_fond_sati * ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']);
+        }
+
+        if ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni'] >= $monthData->mesecni_fond_sati) {
+            $zar['POROSL'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja;
+        }
+
+        $zar['NETO'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - $zar['SIP'] - $zar['SID'];
+
+        return $zar;
     }
+
     public function prepareZaraData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData)
     {
 
@@ -902,7 +907,6 @@ class ObradaPripremaService
 
             if ($radnikData['UKSA_ukupni_sati_za_isplatu'] <= $monthData->mesecni_fond_sati) {
 
-                // TODO add  $izbr2 = (NTO->NT2/KOE->BR_S*ZAR->UKSA)
                 $izbr2 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati * $radnikData['UKSA_ukupni_sati_za_isplatu'];
                 $izbr6 = 0;
                 $izbr50 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
@@ -1045,6 +1049,9 @@ class ObradaPripremaService
                 $radnikData['UKUPNO'] = $minimalneBrutoOsnoviceSifarnik->NT1_prosecna_mesecna_zarada_u_republici * $minimalneBrutoOsnoviceSifarnik->STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos;
             }
 
+            $izbr7 = 0; // TODO izbacili smo, ubacicemo ako bude trebalo
+            $radnikData['SIPBOL'] = $izbr7;
+            $radnikData['SIDBOL'] = $izbr7;
 
         }
 
@@ -1075,7 +1082,7 @@ class ObradaPripremaService
             $newPlacanje['KOEF_osnovna_zarada'] = $mdr['KOEF_osnovna_zarada'];
             $newPlacanje['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
 
-            // TODO HKMB ?? koje bese polje
+
             $newPlacanje['user_mdr_id'] = $radnikData['user_mdr_id'];
             $newPlacanje['obracunski_koef_id'] = $radnikData['obracunski_koef_id'];
             $newPlacanje['user_dpsm_id'] = $radnikData['user_dpsm_id'];
@@ -1099,7 +1106,7 @@ class ObradaPripremaService
             $newPlacanje['KOEF_osnovna_zarada'] = $mdr['KOEF_osnovna_zarada'];
             $newPlacanje['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
 
-            // TODO HKMB ?? koje bese polje
+
             $newPlacanje['user_mdr_id'] = $radnikData['user_mdr_id'];
             $newPlacanje['obracunski_koef_id'] = $radnikData['obracunski_koef_id'];
             $newPlacanje['user_dpsm_id'] = $radnikData['user_dpsm_id'];
@@ -1124,7 +1131,6 @@ class ObradaPripremaService
             $newPlacanje['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
 
 
-            // TODO HKMB ?? koje bese polje
             $newPlacanje['user_mdr_id'] = $radnikData['user_mdr_id'];
             $newPlacanje['obracunski_koef_id'] = $radnikData['obracunski_koef_id'];
             $newPlacanje['user_dpsm_id'] = $radnikData['user_dpsm_id'];
@@ -1141,21 +1147,21 @@ class ObradaPripremaService
 
             if ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni'] < $monthData->mesecni_fond_sati) {
 
-                $nIzn =($zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid']-($poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja/$monthData->mesecni_fond_sati*($zar['UKSA_ukupni_sati_za_isplatu']-$zar['PREK_prekovremeni']->PREKOV)))*$minimalneBrutoOsnoviceSifarnik->P1_stopa_poreza;
+                $nIzn = ($zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid'] - ($poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja / $monthData->mesecni_fond_sati * ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']->PREKOV))) * $minimalneBrutoOsnoviceSifarnik->P1_stopa_poreza;
             }
 
-            if(($zar['UKSA_ukupni_sati_za_isplatu']  - $zar['PREK_prekovremeni']) < $monthData->mesecni_fond_sati){
+            if (($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']) < $monthData->mesecni_fond_sati) {
 
-                $nIzn = ($zar['SIZNE_ukupni_iznos_zarade'] +  $zar['SINNE_ukupni_iznos_naknade']  + $zar['solid']+ $zar['PLACENO']-$poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja)*$minimalneBrutoOsnoviceSifarnik->P1_stopa_poreza;
+                $nIzn = ($zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid'] + $zar['PLACENO'] - $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja) * $minimalneBrutoOsnoviceSifarnik->P1_stopa_poreza;
             }
         }
 
-        if($nIzn > 0){
+        if ($nIzn > 0) {
             $newPlacanje['maticni_broj'] = $mdr['MBRD_maticni_broj'];
             $newPlacanje['sifra_vrste_placanja'] = '050';
             $newPlacanje['SLOV_grupa_vrste_placanja'] = 'U';
             $newPlacanje['POK2_obracun_minulog_rada'] = 'K';
-            $newPlacanje['iznos'] =$nIzn;
+            $newPlacanje['iznos'] = $nIzn;
 //            replace KOP->IZNO   with nIzn , ZAR->SIPPR with nIzn, ZAR->SIOB with SIOB
 
             $zar['SIPPR'] = $nIzn;
@@ -1167,34 +1173,33 @@ class ObradaPripremaService
             $newPlacanje['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
 
 
-            // TODO HKMB ?? koje bese polje
             $newPlacanje['user_mdr_id'] = $radnikData['user_mdr_id'];
             $newPlacanje['obracunski_koef_id'] = $radnikData['obracunski_koef_id'];
             $newPlacanje['user_dpsm_id'] = $radnikData['user_dpsm_id'];
 
-            if($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni'] <$monthData->mesecni_fond_sati){
+            if ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni'] < $monthData->mesecni_fond_sati) {
 
-                $newPlacanje['POROSL_poresko_oslobodjenje'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja/$monthData->mesecni_fond_sati * ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']);
+                $newPlacanje['POROSL_poresko_oslobodjenje'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja / $monthData->mesecni_fond_sati * ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']);
             }
 
-            if($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni'] >= $monthData->mesecni_fond_sati){
+            if ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni'] >= $monthData->mesecni_fond_sati) {
                 $newPlacanje['POROSL_poresko_oslobodjenje'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja;
 
             }
 
             $sveVrstePlacanja[] = $newPlacanje;
 
-        } else{
-            $zar['SIPPR']=0;
+        } else {
+            $zar['SIPPR'] = 0;
         }
 
         $bruto = 0;
         $bruto = $zar['SIPPR'];
 
-        if($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] > $zar['IZBRBO1']){
-            $zar['SID'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] *$poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika;
-        } elseif ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] < $zar['IZBRBO1']){
-            $zar['SID'] = $zar['UKUPNO'] *$poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika;
+        if ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] > $zar['IZBRBO1']) {
+            $zar['SID'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] * $poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika;
+        } elseif ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] < $zar['IZBRBO1']) {
+            $zar['SID'] = $zar['UKUPNO'] * $poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika;
 
         }
 //            $newPlacanje['sati'] = $vrstaPlacanja['sati'];
@@ -1229,25 +1234,99 @@ class ObradaPripremaService
 //            $sveVrstePlacanjaVariabilna[] = $newPlacanje;
 //
 //
+
+        $sveVrstePlacanja['ZAR3'] = $zar;
         return $sveVrstePlacanja;
     }
 
-    public function pripremaZaraPodatkePoRadnikuKorakCetiri($groupRadnikData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik)
+    public function prepareKrediti($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik)
     {
-        $newRadnikData = [];
-        foreach ($groupRadnikData as $radnik) {
-            foreach ($radnik as $key => $vrstaPlacanjaSlog) {
+        $kreditLimit = 0.3;
+
+        $dpsm_id = $radnik[0]->user_dpsm_id;
+
+        $radnikData = $radnik[0];
+        $kreditiData = [];
+
+        $krediti = $this->dpsmKreditiInterface->where('user_dpsm_id', $dpsm_id)->get();
+
+        $zar = $radnik['ZAR4'];
+        $mdr = $radnik['MDR'];
+        if ($krediti->count()) {
+            $siobkr = 0;
+            $neto2 = ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - $zar['SIP'] - $zar['SID'] - $zar['SIOB_ukupni_iznos_obustava']) * $kreditLimit;
+            foreach ($krediti as $kredit) {
+
+                $kreditUpdate=[];
+//                $kreditUpdate = $kredit->RATA_rata;
+                if ($neto2 - $siobkr - $kredit->RATA_rata && $kredit->SALD_saldo > 0) {
 
 
-                if ($key == 'ZAR' || $key == 'MDR') {
-                    continue;
+                    $kreditUpdate['maticni_broj'] = $mdr['MBRD_maticni_broj'];
+                    $kreditUpdate['sifra_vrste_placanja'] = '093';
+                    $kreditUpdate['SLOV_grupa_vrste_placanja'] = 'V';
+                    $kreditUpdate['POK2_obracun_minulog_rada'] = 'G';
+                    $kreditUpdate['iznos'] = $kredit->RATA_rata;
+//            replace KOP->IZNO   with nIzn , ZAR->SIPPR with nIzn, ZAR->SIOB with SIOB
+
+                    $kreditUpdate['RBRM_radno_mesto'] = $mdr['RBRM_radno_mesto'];
+                    $kreditUpdate['KESC_prihod_rashod_tip'] = 'R';
+                    $kreditUpdate['P_R_oblik_rada'] = $mdr['P_R_oblik_rada'];
+                    $kreditUpdate['troskovno_mesto_id'] = $mdr['troskovno_mesto_id']; // RBTC
+                    $kreditUpdate['KOEF_osnovna_zarada'] = $mdr['KOEF_osnovna_zarada'];
+                    $kreditUpdate['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
+
+                    $kreditUpdate['STSALD_Prethodni_saldo'] = $kredit->SALD_saldo;
+                    $kreditUpdate['user_mdr_id'] = $radnikData['user_mdr_id'];
+                    $kreditUpdate['obracunski_koef_id'] = $radnikData['obracunski_koef_id'];
+                    $kreditUpdate['user_dpsm_id'] = $radnikData['user_dpsm_id'];
+
+                    $kreditUpdate['RBPS_strucna_sprema'] = $mdr['RBPS_priznata_strucna_sprema'];
+
+                    $kreditUpdate['SALD_saldo'] = $kredit->SALD_saldo;
+                    $kreditUpdate['PART_partija_kredita'] = $kredit->PART_partija_poziv_na_broj;
+
+                    $kreditUpdate['SIFRA_KREDITORA'] = $kredit->SIFK_sifra_kreditora;
+                    $kreditUpdate['POCE_'] = $kredit->POCE_pocetak_zaduzenja;
+                    $kreditUpdate['DATUM_KRED'] = $kredit->DATUM_zaduzenja;
+
+
+
+
+//                    RATB
+//                    RATP
+//                    $kreditUpdate['BR']
+//                    POCE_pocetak_zaduzenja
+//                    $kreditUpdate['HKMB'] = $kredit->SALD_saldo;
+
+
+                    $siobkr += $kredit->RATA_rata;
+                } else if ($neto2 > 0 && $kredit->SALD_saldo > 0) {
+
+                    $siobkr += $kredit->RATA_rata;
+
+                } else if ($neto2 - $siobkr <= 0 && $kredit->SALD_saldo > 0) {
+
                 }
-
-
+                $test1 = 1;
             }
 
+
+            $kreditiData[]=$kreditUpdate;
+
+
+        $zar['ZARKR_ukupni_zbir_kredita']  = $siobkr;
+        $zar['RBIM_isplatno_mesto_id']=$mdr['RBIM_isplatno_mesto_id'];
+
+
+            $zar['ZARKR_ukupni_zbir_kredita']=0; // TODO proveri sa Snezom
+
+        $zar['ISPLATA'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - ($zar['SIP'] + $zar['SID'] +$zar['SIOB_ukupni_iznos_obustava'] +$zar['ZARKR_ukupni_zbir_kredita']);
+
+
         }
+        $kreditiData['KREDADD'] = $kreditiData;
+        $kreditiData['KREDADD']['ZAR5'] = $zar;
+        return $kreditiData;
     }
-
-
 }

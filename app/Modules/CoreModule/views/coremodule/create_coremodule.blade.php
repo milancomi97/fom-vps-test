@@ -55,7 +55,7 @@
           var pibValue = $("#pib").val();
           $.ajax({
               url: '/getNbsData',
-              method: 'POST',
+              method: 'GET',
               data: {
                   pib: pibValue
               },

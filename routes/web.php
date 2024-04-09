@@ -113,7 +113,7 @@ Route::middleware('auth')->group(function () {
 //    Route::middleware(['auth','customrole'])->group(function () {
 
     Route::resource('coremodule', CoreModuleController::class);
-    Route::post('getNbsData',[CoreModuleController::class,'sendSoapRequest']);
+    Route::get('getNbsData',[CoreModuleController::class,'sendSoapRequest']);
 
     //** OLD Presentation logic, should be refactored  END */
 

@@ -149,6 +149,7 @@ return new class extends Migration
             $table->integer('olaksica')->nullable();
             $table->integer('solid')->nullable();
             $table->integer('PREK_prekovremeni')->nullable();
+            $table->integer('ISPLATA')->nullable();
 
 
 
