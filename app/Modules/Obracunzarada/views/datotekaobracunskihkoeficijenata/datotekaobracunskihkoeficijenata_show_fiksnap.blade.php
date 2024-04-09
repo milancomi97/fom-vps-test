@@ -70,6 +70,7 @@
         var vrstePlacanja = {!! $vrstePlacanja !!};
         var vrstePlacanjaData = {!! $vrstePlacanjaData !!};
         var storeAllRoute = '{!! route('datotekaobracunskihkoeficijenata.update_fiksnap') !!}';
+        var deleteVrstaPlacanjaData = '{!! route('datotekaobracunskihkoeficijenata.delete_fiksnap') !!}';
 
     </script>
 

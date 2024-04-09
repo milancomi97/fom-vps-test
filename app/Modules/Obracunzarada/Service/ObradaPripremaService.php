@@ -3,6 +3,7 @@
 namespace App\Modules\Obracunzarada\Service;
 
 use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 
@@ -12,6 +13,7 @@ class ObradaPripremaService
         private readonly ObradaFormuleService                   $obradaFormuleService,
         private readonly ObradaZaraPoRadnikuRepositoryInterface $obradaZaraPoRadnikuInterface,
         private readonly DpsmKreditiRepositoryInterface         $dpsmKreditiInterface,
+        private readonly  ObradaDkopSveVrstePlacanjaRepositoryInterface $dkopSveVrstePlacanjaInterface,
     )
     {
     }
@@ -69,7 +71,7 @@ class ObradaPripremaService
 
     public function pripremiFiksnaPlacanja($data, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik)
     {
-        $radnik = $data[0]->maticnadatotekaradnika; // TODO proveriti da li je ovako ili kroz relaciju bolje
+        $radnik = $data[0]->maticnadatotekaradnika;
         foreach ($data as $key => $vrstaPlacanja) {
 
             $newPlacanje = [];
@@ -81,8 +83,8 @@ class ObradaPripremaService
                 $newPlacanje['maticni_broj'] = $radnik['MBRD_maticni_broj'];
                 $newPlacanje['user_mdr_id'] = $radnik['id'];
                 $newPlacanje['tip_unosa'] = 'fiksno_placanje';
-                $newPlacanje['obracunski_koef_id'] = $radnik['obracunski_koef_id'];
-                $newPlacanje['user_dpsm_id'] = $radnik['user_dpsm_id'];
+                $newPlacanje['obracunski_koef_id'] = $vrstaPlacanja['obracunski_koef_id'];
+                $newPlacanje['user_dpsm_id'] = $vrstaPlacanja['user_dpsm_id'];
                 // MDR
                 $newPlacanje['KOEF_osnovna_zarada'] = $radnik->KOEF_osnovna_zarada;
                 $newPlacanje['RBRM_radno_mesto'] = $radnik->RBRM_radno_mesto;
@@ -137,7 +139,7 @@ class ObradaPripremaService
                 $newPlacanje['user_mdr_id'] = $radnik->id;
                 $newPlacanje['obracunski_koef_id'] = $radnik['obracunski_koef_id'];
 
-                $newPlacanje['tip_unosa'] = 'fiksno_placanje';
+                $newPlacanje['tip_unosa'] = 'varijabilno_placanje';
                 $newPlacanje['user_dpsm_id'] = $vrstaPlacanja['user_dpsm_id'];
                 // MDR
                 $newPlacanje['KOEF_osnovna_zarada'] = $radnik->KOEF_osnovna_zarada;
@@ -307,6 +309,7 @@ class ObradaPripremaService
 
                 if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] > 'S') {
 
+                    // TODO OVDE IMAM GRESKU
                     $sSumiranjeIznosaObustava += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
                 }
 
@@ -710,7 +713,11 @@ class ObradaPripremaService
             $radnik['ZAR3'] = $radnik['DKOPADD']['ZAR3'];
             $radnik['ZAR4'] = $this->prepareBrutoData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik);
             $radnik['KREDADD'] = $this->prepareKrediti($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik);
+
             $radnik['ZAR5'] = $radnik['KREDADD']['KREDADD']['ZAR5'];
+
+            $this->updateDkopData($radnik['KREDADD'],$radnik['DKOPADD']);
+            $this->updateZara($radnik['ZAR5']);
             $newRadnikData[] = $radnik;
 
 
@@ -748,7 +755,6 @@ class ObradaPripremaService
     public function prepareZaraData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData)
     {
 
-        // TODO INIT RADNIK ZAR Variable
 
         $nt2 = (float)$minimalneBrutoOsnoviceSifarnik->NT1_prosecna_mesecna_zarada_u_republici;
         // ZAR->OLAKSICA =
@@ -1327,6 +1333,35 @@ class ObradaPripremaService
         }
         $kreditiData['KREDADD'] = $kreditiData;
         $kreditiData['KREDADD']['ZAR5'] = $zar;
+
+
+
+
         return $kreditiData;
+    }
+
+    public function updateDkopData($dkop,$dkop2){
+
+
+
+        $data=[];
+        foreach ($dkop as $vrstaPlacanja){
+            $data[]=$vrstaPlacanja;
+
+        }
+        foreach ($dkop2 as $vrstaPlacanja){
+
+            $data[]=$vrstaPlacanja;
+        }
+
+        $this->dkopSveVrstePlacanjaInterface->createMany($data);
+    }
+    public function updateZara($zar){
+
+        $data=[
+
+        ];
+        $this->obradaZaraPoRadnikuInterface->create($data);
+
     }
 }

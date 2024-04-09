@@ -117,7 +117,6 @@ class DpsmPoentazaslogController extends Controller
         $fiksnapData = $this->dpsmPoentazaslogInterface->where('user_dpsm_id', $userMonthId)->get();
 
         if ($vrstePlacanjaData) {
-            if ($fiksnapData->count()) {
 
                 foreach ($vrstePlacanjaData as $vrstaPlacanja) {
                     if (isset($vrstaPlacanja['updateId'])) {
@@ -150,7 +149,6 @@ class DpsmPoentazaslogController extends Controller
                         $this->dpsmPoentazaslogInterface->create($data);
                     }
                 }
-            }
 
         }
         return response()->json([

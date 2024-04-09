@@ -205,7 +205,7 @@ $(document).ready(function () {
                     record_id: record_id
                 }, success: function (response) {
                     if (response.status) {
-                        window.location.href = response.url;
+                        window.location.reload();
                     } else {
                         // $("#statusMessage").text(response.message).addClass("text-danger");
                     }

@@ -171,6 +171,11 @@ debugger;
 
     $(document).on('click', 'body .index-mesecna-obrada-priprema', function (e) {
         var id = $(this).data('month_id');
+
+        var buttons = document.querySelectorAll('button');
+        buttons.forEach(function(button) {
+            button.disabled = true;
+        });
         window.location.href = showObradaRoute + id;
     });
 

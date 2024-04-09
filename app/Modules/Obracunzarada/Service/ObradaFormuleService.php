@@ -4,6 +4,7 @@ namespace App\Modules\Obracunzarada\Service;
 
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 
+use Exception;
 class ObradaFormuleService
 {
 
@@ -13,15 +14,7 @@ class ObradaFormuleService
     )
     {
     }
-//    public function obradiFormule($sveVrstePlacanjaData){
-//        $sveVrstePlacanjaDataFiltered =[];
-//
-//        foreach ($sveVrstePlacanjaData as $vrstePlacanjaDatum){
-////            $iznos = $this->kalkulacijaFormule($vrstePlacanjaDatum,$vrstePlacanjaDatum);
-//            // TODO PROVERI REDOSLED
-//        }
-//        return $sveVrstePlacanjaDataFiltered;
-//}
+
     public function kalkulacijaFormule($vrstaPlacanjaSlog,$vrstaPlacanjaSifData,$radnik,$poresDoprinosiSifarnik,$monthData,$minimalneBrutoOsnoviceSifarnik,$pravilo)
     {
 // Sample formula
@@ -46,7 +39,21 @@ class ObradaFormuleService
             $formulaValues = $this->replaceVariables($formula, $data);
             $formulaValues = str_replace(["{", "}", "||", "->"], "", $formulaValues);
 
+            if($vrstaPlacanjaSlog['sifra_vrste_placanja']=='050'){
+                return 0;
+            }
+
+        try {
             $result = $this->evaluateFormula($formulaValues);
+            $test='';
+        } catch (\Throwable $exception){
+//            report("Proveri Formulu:".$vrstaPlacanjaSlog['sifra_vrste_placanja']);
+            report($exception);
+
+            $newMessage = "Proverite formulu : ".$vrstaPlacanjaSlog['sifra_vrste_placanja'];
+            $updatedException = new \Exception($newMessage, $exception->getCode(), $exception);
+            throw $updatedException;
+        }
 
 
 
@@ -113,6 +120,7 @@ class ObradaFormuleService
 //        $formula = str_replace('->', '*', $formula);
 
         // Evaluate the expression
+
         $result = null;
         eval("\$result = $formula;");
         return $result;

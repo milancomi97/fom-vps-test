@@ -107,77 +107,133 @@ class DpsmFiksnaPlacanjaController extends Controller
 
     }
 
-
     public function updateFiksnap(Request $request)
     {
 
 //        $id = $request->mesecna_tabela_poentaza_id;
         $userMonthId = $request->record_id;
         $vrstePlacanjaData = $request->vrste_placanja;
-        $sifarnikVrstePlacanja = $this->vrsteplacanjaInterface->getAllKeySifra();
         $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($userMonthId);
+        $sifarnikVrstePlacanja = $this->vrsteplacanjaInterface->getAllKeySifra();
 
-        $data=[];
-        $fiksnapData = $this->dpsmFiksnaPlacanjaInteface->where('user_dpsm_id',$userMonthId)->get();
+        $data = [];
+        $fiksnapData = $this->dpsmFiksnaPlacanjaInteface->where('user_dpsm_id', $userMonthId)->get();
 
-        if($vrstePlacanjaData){
+        if ($vrstePlacanjaData) {
 
-        if($fiksnapData->count()){
-            // TODO Update logic, ADD FLAG FOR ACTUAL
-            $oldData = array_column($fiksnapData->toArray(),'sifra_vrste_placanja');
-            foreach ($vrstePlacanjaData as $vrstaPlacanja){
-                $toUpdate = in_array($vrstaPlacanja['key'],$oldData);
-                if($toUpdate){
+                foreach ($vrstePlacanjaData as $vrstaPlacanja) {
+                    if (isset($vrstaPlacanja['updateId'])) {
+                        $fiksnapDataOld = $this->dpsmFiksnaPlacanjaInteface->where('id', $vrstaPlacanja['updateId'])->first();
+                        $toUpdate = $fiksnapDataOld->count();
 
-                }else{
-                    $data=[
-                        'user_dpsm_id'=>(int) $userMonthId,
-                        'sifra_vrste_placanja'=>$vrstaPlacanja['key'] ?? '',
-                        'naziv_vrste_placanja'=>$sifarnikVrstePlacanja[$vrstaPlacanja['key']]['naziv_naziv_vrste_placanja'],
-                        'sati'=>$vrstaPlacanja['sati'] ?? 0,
-                        'iznos'=>$vrstaPlacanja['iznos'] ?? 0,
-                        'procenat'=>$vrstaPlacanja['procenat'] ?? 0,
-                        'user_mdr_id'=>$mesecnaTabelaPoentaza->user_mdr_id,
-                        'obracunski_koef_id'=> $mesecnaTabelaPoentaza->obracunski_koef_id
-                    ];
-                    $this->dpsmFiksnaPlacanjaInteface->create($data);
+                        if ($toUpdate) {
+
+                            $data = [
+                                'sati' => $vrstaPlacanja['sati'] ?? 0,
+                                'iznos' => $vrstaPlacanja['iznos'] ?? 0,
+                                'procenat' => $vrstaPlacanja['procenat'] ?? 0
+                            ];
+                            $this->dpsmFiksnaPlacanjaInteface->update($vrstaPlacanja['updateId'], $data);
+
+                        }
+
+                    } else {
+                        $data = [
+                            'user_dpsm_id' => (int)$userMonthId,
+                            'sifra_vrste_placanja' => $vrstaPlacanja['key'] ?? '',
+                            'naziv_vrste_placanja' => $sifarnikVrstePlacanja[$vrstaPlacanja['key']]['naziv_naziv_vrste_placanja'],
+                            'sati' => $vrstaPlacanja['sati'] ?? 0,
+                            'iznos' => $vrstaPlacanja['iznos'] ?? 0,
+                            'procenat' => $vrstaPlacanja['procenat'] ?? 0,
+                            'user_mdr_id' => $mesecnaTabelaPoentaza->user_mdr_id,
+                            'obracunski_koef_id' => $mesecnaTabelaPoentaza->obracunski_koef_id
+                        ];
+                        $this->dpsmFiksnaPlacanjaInteface->create($data);
+                    }
                 }
 
 
-            }
-        } else{
-            foreach ($vrstePlacanjaData as $vrstaPlacanja){
-
-                $data=[
-                    'user_dpsm_id'=>(int) $userMonthId,
-                    'sifra_vrste_placanja'=>$vrstaPlacanja['key'] ?? '',
-                    'naziv_vrste_placanja'=>$sifarnikVrstePlacanja[$vrstaPlacanja['key']]['naziv_naziv_vrste_placanja'],
-                    'sati'=>$vrstaPlacanja['sati'] ?? 0,
-                    'iznos'=>$vrstaPlacanja['iznos'] ?? 0,
-                    'user_mdr_id'=>$mesecnaTabelaPoentaza->user_mdr_id,
-                    'procenat'=>$vrstaPlacanja['procenat'] ?? 0,
-                    'obracunski_koef_id'=> $mesecnaTabelaPoentaza->obracunski_koef_id
-                ];
-
-                $this->dpsmFiksnaPlacanjaInteface->create($data);
-            }
         }
-
-        // DODAJ user_dpsm_id kod Fiksnih placanja
-        // do foreach
-        // do Load, save or update
-        // Ucitaj podatke o vrstama placanja
-
-
-        }
-
         return response()->json([
             'status'=>true,
             'url'=>url()->route('datotekaobracunskihkoeficijenata.show_all_fiksnap', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id])
         ]);
-
     }
 
+//    public function updateFiksnap(Request $request)
+//    {
+//
+////        $id = $request->mesecna_tabela_poentaza_id;
+//        $userMonthId = $request->record_id;
+//        $vrstePlacanjaData = $request->vrste_placanja;
+//        $sifarnikVrstePlacanja = $this->vrsteplacanjaInterface->getAllKeySifra();
+//        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($userMonthId);
+//
+//        $data=[];
+//        $fiksnapData = $this->dpsmFiksnaPlacanjaInteface->where('user_dpsm_id',$userMonthId)->get();
+//
+//        if($vrstePlacanjaData){
+//
+//        if($fiksnapData->count()){
+//            // TODO Update logic, ADD FLAG FOR ACTUAL
+//            $oldData = array_column($fiksnapData->toArray(),'sifra_vrste_placanja');
+//
+//
+//            foreach ($vrstePlacanjaData as $vrstaPlacanja){
+//                $toUpdate = in_array($vrstaPlacanja['key'],$oldData);
+//                if($toUpdate){
+//
+//                }else{
+//                    $data=[
+//                        'user_dpsm_id'=>(int) $userMonthId,
+//                        'sifra_vrste_placanja'=>$vrstaPlacanja['key'] ?? '',
+//                        'naziv_vrste_placanja'=>$sifarnikVrstePlacanja[$vrstaPlacanja['key']]['naziv_naziv_vrste_placanja'],
+//                        'sati'=>$vrstaPlacanja['sati'] ?? 0,
+//                        'iznos'=>$vrstaPlacanja['iznos'] ?? 0,
+//                        'procenat'=>$vrstaPlacanja['procenat'] ?? 0,
+//                        'user_mdr_id'=>$mesecnaTabelaPoentaza->user_mdr_id,
+//                        'obracunski_koef_id'=> $mesecnaTabelaPoentaza->obracunski_koef_id
+//                    ];
+//                    $this->dpsmFiksnaPlacanjaInteface->create($data);
+//                }
+//
+//
+//            }
+//        } else{
+//            foreach ($vrstePlacanjaData as $vrstaPlacanja){
+//
+//                $data=[
+//                    'user_dpsm_id'=>(int) $userMonthId,
+//                    'sifra_vrste_placanja'=>$vrstaPlacanja['key'] ?? '',
+//                    'naziv_vrste_placanja'=>$sifarnikVrstePlacanja[$vrstaPlacanja['key']]['naziv_naziv_vrste_placanja'],
+//                    'sati'=>$vrstaPlacanja['sati'] ?? 0,
+//                    'iznos'=>$vrstaPlacanja['iznos'] ?? 0,
+//                    'user_mdr_id'=>$mesecnaTabelaPoentaza->user_mdr_id,
+//                    'procenat'=>$vrstaPlacanja['procenat'] ?? 0,
+//                    'obracunski_koef_id'=> $mesecnaTabelaPoentaza->obracunski_koef_id
+//                ];
+//
+//                $this->dpsmFiksnaPlacanjaInteface->create($data);
+//            }
+//        }
+//
+//
+//        }
+//
+//        return response()->json([
+//            'status'=>true,
+//            'url'=>url()->route('datotekaobracunskihkoeficijenata.show_all_fiksnap', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id])
+//        ]);
+//
+//    }
 
+    public function deleteFiksnap(Request $request)
+    {
+        $recordId = $request->record_id;
+        $this->dpsmFiksnaPlacanjaInteface->delete($recordId);
+
+        return response()->json([
+            'status'=>true
+        ]);    }
 
 }

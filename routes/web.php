@@ -259,6 +259,7 @@ Route::middleware('auth')->group(function () {
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_fiksnap',[DpsmFiksnaPlacanjaController::class,'showAllFiksnap'])->name('datotekaobracunskihkoeficijenata.show_all_fiksnap');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_fiksnap',[DpsmFiksnaPlacanjaController::class,'showFiksnap'])->name('datotekaobracunskihkoeficijenata.show_fiksnap');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_fiksnap',[DpsmFiksnaPlacanjaController::class,'updateFiksnap'])->name('datotekaobracunskihkoeficijenata.update_fiksnap');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/delete_fiksnap',[DpsmFiksnaPlacanjaController::class,'deleteFiksnap'])->name('datotekaobracunskihkoeficijenata.delete_fiksnap');
 
 
     // KREDITI
