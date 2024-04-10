@@ -1342,16 +1342,56 @@ class ObradaPripremaService
 
     public function updateDkopData($dkop,$dkop2){
 
-
-
         $data=[];
-        foreach ($dkop as $vrstaPlacanja){
-            $data[]=$vrstaPlacanja;
-
+        foreach ($dkop as $key=>$vrstaPlacanja){
+            if($key=='KREDADD'){
+                continue;
+            }
+            $data1=[
+                'maticni_broj' => $vrstaPlacanja['maticni_broj'],
+                'sifra_vrste_placanja' => $vrstaPlacanja['sifra_vrste_placanja'],
+                'SLOV_grupa_vrste_placanja' => $vrstaPlacanja['SLOV_grupa_vrste_placanja'],
+                'POK2_obracun_minulog_rada' => $vrstaPlacanja['POK2_obracun_minulog_rada'],
+                'iznos' => $vrstaPlacanja['iznos'],
+                'RBRM_radno_mesto' => $vrstaPlacanja['RBRM_radno_mesto'],
+                'KESC_prihod_rashod_tip' => $vrstaPlacanja['KESC_prihod_rashod_tip'],
+                'P_R_oblik_rada' => $vrstaPlacanja['P_R_oblik_rada'],
+                'troskovno_mesto_id' => $vrstaPlacanja['troskovno_mesto_id'],
+                'KOEF_osnovna_zarada' => $vrstaPlacanja['KOEF_osnovna_zarada'],
+                'RBIM_isplatno_mesto_id' => $vrstaPlacanja['RBIM_isplatno_mesto_id'],
+                'user_mdr_id' => $vrstaPlacanja['user_mdr_id'],
+                'obracunski_koef_id' => $vrstaPlacanja['obracunski_koef_id'],
+                'user_dpsm_id' => $vrstaPlacanja['user_dpsm_id'],
+                'tip_unosa' => 'kroz_kod'
+            ];
+            $data[]=$data1;
         }
-        foreach ($dkop2 as $vrstaPlacanja){
+        foreach ($dkop2 as $key=>$vrstaPlacanja ){
 
-            $data[]=$vrstaPlacanja;
+            if($key=='ZAR3'){
+                continue;
+            }
+//            if(){
+//
+//            }
+            $data2=[
+               'maticni_broj' => $vrstaPlacanja['maticni_broj'],
+                'sifra_vrste_placanja' => $vrstaPlacanja['sifra_vrste_placanja'],
+                'SLOV_grupa_vrste_placanja' => $vrstaPlacanja['SLOV_grupa_vrste_placanja'],
+                'POK2_obracun_minulog_rada' => $vrstaPlacanja['POK2_obracun_minulog_rada'],
+                'iznos' => $vrstaPlacanja['iznos'],
+                'RBRM_radno_mesto' => $vrstaPlacanja['RBRM_radno_mesto'],
+                'KESC_prihod_rashod_tip' => $vrstaPlacanja['KESC_prihod_rashod_tip'],
+                'P_R_oblik_rada' => $vrstaPlacanja['P_R_oblik_rada'],
+                'troskovno_mesto_id' => $vrstaPlacanja['troskovno_mesto_id'],
+                'KOEF_osnovna_zarada' => $vrstaPlacanja['KOEF_osnovna_zarada'],
+                'RBIM_isplatno_mesto_id' => $vrstaPlacanja['RBIM_isplatno_mesto_id'],
+                'user_mdr_id' => $vrstaPlacanja['user_mdr_id'],
+                'obracunski_koef_id' => $vrstaPlacanja['obracunski_koef_id'],
+                'user_dpsm_id' => $vrstaPlacanja['user_dpsm_id'],
+                'tip_unosa' => 'kroz_kod'
+            ];
+            $data[]=$data2;
         }
 
         $this->dkopSveVrstePlacanjaInterface->createMany($data);
@@ -1359,7 +1399,42 @@ class ObradaPripremaService
     public function updateZara($zar){
 
         $data=[
-
+            'SSZNE_suma_sati_zarade' => $zar['SSZNE_suma_sati_zarade'],
+            'SIZNE_ukupni_iznos_zarade' => $zar['SIZNE_ukupni_iznos_zarade'],
+            'PREK_prekovremeni' => $zar['PREK_prekovremeni'],
+            'SSNNE_suma_sati_naknade' => $zar['SSNNE_suma_sati_naknade'],
+            'SINNE_ukupni_iznos_naknade' => $zar['SINNE_ukupni_iznos_naknade'],
+            'SIOB_ukupni_iznos_obustava' => $zar['SIOB_ukupni_iznos_obustava'],
+            'TOPLI_obrok_sati' => $zar['TOPLI_obrok_sati'],
+            'TOPLI_obrok_iznos' => $zar['TOPLI_obrok_iznos'],
+            'REGRES_iznos_regresa' => $zar['REGRES_iznos_regresa'],
+            'PRIZ_prosecni_sati_godina' => $zar['PRIZ_prosecni_sati_godina'],
+            'PRIZ_prosecni_iznos_godina' => $zar['PRIZ_prosecni_iznos_godina'],
+            'EFSATI_ukupni_iznos_efektivnih_sati' => $zar['EFSATI_ukupni_iznos_efektivnih_sati'],
+            'EFIZNO_kumulativ_iznosa_za_efektivne_sate' => $zar['EFIZNO_kumulativ_iznosa_za_efektivne_sate'],
+            'IZNETO_zbir_ukupni_iznos_naknade_i_naknade' => $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'],
+            'UKSA_ukupni_sati_za_isplatu' => $zar['UKSA_ukupni_sati_za_isplatu'],
+            'solid' => $zar['solid'],
+            'user_dpsm_id' => $zar['user_dpsm_id'],
+            'obracunski_koef_id' => $zar['obracunski_koef_id'],
+            'user_mdr_id' => $zar['user_mdr_id'],
+            'SID_ukupni_iznos_doprinosa' => $zar['SID'],
+            'SIP_ukupni_iznos_poreza' => $zar['SIP'],
+            'POROSL_poresko_oslobodjenje' => $zar['POROSL'],
+            'NETO_neto_zarada' => $zar['NETO']
+            //            'DBDATA' => $zar['UKUPNO'],
+//            'DBDATA' => $zar['IZBRBO1'],
+//            'DBDATA' => $zar['OSNOV'],
+//            'DBDATA' => $zar['IZBRBO2'],
+//            'DBDATA' => $zar['KONTROLA'],
+//            'DBDATA' => $zar['IZBRBOL'],
+//            'DBDATA' => $zar['UKUPNO1'],
+//            'DBDATA' => $zar['SIPBOL'],
+//            'DBDATA' => $zar['SIDBOL'],
+//            'DBDATA' => $zar['PLACENO'],
+//            'DBDATA' => $zar['SIPPR'],
+//            'DBDATA' => $zar['IZBRUTO'],
+//            'DBDATA' => $zar['SIP_D'],
         ];
         $this->obradaZaraPoRadnikuInterface->create($data);
 

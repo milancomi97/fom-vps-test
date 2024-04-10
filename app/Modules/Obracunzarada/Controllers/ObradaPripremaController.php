@@ -67,6 +67,7 @@ class ObradaPripremaController extends Controller
 
         $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $id)->delete();
         $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $id)->delete();
+
 //        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->select('vrste_placanja','user_id','maticni_broj','obracunski_koef_id')->get();
         $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
 
