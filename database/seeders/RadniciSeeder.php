@@ -32,7 +32,7 @@ class RadniciSeeder extends Seeder
                 'datum_prestanka_radnog_odnosa' => $radnik['Datum_odlaska'] == '' ? null : Carbon::createFromFormat('m/d/Y', $radnik['Datum_odlaska'])->format('Y-m-d'),
                 'sifra_mesta_troska_id' => (int)$radnik['trosk_mesto'],
                 'maticni_broj' => $radnik['mat_broj'],
-                'email' => $radnik['mat_broj'] . $radnik['Ime'] . '@fom.com',
+                'email' => $radnik['mat_broj'].'@fom.com',
                 'password' => Hash::make('Test1234')
             ]);
 

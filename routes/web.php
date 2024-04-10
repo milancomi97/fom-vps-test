@@ -279,6 +279,7 @@ Route::middleware('auth')->group(function () {
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index',[ObradaPripremaController::class,'obradaIndex'])->name('datotekaobracunskihkoeficijenata.mesecna_obrada_index');
 
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/obrada_radnik',[  ObracunZaradaController::class,'obradaRadnik'])->name('datotekaobracunskihkoeficijenata.obrada_radnik');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_radnik',[  ObracunZaradaController::class,'stampaRadnik'])->name('datotekaobracunskihkoeficijenata.stampa_radnik');
 
 
 

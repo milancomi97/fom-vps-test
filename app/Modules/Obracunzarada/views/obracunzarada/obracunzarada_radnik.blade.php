@@ -55,8 +55,15 @@
 @endsection
 
 @section('content')
-    <div class="container mt-5 mb-5">
-        <div class="row mb-5 border">
+    <div class="container mb-5">
+        <div class="col col-lg-12 text-right">
+           <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik')}}">
+               @csrf
+            <button type="submit" class="btn mt-5 btn-light btn-lg" id="print-page">Štampaj &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
+           </form>
+        </div>
+        <div class="row mb-5 mt-5 border">
+
 
 
 {{--                <p>{{$podaciFirme['skraceni_naziv_firme']}}</p>--}}

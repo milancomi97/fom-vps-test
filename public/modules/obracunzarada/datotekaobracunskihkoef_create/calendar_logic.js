@@ -52,7 +52,7 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-info update-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
+                    'class': 'btn btn-primary update-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
@@ -77,7 +77,7 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-danger odobravanje-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
+                    'class': 'btn btn-primary odobravanje-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
@@ -106,7 +106,7 @@ function updateMonthContainer(activeMonth) {
                 // Akontacije
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-warning index-akontacija-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
+                    'class': 'btn btn-primary index-akontacija-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
@@ -120,7 +120,7 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-secondary index-fiksnap-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
+                    'class': 'btn btn-primary index-fiksnap-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
@@ -134,7 +134,7 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-dark index-krediti-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
+                    'class': 'btn btn-primary index-krediti-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear

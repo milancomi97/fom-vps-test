@@ -9,6 +9,8 @@ use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
 use App\Modules\Osnovnipodaci\Repository\PodaciofirmiRepositoryInterface;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class ObracunZaradaController extends Controller
 {
@@ -57,6 +59,7 @@ class ObracunZaradaController extends Controller
 
         $dkopData = $this->obradaDkopSveVrstePlacanjaInterface->where('obracunski_koef_id',$id)->where('user_mdr_id',$mdrData['id'])->get();
 
+
         return view('obracunzarada::obracunzarada.obracunzarada_radnik',
             [
                 'radnikData'=>$radnikData,
@@ -70,5 +73,14 @@ class ObracunZaradaController extends Controller
             ]);
     }
 
+    public function stampaRadnik(Request $request){
+        $datetime = new \DateTime();
+        $dateTimeString = $datetime->format('d/m/Y_g:i');
+        $dateTimeString2 = $datetime->format('d/m/Y');
+
+        $pdf = Pdf::loadHTML('<h1>PDF fajl - štampanje izveštaja - DATUM:'.$dateTimeString2.'</h1>');
+
+        return $pdf->download('primer'.$dateTimeString.'.pdf');
+    }
 
 }

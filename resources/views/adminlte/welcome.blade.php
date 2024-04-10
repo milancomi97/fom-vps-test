@@ -15,8 +15,10 @@
 
     <!-- Main content -->
     <div class="content text-center ">
-        <h3>Diagram poentaze</h3>
-        <img  class="img-fluid border" src="{{asset('images/diagrams/poentaza.jpg')}}">
+        <h3>Početna stranica</h3>
+        <h3></h3>
+
+        {{--        <img  class="img-fluid border" src="{{asset('images/diagrams/poentaza.jpg')}}">--}}
 
     </div>
     <!-- /.content -->
