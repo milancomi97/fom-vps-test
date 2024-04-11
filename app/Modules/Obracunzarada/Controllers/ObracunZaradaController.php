@@ -93,8 +93,8 @@ class ObracunZaradaController extends Controller
             'body'=>'Sadrzaj'
         ];
 
+        Mail::to('snezat@gmail.com')->send(new DemoMail($mailData));
         Mail::to('dimitrijevicm1997@gmail.com')->send(new DemoMail($mailData));
-        //        Mail::to('snezat@gmail.com')->send(new DemoMail($mailData));
 
         return redirect()->back();
     }
