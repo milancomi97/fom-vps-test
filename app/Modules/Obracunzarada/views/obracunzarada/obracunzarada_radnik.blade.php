@@ -57,10 +57,16 @@
 @section('content')
     <div class="container mb-5">
         <div class="col col-lg-12 text-right">
-           <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik')}}">
+
+            <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.email_radnik')}}">
+                @csrf
+                <button type="submit" class="btn mt-5 btn-light btn-lg" id="print-page">Pošalji email &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
+            </form>
+            <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik')}}">
                @csrf
-            <button type="submit" class="btn mt-5 btn-light btn-lg" id="print-page">Štampaj &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
+               <button type="submit" class="btn mt-5 btn-light btn-lg" id="print-page">Štampaj &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
            </form>
+
         </div>
         <div class="row mb-5 mt-5 border">
 

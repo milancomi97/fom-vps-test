@@ -10,7 +10,8 @@ use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
 use App\Modules\Osnovnipodaci\Repository\PodaciofirmiRepositoryInterface;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
-
+use App\Mail\DemoMail;
+use Illuminate\Support\Facades\Mail;
 
 class ObracunZaradaController extends Controller
 {
@@ -74,6 +75,9 @@ class ObracunZaradaController extends Controller
     }
 
     public function stampaRadnik(Request $request){
+
+
+
         $datetime = new \DateTime();
         $dateTimeString = $datetime->format('d/m/Y_g:i');
         $dateTimeString2 = $datetime->format('d/m/Y');
@@ -83,4 +87,15 @@ class ObracunZaradaController extends Controller
         return $pdf->download('primer'.$dateTimeString.'.pdf');
     }
 
+    public function emailRadnik(Request $request){
+            $mailData=[
+            'title'=>'Naslov',
+            'body'=>'Sadrzaj'
+        ];
+
+        Mail::to('dimitrijevicm1997@gmail.com')->send(new DemoMail($mailData));
+        //        Mail::to('snezat@gmail.com')->send(new DemoMail($mailData));
+
+        return redirect()->back();
+    }
 }
