@@ -58,13 +58,13 @@
     <div class="container mb-5">
         <div class="col col-lg-12 text-right">
 
-            <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.email_radnik')}}">
+            <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.email_radnik')}}">
                 @csrf
-                <button type="submit" class="btn mt-5 btn-light btn-lg" id="print-page">Pošalji email &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
+                <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">Pošalji email &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl " aria-hidden="true"></i></button>
             </form>
-            <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik')}}">
+            <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik')}}">
                @csrf
-               <button type="submit" class="btn mt-5 btn-light btn-lg" id="print-page">Štampaj &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
+               <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">Štampaj &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
            </form>
 
         </div>
