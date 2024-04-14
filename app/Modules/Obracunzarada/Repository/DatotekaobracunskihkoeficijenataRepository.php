@@ -33,6 +33,7 @@ class DatotekaobracunskihkoeficijenataRepository extends BaseRepository implemen
             'mesecni_fond_sati'=>$workingHours,
             'prosecni_godisnji_fond_sati'=>$array['prosecni_godisnji_fond_sati'],
             'cena_rada_tekuci'=>$array['cena_rada_tekuci'],
+            'mesecni_fond_sati_praznika'=>$array['mesecni_fond_sati_praznika'],
             'cena_rada_prethodni'=>$array['cena_rada_prethodni'],
             'vrednost_akontacije'=>$array['vrednost_akontacije'],
             'datum'=>$startOfMonth,

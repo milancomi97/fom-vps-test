@@ -100,6 +100,12 @@
                         </div>
 
                         <div class="form-group">
+                            <input type="checkbox"  id="enable_mesecni_fond_sati_praznika_modal">
+                            <label for="mesecni_fond_sati_praznika_modal">Dodaj sate (praznik)</label>
+                            <input disabled type="number" value="0" class="form-control" id="mesecni_fond_sati_praznika_modal" >
+                        </div>
+
+                        <div class="form-group">
                             <label for="prosecni_godisnji_fond_sati_modal">Prosečni godišnji fond sati</label>
                             <input type="text" class="form-control" id="prosecni_godisnji_fond_sati_modal" >
                         </div>

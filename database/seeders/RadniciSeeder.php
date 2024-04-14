@@ -37,6 +37,8 @@ class RadniciSeeder extends Seeder
             ]);
 
             $user = User::where('maticni_broj', $radnik['mat_broj'])->get();
+
+            
             $user[0]->permission()->create([
                 'role_id' => UserRoles::ADMINISTRATOR,
                 'user_id' => $user[0]->id,

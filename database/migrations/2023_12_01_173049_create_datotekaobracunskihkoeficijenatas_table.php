@@ -21,6 +21,7 @@ return new class extends Migration
             $table->float('prosecni_godisnji_fond_sati')->nullable();
             $table->integer('vrednost_akontacije')->nullable();
             $table->integer('mesecni_fond_sati')->nullable();
+            $table->integer('mesecni_fond_sati_praznika')->nullable();
             $table->string('cena_rada_tekuci')->nullable();
             $table->string('cena_rada_prethodni')->nullable();
             $table->integer('tip_todo')->nullable();

@@ -15,6 +15,7 @@ class Datotekaobracunskihkoeficijenata extends Model
         'kalendarski_broj_dana',
         'prosecni_godisnji_fond_sati',
         'mesecni_fond_sati',
+        'mesecni_fond_sati_praznika',
         'cena_rada_tekuci',
         'cena_rada_prethodni',
         'tip_todo',

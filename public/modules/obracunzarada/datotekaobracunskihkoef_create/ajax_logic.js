@@ -1,5 +1,17 @@
 $(document).ready(function () {
     // Attach a click event handler to the button
+
+    $('#enable_mesecni_fond_sati_praznika_modal').change(function() {
+        var praznikInput = $('#mesecni_fond_sati_praznika_modal');
+        if ($(this).is(':checked')) {
+            praznikInput.prop('disabled', false);
+            praznikInput.val(0);
+        } else {
+            praznikInput.prop('disabled', true);
+            praznikInput.val(0);
+        }
+    });
+
     $(document).on('click', 'body .create-mesecna-poentaza', function (e) {
 
         $('#myForm :input').val('');
@@ -50,6 +62,7 @@ debugger;
             var month = $('.create-mesecna-poentaza').data('month')
             var prosecni_godisnji_fond_sati = $('#prosecni_godisnji_fond_sati_modal').val()
             var kalendarski_broj_dana =  $('#kalendarski_broj_dana_modal').val()
+            var mesecni_fond_sati_praznika = $('#mesecni_fond_sati_praznika_modal').val();
             var cena_rada_tekuci = $('#cena_rada_tekuci_modal').val()
             var cena_rada_prethodni = $('#cena_rada_prethodni_modal').val()
             var period_isplate_do = $('#period_isplate_do_modal').val()
@@ -74,7 +87,7 @@ debugger;
                         period_isplate_do:period_isplate_do,
                         period_isplate_od:period_isplate_od,
                         vrednost_akontacije:vrednost_akontacije,
-                        month_id:month_id,
+                        mesecni_fond_sati_praznika:mesecni_fond_sati_praznika,
                         _token: _token
                     },
                     success: function (response) {
@@ -102,6 +115,7 @@ debugger;
             var period_isplate_do = $('#period_isplate_do_modal').val()
             var period_isplate_od = $('#period_isplate_od_modal').val()
             var vrednost_akontacije = $('#vrednost_akontacije_modal').val()
+            var mesecni_fond_sati_praznika = $('#mesecni_fond_sati_praznika_modal').val();
 
             var _token = $('input[name="_token"]').val();
             debugger;
@@ -121,6 +135,7 @@ debugger;
                         period_isplate_od:period_isplate_od,
                         vrednost_akontacije:vrednost_akontacije,
                         month_id:month_id,
+                        mesecni_fond_sati_praznika:mesecni_fond_sati_praznika,
                         _token: _token
                     },
                     success: function (response) {

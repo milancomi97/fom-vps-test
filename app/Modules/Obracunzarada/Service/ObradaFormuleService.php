@@ -8,6 +8,7 @@ use Exception;
 class ObradaFormuleService
 {
 
+    protected $cacheCounter;
     public function __construct(
         private readonly VrsteplacanjaRepository $vrsteplacanjaInterface,
 
@@ -15,52 +16,53 @@ class ObradaFormuleService
     {
     }
 
-    public function kalkulacijaFormule($vrstaPlacanjaSlog,$vrstaPlacanjaSifData,$radnik,$poresDoprinosiSifarnik,$monthData,$minimalneBrutoOsnoviceSifarnik,$pravilo)
+    public function kalkulacijaFormule($vrstaPlacanjaSlog, $vrstaPlacanjaSifData, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, $pravilo)
     {
 // Sample formula
         try {
             $formula = $vrstaPlacanjaSifData[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['formula_formula_za_obracun'];
 
-        } catch (\Exception $exception){
-            $test="test";
+        } catch (\Exception $exception) {
+            $test = "test";
         }
 
-        $DATA='TEST';
+        $DATA = $vrstaPlacanjaSlog['sifra_vrste_placanja'];
         $data = [
-            'KOE'=>$monthData,
-            'KOP'=>$vrstaPlacanjaSlog,
-            'MDR'=>$vrstaPlacanjaSlog->maticnadatotekaradnika->toArray(),
-            'NTO'=>$minimalneBrutoOsnoviceSifarnik, // MINIMALNE BRUTO OSNOVICE // IZVUCI PRE
-            'POM'=>$vrstaPlacanjaSlog,
-            'POR'=>$poresDoprinosiSifarnik,
-            'ZAR'=> $radnik['ZAR'] ?? [],
+            'KOE' => $monthData,
+            'KOP' => $vrstaPlacanjaSlog,
+            'MDR' => $vrstaPlacanjaSlog->maticnadatotekaradnika->toArray(),
+            'NTO' => $minimalneBrutoOsnoviceSifarnik, // MINIMALNE BRUTO OSNOVICE // IZVUCI PRE
+            'POM' => $vrstaPlacanjaSlog,
+            'POR' => $poresDoprinosiSifarnik,
+            'ZAR' => $radnik['ZAR'] ?? [],
         ];
 
-            $formulaValues = $this->replaceVariables($formula, $data);
-            $formulaValues = str_replace(["{", "}", "||", "->"], "", $formulaValues);
+        $formulaValues = $this->replaceVariables($formula, $data);
+        $formulaValues = str_replace(["{", "}", "||", "->"], "", $formulaValues);
 
-            if($vrstaPlacanjaSlog['sifra_vrste_placanja']=='050'){
-                return 0;
-            }
+        if ($vrstaPlacanjaSlog['sifra_vrste_placanja'] == '050') {
+            return 0;
+        }
 
         try {
-            $result = $this->evaluateFormula($formulaValues);
-            $test='';
-        } catch (\Throwable $exception){
+
+//            $this->cacheCounter++;
+            $result = $this->evaluateFormula($this->replaceZero($formulaValues));
+            $test = '';
+        } catch (\Throwable $exception) {
 //            report("Proveri Formulu:".$vrstaPlacanjaSlog['sifra_vrste_placanja']);
             report($exception);
 
-            $newMessage = "Proverite formulu : ".$vrstaPlacanjaSlog['sifra_vrste_placanja'];
+            $newMessage = "Proverite formulu : " . $vrstaPlacanjaSlog['sifra_vrste_placanja'];
             $updatedException = new \Exception($newMessage, $exception->getCode(), $exception);
             throw $updatedException;
         }
 
 
-
         return $result;
     }
 
-    function replaceVariables($formula,$data)
+    function replaceVariables($formula, $data)
     {
         $tableAliases = [
             'KOE->BR_S' => "mesecni_fond_sati",
@@ -97,7 +99,7 @@ class ObradaFormuleService
             'zar->prekov' => "PREK",
             'zar->ssnne' => "SSNNE",
             'zar->sszne' => "SSZNE",
-            'mdr->kfak'=>'KFAK_korektivni_faktor'
+            'mdr->kfak' => 'KFAK_korektivni_faktor'
         ];
 
 
@@ -107,7 +109,7 @@ class ObradaFormuleService
             $exist = preg_match('/' . $variable . '/', $formulaValues);
 
             if ($exist) {
-                $value = $this->getFieldValue($variable,$fieldDefinition, $data);
+                $value = $this->getFieldValue($variable, $fieldDefinition, $data);
                 $formulaValues = str_replace($variable, $value, $formulaValues);
             }
         }
@@ -127,7 +129,6 @@ class ObradaFormuleService
     }
 
 
-
     public function checkParsingAllFormulas()
     {
         $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
@@ -136,14 +137,12 @@ class ObradaFormuleService
         foreach ($vrstePlacanjaSifarnik as $formulaPatern) {
 
 
-
-
             $formulaValues = $formulaPatern['formula_formula_za_obracun'];
             foreach ($tableAliases as $variable => $fieldDefinition) {
 
                 $exist = preg_match('/' . $variable . '/', $formulaValues);
 
-                $value = rand(10,100);
+                $value = rand(10, 100);
                 if ($exist) {
                     $formulaValues = str_replace($variable, $value, $formulaValues);
                 }
@@ -155,9 +154,9 @@ class ObradaFormuleService
 
     }
 
-    public function getFieldValue($variable,$fieldDefinition,$data)
+    public function getFieldValue($variable, $fieldDefinition, $data)
     {
-        if($fieldDefinition =='cena_rada_tekuci'){
+        if ($fieldDefinition == 'cena_rada_tekuci') {
             return 1; // SAMO PRVI PUT
         }
 
@@ -166,22 +165,21 @@ class ObradaFormuleService
 //        }
 
 
+        $table = strstr($variable, '->', true);
 
-        $table=strstr($variable, '->', true);
-
-        if(strtoupper($table) =='ZAR' && (empty($data['ZAR']) || $variable=='ZAR->IPLAC'|| $variable=='ZAR->UKNETO')){
+        if (strtoupper($table) == 'ZAR' && (empty($data['ZAR']) || $variable == 'ZAR->IPLAC' || $variable == 'ZAR->UKNETO')) {
             // ZAR->IPLAC prva iteracija
-         return 0;
+            return 0;
         }
 
-        if($variable=='MDR->PRPB'){
+        if ($variable == 'MDR->PRPB') {
             return 1;
         }
 
-        if($fieldDefinition=='test'){
-          $test='test';
+        if ($fieldDefinition == 'test') {
+            $test = 'test';
         }
-       return (float) $data[strtoupper($table)][$fieldDefinition];
+        return (float)$data[strtoupper($table)][$fieldDefinition];
         //
 //        if('KOP->SATI'){
 //            $data
@@ -189,5 +187,21 @@ class ObradaFormuleService
 
     }
 
+    function replaceZero($inputString)
+    {
+        // Check if the input string contains '/0'
+        if (strpos($inputString, '/0') !== false) {
+            // If it does, replace '/0' with '/1'
+            $inputString = str_replace('/0', '/1', $inputString);
+        }
+
+        // Check if the input string contains '*0'
+        if (strpos($inputString, '*0') !== false) {
+            // If it does, replace '*0' with '*1'
+            $inputString = str_replace('*0', '*1', $inputString);
+        }
+
+        return $inputString;
+    }
 
 }

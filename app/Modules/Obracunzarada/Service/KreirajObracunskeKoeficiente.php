@@ -118,7 +118,7 @@ class KreirajObracunskeKoeficiente
             $newValue = strtolower(str_replace(' ', '_',  $item['naziv_naziv_vrste_placanja']));
             $mesecniFondSati = 0;
 
-            if($item['rbvp_sifra_vrste_placanja'] == '001' || $item['rbvp_sifra_vrste_placanja'] =='019' ){
+            if($item['rbvp_sifra_vrste_placanja'] == '001' || $item['rbvp_sifra_vrste_placanja'] =='019' || $item['rbvp_sifra_vrste_placanja'] =='003'){
                 // Uslovi za otvaranje radnika varijabilna vrste placanja poenterska
                 $mesecniFondSati = (int) $fondSati;
             }
