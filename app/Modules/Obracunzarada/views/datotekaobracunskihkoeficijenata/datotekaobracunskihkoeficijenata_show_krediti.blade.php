@@ -69,6 +69,8 @@
         var listaKreditora = {!! $listaKreditora !!};
         var listaKreditoraData = {!! $listaKreditoraData !!};
         var storeAllRoute = '{!! route('datotekaobracunskihkoeficijenata.update_krediti') !!}';
+        var deleteVrstaPlacanjaData = '{!! route('datotekaobracunskihkoeficijenata.delete_krediti') !!}';
+
 
     </script>
 

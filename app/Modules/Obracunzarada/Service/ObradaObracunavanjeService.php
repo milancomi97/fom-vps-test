@@ -34,7 +34,7 @@ class ObradaObracunavanjeService
     {
 //        $testMaticni = '0005399';
 
-        $testMaticni = '0004202';
+        $testMaticni = '0008320'; // TODO Dejan Test
 
 //        0005399
 //        0005399

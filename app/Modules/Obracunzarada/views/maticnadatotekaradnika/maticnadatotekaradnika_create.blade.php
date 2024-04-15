@@ -295,8 +295,7 @@
                                 <div class="form-group ml-5"
                                      style="display: flex; align-items: center; justify-content: center; margin-bottom: 0">
                                     <div class="form-check form-check-inline ">
-                                        <input class="form-input" type="text" name="POL_pol" id="POL_pol"
-                                             >
+                                        <input class="form-control" type="text" name="POL_pol" id="POL_pol">
                                     </div>
                                 </div>
                             </div>

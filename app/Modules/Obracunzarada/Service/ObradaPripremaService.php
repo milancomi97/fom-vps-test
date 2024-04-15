@@ -179,8 +179,7 @@ class ObradaPripremaService
     public function pripremiMinuliRad($data, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik)
     {
 
-        // TODO add logiku da li firma koristi to
-        $minuliRadData = [];
+
 
         foreach ($data as $radnik) {
             $vrstePlacanjaData = json_decode($radnik->vrste_placanja, true);
@@ -211,33 +210,14 @@ class ObradaPripremaService
             $newPlacanje['KESC_prihod_rashod_tip'] = $vrstePlacanjaSifarnik['005']['KESC_prihod_rashod_tip'];
             $newPlacanje['POROSL_poresko_oslobodjenje'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja;
             $newPlacanje['procenat'] = ((int)$radnik->maticnadatotekaradnika->GGST_godine_staza) * 0.4;
-            // TODO 0.4 KOR->MINULI, podaci o firmi
-
-//            $newPlacanje['sifra_vrste_placanja'] = $vrstaPlacanja['key']; // sifra
-
-            // DPOR
-
-//            $newPlacanje['iznos'] = $vrstaPlacanja['sati']; pomnozi
 
             $minuliRadData[] = $newPlacanje;
-//                }
-//                if($vrstaPlacanja['iznos'] !== ''){
-//                    $newPlacanje['iznos'] =$vrstaPlacanja['iznos'];
-//                }
-//
-//                if($vrstaPlacanja['procenat'] !== ''){
-//                    $newPlacanje['procenat'] =$vrstaPlacanja['procenat'];
-//                }
-            $test = "test";
+
 
         }
         return $minuliRadData;
     }
 
-    public function pripremiKredita($data)
-    {
-        return $data;
-    }
 
     public function pripremaZaraPodatkePoRadnikuBezMinulogRada($data, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik)
     {
@@ -732,6 +712,11 @@ class ObradaPripremaService
     public function prepareBrutoData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik)
     {
         $zar = $radnik['ZAR3'];
+        $zar['SIPBOL']=0;
+        $zar['SIDBOL']=0;
+
+
+
         $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] = $zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid'];
 
         $zar['IZBRUTO'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
@@ -989,6 +974,8 @@ class ObradaPripremaService
 
         if ($radnikData['solid'] > 0) {
             $radnikData['IZBRBO1'] = ($radnikData['solid'] + $radnikData['SINNE_ukupni_iznos_naknade']) + ($radnikData['SINNE_ukupni_iznos_naknade'] * 0.4 / 100);
+        }else{
+            $radnikData['IZBRBO1']=0;
         }
 
         $radnikData['OSNOV'] = ($izbr50 / $monthData->mesecni_fond_sati) * $radnikData['SSZNE_suma_sati_zarade'];
@@ -996,8 +983,10 @@ class ObradaPripremaService
 
         if ($radnikData['solid'] > 0) {
             $radnikData['IZBRBO2'] = ($radnikData['SIZNE_ukupni_iznos_zarade'] + $radnikData['SINNE_ukupni_iznos_naknade'] + $radnikData['solid']);
+        }else{
+            $radnikData['IZBRBO2'] =0;
         }
-        // TODO uslov za osnov
+
         $radnikData['OSNOV'] = ($izbr53 / $monthData->mesecni_fond_sati) * ($radnikData['SSZNE_suma_sati_zarade']);
 
 
@@ -1077,6 +1066,8 @@ class ObradaPripremaService
             //PENZIJSKO I INVALIDSKO OSIGURANJE
             $newPlacanje['maticni_broj'] = $mdr['MBRD_maticni_broj'];
             $newPlacanje['sifra_vrste_placanja'] = '053';
+            $newPlacanje['naziv_vrste_placanja'] =$vrstePlacanjaSifarnik['053']['naziv_naziv_vrste_placanja'];
+
             $newPlacanje['SLOV_grupa_vrste_placanja'] = $vrstePlacanjaSifarnik['053']['SLOV_grupe_vrsta_placanja'];
             $newPlacanje['POK2_obracun_minulog_rada'] = $vrstePlacanjaSifarnik['053']['POK2_obracun_minulog_rada'];
             $newPlacanje['iznos'] = $zar['UKUPNO'] * ($poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika - $poresDoprinosiSifarnik->ZDRO_zdravstveno_osiguranje_na_teret_radnika - $poresDoprinosiSifarnik->ONEZ_osiguranje_od_nezaposlenosti_na_teret_radnika);
@@ -1101,7 +1092,9 @@ class ObradaPripremaService
             //ZDRAVSTVENO
             $newPlacanje['maticni_broj'] = $mdr['MBRD_maticni_broj'];
             $newPlacanje['sifra_vrste_placanja'] = '054';
-            $newPlacanje['SLOV_grupa_vrste_placanja'] = $vrstePlacanjaSifarnik['053']['SLOV_grupe_vrsta_placanja'];
+            $newPlacanje['naziv_vrste_placanja'] =$vrstePlacanjaSifarnik['054']['naziv_naziv_vrste_placanja'];
+
+            $newPlacanje['SLOV_grupa_vrste_placanja'] = $vrstePlacanjaSifarnik['054']['SLOV_grupe_vrsta_placanja'];
             $newPlacanje['POK2_obracun_minulog_rada'] = 'K';
             $newPlacanje['iznos'] = $zar['UKUPNO'] * ($poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika - $poresDoprinosiSifarnik->PIO_pio_na_teret_radnika - $poresDoprinosiSifarnik->ONEZ_osiguranje_od_nezaposlenosti_na_teret_radnika);
 
@@ -1125,7 +1118,8 @@ class ObradaPripremaService
             //NEZAPOSLENOST
             $newPlacanje['maticni_broj'] = $mdr['MBRD_maticni_broj'];
             $newPlacanje['sifra_vrste_placanja'] = '055';
-            $newPlacanje['SLOV_grupa_vrste_placanja'] = $vrstePlacanjaSifarnik['053']['SLOV_grupe_vrsta_placanja'];
+            $newPlacanje['naziv_vrste_placanja'] =$vrstePlacanjaSifarnik['055']['naziv_naziv_vrste_placanja'];
+            $newPlacanje['SLOV_grupa_vrste_placanja'] = $vrstePlacanjaSifarnik['055']['SLOV_grupe_vrsta_placanja'];
             $newPlacanje['POK2_obracun_minulog_rada'] = 'K';
             $newPlacanje['iznos'] = $zar['UKUPNO'] * ($poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika - $poresDoprinosiSifarnik->PIO_pio_na_teret_radnika - $poresDoprinosiSifarnik->ZDRO_zdravstveno_osiguranje_na_teret_radnika);
 
@@ -1350,6 +1344,7 @@ class ObradaPripremaService
             $data1=[
                 'maticni_broj' => $vrstaPlacanja['maticni_broj'],
                 'sifra_vrste_placanja' => $vrstaPlacanja['sifra_vrste_placanja'],
+                'naziv_vrste_placanja' => $vrstaPlacanja['naziv_vrste_placanja'],
                 'SLOV_grupa_vrste_placanja' => $vrstaPlacanja['SLOV_grupa_vrste_placanja'],
                 'POK2_obracun_minulog_rada' => $vrstaPlacanja['POK2_obracun_minulog_rada'],
                 'iznos' => $vrstaPlacanja['iznos'],
@@ -1377,6 +1372,7 @@ class ObradaPripremaService
             $data2=[
                'maticni_broj' => $vrstaPlacanja['maticni_broj'],
                 'sifra_vrste_placanja' => $vrstaPlacanja['sifra_vrste_placanja'],
+                'naziv_vrste_placanja' => $vrstaPlacanja['naziv_vrste_placanja'],
                 'SLOV_grupa_vrste_placanja' => $vrstaPlacanja['SLOV_grupa_vrste_placanja'],
                 'POK2_obracun_minulog_rada' => $vrstaPlacanja['POK2_obracun_minulog_rada'],
                 'iznos' => $vrstaPlacanja['iznos'],

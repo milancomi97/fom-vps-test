@@ -45,7 +45,6 @@
                     <h3 id="error-validator-text" class="text-danger d-none font-weight-bold">- Popunite sva polja
                         -</h3>
 
-                    <div class="container mt-5">
                         <form id="maticnadatotekaradnika" method="post"
                               action="{{ route('maticnadatotekaradnika.store')}}">
                             @csrf
@@ -56,19 +55,25 @@
                                     <span class="input-group-text font-weight-bold"
                                           id="span_maticni_broj">Matični broj:</span>
                                 </div>
-                                <select class="custom-select maticni_broj" id="MBRD_maticni_broj"
-                                        name="MBRD_maticni_broj"
-                                        aria-describedby="span_maticni_broj"
+
+                                <input type="text" class="form-control" disabled id="MBRD_maticni_broj" aria-describedby="span_maticni_broj"
+                                       value="{{$radnikData->MBRD_maticni_broj}}"
+                                       name="MBRD_maticni_broj"
                                 >
-                                    <option>pretraga po mat. br.</option>
-                                </select>
+
+
+{{--                                <select class="custom-select maticni_broj invisible" id="MBRD_maticni_broj"--}}
+{{--                                        name="MBRD_maticni_broj"--}}
+{{--                                        aria-describedby="span_maticni_broj"--}}
+{{--                                >--}}
+{{--                                    <option>pretraga po mat. br.</option>--}}
+{{--                                </select>--}}
 
                                 {{--                                <input type="hidden" id="maticni_broj_value">--}}
                             </div>
                                 {{--                                <input type="hidden" id="prezime_value">--}}
 
                                 {{--                                <input type="text" class="form-control" id="prezime" aria-describedby="prezime">--}}
-                            </div>
 
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -297,8 +302,7 @@
                                 <div class="form-group ml-5"
                                      style="display: flex; align-items: center; justify-content: center; margin-bottom: 0">
                                     <div class="form-check form-check-inline ">
-                                        <input class="form-input" type="text" name="POL_pol" id="POL_pol"
-                                             >
+                                        <input class="form-control" type="text" name="POL_pol" id="POL_pol">
                                     </div>
                                 </div>
                             </div>

@@ -18,7 +18,10 @@ class ObradaFormuleService
 
     public function kalkulacijaFormule($vrstaPlacanjaSlog, $vrstaPlacanjaSifData, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, $pravilo)
     {
-// Sample formula
+        $skipFormule = ['050','051','052','053','054','055'];
+
+
+
         try {
             $formula = $vrstaPlacanjaSifData[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['formula_formula_za_obracun'];
 
@@ -40,7 +43,7 @@ class ObradaFormuleService
         $formulaValues = $this->replaceVariables($formula, $data);
         $formulaValues = str_replace(["{", "}", "||", "->"], "", $formulaValues);
 
-        if ($vrstaPlacanjaSlog['sifra_vrste_placanja'] == '050') {
+        if(in_array($vrstaPlacanjaSlog['sifra_vrste_placanja'],$skipFormule)){
             return 0;
         }
 
@@ -118,11 +121,6 @@ class ObradaFormuleService
 
     function evaluateFormula($formula)
     {
-        // Replace '->' with '*' to make it a valid arithmetic expression
-//        $formula = str_replace('->', '*', $formula);
-
-        // Evaluate the expression
-
         $result = null;
         eval("\$result = $formula;");
         return $result;

@@ -266,6 +266,7 @@ Route::middleware('auth')->group(function () {
       Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_krediti',[DpsmKreditiController::class,'showAllKrediti'])->name('datotekaobracunskihkoeficijenata.show_all_krediti');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_krediti',[DpsmKreditiController::class,'showKrediti'])->name('datotekaobracunskihkoeficijenata.show_krediti');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_krediti',[DpsmKreditiController::class,'updateKrediti'])->name('datotekaobracunskihkoeficijenata.update_krediti');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/delete_krediti',[DpsmKreditiController::class,'deleteKrediti'])->name('datotekaobracunskihkoeficijenata.delete_krediti');
 
 
     // Obracun zarada

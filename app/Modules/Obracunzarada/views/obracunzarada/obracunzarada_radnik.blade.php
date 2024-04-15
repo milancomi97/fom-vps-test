@@ -154,10 +154,10 @@
             @if($radnik['KESC_prihod_rashod_tip']=='P')
                 <div class="row">
                     <div class="col-lg-8 p-2 ">
-                        <h2 class="text-center header-custom">{{$radnik['sifra_vrste_placanja']}} {{$radnik['naziv_vrste_placanja']}}</h2>
+                        <h2 class="text-left header-custom">{{$radnik['sifra_vrste_placanja']}} {{$radnik['naziv_vrste_placanja']}}</h2>
                     </div>
                     <div class="col-lg-2 p-2 ">
-                        <h2 class="text-right header-custom">{{$radnik['sati']  ?? 0}}</h2>
+                        <h2 class="text-center header-custom">{{$radnik['sati']  ?? 0}}</h2>
                     </div>
                     <div class="col-lg-2 p-2 ">
                         <h2 class="text-right header-custom">{{$radnik['iznos'] ?? 0}} </h2>
@@ -257,7 +257,7 @@
             @if($radnik['KESC_prihod_rashod_tip']=='R')
                 <div class="row">
                     <div class="col-lg-8 p-2 ">
-                        <h2 class="text-center header-custom">{{$radnik['sifra_vrste_placanja']}} {{$radnik['naziv_vrste_placanja']}}</h2>
+                        <h2 class="text-left header-custom">{{$radnik['sifra_vrste_placanja']}} {{$radnik['naziv_vrste_placanja']}}</h2>
                     </div>
                     <div class="col-lg-2 p-2 ">
                         <h2 class="text-right header-custom">{{$radnik['sati']  ?? 0}}</h2>
@@ -268,17 +268,7 @@
                 </div>
             @endif
         @endforeach
-        <div class="row">
-            <div class="col-lg-8 p-2 ">
-                <h2 class="text-center header-custom">053 PENZIJSKO OS. 14,0% OBRISI STATICAN HTML</h2>
-            </div>
-            <div class="col-lg-2 p-2 ">
-                <h2 class="text-right header-custom">0,0</h2>
-            </div>
-            <div class="col-lg-2 p-2 ">
-                <h2 class="text-right header-custom">20.052,96</h2>
-            </div>
-        </div>
+
         <div class="row">
             <div class="col-lg-8 p-3  border-bottom border-top border-top-custom border-bottom-custom">
                 <h1 class="text-left header-custom">UKUPNI DOPRINOSI</h1>
@@ -316,17 +306,17 @@
         </div>
 
 
-        <div class="row">
-            <div class="col-lg-12 p-3 border-bottom border-bottom-custom">
-                <h1 class="text-left header-custom"> Dodati tabele bruto neto po koef</h1>
-            </div>
+{{--        <div class="row">--}}
+{{--            <div class="col-lg-12 p-3 border-bottom border-bottom-custom">--}}
+{{--                <h1 class="text-left header-custom"> Dodati tabele bruto neto po koef</h1>--}}
+{{--            </div>--}}
 {{--            <div class="col-lg-2 p-3 border-bottom border-bottom-custom">--}}
 {{--                <h2 class="text-right header-custom">0,00</h2>--}}
 {{--            </div>--}}
 {{--            <div class="col-lg-2 p-3 border-bottom border-bottom-custom">--}}
 {{--                <h2 class="text-right header-custom">40.306,04</h2>--}}
 {{--            </div>--}}
-        </div>
+{{--        </div>--}}
 
         <div class="row">
             <div class="col-lg-12 p-3 border-bottom border-bottom-custom">

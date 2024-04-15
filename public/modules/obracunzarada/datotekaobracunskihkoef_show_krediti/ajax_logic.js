@@ -30,15 +30,15 @@ $(document).ready(function () {
     <td><input type="number" class="form-control col-width" name="glavnica" value="${item.GLAVN_glavnica}"></td>
     <td><input type="number" class="form-control col-width" name="saldo" value="${item.SALD_saldo}"></td>
     <td><input type="number" class="form-control col-width" name="rata" value="${item.RATA_rata}"></td>
+        <input type="hidden" name="update_id" value="${item.id}">
     <td><input type="checkbox" class="form-control col-width" name="pocetak_zaduzenja" value=""></td>
      <td><input type="date" class="form-control col-width" name="datum_zaduzenja" value=""></td>
-    <td><button type="button" class="btn btn-danger btn-sm delete-row">Obriši</button></td>
+    <td><button type="button" class="btn btn-danger btn-sm delete-row" data-delete-id="${item.id}" >Obriši</button></td>
   </tr>
 `;
 
             }
 
-            debugger;
             if (Object.keys(vrsteData).length === counter) {
                 row += `
   <tr class="vrste-placanja-data_tr nova_vrsta_placanja">
@@ -135,7 +135,32 @@ $(document).ready(function () {
     });
     // Delete row button click event
     $('#editableTable').on('click', '.delete-row', function () {
-        $(this).closest('tr').remove();
+        var deleteId = $(this).data('delete-id');
+        if(deleteId !==undefined){
+
+            var _token = $('input[name="_token"]').val();
+
+            $.ajax({
+                url: deleteVrstaPlacanjaData,
+                type: 'POST',
+                data: {
+                    _token: _token,
+                    record_id: deleteId
+                }, success: function (response) {
+                    if (response.status) {
+                        window.location.reload();
+                    } else {
+                        // $("#statusMessage").text(response.message).addClass("text-danger");
+                    }
+                }, error: function (response) {
+
+                }
+            });
+
+
+        } else{
+            $(this).closest('tr').remove();
+        }
     });
 
     $(document).on('click', 'body .submitBtn', function (event) {
@@ -158,6 +183,7 @@ $(document).ready(function () {
             var saldo = $(input).find(':input[name="saldo"]');
             var rata = $(input).find(':input[name="rata"]');
             var datum_zaduzenja = $(input).find(':input[name="datum_zaduzenja"]');
+            var updateId = $(input).find(':input[name="update_id"]');
 
             key.val() !== '' ? data.key = key.val() : undefined;
             partija.val()  !== '' ? data.partija = partija.val() : undefined;
@@ -166,6 +192,7 @@ $(document).ready(function () {
             rata.val() !== '' ? data.rata = rata.val() : undefined;
             datum_zaduzenja.val() !== '' ? data.datum_zaduzenja = datum_zaduzenja.val() : undefined;
             naziv.val() !== '' ? data.naziv = naziv.val() : undefined;
+            updateId.val() !== '' ? data.updateId = updateId.val() : undefined;
 
             if(key.val() !=='' && (glavnica.val() !=='' || partija.val() !==''  || saldo.val() !=='')){
                 listaKreditora.push(data);
@@ -183,7 +210,7 @@ $(document).ready(function () {
                     record_id: record_id
                 }, success: function (response) {
                     if (response.status) {
-                        window.location.href = response.url;
+                        window.location.reload();
                     } else {
                         // $("#statusMessage").text(response.message).addClass("text-danger");
                     }

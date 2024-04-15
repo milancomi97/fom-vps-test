@@ -112,6 +112,15 @@ class DpsmKreditiController extends Controller
 
 
     }
+    public function deleteKrediti(Request $request){
+        $recordId = $request->record_id;
+        $this->dpsmKreditiInterface->delete($recordId);
+
+        return response()->json([
+            'status'=>true
+        ]);
+    }
+
     public function updateKrediti(Request $request)
     {
 
@@ -127,13 +136,28 @@ class DpsmKreditiController extends Controller
 
 //            ["","partija","glavnica","saldo","rata","datum_zaduzenja",""]
 
-            if($kreditiData->count()){
-                // TODO Update logic, ADD FLAG FOR ACTUAL
-                $oldData = array_column($kreditiData->toArray(),'sifra_vrste_placanja');
                 foreach ($vrstePlacanjaData as $vrstaPlacanja){
-                    $toUpdate = in_array($vrstaPlacanja['key'],$oldData);
-                    if($toUpdate){
 
+                    if (isset($vrstaPlacanja['updateId'])) {
+                        $kreditiDataOld = $this->dpsmKreditiInterface->where('id', $vrstaPlacanja['updateId'])->first();
+                        $toUpdate = $kreditiDataOld->count();
+
+
+                    if($toUpdate) {
+                        $data = [
+//                            'sati' => $vrstaPlacanja['sati'] ?? 0,
+//                            'iznos' => $vrstaPlacanja['iznos'] ?? 0,
+//                            'procenat' => $vrstaPlacanja['procenat'] ?? 0,
+                            'SIFK_sifra_kreditora'=>$vrstaPlacanja['key'] ?? '',
+                            'IMEK_naziv_kreditora'=>$vrstaPlacanja['naziv'] ?? '',
+                            'GLAVN_glavnica'=>$vrstaPlacanja['glavnica'] ?? '',
+                            'SALD_saldo'=>$vrstaPlacanja['saldo'] ?? '',
+                            'RATA_rata'=>$vrstaPlacanja['rata'] ?? '',
+                            'PART_partija_poziv_na_broj'=>$vrstaPlacanja['rata'] ?? ''
+                        ];
+                        $this->dpsmKreditiInterface->update($vrstaPlacanja['updateId'], $data);
+
+                    }
                     }else{
                         $data=[
                             'user_dpsm_id'=>(int) $userMonthId,
@@ -146,31 +170,9 @@ class DpsmKreditiController extends Controller
                             'PART_partija_poziv_na_broj'=>$vrstaPlacanja['rata'] ?? ''
 //                            'POCE_pocetak_zaduzenja'=>$vrstaPlacanja['pocetak_zaduzenja'] ?? 0,
 //                            'DATUM_zaduzenja'=>$vrstaPlacanja['datum_zaduzenja'] ?? 0,
-
                         ];
                         $this->dpsmKreditiInterface->create($data);
                     }
-
-
-                }
-            } else{
-                foreach ($vrstePlacanjaData as $vrstaPlacanja){
-
-                    $data=[
-                        'user_dpsm_id'=>(int) $userMonthId,
-                        'obracunski_koef_id'=> $mesecnaTabelaPoentaza->obracunski_koef_id,
-                        'SIFK_sifra_kreditora'=>$vrstaPlacanja['key'] ?? '',
-                        'IMEK_naziv_kreditora'=>$vrstaPlacanja['naziv'] ?? '',
-                        'GLAVN_glavnica'=>$vrstaPlacanja['glavnica'] ?? '',
-                        'SALD_saldo'=>$vrstaPlacanja['saldo'] ?? '',
-                        'RATA_rata'=>$vrstaPlacanja['rata'] ?? '',
-                        'PART_partija_poziv_na_broj'=>$vrstaPlacanja['partija'] ?? ''
-//                            'POCE_pocetak_zaduzenja'=>$vrstaPlacanja['pocetak_zaduzenja'] ?? 0,
-//                            'DATUM_zaduzenja'=>$vrstaPlacanja['datum_zaduzenja'] ?? 0,
-
-                    ];
-
-                    $this->dpsmKreditiInterface->create($data);
                 }
             }
 
@@ -179,14 +181,88 @@ class DpsmKreditiController extends Controller
             // do Load, save or update
             // Ucitaj podatke o vrstama placanja
 
-
-        }
-
         return response()->json([
             'status'=>true,
             'url'=>url()->route('datotekaobracunskihkoeficijenata.show_all_krediti', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id])
         ]);
 
     }
+
+//    public function updateKrediti2(Request $request)
+//    {
+//
+////        $id = $request->mesecna_tabela_poentaza_id;
+//        $userMonthId = $request->record_id;
+//        $vrstePlacanjaData = $request->vrste_placanja;
+//        $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($userMonthId);
+//
+//        $data=[];
+//        $kreditiData = $this->dpsmKreditiInterface->where('user_dpsm_id',$userMonthId)->get();
+//
+//        if($vrstePlacanjaData){
+//
+////            ["","partija","glavnica","saldo","rata","datum_zaduzenja",""]
+//
+//            if($kreditiData->count()){
+//                // TODO Update logic, ADD FLAG FOR ACTUAL
+//                $oldData = array_column($kreditiData->toArray(),'sifra_vrste_placanja');
+//                foreach ($vrstePlacanjaData as $vrstaPlacanja){
+//                    $toUpdate = in_array($vrstaPlacanja['key'],$oldData);
+//                    if($toUpdate){
+//
+//                    }else{
+//                        $data=[
+//                            'user_dpsm_id'=>(int) $userMonthId,
+//                            'obracunski_koef_id'=> $mesecnaTabelaPoentaza->obracunski_koef_id,
+//                            'SIFK_sifra_kreditora'=>$vrstaPlacanja['key'] ?? '',
+//                            'IMEK_naziv_kreditora'=>$vrstaPlacanja['naziv'] ?? '',
+//                            'GLAVN_glavnica'=>$vrstaPlacanja['glavnica'] ?? '',
+//                            'SALD_saldo'=>$vrstaPlacanja['saldo'] ?? '',
+//                            'RATA_rata'=>$vrstaPlacanja['rata'] ?? '',
+//                            'PART_partija_poziv_na_broj'=>$vrstaPlacanja['rata'] ?? ''
+////                            'POCE_pocetak_zaduzenja'=>$vrstaPlacanja['pocetak_zaduzenja'] ?? 0,
+////                            'DATUM_zaduzenja'=>$vrstaPlacanja['datum_zaduzenja'] ?? 0,
+//
+//                        ];
+//                        $this->dpsmKreditiInterface->create($data);
+//                    }
+//
+//
+//                }
+//            } else{
+//                foreach ($vrstePlacanjaData as $vrstaPlacanja){
+//
+//                    $data=[
+//                        'user_dpsm_id'=>(int) $userMonthId,
+//                        'obracunski_koef_id'=> $mesecnaTabelaPoentaza->obracunski_koef_id,
+//                        'SIFK_sifra_kreditora'=>$vrstaPlacanja['key'] ?? '',
+//                        'IMEK_naziv_kreditora'=>$vrstaPlacanja['naziv'] ?? '',
+//                        'GLAVN_glavnica'=>$vrstaPlacanja['glavnica'] ?? '',
+//                        'SALD_saldo'=>$vrstaPlacanja['saldo'] ?? '',
+//                        'RATA_rata'=>$vrstaPlacanja['rata'] ?? '',
+//                        'PART_partija_poziv_na_broj'=>$vrstaPlacanja['partija'] ?? ''
+////                            'POCE_pocetak_zaduzenja'=>$vrstaPlacanja['pocetak_zaduzenja'] ?? 0,
+////                            'DATUM_zaduzenja'=>$vrstaPlacanja['datum_zaduzenja'] ?? 0,
+//
+//                    ];
+//
+//                    $this->dpsmKreditiInterface->create($data);
+//                }
+//            }
+//
+//            // DODAJ user_dpsm_id kod Fiksnih placanja
+//            // do foreach
+//            // do Load, save or update
+//            // Ucitaj podatke o vrstama placanja
+//
+//
+//        }
+//
+//        return response()->json([
+//            'status'=>true,
+//            'url'=>url()->route('datotekaobracunskihkoeficijenata.show_all_krediti', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id])
+//        ]);
+//
+//    }
 
 }
