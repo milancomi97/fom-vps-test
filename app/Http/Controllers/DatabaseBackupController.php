@@ -31,11 +31,9 @@ class DatabaseBackupController extends Controller
 
         try {
         $response =  exec("gunzip < $fullFilePath | mysql -u ".env('DB_USERNAME')." -p".env('DB_PASSWORD')." ".env('DB_DATABASE'));
-
-            return response($response);
+            return response('DONE');
         }catch (\Exception $exception){
-            return response($exception);
-
+            return response('EXCEPTION');
         }
 
 //        $process = new Process(['gunzip', '-c', $fullFilePath]);
