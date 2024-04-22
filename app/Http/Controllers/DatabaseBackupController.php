@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseBackupController extends Controller
 {
@@ -21,6 +22,9 @@ class DatabaseBackupController extends Controller
     }
 
     public function importBackup(){
-return '';
+        Artisan::call('migrate:fresh', []);
+        $output = Artisan::output();
+
+        return response($output);
     }
 }
