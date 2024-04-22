@@ -33,8 +33,9 @@ class DatabaseBackupController extends Controller
         try {
         $response =  exec("gunzip < $fullFilePath | mysql -u ".env('DB_USERNAME')." -p".env('DB_PASSWORD')." ".env('DB_DATABASE'));
 
+
         $brojRadnika =User::all()->count();
-            return response('<h1>Uspešno je importovana baza: <span style="color:red">'.$request->file.PHP_EOL.'<span/></h1> <h1>Test komande broj veci od 0: <span style="color:red">'.$brojRadnika.'<span/></h1>' );
+            return response('<h1 style="text-align: center">Uspešno je importovana baza: <span style="color:red">'.$request->file.PHP_EOL.'<span/></h1> <h1 style="text-align: center">Test komande broj veci od 0: <span style="color:red">'.$brojRadnika.'<span/></h1>' );
         }catch (\Exception $exception){
             return response('EXCEPTION');
         }
