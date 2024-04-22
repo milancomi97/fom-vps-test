@@ -82,6 +82,7 @@ Route::get('/', function () {
 
 Route::get('/backupdata', [\App\Http\Controllers\DatabaseBackupController::class, 'showBackupData'])->name('backup.index');
 
+Route::post('/backupdata', [\App\Http\Controllers\DatabaseBackupController::class, 'importBackup'])->name('backup.import');
 
 
 Route::get('/dashboard', function () {

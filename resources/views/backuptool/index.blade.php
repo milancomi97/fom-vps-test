@@ -18,13 +18,21 @@
 </head>
 <body>
 <div class="container">
-    <h1>All Files in Directory</h1>
+    <h1>Vraćanje podataka</h1>
 
-    <ul>
-        @foreach ($files as $file)
-            <li>{{ $file }}</li>
-        @endforeach
-    </ul>
+    <form action="{{ route('backup.import') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label for="file">Izaberite backup:</label>
+            <select name="file" id="file" class="form-control">
+                @foreach ($files as $file)
+                    <option value="{{ $file }}">{{ $file }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Vrati podatke</button>
+    </form>
 </div>
 </body>
 </html>

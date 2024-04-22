@@ -19,4 +19,8 @@ class DatabaseBackupController extends Controller
         // Pass the files array to the view
         return view('backuptool.index', ['files' => $files]);
     }
+
+    public function importBackup(){
+return '';
+    }
 }
