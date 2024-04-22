@@ -19,8 +19,8 @@
     <link rel="stylesheet" href="{{asset('admin_assets/dist/css/adminlte.min.css')}}">
 </head>
 <body>
-<div class="container">
-    <h1 class="text-center mb-4">Vraćanje podataka</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4 mt-5">Proces povratka starih podataka</h1>
     <div class="row justify-content-center">
         <div class="col-md-6">
 
