@@ -21,10 +21,10 @@ class DatabaseBackupController extends Controller
         return view('backuptool.index', ['files' => $files]);
     }
 
-    public function importBackup(){
+    public function importBackup(Request $request){
         Artisan::call('migrate:fresh', []);
         $output = Artisan::output();
 
-        return response($output);
+        return response('<p>'.$output.'</p>'.'<h1>Izabrali ste backup NAZIV:'.$request->file.'</h1><h2>TODO sledi logika za import</h2>');
     }
 }
