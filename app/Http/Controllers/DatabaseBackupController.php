@@ -22,9 +22,12 @@ class DatabaseBackupController extends Controller
     }
 
     public function importBackup(Request $request){
-        Artisan::call('migrate:fresh', []);
-        $output = Artisan::output();
+//        Artisan::call('migrate:fresh', []);
+//        $output = Artisan::output();
+        $directoryPath = storage_path('backupdb'); // Replace 'public' with your directory name
 
-        return response('<p>'.$output.'</p>'.'<h1>Izabrali ste backup NAZIV:'.$request->file.'</h1><h2>TODO sledi logika za import</h2>');
+        return response($directoryPath.'/'.$request->file);
+//        DB::unprepared(file_get_contents('./dump.sql'));
+//        return response('<p>'.$output.'</p>'.'<h1>Izabrali ste backup NAZIV:'.$request->file.'</h1><h2>TODO sledi logika za import</h2>');
     }
 }
