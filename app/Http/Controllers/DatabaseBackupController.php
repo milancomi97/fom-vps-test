@@ -28,18 +28,21 @@ class DatabaseBackupController extends Controller
         $directoryPath = storage_path('backupdb');
 
         $fullFilePath =$directoryPath."/".$request->file;
-        $process = new Process(['gunzip', '-c', $fullFilePath]);
-        $process->run();
-// Check if the command was successful
-        if (!$process->isSuccessful()) {
-            throw new \RuntimeException($process->getErrorOutput());
-        }
+        exec("gunzip < $fullFilePath | mysql -u ".env('DB_USERNAME')." -p".env('DB_PASSWORD')." ".env('DB_DATABASE'));
 
-// Get the output of the command (decompressed content)
-        $decompressedContent = $process->getOutput();
 
-// Return the response with the decompressed content
-        return response($decompressedContent);
+//        $process = new Process(['gunzip', '-c', $fullFilePath]);
+//        $process->run();
+//// Check if the command was successful
+//        if (!$process->isSuccessful()) {
+//            throw new \RuntimeException($process->getErrorOutput());
+//        }
+//
+//// Get the output of the command (decompressed content)
+//        $decompressedContent = $process->getOutput();
+//
+//// Return the response with the decompressed content
+        return response('DONE');
 //        return response(exec("gunzip < ".$fullFilePath));
 //        DB::unprepared(file_get_contents('./dump.sql'));
 //        return response('<p>'.$output.'</p>'.'<h1>Izabrali ste backup NAZIV:'.$request->file.'</h1><h2>TODO sledi logika za import</h2>');
