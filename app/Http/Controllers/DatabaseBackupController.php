@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\Process\Process;
@@ -31,7 +32,9 @@ class DatabaseBackupController extends Controller
 
         try {
         $response =  exec("gunzip < $fullFilePath | mysql -u ".env('DB_USERNAME')." -p".env('DB_PASSWORD')." ".env('DB_DATABASE'));
-            return response('DONE');
+
+        $brojRadnika =User::all()->count();
+            return response('Uspešno je importovana baza: '.$request->file.' Broj radnika test komande:  \r\n \n  '.$brojRadnika);
         }catch (\Exception $exception){
             return response('EXCEPTION');
         }
