@@ -26,7 +26,7 @@ class DatabaseBackupController extends Controller
 //        $output = Artisan::output();
         $directoryPath = storage_path('backupdb'); // Replace 'public' with your directory name
 
-        return response($directoryPath.'/'.$request->file);
+        return response(file_get_contents($directoryPath.'/'.$request->file));
 //        DB::unprepared(file_get_contents('./dump.sql'));
 //        return response('<p>'.$output.'</p>'.'<h1>Izabrali ste backup NAZIV:'.$request->file.'</h1><h2>TODO sledi logika za import</h2>');
     }
