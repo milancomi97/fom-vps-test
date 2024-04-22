@@ -8,7 +8,7 @@ class DatabaseBackupController extends Controller
 {
 
     public function showBackupData(){
-        $directoryPath = storage_path('storage/database'); // Replace 'public' with your directory name
+        $directoryPath = storage_path('backupdb'); // Replace 'public' with your directory name
 
         // Get all files from the directory
         $files = scandir($directoryPath);
