@@ -95,7 +95,7 @@
                             <input disabled type="text" class="form-control" id="kalendarski_broj_dana_modal" >
                         </div>
                         <div class="form-group">
-                            <label for="mesecni_fond_sati_modal">Mesečni fond sati</label>
+                            <label for="mesecni_fond_sati_modal">Mesečni fond sati bez drzavnog praznika</label>
                             <input type="text" class="form-control" id="mesecni_fond_sati_modal" >
                         </div>
 
@@ -107,21 +107,21 @@
 
                         <div class="form-group">
                             <label for="prosecni_godisnji_fond_sati_modal">Prosečni godišnji fond sati</label>
-                            <input type="text" class="form-control" id="prosecni_godisnji_fond_sati_modal" >
+                            <input type="text" class="form-control" value="174" id="prosecni_godisnji_fond_sati_modal" >
                         </div>
 
                         <div class="form-group">
                             <label for="cena_rada_tekuci_modal">Cena rada tekući</label>
-                            <input type="text" class="form-control" id="cena_rada_tekuci_modal" >
+                            <input type="text" class="form-control"  value="1" id="cena_rada_tekuci_modal" >
                         </div>
 
                         <div class="form-group">
-                            <label for="cena_rada_prethodni_modal">Cena rada prethodni</label>
-                            <input type="text" class="form-control" id="cena_rada_prethodni_modal" >
+                            <label for="cena_rada_prethodni_modal">Pomoćni koeficijent</label>
+                            <input type="text" min="0" max="2"  class="form-control" id="cena_rada_prethodni_modal" >
                         </div>
                         <div class="form-group">
                             <label for="vrednost_akontacije_modal">Vrednost akontacije</label>
-                            <input type="number" class="form-control" id="vrednost_akontacije_modal" >
+                            <input type="number" class="form-control" value="0" id="vrednost_akontacije_modal" >
                         </div>
 {{--                        <div class="form-group">--}}
 {{--                            <label for="exampleFormControlInput6">Tip</label>--}}

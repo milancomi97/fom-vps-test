@@ -78,6 +78,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+Route::get('/backupdata', [\App\Http\Controllers\DatabaseBackupController::class, 'showBackupData'])->name('backup.index');
+
+
+
 Route::get('/dashboard', function () {
     return view('/adminlte/welcome');
 })->middleware(['auth', 'verified'])->name('dashboard');

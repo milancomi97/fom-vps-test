@@ -29,7 +29,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->string('licna_karta_broj_mesto_rodjenja', 255)->nullable();
             $table->string('adresa_ulica_broj', 255)->nullable();
-            $table->unsignedBigInteger('opstina_id')->comment('Relacija opstine')->nullable();
+            $table->string('opstina_id')->comment('Relacija opstine')->nullable();
             $table->unsignedBigInteger('drzava_id')->comment('Relacija drzava')->nullable();
             $table->unsignedBigInteger('sifra_mesta_troska_id')->comment('Relacija organizacione jedinice')->nullable();
             $table->unsignedBigInteger('status_ugovor_id')->comment('Relacija sa Šifarnik vrste radnih ugovora- STATUS')->nullable();

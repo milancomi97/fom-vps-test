@@ -91,7 +91,7 @@
                                     <span class="input-group-text font-weight-bold" id="span_ime">Ime:</span>
                                 </div>
                                 <input type="text" class="form-control" id="IME_ime" aria-describedby="span_ime"
-                                       name="IME_ime">
+                                       value="{{$radnikData->IME_ime}}"     name="IME_ime">
                             </div>
 
                             <!-- 3. Troskovni centar, text field -->
@@ -103,6 +103,9 @@
                                         aria-describedby="span_sifra_mesta_troska_id">
                                     <option value="0">Izaberite troškovno mesto</option>
                                     @foreach($troskMesta as $value => $label)
+                                        @if($label['key']== $radnikData->troskovno_mesto_id)
+                                            <option selected value="{{ $label['key']}}">{{ $label['value'] }}</option>
+                                        @endif
                                         <option value="{{ $label['key'] }}">{{ $label['value']  }}</option>
                                     @endforeach
                                 </select>
@@ -119,6 +122,10 @@
                                         aria-describedby="span_radno_mesto">
                                     <option value="0">Izaberite radno mesto</option>
                                     @foreach($radnaMesta as $value => $label)
+{{--                                        RBRM_radno_mesto--}}
+                                        @if($value== $radnikData->RBRM_radno_mesto)
+                                            <option selected value="{{ $value}}">{{ $label }}</option>
+                                        @endif
                                         <option value="{{ $value }}">{{ $label }}</option>
                                     @endforeach
 
@@ -134,8 +141,12 @@
                                 <select class="custom-select" id="RBIM_isplatno_mesto_id" name="RBIM_isplatno_mesto_id"
                                         aria-describedby="span_isplatno_mesto">
                                     <option value="0">Izaberite isplatno mesto</option>
-                                    @foreach($isplatnaMesta as $value => $label)
-                                        <option value="{{ $value }}">{{ $label }}</option>
+
+                                    @foreach($isplatnaMesta as $key => $value )
+                                        @if($value['key']== $radnikData->RBIM_isplatno_mesto_id)
+                                            <option selected value="{{ $value['key'] }}">{{ $value['value'] }}</option>
+                                        @endif
+                                        <option value="{{ $value['key'] }}">{{ $value['value']  }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -147,7 +158,7 @@
                                           id="span_tekuci_racun">Tekuci racun:</span>
                                 </div>
                                 <input type="text" class="form-control" id="ZRAC_tekuci_racun" name="ZRAC_tekuci_racun"
-                                       aria-describedby="span_tekuci_racun">
+                                   {{$radnikData->ZRAC_tekuci_racun}}    aria-describedby="span_tekuci_racun">
                             </div>
 
                             <!-- 7. Redosled u poentazi, text field -->
@@ -183,7 +194,7 @@
                                     <span class="input-group-text font-weight-bold" id="span_radna_jedinica">Radna jedinica:</span>
                                 </div>
                                 <input type="text" class="form-control" id="RJ_radna_jedinica" name="RJ_radna_jedinica"
-                                       aria-describedby="span_radna_jedinica">
+                                       value="{{$radnikData->RJ_radna_jedinica}}"      aria-describedby="span_radna_jedinica">
                             </div>
 
                             <!-- 9.1 Brigada, text field -->
@@ -193,7 +204,7 @@
                                     <span class="input-group-text font-weight-bold" id="span_brigada">Brigada:</span>
                                 </div>
                                 <input type="text" class="form-control" id="BRIG_brigada" name="BRIG_brigada"
-                                       aria-describedby="span_brigada">
+                                      value="{{$radnikData->BRIG_brigada}}" aria-describedby="span_brigada">
                             </div>
 
 
@@ -203,8 +214,8 @@
                                     <span class="input-group-text font-weight-bold"
                                           id="span_godine">Godine staza:</span>
                                 </div>
-                                <input type="number" class="form-control" value="0" id="GGST_godine_staza"
-                                       name="GGST_godine_staza" max="99" aria-describedby="span_godine">
+                                <input type="number" class="form-control" id="GGST_godine_staza"
+                                       value="{{$radnikData->GGST_godine_staza}}" name="GGST_godine_staza" max="99" aria-describedby="span_godine">
                             </div>
                             <!-- 11. Meseci, text field -->
                             <div class="input-group mb-3">
@@ -212,8 +223,8 @@
                                     <span class="input-group-text font-weight-bold"
                                           id="span_meseci">Meseci staza:</span>
                                 </div>
-                                <input type="number" class="form-control" name="MMST_meseci_staza" value="0" max="11"
-                                       id="MMST_meseci_staza" aria-describedby="span_meseci">
+                                <input type="number" class="form-control" name="MMST_meseci_staza" max="11"
+                                       value="{{ $radnikData->MMST_meseci_staza}}"  id="MMST_meseci_staza" aria-describedby="span_meseci">
                             </div>
 
 
@@ -224,7 +235,7 @@
                                 </div>
                                 <div class="col col-1">
                                     <input type="checkbox" class="form-control" name="MRAD_minuli_rad_aktivan"
-                                           aria-label="Minuli rad aktivan" checked="checked"
+                                           aria-label="Minuli rad aktivan" {{$radnikData->MRAD_minuli_rad_aktivan ==1 ? "checked": ''}}
                                            id="MRAD_minuli_rad_aktivan">
                                 </div>
 
@@ -237,7 +248,8 @@
                                 </div>
                                 <div class="col col-1">
                                     <input type="checkbox" class="form-control" name="PREB_prebacaj"
-                                           aria-label="Prebacaj" checked="checked"
+                                           {{$radnikData->PREB_prebacaj ==1 ? "checked": ''}}
+                                           aria-label="Prebacaj"
                                            id="span_prebacaj">
                                 </div>
 
@@ -255,6 +267,10 @@
                                         aria-describedby="span_stvarna_strucna_sprema">
                                     <option value="0">Izaberite stručnu spremu</option>
                                     @foreach($kvalifikacije as $value => $label)
+                                    @if($value== $radnikData->RBSS_stvarna_strucna_sprema)
+                                            <option selected value="{{ $value }}">{{ $label }}</option>
+                                        @endif
+                                            {{--                                            RBPS_priznata_strucna_sprema--}}
                                         <option value="{{ $value }}">{{ $label }}</option>
                                     @endforeach
                                 </select>
@@ -270,20 +286,31 @@
                                         aria-describedby="span_priznata_strucna_sprema">
                                     <option value="0">Izaberite stručnu spremu</option>
                                     @foreach($kvalifikacije as $value => $label)
+                                        @if($value== $radnikData->RBPS_priznata_strucna_sprema)
+                                            <option selected value="{{ $value }}">{{ $label }}</option>
+                                        @endif
                                         <option value="{{ $value }}">{{ $label }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
                             <!-- 15. Koefinicijent slozenosti, text field -->
+
+                            @if((int) $radnikData->BRCL_redosled_poentazi > 100)
+
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text font-weight-bold" id="span_osnovna_zarada">Osnovna zarada:</span>
                                 </div>
                                 <input type="text" class="form-control" id="KOEF_osnovna_zarada"
                                        name="KOEF_osnovna_zarada"
+                                       value="{{$radnikData->KOEF_osnovna_zarada}}"
                                        aria-describedby="span_osnovna_zarada">
                             </div>
+                            @endif
+
+
+
 
                             <!-- 17. Licni broj gradjana, text field -->
                             <div class="input-group mb-3">
@@ -291,7 +318,7 @@
                                     <span class="input-group-text font-weight-bold" id="span_jmbg">JMBG:</span>
                                 </div>
                                 <input type="text" class="form-control" id="LBG_jmbg" name="LBG_jmbg"
-                                       aria-describedby="span_jmbg">
+                                     value="{{$radnikData->LBG_jmbg}}"  aria-describedby="span_jmbg">
                             </div>
 
                             <!-- 18. Pol, Radio buttons -->
@@ -301,8 +328,12 @@
                                 </div>
                                 <div class="form-group ml-5"
                                      style="display: flex; align-items: center; justify-content: center; margin-bottom: 0">
-                                    <div class="form-check form-check-inline ">
-                                        <input class="form-control" type="text" name="POL_pol" id="POL_pol">
+                                    <div class="form-check form-check-inline">
+                                        <select class="custom-select" id="POL_pol"
+                                                name="POL_pol">
+                                            <option value="1">M</option>
+                                            <option value="2">Z</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -321,12 +352,13 @@
                             <!-- 20. Prosek za nadoknade, text field -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_prosecna_zarada">Prosečna zarada:</span>
+                                    <span class="input-group-text font-weight-bold" id="span_prosecna_zarada">Prosečna zarada IZNETO:</span>
                                 </div>
                                 <input type="text" class="form-control" id="IZNETO_ukupna_bruto_zarada" name="IZNETO_ukupna_bruto_zarada"
                                        value="0"
                                        aria-describedby="prosecna_zarada">
                             </div>
+
 
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -335,7 +367,11 @@
                                 <select class="custom-select" name="opstina_id" id="opstina_id"
                                         aria-describedby="opstina">
                                     <option value="0">Izaberite opštinu</option>
+
                                     @foreach($opstine as $value => $label)
+                                        @if($label['key']== $radnikData->opstina_id)
+                                            <option selected value="{{ $label['key']}}">{{ $label['value'] }}</option>
+                                        @endif
                                         <option value="{{ $value }}">{{ $label['value'] }}</option>
                                     @endforeach
                                 </select>

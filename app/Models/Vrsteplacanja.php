@@ -14,6 +14,18 @@ class Vrsteplacanja extends Model
         'naziv_naziv_vrste_placanja',
         'formula_formula_za_obracun',
         'redosled_poentaza_zaglavlje',
-        'redosled_poentaza_opis'
+        'redosled_poentaza_opis',
+        'SLOV_grupe_vrsta_placanja',
+        'POK1_grupisanje_sati_novca',
+        'POK2_obracun_minulog_rada',
+        'POK3_prikaz_kroz_unos',
+        'KESC_prihod_rashod_tip',
+        'EFSA_efektivni_sati',
+        'PRKV_prosek_po_kvalifikacijama',
+        'OGRAN_ogranicenje_za_minimalac',
+        'PROSEK_prosecni_obracun',
+        'VARI_minuli_rad',
+        'DOVP_tip_vrste_placanja',
+        'PLAC'
     ];
 }

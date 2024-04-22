@@ -108,17 +108,25 @@ class KreirajObracunskeKoeficiente
     }
 
     public function getPoenterVrstePlacanjaInitData($datotekaobracunskihkoeficijenata){
-        $data = $this->vrsteplacanjaInterface->getAll()->sortBy('redosled_poentaza_zaglavlje');
+        $data = $this->vrsteplacanjaInterface->getAll()->sortBy('redosled_poentaza_zaglavlje')->take(19);
         // Prvo sortiraj pa onda kada dodjes do 19, prestani
         // Treba da bude 19
 
         $fondSati = $datotekaobracunskihkoeficijenata->mesecni_fond_sati;
-        $filteredData =$data->map(function ($item) use ($fondSati) {
+        $fondSatiPraznika = $datotekaobracunskihkoeficijenata->mesecni_fond_sati_praznika;
+
+        $filteredData =$data->map(function ($item) use ($fondSati,$fondSatiPraznika) {
 
             $newValue = strtolower(str_replace(' ', '_',  $item['naziv_naziv_vrste_placanja']));
             $mesecniFondSati = 0;
 
-            if($item['rbvp_sifra_vrste_placanja'] == '001' || $item['rbvp_sifra_vrste_placanja'] =='019' || $item['rbvp_sifra_vrste_placanja'] =='003'){
+
+            if($item['rbvp_sifra_vrste_placanja'] =='003' && $fondSatiPraznika!==null){
+                $mesecniFondSati==$fondSatiPraznika;
+            }
+
+
+            if($item['rbvp_sifra_vrste_placanja'] == '001' || $item['rbvp_sifra_vrste_placanja'] =='019'){
                 // Uslovi za otvaranje radnika varijabilna vrste placanja poenterska
                 $mesecniFondSati = (int) $fondSati;
             }
@@ -136,7 +144,7 @@ class KreirajObracunskeKoeficiente
                 'redosled_poentaza_zaglavlje' =>$item['redosled_poentaza_zaglavlje']
             ];
         });
-        return $filteredData->take(19);
+        return $filteredData;
     }
 
 

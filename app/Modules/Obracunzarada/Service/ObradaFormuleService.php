@@ -16,8 +16,12 @@ class ObradaFormuleService
     {
     }
 
-    public function kalkulacijaFormule($vrstaPlacanjaSlog, $vrstaPlacanjaSifData, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, $pravilo)
+    public function kalkulacijaFormule($vrstaPlacanjaSlog, $vrstaPlacanjaSifData, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, $praviloSkip)
     {
+        if($praviloSkip){
+            return;
+        }
+
         $skipFormule = ['050','051','052','053','054','055'];
 
 

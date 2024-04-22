@@ -12,7 +12,9 @@ class PorezdoprinosiSeeder extends Seeder
     {
         $datas = $this->getDataFromCsv();
 
+
         foreach ($datas as $data) {
+
             DB::table('porezdoprinosis')->insert([
                 'M_G_mesec_godina' => $data['M_G'],
                 'IZN1_iznos_poreskog_oslobodjenja' => $data['IZN1'],

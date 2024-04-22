@@ -110,13 +110,13 @@ return new class extends Migration
             $table->integer('REGRES_iznos_regresa')->nullable();
             $table->integer('POROSL_poresko_oslobodjenje')->nullable();
 
-            $table->integer('ime')->nullable();
-            $table->integer('prezime')->nullable();
-            $table->integer('srednje_ime')->nullable();
-            $table->integer('LBG_jmbg')->nullable();
+            $table->string('ime')->nullable();
+            $table->string('prezime')->nullable();
+            $table->string('srednje_ime')->nullable();
+            $table->string('LBG_jmbg')->nullable();
 
-            $table->integer('GGST_godine_staza')->nullable();
-            $table->integer('MMST_meseci_staza')->nullable();
+            $table->string('GGST_godine_staza')->nullable();
+            $table->string('MMST_meseci_staza')->nullable();
 
             $table->integer('RBRM_redni_broj_radnog_mesta')->nullable();
 
@@ -136,7 +136,7 @@ return new class extends Migration
 
 
             $table->integer('ZDRP_zdravstveno_osiguranje_na_teret_poslodavca')->nullable();
-            $table->integer('ZRAC_tekuci_racun')->nullable();
+            $table->string('ZRAC_tekuci_racun')->nullable();
 
             $table->integer('POROSL1_poresko_oslobodjenje_za_prvu_isplatu')->nullable();
             $table->integer('PIOR1_penzijsko_osiguranje_radnik_prva_isplata')->nullable();

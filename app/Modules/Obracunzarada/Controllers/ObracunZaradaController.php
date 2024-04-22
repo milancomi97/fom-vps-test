@@ -5,6 +5,7 @@ namespace App\Modules\Obracunzarada\Controllers;
 use App\Http\Controllers\Controller;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
 use App\Modules\Osnovnipodaci\Repository\PodaciofirmiRepositoryInterface;
@@ -21,7 +22,8 @@ class ObracunZaradaController extends Controller
         private readonly VrsteplacanjaRepositoryInterface $vrsteplacanjaInterface,
         private readonly PodaciofirmiRepositoryInterface $podaciofirmiInterface,
         private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface,
-        private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface $obradaDkopSveVrstePlacanjaInterface
+        private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface $obradaDkopSveVrstePlacanjaInterface,
+        private readonly ObradaZaraPoRadnikuRepositoryInterface $obradaZaraPoRadnikuInterface
     )
     {
     }
@@ -61,6 +63,9 @@ class ObracunZaradaController extends Controller
         $dkopData = $this->obradaDkopSveVrstePlacanjaInterface->where('obracunski_koef_id',$id)->where('user_mdr_id',$mdrData['id'])->get();
 
 
+        $zarData = $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id',$id)->where('user_mdr_id',$mdrData['id'])->get()->first();
+//       TODO $zaraData=
+
         return view('obracunzarada::obracunzarada.obracunzarada_radnik',
             [
                 'radnikData'=>$radnikData,
@@ -69,8 +74,10 @@ class ObracunZaradaController extends Controller
                 'podaciFirme'=>$podaciFirme,
                 'mdrPreparedData'=>$mdrPreparedData,
                 'dkopData'=>$dkopData,
+                'zarData'=>$zarData,
                 'datum'=>$formattedDate,
-                'podaciMesec'=>$podaciMesec
+                'podaciMesec'=>$podaciMesec,
+//                'zaraData'=>$zaraData
             ]);
     }
 

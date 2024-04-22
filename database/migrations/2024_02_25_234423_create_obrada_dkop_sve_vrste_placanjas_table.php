@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('naziv_vrste_placanja')->nullable(); // DVPL_vrste_palcanja
             $table->string('SLOV_grupa_vrste_placanja')->nullable(); // DVPL_vrste_palcanja
             $table->integer('sati')->nullable(); // SVUDA
-            $table->integer('iznos')->nullable(); // SVUDA
+            $table->float('iznos',15,4)->nullable(); // SVUDA
             $table->integer('procenat')->nullable(); // SVUDA
             $table->integer('SALD_saldo')->nullable(); // SVUDA
             $table->string('POK2_obracun_minulog_rada')->nullable(); // DVPL_vrste_palcanja

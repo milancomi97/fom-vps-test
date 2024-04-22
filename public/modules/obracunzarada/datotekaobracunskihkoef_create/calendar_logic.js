@@ -22,7 +22,7 @@ function updateMonthContainer(activeMonth) {
             $.each([
                 {'label': 'Kalendarski broj dana', 'val': `${monthData.kalendarski_broj_dana}`},
                 {'label': 'Prosečni godišnji fond sati', 'val': `${monthData.prosecni_godisnji_fond_sati}`},
-                {'label': 'Mesečni fond sati', 'val': `${monthData.mesecni_fond_sati}`},
+                {'label': 'Mesečni fond sati bez drzavnog praznika', 'val': `${monthData.mesecni_fond_sati}`},
                 {'label': 'Cena rada tekući', 'val': `${monthData.cena_rada_tekuci}`},
                 {'label': 'Cena rada prethodni', 'val': `${monthData.cena_rada_prethodni}`},
                 {'label': 'Vrednost akontacije', 'val': `${monthData.vrednost_akontacije}`},
@@ -64,14 +64,15 @@ function updateMonthContainer(activeMonth) {
 
                 // IBRISI BLANK POLJE OFFSET
 
+
+
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-success index-mesecna-obrada-priprema offset-1 col-lg-5 mt-3 border',
+                    'class': 'btn btn-success offset-1 col-lg-5 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Obrada plate').appendTo(monthCard);
-
+                }).text('Obrada proseka').appendTo(monthCard);
 
 
 
@@ -83,12 +84,15 @@ function updateMonthContainer(activeMonth) {
                     'data-year': monthData.currYear
                 }).text('Priprema poentaže').appendTo(monthCard);
 
-                $("<h1></h1>").attr({
-                    'class': 'offset-1 col col-lg-5 mt-3 btn font-weight-bold EMPTY',
-                }).text('Izveštaji obrada plata').css('cursor','default').appendTo(monthCard);
 
 
-
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-success index-mesecna-obrada-priprema offset-1 col-lg-5 mt-3 border',
+                    'data-month_id': monthData.month_id,
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Obrada plate').appendTo(monthCard);
                 $('<button>').attr({
                     'type': 'button',
                     'class': 'btn btn-primary index-mesecna-poentaza offset-1 col-lg-5 mt-3 border',

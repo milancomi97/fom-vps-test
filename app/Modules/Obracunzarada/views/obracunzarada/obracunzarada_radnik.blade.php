@@ -176,7 +176,7 @@
                 <h2 class="text-right header-custom">184,00</h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-top border-top-custom border-bottom-custom">
-                <h2 class="text-right header-custom">143.164,01</h2>
+                <h2 class="text-right header-custom">{{$zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade}}</h2>
             </div>
         </div>
 
@@ -187,7 +187,7 @@
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">25.000,00</h2>
+                <h2 class="text-right header-custom">{{$zarData->POROSL_poresko_oslobodjenje}}</h2>
             </div>
         </div>
 
@@ -197,7 +197,7 @@
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">118.164,01</h2>
+                <h2 class="text-right header-custom">{{$zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade-$zarData->POROSL_poresko_oslobodjenje}}</h2>
             </div>
         </div>
 
@@ -210,7 +210,7 @@
                 <h2 class="text-right header-custom">184,00</h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">102.857,97</h2>
+                <h2 class="text-right header-custom">{{$zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade - $zarData->SIP_ukupni_iznos_poreza - $zarData->SID_ukupni_iznos_doprinosa}}</h2>
             </div>
         </div>
 
@@ -234,7 +234,7 @@
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">0,00</h2>
+                <h2 class="text-right header-custom">{{$zarData->SIOB_ukupni_iznos_obustava}}</h2>
             </div>
         </div>
 
@@ -245,7 +245,7 @@
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">102.857,97</h2>
+                <h2 class="text-right header-custom">{{$zarData->UKSA_ukupni_sati_za_isplatu}}</h2>
             </div>
         </div>
 
@@ -277,7 +277,7 @@
                 <h2 class="text-right header-custom">0,00</h2>
             </div>
             <div class="col-lg-2 p-3  border-bottom border-top border-top-custom border-bottom-custom">
-                <h2 class="text-right header-custom">28.489,64</h2>
+                <h2 class="text-right header-custom">{{$zarData->SID_ukupni_iznos_doprinosa}}</h2>
             </div>
         </div>
 
@@ -289,7 +289,7 @@
                 <h2 class="text-right header-custom">0,00</h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">11.816,40</h2>
+                <h2 class="text-right header-custom">{{$zarData->SIP_ukupni_iznos_poreza}}</h2>
             </div>
         </div>
 
@@ -301,7 +301,7 @@
                 <h2 class="text-right header-custom">0,00</h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">40.306,04</h2>
+                <h2 class="text-right header-custom">SIP_D{{$zarData->SIP_ukupni_iznos_poreza}}</h2>
             </div>
         </div>
 
@@ -332,7 +332,7 @@
                 <h2 class="text-right header-custom">5.15%</h2>
             </div>
             <div class="col-lg-2 p-2 ">
-                <h2 class="text-right header-custom">7373</h2>
+                <h2 class="text-right header-custom">{{$zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca}}</h2>
             </div>
         </div>
 
@@ -344,7 +344,7 @@
                 <h2 class="text-right header-custom">10.00%</h2>
             </div>
             <div class="col-lg-2 p-2 ">
-                <h2 class="text-right header-custom">14316</h2>
+                <h2 class="text-right header-custom">{{$zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca}}</h2>
             </div>
         </div>
 
@@ -354,7 +354,7 @@
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-top border-top-custom border-bottom-custom">
-                <h2 class="text-right header-custom">21689</h2>
+                <h2 class="text-right header-custom">{{$zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca +$zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca}}</h2>
             </div>
         </div>
 
@@ -364,7 +364,9 @@
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">164853,35</h2>
+                <h2 class="text-right header-custom">
+                    {{$zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade +$zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca +$zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca}}
+                </h2>
             </div>
         </div>
 

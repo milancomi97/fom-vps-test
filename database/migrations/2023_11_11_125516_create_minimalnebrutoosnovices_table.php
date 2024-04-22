@@ -18,9 +18,8 @@ return new class extends Migration
             $table->decimal('STOPA2_minimalna_neto_zarada_po_satu', 10, 2)->nullable();
             $table->decimal('STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos', 10, 2)->nullable();
             $table->decimal('P1_stopa_poreza', 5, 2)->nullable();
-            $table->integer('STOPA1_koeficijent_za_obracun_neto_na_bruto')->nullable();
+            $table->decimal('STOPA1_koeficijent_za_obracun_neto_na_bruto',5,2)->nullable();
             $table->decimal('NT2_minimalna_bruto_zarada', 60, 2)->nullable();
-//            $table->decimal('NT3_najniza_osnovica_za_placanje_doprinos', 10, 2)->nullable();
             $table->timestamps();
         });
     }

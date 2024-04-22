@@ -29,6 +29,7 @@ return new class extends Migration
             $table->integer('PROSEK_prosecni_obracun')->nullable(); //BLOK_formula_za_obracun
             $table->string('VARI_minuli_rad', 255)->nullable(); //BLOK_formula_za_obracun
             $table->boolean('DOVP_tip_vrste_placanja')->nullable(); //BLOK_formula_za_obracun
+            $table->integer('PLAC')->nullable(); // DVPL_vrste_palcanja
 
 
 

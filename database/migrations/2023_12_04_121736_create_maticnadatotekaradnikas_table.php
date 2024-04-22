@@ -30,36 +30,58 @@ return new class extends Migration
             $table->boolean('PREB_prebacaj')->nullable(); // 1 // DODATI NA FORMI
             $table->unsignedBigInteger('RBSS_stvarna_strucna_sprema')->nullable();
             $table->unsignedBigInteger('RBPS_priznata_strucna_sprema')->nullable();
-            $table->string('KOEF_osnovna_zarada')->nullable();
-            $table->string('KOEF1_prethodna_osnovna_zarada')->nullable(); // Novo dodato
+            $table->decimal('KOEF_osnovna_zarada',15,4)->nullable();
+            $table->decimal('KOEF1_prethodna_osnovna_zarada',15,4)->nullable(); // Novo dodato
             $table->string('LBG_jmbg')->nullable();
             $table->string('POL_pol')->nullable();
             $table->string('PRCAS_ukupni_sati_za_ukupan_bruto_iznost')->nullable();
-            $table->string('PRIZ_ukupan_bruto_iznos')->nullable();
+            $table->decimal('PRIZ_ukupan_bruto_iznos',15, 4)->nullable();
             $table->string('BROJ_broj_meseci_za_obracun')->nullable(); // broj meseci znacajan za obracun proseka
             $table->string('DANI_kalendarski_dani')->nullable(); // broj meseci znacajan za obracun proseka
-            $table->string('IZNETO1_bruto_zarada_za_akontaciju')->nullable(); // IZNETO1
-            $table->string('POROSL1_poresko_oslobodjenje_za_akontaciju')->nullable(); // POROSL1,N,12,2
-            $table->string('SIP1_porez_za_akontaciju')->nullable(); // SIP1,N,12,2
-            $table->string('BROSN1_minimalna_osnovica_za_obracun_doprinosa_za_akontaciju')->nullable(); // BROSN1,N,12,2
-            $table->string('ZDRR1_zdravstveno_osiguranje_na_teret_radnika_za_akontaciju')->nullable(); // PIOR1,N,12,2
-            $table->string('ZDRP1_zdravstveno_osiguranje_na_teret_poslodavca_za_akontaciju')->nullable(); // PIOP1,N,12,2
-            $table->string('ONEZR1_osig_nezaposlenosti_na_teret_radnika_za_akontaciju')->nullable(); // ZDRR1,N,12,2
-            $table->string('PIOR_ukupni_pio_doprinos_na_teret_radnika')->nullable(); // ZDRP1,N,12,2
-            $table->string('PIOP_ukupni_pio_doprinos_na_teret_poslodavca')->nullable(); // ONEZR1,N,12,2
-            $table->string('ONEZR_ukupni_doprinos_za_nezaposlenost_na_teret_radnika')->nullable(); // PIOR,N,12,2
-            $table->string('ZDRR_ukupni_doprinos_za_zdravstveno_osiguranje_na_teret_radnika')->nullable(); // PIOP,N,12,2
-            $table->string('ZDRP_ukupni_doprinos_zdrav_osig_teret_poslodavca')->nullable(); // ZDRR,N,12,2
-            $table->string('BROSN_bruto_zarada_za_obracun_doprinosa')->nullable(); // ZDRR,N,12,2
-            $table->string('POROSL_ukupno_poresko_oslobodjenje')->nullable(); // ZDRP,N,12,2
-            $table->string('SIP_ukupni_porezi')->nullable(); // BROSN,N,12,2
+            $table->decimal('IZNETO1_bruto_zarada_za_akontaciju',15,4)->nullable(); // IZNETO1
+            $table->decimal('POROSL1_poresko_oslobodjenje_za_akontaciju',15,4)->nullable(); // POROSL1,N,12,2
+            $table->decimal('SIP1_porez_za_akontaciju',15,4)->nullable(); // SIP1,N,12,2
+            $table->decimal('BROSN1_minimalna_osnovica_za_obracun_doprinosa_za_akontaciju',15,4)->nullable(); // BROSN1,N,12,2
+            $table->decimal('ZDRR1_zdravstveno_osiguranje_na_teret_radnika_za_akontaciju',15,4)->nullable(); // PIOR1,N,12,2
+            $table->decimal('ZDRP1_zdravstveno_osiguranje_na_teret_poslodavca_za_akontaciju',15,4)->nullable(); // PIOP1,N,12,2
+            $table->decimal('ONEZR1_osig_nezaposlenosti_na_teret_radnika_za_akontaciju',15,4)->nullable(); // ZDRR1,N,12,2
+            $table->decimal('PIOR_ukupni_pio_doprinos_na_teret_radnika',15,4)->nullable(); // ZDRP1,N,12,2
+            $table->decimal('PIOP_ukupni_pio_doprinos_na_teret_poslodavca',15,4)->nullable(); // ONEZR1,N,12,2
+            $table->decimal('ONEZR_ukupni_doprinos_za_nezaposlenost_na_teret_radnika',15,4)->nullable(); // PIOR,N,12,2
+            $table->decimal('ZDRR_ukupni_doprinos_za_zdravstveno_osiguranje_na_teret_radnika',15,4)->nullable(); // PIOP,N,12,2
+            $table->decimal('ZDRP_ukupni_doprinos_zdrav_osig_teret_poslodavca',15,4)->nullable(); // ZDRR,N,12,2
+            $table->decimal('BROSN_bruto_zarada_za_obracun_doprinosa',15,4)->nullable(); // ZDRR,N,12,2
+            $table->decimal('POROSL_ukupno_poresko_oslobodjenje',15,4)->nullable(); // ZDRP,N,12,2
+            $table->decimal('SIP_ukupni_porezi',15,4)->nullable(); // BROSN,N,12,2
+            $table->decimal('IZNETO_ukupna_bruto_zarada',15,4)->nullable(); // IZNETO,N,12,2
             $table->boolean('ACTIVE_aktivan')->nullable(); // IZNETO,N,12,2
-            $table->string('IZNETO_ukupna_bruto_zarada')->nullable(); // IZNETO,N,12,2
             $table->string('KFAK_korektivni_faktor')->nullable(); // IZNETO,N,12,2
-            $table->unsignedBigInteger('opstina_id')->nullable(); // sifra opstine 4 broja
+            $table->string('opstina_id')->nullable();
+            $table->string('adresa_ulica_broj')->nullable();
+
             $table->timestamps();
             $table->unsignedBigInteger('user_id')->nullable();
 
+
+
+//DECIMALE
+//            IZNETO1
+//SIP1
+//PIOR1
+//PIOP1
+//ZDRR1
+//ZDRP1
+//ONEZR1
+//PIOR
+//ZDRR
+//ONEZR
+//PIOP
+//ZDRP
+//ONEZP
+//BROSN
+//POROSL
+//SIP
+//IZNETO
             $table->unsignedBigInteger('troskovno_mesto_id'); // novo
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

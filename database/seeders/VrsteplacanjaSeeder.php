@@ -24,21 +24,24 @@ class VrsteplacanjaSeeder extends Seeder
                 'POK2_obracun_minulog_rada' => $data['POK2'],
                 'POK3_prikaz_kroz_unos' => $data['POK3'],
                 'KESC_prihod_rashod_tip' => $data['KESC'],
-                'EFSA_efektivni_sati' => $data['EFSA'],
+                'EFSA_efektivni_sati' => $data['EFSA'] =='TRUE',
                 'PRKV_prosek_po_kvalifikacijama' => $data['PRKV'],
                 'OGRAN_ogranicenje_za_minimalac' => $data['OGRAN'],
                 'PROSEK_prosecni_obracun' =>(int) $data['PROSEK'],
                 'VARI_minuli_rad' => $data['VARI'],
-                'DOVP_tip_vrste_placanja' => $data['DOVP']
+                'DOVP_tip_vrste_placanja' => $data['DOVP'] =='TRUE',
+                'PLAC'=>$data['PLAC']
             ]);
         }
     }
 
     public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/DVPL3.csv');
+        $filePath = storage_path('app/backup/DVPL5.csv');
+//        $filePath = storage_path('app/backup/DVPL4.csv');
+
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
-        $csv->setDelimiter(';');
+        $csv->setDelimiter(',');
         return $csv;
     }
 

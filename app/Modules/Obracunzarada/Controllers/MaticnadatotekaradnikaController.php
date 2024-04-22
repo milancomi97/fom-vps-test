@@ -158,7 +158,6 @@ class MaticnadatotekaradnikaController extends Controller
 //prosecna_zarada
 //adresa_ulica_broj
 //opstina_id
-        $request->all();
         $this->maticnadatotekaradnikaInterface->createMaticnadatotekaradnika($request->all());
         $test='testt';
         return redirect()->route('maticnadatotekaradnika.index');

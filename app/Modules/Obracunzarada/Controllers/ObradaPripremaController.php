@@ -63,8 +63,6 @@ class ObradaPripremaController extends Controller
         $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
         $id = $request->month_id;
 
-
-
         $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $id)->delete();
         $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $id)->delete();
 

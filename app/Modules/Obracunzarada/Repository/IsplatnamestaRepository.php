@@ -23,7 +23,7 @@ class IsplatnamestaRepository extends BaseRepository implements IsplatnamestaRep
         $resultCollection = $data->sortBy('rbim_sifra_isplatnog_mesta')->map(function ($item) {
             $newValue = $item['rbim_sifra_isplatnog_mesta'] . ' ' . $item['naim_naziv_isplatnog_mesta'];
 
-            return $item['id'] = $newValue;
+            return $item['rbim_sifra_isplatnog_mesta'] =['key'=> $item['rbim_sifra_isplatnog_mesta'],'value'=>$newValue];
         });
         return $resultCollection->toArray();
     }

@@ -15,7 +15,7 @@ class OpstineSeeder extends Seeder
         foreach ($datas as $data) {
             DB::table('opstines')->insert([
                 'naziv_opstine' => $data['naziv_opstine'],
-                'sifra_opstine' =>  $data['sifra'],
+                'sifra_opstine' =>  '0'.$data['sifra'],
                 'sifra_opstine_kontrolni_broj' => $data['sifra_sa_kontrolnim_brojem']
             ]);
         }
