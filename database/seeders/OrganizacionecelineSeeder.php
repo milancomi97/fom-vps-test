@@ -27,7 +27,7 @@ class OrganizacionecelineSeeder extends Seeder
 
     public function getDataFromCsv()
     {
-        $filePath = storage_path('app/backup/TroskovnaMesta.csv');
+        $filePath = storage_path('app/backup/TCR.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

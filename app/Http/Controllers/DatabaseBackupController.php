@@ -39,6 +39,7 @@ class DatabaseBackupController extends Controller
         }catch (\Exception $exception){
             return response('EXCEPTION');
         }
+        return response('EXCEPTION');
 
 //        $process = new Process(['gunzip', '-c', $fullFilePath]);
 //        $process->run();

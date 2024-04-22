@@ -6,7 +6,9 @@
         <h5>Podešavnja</h5>
         <p></p>
         <p></p>
-        <a href="{{ url('/user/permissions_config') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Podešavanje pristupa</p></a>
+        <a href="{{ url('/user/permissions_config') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;Podešavanje pristupa</p></a>
+        <a href="{{ route('backup.index') }}"><p><i class="fa fa-database" aria-hidden="true"></i>&nbsp;Backup baze</p></a>
+
         <a href="{{ url('/user/index') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Podešavanje pristupa radnika</p></a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
