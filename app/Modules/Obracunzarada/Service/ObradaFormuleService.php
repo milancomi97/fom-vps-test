@@ -90,8 +90,8 @@ class ObradaFormuleService
             'POM->DOTA' => "test", // Pomocna
             'POM->IZNO' => "test",
             'POM->RAZL' => "test",
-            'POR->IZN1' => "test",
-            'POR->P1' => "test",
+            'POR->IZN1' => "IZN1_iznos_poreskog_oslobodjenja", // TODO OVDE GRESKA
+            'POR->P1' => "P1_porez_na_licna_primanja", // TODO OVDE GRESKA
             'ZAR->EFSATI' => "EFSATI", //
             'ZAR->IPLAC' => "test", // vrati nulu, posle
             'ZAR->IZNETO' => "test", // Sve sto je G
@@ -100,9 +100,9 @@ class ObradaFormuleService
             'ZAR->SSZNE' => "SSZNE",
             'ZAR->TOPLI' => "TOPSATI",
             'ZAR->UKNETO' => "test",  // Sve sto je G
-//            'koe->br_s' => "test",
-//            'por->izn1' => "test",
-//            'por->p1' => "test",
+            'koe->br_s' => "mesecni_fond_sati",
+            'por->izn1' => "IZN1_iznos_poreskog_oslobodjenja",
+            'por->p1' => "P1_porez_na_licna_primanja",
             'zar->prekov' => "PREK",
             'zar->ssnne' => "SSNNE",
             'zar->sszne' => "SSZNE",

@@ -92,7 +92,7 @@ class ObradaPripremaController extends Controller
 //            $akontacijeData = $this->dpsmAkontacijeInterface->where('obracunski_koef_id',$id)->get();
 //            $akontacijePrepared = $this->obradaPripremaService->pripremiAkontacije($akontacijeData);
 //
-        $varijabilnaData = $this->dpsmPoentazaslogInterface->where('obracunski_koef_id', $id)->get();
+        $varijabilnaData = $this->dpsmPoentazaslogInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
         if ($varijabilnaData->count()) {
             $varijabilnaPrepared = $this->obradaPripremaService->pripremiVarijabilnihPlacanja($varijabilnaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik);
             $status = $this->dkopSveVrstePlacanjaInterface->createMany($varijabilnaPrepared);

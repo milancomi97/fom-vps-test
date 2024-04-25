@@ -18,6 +18,15 @@ class ObradaDkopSveVrstePlacanjaRepository extends BaseRepository implements Obr
 
     public function createMany($array)
     {
+//        foreach ($array as $data){
+//
+//            try {
+//                $this->model->create($data);
+//
+//            } catch (\Exception $exception) {
+//                $test='test';
+//}
+//        }
         return $this->model->insert($array);
     }
 

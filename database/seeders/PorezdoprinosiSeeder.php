@@ -38,10 +38,10 @@ class PorezdoprinosiSeeder extends Seeder
     }
 
     public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/DPOR3.csv');
+        $filePath = storage_path('app/backup/novo/DPOR.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
-        $csv->setDelimiter(';');
+        $csv->setDelimiter(',');
         return $csv;
     }
 

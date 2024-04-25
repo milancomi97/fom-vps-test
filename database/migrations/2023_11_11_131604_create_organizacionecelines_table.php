@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('naziv_troskovnog_mesta', 255)->nullable();
             $table->json('poenteri_ids')->nullable();
             $table->json('odgovorna_lica_ids')->nullable();
+            $table->json('odgovorni_direktori_pravila')->nullable();
             $table->boolean('active')->nullable();
 //            "[""64"", ""678""]","[""63"", ""679""]"
 

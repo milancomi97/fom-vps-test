@@ -18,6 +18,7 @@ $(document).ready(function () {
         var _token = $('input[name="_token"]').val();
         var year = $('.create-mesecna-poentaza').data('year');
         var month = $('.create-mesecna-poentaza').data('month')
+
         $.ajax({
             url: getStoreDataRoute,
             type: 'POST',
@@ -56,8 +57,10 @@ $(document).ready(function () {
         // })
 
         var month_id = $('#month_id').val();
-debugger;
         if(month_id !==''){
+            debugger;
+
+            var mesecni_fond_sati = $('#mesecni_fond_sati_modal').val();
             var year = $('.create-mesecna-poentaza').data('year');
             var month = $('.create-mesecna-poentaza').data('month')
             var prosecni_godisnji_fond_sati = $('#prosecni_godisnji_fond_sati_modal').val()
@@ -88,6 +91,7 @@ debugger;
                         period_isplate_od:period_isplate_od,
                         vrednost_akontacije:vrednost_akontacije,
                         mesecni_fond_sati_praznika:mesecni_fond_sati_praznika,
+                        mesecni_fond_sati:mesecni_fond_sati,
                         _token: _token
                     },
                     success: function (response) {
@@ -116,6 +120,7 @@ debugger;
             var period_isplate_od = $('#period_isplate_od_modal').val()
             var vrednost_akontacije = $('#vrednost_akontacije_modal').val()
             var mesecni_fond_sati_praznika = $('#mesecni_fond_sati_praznika_modal').val();
+            var mesecni_fond_sati = $('#mesecni_fond_sati_modal').val();
 
             var _token = $('input[name="_token"]').val();
             debugger;
@@ -136,6 +141,7 @@ debugger;
                         vrednost_akontacije:vrednost_akontacije,
                         month_id:month_id,
                         mesecni_fond_sati_praznika:mesecni_fond_sati_praznika,
+                        mesecni_fond_sati:mesecni_fond_sati,
                         _token: _token
                     },
                     success: function (response) {

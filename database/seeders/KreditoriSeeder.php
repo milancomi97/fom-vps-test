@@ -15,8 +15,8 @@ class KreditoriSeeder extends Seeder
         foreach ($datas as $data) {
             DB::table('kreditoris')->insert([
                 'sifk_sifra_kreditora' => $data['SIFK'],
-                'imek_naziv_kreditora' => $data['IMEKREDITORA'],
-                'sediste_kreditora' => $data['SEDISTE'],
+                'imek_naziv_kreditora' => $data['IMEK'],
+                'sediste_kreditora' => $data['SEDI'],
                 'tekuci_racun_za_uplatu' => $data['ZRAC'],
                 'partija_kredita' => $data['PART']
 //                POBR
@@ -27,10 +27,10 @@ class KreditoriSeeder extends Seeder
     }
 
     public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/DKRE2.csv');
+        $filePath = storage_path('app/backup/novo/DKRE.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
-        $csv->setDelimiter(';');
+        $csv->setDelimiter(',');
         return $csv;
     }
 

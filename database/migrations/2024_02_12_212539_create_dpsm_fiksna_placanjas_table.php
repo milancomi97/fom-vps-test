@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('naziv_vrste_placanja')->nullable();
             $table->string('SLOV_grupa_vrste_placanja')->nullable();;
             $table->integer('sati')->nullable();
-            $table->integer('iznos')->nullable();
+            $table->float('iznos',15,4)->nullable();
             $table->integer('procenat')->nullable();
             $table->integer('status')->nullable();
             $table->string('POK2_obracun_minulog_rada')->nullable();
@@ -30,8 +30,6 @@ return new class extends Migration
             $table->unsignedBigInteger('user_dpsm_id')->nullable(); // Mesec-Radnik-id
             $table->unsignedBigInteger('user_mdr_id')->nullable();
 
-            $table->foreign('user_dpsm_id')->references('id')->on('mesecnatabelapoentazas')->onDelete('cascade');
-            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
             $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
 
             $table->timestamps();

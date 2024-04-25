@@ -71,9 +71,9 @@ class ObradaPripremaService
 
     public function pripremiFiksnaPlacanja($data, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik)
     {
-        $radnik = $data[0]->maticnadatotekaradnika;
         $sveVrstePlacanjaFiksna=[];
         foreach ($data as $key => $vrstaPlacanja) {
+            $radnik = $vrstaPlacanja->maticnadatotekaradnika;
 
             $newPlacanje = [];
             if ($vrstaPlacanja['sati'] !== '' || $vrstaPlacanja['iznos'] > 0) {
@@ -106,7 +106,9 @@ class ObradaPripremaService
                 $newPlacanje['POROSL_poresko_oslobodjenje'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja;
 //                $this->checkParsingAllFormulas();
                 if($vrstaPlacanja['iznos'] > 0){
-                    $newPlacanje['iznos'] =$vrstaPlacanja['iznos'];
+                    $newPlacanje['iznos'] =(float)$vrstaPlacanja['iznos'];
+                }else{
+                    $newPlacanje['iznos'] =0;
                 }
 
 
@@ -130,9 +132,9 @@ class ObradaPripremaService
 
     public function pripremiVarijabilnihPlacanja($data, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik)
     {
-        $radnik = $data[0]->maticnadatotekaradnika;
         $sveVrstePlacanjaVariabilna=[];
         foreach ($data as $key => $vrstaPlacanja) {
+            $radnik = $vrstaPlacanja->maticnadatotekaradnika;
 
             $newPlacanje = [];
             if ($vrstaPlacanja['sati'] !== '' || $vrstaPlacanja['iznos'] > 0) {
@@ -167,6 +169,9 @@ class ObradaPripremaService
                 $newPlacanje['POROSL_poresko_oslobodjenje'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja;
                 if($vrstaPlacanja['iznos'] > 0){
                     $newPlacanje['iznos'] =$vrstaPlacanja['iznos'];
+                }else{
+                    $newPlacanje['iznos'] =0;
+
                 }
 
 
@@ -629,7 +634,7 @@ class ObradaPripremaService
                 'RBPS' => $mdr['RBPS_priznata_strucna_sprema'],
                 'TOPSATI' => $topliObrokSati,
                 'TOPLI' => $topliObrokIznos,
-                'MINIM' => $s / $ss,
+                'MINIM' => $ss > 0 ? $s / $ss:0,
                 'PREK' => $gSumiranjePrekovremeniPREK,
                 'PRIZ' => $prosecniIznos,
                 'PRCAS' => $prosecniSati,
@@ -1289,7 +1294,7 @@ class ObradaPripremaService
 
             if ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni'] < $monthData->mesecni_fond_sati) {
 
-                $nIzn = ($zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid'] - ($poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja / $monthData->mesecni_fond_sati * ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']->PREKOV))) * $minimalneBrutoOsnoviceSifarnik->P1_stopa_poreza;
+                $nIzn = ($zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid'] - ($poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja / $monthData->mesecni_fond_sati * ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']))) * $minimalneBrutoOsnoviceSifarnik->P1_stopa_poreza;
             }
 
             if (($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']) < $monthData->mesecni_fond_sati) {
@@ -1301,6 +1306,7 @@ class ObradaPripremaService
         if ($nIzn > 0) {
             $newPlacanje['maticni_broj'] = $mdr['MBRD_maticni_broj'];
             $newPlacanje['sifra_vrste_placanja'] = '050';
+            $newPlacanje['naziv_vrste_placanja']=$vrstePlacanjaSifarnik['050']['naziv_naziv_vrste_placanja'];;
             $newPlacanje['SLOV_grupa_vrste_placanja'] = 'U';
             $newPlacanje['POK2_obracun_minulog_rada'] = 'K';
             $newPlacanje['iznos'] = $nIzn;
@@ -1508,6 +1514,12 @@ class ObradaPripremaService
 //            if(){
 //
 //            }
+
+            try {
+               $testtt = $vrstaPlacanja['naziv_vrste_placanja'];
+            }catch (\Exception $exception){
+                $testtt=2;
+            }
             $data2 = [
                 'maticni_broj' => $vrstaPlacanja['maticni_broj'],
                 'sifra_vrste_placanja' => $vrstaPlacanja['sifra_vrste_placanja'],

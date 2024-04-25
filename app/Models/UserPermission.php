@@ -21,6 +21,7 @@ class UserPermission extends Model
         'tehnologija',
         'proizvodnja',
         'role_id',
+//        'direktor_id', TODO
         'user_id',
         'troskovna_mesta_poenter',
         'user_permissions_id'

@@ -13,6 +13,7 @@ class Organizacioneceline extends Model
         'sifra_troskovnog_mesta',
         'naziv_troskovnog_mesta',
         'poenteri_ids',
-        'odgovorna_lica_ids'
+        'odgovorna_lica_ids',
+        'odgovorni_direktori_pravila'
     ];
 }

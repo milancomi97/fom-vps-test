@@ -30,7 +30,7 @@ class DatotekaobracunskihkoeficijenataRepository extends BaseRepository implemen
 
         $data =[
             'kalendarski_broj_dana'=>$endOfMonth->format('d'),
-            'mesecni_fond_sati'=>$workingHours,
+            'mesecni_fond_sati'=>$array['mesecni_fond_sati'],
             'prosecni_godisnji_fond_sati'=>$array['prosecni_godisnji_fond_sati'],
             'cena_rada_tekuci'=>$array['cena_rada_tekuci'],
             'mesecni_fond_sati_praznika'=>$array['mesecni_fond_sati_praznika'],

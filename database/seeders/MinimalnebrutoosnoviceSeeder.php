@@ -29,10 +29,10 @@ class MinimalnebrutoosnoviceSeeder extends Seeder
     }
 
     public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/DNTO3.csv');
+        $filePath = storage_path('app/backup/novo/DNTO.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
-        $csv->setDelimiter(';');
+        $csv->setDelimiter(',');
         return $csv;
     }
 

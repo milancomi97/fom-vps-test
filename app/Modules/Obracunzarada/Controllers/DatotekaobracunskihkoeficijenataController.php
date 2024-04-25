@@ -262,8 +262,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
             // Poenter Vrsta Placanja  END
 
             // Akontacije START
-            $akontacijePlacanjaData = $this->kreirajObracunskeKoeficienteService->dodeliPocetneAkontacijePlacanja($idRadnikaZaMesec,$osnovniPodaciMesec->vrednost_akontacije,$osnovniPodaciMesec->id);
-            $akontacijePlacanjaResult = $this->dpsmAkontacijeInterface->createMany($akontacijePlacanjaData);
+//            $akontacijePlacanjaData = $this->kreirajObracunskeKoeficienteService->dodeliPocetneAkontacijePlacanja($idRadnikaZaMesec,$osnovniPodaciMesec->vrednost_akontacije,$osnovniPodaciMesec->id);
+//            $akontacijePlacanjaResult = $this->dpsmAkontacijeInterface->createMany($akontacijePlacanjaData);
 
 
 

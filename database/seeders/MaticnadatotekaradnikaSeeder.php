@@ -42,7 +42,7 @@ class MaticnadatotekaradnikaSeeder extends Seeder
                 'PRIZ_ukupan_bruto_iznos' =>$data['PRIZ'],
                 'BROJ_broj_meseci_za_obracun' => $data['BROJ'],
                 'DANI_kalendarski_dani' => $data['DANI'],
-                'IZNETO1_bruto_zarada_za_akontaciju' => $data['IZNETO1'] !== '' ? $data['IZNETO1']:0,
+                'IZNETO1_bruto_zarada_za_akontaciju' => $data['IZNETO1'] !== '' ? $data['IZNETO1']:0, // todo
                 'POROSL1_poresko_oslobodjenje_za_akontaciju' =>  $data['POROSL1'] !== '' ? $data['POROSL1']:0,
                 'SIP1_porez_za_akontaciju' => $data['SIP1'] !== '' ? $data['SIP1']:0,
                 'BROSN1_minimalna_osnovica_za_obracun_doprinosa_za_akontaciju' =>$data['BROSN1'] !== '' ? $data['BROSN1']:0,
@@ -86,10 +86,10 @@ class MaticnadatotekaradnikaSeeder extends Seeder
     }
     public function getDataFromCsv()
     {
-        $filePath = storage_path('app/backup/MDR_3.csv');
+        $filePath = storage_path('app/backup/novo/MDR.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
-        $csv->setDelimiter(';');
+        $csv->setDelimiter(',');
         return $csv;
     }
 }
