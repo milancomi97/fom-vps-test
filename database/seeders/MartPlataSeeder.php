@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
@@ -29,6 +30,7 @@ class MartPlataSeeder extends Seeder
         private readonly DpsmFiksnaPlacanjaRepositoryInterface               $dpsmFiksnaPlacanjaInterface,
         private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
         private readonly VrsteplacanjaRepositoryInterface          $vrsteplacanjaInterface,
+        private readonly DpsmKreditiRepositoryInterface $dpsmKreditiInterface
 
     ){
     }
@@ -40,7 +42,7 @@ class MartPlataSeeder extends Seeder
 
         $varijabilnaP = $this->getDataFromCsvVarijabilnaP();
         $varijabilneVrtsePlacanjaReader = $this->getDataFromCsvFiksnaP();
-        $krediti = $this->getDataFromCsvKrediti();
+        $kreditiReader = $this->getDataFromCsvKrediti();
         $monthId = 0;
 
         foreach ($podaciMesec as $data) {
@@ -138,6 +140,44 @@ class MartPlataSeeder extends Seeder
                 }
             }
             $test = "test";
+
+
+
+
+
+
+
+
+
+            foreach ($kreditiReader as $kredit) {
+                $kreditiReaderdata[] = $kredit;
+            }
+
+            $collectRadnikKrediti = collect($kreditiReaderdata)->groupBy('MBRD');
+
+            foreach ($collectRadnikKrediti as $krediti){
+                $radnikMdrData = $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj', $fiksnaPlacanjaData[0]['MBRD'])->first()->toArray();
+//                $idRadnikaDPSM = $this->mesecnatabelapoentazaInterface->where('maticni_broj', $fiksnaPlacanjaData[0]['MBRD'])->first();
+
+                foreach ($krediti as $kredit){
+                    if($kredit['SIFK'] ==''){
+                        continue;
+                    }
+                    $data=[
+                        'maticni_broj'=>$kredit['MBRD'],
+                        'SIFK_sifra_kreditora'=>$kredit['SIFK'],
+                        'PART_partija_poziv_na_broj'=>$kredit['PART'],
+                        'GLAVN_glavnica'=>$kredit['GLAV'],
+                        'SALD_saldo'=>(float)$kredit['SALD'],
+                        'RATA_rata'=>(float)$kredit['RATA'],
+                        'RATP_prethodna'=>(float)$kredit['RATP'],
+                        'POCE_pocetak_zaduzenja'=>$kredit['POCE']!=='N',
+                        'user_mdr_id'=>$radnikMdrData['id']
+                    ];
+                    $this->dpsmKreditiInterface->create($data);
+                }
+
+            }
         }
 
 //        'kalendarski_broj_dana'=>$data['DANI']

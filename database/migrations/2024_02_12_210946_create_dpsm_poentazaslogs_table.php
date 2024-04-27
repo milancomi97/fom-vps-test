@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('dpsm_poentazaslogs', function (Blueprint $table) {
             // Unos poentera, varijabilni troškovi, po slogu
             $table->id();
-            $table->string('maticni_broj')->nullable();
+            $table->string('maticni_broj');
             $table->string('sifra_vrste_placanja')->nullable();
             $table->string('naziv_vrste_placanja')->nullable();
             $table->string('SLOV_grupa_vrste_placanja')->nullable(); // vrste placanja SLOV_grupe_vrsta_placanja

@@ -107,10 +107,10 @@ function updateMonthContainer(activeMonth) {
                 }).text('Poreska prijava').css('cursor','default').appendTo(monthCard);
 
 
-                // Akontacije
+                // Akontacije AA klasa
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-primary index-akontacija-mesecna-poentaza offset-1 col-lg-5 mt-3 border',
+                    'class': 'btn btn-primary index-akontacija-mesecna-poentazaa offset-1 col-lg-5 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear

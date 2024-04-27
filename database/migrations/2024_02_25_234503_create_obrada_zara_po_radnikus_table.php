@@ -69,7 +69,7 @@ return new class extends Migration
 //,"UKSA,N,5,1"      // Ukupan iznos za isplatu
         Schema::create('obrada_zara_po_radnikus', function (Blueprint $table) {
             $table->id();
-            $table->string('maticni_broj')->nullable();
+            $table->string('maticni_broj');
             $table->integer('rbim_sifra_isplatnog_mesta')->nullable();
             $table->integer('sifra_troskovnog_mesta')->nullable();
             $table->integer('SSZNE_suma_sati_zarade')->nullable();

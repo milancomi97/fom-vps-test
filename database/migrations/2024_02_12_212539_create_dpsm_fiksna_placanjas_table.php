@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 //            MBRD,C,7	RBVP,C,3	SLOV,C,1	SATI,N,5,1	IZNO,N,10,2	PERC,N,6,2	DATUM,D	POK2,C,1	RBMZ,C,4	RBOP,C,4	STATUS,C,1
 
-            $table->string('maticni_broj')->nullable();
+            $table->string('maticni_broj');
             $table->string('sifra_vrste_placanja')->nullable();
             $table->string('naziv_vrste_placanja')->nullable();
             $table->string('SLOV_grupa_vrste_placanja')->nullable();;

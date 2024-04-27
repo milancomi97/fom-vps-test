@@ -1391,16 +1391,17 @@ class ObradaPripremaService
     {
         $kreditLimit = 0.3;
 
-        $dpsm_id = $radnik[0]->user_dpsm_id;
+        $maticniBroj = $radnik['MDR']['MBRD_maticni_broj'];
 
         $radnikData = $radnik[0];
         $kreditiData = [];
 
-        $krediti = $this->dpsmKreditiInterface->where('user_dpsm_id', $dpsm_id)->get();
+        $krediti = $this->dpsmKreditiInterface->where('maticni_broj', $maticniBroj)->get();
 
         $zar = $radnik['ZAR4'];
         $mdr = $radnik['MDR'];
-        if ($krediti->count()) {
+// TODO        if ($krediti->count()) {
+        if(false){
             $siobkr = 0;
             $neto2 = ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - $zar['SIP'] - $zar['SID'] - $zar['SIOB_ukupni_iznos_obustava']) * $kreditLimit;
             foreach ($krediti as $kredit) {
@@ -1412,6 +1413,7 @@ class ObradaPripremaService
 
                     $kreditUpdate['maticni_broj'] = $mdr['MBRD_maticni_broj'];
                     $kreditUpdate['sifra_vrste_placanja'] = '093';
+                    $kreditUpdate['naziv_vrste_placanja']=$vrstePlacanjaSifarnik['093']['naziv_naziv_vrste_placanja'];
                     $kreditUpdate['SLOV_grupa_vrste_placanja'] = 'V';
                     $kreditUpdate['POK2_obracun_minulog_rada'] = 'G';
                     $kreditUpdate['iznos'] = $kredit->RATA_rata;
@@ -1425,7 +1427,7 @@ class ObradaPripremaService
                     $kreditUpdate['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
 
                     $kreditUpdate['STSALD_Prethodni_saldo'] = $kredit->SALD_saldo;
-                    $kreditUpdate['user_mdr_id'] = $radnikData['user_mdr_id'];
+                    $kreditUpdate['user_mdr_id'] = $mdr['id'];
                     $kreditUpdate['obracunski_koef_id'] = $radnikData['obracunski_koef_id'];
                     $kreditUpdate['user_dpsm_id'] = $radnikData['user_dpsm_id'];
 
@@ -1455,17 +1457,17 @@ class ObradaPripremaService
 
                 }
                 $test1 = 1;
+                $kreditiData[] = $kreditUpdate;
             }
 
 
-            $kreditiData[] = $kreditUpdate;
 
 
             $zar['ZARKR_ukupni_zbir_kredita'] = $siobkr;
             $zar['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
 
 
-            $zar['ZARKR_ukupni_zbir_kredita'] = 0; // TODO proveri sa Snezom
+            $zar['ZARKR_ukupni_zbir_kredita'] = 0;
 
             $zar['ISPLATA'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - ($zar['SIP'] + $zar['SID'] + $zar['SIOB_ukupni_iznos_obustava'] + $zar['ZARKR_ukupni_zbir_kredita']);
 
@@ -1485,6 +1487,11 @@ class ObradaPripremaService
         foreach ($dkop as $key => $vrstaPlacanja) {
             if ($key == 'KREDADD') {
                 continue;
+            }
+            try {
+                $vrstaPlacanja['maticni_broj'];
+            }catch (\Exception $exception){
+                $test='Test';
             }
             $data1 = [
                 'maticni_broj' => $vrstaPlacanja['maticni_broj'],

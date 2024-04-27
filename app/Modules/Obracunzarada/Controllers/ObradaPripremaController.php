@@ -117,8 +117,8 @@ class ObradaPripremaController extends Controller
 
         // Logika za izracunavanje olaksice
 
-//
-//             $kreditiData = $this->dpsmKreditiInterface->where('obracunski_koef_id',$id)->get();
+
+//             $kreditiData = $this->dpsmKreditiInterface->getAll();
 //             $kreditiPrepared =  $this->obradaPripremaService->pripremiKredita($kreditiData);
 
 
@@ -136,7 +136,7 @@ class ObradaPripremaController extends Controller
         // K - Nema minuli rad,
 
 
-        return redirect()->route('datotekaobracunskihkoeficijenata.obrada_radnik', ['obracunski_koef_id' => $id]);
+        return redirect()->route('datotekaobracunskihkoeficijenata.show_all_plate', ['obracunski_koef_id' => $id]);
 //            return view('obracunzarada::obracunzarada.obracunzarada_index');
 
     }

@@ -90,8 +90,8 @@ class ObradaFormuleService
             'POM->DOTA' => "test", // Pomocna
             'POM->IZNO' => "test",
             'POM->RAZL' => "test",
-            'POR->IZN1' => "IZN1_iznos_poreskog_oslobodjenja", // TODO OVDE GRESKA
-            'POR->P1' => "P1_porez_na_licna_primanja", // TODO OVDE GRESKA
+            'POR->IZN1' => "IZN1_iznos_poreskog_oslobodjenja",
+            'POR->P1' => "P1_porez_na_licna_primanja",
             'ZAR->EFSATI' => "EFSATI", //
             'ZAR->IPLAC' => "test", // vrati nulu, posle
             'ZAR->IZNETO' => "test", // Sve sto je G

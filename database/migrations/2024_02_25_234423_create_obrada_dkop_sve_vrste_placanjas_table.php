@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('obrada_dkop_sve_vrste_placanjas', function (Blueprint $table) {
 
-            $table->string('maticni_broj')->nullable(); // MDR
+            $table->string('maticni_broj'); // MDR
             $table->string('sifra_vrste_placanja')->nullable(); // DVPL_vrste_palcanja
             $table->string('naziv_vrste_placanja')->nullable(); // DVPL_vrste_palcanja
             $table->string('SLOV_grupa_vrste_placanja')->nullable(); // DVPL_vrste_palcanja
             $table->integer('sati')->nullable(); // SVUDA
             $table->float('iznos',15,4)->nullable(); // SVUDA
-            $table->integer('procenat')->nullable(); // SVUDA
-            $table->integer('SALD_saldo')->nullable(); // SVUDA
+            $table->float('procenat')->nullable(); // SVUDA
+//            $table->float('SALD_saldo')->nullable(); // SVUDA
             $table->string('POK2_obracun_minulog_rada')->nullable(); // DVPL_vrste_palcanja
             $table->string('KOEF_osnovna_zarada')->nullable(); // MDR
             $table->string('RBRM_radno_mesto')->nullable(); // MDR

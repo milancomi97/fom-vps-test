@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('dpsm_akontacijes', function (Blueprint $table) {
 
             $table->id();
-            $table->string('maticni_broj')->nullable();
+            $table->string('maticni_broj');
             $table->string('sifra_vrste_placanja')->nullable();
             $table->string('SLOV_grupa_vrste_placanja')->nullable();
             $table->integer('sati')->nullable();

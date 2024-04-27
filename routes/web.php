@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\UserConfigController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
@@ -117,6 +118,19 @@ Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
 
 
 Route::middleware('auth')->group(function () {
+
+
+
+    Route::get('/forgot-password-cust/{token}', function (string $token) {
+
+        return view('auth.forgot-password-cust',['email'=>auth()->user()->email,'token'=>$token,'request'=>['route'=>$token]]);
+    })->name('password.request_cust');
+
+
+    Route::post('reset-password-cust', [NewPasswordController::class, 'storecust'])
+        ->name('password-cust.store');
+
+
 //    Route::middleware(['auth','customrole'])->group(function () {
 
     Route::resource('coremodule', CoreModuleController::class);
@@ -287,6 +301,9 @@ Route::middleware('auth')->group(function () {
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index',[ObradaPripremaController::class,'obradaIndex'])->name('datotekaobracunskihkoeficijenata.mesecna_obrada_index');
 
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/obrada_radnik',[  ObracunZaradaController::class,'obradaRadnik'])->name('datotekaobracunskihkoeficijenata.obrada_radnik');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate',[ObracunZaradaController::class,'showAll'])->name('datotekaobracunskihkoeficijenata.show_all_plate');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_plate',[ObracunZaradaController::class,'show'])->name('datotekaobracunskihkoeficijenata.show_plate');
+
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_radnik',[  ObracunZaradaController::class,'stampaRadnik'])->name('datotekaobracunskihkoeficijenata.stampa_radnik');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/email_radnik',[  ObracunZaradaController::class,'emailRadnik'])->name('datotekaobracunskihkoeficijenata.email_radnik');
 
