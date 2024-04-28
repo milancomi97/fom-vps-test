@@ -297,12 +297,12 @@ Route::middleware('auth')->group(function () {
 
     // Mesecna Obrada
 
-
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index',[ObradaPripremaController::class,'obradaIndex'])->name('datotekaobracunskihkoeficijenata.mesecna_obrada_index');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index',[ObradaPripremaController::class,'obradaIndex'])->name('datotekaobracunskihkoeficijenata.mesecna_obrada_index');
+//    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index',[ObradaPripremaController::class,'obradaShow'])->name('datotekaobracunskihkoeficijenata.mesecna_obrada_index');
 
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/obrada_radnik',[  ObracunZaradaController::class,'obradaRadnik'])->name('datotekaobracunskihkoeficijenata.obrada_radnik');
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate',[ObracunZaradaController::class,'showAll'])->name('datotekaobracunskihkoeficijenata.show_all_plate');
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_plate',[ObracunZaradaController::class,'show'])->name('datotekaobracunskihkoeficijenata.show_plate');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate',[ObracunZaradaController::class,'showAllPlate'])->name('datotekaobracunskihkoeficijenata.show_all_plate');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_plate',[ObracunZaradaController::class,'showPlate'])->name('datotekaobracunskihkoeficijenata.show_plate');
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_radnik',[  ObracunZaradaController::class,'stampaRadnik'])->name('datotekaobracunskihkoeficijenata.stampa_radnik');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/email_radnik',[  ObracunZaradaController::class,'emailRadnik'])->name('datotekaobracunskihkoeficijenata.email_radnik');

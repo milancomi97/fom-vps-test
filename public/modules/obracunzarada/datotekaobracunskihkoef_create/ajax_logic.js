@@ -191,13 +191,36 @@ $(document).ready(function () {
     });
 
     $(document).on('click', 'body .index-mesecna-obrada-priprema', function (e) {
-        var id = $(this).data('month_id');
 
-        var buttons = document.querySelectorAll('button');
-        buttons.forEach(function(button) {
-            button.disabled = true;
+        // var buttons = document.querySelectorAll('button');
+        // buttons.forEach(function(button) {
+        //     button.disabled = true;
+        // });
+        $('.obrada-title').removeClass('hidden')
+        $('.loading').removeClass('hidden')
+        $('.main-container-calendar').addClass('hidden')
+
+
+        debugger;
+        var _token = $('input[name="_token"]').val();
+        var month_id = $(this).data('month_id')
+
+        $.ajax({
+            url: indexObradaRoute,
+            type: 'POST',
+            data: {
+                month_id:month_id,
+                _token: _token
+            },
+            success: function (response) {
+                debugger;
+                // ADD SHOW ALL PLATE ROUTE;
+                window.location.href = showPlateRoute + response.id;
+            },
+            error: function (response) {
+            }
         });
-        window.location.href = showObradaRoute + id;
+
     });
 
 

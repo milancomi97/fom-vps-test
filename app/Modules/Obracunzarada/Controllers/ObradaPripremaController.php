@@ -69,7 +69,6 @@ class ObradaPripremaController extends Controller
 //        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->select('vrste_placanja','user_id','maticni_broj','obracunski_koef_id')->get();
         $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
 
-        // TODO podaci za formule start
         // $prviPodatakListaPlacanjaKojaSeObradjuje
         $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
         $poresDoprinosiSifarnik = $this->porezdoprinosiInterface->getAll()->first();
@@ -136,8 +135,9 @@ class ObradaPripremaController extends Controller
         // K - Nema minuli rad,
 
 
-        return redirect()->route('datotekaobracunskihkoeficijenata.show_all_plate', ['obracunski_koef_id' => $id]);
-//            return view('obracunzarada::obracunzarada.obracunzarada_index');
+        return response()->json(['id'=>$id]);
+//        return redirect()->route('datotekaobracunskihkoeficijenata.show_all_plate', ['obracunski_koef_id' => $id]);
+////            return view('obracunzarada::obracunzarada.obracunzarada_index');
 
     }
 

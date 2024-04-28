@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('sati')->nullable(); // SVUDA
             $table->float('iznos',15,4)->nullable(); // SVUDA
             $table->float('procenat')->nullable(); // SVUDA
-//            $table->float('SALD_saldo')->nullable(); // SVUDA
+            $table->float('SALD_saldo',15,5)->nullable(); // SVUDA
             $table->string('POK2_obracun_minulog_rada')->nullable(); // DVPL_vrste_palcanja
             $table->string('KOEF_osnovna_zarada')->nullable(); // MDR
             $table->string('RBRM_radno_mesto')->nullable(); // MDR
@@ -34,7 +34,7 @@ return new class extends Migration
 
             $table->string('SIFK_sifra_kreditora')->nullable(); //MKRE  kreditori samo KREDITI
 
-            $table->integer('STSALD_Prethodni_saldo')->nullable(); // obracunava se
+            $table->float('STSALD_Prethodni_saldo',15,5)->nullable(); // obracunava se
 
             $table->string('NEAK_neopravdana_akontacija')->nullable(); // obracunava se
 

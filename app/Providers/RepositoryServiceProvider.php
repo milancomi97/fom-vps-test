@@ -34,6 +34,8 @@ use App\Modules\Obracunzarada\Repository\OblikradaRepository;
 use App\Modules\Obracunzarada\Repository\OblikradaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepository;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaKreditiRepository;
+use App\Modules\Obracunzarada\Repository\ObradaKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepository;
 use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepository;
@@ -109,6 +111,7 @@ class RepositoryServiceProvider extends ServiceProvider
         // Obrada
         $this->app->bind(ObradaZaraPoRadnikuRepositoryInterface::class, ObradaZaraPoRadnikuRepository::class);
         $this->app->bind(ObradaDkopSveVrstePlacanjaRepositoryInterface::class, ObradaDkopSveVrstePlacanjaRepository::class);
+        $this->app->bind(ObradaKreditiRepositoryInterface::class, ObradaKreditiRepository::class);
 
     }
 

@@ -118,12 +118,12 @@ class ObracunZaradaController extends Controller
         return redirect()->back();
     }
 
-    public function showAll(Request $request)
+    public function showAllPlate(Request $request)
     {
         $user_id = auth()->user()->id;
         $userPermission = UserPermission::where('user_id', $user_id)->first();
         $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
-        $id = $request->obracunski_koef_id;
+        $id = $request->month_id;
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
 
         $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
@@ -148,7 +148,7 @@ class ObracunZaradaController extends Controller
     }
 
 
-    public function show(Request $request)
+    public function showPlate(Request $request)
     {
 
         $monthId = $request->month_id;

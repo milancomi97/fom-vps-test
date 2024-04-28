@@ -34,6 +34,8 @@ class ObradaFormuleService
         }
 
         $DATA = $vrstaPlacanjaSlog['sifra_vrste_placanja'];
+        $DATANAME = $vrstaPlacanjaSlog['naziv_vrste_placanja'];
+
         $data = [
             'KOE' => $monthData,
             'KOP' => $vrstaPlacanjaSlog,
@@ -52,7 +54,27 @@ class ObradaFormuleService
         }
 
         try {
-
+//            001 - tekuci rad
+//010- placeno odsustvo
+//009- godisnji odmor
+//012 - bolovanje 65
+//013 - bolovanje 100
+//458 - Renta
+//087 - Porodiljsko
+//065 - sudsko resenje
+//098 - Nezavisni sindikat
+//002-  prekovremeni rad
+//019 - topli obrok
+//090 - sindikat metalaca
+//017 - opravdani izostanci
+//007 - visinski 3-10 m
+//070 - razlika plate
+//008 - visinski 11-20m
+//004 - nocni rad 26%
+//            504 - alimentacija fiksna
+//503 - alimentacija %
+//018 - neopravdani izostan
+//            $DATA !=='001' && $DATA!=='010' && $DATA!=='009' && $DATA!=='012' && $DATA!=='013' && $DATA!=='458'  && $DATA!=='087' && $DATA!=='065'  && $DATA!=='098' && $DATA!=='002'  && $DATA!=='019'   && $DATA!=='090'   && $DATA!=='017'  && $DATA!=='007'  && $DATA!=='070'  && $DATA!=='008' && $DATA!=='004'  && $DATA!=='504'  && $DATA!=='503'   && $DATA!=='018'
 //            $this->cacheCounter++;
             $result = $this->evaluateFormula($this->replaceZero($formulaValues));
             $test = '';

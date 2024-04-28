@@ -31,12 +31,186 @@
         .carousel-item {
             display: contents !important;
         }
+        *.hidden {
+            display: none !important;
+        }
 
+        div.loading{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(16, 16, 16, 0);
+        }
+
+        @-webkit-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @-webkit-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @-moz-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @-ms-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @-moz-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @-webkit-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @-o-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        .uil-ring-css {
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 200px;
+            height: 800px;
+        }
+        .uil-ring-css > div {
+            position: absolute;
+            display: block;
+            width: 200px;
+            height: 200px;
+            top: 20px;
+            left: 20px;
+            border-radius: 100px;
+            box-shadow: 0 8px 0 0 #BDC7FF;
+            -ms-animation: uil-ring-anim 1.4s linear infinite;
+            -moz-animation: uil-ring-anim 1.4s linear infinite;
+            -webkit-animation: uil-ring-anim 1.4s linear infinite;
+            -o-animation: uil-ring-anim 1.4s linear infinite;
+            animation: uil-ring-anim 1.4s linear infinite;
+        }
     </style>
 @endsection
 
 @section('content')
-    <div class="container mt-5 mb-5">
+
+<div>
+    <div class="loading hidden">
+        <div class='uil-ring-css' style='transform:scale(0.79);'>
+            <div></div>
+        </div>
+    </div>
+    <h1 class="obrada-title text-center text-primary mt-5 hidden">Obrada je u toku</h1>
+</div>
+    <div class="container mt-5 mb-5 main-container-calendar">
         <div id="statusMessage"></div>
         <div class="container mb-5 ">
             <div id="monthSlider" class="border mb-5  mt-5">
@@ -169,7 +343,8 @@
         let odobravanjeRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje?month_id=')!!}'
         let getMonthDataByIdRoute = '{{ route('datotekaobracunskihkoeficijenata.getMonthDataById') }}'
 
-        let showObradaRoute ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index?month_id=') !!}'
+        let indexObradaRoute ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index?month_id=') !!}'
+        let showPlateRoute ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate?month_id=') !!}'
 
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_create/calendar_logic.js') }}"></script>
