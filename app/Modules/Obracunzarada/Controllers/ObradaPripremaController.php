@@ -72,6 +72,7 @@ class ObradaPripremaController extends Controller
         // $prviPodatakListaPlacanjaKojaSeObradjuje
         $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
         $poresDoprinosiSifarnik = $this->porezdoprinosiInterface->getAll()->first();
+
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
         $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($monthData->datum);
 

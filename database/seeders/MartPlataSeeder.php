@@ -130,7 +130,7 @@ class MartPlataSeeder extends Seeder
                         'naziv_vrste_placanja' => $vrstePlacanjaSifarnik[$fpData['RBVP']]['naziv_naziv_vrste_placanja'],
                         'sati' => (int) $fpData['SATI'] ?? 0,
                         'iznos' => (float) $fpData['IZNO'] ?? 0,
-                        'procenat' => (int) $fpData['PERC'] ?? 0,
+                        'procenat' => (float) $fpData['PERC'] ?? 0,
                         'user_mdr_id' => $radnikMdrData['id'],
                         'obracunski_koef_id' => $monthData['id'],
                         'maticni_broj'=>$fpData['MBRD'],

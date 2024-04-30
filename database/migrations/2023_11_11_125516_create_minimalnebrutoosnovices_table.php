@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('minimalnebrutoosnovices', function (Blueprint $table) {
             $table->id();
             $table->string('M_G_mesec_dodina')->nullable();
-            $table->decimal('NT1_prosecna_mesecna_zarada_u_republici', 10, 2)->nullable();
-            $table->decimal('STOPA2_minimalna_neto_zarada_po_satu', 10, 2)->nullable();
-            $table->decimal('STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos', 10, 2)->nullable();
-            $table->decimal('P1_stopa_poreza', 5, 2)->nullable();
-            $table->decimal('STOPA1_koeficijent_za_obracun_neto_na_bruto',5,2)->nullable();
-            $table->decimal('NT2_minimalna_bruto_zarada', 60, 2)->nullable();
+            $table->float('NT1_prosecna_mesecna_zarada_u_republici', 10, 4)->nullable();
+            $table->float('STOPA2_minimalna_neto_zarada_po_satu', 10, 4)->nullable();
+            $table->float('STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos', 10, 4)->nullable();
+            $table->float('P1_stopa_poreza', 10, 4)->nullable();
+            $table->float('STOPA1_koeficijent_za_obracun_neto_na_bruto',10,8)->nullable();
+            $table->float('NT2_minimalna_bruto_zarada', 10, 4)->nullable();
             $table->timestamps();
         });
     }

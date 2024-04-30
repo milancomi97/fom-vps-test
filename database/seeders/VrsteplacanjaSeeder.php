@@ -36,7 +36,7 @@ class VrsteplacanjaSeeder extends Seeder
     }
 
     public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/novo/DVPL.csv');
+        $filePath = storage_path('app/backup/novo/DVPL_2.csv');
 //        $filePath = storage_path('app/backup/DVPL4.csv');
 
         $csv = Reader::createFromPath($filePath, 'r');

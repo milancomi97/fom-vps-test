@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('SLOV_grupa_vrste_placanja')->nullable(); // vrste placanja SLOV_grupe_vrsta_placanja
             $table->integer('sati')->nullable();
             $table->float('iznos',15,4)->nullable();
-            $table->integer('procenat')->nullable();
+            $table->float('procenat',15,4)->nullable();
 
             $table->string('BRIG_brigada')->nullable();
             $table->string('RJ_radna_jedinica')->nullable();

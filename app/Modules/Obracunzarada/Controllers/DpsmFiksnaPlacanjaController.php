@@ -54,7 +54,7 @@ class DpsmFiksnaPlacanjaController extends Controller
 //        $vrednostAkontacije = collect(json_decode($mesecnaTabelaPoentaza->vrste_placanja,true))->where('key', '061')->first();
         $vrstePlacanja = $this->vrsteplacanjaInterface->where('DOVP_tip_vrste_placanja',false)->get();
 
-        $vrednostAkontacije = $mesecnaTabelaPoentaza->dpsmakontacije->iznos;
+//        $vrednostAkontacije = $mesecnaTabelaPoentaza->dpsmakontacije->iznos;
 
         $fiksnapData = $this->dpsmFiksnaPlacanjaInteface->where('user_dpsm_id',$id)->get();
 
@@ -68,7 +68,7 @@ class DpsmFiksnaPlacanjaController extends Controller
                 'vrstePlacanja' => $vrstePlacanja->toJson(),
                 'vrstePlacanjaData' => json_encode($fiksnapData),
 //                'vrstePlacanjaData' => $mesecnaTabelaPoentaza->vrste_placanja,
-                'vrednostAkontacije' =>$vrednostAkontacije,
+//                'vrednostAkontacije' =>$vrednostAkontacije,
                 'mesecna_tabela_poentaza_id' =>$mesecnaTabelaPoentaza->id
             ]);
 
@@ -84,7 +84,7 @@ class DpsmFiksnaPlacanjaController extends Controller
         $id = $request->month_id;
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
 
-        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTableAkontacije('obracunski_koef_id', $id);
+        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
         $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
         $mesecnaTabelaPoentazaPermissions = $this->pripremiPermisijePoenteriOdobravanja->execute('obracunski_koef_id', $id);
 

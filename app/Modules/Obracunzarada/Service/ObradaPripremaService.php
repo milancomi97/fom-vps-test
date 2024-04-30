@@ -111,6 +111,12 @@ class ObradaPripremaService
                     $newPlacanje['iznos'] =0;
                 }
 
+                if($vrstaPlacanja['procenat'] > 0){
+                    $newPlacanje['procenat'] =(float) $vrstaPlacanja['procenat'];
+                }else{
+                    $newPlacanje['procenat'] =0;
+                }
+
 
                 $sveVrstePlacanjaFiksna[] = $newPlacanje;
 //                }
@@ -168,10 +174,16 @@ class ObradaPripremaService
 
                 $newPlacanje['POROSL_poresko_oslobodjenje'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja;
                 if($vrstaPlacanja['iznos'] > 0){
-                    $newPlacanje['iznos'] =$vrstaPlacanja['iznos'];
+                    $newPlacanje['iznos'] =(float) $vrstaPlacanja['iznos'];
                 }else{
                     $newPlacanje['iznos'] =0;
 
+                }
+
+                if($vrstaPlacanja['procenat'] > 0){
+                    $newPlacanje['procenat'] = $vrstaPlacanja['procenat'] > 1 ?(float)($vrstaPlacanja['procenat']/100) :(float) $vrstaPlacanja['procenat'];
+                }else{
+                    $newPlacanje['procenat'] =0;
                 }
 
 
@@ -259,7 +271,7 @@ class ObradaPripremaService
             $s = 0;
             $ss = 0;
             $varijaIznos = 0;
-            $sizn = 0;
+//            $sizn = 0;
             // PETLJA LOGIKE ZA SUMIRANJE START
 
             foreach ($radnik as $vrstaPlacanjaSlog) {
@@ -271,11 +283,19 @@ class ObradaPripremaService
 
                 if ($vrstaPlacanjaSlog['POK2_obracun_minulog_rada'] == 'G') {
 
+                    $newIznos = $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
+                    $vrstaPlacanjaSlog['iznos'] = $newIznos;
 
                     if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'G') {
                         // PREKOVREMENI RAD
                         $gSumiranjePrekovremeniPREK += $vrstaPlacanjaSlog['sati'];
                     }
+
+//                    if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'N') {
+//
+//                        $sizn += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
+//
+//                    }
 
 
                     if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'O' && $plac == 1 || $plac == 3 || $plac == 4 || $plac == 5) {
@@ -367,7 +387,7 @@ class ObradaPripremaService
                     }
 
 
-                    if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['PROSEK_prosecni_obracun'] == '1' || $vrstePlacanjaSifarnik[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['PROSEK_prosecni_obracun'] == '3' && $vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'O') {
+                    if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['PROSEK_prosecni_obracun'] == '1' || $vrstePlacanjaSifarnik[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['PROSEK_prosecni_obracun'] == '3') {
 
                         $prosecniSati += $vrstaPlacanjaSlog['sati'];
                     }
@@ -376,30 +396,7 @@ class ObradaPripremaService
                         $prosecniIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
                     }
 
-
-
-
                 }
-
-
-//
-//            with SSZNE // Sati_za          // SSZNE
-//            replace ZAR->SIZNE   with SIZNE //Izn_za   // SIZNE
-//            replace ZAR->SIZN    with SIZN // Izn_za    // SIZNE
-//            replace ZAR->SSNNE   with  SSNNE
-//            replace ZAR->SINNE   with SINNE //Iznos_n  // SINNE
-//            replace ZAR->IZNETO  with sizne+sinne
-//            replace ZAR->SIOB    with SIOB
-//            replace ZAR->REGRES  with REGR
-//            replace ZAR->UKNETO  with ZAR->IZNETO     // ZAR->UKNETO SLUZI ZA OBRACUN MINULOG RADA
-//            replace ZAR->PRIZ    with  Pr_izn
-//            replace ZAR->PRCAS   with Pr_sat
-//            replace ZAR->PERC    with MDR->GGST*KOR->MINULI  // MDR->GGST/2       //
-//            replace ZAR->PREKOV  with PREK      // PREKOVREMENI RAD
-//            replace ZAR->P_R     with MDR->P_R  // P_R_U
-
-
-
 
             }
 
@@ -428,7 +425,7 @@ class ObradaPripremaService
                 'REGR' => $regresIznos,
                 'UKNETO' => $oSumiranjeZaradeIznosSIZNE + $oSumiranjeBolovanjaIznosSINNE,
                 'REC' => 1,
-                'IPLAC' => 0, // izbaceno ali stoji 0
+                'IPLAC' => 0,
                 'PRIZ' => $prosecniIznos,
                 'PRCAS' => $prosecniSati,
                 'PERC' => ((int)$mdr['GGST_godine_staza']) * 0.4,
@@ -440,13 +437,13 @@ class ObradaPripremaService
                 'RBRM' => $mdr['RBRM_radno_mesto'],
                 'sati_zarade' => $satiZarade,
                 'iznos_zarade' => $iznosZarade,
+//                'SIZN'=>$sizn,
                 'S'=>$s,
                 'SS'=>$ss
 
 //                'OGRAN'=> $SumiranjeOgranicenja,
             ];
         }
-        // TODO Prenesi PERC u druge ZARA "verzije"
 
 
         $groupRadnikDataKorak2 = $this->pripremaZaraPodatkePoRadnikuKorakDva($groupRadnikData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
@@ -464,6 +461,8 @@ class ObradaPripremaService
 
         $newRadnikData = [];
         foreach ($groupRadnikData as $radnik) {
+
+            $radnik['ZAR']= $radnik['ZAR2'];
 
             $zar = $radnik['ZAR2'];
 
@@ -494,6 +493,7 @@ class ObradaPripremaService
             $ss = $zar['SS'];
 
 
+
             foreach ($radnik as $key => $vrstaPlacanjaSlog) {
 
                 if ($key == 'ZAR' || $key == 'ZAR2' || $key == 'MDR') {
@@ -506,6 +506,14 @@ class ObradaPripremaService
 
                 if ($vrstaPlacanjaSlog['POK2_obracun_minulog_rada'] == 'K') {
 
+                    $newIznos = $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K');
+                    $vrstaPlacanjaSlog['iznos'] = $newIznos;
+
+
+
+                    if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'G') {
+                        $gSumiranjePrekovremeniPREK += $vrstaPlacanjaSlog['sati'];
+                    }
 
 //                    if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'N') {
 //
@@ -513,41 +521,37 @@ class ObradaPripremaService
 //
 //                    }
 
-                    if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'G') {
-                        $gSumiranjePrekovremeniPREK += $vrstaPlacanjaSlog['sati'];
-                    }
 
-
-                    if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'O' && $pok1 !== '2') {
+                    if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'O' && $pok1 !== 2) {
                         $oSumiranjeZaradeSatiSSZNE += $vrstaPlacanjaSlog['sati'];
                     } elseif ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'O') {
                         $oSumiranjeBolovanjaSatiSSNNE += $vrstaPlacanjaSlog['sati'];
-                        $oSumiranjeBolovanjaIznosSINNE += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
+                        $oSumiranjeBolovanjaIznosSINNE += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K');
                     }
 
 
                     if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'L' && $vrstaPlacanjaSlog['KESC_prihod_rashod_tip'] == 'P') {
 
                         $topliObrokSati += $vrstaPlacanjaSlog['sati'];
-                        $topliObrokIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
+                        $topliObrokIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K');
                         $vrstaPlacanjaSlog['iznos']=$topliObrokIznos + $vrstaPlacanjaSlog['iznos'];
 
                     }
 
                     if ($vrstaPlacanjaSlog['sifra_vrste_placanja'] == '058') {
 
-                        $regresIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
+                        $regresIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K');
 
                     }
 
 
                     if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['OGRAN_ogranicenje_za_minimalac'] == '3') {
-                        $s += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
+                        $s += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K');
                         $ss += $vrstaPlacanjaSlog['sati'];
                     }
 
                     if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['OGRAN_ogranicenje_za_minimalac'] == '2') {
-                        $s += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
+                        $s += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K');
                     }
 
                     if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['OGRAN_ogranicenje_za_minimalac'] == '1') {
@@ -557,7 +561,7 @@ class ObradaPripremaService
 
                     if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'O') {
 
-                        $oSumiranjeZaradeSatiSSZNE += $vrstaPlacanjaSlog['sati'];
+                        $oSumiranjeZaradeIznosSIZNE  += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K');
 
 //                        $praviloSkip = false;
 //                        if ($vrstaPlacanjaSlog['sifra_vrste_placanja'] == '005') {
@@ -565,7 +569,7 @@ class ObradaPripremaService
 //                        }
 
                     } elseif ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] > 'S') {
-                        $sumiranjeIznosaObustavaSIOB += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
+                        $sumiranjeIznosaObustavaSIOB += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K');
                     }
 
 
@@ -585,11 +589,8 @@ class ObradaPripremaService
 
                     }
 
-                    if ($vrstaPlacanjaSlog['POK1_grupisanje_sati_novca'] == '2' || $vrstaPlacanjaSlog['POK1_grupisanje_sati_novca'] == '3') {
-//                NAKNADNO U IZVESTAJIMA
-                        // PROVERI POK1 Podatak
+                    if ($pok1 == '2' || $pok1 == '3') {
                         $iznosZarade += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
-
                     }
 
 
@@ -605,7 +606,7 @@ class ObradaPripremaService
                         $prosecniIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
                     }
 
-                    if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['EFSA_efektivni_sati'] && $pok1 !== 2) {
+                    if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['EFSA_efektivni_sati']) {
                         $efektivniSati += $vrstaPlacanjaSlog['sati'];
                         $efektivniIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
                     }
@@ -625,26 +626,28 @@ class ObradaPripremaService
                 'SIZNE' => $oSumiranjeZaradeIznosSIZNE,
                 'SSNNE' => $oSumiranjeBolovanjaSatiSSNNE,
                 'SINNE' => $oSumiranjeBolovanjaIznosSINNE,
-//                    'IZNETO'=> NEMAM SOLID U K KORAKU
-//                    'IZNETO'=>$oSumiranjeZaradeIznosSIZNE +$oSumiranjeBolovanjaIznosSINNE,
+//                'SIZN'=>$sizn,
+                'IZNETO'=> $radnik['ZAR']['IZNETO'],
+                'UKNETO'=> $radnik['ZAR']['UKNETO'],
+                'PERC'=> $radnik['ZAR']['PERC'],
+                'P_R'=> $radnik['ZAR']['P_R'],
                 'SIOB' => $sumiranjeIznosaObustavaSIOB,
                 'EFSATI' => $efektivniSati,
                 'EFIZNO' => $efektivniIznos,
                 'REGR' => $regresIznos,
-                'RBPS' => $mdr['RBPS_priznata_strucna_sprema'],
                 'TOPSATI' => $topliObrokSati,
                 'TOPLI' => $topliObrokIznos,
+                'RBPS' => $mdr['RBPS_priznata_strucna_sprema'],
                 'MINIM' => $ss > 0 ? $s / $ss:0,
                 'PREK' => $gSumiranjePrekovremeniPREK,
                 'PRIZ' => $prosecniIznos,
                 'PRCAS' => $prosecniSati,
-                'sati_zarade' => $satiZarade, // TODO ova dva polja videti
-                'iznos_zarade' => $iznosZarade, // TODO isto SSZNE // SIZNE ali razlicita promenljive
+                'sati_zarade' => $satiZarade,
+                'iznos_zarade' => $iznosZarade,
                 'S'=>$s,
                 'SS'=>$ss,
                 'VARIJAB' => $varijaIznos,
 //                'SINNE' => $iznosNaknada
-//                'OGRAN'=> $SumiranjeOgranicenja,
             ];
 
             $newRadnikData[] = $radnik;
@@ -658,120 +661,6 @@ class ObradaPripremaService
 
         $newRadnikData = [];
         foreach ($groupRadnikData as $radnik) {
-//            $zar = $radnik['ZAR'];
-//            $kSumiranjeIznosSIZNNE = $zar['SIZNNE'];
-//            $kSumiranjeSatiSSZNNE = $zar['SSZNNE'];
-//            $gSumiranjePrekovremeniPREK = $zar['PREK'];
-//            $oSumiranjeZaradeSatiSSZNE = $zar['SSZNE'];
-//            $oSumiranjeZaradeIznosSIZNE = $zar['SIZNE'];
-//
-//            $oSumiranjeBolovanjaSatiSSNNE = $zar['SSNNE'];
-//            $oSumiranjeBolovanjaIznosSINNE = $zar['SINNE'];
-//
-//            $sumiranjeIznosaObustavaSIOB = $zar['SIOB'];
-//            $topliObrokSati = $zar['TOPSATI'];
-//            $topliObrokIznos = $zar['TOPLI'];
-//            $regresIznos = $zar['REGR'];
-//            $satiZarade = $zar['sati_zarade'];
-//            $iznosZarade = $zar['iznos_zarade'];
-//            $prosecniIznos = $zar['PRIZ'];
-//            $prosecniSati = $zar['PRCAS'];
-//            $mdr = '';
-//            $efektivniSati = $zar['EFSATI'];
-//            $efektivniIznos = $zar['EFIZNO'];
-//            $varijaIznos = 0;
-//            $s = 0;
-//            $ss = 0;
-//            $oSumiranjeZaradeSatiSSZNE = $zar['SSZNE'];
-//            $oSumiranjeZaradeIznosSIZNE = $zar['SIZNE'];
-//            $oSumiranjeBolovanjaSatiSSNNE = $zar['SSNNE'];
-//            $oSumiranjeBolovanjaIznosSINNE = $zar['SINNE'];
-//
-//            $izNeto = $zar['IZNETO'];
-//            $sumiranjeIznosaObustavaSIOB = $zar['SIOB'];
-//            $efektivniSati = $zar['EFSATI'];
-//            $efektivniIznos = $zar['EFIZNO'];
-//            $topliObrokSati = $zar['TOPSATI'];
-//            $topliObrokIznos = $zar['TOPLI'];
-//            $regresIznos = $zar['REGR'];
-//            $ukNeto = $zar['UKNETO'];
-//            $prosecniIznos = $zar['PRIZ'];
-//            $prosecniSati = $zar['PRCAS'];
-////            $sizn = $zar['SIZN'];
-//            $satiZarade = $zar['sati_zarade'];
-//            $iznosZarade = $zar['iznos_zarade'];
-//            $mdr = '';
-//            $varijaIznos = $zar['VARIJAB'];
-//            $gSumiranjePrekovremeniPREK = $zar['PREK'];
-//            $s = $zar['S'];
-//            $ss = $zar['SS'];
-
-//            foreach ($radnik as $key => $vrstaPlacanjaSlog) {
-//
-//                if ($key == 'ZAR' || $key == 'MDR') {
-//                    continue;
-//                }
-//
-//                // end radnik loop
-//
-//
-//
-//                if ($vrstaPlacanjaSlog->SLOV_grupa_vrste_placanja == 'L' && $vrstaPlacanjaSlog->KESC_prihod_rashod_tip == 'P') {
-//
-//                    $topliObrokSati += $vrstaPlacanjaSlog['sati'];
-//                    $topliObrokIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
-//                }
-//
-//                if ($vrstaPlacanjaSlog->sifra_vrste_placanja == '058') {
-//
-//                    $regresIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
-//                }
-//
-//                if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['OGRAN_ogranicenje_za_minimalac'] == '3') {
-//                    $s += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
-//                    $ss += $vrstaPlacanjaSlog['sati'];
-//                }
-//
-//                if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['OGRAN_ogranicenje_za_minimalac'] == '2') {
-//                    $s += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
-//                }
-//
-//                if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['OGRAN_ogranicenje_za_minimalac'] == '1') {
-//                    $ss += $vrstaPlacanjaSlog['sati'];
-//                }
-//
-//
-//
-//                if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['VARI_minuli_rad'] == '2') {
-//                    $varijaIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
-//                }
-//
-//            }
-
-
-//            $radnik['ZAR'] = [
-//                'SIZNE' => $oSumiranjeZaradeIznosSIZNE,
-//                'SSZNE' => $oSumiranjeZaradeSatiSSZNE,
-//                'PREK' => $gSumiranjePrekovremeniPREK,
-//                'SSNNE' => $oSumiranjeBolovanjaSatiSSNNE,
-//                'SINNE' => $oSumiranjeBolovanjaIznosSINNE,
-//                'SIOB' => $sumiranjeIznosaObustavaSIOB,
-//                'TOPSATI' => $topliObrokSati,
-//                'TOPLI' => $topliObrokIznos,
-//                'REGR' => $regresIznos,
-//                'sati_zarade' => $satiZarade,
-//                'iznos_zarade' => $iznosZarade,
-//                'prosecni_sati' => $prosecniSati,
-//                'prosecni_iznos' => $prosecniIznos,
-//                'EFSATI' => $efektivniSati,
-//                'EFIZNO' => $efektivniIznos,
-//                'VARIJA' => $varijaIznos,
-//                'MINIM' => $s / $ss,
-//                'S' => $s,
-//                'SS' => $ss
-////                'SINNE' => $iznosNaknada
-////                'OGRAN'=> $SumiranjeOgranicenja,
-//            ];
 
             $radnik['ZAR2'] = $this->prepareZaraData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData);
             $radnik['DKOPADD'] = $this->prepareDKopData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik);
@@ -796,32 +685,6 @@ class ObradaPripremaService
         return $newRadnikData;
     }
 
-    public function prepareBrutoData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik)
-    {
-        $zar = $radnik['ZAR3'];
-        $zar['SIPBOL'] = 0;
-        $zar['SIDBOL'] = 0;
-
-
-        $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] = $zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid'];
-
-        $zar['IZBRUTO'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
-        $zar['SID'] = $zar['UKUPNO'] * ($poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika - $poresDoprinosiSifarnik->ZDRO_zdravstveno_osiguranje_na_teret_radnika - $poresDoprinosiSifarnik->ONEZ_osiguranje_od_nezaposlenosti_na_teret_radnika) + $zar['UKUPNO'] * ($poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika - $poresDoprinosiSifarnik->PIO_pio_na_teret_radnika);
-        $zar['SIP'] = $zar['SIPPR'] + $zar['SIPBOL'];
-        $zar['SIP_D'] = $zar['SIPPR'] + $zar['SID'] + $zar['SIDBOL'] + $zar['SIPBOL'];
-
-        if ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni'] < $monthData->mesecni_fond_sati) {
-            $zar['POROSL'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja / $monthData->mesecni_fond_sati * ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']);
-        }
-
-        if ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni'] >= $monthData->mesecni_fond_sati) {
-            $zar['POROSL'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja;
-        }
-
-        $zar['NETO'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - $zar['SIP'] - $zar['SID'];
-
-        return $zar;
-    }
 
     public function prepareZaraData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData)
     {
@@ -869,6 +732,7 @@ class ObradaPripremaService
 
         $solid += $minsol ?? 0;
 
+        $zar['SOLID']=$solid; // TODO isprati da li se pre pojavio negde
 
         // NAKON SUMIRANJA
 //        if ZAR->IZNETO <= (NTO->NT1*NTO->STOPA6)
@@ -879,8 +743,7 @@ class ObradaPripremaService
 
 
         // 1184 za sve firme
-        $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] = $zar['SIZNE'] + $zar['iznos_zarade'] + $solid;
-//       TODO PROVERI $zar['uksa'] = $zar['SIZNE'] + $zar['iznos_zarade'] + $solid;
+        $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] = $zar['SIZNE'] + $zar['SINNE'] + $solid;
 
         if ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] <= $minimalneBrutoOsnoviceSifarnik->NT1_prosecna_mesecna_zarada_u_republici * $minimalneBrutoOsnoviceSifarnik->STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos) {
             $zar['UKUPNO'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
@@ -907,18 +770,22 @@ class ObradaPripremaService
             'PRIZ'=>$zar['PRIZ'],
             'EFSATI_ukupni_iznos_efektivnih_sati' => $zar['EFSATI'],
             'EFIZNO_kumulativ_iznosa_za_efektivne_sate' => $zar['EFIZNO'],
-            'IZNETO_zbir_ukupni_iznos_naknade_i_naknade' => $zar['SIZNE'] + $solid,
-            'UKSA_ukupni_sati_za_isplatu' => $zar['SSZNE'],
+            'IZNETO_zbir_ukupni_iznos_naknade_i_naknade' => $zar['SIZNE'] + $zar['SINNE']+ $solid,
+            'UKSA_ukupni_sati_za_isplatu' => $zar['SSZNE']+ $zar['SSNNE'],
             'UKUPNO' => $zar['UKUPNO'],
+            'IZBRPR'=>$zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'],
             'solid' => $solid,
             'user_dpsm_id' => $radnik[0]->user_dpsm_id,
             'obracunski_koef_id' => $monthData->id,
             'user_mdr_id' => $radnik[0]->user_mdr_id
         ];
-        $izbr1 = 0;
+        $izbr1 = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
         $izbr2 = 0;
+        $izbr3= $zar['IZNETO'] > 0 ? $zar['SIZNE']/$zar['IZNETO']:0; // PER1
+        $radnikData['PER1']=$izbr3;
         $izbr6 = 0;
-        $izbr5 = 0;
+        $izbr5 =$zar['IZNETO']> 0 ? $zar['SINNE']/$zar['IZNETO'] : 0; // PER2
+        $radnikData['PER2']=$izbr5;
         $izbr7 = 0;
         $izbr8 = 0;
         $izbr50 = 0;
@@ -926,36 +793,31 @@ class ObradaPripremaService
         $izbr52 = 0;
         $izbr53 = 0;
 
-//        if ZAR->UKSA <= KOE->BR_S
-//        IZBR2 = (NTO->STOPA3/KOE->BR_S*ZAR->UKSA)
-//                     IZBR6 = 0
-//                     IZBR50 = NTO->STOPA3
 
 
-        // if{ pocetak    case ZAR->IZNETO < NTO->STOPA3 .and. ZAR->IZNETO > 0 .and. (NTO->STOPA3/KOE->BR_S > ZAR->IZNETO/ZAR->UKSA)
 
-        // DIZANJE NA BRUTO PIO
+
         // 1202
-        if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] < $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada && $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] > 0 && ($minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati > $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
+        if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] < $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada && $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] > 0 && ($minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati > $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
             if ($radnikData['UKSA_ukupni_sati_za_isplatu'] <= $monthData->mesecni_fond_sati) {
-                $izbr2 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati * $radnikData['UKSA_ukupni_sati_za_isplatu'];
+                $izbr2 = $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati * $radnikData['UKSA_ukupni_sati_za_isplatu'];
                 $izbr6 = 0;
-                $izbr50 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
+                $izbr50 = $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada;
             }
 
             if ($radnikData['UKSA_ukupni_sati_za_isplatu'] > $monthData->mesecni_fond_sati) {
 
-                $izbr2 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati * $monthData->mesecni_fond_sati;
+                $izbr2 = $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati * $monthData->mesecni_fond_sati;
                 $izbr6 = 0;
-                $izbr50 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
+                $izbr50 = $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada;
 
             }
         }
-        if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] >= $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada || ($minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati < $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
+        if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] >= $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada || ($minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati < $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
 
             $izbr6 = $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
             $izbr2 = 0;
-            $izbr50 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
+            $izbr50 = $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada;
 
         }
 
@@ -963,38 +825,28 @@ class ObradaPripremaService
 
         // ZDRAVSTVENO I NEZAPOSLENOST POCETAK
 
-        if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] < $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada && $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] > 0 && ($minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati > $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
+        if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] < $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada && $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] > 0 && ($minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati > $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
 
             if ($radnikData['UKSA_ukupni_sati_za_isplatu'] <= $monthData->mesecni_fond_sati) {
-                $izbr51 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada/ $monthData->mesecni_fond_sati*$radnikData['UKSA_ukupni_sati_za_isplatu'] ;
+                $izbr51 = $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada/ $monthData->mesecni_fond_sati*$radnikData['UKSA_ukupni_sati_za_isplatu'] ;
                 $izbr52 = 0;
-                $izbr53 =  $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
+                $izbr53 =  $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada;
             }
             if ($radnikData['UKSA_ukupni_sati_za_isplatu'] > $monthData->mesecni_fond_sati) {
-                $izbr51 =  $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada/ $monthData->mesecni_fond_sati* $monthData->mesecni_fond_sati;
+                $izbr51 =  $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada/ $monthData->mesecni_fond_sati* $monthData->mesecni_fond_sati;
                 $izbr52 = 0;
-                $izbr53 =  $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
+                $izbr53 =  $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada;
             }
 
 
         }
 
-        if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] >= $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada || ($minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati < $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
+        if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] >= $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada || ($minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati < $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
 
             $izbr51 = $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
             $izbr52 = 0;
-            $izbr53 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
+            $izbr53 = $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada;
         }
-
-        // ZDRAVSTVENO I NEZAPOSLENOST POCETAK KRAJ
-
-        // DIZANJE NA BRUTO PIO KRAJ
-
-
-        // DIZANJE NA BRUTO END PROVERI OVO
-
-
-        //OBRACUN DOPRINOSA i UPOREDJIVANJE SA MINIMALNOM BRUTO ZARADOM
 
 
 //        DO CASE
@@ -1003,99 +855,7 @@ class ObradaPripremaService
 //               case ZAR->IZNETO > NTO->NT1
 //                  IZBR1 = ZAR->IZNETO
 //            endcase
-//
-//
-//        if ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] <= $minimalneBrutoOsnoviceSifarnik->NT1_prosecna_mesecna_zarada_u_republici) {
-//            $izbr1 = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
-//        } elseif ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] > $minimalneBrutoOsnoviceSifarnik->NT1_prosecna_mesecna_zarada_u_republici) {
-//            $izbr1 = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
-//        }
-//
-//
-//        // PIO POCETAK STARO
-//
-//        if ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] < $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada && $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] > 0 && ($minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati > $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
-////            if ZAR->UKSA <= KOE->BR_S
-////            IZBR2 = (NTO->NT2/KOE->BR_S*ZAR->UKSA)
-////                  IZBR6 = 0
-////                  IZBR50 = NTO->NT2
-////               endif
-//
-//            if ($radnikData['UKSA_ukupni_sati_za_isplatu'] <= $monthData->mesecni_fond_sati) {
-//
-//                $izbr2 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati * $radnikData['UKSA_ukupni_sati_za_isplatu'];
-//                $izbr6 = 0;
-//                $izbr50 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
-//            }
-//            if ($radnikData['UKSA_ukupni_sati_za_isplatu'] > $monthData->mesecni_fond_sati) {
-////            if ZAR->UKSA > KOE->BR_S
-////            IZBR2 = (NTO->NT2/KOE->BR_S*KOE->BR_S)
-////                  IZBR6 = 0
-////                  IZBR50 = NTO->NT2
-////               endif
-//
-//
-//                $izbr2 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati * $monthData->mesecni_fond_sati;
-//                $izbr6 = 0;
-//                $izbr50 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
-//            }
-//
-//
-//        } elseif ($radnikData['UKSA_ukupni_sati_za_isplatu'] >= $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada || ($minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati < $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
-//
-//            $izbr6 = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
-//            $izbr2 = 0;
-//            $izbr50 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
-////        case ZAR->IZNETO >= NTO->NT2 .or. (NTO->NT2/KOE->BR_S < ZAR->IZNETO/ZAR->UKSA)
-////               IZBR6 = ZAR->IZNETO
-////               IZBR2 = 0
-////               IZBR50 = NTO->NT2
-////         endcase
-//        }
-//
-//        // PIO KRAJ STARO
-//        // ZDRAVSTVENO  i NEZAPOSLENOST POCETAK
-//        if ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] < $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada && $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] > 0 && ($minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati > $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
-////            if ZAR->UKSA <= KOE->BR_S
-////            IZBR2 = (NTO->NT2/KOE->BR_S*ZAR->UKSA)
-////                  IZBR6 = 0
-////                  IZBR50 = NTO->NT2
-////               endif
-//
-//            if ($radnikData['UKSA_ukupni_sati_za_isplatu'] <= $monthData->mesecni_fond_sati) {
-//
-//                $izbr51 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati * $radnikData['UKSA_ukupni_sati_za_isplatu'];
-//                $izbr52 = 0;
-//                $izbr53 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
-//            }
-//            if ($radnikData['UKSA_ukupni_sati_za_isplatu'] > $monthData->mesecni_fond_sati) {
-////            if ZAR->UKSA > KOE->BR_S
-////            $izbr51 = (NTO->NT2/KOE->BR_S*KOE->BR_S)
-////                  $izbr52 = 0
-////                  $izbr53 = NTO->NT2
-////               endif
-//
-//                $izbr51 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati * $monthData->mesecni_fond_sati;
-//                $izbr52 = 0;
-//                $izbr53 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
-//            }
-//
-//
-//        } elseif ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] >= $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada || ($minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati < $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
-//
-//            $izbr51 = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
-//            $izbr52 = 0;
-//            $izbr53 = $minimalneBrutoOsnoviceSifarnik->nt2_minimalna_bruto_zarada;
-////        case ZAR->IZNETO >= NTO->NT2 .or. (NTO->NT2/KOE->BR_S < ZAR->IZNETO/ZAR->UKSA)
-////               IZBR6 = ZAR->IZNETO
-////               IZBR2 = 0
-////               IZBR50 = NTO->NT2
-////         endcase
-//        }
 
-        // ZDRAVSTVENO  i NEZAPOSLENOST KRAJ STARO
-
-        // SOLID JE OBRACUNATI IZNOS MINIMALNE BRUTO ZARADE ZA RADNIKA POJEDINACNO
 
         // 1733
         if ($radnikData['solid'] > 0) {
@@ -1108,7 +868,7 @@ class ObradaPripremaService
 
 
         if ($radnikData['solid'] > 0) {
-            $radnikData['IZBRBO2'] = ($radnikData['SIZNE_ukupni_iznos_zarade'] + $radnikData['SINNE_ukupni_iznos_naknade'] + $radnikData['solid']);
+            $radnikData['IZBRBO2'] = ($radnikData['SIZNE_ukupni_iznos_zarade'] + $radnikData['SINNE_ukupni_iznos_naknade'] + $radnikData['solid']+ $radnikData['PLACENO']);
         } else {
             $radnikData['IZBRBO2'] = 0;
         }
@@ -1124,6 +884,8 @@ class ObradaPripremaService
         if($radnikData['SSNNE_suma_sati_naknade'] < $monthData->mesecni_fond_sati){
 
             $radnikData['POSPOR'] = $izbr5;
+        }else{
+            $radnikData['POSPOR']=0;
         }
 
         if($radnikData['SSNNE_suma_sati_naknade'] == $monthData->mesecni_fond_sati){
@@ -1149,7 +911,9 @@ class ObradaPripremaService
 
             if ($radnikData['IZBRBOL'] > 0) {
                 $radnikData['UKUPNO'] = $radnikData['IZBRBOL']+$radnikData['POSPOR']+$radnikData['SIN']+$radnikData['SIPBOL'];
-            } elseif ($radnikData['IZBRBO1'] > 0) {
+            }
+
+            if ($radnikData['IZBRBO1'] > 0) {
                 $radnikData['UKUPNO'] = $radnikData['IZBRBO1']+$radnikData['POSPOR']+$radnikData['SIN']+$radnikData['SIPBOL'];
             }
         }
@@ -1289,9 +1053,11 @@ class ObradaPripremaService
 
         $nIzn = 0;
         $zar['PLACENO'] = 0; // TODO PROVERITI
-        if ($zar['UKUPNO'] == 0) {  // TODO PROVERITI
+        if($zar['IZBRPR']==0){
+            $nIzn=0;
+        }
 
-
+        if($zar['IZBRPR'] > 0){
             if ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni'] < $monthData->mesecni_fond_sati) {
 
                 $nIzn = ($zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid'] - ($poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja / $monthData->mesecni_fond_sati * ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']))) * $minimalneBrutoOsnoviceSifarnik->P1_stopa_poreza;
@@ -1303,7 +1069,9 @@ class ObradaPripremaService
             }
         }
 
+
         if ($nIzn > 0) {
+
             $newPlacanje['maticni_broj'] = $mdr['MBRD_maticni_broj'];
             $newPlacanje['sifra_vrste_placanja'] = '050';
             $newPlacanje['naziv_vrste_placanja']=$vrstePlacanjaSifarnik['050']['naziv_naziv_vrste_placanja'];;
@@ -1312,7 +1080,7 @@ class ObradaPripremaService
             $newPlacanje['iznos'] = $nIzn;
 //            replace KOP->IZNO   with nIzn , ZAR->SIPPR with nIzn, ZAR->SIOB with SIOB
 
-            $zar['SIPPR'] = $nIzn;
+            $zar['SIPPR'] = $nIzn; // TODO UPDATE THISS !!
             $newPlacanje['RBRM_radno_mesto'] = $mdr['RBRM_radno_mesto'];
             $newPlacanje['KESC_prihod_rashod_tip'] = 'R';
             $newPlacanje['P_R_oblik_rada'] = $mdr['P_R_oblik_rada'];
@@ -1350,41 +1118,35 @@ class ObradaPripremaService
             $zar['SID'] = $zar['UKUPNO'] * $poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika;
 
         }
-//            $newPlacanje['sati'] = $vrstaPlacanja['sati'];
-//            $newPlacanje['sifra_vrste_placanja'] = $vrstaPlacanja['sifra_vrste_placanja'];
-//
-//            // RADNIK-MESEC
-//            $newPlacanje['maticni_broj'] = $radnik['MBRD_maticni_broj'];
-//            $newPlacanje['user_mdr_id'] = $radnik->id;
-//            $newPlacanje['obracunski_koef_id'] = $radnik['obracunski_koef_id'];
-
-//            $newPlacanje['tip_unosa'] = 'fiksno_placanje';
-//            $newPlacanje['user_dpsm_id'] = $vrstaPlacanja['user_dpsm_id'];
-//            // MDR
-//            $newPlacanje['KOEF_osnovna_zarada'] = $radnik->KOEF_osnovna_zarada;
-//            $newPlacanje['RBRM_radno_mesto'] = $radnik->RBRM_radno_mesto;
-//            $newPlacanje['P_R_oblik_rada'] = $radnik->P_R_oblik_rada;
-//            $newPlacanje['RBIM_isplatno_mesto_id'] = $radnik->RBIM_isplatno_mesto_id;
-//            $newPlacanje['troskovno_mesto_id'] = $radnik->troskovno_mesto_id;
-////                $newPlacanje['user_mdr_id'] = $vrstaPlacanja['user_mdr_id'];
-//            $newPlacanje['obracunski_koef_id'] = $vrstaPlacanja['obracunski_koef_id'];
-
-        // DVPL
-
-//
-//            $newPlacanje['naziv_vrste_placanja'] = $vrstePlacanjaSifarnik[$vrstaPlacanja['sifra_vrste_placanja']]['naziv_naziv_vrste_placanja'];
-//            $newPlacanje['SLOV_grupa_vrste_placanja'] = $vrstePlacanjaSifarnik[$vrstaPlacanja['sifra_vrste_placanja']]['SLOV_grupe_vrsta_placanja'];
-//            $newPlacanje['POK2_obracun_minulog_rada'] = $vrstePlacanjaSifarnik[$vrstaPlacanja['sifra_vrste_placanja']]['POK2_obracun_minulog_rada'];
-//
-//            // DPOR
-//
-//            $newPlacanje['POROSL_poresko_oslobodjenje'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja;
-//            $sveVrstePlacanjaVariabilna[] = $newPlacanje;
-//
-//
 
         $sveVrstePlacanja['ZAR3'] = $zar;
         return $sveVrstePlacanja;
+    }
+    public function prepareBrutoData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik)
+    {
+        $zar = $radnik['ZAR3'];
+        $zar['SIPBOL'] = 0;
+        $zar['SIDBOL'] = 0;
+
+
+        $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] = $zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid'];
+
+        $zar['IZBRUTO'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
+        $zar['SID'] = $zar['UKUPNO'] * ($poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika - $poresDoprinosiSifarnik->ZDRO_zdravstveno_osiguranje_na_teret_radnika - $poresDoprinosiSifarnik->ONEZ_osiguranje_od_nezaposlenosti_na_teret_radnika) + $zar['UKUPNO'] * ($poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika - $poresDoprinosiSifarnik->PIO_pio_na_teret_radnika);
+        $zar['SIP'] = $zar['SIPPR'] + $zar['SIPBOL'];
+        $zar['SIP_D'] = $zar['SIPPR'] + $zar['SID'] + $zar['SIDBOL'] + $zar['SIPBOL'];
+
+        if ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni'] < $monthData->mesecni_fond_sati) {
+            $zar['POROSL'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja / $monthData->mesecni_fond_sati * ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']);
+        }
+
+        if ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni'] >= $monthData->mesecni_fond_sati) {
+            $zar['POROSL'] = $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja;
+        }
+
+        $zar['NETO'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - $zar['SIP'] - $zar['SID'];
+
+        return $zar;
     }
 
     public function prepareKrediti($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik)
@@ -1553,11 +1315,16 @@ class ObradaPripremaService
 
     public function updateDkopData($radnik){
         foreach ($radnik as $key => $vrstaPlacnja){
-            if($key =='MDR'||$key =='ZAR2'||$key =='ZAR3'||$key =='DKOPADD'||$key =='ZAR4'||$key =='KREDADD'|| $key=='ZAR5'){
+            if($key =='MDR'||$key =='ZAR2'|| $key =='ZAR'|| $key =='ZAR3'||$key =='DKOPADD'||$key =='ZAR4'||$key =='KREDADD'|| $key=='ZAR5'){
                 continue;
             }
-            $test2='test2';
+//            $test2='test2';
 
+//            try {
+//              $testt =$vrstaPlacnja['iznos'];
+//            }catch (\Exception $exception){
+//                $testt='w';
+//            }
             if($vrstaPlacnja['iznos']!== null){
                 $this->dkopSveVrstePlacanjaInterface->where('id',$vrstaPlacnja['id'])->update(['iznos'=>$vrstaPlacnja['iznos']]);
             }
@@ -1602,7 +1369,9 @@ class ObradaPripremaService
             'LBG_jmbg'=>$mdr['LBG_jmbg'],
             'GGST_godine_staza'=>$mdr['GGST_godine_staza'],
             'MMST_meseci_staza'=>$mdr['MMST_meseci_staza'],
-            'RBRM_redni_broj_radnog_mesta'=>$mdr['RBRM_radno_mesto']
+            'RBRM_redni_broj_radnog_mesta'=>$mdr['RBRM_radno_mesto'],
+            'SID_ukupni_iznos_poreza_i_doprinosa' => $zar['SIP_D'],
+
             //            'DBDATA' => $zar['UKUPNO'],
 //            'DBDATA' => $zar['IZBRBO1'],
 //            'DBDATA' => $zar['OSNOV'],
@@ -1613,9 +1382,10 @@ class ObradaPripremaService
 //            'DBDATA' => $zar['SIPBOL'],
 //            'DBDATA' => $zar['SIDBOL'],
 //            'DBDATA' => $zar['PLACENO'],
+
 //            'DBDATA' => $zar['SIPPR'],
+
 //            'DBDATA' => $zar['IZBRUTO'],
-//            'DBDATA' => $zar['SIP_D'],
         ];
         $this->obradaZaraPoRadnikuInterface->create($data);
 

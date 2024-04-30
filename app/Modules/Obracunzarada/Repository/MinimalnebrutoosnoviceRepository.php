@@ -8,7 +8,7 @@ use App\Repository\BaseRepository;
 class MinimalnebrutoosnoviceRepository extends BaseRepository implements MinimalnebrutoosnoviceRepositoryInterface
 {
     /**
-     * UserRepository constructor.
+     * constructor.
      *
      * @param Minimalnebrutoosnovice $model
      */
@@ -24,10 +24,10 @@ class MinimalnebrutoosnoviceRepository extends BaseRepository implements Minimal
         $year = date('y', $timestamp);
         $criteria = $month.$year;
 
-        // TODO Uncoment
-//        return $this->model->where('M_G_mesec_dodina',$criteria)->all();
+        return $this->model->where('M_G_mesec_dodina',$criteria)->first();
 
-        return $this->model->where('M_G_mesec_dodina','0123')->first();
+        // TODO Za testiranje otvaranja meseca, da se ne brise baza
+//        return $this->model->where('M_G_mesec_dodina','0123')->first();
 
     }
 }

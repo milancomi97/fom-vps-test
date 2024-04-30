@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('SLOV_grupa_vrste_placanja')->nullable(); // DVPL_vrste_palcanja
             $table->integer('sati')->nullable(); // SVUDA
             $table->float('iznos',15,4)->nullable(); // SVUDA
-            $table->float('procenat')->nullable(); // SVUDA
+            $table->float('procenat',15,4)->nullable();
             $table->float('SALD_saldo',15,5)->nullable(); // SVUDA
             $table->string('POK2_obracun_minulog_rada')->nullable(); // DVPL_vrste_palcanja
             $table->string('KOEF_osnovna_zarada')->nullable(); // MDR
@@ -40,7 +40,7 @@ return new class extends Migration
 
 
             $table->string('PART_partija_kredita')->nullable(); // DKRE Kreditori
-            $table->string('POROSL_poresko_oslobodjenje')->nullable(); // DPOR
+            $table->float('POROSL_poresko_oslobodjenje',15,5)->nullable(); // DPOR
 
 
             $table->unsignedBigInteger('obracunski_koef_id')->nullable();

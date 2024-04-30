@@ -217,7 +217,7 @@
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-custom">
-                <h1 class="text-left header-custom">061 PRIMLJENA KONTACIJA</h1>
+                <h1 class="text-left header-custom">061 PRIMLJENA AKONTACIJA</h1>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
                 <h2 class="text-right header-custom">0,00</h2>

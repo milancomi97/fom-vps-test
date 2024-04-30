@@ -58,7 +58,6 @@ $(document).ready(function () {
 
         var month_id = $('#month_id').val();
         if(month_id !==''){
-            debugger;
 
             var mesecni_fond_sati = $('#mesecni_fond_sati_modal').val();
             var year = $('.create-mesecna-poentaza').data('year');
@@ -73,7 +72,6 @@ $(document).ready(function () {
             var vrednost_akontacije = $('#vrednost_akontacije_modal').val()
 
             var _token = $('input[name="_token"]').val();
-            debugger;
             if(prosecni_godisnji_fond_sati !=='' && cena_rada_tekuci!=='' && cena_rada_prethodni!=='' && vrednost_akontacije!==''){
 
                 $.ajax({
@@ -123,7 +121,6 @@ $(document).ready(function () {
             var mesecni_fond_sati = $('#mesecni_fond_sati_modal').val();
 
             var _token = $('input[name="_token"]').val();
-            debugger;
             if(prosecni_godisnji_fond_sati !=='' && cena_rada_tekuci!=='' && cena_rada_prethodni!=='' && vrednost_akontacije!==''){
 
                 $.ajax({

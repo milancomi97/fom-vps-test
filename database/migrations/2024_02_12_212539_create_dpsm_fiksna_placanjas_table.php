@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('SLOV_grupa_vrste_placanja')->nullable();;
             $table->integer('sati')->nullable();
             $table->float('iznos',15,4)->nullable();
-            $table->integer('procenat')->nullable();
+            $table->float('procenat',15,4)->nullable();
             $table->integer('status')->nullable();
             $table->string('POK2_obracun_minulog_rada')->nullable();
             $table->string('datum')->nullable();

@@ -18,9 +18,6 @@ class ObradaFormuleService
 
     public function kalkulacijaFormule($vrstaPlacanjaSlog, $vrstaPlacanjaSifData, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, $praviloSkip)
     {
-        if($praviloSkip){
-            return;
-        }
 
         $skipFormule = ['050','051','052','053','054','055'];
 
@@ -36,6 +33,7 @@ class ObradaFormuleService
         $DATA = $vrstaPlacanjaSlog['sifra_vrste_placanja'];
         $DATANAME = $vrstaPlacanjaSlog['naziv_vrste_placanja'];
 
+        $radnik['ZAR'] = $radnik['ZAR'] ?? [];
         $data = [
             'KOE' => $monthData,
             'KOP' => $vrstaPlacanjaSlog,
@@ -43,7 +41,7 @@ class ObradaFormuleService
             'NTO' => $minimalneBrutoOsnoviceSifarnik, // MINIMALNE BRUTO OSNOVICE // IZVUCI PRE
             'POM' => $vrstaPlacanjaSlog,
             'POR' => $poresDoprinosiSifarnik,
-            'ZAR' => $radnik['ZAR'] ?? [],
+            'ZAR' => $praviloSkip == 'K' ? $radnik['ZAR2'] : $radnik['ZAR'],
         ];
 
         $formulaValues = $this->replaceVariables($formula, $data);
@@ -74,10 +72,13 @@ class ObradaFormuleService
 //            504 - alimentacija fiksna
 //503 - alimentacija %
 //018 - neopravdani izostan
+
+
 //            $DATA !=='001' && $DATA!=='010' && $DATA!=='009' && $DATA!=='012' && $DATA!=='013' && $DATA!=='458'  && $DATA!=='087' && $DATA!=='065'  && $DATA!=='098' && $DATA!=='002'  && $DATA!=='019'   && $DATA!=='090'   && $DATA!=='017'  && $DATA!=='007'  && $DATA!=='070'  && $DATA!=='008' && $DATA!=='004'  && $DATA!=='504'  && $DATA!=='503'   && $DATA!=='018'
 //            $this->cacheCounter++;
             $result = $this->evaluateFormula($this->replaceZero($formulaValues));
             $test = '';
+            $test=2;
         } catch (\Throwable $exception) {
 //            report("Proveri Formulu:".$vrstaPlacanjaSlog['sifra_vrste_placanja']);
             report($exception);
@@ -107,21 +108,21 @@ class ObradaFormuleService
             'MDR->PREB' => "PREB_prebacaj",
             'MDR->PRIZ' => "PRIZ_ukupan_bruto_iznos",
             'MDR->PRPB' => "test",
-            'NTO->NT2' => "test", // MINIMALNE BRUTO OSNOVICE
-            'NTO->STOPA1' => "test",
+            'NTO->NT2' => "NT2_minimalna_bruto_zarada", // MINIMALNE BRUTO OSNOVICE
+            'NTO->STOPA1' => "STOPA1_koeficijent_za_obracun_neto_na_bruto",
             'POM->DOTA' => "test", // Pomocna
             'POM->IZNO' => "test",
             'POM->RAZL' => "test",
             'POR->IZN1' => "IZN1_iznos_poreskog_oslobodjenja",
             'POR->P1' => "P1_porez_na_licna_primanja",
-            'ZAR->EFSATI' => "EFSATI", //
-            'ZAR->IPLAC' => "test", // vrati nulu, posle
-            'ZAR->IZNETO' => "test", // Sve sto je G
+            'ZAR->EFSATI' => "EFSATI",
+            'ZAR->IPLAC' => "IPLAC",
+            'ZAR->IZNETO' => "IZNETO",
             'ZAR->PREKOV' => "PREK",
             'ZAR->SSNNE' => "SSNNE",
             'ZAR->SSZNE' => "SSZNE",
             'ZAR->TOPLI' => "TOPSATI",
-            'ZAR->UKNETO' => "test",  // Sve sto je G
+            'ZAR->UKNETO' => "UKNETO",
             'koe->br_s' => "mesecni_fond_sati",
             'por->izn1' => "IZN1_iznos_poreskog_oslobodjenja",
             'por->p1' => "P1_porez_na_licna_primanja",
@@ -191,7 +192,9 @@ class ObradaFormuleService
 
         $table = strstr($variable, '->', true);
 
-        if (strtoupper($table) == 'ZAR' && (empty($data['ZAR']) || $variable == 'ZAR->IPLAC' || $variable == 'ZAR->UKNETO')) {
+//        if (strtoupper($table) == 'ZAR' && (empty($data['ZAR']) || $variable == 'ZAR->IPLAC' || $variable == 'ZAR->UKNETO')) {
+        if (strtoupper($table) == 'ZAR' && (empty($data['ZAR']))) {
+
             // ZAR->IPLAC prva iteracija
             return 0;
         }
