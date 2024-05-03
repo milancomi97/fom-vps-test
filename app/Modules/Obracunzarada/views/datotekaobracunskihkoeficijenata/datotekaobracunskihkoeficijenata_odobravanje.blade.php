@@ -2,7 +2,10 @@
 @extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
+    <link rel="stylesheet" href="{{asset('admin_assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
+
     <style>
+
         .ime_prezime {
             display: block;
             width: 250px;
@@ -402,4 +405,7 @@
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_odobravanje/ajax_logic.js') }}"></script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_odobravanje/modal_logic.js') }}"></script>
+
+    <script src="{{asset('admin_assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+
 @endsection

@@ -41,7 +41,6 @@ $(document).ready(function () {
             var record_id = event.target.dataset.recordId
             var _token = $('input[name="_token"]').val();
 
-            debugger;
             $.ajax({
                 url: storeRoute,
                 type: 'POST',
@@ -52,10 +51,18 @@ $(document).ready(function () {
                     record_id: record_id
                 },
                 success: function (response) {
-                    debugger;
+                    var Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top',
+                        showConfirmButton: false,
+                        customClass: 'swal-wide',
+                        timer: 5000
+                    });
 
-
-                    $("#statusMessage").text(response.message).addClass("text-success");
+                    Toast.fire({
+                        icon: 'success',
+                        title: response.message
+                    })
                     $(".loading").hide();
                     $('input').prop('disabled', false);
                 },
