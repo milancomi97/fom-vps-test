@@ -197,6 +197,12 @@
             -o-animation: uil-ring-anim 1.4s linear infinite;
             animation: uil-ring-anim 1.4s linear infinite;
         }
+
+        .btn-link{
+            font-size: 50px;
+            padding: 0;
+            margin: 0;
+        }
     </style>
 @endsection
 

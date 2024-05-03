@@ -25,6 +25,14 @@ return new class extends Migration
             $table->boolean('POCE_pocetak_zaduzenja')->nullable();
             $table->float('RATP_prethodna',15,4)->nullable();
             $table->float('STSALD_Prethodni_saldo',15,4)->nullable(); // obracunava se
+
+
+            $table->unsignedBigInteger('obracunski_koef_id')->nullable();
+            $table->unsignedBigInteger('user_mdr_id')->nullable();
+            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
+            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
+
+
             $table->date('DATUM_zaduzenja')->nullable();
 
 

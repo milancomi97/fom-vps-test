@@ -14,6 +14,7 @@ use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepositoryInterface;
@@ -48,7 +49,9 @@ class ObradaPripremaController extends Controller
         private readonly ObradaObracunavanjeService                          $obradaObracunavanjeService,
         private readonly ObradaFormuleService                                $obradaFormuleService,
         private readonly MinimalnebrutoosnoviceRepositoryInterface           $minimalnebrutoosnoviceInterface,
-        private readonly ObradaZaraPoRadnikuRepositoryInterface $obradaZaraPoRadnikuInterface
+        private readonly ObradaZaraPoRadnikuRepositoryInterface $obradaZaraPoRadnikuInterface,
+        private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface
+
     )
     {
     }
@@ -64,6 +67,7 @@ class ObradaPripremaController extends Controller
         $id = $request->month_id;
 
         $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $id)->delete();
+        $this->obradaKreditiInterface->where('obracunski_koef_id', $id)->delete();
         $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $id)->delete();
 
 //        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->select('vrste_placanja','user_id','maticni_broj','obracunski_koef_id')->get();
@@ -75,9 +79,6 @@ class ObradaPripremaController extends Controller
 
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
         $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($monthData->datum);
-
-        // todo podaci za formule end
-
         $poenteriPrepared = $this->obradaPripremaService->pripremiUnosPoentera($poenteriData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData,$minimalneBrutoOsnoviceSifarnik);
 //
 
@@ -112,14 +113,27 @@ class ObradaPripremaController extends Controller
 //            $sveVrstePlacanjaDataFormule = $this->obradaFormuleService->obradiFormule($sveVrstePlacanjaData); // G i EVAL odradi
 
 
+        $kreditiData = $this->dpsmKreditiInterface->getAll();
+        $kreditiPrepared =  $this->obradaPripremaService->pripremaKredita($kreditiData,$id,$vrstePlacanjaSifarnik);
+        $this->obradaKreditiInterface->createMany($kreditiPrepared);
 
-        $sveVrstePlacanjaDataSummarize = $this->obradaPripremaService->pripremaZaraPodatkePoRadnikuBezMinulogRada($sveVrstePlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
+
+
+        try {
+            $sveVrstePlacanjaDataSummarize = $this->obradaPripremaService->pripremaZaraPodatkePoRadnikuBezMinulogRada($sveVrstePlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
+        } catch (\Throwable $exception) {
+            report($exception);
+            $newMessage = "Greska u obradi:";
+            return response()->json(['status'=>false,'message'=>'Greska u obradi: '.$exception->getMessage()]);
+
+//            $updatedException = new \Exception($newMessage, $exception->getCode(), $exception);
+//            // TODO FLAG OBRADA U TOKU
+//            throw $updatedException;
+        }
+
 
         // Logika za izracunavanje olaksice
 
-
-//             $kreditiData = $this->dpsmKreditiInterface->getAll();
-//             $kreditiPrepared =  $this->obradaPripremaService->pripremiKredita($kreditiData);
 
 
         //  LOGIKA G SLOV da se napravi promenljiva koja ce da sumira po radniku vrednosti
@@ -136,7 +150,7 @@ class ObradaPripremaController extends Controller
         // K - Nema minuli rad,
 
 
-        return response()->json(['id'=>$id]);
+        return response()->json(['id'=>$id,'status'=>true]);
 //        return redirect()->route('datotekaobracunskihkoeficijenata.show_all_plate', ['obracunski_koef_id' => $id]);
 ////            return view('obracunzarada::obracunzarada.obracunzarada_index');
 

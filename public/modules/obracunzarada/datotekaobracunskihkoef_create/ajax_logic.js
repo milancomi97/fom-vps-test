@@ -211,10 +211,16 @@ $(document).ready(function () {
             },
             success: function (response) {
                 debugger;
+                if(response.status){
+                    window.location.href = showPlateRoute + response.id;
+
+                }else{
+                    alert(response.message);
+                }
                 // ADD SHOW ALL PLATE ROUTE;
-                window.location.href = showPlateRoute + response.id;
             },
             error: function (response) {
+                debugger;
             }
         });
 

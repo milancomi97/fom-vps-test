@@ -9,6 +9,7 @@ use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataReposit
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
@@ -32,7 +33,8 @@ class ObracunZaradaController extends Controller
         private readonly ObradaZaraPoRadnikuRepositoryInterface              $obradaZaraPoRadnikuInterface,
         private readonly MesecnatabelapoentazaRepositoryInterface            $mesecnatabelapoentazaInterface,
         private readonly PripremiPermisijePoenteriOdobravanja $pripremiPermisijePoenteriOdobravanja,
-        private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface
+        private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
+        private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface
     )
     {
     }
@@ -185,6 +187,8 @@ class ObracunZaradaController extends Controller
 
         $zarData = $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get()->first();
 
+        $kreditiData = $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get();
+
         return view('obracunzarada::obracunzarada.obracunzarada_show_plate',
             [
                 'radnikData' => $radnikData,
@@ -194,6 +198,7 @@ class ObracunZaradaController extends Controller
                 'mdrPreparedData' => $mdrPreparedData,
                 'dkopData' => $dkopData,
                 'zarData' => $zarData,
+                'kreditiData'=>$kreditiData,
                 'datum' => $formattedDate,
                 'podaciMesec' => $podaciMesec,
 //                'zaraData'=>$zaraData

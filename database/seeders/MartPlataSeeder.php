@@ -156,7 +156,7 @@ class MartPlataSeeder extends Seeder
             $collectRadnikKrediti = collect($kreditiReaderdata)->groupBy('MBRD');
 
             foreach ($collectRadnikKrediti as $krediti){
-                $radnikMdrData = $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj', $fiksnaPlacanjaData[0]['MBRD'])->first()->toArray();
+                $radnikMdrData = $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj', $krediti[0]['MBRD'])->first()->toArray();
 //                $idRadnikaDPSM = $this->mesecnatabelapoentazaInterface->where('maticni_broj', $fiksnaPlacanjaData[0]['MBRD'])->first();
 
                 foreach ($krediti as $kredit){
@@ -172,7 +172,7 @@ class MartPlataSeeder extends Seeder
                         'RATA_rata'=>(float)$kredit['RATA'],
                         'RATP_prethodna'=>(float)$kredit['RATP'],
                         'POCE_pocetak_zaduzenja'=>$kredit['POCE']!=='N',
-                        'user_mdr_id'=>$radnikMdrData['id']
+                        'user_mdr_id'=>$radnikMdrData['id'],
                     ];
                     $this->dpsmKreditiInterface->create($data);
                 }

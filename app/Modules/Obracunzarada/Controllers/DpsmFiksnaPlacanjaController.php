@@ -230,6 +230,7 @@ class DpsmFiksnaPlacanjaController extends Controller
     public function deleteFiksnap(Request $request)
     {
         $recordId = $request->record_id;
+        // TODO UPDATE status polje INACTIVE, i da ne vide (da misle da su obrisali)
         $this->dpsmFiksnaPlacanjaInteface->delete($recordId);
 
         return response()->json([

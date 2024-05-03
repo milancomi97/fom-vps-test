@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
 
+
     $(document).on('click', 'body .change-status', function (event) {
 
         var statusType = event.target.dataset.statusType;
@@ -51,6 +52,9 @@ $(document).ready(function () {
                     record_id: record_id
                 },
                 success: function (response) {
+                    debugger;
+
+
                     $("#statusMessage").text(response.message).addClass("text-success");
                     $(".loading").hide();
                     $('input').prop('disabled', false);

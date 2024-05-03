@@ -223,10 +223,10 @@ class ObradaFormuleService
         }
 
         // Check if the input string contains '*0'
-        if (strpos($inputString, '*0') !== false) {
-            // If it does, replace '*0' with '*1'
-            $inputString = str_replace('*0', '*1', $inputString);
-        }
+//        if (strpos($inputString, '*0') !== false) {
+//            // If it does, replace '*0' with '*1'
+//            $inputString = str_replace('*0', '*1', $inputString);
+//        }
 
         return $inputString;
     }

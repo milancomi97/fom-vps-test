@@ -22,6 +22,8 @@ class ObradaKrediti extends Model
         'POCE_pocetak_zaduzenja',
         'RATP_prethodna',
         'STSALD_Prethodni_saldo',
-        'DATUM_zaduzenja'
+        'DATUM_zaduzenja',
+        'obracunski_koef_id',
+        'user_mdr_id'
     ];
 }

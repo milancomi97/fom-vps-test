@@ -396,7 +396,7 @@
                 $('input').prop('disabled', false);
             }, 3000);
 
-            $('[data-toggle="tooltip"]').tooltip()
+            $('[data-toggle="tooltip"]').tooltip({'trigger':'focus'})
 
         });
     </script>

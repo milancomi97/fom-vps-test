@@ -144,6 +144,7 @@ class DpsmPoentazaslogController extends Controller
                             'iznos' => $vrstaPlacanja['iznos'] ?? 0,
                             'procenat' => $vrstaPlacanja['procenat'] ?? 0,
                             'user_mdr_id' => $mesecnaTabelaPoentaza->user_mdr_id,
+                            'maticni_broj' => $mesecnaTabelaPoentaza->maticni_broj,
                             'obracunski_koef_id' => $mesecnaTabelaPoentaza->obracunski_koef_id
                         ];
                         $this->dpsmPoentazaslogInterface->create($data);

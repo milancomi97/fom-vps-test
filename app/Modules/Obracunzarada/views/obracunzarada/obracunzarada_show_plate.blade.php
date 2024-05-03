@@ -369,10 +369,73 @@
                 </h2>
             </div>
         </div>
-
-
     </div>
-    </div>
+
+        <h1 class="text-center font-weight-bold">Kontrola tabele</h1>
+
+        <div class="container-fluid mt-5" style="margin-left:150px">
+            <h1 class="text-center font-weight-bold">DKOP</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    @foreach ($dkopData->first()->toArray() as $key => $value)
+                        <th>{{ ucfirst($key) }}</th>
+                    @endforeach
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($dkopData as $dkop)
+                    <tr>
+                        @foreach ($dkop->toArray() as $value)
+                            <td>{{ $value }}</td>
+                        @endforeach
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container-fluid mt-5" style="margin-left:150px">
+            <h1 class="text-center font-weight-bold">Krediti</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    @foreach ($kreditiData->first()->toArray() as $key => $value)
+                        <th>{{ ucfirst($key) }}</th>
+                    @endforeach
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($kreditiData as $dkop)
+                    <tr>
+                        @foreach ($dkop->toArray() as $value)
+                            <td>{{ $value }}</td>
+                        @endforeach
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="container-fluid mt-5" style="margin-left:150px">
+            <h1 class="text-center font-weight-bold">ZARA</h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    @foreach ($zarData->toArray() as $key => $value)
+                        <th>{{ ucfirst($key) }}</th>
+                    @endforeach
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        @foreach ($zarData->toArray() as $value)
+                            <td>{{ $value }}</td>
+                        @endforeach
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
 @endsection
 
 

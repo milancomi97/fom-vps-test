@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('pogonsko', 2)->nullable();
             $table->string('direktna_raspodela', 2)->nullable();
             $table->string('indirektna_raspodela', 2)->nullable();
-            $table->decimal('procenat_preracuna_za_troskove_reklame', 6, 2)->nullable();
+            $table->float('procenat_preracuna_za_troskove_reklame', 6, 2)->nullable();
             $table->string('klasa_9', 2)->nullable();
             $table->string('bilans_stanja_aop', 4)->nullable();
             $table->string('bilans_stanja_formula', 50)->nullable();

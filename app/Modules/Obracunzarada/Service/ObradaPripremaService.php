@@ -4,6 +4,7 @@ namespace App\Modules\Obracunzarada\Service;
 
 use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 
@@ -198,6 +199,37 @@ class ObradaPripremaService
             }
         }
         return $sveVrstePlacanjaVariabilna;
+    }
+
+    public function pripremaKredita($krediti,$id,$vrstePlacanjaSifarnik){
+
+        $allData=[];
+
+        foreach($krediti as $kredit){
+
+
+            $data=[
+                'maticni_broj'=>$kredit->maticni_broj,
+                'sifra_vrste_placanja'=>'093',
+                'naziv_vrste_placanja'=>'Krediti',
+                'SIFK_sifra_kreditora'=>$kredit->SIFK_sifra_kreditora,
+                'PART_partija_kredita'=>$kredit->PART_partija_poziv_na_broj,
+                'KESC_prihod_rashod_tip'=>$vrstePlacanjaSifarnik['093']['KESC_prihod_rashod_tip'],
+                'GLAVN_glavnica'=>$kredit->GLAVN_glavnica,
+                'SALD_saldo'=>$kredit->SALD_saldo,
+                'RATA_rata'=>$kredit->RATA_rata,
+                'POCE_pocetak_zaduzenja'=>$kredit->POCE_pocetak_zaduzenja,
+                'RATP_prethodna'=>$kredit->RATP_prethodna,
+                'STSALD_Prethodni_saldo'=>null,
+                'DATUM_zaduzenja'=>$kredit->DATUM_zaduzenja,
+                'obracunski_koef_id'=>$id,
+                'user_mdr_id'=>$kredit->user_mdr_id
+            ];
+
+            $allData[]=$data;
+        }
+
+        return $allData;
     }
 
     public function pripremiMinuliRad($data, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik)
@@ -777,7 +809,9 @@ class ObradaPripremaService
             'solid' => $solid,
             'user_dpsm_id' => $radnik[0]->user_dpsm_id,
             'obracunski_koef_id' => $monthData->id,
-            'user_mdr_id' => $radnik[0]->user_mdr_id
+            'user_mdr_id' => $radnik[0]->user_mdr_id,
+            'PERC'=>$zar['PERC'],
+            'PLACENO'=>0,
         ];
         $izbr1 = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
         $izbr2 = 0;
@@ -813,14 +847,17 @@ class ObradaPripremaService
 
             }
         }
-        if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] >= $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada || ($minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati < $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
+//        if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] >= $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada || ($minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati < $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
+//
+//            $izbr6 = $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
+//            $izbr2 = 0;
+//            $izbr50 = $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada;
+//
+//        }
 
-            $izbr6 = $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
-            $izbr2 = 0;
-            $izbr50 = $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada;
-
-        }
-
+//$izbr6 -
+//$izbr2 -
+//$izbr50 -
 
 
         // ZDRAVSTVENO I NEZAPOSLENOST POCETAK
@@ -841,12 +878,12 @@ class ObradaPripremaService
 
         }
 
-        if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] >= $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada || ($minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati < $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
-
-            $izbr51 = $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
-            $izbr52 = 0;
-            $izbr53 = $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada;
-        }
+//        if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] >= $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada || ($minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati < $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
+//
+//            $izbr51 = $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
+//            $izbr52 = 0;
+//            $izbr53 = $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada;
+//        }
 
 
 //        DO CASE
@@ -890,6 +927,7 @@ class ObradaPripremaService
 
         if($radnikData['SSNNE_suma_sati_naknade'] == $monthData->mesecni_fond_sati){
 
+            // TODO
             $radnikData['SIN']=$izbr8;
         }else{
             $radnikData['SIN']=0;
