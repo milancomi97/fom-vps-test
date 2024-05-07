@@ -414,6 +414,7 @@
             </table>
         </div>
 
+    @if(count($kreditiData))
         <div class="container-fluid mt-5" style="margin-left:150px">
             <h1 class="text-center font-weight-bold">Krediti</h1>
             <table class="table">
@@ -435,7 +436,7 @@
                 </tbody>
             </table>
         </div>
-
+    @endif
 @endsection
 
 
