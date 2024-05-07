@@ -1090,7 +1090,7 @@ class ObradaPripremaService
 
 
         $nIzn = 0;
-        $zar['PLACENO'] = 0; // TODO PROVERITI
+        $zar['PLACENO'] = 0;
         if($zar['IZBRPR']==0){
             $nIzn=0;
         }
@@ -1101,7 +1101,7 @@ class ObradaPripremaService
                 $nIzn = ($zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid'] - ($poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja / $monthData->mesecni_fond_sati * ($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']))) * $minimalneBrutoOsnoviceSifarnik->P1_stopa_poreza;
             }
 
-            if (($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']) < $monthData->mesecni_fond_sati) {
+            if (($zar['UKSA_ukupni_sati_za_isplatu'] - $zar['PREK_prekovremeni']) >= $monthData->mesecni_fond_sati) {
 
                 $nIzn = ($zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid'] + $zar['PLACENO'] - $poresDoprinosiSifarnik->IZN1_iznos_poreskog_oslobodjenja) * $minimalneBrutoOsnoviceSifarnik->P1_stopa_poreza;
             }
@@ -1118,7 +1118,7 @@ class ObradaPripremaService
             $newPlacanje['iznos'] = $nIzn;
 //            replace KOP->IZNO   with nIzn , ZAR->SIPPR with nIzn, ZAR->SIOB with SIOB
 
-            $zar['SIPPR'] = $nIzn; // TODO UPDATE THISS !!
+            $zar['SIPPR'] = $nIzn;
             $newPlacanje['RBRM_radno_mesto'] = $mdr['RBRM_radno_mesto'];
             $newPlacanje['KESC_prihod_rashod_tip'] = 'R';
             $newPlacanje['P_R_oblik_rada'] = $mdr['P_R_oblik_rada'];
@@ -1409,6 +1409,7 @@ class ObradaPripremaService
             'MMST_meseci_staza'=>$mdr['MMST_meseci_staza'],
             'RBRM_redni_broj_radnog_mesta'=>$mdr['RBRM_radno_mesto'],
             'SID_ukupni_iznos_poreza_i_doprinosa' => $zar['SIP_D'],
+//            '' =>$zar['SIPPR'] +
 
             //            'DBDATA' => $zar['UKUPNO'],
 //            'DBDATA' => $zar['IZBRBO1'],

@@ -173,7 +173,7 @@
                 <h1 class="text-left header-custom">1. BRUTO ZARADA :</h1>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-top border-top-custom border-bottom-custom">
-                <h2 class="text-right header-custom">184,00</h2>
+                <h2 class="text-center header-custom">{{$zarData->UKSA_ukupni_sati_za_isplatu}}</h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-top border-top-custom border-bottom-custom">
                 <h2 class="text-right header-custom">{{$zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade}}</h2>
@@ -207,7 +207,7 @@
                 <h1 class="text-left header-custom">2. NETO ZARADA (1 - 5) :</h1>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">184,00</h2>
+                <h2 class="text-right header-custom"></h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
                 <h2 class="text-right header-custom">{{$zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade - $zarData->SIP_ukupni_iznos_poreza - $zarData->SID_ukupni_iznos_doprinosa}}</h2>
@@ -372,6 +372,25 @@
     </div>
 
         <h1 class="text-center font-weight-bold">Kontrola tabele</h1>
+    <div class="container-fluid mt-5" style="margin-left:150px">
+        <h1 class="text-center font-weight-bold">ZARA</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                @foreach ($zarData->toArray() as $key => $value)
+                    <th>{{ ucfirst($key) }}</th>
+                @endforeach
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                @foreach ($zarData->toArray() as $value)
+                    <td>{{ $value }}</td>
+                @endforeach
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
         <div class="container-fluid mt-5" style="margin-left:150px">
             <h1 class="text-center font-weight-bold">DKOP</h1>
@@ -413,25 +432,6 @@
                         @endforeach
                     </tr>
                 @endforeach
-                </tbody>
-            </table>
-        </div>
-        <div class="container-fluid mt-5" style="margin-left:150px">
-            <h1 class="text-center font-weight-bold">ZARA</h1>
-            <table class="table">
-                <thead>
-                <tr>
-                    @foreach ($zarData->toArray() as $key => $value)
-                        <th>{{ ucfirst($key) }}</th>
-                    @endforeach
-                </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        @foreach ($zarData->toArray() as $value)
-                            <td>{{ $value }}</td>
-                        @endforeach
-                    </tr>
                 </tbody>
             </table>
         </div>
