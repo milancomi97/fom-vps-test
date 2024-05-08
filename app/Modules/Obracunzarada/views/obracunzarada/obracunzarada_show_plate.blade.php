@@ -301,7 +301,7 @@
                 <h2 class="text-right header-custom">0,00</h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom SIP_D">{{$zarData->SIP_ukupni_iznos_poreza}} </h2>
+                <h2 class="text-right header-custom SIP_D">{{$zarData->SIP_ukupni_iznos_poreza + $zarData->SID_ukupni_iznos_doprinosa}} </h2>
             </div>
         </div>
 
