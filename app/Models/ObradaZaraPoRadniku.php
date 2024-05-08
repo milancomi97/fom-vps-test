@@ -32,7 +32,7 @@ class ObradaZaraPoRadniku extends Model
         'TOPLI_obrok_iznos',
         'TOPLI_obrok_sati',
         'PRIZ_prosecni_iznos_godina',
-        'PRIZ_prosecni_sati_godina',
+        'PRCAS_prosecni_sati_godina',
         'KOREKC_dotacija_za_minimalnu_bruno_osnovicu',
         'REGRES_iznos_regresa',
         'POROSL_poresko_oslobodjenje',

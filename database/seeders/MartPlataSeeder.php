@@ -80,8 +80,8 @@ class MartPlataSeeder extends Seeder
 //'mesec'=>$data['DATA'],
                     'godina' => $data['GOD'],
                     'status' => $data['OBP1'] == 'TRUE',
-                    'period_isplate_od' => Carbon::createFromFormat('m/d/Y', $data['DATUM1']),
-                    'period_isplate_do' => Carbon::createFromFormat('m/d/Y', $data['DATUM2']),
+                    'period_isplate_od' => Carbon::createFromFormat('d/m/Y', $data['DATUM1']),
+                    'period_isplate_do' => Carbon::createFromFormat('d/m/Y', $data['DATUM2']),
                     //
                     // TODO atest i statusi
                 ]);

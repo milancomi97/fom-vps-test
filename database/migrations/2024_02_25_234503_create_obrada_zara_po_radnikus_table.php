@@ -114,7 +114,7 @@ return new class extends Migration
 
 
             $table->float('PRIZ_prosecni_iznos_godina',15,4)->nullable();
-            $table->float('PRIZ_prosecni_sati_godina',15,4)->nullable();
+            $table->float('PRCAS_prosecni_sati_godina',15,4)->nullable();
 
 
             $table->float('KOREKC_dotacija_za_minimalnu_bruno_osnovicu',15,4)->nullable();
@@ -140,6 +140,8 @@ return new class extends Migration
 
 
             $table->float('ZDRP_zdravstveno_osiguranje_na_teret_poslodavca',15,4)->nullable();
+            $table->float('ONEZP_osiguranje_od_nezaposlenosti_teret_poslodavca',15,4)->nullable();
+
             $table->string('ZRAC_tekuci_racun')->nullable();
 
             $table->float('POROSL1_poresko_oslobodjenje_za_prvu_isplatu',15,4)->nullable();
