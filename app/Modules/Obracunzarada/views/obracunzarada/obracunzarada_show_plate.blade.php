@@ -394,7 +394,7 @@
 
         <div class="container-fluid mt-5" style="margin-left:150px">
             <h1 class="text-center font-weight-bold">DKOP</h1>
-            <table class="table">
+            <table class="table-striped table-bordered">
                 <thead>
                 <tr>
                     @foreach ($dkopData->first()->toArray() as $key => $value)
@@ -406,7 +406,7 @@
                 @foreach ($dkopData as $dkop)
                     <tr>
                         @foreach ($dkop->toArray() as $value)
-                            <td>{{ $value }}</td>
+                            <td class="text-center">{{ $value }}</td>
                         @endforeach
                     </tr>
                 @endforeach
@@ -437,6 +437,30 @@
             </table>
         </div>
     @endif
+
+    <div class="container-fluid mt-5" style="margin-left:150px">
+        <h1 class="text-center font-weight-bold">SVE FORMULE</h1>
+        <table class="table-dark table-bordered">
+            <thead>
+            <tr>
+                @foreach (array_values($vrstePlacanjaData)[0] as $key => $value)
+                    <th>{{ ucfirst($key) }}</th>
+                @endforeach
+            </tr>
+            </thead>
+            <tbody>
+            @foreach ($vrstePlacanjaData as $vrstaPlacanja)
+                <tr>
+                    @foreach ($vrstaPlacanja as $value)
+                        <td  class="text-center" >{{ $value }}</td>
+                    @endforeach
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+
+
 @endsection
 
 
