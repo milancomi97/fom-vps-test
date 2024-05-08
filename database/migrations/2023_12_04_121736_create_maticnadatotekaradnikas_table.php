@@ -34,7 +34,7 @@ return new class extends Migration
             $table->float('KOEF1_prethodna_osnovna_zarada',15,4)->nullable(); // Novo dodato
             $table->string('LBG_jmbg')->nullable();
             $table->string('POL_pol')->nullable();
-            $table->string('PRCAS_ukupni_sati_za_ukupan_bruto_iznost')->nullable();
+            $table->float('PRCAS_ukupni_sati_za_ukupan_bruto_iznost',15,4)->nullable();
             $table->float('PRIZ_ukupan_bruto_iznos',15, 4)->nullable();
             $table->string('BROJ_broj_meseci_za_obracun')->nullable(); // broj meseci znacajan za obracun proseka
             $table->string('DANI_kalendarski_dani')->nullable(); // broj meseci znacajan za obracun proseka

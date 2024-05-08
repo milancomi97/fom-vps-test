@@ -98,13 +98,20 @@
 
 
             {{--            </div>--}}
+            <div class="col-md-12 text-right">
+                <h3>{{$datumStampe}}</h3>
+            </div>
 
-            <div class="col-md-12 text-center mb-5 mt-3">
+            <div class="col-md-12 text-center mb-5">
+
                 <div class="section">
+
                     <span class="strong">{{$podaciFirme['skraceni_naziv_firme']}}</span><br>
                     {{$podaciFirme['adresa_za_prijem_poste']}}<br>
                     PIB: {{$podaciFirme['pib']}}<br>
                     Banke: {{$podaciFirme['racuni_u_bankama']}}<br>
+                    Maticni broj: {{$podaciFirme['maticni_broj']}}
+
                 </div>
 
                 <div class="section header">
