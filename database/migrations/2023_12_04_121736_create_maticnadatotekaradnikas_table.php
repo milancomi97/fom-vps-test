@@ -58,6 +58,7 @@ return new class extends Migration
             $table->string('KFAK_korektivni_faktor')->nullable(); // IZNETO,N,12,2
             $table->string('opstina_id')->nullable();
             $table->string('adresa_ulica_broj')->nullable();
+            $table->string('adresa_mesto')->nullable();
 
             $table->timestamps();
             $table->unsignedBigInteger('user_id')->nullable();

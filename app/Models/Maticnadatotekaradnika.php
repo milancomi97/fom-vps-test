@@ -31,6 +31,7 @@ class Maticnadatotekaradnika extends Model
         'prosecni_sati',
         'prosecna_zarada',
         'adresa_ulica_broj',
+        'adresa_mesto',
         'opstina_id',
         'user_id',
         'MBRD_maticni_broj',

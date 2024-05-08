@@ -125,7 +125,8 @@
                     ZA MESEC: {{$datum}}<br>
                     TROSKOVNI CENTAR: {{$troskovnoMesto['sifra_troskovnog_mesta']}} {{ $troskovnoMesto['naziv_troskovnog_mesta']}}<br>
                    <b> {{$mdrData['MBRD_maticni_broj']}}</b> - {{$userData['prezime']}}  {{$userData['srednje_ime']}}. {{$userData['ime']}}<br>
-                    {{--                ({{$mdrData['adresa_ulica_broj']}}) ({{$mdrData['adresa_grad']}})<br>--}}
+                    {{$mdrData['adresa_mesto']}} <br>
+                    {{$mdrData['adresa_ulica_broj']}} <br>
                     {{$mdrPreparedData['RBIM_isplatno_mesto_id']}} tekuci racun: {{$mdrData['ZRAC_tekuci_racun']}}<br>
                     Datum dospelosti: {{$podaciMesec['period_isplate_do']}}<br>
                 </div>
@@ -381,7 +382,9 @@
         <h1 class="text-center font-weight-bold">Kontrola tabele</h1>
     <div class="container-fluid mt-5" style="margin-left:150px">
         <h1 class="text-center font-weight-bold">ZARA</h1>
-        <table class="table">
+
+        <div style="width: 90% !important;">
+        <table class="table table-responsive">
             <thead>
             <tr>
                 @foreach ($zarData->toArray() as $key => $value)
@@ -397,11 +400,14 @@
             </tr>
             </tbody>
         </table>
+        </div>
     </div>
 
         <div class="container-fluid mt-5" style="margin-left:150px">
             <h1 class="text-center font-weight-bold">DKOP</h1>
-            <table class="table-striped table-bordered">
+            <div style="width: 90% !important;">
+
+            <table class="table-striped table-bordered table-responsive">
                 <thead>
                 <tr>
                     @foreach ($dkopData->first()->toArray() as $key => $value)
@@ -420,11 +426,13 @@
                 </tbody>
             </table>
         </div>
+        </div>
 
     @if(count($kreditiData))
         <div class="container-fluid mt-5" style="margin-left:150px">
             <h1 class="text-center font-weight-bold">Krediti</h1>
-            <table class="table">
+            <div style="width: 90% !important;">
+            <table class="table  table-responsive">
                 <thead>
                 <tr>
                     @foreach ($kreditiData->first()->toArray() as $key => $value)
@@ -442,12 +450,15 @@
                 @endforeach
                 </tbody>
             </table>
+            </div>
         </div>
     @endif
 
     <div class="container-fluid mt-5" style="margin-left:150px">
         <h1 class="text-center font-weight-bold">SVE FORMULE</h1>
-        <table class="table-dark table-bordered">
+        <div style="width: 90% !important;">
+
+        <table class="table-dark table-bordered  table-responsive">
             <thead>
             <tr>
                 @foreach (array_values($vrstePlacanjaData)[0] as $key => $value)
@@ -459,12 +470,13 @@
             @foreach ($vrstePlacanjaData as $vrstaPlacanja)
                 <tr>
                     @foreach ($vrstaPlacanja as $value)
-                        <td  class="text-center" >{{ $value }}</td>
+                        <td  class="text-center" style="white-space: nowrap;" >{{ $value }}</td>
                     @endforeach
                 </tr>
             @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 
 

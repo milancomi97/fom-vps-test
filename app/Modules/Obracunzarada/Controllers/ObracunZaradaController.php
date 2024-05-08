@@ -190,7 +190,7 @@ class ObracunZaradaController extends Controller
 
 
         $zarData = $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get()->first();
-        $datumStampe = Carbon::now()->format('d-m-Y');
+        $datumStampe = Carbon::now()->format('d.m.Y');
         $kreditiData = $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get();
         $userData= User::where('maticni_broj',$radnikMaticniId)->first();
         return view('obracunzarada::obracunzarada.obracunzarada_show_plate',
