@@ -3,6 +3,7 @@
 namespace App\Modules\Obracunzarada\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
@@ -14,6 +15,7 @@ use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
 use App\Modules\Obracunzarada\Service\PripremiPermisijePoenteriOdobravanja;
+use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\PodaciofirmiRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -34,7 +36,8 @@ class ObracunZaradaController extends Controller
         private readonly MesecnatabelapoentazaRepositoryInterface            $mesecnatabelapoentazaInterface,
         private readonly PripremiPermisijePoenteriOdobravanja $pripremiPermisijePoenteriOdobravanja,
         private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
-        private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface
+        private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface,
+        private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
     )
     {
     }
@@ -177,6 +180,7 @@ class ObracunZaradaController extends Controller
         $mdrDataCollection = collect($mdrData);
         $mdrPreparedData = $this->obradaObracunavanjeService->pripremaMdrPodatakaRadnik($mdrDataCollection);
 
+        $troskovnoMesto = $this->organizacionecelineInterface->getById($mdrDataCollection['troskovno_mesto_id']);
         $sifarnikVrstePlacanja = $this->vrsteplacanjaInterface->getAllKeySifra();
 
         $date = new \DateTime($podaciMesec->datum);
@@ -188,10 +192,11 @@ class ObracunZaradaController extends Controller
         $zarData = $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get()->first();
 
         $kreditiData = $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get();
-
+        $userData= User::where('maticni_broj',$radnikMaticniId)->first();
         return view('obracunzarada::obracunzarada.obracunzarada_show_plate',
             [
                 'radnikData' => $radnikData,
+                'userData'=>$userData,
                 'vrstePlacanjaData' => $sifarnikVrstePlacanja,
                 'mdrData' => $mdrData,
                 'podaciFirme' => $podaciFirme,
@@ -201,6 +206,7 @@ class ObracunZaradaController extends Controller
                 'kreditiData'=>$kreditiData,
                 'datum' => $formattedDate,
                 'podaciMesec' => $podaciMesec,
+                'troskovnoMesto'=> $troskovnoMesto,
 //                'zaraData'=>$zaraData
             ]);
     }

@@ -116,8 +116,8 @@
             <div class="col-md-6 pl-3">
                 <div class="section ">
                     ZA MESEC: {{$datum}}<br>
-                    TROSKOVNI CENTAR: {{$mdrData['troskovno_mesto_id']}}<br>
-                    {{$mdrData['MBRD_maticni_broj']}} {{$mdrData['PREZIME_prezime']}} {{$mdrData['IME_ime']}}<br>
+                    TROSKOVNI CENTAR: {{$troskovnoMesto['sifra_troskovnog_mesta']}} {{ $troskovnoMesto['naziv_troskovnog_mesta']}}<br>
+                   <b> {{$mdrData['MBRD_maticni_broj']}}</b> - {{$userData['prezime']}}  {{$userData['srednje_ime']}}. {{$userData['ime']}}<br>
                     {{--                ({{$mdrData['adresa_ulica_broj']}}) ({{$mdrData['adresa_grad']}})<br>--}}
                     {{$mdrPreparedData['RBIM_isplatno_mesto_id']}} tekuci racun: {{$mdrData['ZRAC_tekuci_racun']}}<br>
                     Datum dospelosti: {{$podaciMesec['period_isplate_do']}}<br>
