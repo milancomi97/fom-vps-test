@@ -165,7 +165,7 @@
                         <h2 class="text-left header-custom">{{$radnik['sifra_vrste_placanja']}} {{$radnik['naziv_vrste_placanja']}}</h2>
                     </div>
                     <div class="col-lg-2 p-2 ">
-                        <h2 class="text-center header-custom">{{$radnik['sati'] !== null ? $radnik['sati'] : 0}}</h2>
+                        <h2 class="text-center header-custom">{{($radnik['sati'] !== null  && $radnik['procenat'] == null) ?  $radnik['sati'] : null}} {{$radnik['procenat'] !== null ?  $radnik['procenat'] .'%' : null}}</h2>
                     </div>
                     <div class="col-lg-2 p-2 ">
                         <h2 class="text-right header-custom">{{ $radnik['iznos'] !== null  ? number_format($radnik['iznos'], 2, '.', ',') : 0}} </h2>
@@ -253,7 +253,7 @@
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">{{ number_format($zarData->NETO_neto_zarada, 2, '.', ',')}}</h2>
+                <h2 class="text-right header-custom">{{ number_format($zarData->NETO_neto_zarada -$zarData->SIOB_ukupni_iznos_obustava, 2, '.', ',')}}</h2>
             </div>
         </div>
 

@@ -16,7 +16,7 @@ class ObradaFormuleService
     {
     }
 
-    public function kalkulacijaFormule($vrstaPlacanjaSlog, $vrstaPlacanjaSifData, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, $praviloSkip)
+    public function kalkulacijaFormule($vrstaPlacanjaSlog, $vrstaPlacanjaSifData, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, $praviloSkip,$zarUpdated)
     {
 
         $skipFormule = ['050','051','052','053','054','055'];
@@ -33,7 +33,7 @@ class ObradaFormuleService
         $DATA = $vrstaPlacanjaSlog['sifra_vrste_placanja'];
         $DATANAME = $vrstaPlacanjaSlog['naziv_vrste_placanja'];
 
-        $radnik['ZAR'] = $radnik['ZAR'] ?? []; // TODO UPDATED ZARA
+        $radnik['ZAR'] = $zarUpdated ?? []; // TODO UPDATED ZARA
         $data = [
             'KOE' => $monthData,
             'KOP' => $vrstaPlacanjaSlog,
@@ -41,7 +41,7 @@ class ObradaFormuleService
             'NTO' => $minimalneBrutoOsnoviceSifarnik, // MINIMALNE BRUTO OSNOVICE // IZVUCI PRE
             'POM' => $vrstaPlacanjaSlog,
             'POR' => $poresDoprinosiSifarnik,
-            'ZAR' => $praviloSkip == 'K' ? $radnik['ZAR2'] : $radnik['ZAR'],
+            'ZAR' => $praviloSkip == 'K' ? $zarUpdated : $radnik['ZAR'],
         ];
 
         $formulaValues = $this->replaceVariables($formula, $data);
