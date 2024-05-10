@@ -26,6 +26,9 @@ return new class extends Migration
             $table->float('RATP_prethodna',15,4)->nullable();
             $table->float('STSALD_Prethodni_saldo',15,4)->nullable(); // obracunava se
 
+            $table->float('RBZA',15,4)->nullable(); // obracunava se
+            $table->float('RATB',15,4)->nullable(); // obracunava se
+            $table->float('iznos',15,4)->nullable();
 
             $table->unsignedBigInteger('obracunski_koef_id')->nullable();
             $table->unsignedBigInteger('user_mdr_id')->nullable();

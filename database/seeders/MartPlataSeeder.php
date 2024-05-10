@@ -82,8 +82,7 @@ class MartPlataSeeder extends Seeder
                     'status' => $data['OBP1'] == 'TRUE',
                     'period_isplate_od' => Carbon::createFromFormat('d/m/Y', $data['DATUM1']),
                     'period_isplate_do' => Carbon::createFromFormat('d/m/Y', $data['DATUM2']),
-                    //
-                    // TODO atest i statusi
+
                 ]);
 
                 $monthData = $this->datotekaobracunskihkoeficijenataInterface->where('kalendarski_broj_dana', $data['DANI'])->get()->first();
@@ -173,6 +172,9 @@ class MartPlataSeeder extends Seeder
                         'RATP_prethodna'=>(float)$kredit['RATP'],
                         'POCE_pocetak_zaduzenja'=>$kredit['POCE']!=='N',
                         'user_mdr_id'=>$radnikMdrData['id'],
+                        'RBZA'=>(float)$kredit['RBZA'],
+                        'RATP'=>(float)$kredit['RATP'],
+                        'RATB'=>(float)$kredit['RATB']
                     ];
                     $this->dpsmKreditiInterface->create($data);
                 }

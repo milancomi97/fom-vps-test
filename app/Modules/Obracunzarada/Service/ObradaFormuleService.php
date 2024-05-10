@@ -33,7 +33,7 @@ class ObradaFormuleService
         $DATA = $vrstaPlacanjaSlog['sifra_vrste_placanja'];
         $DATANAME = $vrstaPlacanjaSlog['naziv_vrste_placanja'];
 
-        $radnik['ZAR'] = $radnik['ZAR'] ?? [];
+        $radnik['ZAR'] = $radnik['ZAR'] ?? []; // TODO UPDATED ZARA
         $data = [
             'KOE' => $monthData,
             'KOP' => $vrstaPlacanjaSlog,

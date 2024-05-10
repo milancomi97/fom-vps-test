@@ -24,6 +24,9 @@ class ObradaKrediti extends Model
         'STSALD_Prethodni_saldo',
         'DATUM_zaduzenja',
         'obracunski_koef_id',
-        'user_mdr_id'
+        'user_mdr_id',
+        'RBZA',
+        'RATB',
+        'iznos'
     ];
 }

@@ -25,6 +25,11 @@ return new class extends Migration
             $table->float('SALD_saldo',15,4)->nullable();
             $table->float('RATA_rata',15,4)->nullable();
             $table->float('RATP_prethodna',15,4)->nullable();
+
+            $table->float('RBZA',15,4)->nullable();
+            $table->float('RATP',15,4)->nullable();
+            $table->float('RATB',15,4)->nullable();
+
             $table->boolean('POCE_pocetak_zaduzenja')->nullable();
 
             $table->date('DATUM_zaduzenja')->nullable();

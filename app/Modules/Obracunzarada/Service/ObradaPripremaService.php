@@ -15,6 +15,7 @@ class ObradaPripremaService
         private readonly ObradaZaraPoRadnikuRepositoryInterface        $obradaZaraPoRadnikuInterface,
         private readonly DpsmKreditiRepositoryInterface                $dpsmKreditiInterface,
         private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface $dkopSveVrstePlacanjaInterface,
+        private readonly \App\Modules\Obracunzarada\Repository\ObradaKreditiRepositoryInterface $obradaKreditiInterface
     )
     {
     }
@@ -224,7 +225,9 @@ class ObradaPripremaService
                 'STSALD_Prethodni_saldo' => null,
                 'DATUM_zaduzenja' => $kredit->DATUM_zaduzenja,
                 'obracunski_koef_id' => $id,
-                'user_mdr_id' => $kredit->user_mdr_id
+                'user_mdr_id' => $kredit->user_mdr_id,
+                'RBZA'=>$kredit->RBZA,
+                'RATB'=>$kredit->RATB
             ];
 
             $allData[] = $data;
@@ -280,8 +283,17 @@ class ObradaPripremaService
         // KORAK 1
         // PRIPREMA G
         $zaraRadnikData1 = [];
-        $groupRadnikData = $data->groupBy('user_mdr_id');
+//        $groupRadnikData = $data->sortByDesc('KESC_prihod_rashod_tip')->groupBy('user_mdr_id');
 
+        $groupRadnikData = $data->sortByDesc(function ($row, $key) {
+            if($row['KESC_prihod_rashod_tip'] == 'P'){
+                return 1;
+            }else{
+                return 0;
+            }
+        })->groupBy('user_mdr_id');
+
+        $test='test';
         foreach ($groupRadnikData as $radnik) {
             $gSumiranjePrekovremeniPREK = 0;
             $oSumiranjeZaradeSatiSSZNE = 0;
@@ -361,6 +373,8 @@ class ObradaPripremaService
                     }
 
 
+                    // TREBA DA RADI NA 198
+                    //
                     if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['OGRAN_ogranicenje_za_minimalac'] == '3') {
                         $s += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, []);
                         $ss += $vrstaPlacanjaSlog['sati'];
@@ -476,6 +490,8 @@ class ObradaPripremaService
 
 //                'OGRAN'=> $SumiranjeOgranicenja,
             ];
+
+            $testCheckZar = 'teest';
         }
 
 
@@ -525,6 +541,8 @@ class ObradaPripremaService
             $s = $zar['S'];
             $ss = $zar['SS'];
 
+$test='TEST';
+//            uasort($radnik->toArray(), 'customSort');
 
             foreach ($radnik as $key => $vrstaPlacanjaSlog) {
 
@@ -538,6 +556,7 @@ class ObradaPripremaService
 
                 if ($vrstaPlacanjaSlog['POK2_obracun_minulog_rada'] == 'K') {
 
+                    // FIKSNA P
                     $newIznos = $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, 'K');
                     $vrstaPlacanjaSlog['iznos'] = $newIznos;
 
@@ -646,6 +665,10 @@ class ObradaPripremaService
                         $mdr = $vrstaPlacanjaSlog->maticnadatotekaradnika->toArray();
                     }
                 }
+
+
+
+
             }
 
 
@@ -809,6 +832,8 @@ class ObradaPripremaService
             'PERC' => $zar['PERC'],
             'PLACENO' => 0,
         ];
+
+        // TODO ovde smo stali
         $izbr1 = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
         $izbr2 = 0;
         $izbr3 = $zar['IZNETO'] > 0 ? $zar['SIZNE'] / $zar['IZNETO'] : 0; // PER1
@@ -854,6 +879,7 @@ class ObradaPripremaService
 
 
         // ZDRAVSTVENO I NEZAPOSLENOST POCETAK
+        // TODO
 
         if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] < $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada && $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] > 0 && ($minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati > $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
 
@@ -920,7 +946,6 @@ class ObradaPripremaService
 
         if ($radnikData['SSNNE_suma_sati_naknade'] == $monthData->mesecni_fond_sati) {
 
-            // TODO
             $radnikData['SIN'] = $izbr8;
         } else {
             $radnikData['SIN'] = 0;
@@ -989,6 +1014,7 @@ class ObradaPripremaService
 //            $radnikData['SIDBOL'] = $izbr7;
 
 
+        // TODO
         return $radnikData;
     }
 
@@ -1188,47 +1214,75 @@ class ObradaPripremaService
 
         $krediti = $this->dpsmKreditiInterface->where('maticni_broj', $maticniBroj)->get();
 
+//        $kreditiObrada = $this->obradaKreditiInterface->where('maticni_broj', $maticniBroj)->get();
         $zar = $radnik['ZAR4'];
         $mdr = $radnik['MDR'];
-// TODO        if ($krediti->count()) {
+//        if ($krediti->count()) {
         if (false) {
             $siobkr = 0;
-            $neto2 = ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - $zar['SIP'] - $zar['SID'] - $zar['SIOB_ukupni_iznos_obustava']) * $kreditLimit;
+            $neto2 = ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - $zar['SIP'] - $zar['SID'] - $zar['SIOB_ukupni_iznos_obustava']) * $kreditLimit; //ZAR->AKONT - ZAR->IPLAC - SNRAKON - SVAKON
+            $kreditUpdate = [];
+
             foreach ($krediti as $kredit) {
 
-                $kreditUpdate = [];
 //                $kreditUpdate = $kredit->RATA_rata;
-                if ($neto2 - $siobkr - $kredit->RATA_rata && $kredit->SALD_saldo > 0) {
+                if (($neto2 - $siobkr - $kredit->RATA_rata -$kredit->RATB) > 0 && $kredit->SALD_saldo-$kredit->RATB > 0) {
+
+                    $kredit->iznos = $kredit->RATA_rata - $kredit->RATB;
+                    $kredit->SALD_saldo =  $kredit->SALD_saldo - ($kredit->RATA_rata - $kredit->RATB);
+
+                    $data = [
+                        'maticni_broj' => $kredit->maticni_broj,
+                        'sifra_vrste_placanja' => '093',
+                        'naziv_vrste_placanja' => 'Krediti',
+                        'SIFK_sifra_kreditora' => $kredit->SIFK_sifra_kreditora,
+                        'PART_partija_kredita' => $kredit->PART_partija_poziv_na_broj,
+                        'KESC_prihod_rashod_tip' => $vrstePlacanjaSifarnik['093']['KESC_prihod_rashod_tip'],
+                        'GLAVN_glavnica' => $kredit->GLAVN_glavnica,
+                        'SALD_saldo' => $kredit->SALD_saldo,
+                        'RATA_rata' => $kredit->RATA_rata,
+                        'POCE_pocetak_zaduzenja' => $kredit->POCE_pocetak_zaduzenja,
+                        'RATP_prethodna' => $kredit->RATP_prethodna,
+                        'STSALD_Prethodni_saldo' => null,
+                        'DATUM_zaduzenja' => $kredit->DATUM_zaduzenja,
+                        'obracunski_koef_id' => $monthData->id,
+                        'user_mdr_id' => $kredit->user_mdr_id,
+                        'RBZA'=>$kredit->RBZA,
+                        'RATB'=>$kredit->RATB
+                    ];
+
+                    $kreditUpdate[] =$data;
 
 
-                    $kreditUpdate['maticni_broj'] = $mdr['MBRD_maticni_broj'];
-                    $kreditUpdate['sifra_vrste_placanja'] = '093';
-                    $kreditUpdate['naziv_vrste_placanja'] = $vrstePlacanjaSifarnik['093']['naziv_naziv_vrste_placanja'];
-                    $kreditUpdate['SLOV_grupa_vrste_placanja'] = 'V';
-                    $kreditUpdate['POK2_obracun_minulog_rada'] = 'G';
-                    $kreditUpdate['iznos'] = $kredit->RATA_rata;
-//            replace KOP->IZNO   with nIzn , ZAR->SIPPR with nIzn, ZAR->SIOB with SIOB
 
-                    $kreditUpdate['RBRM_radno_mesto'] = $mdr['RBRM_radno_mesto'];
-                    $kreditUpdate['KESC_prihod_rashod_tip'] = 'R';
-                    $kreditUpdate['P_R_oblik_rada'] = $mdr['P_R_oblik_rada'];
-                    $kreditUpdate['troskovno_mesto_id'] = $mdr['troskovno_mesto_id']; // RBTC
-                    $kreditUpdate['KOEF_osnovna_zarada'] = $mdr['KOEF_osnovna_zarada'];
-                    $kreditUpdate['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
-
-                    $kreditUpdate['STSALD_Prethodni_saldo'] = $kredit->SALD_saldo;
-                    $kreditUpdate['user_mdr_id'] = $mdr['id'];
-                    $kreditUpdate['obracunski_koef_id'] = $radnikData['obracunski_koef_id'];
-                    $kreditUpdate['user_dpsm_id'] = $radnikData['user_dpsm_id'];
-
-                    $kreditUpdate['RBPS_strucna_sprema'] = $mdr['RBPS_priznata_strucna_sprema'];
-
-                    $kreditUpdate['SALD_saldo'] = $kredit->SALD_saldo;
-                    $kreditUpdate['PART_partija_kredita'] = $kredit->PART_partija_poziv_na_broj;
-
-                    $kreditUpdate['SIFRA_KREDITORA'] = $kredit->SIFK_sifra_kreditora;
-                    $kreditUpdate['POCE_'] = $kredit->POCE_pocetak_zaduzenja;
-                    $kreditUpdate['DATUM_KRED'] = $kredit->DATUM_zaduzenja;
+//                    $kreditUpdate['maticni_broj'] = $mdr['MBRD_maticni_broj'];
+//                    $kreditUpdate['sifra_vrste_placanja'] = '093';
+//                    $kreditUpdate['naziv_vrste_placanja'] = $vrstePlacanjaSifarnik['093']['naziv_naziv_vrste_placanja'];
+//                    $kreditUpdate['SLOV_grupa_vrste_placanja'] = 'V';
+//                    $kreditUpdate['POK2_obracun_minulog_rada'] = 'G';
+//                    $kreditUpdate['iznos'] = $kredit->RATA_rata;
+////            replace KOP->IZNO   with nIzn , ZAR->SIPPR with nIzn, ZAR->SIOB with SIOB
+//
+//                    $kreditUpdate['RBRM_radno_mesto'] = $mdr['RBRM_radno_mesto'];
+//                    $kreditUpdate['KESC_prihod_rashod_tip'] = 'R';
+//                    $kreditUpdate['P_R_oblik_rada'] = $mdr['P_R_oblik_rada'];
+//                    $kreditUpdate['troskovno_mesto_id'] = $mdr['troskovno_mesto_id']; // RBTC
+//                    $kreditUpdate['KOEF_osnovna_zarada'] = $mdr['KOEF_osnovna_zarada'];
+//                    $kreditUpdate['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
+//
+//                    $kreditUpdate['STSALD_Prethodni_saldo'] = $kredit->SALD_saldo;
+//                    $kreditUpdate['user_mdr_id'] = $mdr['id'];
+//                    $kreditUpdate['obracunski_koef_id'] = $radnikData['obracunski_koef_id'];
+//                    $kreditUpdate['user_dpsm_id'] = $radnikData['user_dpsm_id'];
+//
+//                    $kreditUpdate['RBPS_strucna_sprema'] = $mdr['RBPS_priznata_strucna_sprema'];
+//
+//                    $kreditUpdate['SALD_saldo'] = $kredit->SALD_saldo;
+//                    $kreditUpdate['PART_partija_kredita'] = $kredit->PART_partija_poziv_na_broj;
+//
+//                    $kreditUpdate['SIFRA_KREDITORA'] = $kredit->SIFK_sifra_kreditora;
+//                    $kreditUpdate['POCE_'] = $kredit->POCE_pocetak_zaduzenja;
+//                    $kreditUpdate['DATUM_KRED'] = $kredit->DATUM_zaduzenja;
 
 
 //                    RATB
@@ -1246,10 +1300,10 @@ class ObradaPripremaService
                 } else if ($neto2 - $siobkr <= 0 && $kredit->SALD_saldo > 0) {
 
                 }
-                $test1 = 1;
                 $kreditiData[] = $kreditUpdate;
             }
 
+            $this->obradaKreditiInterface->createMany($kreditUpdate);
 
             $zar['ZARKR_ukupni_zbir_kredita'] = $siobkr;
             $zar['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
@@ -1258,6 +1312,7 @@ class ObradaPripremaService
             $zar['ZARKR_ukupni_zbir_kredita'] = 0;
 
             $zar['ISPLATA'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - ($zar['SIP'] + $zar['SID'] + $zar['SIOB_ukupni_iznos_obustava'] + $zar['ZARKR_ukupni_zbir_kredita']);
+
 
 
         }
@@ -1424,5 +1479,24 @@ class ObradaPripremaService
         ];
         $this->obradaZaraPoRadnikuInterface->create($data);
 
+    }
+
+    function customSort($a, $b) {
+        // Define priority for sorting
+        $priority = [
+            "P" => 0,
+            "R" => 1,
+            // Add more keys here if needed
+        ];
+
+        // Get the priority of each element
+        $priorityA = array_key_exists($a['KESC_prihod_rashod_tip'], $priority) ? $priority[$a['KESC_prihod_rashod_tip']] : PHP_INT_MAX;
+        $priorityB = array_key_exists($b['KESC_prihod_rashod_tip'], $priority) ? $priority[$b['KESC_prihod_rashod_tip']] : PHP_INT_MAX;
+
+        // Compare priorities
+        if ($priorityA == $priorityB) {
+            return 0;
+        }
+        return ($priorityA < $priorityB) ? -1 : 1;
     }
 }
