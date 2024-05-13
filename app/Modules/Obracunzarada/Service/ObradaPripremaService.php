@@ -1083,6 +1083,30 @@ $test='TEST';
             $sveVrstePlacanja[] = $newPlacanje;
         }
 
+        if($zar['solid'] > 0 ){
+            $newPlacanje['maticni_broj'] = $mdr['MBRD_maticni_broj'];
+            $newPlacanje['sifra_vrste_placanja'] = '410';
+            $newPlacanje['naziv_vrste_placanja'] = $vrstePlacanjaSifarnik['410']['naziv_naziv_vrste_placanja'];
+
+            $newPlacanje['SLOV_grupa_vrste_placanja'] = 'A';
+            $newPlacanje['POK2_obracun_minulog_rada'] = 'K';
+            $newPlacanje['iznos'] =$zar['solid'];
+
+            $newPlacanje['RBRM_radno_mesto'] = $mdr['RBRM_radno_mesto'];
+            $newPlacanje['KESC_prihod_rashod_tip'] = 'R';
+            $newPlacanje['P_R_oblik_rada'] = $mdr['P_R_oblik_rada'];
+            $newPlacanje['troskovno_mesto_id'] = $mdr['troskovno_mesto_id']; // RBTC
+            $newPlacanje['KOEF_osnovna_zarada'] = $mdr['KOEF_osnovna_zarada'];
+            $newPlacanje['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
+
+
+            $newPlacanje['user_mdr_id'] = $radnikData['user_mdr_id'];
+            $newPlacanje['obracunski_koef_id'] = $radnikData['obracunski_koef_id'];
+            $newPlacanje['user_dpsm_id'] = $radnikData['user_dpsm_id'];
+
+            $sveVrstePlacanja[] = $newPlacanje;
+        }
+
         if ($zar['UKUPNO'] * $poresDoprinosiSifarnik->UKDOPR_ukupni_doprinosi_na_teret_radnika > 0) {
             //ZDRAVSTVENO
             $newPlacanje['maticni_broj'] = $mdr['MBRD_maticni_broj'];
