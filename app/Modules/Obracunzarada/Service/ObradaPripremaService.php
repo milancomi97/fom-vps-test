@@ -1093,7 +1093,7 @@ $test='TEST';
             $newPlacanje['iznos'] =$zar['solid'];
 
             $newPlacanje['RBRM_radno_mesto'] = $mdr['RBRM_radno_mesto'];
-            $newPlacanje['KESC_prihod_rashod_tip'] = 'R';
+            $newPlacanje['KESC_prihod_rashod_tip'] = 'P';
             $newPlacanje['P_R_oblik_rada'] = $mdr['P_R_oblik_rada'];
             $newPlacanje['troskovno_mesto_id'] = $mdr['troskovno_mesto_id']; // RBTC
             $newPlacanje['KOEF_osnovna_zarada'] = $mdr['KOEF_osnovna_zarada'];
