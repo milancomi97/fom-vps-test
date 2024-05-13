@@ -672,7 +672,7 @@ $test='TEST';
                     $zaraUpdated['SIZNE'] = $oSumiranjeZaradeIznosSIZNE;
                     $zaraUpdated['SSNNE'] = $oSumiranjeBolovanjaSatiSSNNE;
                     $zaraUpdated['SINNE'] = $oSumiranjeBolovanjaIznosSINNE;
-                    $zaraUpdated['IZNETO'] = $oSumiranjeZaradeIznosSIZNE + $oSumiranjeBolovanjaIznosSINNE+$topliObrokIznos;
+                    $zaraUpdated['IZNETO'] = $oSumiranjeZaradeIznosSIZNE + $oSumiranjeBolovanjaIznosSINNE;
                     $zaraUpdated['UKNETO'] = $radnik['ZAR']['UKNETO'];
                     $zaraUpdated['PERC'] = $radnik['ZAR']['PERC'];
                     $zaraUpdated['P_R'] = $radnik['ZAR']['P_R'];
@@ -1289,7 +1289,8 @@ $test='TEST';
                     $data = [
                         'maticni_broj' => $kredit->maticni_broj,
                         'sifra_vrste_placanja' => '093',
-                        'naziv_vrste_placanja' => 'Krediti',
+                        'naziv_vrste_placanja' => $vrstePlacanjaSifarnik['093']['naziv_naziv_vrste_placanja'],
+                        'SLOV_grupa_vrste_placanja'=>$vrstePlacanjaSifarnik['093']['SLOV_grupe_vrsta_placanja'],
                         'SIFK_sifra_kreditora' => $kredit->SIFK_sifra_kreditora,
                         'PART_partija_kredita' => $kredit->PART_partija_poziv_na_broj,
                         'KESC_prihod_rashod_tip' => $vrstePlacanjaSifarnik['093']['KESC_prihod_rashod_tip'],
@@ -1297,7 +1298,7 @@ $test='TEST';
                         'SALD_saldo' => $kredit->SALD_saldo - ($kredit->RATA_rata - $kredit->RATB),
                         'RATA_rata' => $kredit->RATA_rata,
                         'POCE_pocetak_zaduzenja' => $kredit->POCE_pocetak_zaduzenja,
-                        'RATP_prethodna' => $kredit->RATP_prethodna,
+                        'RATP_prethodna' => $kredit->RATA_rata,
                         'STSALD_Prethodni_saldo' => $kredit->SALD_saldo,
                         'DATUM_zaduzenja' => $kredit->DATUM_zaduzenja,
                         'obracunski_koef_id' => $monthData->id,
@@ -1309,50 +1310,58 @@ $test='TEST';
 
 
 
-
-//                    $kreditUpdate['maticni_broj'] = $mdr['MBRD_maticni_broj'];
-//                    $kreditUpdate['sifra_vrste_placanja'] = '093';
-//                    $kreditUpdate['naziv_vrste_placanja'] = $vrstePlacanjaSifarnik['093']['naziv_naziv_vrste_placanja'];
-//                    $kreditUpdate['SLOV_grupa_vrste_placanja'] = 'V';
-//                    $kreditUpdate['POK2_obracun_minulog_rada'] = 'G';
-//                    $kreditUpdate['iznos'] = $kredit->RATA_rata;
-////            replace KOP->IZNO   with nIzn , ZAR->SIPPR with nIzn, ZAR->SIOB with SIOB
-//
-//                    $kreditUpdate['RBRM_radno_mesto'] = $mdr['RBRM_radno_mesto'];
-//                    $kreditUpdate['KESC_prihod_rashod_tip'] = 'R';
-//                    $kreditUpdate['P_R_oblik_rada'] = $mdr['P_R_oblik_rada'];
-//                    $kreditUpdate['troskovno_mesto_id'] = $mdr['troskovno_mesto_id']; // RBTC
-//                    $kreditUpdate['KOEF_osnovna_zarada'] = $mdr['KOEF_osnovna_zarada'];
-//                    $kreditUpdate['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
-//
-//                    $kreditUpdate['STSALD_Prethodni_saldo'] = $kredit->SALD_saldo;
-//                    $kreditUpdate['user_mdr_id'] = $mdr['id'];
-//                    $kreditUpdate['obracunski_koef_id'] = $radnikData['obracunski_koef_id'];
-//                    $kreditUpdate['user_dpsm_id'] = $radnikData['user_dpsm_id'];
-//
-//                    $kreditUpdate['RBPS_strucna_sprema'] = $mdr['RBPS_priznata_strucna_sprema'];
-//
-//                    $kreditUpdate['SALD_saldo'] = $kredit->SALD_saldo;
-//                    $kreditUpdate['PART_partija_kredita'] = $kredit->PART_partija_poziv_na_broj;
-//
-//                    $kreditUpdate['SIFRA_KREDITORA'] = $kredit->SIFK_sifra_kreditora;
-//                    $kreditUpdate['POCE_'] = $kredit->POCE_pocetak_zaduzenja;
-//                    $kreditUpdate['DATUM_KRED'] = $kredit->DATUM_zaduzenja;
-
-
-//                    RATB
-//                    RATP
-//                    $kreditUpdate['BR']
-//                    POCE_pocetak_zaduzenja
-//                    $kreditUpdate['HKMB'] = $kredit->SALD_saldo;
-
-
                     $siobkr += $kredit->RATA_rata;
                 } else if ($neto2 > 0 && $kredit->SALD_saldo > 0) {
 
-                    $siobkr += $kredit->RATA_rata;
+
+                    $data = [
+                        'maticni_broj' => $kredit->maticni_broj,
+                        'sifra_vrste_placanja' => '093',
+                        'naziv_vrste_placanja' => $vrstePlacanjaSifarnik['093']['naziv_naziv_vrste_placanja'],
+                        'SIFK_sifra_kreditora' => $kredit->SIFK_sifra_kreditora,
+                        'PART_partija_kredita' => $kredit->PART_partija_poziv_na_broj,
+                        'KESC_prihod_rashod_tip' => $vrstePlacanjaSifarnik['093']['KESC_prihod_rashod_tip'],
+                        'GLAVN_glavnica' => $kredit->GLAVN_glavnica,
+                        'SALD_saldo' => $kredit->SALD_saldo - ($neto2- $siobkr),
+                        'RATA_rata' => $neto2- $siobkr,
+                        'POCE_pocetak_zaduzenja' => $kredit->POCE_pocetak_zaduzenja,
+                        'RATP_prethodna' => $kredit->RATA_rata,
+                        'STSALD_Prethodni_saldo' => $kredit->SALD_saldo,
+                        'DATUM_zaduzenja' => $kredit->DATUM_zaduzenja,
+                        'obracunski_koef_id' => $monthData->id,
+                        'iznos'=> $neto2- $siobkr,
+                        'user_mdr_id' => $kredit->user_mdr_id,
+                        'RBZA'=>$kredit->RBZA,
+                        'RATB'=>$kredit->RATB
+                    ];
+
+
+                    $siobkr += $neto2- $siobkr;
 
                 } else if ($neto2 - $siobkr <= 0 && $kredit->SALD_saldo > 0) {
+                    $data = [
+                        'maticni_broj' => $kredit->maticni_broj,
+                        'sifra_vrste_placanja' => '093',
+                        'naziv_vrste_placanja' => $vrstePlacanjaSifarnik['093']['naziv_naziv_vrste_placanja'],
+                        'SIFK_sifra_kreditora' => $kredit->SIFK_sifra_kreditora,
+                        'PART_partija_kredita' => $kredit->PART_partija_poziv_na_broj,
+                        'KESC_prihod_rashod_tip' => $vrstePlacanjaSifarnik['093']['KESC_prihod_rashod_tip'],
+                        'GLAVN_glavnica' => $kredit->GLAVN_glavnica,
+                        'SALD_saldo' => $kredit->SALD_saldo,
+                        'RATA_rata' => $kredit->RATA_rata,
+                        'POCE_pocetak_zaduzenja' => $kredit->POCE_pocetak_zaduzenja,
+                        'RATP_prethodna' => $kredit->RATA_rata,
+                        'STSALD_Prethodni_saldo' => $kredit->SALD_saldo,
+                        'DATUM_zaduzenja' => $kredit->DATUM_zaduzenja,
+                        'obracunski_koef_id' => $monthData->id,
+                        'iznos'=> 0,
+                        'user_mdr_id' => $kredit->user_mdr_id,
+                        'RBZA'=>$kredit->RBZA,
+                        'RATB'=>$kredit->RATB
+                    ];
+
+
+
 
                 }
 
