@@ -102,7 +102,7 @@
                 <h3>{{$datumStampe}}</h3>
             </div>
 
-            <div class="col-md-12 text-center mb-5">
+            <div class="col-md-12 text-left mb-5">
 
                 <div class="section">
 
@@ -141,7 +141,7 @@
                 <div class="section">
                     Staz kod poslodavca: {{$mdrData['GGST_godine_staza']}} god {{$mdrData['MMST_meseci_staza']}} m<br>
                     Osnovna bruto zarada: {{$mdrData['KOEF_osnovna_zarada']}}<br>
-                    Prosecna bruto zarada/cas: {{$mdrData['PRCAS_ukupni_sati_za_ukupan_bruto_iznost']}}<br>
+                    Prosecna bruto zarada/cas: {{  number_format($mdrData['PRIZ_ukupan_bruto_iznos']/$mdrData['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'], 2, '.', ',')}}<br>
                 </div>
             </div>
         </div>

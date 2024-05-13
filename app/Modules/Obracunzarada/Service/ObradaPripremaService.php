@@ -594,7 +594,7 @@ $test='TEST';
 
                         $topliObrokSati += $vrstaPlacanjaSlog['sati'];
                         $topliObrokIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K',$zaraUpdated);
-                        $vrstaPlacanjaSlog['iznos'] = $topliObrokIznos + $vrstaPlacanjaSlog['iznos'];
+                        $vrstaPlacanjaSlog['iznos'] = $topliObrokIznos;
 
                     }
 
@@ -669,11 +669,10 @@ $test='TEST';
                         $efektivniIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, [],$zaraUpdated);
                     }
                     $zaraUpdated['SSZNE'] = $oSumiranjeZaradeSatiSSZNE;
-                    $zaraUpdated['SSZNE'] = $oSumiranjeZaradeSatiSSZNE;
                     $zaraUpdated['SIZNE'] = $oSumiranjeZaradeIznosSIZNE;
                     $zaraUpdated['SSNNE'] = $oSumiranjeBolovanjaSatiSSNNE;
                     $zaraUpdated['SINNE'] = $oSumiranjeBolovanjaIznosSINNE;
-                    $zaraUpdated['IZNETO'] = $oSumiranjeZaradeIznosSIZNE + $oSumiranjeBolovanjaIznosSINNE;
+                    $zaraUpdated['IZNETO'] = $oSumiranjeZaradeIznosSIZNE + $oSumiranjeBolovanjaIznosSINNE+$topliObrokIznos;
                     $zaraUpdated['UKNETO'] = $radnik['ZAR']['UKNETO'];
                     $zaraUpdated['PERC'] = $radnik['ZAR']['PERC'];
                     $zaraUpdated['P_R'] = $radnik['ZAR']['P_R'];
@@ -711,7 +710,7 @@ $test='TEST';
                 'SSNNE' => $oSumiranjeBolovanjaSatiSSNNE,
                 'SINNE' => $oSumiranjeBolovanjaIznosSINNE,
 //                'SIZN'=>$sizn,
-                'IZNETO' => $oSumiranjeZaradeIznosSIZNE + $oSumiranjeBolovanjaIznosSINNE,
+                'IZNETO' => $oSumiranjeZaradeIznosSIZNE + $oSumiranjeBolovanjaIznosSINNE+$topliObrokIznos,
                 'UKNETO' => $radnik['ZAR']['UKNETO'], //  ZAR->UKNETO SLUZI ZA OBRACUN MINULOG RADA
                 'PERC' => $radnik['ZAR']['PERC'],
                 'P_R' => $radnik['ZAR']['P_R'],
@@ -774,7 +773,7 @@ $test='TEST';
     {
 
         $solid = 0;
-        $nt2 = (float)$minimalneBrutoOsnoviceSifarnik->NT1_prosecna_mesecna_zarada_u_republici;
+        $nt2 = (float)$minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada;
         // ZAR->OLAKSICA = minimalac po radniku
 
         $olaksica = $nt2 / $monthData->mesecni_fond_sati;// NTO->NT2/KOE->BR_S
@@ -794,13 +793,13 @@ $test='TEST';
         // 1092 linija MINIMALAC
         if ($olaksica > $zar['MINIM']) {  // Olaksica ne sme da bude manja od minimalne propisane zarade
 
-            $tabelaKoristnikMinuliRadEnabled = 1; // TODO pronadji kolonu
+            $tabelaKoristnikMinuliRadEnabled = 1;
             if ($tabelaKoristnikMinuliRadEnabled == 1) {
 //                $zar['SOLID'] =  0 ;//( ZAR->OLAKSICA -ZAR->MINIM)*SS
 
                 $solid = ($olaksica - $zar['MINIM']) * $zar['SS'];
                 $minsol = $solid * (int)$radnik['MDR']['GGST_godine_staza'] * 0.4 / 100; // TODO UBACITI VREDNOST INFORMACIJE O FIRMI
-
+                $minsol = 0; // TODO TRENUTNA SITUACIJA ZAVISI OD PRAVILNIKA
             } else if ($tabelaKoristnikMinuliRadEnabled == 0) {
 //                replace ZAR->SOLID with (( ZAR->OLAKSICA -ZAR->MINIM)*SS)  //  NOVI OBracun za DRUMSKA i Solko i sve ostale
 //                $solid  =  ($olaksica -  $zar['MINIM']) * $zar['SS'];
@@ -816,7 +815,7 @@ $test='TEST';
 
         $solid += $minsol ?? 0;
 
-        $zar['SOLID'] = $solid; // TODO isprati da li se pre pojavio negde
+        $zar['SOLID'] = $solid; //
 
         // NAKON SUMIRANJA
 //        if ZAR->IZNETO <= (NTO->NT1*NTO->STOPA6)
@@ -866,7 +865,6 @@ $test='TEST';
             'PLACENO' => 0,
         ];
 
-        // TODO ovde smo stali
         $izbr1 = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
         $izbr2 = 0;
         $izbr3 = $zar['IZNETO'] > 0 ? $zar['SIZNE'] / $zar['IZNETO'] : 0; // PER1
@@ -1272,19 +1270,19 @@ $test='TEST';
                         'PART_partija_kredita' => $kredit->PART_partija_poziv_na_broj,
                         'KESC_prihod_rashod_tip' => $vrstePlacanjaSifarnik['093']['KESC_prihod_rashod_tip'],
                         'GLAVN_glavnica' => $kredit->GLAVN_glavnica,
-                        'SALD_saldo' => $kredit->SALD_saldo,
+                        'SALD_saldo' => $kredit->SALD_saldo - ($kredit->RATA_rata - $kredit->RATB),
                         'RATA_rata' => $kredit->RATA_rata,
                         'POCE_pocetak_zaduzenja' => $kredit->POCE_pocetak_zaduzenja,
                         'RATP_prethodna' => $kredit->RATP_prethodna,
-                        'STSALD_Prethodni_saldo' => null,
+                        'STSALD_Prethodni_saldo' => $kredit->SALD_saldo,
                         'DATUM_zaduzenja' => $kredit->DATUM_zaduzenja,
                         'obracunski_koef_id' => $monthData->id,
+                        'iznos'=> $kredit->RATA_rata,
                         'user_mdr_id' => $kredit->user_mdr_id,
                         'RBZA'=>$kredit->RBZA,
                         'RATB'=>$kredit->RATB
                     ];
 
-                    $kreditUpdate[] =$data;
 
 
 
@@ -1333,10 +1331,17 @@ $test='TEST';
                 } else if ($neto2 - $siobkr <= 0 && $kredit->SALD_saldo > 0) {
 
                 }
-                $kreditiData[] = $kreditUpdate;
+
+                if(!empty($data)){
+                    $kreditiData[] = $data;
+                }
             }
 
-            $this->obradaKreditiInterface->createMany($kreditUpdate);
+            if(count($kreditiData)){
+                $this->obradaKreditiInterface->createMany($kreditiData);
+                $kreditiData['KREDADD'] = $kreditiData;
+
+            }
 
             $zar['ZARKR_ukupni_zbir_kredita'] = $siobkr;
             $zar['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
@@ -1349,7 +1354,6 @@ $test='TEST';
 
 
         }
-        $kreditiData['KREDADD'] = $kreditiData;
         $kreditiData['KREDADD']['ZAR5'] = $zar;
 
 
