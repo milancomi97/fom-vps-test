@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('sifra_vrste_placanja')->nullable(); // DVPL_vrste_palcanja
             $table->string('naziv_vrste_placanja')->nullable(); // DVPL_vrste_palcanja
             $table->string('SIFK_sifra_kreditora')->nullable(); //MKRE  kreditori samo KREDITI
+            $table->string('SLOV_grupa_vrste_placanja')->nullable(); //MKRE  kreditori samo KREDITI
             $table->string('PART_partija_kredita')->nullable(); // DKRE Kreditori
             $table->string('KESC_prihod_rashod_tip')->nullable(); // DVPL_vrste_palcanja
             $table->float('GLAVN_glavnica',15,4)->nullable();

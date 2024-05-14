@@ -753,7 +753,7 @@ $test='TEST';
 
             $radnik['ZAR5'] = $radnik['KREDADD']['KREDADD']['ZAR5'];
 
-            $this->createDkopData($radnik['KREDADD'], $radnik['DKOPADD']);
+            $this->createDkopData($radnik['KREDADD'], $radnik['DKOPADD'],$vrstePlacanjaSifarnik);
             $this->updateDkopData($radnik);
 
             $this->updateZara($radnik['ZAR5'], $radnik['MDR'], $poresDoprinosiSifarnik);
@@ -1272,8 +1272,8 @@ $test='TEST';
 //        $kreditiObrada = $this->obradaKreditiInterface->where('maticni_broj', $maticniBroj)->get();
         $zar = $radnik['ZAR4'];
         $mdr = $radnik['MDR'];
-//        if ($krediti->count()) {
-        if (false) {
+        if ($krediti->count()) {
+//        if (false) {
             $siobkr = 0;
             $neto2 = ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - $zar['SIP'] - $zar['SID'] - $zar['SIOB_ukupni_iznos_obustava']) * $kreditLimit; //ZAR->AKONT - ZAR->IPLAC - SNRAKON - SVAKON
             $kreditUpdate = [];
@@ -1318,6 +1318,7 @@ $test='TEST';
                         'maticni_broj' => $kredit->maticni_broj,
                         'sifra_vrste_placanja' => '093',
                         'naziv_vrste_placanja' => $vrstePlacanjaSifarnik['093']['naziv_naziv_vrste_placanja'],
+                        'SLOV_grupa_vrste_placanja'=>$vrstePlacanjaSifarnik['093']['SLOV_grupe_vrsta_placanja'],
                         'SIFK_sifra_kreditora' => $kredit->SIFK_sifra_kreditora,
                         'PART_partija_kredita' => $kredit->PART_partija_poziv_na_broj,
                         'KESC_prihod_rashod_tip' => $vrstePlacanjaSifarnik['093']['KESC_prihod_rashod_tip'],
@@ -1344,6 +1345,7 @@ $test='TEST';
                         'sifra_vrste_placanja' => '093',
                         'naziv_vrste_placanja' => $vrstePlacanjaSifarnik['093']['naziv_naziv_vrste_placanja'],
                         'SIFK_sifra_kreditora' => $kredit->SIFK_sifra_kreditora,
+                        'SLOV_grupa_vrste_placanja'=>$vrstePlacanjaSifarnik['093']['SLOV_grupe_vrsta_placanja'],
                         'PART_partija_kredita' => $kredit->PART_partija_poziv_na_broj,
                         'KESC_prihod_rashod_tip' => $vrstePlacanjaSifarnik['093']['KESC_prihod_rashod_tip'],
                         'GLAVN_glavnica' => $kredit->GLAVN_glavnica,
@@ -1393,7 +1395,7 @@ $test='TEST';
         return $kreditiData;
     }
 
-    public function createDkopData($dkop, $dkop2)
+    public function createDkopData($dkop, $dkop2,$vrstePlacanjaSifarnik)
     {
 
         $data = [];
@@ -1410,18 +1412,18 @@ $test='TEST';
                 'maticni_broj' => $vrstaPlacanja['maticni_broj'],
                 'sifra_vrste_placanja' => $vrstaPlacanja['sifra_vrste_placanja'],
                 'naziv_vrste_placanja' => $vrstaPlacanja['naziv_vrste_placanja'],
-                'SLOV_grupa_vrste_placanja' => $vrstaPlacanja['SLOV_grupa_vrste_placanja'],
-                'POK2_obracun_minulog_rada' => $vrstaPlacanja['POK2_obracun_minulog_rada'],
+                'SLOV_grupa_vrste_placanja' => $vrstePlacanjaSifarnik[$vrstaPlacanja['sifra_vrste_placanja']]['SLOV_grupe_vrsta_placanja'],
+                'POK2_obracun_minulog_rada' => $vrstePlacanjaSifarnik[$vrstaPlacanja['sifra_vrste_placanja']]['POK2_obracun_minulog_rada'],
                 'iznos' => $vrstaPlacanja['iznos'],
-                'RBRM_radno_mesto' => $vrstaPlacanja['RBRM_radno_mesto'],
-                'KESC_prihod_rashod_tip' => $vrstaPlacanja['KESC_prihod_rashod_tip'],
-                'P_R_oblik_rada' => $vrstaPlacanja['P_R_oblik_rada'],
-                'troskovno_mesto_id' => $vrstaPlacanja['troskovno_mesto_id'],
-                'KOEF_osnovna_zarada' => $vrstaPlacanja['KOEF_osnovna_zarada'],
-                'RBIM_isplatno_mesto_id' => $vrstaPlacanja['RBIM_isplatno_mesto_id'],
+                  'RBRM_radno_mesto' => null,
+                'KESC_prihod_rashod_tip' =>$vrstePlacanjaSifarnik[$vrstaPlacanja['sifra_vrste_placanja']]['KESC_prihod_rashod_tip'],
+                'P_R_oblik_rada' => null,
+                'troskovno_mesto_id' => null,
+                'KOEF_osnovna_zarada' =>null,
+                'RBIM_isplatno_mesto_id' =>null,
                 'user_mdr_id' => $vrstaPlacanja['user_mdr_id'],
                 'obracunski_koef_id' => $vrstaPlacanja['obracunski_koef_id'],
-                'user_dpsm_id' => $vrstaPlacanja['user_dpsm_id'],
+                'user_dpsm_id' => null,
                 'tip_unosa' => 'kroz_kod'
             ];
             $data[] = $data1;
@@ -1461,7 +1463,12 @@ $test='TEST';
             $data[] = $data2;
         }
 
-        $this->dkopSveVrstePlacanjaInterface->createMany($data);
+
+        try {
+            $this->dkopSveVrstePlacanjaInterface->createMany($data);
+        } catch (\Throwable $exception) {
+            report($exception);
+        }
     }
 
     public function updateDkopData($radnik)

@@ -23,6 +23,7 @@ class ObradaKrediti extends Model
         'RATP_prethodna',
         'STSALD_Prethodni_saldo',
         'DATUM_zaduzenja',
+        'SLOV_grupa_vrste_placanja',
         'obracunski_koef_id',
         'user_mdr_id',
         'RBZA',
