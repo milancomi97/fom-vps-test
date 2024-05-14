@@ -49,6 +49,7 @@ class CheckData extends Command
 //        $this->question('Provera podataka za ID: '.$id);
 //        $this->error('Provera podataka za ID: '.$id);
 //        $this->warn('Provera podataka za ID: '.$id);
+
         $this->alert('Komanda je uspesno izvrsena');
     }
 
