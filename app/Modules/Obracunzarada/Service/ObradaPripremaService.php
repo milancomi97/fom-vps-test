@@ -1236,7 +1236,7 @@ $test='TEST';
         $zar = $radnik['ZAR3'];
         $zar['SIPBOL'] = 0;
         $zar['SIDBOL'] = 0;
-
+        $zar['ZARKR_ukupni_zbir_kredita'] = 0;
 
         $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] = $zar['SIZNE_ukupni_iznos_zarade'] + $zar['SINNE_ukupni_iznos_naknade'] + $zar['solid'];
 
@@ -1272,9 +1272,10 @@ $test='TEST';
 //        $kreditiObrada = $this->obradaKreditiInterface->where('maticni_broj', $maticniBroj)->get();
         $zar = $radnik['ZAR4'];
         $mdr = $radnik['MDR'];
+        $siobkr = 0;
+
         if ($krediti->count()) {
 //        if (false) {
-            $siobkr = 0;
             $neto2 = ($zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - $zar['SIP'] - $zar['SID'] - $zar['SIOB_ukupni_iznos_obustava']) * $kreditLimit; //ZAR->AKONT - ZAR->IPLAC - SNRAKON - SVAKON
             $kreditUpdate = [];
 
@@ -1282,9 +1283,6 @@ $test='TEST';
 
 //                $kreditUpdate = $kredit->RATA_rata;
                 if (($neto2 - $siobkr - $kredit->RATA_rata -$kredit->RATB) > 0 && $kredit->SALD_saldo-$kredit->RATB > 0) {
-
-                    $kredit->iznos = $kredit->RATA_rata - $kredit->RATB;
-                    $kredit->SALD_saldo =  $kredit->SALD_saldo - ($kredit->RATA_rata - $kredit->RATB);
 
                     $data = [
                         'maticni_broj' => $kredit->maticni_broj,
@@ -1378,17 +1376,19 @@ $test='TEST';
 
             }
 
-            $zar['ZARKR_ukupni_zbir_kredita'] = $siobkr;
             $zar['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
 
 
-            $zar['ZARKR_ukupni_zbir_kredita'] = 0;
+//            $zar['ZARKR_ukupni_zbir_kredita'] = 0;
 
             $zar['ISPLATA'] = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] - ($zar['SIP'] + $zar['SID'] + $zar['SIOB_ukupni_iznos_obustava'] + $zar['ZARKR_ukupni_zbir_kredita']);
 
 
 
         }
+
+        $zar['ZARKR_ukupni_zbir_kredita'] = $siobkr;
+
         $kreditiData['KREDADD']['ZAR5'] = $zar;
 
 
@@ -1501,6 +1501,7 @@ $test='TEST';
             'SSNNE_suma_sati_naknade' => $zar['SSNNE_suma_sati_naknade'],
             'SINNE_ukupni_iznos_naknade' => $zar['SINNE_ukupni_iznos_naknade'],
             'SIOB_ukupni_iznos_obustava' => $zar['SIOB_ukupni_iznos_obustava'],
+            'ZARKR_ukupni_zbir_kredita'=>$zar['ZARKR_ukupni_zbir_kredita'],
             'TOPLI_obrok_sati' => $zar['TOPLI_obrok_sati'],
             'TOPLI_obrok_iznos' => $zar['TOPLI_obrok_iznos'],
             'REGRES_iznos_regresa' => $zar['REGRES_iznos_regresa'],
@@ -1536,7 +1537,8 @@ $test='TEST';
             'PIOP_penzijsko_osiguranje_na_teret_poslodavca' => $zar['UKUPNO'] * $poresDoprinosiSifarnik->DOPRB_pio_na_teret_poslodavca,
             'ZDRP_zdravstveno_osiguranje_na_teret_poslodavca' => $zar['UKUPNO'] * $poresDoprinosiSifarnik->DOPRA_zdravstveno_osiguranje_na_teret_poslodavca,
            // 'ONEZP_osiguranje_od_nezaposlenosti_teret_poslodavca' => $zar['UKUPNO'] * $poresDoprinosiSifarnik->DOPRC, // TODO vidi sa Snezom
-            'BROSN_osnovica_za_doprinose' => $zar['UKUPNO']
+            'BROSN_osnovica_za_doprinose' => $zar['UKUPNO'],
+            'UKUPNO'=>$zar['UKUPNO']
 //            '' =>$zar['SIPPR'] +
 
             //            'DBDATA' => $zar['UKUPNO'],

@@ -67,7 +67,8 @@ class ObradaZaraPoRadniku extends Model
         'user_dpsm_id',
         'user_mdr_id',
         'solid',
-        'ISPLATA'
+        'ISPLATA',
+        'UKUPNO'
     ];
 
 }

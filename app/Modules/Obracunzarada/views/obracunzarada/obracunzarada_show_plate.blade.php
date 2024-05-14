@@ -242,7 +242,7 @@
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">{{ number_format($zarData->SIOB_ukupni_iznos_obustava, 2, '.', ',')}}</h2>
+                <h2 class="text-right header-custom">{{ number_format($zarData->SIOB_ukupni_iznos_obustava +$zarData->ZARKR_ukupni_zbir_kredita, 2, '.', ',')}}</h2>
             </div>
         </div>
 

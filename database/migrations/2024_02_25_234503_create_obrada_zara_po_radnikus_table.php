@@ -156,8 +156,7 @@ return new class extends Migration
             $table->float('solid',15,4)->nullable();
             $table->float('PREK_prekovremeni',15,4)->nullable();
             $table->float('ISPLATA',15,4)->nullable();
-
-
+            $table->float('UKUPNO',15,4)->nullable();
 
 
             $table->unsignedBigInteger('obracunski_koef_id')->nullable();
