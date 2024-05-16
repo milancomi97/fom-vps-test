@@ -13,7 +13,7 @@
         }
 
         #monthSlider {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: auto;
             padding: 20px;
         }
@@ -35,6 +35,9 @@
             display: none !important;
         }
 
+        #monthContainer{
+            padding-right: 70px;
+        }
         div.loading{
             position: fixed;
             top: 0;
@@ -234,7 +237,7 @@
                 <form>
                     @csrf
                 </form>
-                <div id="monthContainer" class="carousel slide mt-5" data-ride="carousel">
+                <div id="monthContainer" class="carousel slide mt-5 pb-5" data-ride="carousel">
 
                 </div>
             </div>
@@ -351,6 +354,10 @@
 
         let indexObradaRoute ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index?month_id=') !!}'
         let showPlateRoute ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate?month_id=') !!}'
+
+
+        let izvestajRangListaZarade ='{!! url('obracunzarada/izvestaji/ranglistazarade?month_id=') !!}'
+        let izvestajRekapitulaciajaZarade ='{!! url('obracunzarada/izvestaji/rekapitulacijazarade?month_id=') !!}'
 
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_create/calendar_logic.js') }}"></script>

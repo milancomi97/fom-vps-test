@@ -43,23 +43,27 @@ function updateMonthContainer(activeMonth) {
             if(monthData.status){
 
                 $("<h1></h1>").attr({
-                    'class': 'offset-1 col col-sm-5 mt-3 btn font-weight-bold',
+                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold',
                 }).css('cursor','default').text('Izmena').appendTo(monthCard);
 
                 $("<h1></h1>").attr({
-                    'class': 'offset-1 col col-sm-5 mt-3 btn font-weight-bold',
+                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold',
                 }).css('cursor','default').text('Obrada').appendTo(monthCard);
+
+                $("<h1></h1>").attr({
+                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold',
+                }).css('cursor','default').text('Izveštaji').appendTo(monthCard);
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-primary update-mesecna-poentaza offset-1 col-sm-5 mt-3 border',
+                    'class': 'btn btn-primary update-mesecna-poentaza offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Ažuriranje obračunskih koeficijenata').appendTo(monthCard);
+                }).text('Ažuriranje o. koeficijenata').appendTo(monthCard);
 
                 // $("<h1></h1>").attr({
-                //     'class': 'offset-1 col col-sm-5 mt-3 btn font-weight-bold',
+                //     'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold',
                 // }).css('cursor','default').text('Obrada').appendTo(monthCard);
 
                 // IBRISI BLANK POLJE OFFSET
@@ -68,17 +72,25 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-success offset-1 col-sm-5 mt-3 border',
+                    'class': 'btn btn-success offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
                 }).text('Obrada proseka').appendTo(monthCard);
 
 
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-warning izvestaji-rang-lista-zarade offset-1 col-sm-3 mt-3 border',
+                    'data-month_id': monthData.month_id,
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Rang lista zarade').appendTo(monthCard);
+
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-primary odobravanje-mesecna-poentaza offset-1 col-sm-5 mt-3 border',
+                    'class': 'btn btn-primary odobravanje-mesecna-poentaza offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
@@ -88,14 +100,24 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-success index-mesecna-obrada-priprema offset-1 col-sm-5 mt-3 border',
+                    'class': 'btn btn-success index-mesecna-obrada-priprema offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
                 }).text('Obrada plate').appendTo(monthCard);
+
+
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-primary index-mesecna-poentaza offset-1 col-sm-5 mt-3 border',
+                    'class': 'btn btn-warning izvestaji-rekapitulacija-zarad offset-1 col-sm-3 mt-3 border',
+                    'data-month_id': monthData.month_id,
+                    'data-year': monthData.currYear,
+                    'data-month': monthData.currMonth
+                }).text('Rekapitulacija zarade').appendTo(monthCard);
+
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-primary index-mesecna-poentaza offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-year': monthData.currYear,
                     'data-month': monthData.currMonth
@@ -103,42 +125,55 @@ function updateMonthContainer(activeMonth) {
 
 
                 $("<h1></h1>").attr({
-                    'class': 'offset-1 col col-sm-5 mt-3 btn font-weight-bold EMPTY',
+                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
                 }).text('Poreska prijava').css('cursor','default').appendTo(monthCard);
+
+
+                $("<h1></h1>").attr({
+                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
+                }).text('').css('cursor','default').appendTo(monthCard);
 
 
                 // Akontacije AA klasa
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-primary index-akontacija-mesecna-poentazaa offset-1 col-sm-5 mt-3 border',
+                    'class': 'btn btn-primary index-akontacija-mesecna-poentazaa offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
                 }).text('Unos akontacije').appendTo(monthCard);
 
                 $("<h1></h1>").attr({
-                    'class': 'offset-1 col col-sm-5 mt-3 btn font-weight-bold EMPTY',
+                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
                 }).text('Priprema podataka za banke').css('cursor','default').appendTo(monthCard);
+
+                $("<h1></h1>").attr({
+                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
+                }).text('').css('cursor','default').appendTo(monthCard);
 
 
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-primary index-fiksnap-mesecna-poentaza offset-1 col-sm-5 mt-3 border',
+                    'class': 'btn btn-primary index-fiksnap-mesecna-poentaza offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Unos fiksnih plaćanja po radniku').appendTo(monthCard);
+                }).text('Unos f. plaćanja po radniku').appendTo(monthCard);
 
                 $("<h1></h1>").attr({
-                    'class': 'offset-1 col col-sm-5 mt-3 btn font-weight-bold EMPTY',
+                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
                 }).text('Arhiva').css('cursor','default').appendTo(monthCard);
+
+                $("<h1></h1>").attr({
+                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
+                }).text('').css('cursor','default').appendTo(monthCard);
 
 
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-primary index-krediti-mesecna-poentaza offset-1 col-sm-5 mt-3 border',
+                    'class': 'btn btn-primary index-krediti-mesecna-poentaza offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
@@ -148,7 +183,7 @@ function updateMonthContainer(activeMonth) {
             }else{
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-success create-mesecna-poentaza offset-1 col-sm-5 mt-3 border',
+                    'class': 'btn btn-success create-mesecna-poentaza offset-1 col-sm-3 mt-3 border',
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
                 }).text('Otvorite mesec').appendTo(monthCard);

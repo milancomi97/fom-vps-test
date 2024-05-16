@@ -312,6 +312,13 @@ Route::middleware('auth')->group(function () {
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/permissionStatusUpdate',[DatotekaobracunskihStatusController::class,'permissionStatusUpdate'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatus');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updatePermissionStatusAdministrator',[DatotekaobracunskihStatusController::class,'updatePermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatusAdministrator');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getPermissionStatusAdministrator',[DatotekaobracunskihStatusController::class,'getPermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.getPermissionStatusAdministrator');
+
+
+    // Izvestaji
+    Route::get('obracunzarada/izvestaji/ranglistazarade',[\App\Modules\Obracunzarada\Controllers\IzvestajZaradaController::class,'ranglistazarade'])->name('izvestaj.ranglistazarade');
+    Route::get('obracunzarada/izvestaji/rekapitulacijazarade',[\App\Modules\Obracunzarada\Controllers\IzvestajZaradaController::class,'rekapitulacijazarade'])->name('izvestaj.rekapitulacijazarade');
+
+
 });
 
 

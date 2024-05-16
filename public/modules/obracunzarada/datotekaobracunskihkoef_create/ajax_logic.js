@@ -187,6 +187,17 @@ $(document).ready(function () {
         window.location.href = showKreditiRoute + id;
     });
 
+
+    $(document).on('click', 'body .izvestaji-rang-lista-zarade', function (e) {
+        var id = $(this).data('month_id');
+        window.location.href = izvestajRangListaZarade + id;
+    });
+
+    $(document).on('click', 'body .izvestaji-rekapitulacija-zarad', function (e) {
+        var id = $(this).data('month_id');
+        window.location.href = izvestajRekapitulaciajaZarade + id;
+    });
+
     $(document).on('click', 'body .index-mesecna-obrada-priprema', function (e) {
 
         // var buttons = document.querySelectorAll('button');
