@@ -158,6 +158,9 @@ return new class extends Migration
             $table->float('ISPLATA',15,4)->nullable();
             $table->float('UKUPNO',15,4)->nullable();
 
+            $table->unsignedBigInteger('troskovno_mesto_id')->nullable(); // KADR sifra isplatnog mesta // Valjda ima MDR
+            $table->unsignedBigInteger('organizaciona_celina_id')->nullable(); // KADR sifra isplatnog mesta // Valjda ima MDR
+
 
             $table->unsignedBigInteger('obracunski_koef_id')->nullable();
             $table->unsignedBigInteger('user_dpsm_id')->nullable(); // Mesec-Radnik-id

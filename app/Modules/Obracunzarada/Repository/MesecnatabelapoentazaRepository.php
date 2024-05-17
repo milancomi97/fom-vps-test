@@ -99,6 +99,7 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
             return $mesecnaTabelaPoentaza;
         });
 
+
         return $unserializedVrstePlacanja->sortBy('BRCL_REDOSLED')->sortBy('organizaciona_celina_id')->groupBy('organizaciona_celina_id');
     }
 

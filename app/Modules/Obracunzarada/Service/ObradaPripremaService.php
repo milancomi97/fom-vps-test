@@ -47,6 +47,8 @@ class ObradaPripremaService
                     $newPlacanje['P_R_oblik_rada'] = $mdrData->P_R_oblik_rada;
                     $newPlacanje['RBIM_isplatno_mesto_id'] = $mdrData->RBIM_isplatno_mesto_id;
                     $newPlacanje['troskovno_mesto_id'] = $mdrData->troskovno_mesto_id;
+                    $newPlacanje['organizaciona_celina_id'] = $mdrData->troskovno_mesto_id;
+
                     // DVPL
 
 
@@ -94,6 +96,9 @@ class ObradaPripremaService
                 $newPlacanje['P_R_oblik_rada'] = $radnik->P_R_oblik_rada;
                 $newPlacanje['RBIM_isplatno_mesto_id'] = $radnik->RBIM_isplatno_mesto_id;
                 $newPlacanje['troskovno_mesto_id'] = $radnik->troskovno_mesto_id;
+
+                $newPlacanje['organizaciona_celina_id'] = $radnik->troskovno_mesto_id;
+
                 // DVPL
 
 
@@ -161,6 +166,8 @@ class ObradaPripremaService
                 $newPlacanje['P_R_oblik_rada'] = $radnik->P_R_oblik_rada;
                 $newPlacanje['RBIM_isplatno_mesto_id'] = $radnik->RBIM_isplatno_mesto_id;
                 $newPlacanje['troskovno_mesto_id'] = $radnik->troskovno_mesto_id;
+                $newPlacanje['organizaciona_celina_id'] = $radnik->troskovno_mesto_id;
+
 //                $newPlacanje['user_mdr_id'] = $vrstaPlacanja['user_mdr_id'];
                 $newPlacanje['obracunski_koef_id'] = $vrstaPlacanja['obracunski_koef_id'];
 
@@ -257,6 +264,8 @@ class ObradaPripremaService
             $newPlacanje['P_R_oblik_rada'] = $radnik->maticnadatotekaradnika->P_R_oblik_rada;
             $newPlacanje['RBIM_isplatno_mesto_id'] = $radnik->maticnadatotekaradnika->RBIM_isplatno_mesto_id;
             $newPlacanje['troskovno_mesto_id'] = $radnik->maticnadatotekaradnika->troskovno_mesto_id;
+            $newPlacanje['organizaciona_celina_id'] =$radnik->maticnadatotekaradnika->troskovno_mesto_id;
+
             // DVPL
 
 
@@ -753,7 +762,7 @@ $test='TEST';
 
             $radnik['ZAR5'] = $radnik['KREDADD']['KREDADD']['ZAR5'];
 
-            $this->createDkopData($radnik['KREDADD'], $radnik['DKOPADD'],$vrstePlacanjaSifarnik);
+            $this->createDkopData($radnik['KREDADD'], $radnik['DKOPADD'],$vrstePlacanjaSifarnik,$radnik['MDR']);
             $this->updateDkopData($radnik);
 
             $this->updateZara($radnik['ZAR5'], $radnik['MDR'], $poresDoprinosiSifarnik);
@@ -1071,6 +1080,8 @@ $test='TEST';
             $newPlacanje['KESC_prihod_rashod_tip'] = 'R';
             $newPlacanje['P_R_oblik_rada'] = $mdr['P_R_oblik_rada'];
             $newPlacanje['troskovno_mesto_id'] = $mdr['troskovno_mesto_id']; // RBTC
+            $newPlacanje['organizaciona_celina_id'] = $mdr['troskovno_mesto_id'];
+
             $newPlacanje['KOEF_osnovna_zarada'] = $mdr['KOEF_osnovna_zarada'];
             $newPlacanje['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
 
@@ -1096,6 +1107,8 @@ $test='TEST';
             $newPlacanje['KESC_prihod_rashod_tip'] = 'P';
             $newPlacanje['P_R_oblik_rada'] = $mdr['P_R_oblik_rada'];
             $newPlacanje['troskovno_mesto_id'] = $mdr['troskovno_mesto_id']; // RBTC
+            $newPlacanje['organizaciona_celina_id'] = $mdr['troskovno_mesto_id'];
+
             $newPlacanje['KOEF_osnovna_zarada'] = $mdr['KOEF_osnovna_zarada'];
             $newPlacanje['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
 
@@ -1121,6 +1134,8 @@ $test='TEST';
             $newPlacanje['KESC_prihod_rashod_tip'] = 'R';
             $newPlacanje['P_R_oblik_rada'] = $mdr['P_R_oblik_rada'];
             $newPlacanje['troskovno_mesto_id'] = $mdr['troskovno_mesto_id']; // RBTC
+            $newPlacanje['organizaciona_celina_id'] = $mdr['troskovno_mesto_id'];
+
             $newPlacanje['KOEF_osnovna_zarada'] = $mdr['KOEF_osnovna_zarada'];
             $newPlacanje['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
 
@@ -1146,6 +1161,8 @@ $test='TEST';
             $newPlacanje['KESC_prihod_rashod_tip'] = 'R';
             $newPlacanje['P_R_oblik_rada'] = $mdr['P_R_oblik_rada'];
             $newPlacanje['troskovno_mesto_id'] = $mdr['troskovno_mesto_id']; // RBTC
+            $newPlacanje['organizaciona_celina_id'] = $mdr['troskovno_mesto_id'];
+
             $newPlacanje['KOEF_osnovna_zarada'] = $mdr['KOEF_osnovna_zarada'];
             $newPlacanje['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
 
@@ -1193,6 +1210,8 @@ $test='TEST';
             $newPlacanje['KESC_prihod_rashod_tip'] = 'R';
             $newPlacanje['P_R_oblik_rada'] = $mdr['P_R_oblik_rada'];
             $newPlacanje['troskovno_mesto_id'] = $mdr['troskovno_mesto_id']; // RBTC
+            $newPlacanje['organizaciona_celina_id'] = $mdr['troskovno_mesto_id'];
+
             $newPlacanje['KOEF_osnovna_zarada'] = $mdr['KOEF_osnovna_zarada'];
             $newPlacanje['RBIM_isplatno_mesto_id'] = $mdr['RBIM_isplatno_mesto_id'];
 
@@ -1395,7 +1414,7 @@ $test='TEST';
         return $kreditiData;
     }
 
-    public function createDkopData($dkop, $dkop2,$vrstePlacanjaSifarnik)
+    public function createDkopData($dkop, $dkop2,$vrstePlacanjaSifarnik,$mdr)
     {
 
         $data = [];
@@ -1418,7 +1437,8 @@ $test='TEST';
                   'RBRM_radno_mesto' => null,
                 'KESC_prihod_rashod_tip' =>$vrstePlacanjaSifarnik[$vrstaPlacanja['sifra_vrste_placanja']]['KESC_prihod_rashod_tip'],
                 'P_R_oblik_rada' => null,
-                'troskovno_mesto_id' => null,
+                'troskovno_mesto_id' => $mdr['troskovno_mesto_id'],
+                'organizaciona_celina_id' => $mdr['troskovno_mesto_id'],
                 'KOEF_osnovna_zarada' =>null,
                 'RBIM_isplatno_mesto_id' =>null,
                 'user_mdr_id' => $vrstaPlacanja['user_mdr_id'],
@@ -1453,6 +1473,7 @@ $test='TEST';
                 'KESC_prihod_rashod_tip' => $vrstaPlacanja['KESC_prihod_rashod_tip'],
                 'P_R_oblik_rada' => $vrstaPlacanja['P_R_oblik_rada'],
                 'troskovno_mesto_id' => $vrstaPlacanja['troskovno_mesto_id'],
+                'organizaciona_celina_id' => $vrstaPlacanja['organizaciona_celina_id'],
                 'KOEF_osnovna_zarada' => $vrstaPlacanja['KOEF_osnovna_zarada'],
                 'RBIM_isplatno_mesto_id' => $vrstaPlacanja['RBIM_isplatno_mesto_id'],
                 'user_mdr_id' => $vrstaPlacanja['user_mdr_id'],
@@ -1538,7 +1559,9 @@ $test='TEST';
             'ZDRP_zdravstveno_osiguranje_na_teret_poslodavca' => $zar['UKUPNO'] * $poresDoprinosiSifarnik->DOPRA_zdravstveno_osiguranje_na_teret_poslodavca,
            // 'ONEZP_osiguranje_od_nezaposlenosti_teret_poslodavca' => $zar['UKUPNO'] * $poresDoprinosiSifarnik->DOPRC, // TODO vidi sa Snezom
             'BROSN_osnovica_za_doprinose' => $zar['UKUPNO'],
-            'UKUPNO'=>$zar['UKUPNO']
+            'UKUPNO'=>$zar['UKUPNO'],
+            'organizaciona_celina_id'=>$mdr['troskovno_mesto_id'],
+            'troskovno_mesto_id'=>$mdr['troskovno_mesto_id']
 //            '' =>$zar['SIPPR'] +
 
             //            'DBDATA' => $zar['UKUPNO'],

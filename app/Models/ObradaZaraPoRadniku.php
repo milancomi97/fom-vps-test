@@ -68,7 +68,9 @@ class ObradaZaraPoRadniku extends Model
         'user_mdr_id',
         'solid',
         'ISPLATA',
-        'UKUPNO'
+        'UKUPNO',
+        'troskovno_mesto_id',
+        'organizaciona_celina_id'
     ];
 
 }

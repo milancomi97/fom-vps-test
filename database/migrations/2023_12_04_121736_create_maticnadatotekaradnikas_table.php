@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('MBRD_maticni_broj')->nullable();
             $table->string('PREZIME_prezime')->nullable();
+            $table->string('srednje_ime')->nullable();
             $table->string('IME_ime')->nullable();
             $table->unsignedBigInteger('RBRM_radno_mesto')->nullable(); // sifra radnog mesta
             $table->unsignedBigInteger('RBIM_isplatno_mesto_id')->nullable(); // sifra isplatnog mesta // NOVO DODATO

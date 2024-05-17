@@ -20,6 +20,7 @@ class MaticnadatotekaradnikaSeeder extends Seeder
                     'MBRD_maticni_broj' => $data['MBRD'],
                     'PREZIME_prezime' => $data['PREZIME'],
                     'IME_ime' => $data['IME'],
+                    'srednje_ime' => '',
                     'RBRM_radno_mesto' => $data['RBRM'],
                     'RBIM_isplatno_mesto_id' => $data['RBIM'],
                     'ZRAC_tekuci_racun' => $data['ZRAC'],
@@ -85,6 +86,18 @@ class MaticnadatotekaradnikaSeeder extends Seeder
         if (isset($user[0])) {
 
             $data['user_id'] = $user[0]->id;
+
+            if ($data['IME_ime'] == '') {
+                $data['IME_ime'] = $user[0]->ime;
+                $data['srednje_ime'] = $user[0]->srednje_ime;
+            }
+
+            if ($data['PREZIME_prezime'] == '') {
+                $data['PREZIME_prezime'] = $user[0]->prezime;
+                $data['srednje_ime'] = $user[0]->srednje_ime;
+
+            }
+
             return $data;
         }
         return $data;

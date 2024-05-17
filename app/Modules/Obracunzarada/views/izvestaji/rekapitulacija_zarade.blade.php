@@ -36,121 +36,18 @@
                         </tr>
                         </thead>
                         <tbody>
+
+                        @foreach($dkopData as $vrstaPlacanja)
                         <tr>
-                            <td>001</td>
-                            <td>TEKUCI RAD-osn.zarad</td>
-                            <td>97.282,00</td>
-                            <td>53.866.429,31</td>
+                            <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>
+                            <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
+                            <td>{{number_format($vrstaPlacanja->sati)}}</td>
+                            <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
+
+
                         </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>PREKOVREMENI RAD</td>
-                            <td>16.526,00</td>
-                            <td>12.145.614,72</td>
-                        </tr>
-                        <tr>
-                            <td>004</td>
-                            <td>NOCNI RAD-26%</td>
-                            <td>0,00</td>
-                            <td>146.885,33</td>
-                        </tr>
-                        <tr>
-                            <td>005</td>
-                            <td>MINULI RAD</td>
-                            <td>0,00</td>
-                            <td>4.901.105,79</td>
-                        </tr>
-                        <tr>
-                            <td>007</td>
-                            <td>VISINSKI (3-10M)</td>
-                            <td>0,00</td>
-                            <td>273.840,00</td>
-                        </tr>
-                        <tr>
-                            <td>008</td>
-                            <td>VISINSKI (11-20M)</td>
-                            <td>0,00</td>
-                            <td>144.000,00</td>
-                        </tr>
-                        <tr>
-                            <td>009</td>
-                            <td>GODISNJI ODMOR</td>
-                            <td>4.688,00</td>
-                            <td>2.386.361,96</td>
-                        </tr>
-                        <tr>
-                            <td>010</td>
-                            <td>PLACENO ODSUSTVO100%</td>
-                            <td>576,00</td>
-                            <td>296.891,55</td>
-                        </tr>
-                        <tr>
-                            <td>012</td>
-                            <td>BOLOVANJE 65%</td>
-                            <td>3.464,00</td>
-                            <td>974.545,35</td>
-                        </tr>
-                        <tr>
-                            <td>013</td>
-                            <td>BOLOVANJE 100%</td>
-                            <td>432,00</td>
-                            <td>224.089,14</td>
-                        </tr>
-                        <tr>
-                            <td>014</td>
-                            <td>BOLOV. PREKO 30 DANA</td>
-                            <td>0,00</td>
-                            <td>0,00</td>
-                        </tr>
-                        <tr>
-                            <td>015</td>
-                            <td>BOLOV. BEZ DOZNAKE</td>
-                            <td>0,00</td>
-                            <td>0,00</td>
-                        </tr>
-                        <tr>
-                            <td>017</td>
-                            <td>OPRAVDANI IZOSTANCI</td>
-                            <td>0,00</td>
-                            <td>0,00</td>
-                        </tr>
-                        <tr>
-                            <td>018</td>
-                            <td>NEOPRAVDANI IZOSTAN.</td>
-                            <td>0,00</td>
-                            <td>0,00</td>
-                        </tr>
-                        <tr>
-                            <td>019</td>
-                            <td>TOPLI OBROK - NOVAC</td>
-                            <td>0,00</td>
-                            <td>1.812.478,35</td>
-                        </tr>
-                        <tr>
-                            <td>070</td>
-                            <td>RAZLIKA PLATE</td>
-                            <td>0,00</td>
-                            <td>132.505,72</td>
-                        </tr>
-                        <tr>
-                            <td>087</td>
-                            <td>PORODILJSKO ODSUSTVO</td>
-                            <td>0,00</td>
-                            <td>0,00</td>
-                        </tr>
-                        <tr>
-                            <td>410</td>
-                            <td>DOTACIJA DO MBZ</td>
-                            <td>0,00</td>
-                            <td>237.802,53</td>
-                        </tr>
-                        <tr>
-                            <td>458</td>
-                            <td>RENTA</td>
-                            <td>0,00</td>
-                            <td>37.942,10</td>
-                        </tr>
-                        <!-- Add more rows here -->
+
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -161,80 +58,86 @@
                         <tbody>
                         <tr>
                             <td >1. BRUTO ZARADA</td>
-                            <td>122.968,00</td>
-                            <td>77.580.491,83</td>
+                            <td></td>
+                            <td>{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >- IZNOS PORESKOG OSLOBODJENJA</td>
-                            <td>15.876.041,66</td>
-                            <td></td>
+                            <td></td>r
+                            <td>{{number_format($zaraData->POROSL_poresko_oslobodjenje, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >- OPOREZIVI IZNOS ZARADE</td>
-                            <td>61.704.450,17</td>
-                            <td>15.876.041,66</td>
-
+                            <td></td>
+                            <td>{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade -$zaraData->POROSL_poresko_oslobodjenje, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >2. NETO ZARADA (1-5)</td>
-                            <td>122.968,00</td>
-                            <td>55.971.528,87</td>
+                            <td></td>
+                            <td>{{number_format($zaraData->NETO_neto_zarada , 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >3. UK. OBUSTAVE</td>
-                            <td>3.785.996,21</td>
                             <td></td>
+                            <td>{{number_format($zaraData->SIOB_ukupni_iznos_obustava +  $zaraData->ZARKR_ukupni_zbir_kredita, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >4. ZA ISPLATU (1-5-3)</td>
-                            <td>52.185.532,66</td>
                             <td></td>
+                            <td>{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade -  $zaraData->SIP_ukupni_iznos_poreza - $zaraData->SID_ukupni_iznos_doprinosa - $zaraData->SIOB_ukupni_iznos_obustava - $zaraData->ZARKR_ukupni_zbir_kredita, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >UKUPNI DOPRINOSI</td>
-                            <td>0,0</td>
-                            <td>15.438.517,92</td>
+                            <td></td>
+                            <td>{{number_format($zaraData->SID_ukupni_iznos_doprinosa, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td>050 POREZ (10%)</td>
-                            <td>0,0</td>
-                            <td>6.170.445,04</td>
+                            <td></td>
+                            <td>{{number_format($zaraData->SIP_ukupni_iznos_poreza, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >5. UKUPNI POREZI I DOPRINOSI (a+b)</td>
-                            <td>21.608.962,96</td>
                             <td></td>
+                            <td>{{number_format($zaraData->SIP_ukupni_iznos_poreza + $zaraData->SID_ukupni_iznos_doprinosa, 2, '.', ',')}}</td>
+                        </tr>
+
+                        <tr>
+                            <td >6. OBAVEZE NA TERET POSLODAVCA: </td>
+                            <td></td>
+                            <td></td>
+
                         </tr>
                         <tr>
-                            <td>UKUPNO:</td>
-                            <td>30</td>
-                            <td>612</td>
-                        </tr>
-                        <tr>
-                            <td >6. OBAVEZE NA TERET POSLODAVCA: Zdravstveno osiguranje (p)</td>
-                            <td>5.15%</td>
-                            <td>3995395</td>
+                            <td >Zdravstveno osiguranje (p)</td>
+                            <td></td>
+                            <td>{{number_format($zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >Penzijsko-invalidsko osig. (p)</td>
-                            <td>10.00%</td>
-                            <td>7758049</td>
+                            <td></td>
+                            <td>{{number_format($zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >Ukupni doprinosi</td>
-                            <td>11753445</td>
                             <td></td>
+                            <td>{{number_format($zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >7. UKUPNA BRUTO ZARADA:</td>
-                            <td>89333936,38</td>
                             <td></td>
+                            <td>{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade +$zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
+
                         </tr>
                         <tr>
                             <td >12. BROJ AKTIVNIH RADNIKA:</td>
-                            <td>668</td>
                             <td></td>
-
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td >13. BROJ RADNIKA SA ZARADOM:</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         </tbody>
                     </table>

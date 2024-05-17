@@ -32,6 +32,8 @@ return new class extends Migration
             $table->string('RBIM_isplatno_mesto_id')->nullable(); // MDR
             $table->unsignedBigInteger('troskovno_mesto_id')->nullable(); // KADR sifra isplatnog mesta // Valjda ima MDR
 
+            $table->unsignedBigInteger('organizaciona_celina_id')->nullable(); // KADR sifra isplatnog mesta // Valjda ima MDR
+
             $table->string('SIFK_sifra_kreditora')->nullable(); //MKRE  kreditori samo KREDITI
 
             $table->float('STSALD_Prethodni_saldo',15,5)->nullable(); // obracunava se

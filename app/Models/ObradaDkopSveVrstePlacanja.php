@@ -25,6 +25,7 @@ class ObradaDkopSveVrstePlacanja extends Model
         'P_R_oblik_rada',
         'RBIM_isplatno_mesto_id',
         'troskovno_mesto_id',
+        'organizaciona_celina_id',
         'SIFK_sifra_kreditora',
         'STSALD_Prethodni_saldo',
         'NEAK_neopravdana_akontacija',
