@@ -170,8 +170,10 @@ return new class extends Migration
             $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
             $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
 
-//            $table->integer('varijab_')->nullable();
-//            $table->integer('bmin_')->nullable();
+//            $table->float('varijab_')->nullable(); // Minuli rad
+//            $table->float('bmin_')->nullable(); //Prekovremeni rad iznos
+//            $table->float('ukis')->nullable(); //Za isplatu rad iznos
+
 
             $table->timestamps();
         });

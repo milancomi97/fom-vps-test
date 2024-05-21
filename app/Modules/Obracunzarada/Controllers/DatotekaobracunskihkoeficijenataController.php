@@ -2,6 +2,7 @@
 
 namespace App\Modules\Obracunzarada\Controllers;
 
+use App\Exports\PoenterUnosExport;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserPermission;
@@ -20,6 +21,8 @@ use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
 use function Psy\debug;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class DatotekaobracunskihkoeficijenataController extends Controller
@@ -187,6 +190,136 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 //        return redirect()->route('datotekaobracunskihkoeficijenata.show_all_akontacije', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id]);
 //
 //    }
+
+
+    public function odobravanjeExportXls(Request $request){
+        $user_id = auth()->user()->id;
+
+        $userPermission = UserPermission::where('user_id', $user_id)->first();
+
+        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
+//        $id = $request->month_id; // TODO OVO OBAVEZNO
+
+        $id= '1';
+
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
+
+        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
+
+        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
+
+        $header =[];
+        $radnikData=[];
+
+        foreach ($mesecnaTabelaPotenrazaTable->first() as $radnik){
+            $radnikVrstePlacanja=$radnik['vrste_placanja'];
+            $radnikSatiValues = array_column($radnikVrstePlacanja,'sati');
+
+//            array_unshift($radnikSatiValues,  $radnik['prezime']);
+            array_unshift($radnikSatiValues,  $radnik['ime']);
+            array_unshift($radnikSatiValues,  $radnik['maticni_broj']);
+
+            $header[]= $radnikSatiValues;
+           $test="test";
+        }
+
+        $headerData =array_column($mesecnaTabelaPotenrazaTable->first()[0]->toArray()['vrste_placanja'],'name');
+        array_unshift($headerData, 'Prezime Ime');
+        array_unshift($headerData, 'Maticni broj');
+
+        $test='test';
+//        foreach ($mesecnaTabelaPotenrazaTable->first() as $radnik){
+//            $radnikVrstePlacanja=$radnik['vrste_placanja'];
+//            $radnikSatiValues = array_column($radnikVrstePlacanja,'key');
+//
+//            $header[]= $radnikSatiValues;
+//            $test="test";
+//        }
+
+        array_unshift($header,$headerData);
+            $test='testt';
+
+        return Excel::download(new PoenterUnosExport($header), 'data.xlsx');
+    }
+    public function odobravanjeExportPdf(Request $request){
+
+        $user_id = auth()->user()->id;
+        $userPermission = UserPermission::where('user_id', $user_id)->first();
+        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
+//        $id = $request->month_id; // TODO OVO OBAVEZNO
+        $id= '1';
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
+
+        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
+        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
+        $mesecnaTabelaPoentazaPermissions = $this->pripremiPermisijePoenteriOdobravanja->execute('obracunski_koef_id', $id);
+
+        $inputDate = Carbon::parse($monthData->datum);
+        $formattedDate = $inputDate->format('m.Y');
+        $vrstePlacanjaDescription=$this->vrsteplacanjaInterface->getVrstePlacanjaOpis();
+
+        $html = '<!DOCTYPE html>
+        <html lang="' . str_replace('_', '-', app()->getLocale()) . '">
+        <head>
+            <style>
+            .fieldValues{
+            width:30px;
+            text-align: center;
+            }
+            </style>
+        </head>
+        <body class="hold-transition sidebar-mini  sidebar-collapse">
+        <div class="wrapper">';
+
+        foreach ($mesecnaTabelaPotenrazaTable as $key => $organizacionacelina) {
+            if (isset($troskovnaMestaPermission[$key]) && $troskovnaMestaPermission[$key]) {
+                $html .= '<div class="table-div mt-5">
+                <h3 class="text-center"> Organizaciona celina: <b>' . $key . '</b> - &nbsp;' . $organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta . '.</h3>
+                <div class="divider"></div>
+                <table class="table table-striped" id="table-div' . $key . '">
+                <thead>
+                <tr>';
+
+                foreach ($tableHeaders as $header) {
+                    $html .= '<th>' . $header . '</th>';
+                }
+
+                $html .= '</tr>
+                </thead>
+                <tbody>';
+
+                foreach ($organizacionacelina as $value) {
+                    $html .= '<tr>
+                    <td>' . $value['maticni_broj'] . '</td>
+                    <td class="ime_prezime">' . $value['ime'] . '</td>';
+
+                    foreach ($value['vrste_placanja'] as $vrstaPlacanja) {
+                        $html .= '<td class="vrsta_placanja_td"><span class="fieldValues" data-record-id="' . $value['id'] . '" min="0" disabled="disabled" class="vrsta_placanja_input" data-toggle="tooltip" data-placement="top" title="' . $vrstaPlacanja['name'] . '" data-vrsta-placanja-key="' . $vrstaPlacanja['key'] . '" >' . $vrstaPlacanja['sati'] . '</span></td>';
+                    }
+
+                    $html .= '</tr>';
+                }
+
+                $html .= '</tbody>
+                </table>
+                <div class="container-fluid">' . $vrstePlacanjaDescription . '</div>
+                <div class="end_org_celina"></div>
+                </div>';
+            }
+        }
+
+        $html .= '</div>
+        </body>
+        </html>';
+
+//        return  response($html, 200)
+//            ->header('Content-Type', 'text/html');
+        // Load the HTML content
+        $pdf = Pdf::loadHTML($html)->setPaper('a4', 'landscape');
+//        $pdf = PDF::loadView('materijal_pdf',$filteredData);
+        return $pdf->download('pdf_poenteri.pdf');
+    }
+
 
     public function odobravanje(Request $request)
     {

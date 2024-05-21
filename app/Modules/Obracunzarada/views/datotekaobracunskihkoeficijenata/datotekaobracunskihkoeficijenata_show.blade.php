@@ -21,43 +21,74 @@
 
 @section('content')
 
-    <h1 class="text-center mt-5"> Unos poentaže:</h1>
 
-    <div class="container">
-
-        <div class="container mt-5">
-            <div class="container text-center">
-                <button data-record-id="{{$mesecnaTabelaPoentaza->id}}"  class="btn btn-primary btn-lg text-center submitBtn">Sačuvaj izmene</button>
+    <div class="container-fluid">
+        <div class="col-md-12 text-center mt-5"  id="form-column">
+            <h1>Unos poentaže: {{$mesecnaTabelaPoentaza->maticni_broj}}
+                {{$mesecnaTabelaPoentaza->prezime}}
+                {{$mesecnaTabelaPoentaza->ime}}
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-1">
             </div>
-            <!-- Left Column - Form -->
-            <div class="col-md-12 text-center mt-5"  id="form-column">
-              <h1> {{$mesecnaTabelaPoentaza->maticni_broj}}
-               {{$mesecnaTabelaPoentaza->prezime}}
-               {{$mesecnaTabelaPoentaza->ime}}
-              </h1>
-            </div>
-            <table class="table table-bordered" id="editableTable">
-                <thead>
-                <tr>
-                    <th>Šifra vrste plaćanja</th>
-                    <th>Naziv vrste plaćanja</th>
-                    <th>Sati</th>
-                    <th>Iznos</th>
-                    <th>Procenat</th>
-                    <th>RJ</th>
-                    <th>Brigada</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
-            <div>
+            <div class="col-sm-6 mt-5">
+{{--                <h1 class="text-center mt-5"> Unos poentaže:</h1>--}}
 
+                <div class="mt-5">
+                    <!-- Left Column - Form -->
+
+                    <table class="table table-bordered" id="editableTable">
+                        <thead>
+                        <tr>
+                            <th>Šifra vrste plaćanja</th>
+                            <th>Naziv vrste plaćanja</th>
+                            <th>Sati</th>
+                            <th>Iznos</th>
+                            <th>Procenat</th>
+                            <th>RJ</th>
+                            <th>Brigada</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <div>
+
+                    </div>
+                </div>
+                <div class="container mb-5 mt-5 text-center">
+                    <button data-record-id="{{$mesecnaTabelaPoentaza->id}}"  class="btn btn-primary btn-lg text-center submitBtn" >Sačuvaj izmene</button>
+                </div>
+            </div>
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-3 mt-5">
+
+                <h2 class="text-center">Podaci poentera:</h2>
+                 <table class="table table-bordered" id="secondEditableTable">
+                    <thead>
+                    <tr>
+                        <th>Sifra</th>
+                        <th>Naziv</th>
+                        <th>Sati</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    @foreach($poenterVrstePlacanja as $vrstaPlacanja)
+                        <tr>
+                            <td>{{$vrstaPlacanja['key']}}</td>
+                            <td>{{$vrstaPlacanja['name']}}</td>
+                            <td>{{$vrstaPlacanja['sati']}}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="container mb-5 mt-5 text-center">
-            <button data-record-id="{{$mesecnaTabelaPoentaza->id}}"  class="btn btn-primary btn-lg text-center submitBtn" >Sačuvaj izmene</button>
-        </div>
+
+
     </div>
 
 

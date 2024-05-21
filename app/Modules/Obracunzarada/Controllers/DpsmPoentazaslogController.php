@@ -20,6 +20,7 @@ use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
 use function Psy\debug;
+use PDF;
 
 
 class DpsmPoentazaslogController extends Controller
@@ -91,6 +92,9 @@ class DpsmPoentazaslogController extends Controller
         $formattedDate = $inputDate->format('m.Y');
         $vrstePlacanja = $this->vrsteplacanjaInterface->where('DOVP_tip_vrste_placanja', true)->get();
         $variabilnaData = $this->dpsmPoentazaslogInterface->where('user_dpsm_id', $id)->get();
+        $poenterData = $this->mesecnatabelapoentazaInterface->where('id', $id)->get()->first()->toArray();
+
+
 
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show',
             [
@@ -100,7 +104,8 @@ class DpsmPoentazaslogController extends Controller
                 'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
                 'vrstePlacanja' => $vrstePlacanja->toJson(),
                 'vrstePlacanjaData' => $variabilnaData->toJson(),
-                'mesecna_tabela_poentaza_id' =>$mesecnaTabelaPoentaza->id
+                'mesecna_tabela_poentaza_id' =>$mesecnaTabelaPoentaza->id,
+                'poenterVrstePlacanja'=>json_decode($poenterData['vrste_placanja'],true)
             ]);
     }
 

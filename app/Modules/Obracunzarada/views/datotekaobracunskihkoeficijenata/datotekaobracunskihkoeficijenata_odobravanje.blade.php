@@ -93,6 +93,20 @@
 
 @section('content')
     <div class="container main-container mb-5">
+        <div class="container">
+            <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf')}}">
+                @csrf
+                <button id='export-pdf' class="btn btn-primary">PDF</button>
+
+            </form>
+
+            <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_xls')}}">
+                @csrf
+                <button id='export-xls' class="btn btn-secondary">Excel</button>
+
+            </form>
+        </div>
+
         <h2 class="text-center">Evidencija rada i odsustvovanje radnika</h2>
         <h1 class="text-center"><b>{!! $formattedDate!!}</b></h1>
         <div class="container ">
@@ -115,13 +129,12 @@
         <div class="loading" style="display: none;">
         </div>
         @foreach($mesecnaTabelaPotenrazaTable as $key => $organizacionacelina)
-
             @if(isset($troskovnaMestaPermission[$key]) && $troskovnaMestaPermission[$key])
                 <div class="table-div mt-5">
                     <h3 class="text-center"> Organizaciona celina: <b>{{$key}} </b> -
                         &nbsp{{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}.</h3>
                     <div class="divider"></div>
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="table-div{{$key}}">
                         <thead>
                         <tr>
                             @foreach($tableHeaders as $keyheader =>$header)
@@ -264,6 +277,7 @@
                     @endif
                     @endforeach
 
+
                 </div>
     </div>
     <!-- Modal -->
@@ -399,7 +413,7 @@
                 $('input').prop('disabled', false);
             }, 3000);
 
-            $('[data-toggle="tooltip"]').tooltip({'trigger':'focus'})
+            $('[data-toggle="tooltip"]').tooltip({'trigger': 'focus'})
 
         });
     </script>
