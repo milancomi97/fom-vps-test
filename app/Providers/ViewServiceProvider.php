@@ -28,11 +28,11 @@ class ViewServiceProvider extends ServiceProvider
             $modelClassName = class_basename($dir);
             $path = Str::before($dir, "\\$modelClassName");
 
-            Log::channel('vps_debug')->debug('$path:'.$path);
+//            Log::channel('vps_debug')->debug('$path:'.$path);
 
            // LINUX            $this->loadViewsFrom($path.'/views',Str::lower($modelClassName));
 // WINDOWS            $this->loadViewsFrom("$path\\".$modelClassName.'\views',Str::lower($modelClassName));
-            Log::channel('vps_debug')->debug('$viewPath:'.$path.'/views');
+//            Log::channel('vps_debug')->debug('$viewPath:'.$path.'/views');
 
             $this->loadViewsFrom($path.'/views',Str::lower($modelClassName));
 
