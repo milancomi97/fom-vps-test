@@ -92,20 +92,28 @@
 @endsection
 
 @section('content')
-    <div class="container main-container mb-5">
-        <div class="container">
-            <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf')}}">
-                @csrf
-                <button id='export-pdf' class="btn btn-primary">PDF</button>
+    <div class="container-fluid mt-5">
 
-            </form>
-
-            <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_xls')}}">
-                @csrf
-                <button id='export-xls' class="btn btn-secondary">Excel</button>
-
-            </form>
+        <div class="row">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-1">
+                <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf')}}">
+                    @csrf
+                    <button id='export-pdf' class="btn btn-secondary btn-lg">PDF</button>
+                </form>
+            </div>
+            <div class="col-md-1">
+                <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_xls')}}">
+                    @csrf
+                    <button id='export-xls' class="btn btn-secondary btn-lg">Excel</button>
+                </form>
+            </div>
         </div>
+    </div>
+    <div class="container main-container mb-5">
+
+
 
         <h2 class="text-center">Evidencija rada i odsustvovanje radnika</h2>
         <h1 class="text-center"><b>{!! $formattedDate!!}</b></h1>
