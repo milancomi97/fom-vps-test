@@ -241,13 +241,14 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
         return Excel::download(new PoenterUnosExport($header), 'data.xlsx');
     }
-    public function odobravanjeExportPdf(Request $request){
+    public function odobravanjeExportPdf(Request $request)
+    {
 
         $user_id = auth()->user()->id;
         $userPermission = UserPermission::where('user_id', $user_id)->first();
         $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
 //        $id = $request->month_id; // TODO OVO OBAVEZNO
-        $id= '1';
+        $id = '1';
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
 
         $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
@@ -256,7 +257,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
         $inputDate = Carbon::parse($monthData->datum);
         $formattedDate = $inputDate->format('m.Y');
-        $vrstePlacanjaDescription=$this->vrsteplacanjaInterface->getVrstePlacanjaOpis();
+        $vrstePlacanjaDescription = $this->vrsteplacanjaInterface->getVrstePlacanjaOpis();
 
         $html = '<!DOCTYPE html>
         <html lang="' . str_replace('_', '-', app()->getLocale()) . '">
@@ -315,12 +316,22 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 //        return  response($html, 200)
 //            ->header('Content-Type', 'text/html');
         // Load the HTML content
-        $pdf = Pdf::loadHTML($html)->setPaper('a4', 'landscape');
+        try {
+            $pdf = Pdf::loadHTML($html)->setPaper('a4', 'landscape');
 //        $pdf = PDF::loadView('materijal_pdf',$filteredData);
-        return $pdf->download('pdf_poenteri.pdf');
+            $pdf->download('pdf_poenteri.pdf');
+
+        } catch (\Throwable $exception) {
+//            report("Proveri Formulu:".$vrstaPlacanjaSlog['sifra_vrste_placanja']);
+            report($exception);
+
+            $updatedException = new \Exception($exception->getTraceAsString(), $exception->getCode(), $exception);
+            throw $updatedException;
+
+        }
+        return 'test';
+
     }
-
-
     public function odobravanje(Request $request)
     {
 
