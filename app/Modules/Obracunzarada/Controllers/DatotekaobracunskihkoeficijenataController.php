@@ -319,17 +319,14 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         try {
             $pdf = Pdf::loadHTML($html)->setPaper('a4', 'landscape');
 //        $pdf = PDF::loadView('materijal_pdf',$filteredData);
-            $pdf->download('pdf_poenteri.pdf');
+            return $pdf->download('pdf_poenteri.pdf');
 
         } catch (\Throwable $exception) {
 //            report("Proveri Formulu:".$vrstaPlacanjaSlog['sifra_vrste_placanja']);
             report($exception);
-
             $updatedException = new \Exception($exception->getTraceAsString(), $exception->getCode(), $exception);
             throw $updatedException;
-
         }
-        return 'test';
 
     }
     public function odobravanje(Request $request)
