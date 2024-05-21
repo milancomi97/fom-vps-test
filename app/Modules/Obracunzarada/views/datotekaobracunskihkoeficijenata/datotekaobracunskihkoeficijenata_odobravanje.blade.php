@@ -96,6 +96,7 @@
 
         <div class="row">
             <div class="col-md-9">
+
             </div>
             <div class="col-md-1">
                 <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf')}}">
