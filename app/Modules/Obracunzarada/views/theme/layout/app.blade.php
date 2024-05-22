@@ -24,7 +24,7 @@
 </head>
 <style>
     html {
-        zoom: 83% !important;
+        zoom: 67% !important;
     }
 </style>
 

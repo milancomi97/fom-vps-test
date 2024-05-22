@@ -9,6 +9,7 @@ use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmAkontacijeRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
@@ -36,7 +37,8 @@ class DpsmPoentazaslogController extends Controller
         private readonly PripremiPermisijePoenteriOdobravanja                $pripremiPermisijePoenteriOdobravanja,
         private readonly VrsteplacanjaRepository                             $vrsteplacanjaInterface,
         private readonly DpsmPoentazaslogRepositoryInterface                 $dpsmPoentazaslogInterface,
-        private readonly DpsmAkontacijeRepositoryInterface                   $dpsmAkontacijeInterface
+        private readonly DpsmAkontacijeRepositoryInterface                   $dpsmAkontacijeInterface,
+        private readonly MaticnadatotekaradnikaRepositoryInterface           $maticnadatotekaradnikaInterface
 
     )
     {
@@ -92,10 +94,14 @@ class DpsmPoentazaslogController extends Controller
         $formattedDate = $inputDate->format('m.Y');
         $vrstePlacanja = $this->vrsteplacanjaInterface->where('DOVP_tip_vrste_placanja', true)->get();
         $variabilnaData = $this->dpsmPoentazaslogInterface->where('user_dpsm_id', $id)->get();
-        $poenterData = $this->mesecnatabelapoentazaInterface->where('id', $id)->get()->first()->toArray();
 
 
 
+        $dpsmData = $this->mesecnatabelapoentazaInterface->where('id', $id)->with('maticnadatotekaradnika')->get()->first();
+//        $mdrData= $this->maticnadatotekaradnikaInterface->where();
+        $poenterData =  $dpsmData->toArray();
+
+        $mdrData = $dpsmData->maticnadatotekaradnika->toArray();
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show',
             [
                 'monthData' => $formattedDate,
@@ -105,7 +111,8 @@ class DpsmPoentazaslogController extends Controller
                 'vrstePlacanja' => $vrstePlacanja->toJson(),
                 'vrstePlacanjaData' => $variabilnaData->toJson(),
                 'mesecna_tabela_poentaza_id' =>$mesecnaTabelaPoentaza->id,
-                'poenterVrstePlacanja'=>json_decode($poenterData['vrste_placanja'],true)
+                'poenterVrstePlacanja'=>json_decode($poenterData['vrste_placanja'],true),
+                'mdrData'=>$mdrData
             ]);
     }
 
@@ -157,6 +164,13 @@ class DpsmPoentazaslogController extends Controller
                 }
 
         }
+
+        $this->maticnadatotekaradnikaInterface->update(
+            $request->mdr_id,
+            [
+                'PREB_prebacaj'=>(float)$request->PREB_prebacaj,
+                'DANI_kalendarski_dani'=>$request->DANI_kalendarski_dani
+            ]);
         return response()->json([
             'status'=>true,
             'url'=>url()->route('datotekaobracunskihkoeficijenata.show_all', ['month_id' => $mesecnaTabelaPoentaza->obracunski_koef_id])

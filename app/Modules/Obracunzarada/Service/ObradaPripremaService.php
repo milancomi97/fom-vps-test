@@ -673,6 +673,10 @@ $test='TEST';
                         $prosecniIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, [],$zaraUpdated);
                     }
 
+                    if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['VARI_minuli_rad'] == '2') {
+                        $varijaIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, [],$zaraUpdated);
+                    }
+
                     if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['EFSA_efektivni_sati']) {
                         $efektivniSati += $vrstaPlacanjaSlog['sati'];
                         $efektivniIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik, [],$zaraUpdated);
@@ -872,6 +876,7 @@ $test='TEST';
             'user_mdr_id' => $radnik[0]->user_mdr_id,
             'PERC' => $zar['PERC'],
             'PLACENO' => 0,
+            'VARIJAB'=>$zar['VARIJAB']
         ];
 
         $izbr1 = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
@@ -918,8 +923,7 @@ $test='TEST';
 //$izbr50 -
 
 
-        // ZDRAVSTVENO I NEZAPOSLENOST POCETAK
-        // TODO
+
 
         if ($radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] < $minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada && $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] > 0 && ($minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada / $monthData->mesecni_fond_sati > $radnikData['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'] / $radnikData['UKSA_ukupni_sati_za_isplatu'])) {
 
@@ -1054,7 +1058,7 @@ $test='TEST';
 //            $radnikData['SIDBOL'] = $izbr7;
 
 
-        // TODO
+        //
         return $radnikData;
     }
 
@@ -1540,6 +1544,7 @@ $test='TEST';
             'SIP_ukupni_iznos_poreza' => $zar['SIP'],
             'POROSL_poresko_oslobodjenje' => $zar['POROSL'],
             'NETO_neto_zarada' => $zar['NETO'],
+            'UKIS_ukupan_iznos_za_izplatu'=>$zar['NETO']-$zar['SIOB_ukupni_iznos_obustava']-$zar['ZARKR_ukupni_zbir_kredita'],
             'maticni_broj' => $mdr['MBRD_maticni_broj'],
             'rbim_sifra_isplatnog_mesta' => $mdr['RBIM_isplatno_mesto_id'],
             'sifra_troskovnog_mesta' => $mdr['troskovno_mesto_id'],
@@ -1561,7 +1566,8 @@ $test='TEST';
             'BROSN_osnovica_za_doprinose' => $zar['UKUPNO'],
             'UKUPNO'=>$zar['UKUPNO'],
             'organizaciona_celina_id'=>$mdr['troskovno_mesto_id'],
-            'troskovno_mesto_id'=>$mdr['troskovno_mesto_id']
+            'troskovno_mesto_id'=>$mdr['troskovno_mesto_id'],
+            'varijab'=>$zar['VARIJAB']
 //            '' =>$zar['SIPPR'] +
 
             //            'DBDATA' => $zar['UKUPNO'],

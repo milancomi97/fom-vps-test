@@ -28,7 +28,8 @@ return new class extends Migration
             $table->string('GGST_godine_staza')->nullable();
             $table->string('MMST_meseci_staza')->nullable();
             $table->boolean('MRAD_minuli_rad_aktivan')->nullable(); // D tačno
-            $table->boolean('PREB_prebacaj')->nullable(); // 1 // DODATI NA FORMI
+            $table->float('PREB_prebacaj')->nullable(); // 1 // DODATI NA FORMI
+            $table->integer('DANI_kalendarski_dani')->nullable(); // broj meseci znacajan za obracun proseka
             $table->unsignedBigInteger('RBSS_stvarna_strucna_sprema')->nullable();
             $table->unsignedBigInteger('RBPS_priznata_strucna_sprema')->nullable();
             $table->float('KOEF_osnovna_zarada',15,4)->nullable();
@@ -38,7 +39,6 @@ return new class extends Migration
             $table->float('PRCAS_ukupni_sati_za_ukupan_bruto_iznost',15,4)->nullable();
             $table->float('PRIZ_ukupan_bruto_iznos',15, 4)->nullable();
             $table->string('BROJ_broj_meseci_za_obracun')->nullable(); // broj meseci znacajan za obracun proseka
-            $table->string('DANI_kalendarski_dani')->nullable(); // broj meseci znacajan za obracun proseka
             $table->float('IZNETO1_bruto_zarada_za_akontaciju',15,4)->nullable(); // IZNETO1
             $table->float('POROSL1_poresko_oslobodjenje_za_akontaciju',15,4)->nullable(); // POROSL1,N,12,2
             $table->float('SIP1_porez_za_akontaciju',15,4)->nullable(); // SIP1,N,12,2

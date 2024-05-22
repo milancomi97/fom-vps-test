@@ -33,7 +33,19 @@
             <div class="col-sm-1">
             </div>
             <div class="col-sm-6 mt-5">
-{{--                <h1 class="text-center mt-5"> Unos poentaže:</h1>--}}
+                <div class="form-row border-bottom">
+                    <div class="form-group col-md-2 "> <!-- Change col-md-6 to your desired width -->
+                        <label for="PREB_prebacaj">Prebačaj</label>
+                        <input type="number" value="{{$mdrData['PREB_prebacaj']}}" name="PREB_prebacaj" min="0"  class="form-control" data-mdr-id="{{$mdrData['id']}}"  id="PREB_prebacaj">
+                    </div>
+                    <div class="form-group col-md-2"> <!-- Change col-md-6 to your desired width -->
+                        <label for="DANI_kalendarski_dani">Kalendarski dani</label>
+
+                        <input type="number" value="{{$mdrData['DANI_kalendarski_dani']}}" name="DANI_kalendarski_dani"  min="0"  class="form-control" data-mdr-id="{{$mdrData['id']}}" id="DANI_kalendarski_dani">
+                    </div>
+
+                </div>
+                {{--                <h1 class="text-center mt-5"> Unos poentaže:</h1>--}}
 
                 <div class="mt-5">
                     <!-- Left Column - Form -->
@@ -63,7 +75,7 @@
             </div>
             <div class="col-sm-1">
             </div>
-            <div class="col-sm-3 mt-5">
+            <div class="col-sm-3 mt-5 text-center">
 
                 <h2 class="text-center">Podaci poentera:</h2>
                  <table class="table table-bordered" id="secondEditableTable">
@@ -77,14 +89,19 @@
                     <tbody>
 
                     @foreach($poenterVrstePlacanja as $vrstaPlacanja)
+                       @if($vrstaPlacanja['sati']!=0)
                         <tr>
                             <td>{{$vrstaPlacanja['key']}}</td>
                             <td>{{$vrstaPlacanja['name']}}</td>
                             <td>{{$vrstaPlacanja['sati']}}</td>
                         </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>
+                <a class="btn btn-success mt-3 btn-lg" href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje?month_id=')!!}{{$mesecnaTabelaPoentaza->obracunski_koef_id}}">Forma Poentera</a>
+
+
             </div>
         </div>
 

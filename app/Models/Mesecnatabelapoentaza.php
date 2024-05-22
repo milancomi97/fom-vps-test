@@ -20,7 +20,8 @@ class Mesecnatabelapoentaza extends Model
         'ime',
         'napomena',
         'status_poentaze',
-        'user_mdr_id'
+        'user_mdr_id',
+        'obracunski_koef_id'
     ];
 
     public function organizacionecelina()

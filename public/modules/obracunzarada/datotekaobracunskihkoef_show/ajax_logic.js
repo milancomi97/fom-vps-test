@@ -196,12 +196,19 @@ $(document).ready(function () {
 
             var _token = $('input[name="_token"]').val();
 
+            var PREB_prebacaj = $('input[name="PREB_prebacaj"]')
+            var DANI_kalendarski_dani = $('input[name="DANI_kalendarski_dani"]');
+            debugger;
+
         $.ajax({
                 url: storeAllRoute,
                 type: 'POST',
                 data: {
                     _token: _token,
                     vrste_placanja:vrstePlacanja,
+                    PREB_prebacaj:PREB_prebacaj.val(),
+                    DANI_kalendarski_dani:DANI_kalendarski_dani.val(),
+                    mdr_id:DANI_kalendarski_dani.data('mdr-id'),
                     record_id: record_id
                 }, success: function (response) {
                     if (response.status) {
