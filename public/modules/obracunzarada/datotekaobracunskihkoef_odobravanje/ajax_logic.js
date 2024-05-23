@@ -51,6 +51,16 @@ $(document).ready(function () {
                     record_id: record_id
                 },
                 success: function (response) {
+
+                    var vrednostBrojaca =response.negativni_brojac;
+                    var record_update_id = response.record_id;
+                    if(vrednostBrojaca){
+                       var redovni_rad = $('input[data-record-id="'+record_update_id+'"][data-vrsta-placanja-key="001"]');
+                       var topli_obrok = $('input[data-record-id="'+record_update_id+'"][data-vrsta-placanja-key="019"]');
+
+                        redovni_rad.val(parseInt(redovni_rad.val() - vrednostBrojaca))
+                        topli_obrok.val(parseInt(topli_obrok.val() - vrednostBrojaca))
+                    }
                     var Toast = Swal.mixin({
                         toast: true,
                         position: 'top',

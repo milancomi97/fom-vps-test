@@ -16,17 +16,67 @@ class UpdateVrstePlacanjaJson
     public function updateSatiByKey($radnikEvidencija, $input_key, $input_value)
     {
 
+        $negativniBrojac = 0;
+        $listOdbitnihVrstaPlacanjaNaPlatu = [
+            '003',
+            '009',
+            '010',
+            '011',
+            '012',
+            '013',
+            '014',
+            '016',
+            '017',
+            '018',
+            '023',
+            '024'
+        ];
+
         $vrstePlacanje = json_decode($radnikEvidencija->vrste_placanja, true);
 
         if ($this->validateVrstePlacanja($vrstePlacanje)) {
 
+
+            //Update
             foreach ($vrstePlacanje as &$placanje) {
                 if ($placanje['key'] == $input_key) {
                     $placanje['sati'] = (int) $input_value;
+
+                    if(in_array($input_key,$listOdbitnihVrstaPlacanjaNaPlatu)){
+                        $negativniBrojac+=$input_value;
+                    }
+
                 }
+
+
             }
+
+            //Umanji Sate
+
+            if($negativniBrojac > 0){
+
+            foreach ($vrstePlacanje as &$placanje) {
+
+
+                if ($placanje['key'] == '001'){
+                    $placanje['sati'] =  $placanje['sati']-$negativniBrojac;
+                }
+
+                if($placanje['key'] == '019' ) {
+                    $placanje['sati'] =  $placanje['sati']-$negativniBrojac;
+                }
+
+
+            }
+
+                $radnikEvidencija->vrste_placanja = json_encode($vrstePlacanje);
+                $radnikEvidencija->save();
+                return $negativniBrojac;
+            }
+
             $radnikEvidencija->vrste_placanja = json_encode($vrstePlacanje);
-            return $radnikEvidencija->save();
+            $radnikEvidencija->save();
+            return 0;
         }
     }
 

@@ -614,13 +614,13 @@ class DatotekaobracunskihkoeficijenataController extends Controller
             $status = $this->updateVrstePlacanjaJson->updateSatiByKey($radnikEvidencija, $input_key, $input_value);
         }
 
-        if ($status) {
-            $message = 'Podatak je uspesno izmenjen';
+        if ($status > 0) {
+            $message = 'Podatak je uspesno izmenjen, redovni rad i topli obrok je umanjen';
         } else {
-            $message = 'Doslo je do greske';
+            $message = 'Podatak je uspesno izmenjen';
 
         }
-        return response()->json(['message' => $message, 'status' => true], 200);
+        return response()->json(['message' => $message, 'status' => true,'negativni_brojac'=>$status,'record_id'=>$record_id], 200);
     }
 //
 //    public function updateAll(Request $request)
