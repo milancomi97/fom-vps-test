@@ -254,6 +254,7 @@ $(document).ready(function () {
                 $('.modal-backdrop').hide();
                 $('#submitFormBtn').prop('id', 'updateFormBtn');
                 $('#updateFormBtn').text('Izmeni');
+                $('#exampleModalLabel').text('Izmena');
                 $("#kalendarski_broj_dana_modal").val(response.kalendarski_broj_dana)
                 $("#mesecni_fond_sati_modal").val(response.mesecni_fond_sati)
                 $("#month_modal").val(parseInt(response.mesec)+1)

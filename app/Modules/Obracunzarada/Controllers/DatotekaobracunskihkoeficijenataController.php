@@ -4,7 +4,6 @@ namespace App\Modules\Obracunzarada\Controllers;
 
 use App\Exports\PoenterUnosExport;
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
@@ -34,11 +33,11 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         private readonly UpdateVrstePlacanjaJson                             $updateVrstePlacanjaJson,
         private readonly UpdateNapomena                                      $updateNapomena,
         private readonly PermesecnatabelapoentRepositoryInterface            $permesecnatabelapoentInterface,
-        private readonly KreirajPermisijePoenteriOdobravanja $kreirajPermisijePoenteriOdobravanja,
-        private readonly PripremiPermisijePoenteriOdobravanja $pripremiPermisijePoenteriOdobravanja,
-        private readonly VrsteplacanjaRepository $vrsteplacanjaInterface,
-        private readonly DpsmPoentazaslogRepositoryInterface $dpsmPoentazaslogInterface,
-        private readonly DpsmAkontacijeRepositoryInterface $dpsmAkontacijeInterface
+        private readonly KreirajPermisijePoenteriOdobravanja                 $kreirajPermisijePoenteriOdobravanja,
+        private readonly PripremiPermisijePoenteriOdobravanja                $pripremiPermisijePoenteriOdobravanja,
+        private readonly VrsteplacanjaRepository                             $vrsteplacanjaInterface,
+        private readonly DpsmPoentazaslogRepositoryInterface                 $dpsmPoentazaslogInterface,
+        private readonly DpsmAkontacijeRepositoryInterface                   $dpsmAkontacijeInterface
     )
     {
     }
@@ -192,7 +191,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 //    }
 
 
-    public function odobravanjeExportXls(Request $request){
+    public function odobravanjeExportXls(Request $request)
+    {
         $user_id = auth()->user()->id;
 
         $userPermission = UserPermission::where('user_id', $user_id)->first();
@@ -200,7 +200,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
 //        $id = $request->month_id; // TODO OVO OBAVEZNO
 
-        $id= '1';
+        $id = '1';
 
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
 
@@ -208,26 +208,26 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
         $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
 
-        $header =[];
-        $radnikData=[];
+        $header = [];
+        $radnikData = [];
 
-        foreach ($mesecnaTabelaPotenrazaTable->first() as $radnik){
-            $radnikVrstePlacanja=$radnik['vrste_placanja'];
-            $radnikSatiValues = array_column($radnikVrstePlacanja,'sati');
+        foreach ($mesecnaTabelaPotenrazaTable->first() as $radnik) {
+            $radnikVrstePlacanja = $radnik['vrste_placanja'];
+            $radnikSatiValues = array_column($radnikVrstePlacanja, 'sati');
 
 //            array_unshift($radnikSatiValues,  $radnik['prezime']);
-            array_unshift($radnikSatiValues,  $radnik['ime']);
-            array_unshift($radnikSatiValues,  $radnik['maticni_broj']);
+            array_unshift($radnikSatiValues, $radnik['ime']);
+            array_unshift($radnikSatiValues, $radnik['maticni_broj']);
 
-            $header[]= $radnikSatiValues;
-           $test="test";
+            $header[] = $radnikSatiValues;
+            $test = "test";
         }
 
-        $headerData =array_column($mesecnaTabelaPotenrazaTable->first()[0]->toArray()['vrste_placanja'],'name');
+        $headerData = array_column($mesecnaTabelaPotenrazaTable->first()[0]->toArray()['vrste_placanja'], 'name');
         array_unshift($headerData, 'Prezime Ime');
         array_unshift($headerData, 'Maticni broj');
 
-        $test='test';
+        $test = 'test';
 //        foreach ($mesecnaTabelaPotenrazaTable->first() as $radnik){
 //            $radnikVrstePlacanja=$radnik['vrste_placanja'];
 //            $radnikSatiValues = array_column($radnikVrstePlacanja,'key');
@@ -236,11 +236,12 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 //            $test="test";
 //        }
 
-        array_unshift($header,$headerData);
-            $test='testt';
+        array_unshift($header, $headerData);
+        $test = 'testt';
 
         return Excel::download(new PoenterUnosExport($header), 'data.xlsx');
     }
+
     public function odobravanjeExportPdf(Request $request)
     {
 
@@ -257,32 +258,117 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
         $inputDate = Carbon::parse($monthData->datum);
         $formattedDate = $inputDate->format('m.Y');
-        $vrstePlacanjaDescription = $this->vrsteplacanjaInterface->getVrstePlacanjaOpis();
+        $vrstePlacanjaDescription = $this->vrsteplacanjaInterface->getVrstePlacanjaOpisPdf();
 
         $html = '<!DOCTYPE html>
-        <html lang="' . str_replace('_', '-', app()->getLocale()) . '">
-        <head>
-            <style>
-            .fieldValues{
-            width:30px;
+<html lang="' . str_replace('_', '-', app()->getLocale()) . '">
+<head>
+      <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header, .footer, .footer-potpis {
+            background-color: #f1f1f1;
+        }
+        .header {
+            height: 26.4mm;
+            line-height: 26.4mm;
+            font-size: 6.35mm;
             text-align: center;
-            }
-            </style>
-        </head>
-        <body class="hold-transition sidebar-mini  sidebar-collapse">
-        <div class="wrapper">';
+            border-width: 0.52mm;
+            border-color: #8a8af5;
+            border-style: dashed;
+            border-bottom-width: 0px;
+        }
+        .footer {
+            height: auto;
+            text-align: left;
+            line-height: 2.6mm;
+            font-size: 2.6mm;
+            font-weight: 600;
+            border-width: 0.5mm;
+            border-color: #8a8af5;
+            border-style: dashed;
+            border-top-width: 0px;
+            border-bottom-width: 0px;
+            padding: 2.6mm 0 2.6mm 10mm;
+
+        }
+
+
+
+        .content {
+            margin: 5.2mm;
+            max-width: 261mm;
+        }
+        .ime_prezime{
+        min-width: 61mm;
+        text-align:left;
+        }
+        table {
+            border-collapse: collapse;
+            page-break-inside: avoid;
+            margin-left:2px;
+        }
+
+         th {
+            border:0.26mm solid #000;
+            padding: 1mm;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+
+         td {
+            border:0.26mm solid #000;
+            padding: 1mm;
+            text-align: center;
+        }
+        th {
+        }
+        .fieldValues {
+            width: 7.8mm;
+            text-align: center;
+        }
+
+        .footer-opis-code{
+        text-align: left;
+         border: none !important;
+        }
+
+        .footer-potpis-code{
+        text-align: left;
+         border: none !important;
+        }
+
+        .footer-codes-potpis{
+         margin-top: 10mm;
+        }
+
+        .footer-potpis-code{
+            font-size: 4mm;
+            font-weight: 700;
+            line-height: 10mm;
+        }
+    </style>
+</head>
+<body>';
 
         foreach ($mesecnaTabelaPotenrazaTable as $key => $organizacionacelina) {
             if (isset($troskovnaMestaPermission[$key]) && $troskovnaMestaPermission[$key]) {
-                $html .= '<div class="table-div mt-5">
-                <h3 class="text-center"> Organizaciona celina: <b>' . $key . '</b> - &nbsp;' . $organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta . '.</h3>
-                <div class="divider"></div>
-                <table class="table table-striped" id="table-div' . $key . '">
+                $html .= '<div class="content">
+            <div class="header">
+                Organizaciona celina: <b>' . $key . '</b> - ' . $organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta . '
+            </div>
+            <table class="table table-striped">
                 <thead>
-                <tr>';
+                    <tr>';
 
-                foreach ($tableHeaders as $header) {
-                    $html .= '<th>' . $header . '</th>';
+                foreach ($tableHeaders as $key => $header) {
+                    $imePrezimeClass = $key ==2 ? 'ime_prezime' : '';
+                    $html .= '<th class"'.$imePrezimeClass.'">' . $header . '</th..>';
                 }
 
                 $html .= '</tr>
@@ -291,8 +377,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
                 foreach ($organizacionacelina as $value) {
                     $html .= '<tr>
-                    <td>' . $value['maticni_broj'] . '</td>
-                    <td class="ime_prezime">' . $value['ime'] . '</td>';
+                        <td>' . $value['maticni_broj'] . '</td>
+                        <td class="ime_prezime">' . $value['ime'] . '</td>';
 
                     foreach ($value['vrste_placanja'] as $vrstaPlacanja) {
                         $html .= '<td class="vrsta_placanja_td"><span class="fieldValues" data-record-id="' . $value['id'] . '" min="0" disabled="disabled" class="vrsta_placanja_input" data-toggle="tooltip" data-placement="top" title="' . $vrstaPlacanja['name'] . '" data-vrsta-placanja-key="' . $vrstaPlacanja['key'] . '" >' . $vrstaPlacanja['sati'] . '</span></td>';
@@ -302,16 +388,23 @@ class DatotekaobracunskihkoeficijenataController extends Controller
                 }
 
                 $html .= '</tbody>
-                </table>
-                <div class="container-fluid">' . $vrstePlacanjaDescription . '</div>
-                <div class="end_org_celina"></div>
-                </div>';
+            </table>
+            <div class="footer">
+                        <div class="footer-codes">
+
+'.$vrstePlacanjaDescription.'
+            </div>
+            <div class="footer-codes-potpis">
+'.$this->resolvePotpisPoentaze(json_decode($organizacionacelina[0]->organizacionecelina->odgovorni_direktori_pravila,true)).'
+            </div>
+            </div>
+        </div>';
             }
         }
 
-        $html .= '</div>
-        </body>
-        </html>';
+        $html .= '</body>
+</html>';
+
 
 //        return  response($html, 200)
 //            ->header('Content-Type', 'text/html');
@@ -319,7 +412,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         try {
             $pdf = Pdf::loadHTML($html)->setPaper('a4', 'landscape');
 //        $pdf = PDF::loadView('materijal_pdf',$filteredData);
-            return $pdf->download('pdf_poenteri.pdf');
+            return $pdf->download('pdf_poenteri_'.date("d.m.y").'.pdf');
 
         } catch (\Throwable $exception) {
 //            report("Proveri Formulu:".$vrstaPlacanjaSlog['sifra_vrste_placanja']);
@@ -329,6 +422,17 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         }
 
     }
+
+    private function resolvePotpisPoentaze($data){
+        $html='<div class="footer-potpis-code">';
+        foreach ($data as $item) {
+            $html .= $item.' <br>';
+        }
+
+        $html.='</div>';
+        return $html;
+    }
+
     public function odobravanje(Request $request)
     {
 
@@ -347,14 +451,14 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_odobravanje',
             [
                 'formattedDate' => $formattedDate,
-                'monthData'=>$monthData,
+                'monthData' => $monthData,
                 'mesecnaTabelaPotenrazaTable' => $mesecnaTabelaPotenrazaTable,
-                'mesecnaTabelaPoentazaPermissions'=>$mesecnaTabelaPoentazaPermissions,
+                'mesecnaTabelaPoentazaPermissions' => $mesecnaTabelaPoentazaPermissions,
                 'tableHeaders' => $tableHeaders,
-                'vrstePlacanjaDescription'=>$this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
+                'vrstePlacanjaDescription' => $this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
                 'troskovnaMestaPermission' => $troskovnaMestaPermission,
                 'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
-                'userPermission'=>$userPermission
+                'userPermission' => $userPermission
             ]);
 
 
@@ -392,12 +496,11 @@ class DatotekaobracunskihkoeficijenataController extends Controller
             $resultPermission = $this->permesecnatabelapoentInterface->createMany($resultPMB);
             // Poenteri i odgovorna lica permisije odobravanja END
 
-            $idRadnikaZaMesec = $this->mesecnatabelapoentazaInterface->where('obracunski_koef_id', $osnovniPodaciMesec->id)->select(['id','maticni_broj'])->get();
+            $idRadnikaZaMesec = $this->mesecnatabelapoentazaInterface->where('obracunski_koef_id', $osnovniPodaciMesec->id)->select(['id', 'maticni_broj'])->get();
 
             // Poenter Vrsta Placanja START
 //            $poenterPlacanja = $this->kreirajObracunskeKoeficienteService->dodeliPocetnaPoenterPlacanja($idRadnikaZaMesec,$osnovniPodaciMesec->mesecni_fond_sati,$osnovniPodaciMesec->id);
 //            $akontacijePlacanjaResult = $this->dpsmPoentazaslogInterface->createMany($poenterPlacanja);
-
 
 
             // Poenter Vrsta Placanja  END
@@ -405,7 +508,6 @@ class DatotekaobracunskihkoeficijenataController extends Controller
             // Akontacije START
 //            $akontacijePlacanjaData = $this->kreirajObracunskeKoeficienteService->dodeliPocetneAkontacijePlacanja($idRadnikaZaMesec,$osnovniPodaciMesec->vrednost_akontacije,$osnovniPodaciMesec->id);
 //            $akontacijePlacanjaResult = $this->dpsmAkontacijeInterface->createMany($akontacijePlacanjaData);
-
 
 
         } catch (\Exception $e) {
@@ -538,12 +640,12 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 //    }
 
 
-    public function getMonthDataById(Request $request){
+    public function getMonthDataById(Request $request)
+    {
 
         $data = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
         return response()->json($data);
     }
-
 
 
 }
