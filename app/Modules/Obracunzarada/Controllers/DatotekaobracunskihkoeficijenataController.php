@@ -424,7 +424,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
     }
 
     private function resolvePotpisPoentaze($data){
-        $html='<div class="footer-potpis-code"> "Poenter________________"<br>';
+        $html='<div class="footer-potpis-code"> Poenter________________<br>';
         foreach ($data as $item) {
             $html .= $item.' <br>';
         }

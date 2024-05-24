@@ -59,7 +59,7 @@
                             var column = this;
                             var title = column.header().textContent;
 
-                            if(title!=='Action'){
+                            if(title!=='Izmene'){
 
                                 // Create input element and add event listener
                                 $('<input type="text"/>')
@@ -86,20 +86,35 @@
                     {
                         title: 'Aktivan',
                         render: function (data, type) {
-                            console.log(data);
                             return data ?  '<i class="fa fa-circle" style="color: #28A745; font-size: 2em; margin-left: 13%;"><i class="d-none">' + data + '</i></i>' :
                                 '<i class="fas fa-circle fa-xl" style="color: #ff0000; font-size: 2em; margin-left: 13%;"><i class="d-none">' + data + '</i></i>' ;
                         }
                     },
                     {
-                        title: 'Action',
+                        title: 'Izmene',
                         render: function (data, type) {
                             var userUrl = "{!! url('user/permissions_config_by_user?user_id=')!!}"+ data;
                             var editUrl = "{!! url('osnovnipodaci/radnici/edit_table?user_id=')!!}"+ data;
+                            var editMdrUrl = "{!! url('obracunzarada/maticnadatotekaradnika/edit_by_userId?user_id=')!!}"+ data;
 
-                            return '<a href="' + userUrl + '"><div class="col-lg-5"><button type="button" class="btn btn-outline-light"><i class="fas fa-edit edit" data-id="' + data + '" style="font-size: 1em; color: #007BFF;"  aria-hidden="true"></i></button></div></div></a>' +
-                                '<a href="' + editUrl + '"><div class="col-lg-5"><button type="button" class="btn btn-outline-light"><i class="fas fa-edit edit" data-id="' + data + '" style="font-size: 1em; color: #0000CO;"  aria-hidden="true"></i></button></div></div></a>'
-                                {{--''{{ route('radnamesta.edit', ['id' => $item->id]) }}--}}
+                            return `<div class="d-flex flex-row align-items-start">
+                                <a href="${userUrl}">
+                                    <button type="button" class="btn btn-outline-light mb-2">
+                                        <i class="fas fa-lock edit" data-id="' + data + '" style="font-size: 1em; color: #007BFF;" aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                                <a href="${editUrl}">
+                                    <button type="button" class="btn btn-outline-light mb-2">
+                                        <i class="fas fa-edit edit" data-id="' + data + '" style="font-size: 1em; color: #007BFF;" aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                                <a href="${editMdrUrl}">
+                                    <button type="button" class="btn btn-outline-light">
+                                        <i class="fas fa-edit edit" data-id="' + data + '" style="font-size: 1em; color: #ff0000;" aria-hidden="true"></i>
+                                    </button>
+                                </a>
+                            </div>`
+                            {{--''{{ route('radnamesta.edit', ['id' => $item->id]) }}--}}
                         }
                     }
                 ],

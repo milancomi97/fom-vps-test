@@ -38,13 +38,14 @@
             <!-- /.content-header -->
             <!-- Main content -->
             <!-- /.content -->
-            <h1 class="text-center"> Matična datoteka radnika </h1>
+            <h1 class="text-center">Nova matična datoteka radnika </h1>
             <div class="container mt-5">
 
                 <div class="row justify-content-center">
                     <h3 id="error-validator-text" class="text-danger d-none font-weight-bold">- Popunite sva polja
                         -</h3>
 
+                    <div class="container mt-5">
                         <form id="maticnadatotekaradnika" method="post"
                               action="{{ route('maticnadatotekaradnika.store')}}">
                             @csrf
@@ -52,46 +53,38 @@
                             <input type="hidden" name="user_id" id="user_id">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold"
-                                          id="span_maticni_broj">Matični broj:</span>
+                                    <span class="input-group-text font-weight-bold" id="span_MBRD_maticni_broj">Matični broj:</span>
                                 </div>
-
-                                <input type="text" class="form-control" disabled id="MBRD_maticni_broj" aria-describedby="span_maticni_broj"
-                                       value="{{$radnikData->MBRD_maticni_broj}}"
-                                       name="MBRD_maticni_broj"
-                                >
-
-
-{{--                                <select class="custom-select maticni_broj invisible" id="MBRD_maticni_broj"--}}
-{{--                                        name="MBRD_maticni_broj"--}}
-{{--                                        aria-describedby="span_maticni_broj"--}}
-{{--                                >--}}
-{{--                                    <option>pretraga po mat. br.</option>--}}
-{{--                                </select>--}}
-
-                                {{--                                <input type="hidden" id="maticni_broj_value">--}}
+                                <input type="text" class="form-control" id="MBRD_maticni_broj" aria-describedby="span_MBRD_maticni_broj"
+                                       name="MBRD_maticni_broj">
                             </div>
-                                {{--                                <input type="hidden" id="prezime_value">--}}
-
-                                {{--                                <input type="text" class="form-control" id="prezime" aria-describedby="prezime">--}}
-
+                            <!-- 2.1 Prezime, text field -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_prezime">Prezime:</span>
+                                    <span class="input-group-text font-weight-bold" id="span_PREZIME_prezime">Prezime:</span>
                                 </div>
-                                <input type="text" class="form-control" id="PREZIME_prezime" aria-describedby="span_prezime"
-                                       value="{{$radnikData->PREZIME_prezime}}"
-                                       name="PREZIME_prezime"
-                                >
+                                <input type="text" class="form-control" id="PREZIME_prezime" aria-describedby="span_PREZIME_prezime"
+                                       name="PREZIME_prezime">
                             </div>
+{{--                            <div class="input-group mb-3">--}}
+{{--                                <div class="input-group-prepend">--}}
+{{--                                    <span class="input-group-text font-weight-bold" id="span_prezime">Prezime:</span>--}}
+{{--                                </div>--}}
+{{--                                <select class="custom-select prezime" id="PREZIME_prezime" name="PREZIME_prezime"--}}
+{{--                                        aria-describedby="span_prezime">--}}
+{{--                                    <option value="0">pretraga po prezimenu</option>--}}
+{{--                                </select>--}}
+{{--                                --}}{{--                                <input type="hidden" id="prezime_value">--}}
 
+{{--                                --}}{{--                                <input type="text" class="form-control" id="prezime" aria-describedby="prezime">--}}
+{{--                            </div>--}}
                             <!-- 2.2  Ime, text field -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text font-weight-bold" id="span_ime">Ime:</span>
                                 </div>
                                 <input type="text" class="form-control" id="IME_ime" aria-describedby="span_ime"
-                                       value="{{$radnikData->IME_ime}}"     name="IME_ime">
+                                       name="IME_ime">
                             </div>
 
                             <!-- 3. Troskovni centar, text field -->
@@ -103,9 +96,6 @@
                                         aria-describedby="span_sifra_mesta_troska_id">
                                     <option value="0">Izaberite troškovno mesto</option>
                                     @foreach($troskMesta as $value => $label)
-                                        @if($label['key']== $radnikData->troskovno_mesto_id)
-                                            <option selected value="{{ $label['key']}}">{{ $label['value'] }}</option>
-                                        @endif
                                         <option value="{{ $label['key'] }}">{{ $label['value']  }}</option>
                                     @endforeach
                                 </select>
@@ -122,10 +112,6 @@
                                         aria-describedby="span_radno_mesto">
                                     <option value="0">Izaberite radno mesto</option>
                                     @foreach($radnaMesta as $value => $label)
-{{--                                        RBRM_radno_mesto--}}
-                                        @if($value== $radnikData->RBRM_radno_mesto)
-                                            <option selected value="{{ $value}}">{{ $label }}</option>
-                                        @endif
                                         <option value="{{ $value }}">{{ $label }}</option>
                                     @endforeach
 
@@ -141,12 +127,8 @@
                                 <select class="custom-select" id="RBIM_isplatno_mesto_id" name="RBIM_isplatno_mesto_id"
                                         aria-describedby="span_isplatno_mesto">
                                     <option value="0">Izaberite isplatno mesto</option>
-
-                                    @foreach($isplatnaMesta as $key => $value )
-                                        @if($value['key']== $radnikData->RBIM_isplatno_mesto_id)
-                                            <option selected value="{{ $value['key'] }}">{{ $value['value'] }}</option>
-                                        @endif
-                                        <option value="{{ $value['key'] }}">{{ $value['value']  }}</option>
+                                    @foreach($isplatnaMesta as $value => $label)
+                                        <option value="{{ $label['key'] }}">{{ $label['value'] }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -158,7 +140,7 @@
                                           id="span_tekuci_racun">Tekuci racun:</span>
                                 </div>
                                 <input type="text" class="form-control" id="ZRAC_tekuci_racun" name="ZRAC_tekuci_racun"
-                                   {{$radnikData->ZRAC_tekuci_racun}}    aria-describedby="span_tekuci_racun">
+                                       aria-describedby="span_tekuci_racun">
                             </div>
 
                             <!-- 7. Redosled u poentazi, text field -->
@@ -194,7 +176,7 @@
                                     <span class="input-group-text font-weight-bold" id="span_radna_jedinica">Radna jedinica:</span>
                                 </div>
                                 <input type="text" class="form-control" id="RJ_radna_jedinica" name="RJ_radna_jedinica"
-                                       value="{{$radnikData->RJ_radna_jedinica}}"      aria-describedby="span_radna_jedinica">
+                                       aria-describedby="span_radna_jedinica">
                             </div>
 
                             <!-- 9.1 Brigada, text field -->
@@ -204,7 +186,7 @@
                                     <span class="input-group-text font-weight-bold" id="span_brigada">Brigada:</span>
                                 </div>
                                 <input type="text" class="form-control" id="BRIG_brigada" name="BRIG_brigada"
-                                      value="{{$radnikData->BRIG_brigada}}" aria-describedby="span_brigada">
+                                       aria-describedby="span_brigada">
                             </div>
 
 
@@ -214,8 +196,8 @@
                                     <span class="input-group-text font-weight-bold"
                                           id="span_godine">Godine staza:</span>
                                 </div>
-                                <input type="number" class="form-control" id="GGST_godine_staza"
-                                       value="{{$radnikData->GGST_godine_staza}}" name="GGST_godine_staza" max="99" aria-describedby="span_godine">
+                                <input type="number" class="form-control" value="0" id="GGST_godine_staza"
+                                       name="GGST_godine_staza" max="99" aria-describedby="span_godine">
                             </div>
                             <!-- 11. Meseci, text field -->
                             <div class="input-group mb-3">
@@ -223,8 +205,8 @@
                                     <span class="input-group-text font-weight-bold"
                                           id="span_meseci">Meseci staza:</span>
                                 </div>
-                                <input type="number" class="form-control" name="MMST_meseci_staza" max="11"
-                                       value="{{ $radnikData->MMST_meseci_staza}}"  id="MMST_meseci_staza" aria-describedby="span_meseci">
+                                <input type="number" class="form-control" name="MMST_meseci_staza" value="0" max="11"
+                                       id="MMST_meseci_staza" aria-describedby="span_meseci">
                             </div>
 
 
@@ -235,7 +217,7 @@
                                 </div>
                                 <div class="col col-1">
                                     <input type="checkbox" class="form-control" name="MRAD_minuli_rad_aktivan"
-                                           aria-label="Minuli rad aktivan" {{$radnikData->MRAD_minuli_rad_aktivan ==1 ? "checked": ''}}
+                                           aria-label="Minuli rad aktivan" checked="checked"
                                            id="MRAD_minuli_rad_aktivan">
                                 </div>
 
@@ -248,8 +230,7 @@
                                 </div>
                                 <div class="col col-1">
                                     <input type="checkbox" class="form-control" name="PREB_prebacaj"
-                                           {{$radnikData->PREB_prebacaj ==1 ? "checked": ''}}
-                                           aria-label="Prebacaj"
+                                           aria-label="Prebacaj" checked="checked"
                                            id="span_prebacaj">
                                 </div>
 
@@ -267,10 +248,6 @@
                                         aria-describedby="span_stvarna_strucna_sprema">
                                     <option value="0">Izaberite stručnu spremu</option>
                                     @foreach($kvalifikacije as $value => $label)
-                                    @if($value== $radnikData->RBSS_stvarna_strucna_sprema)
-                                            <option selected value="{{ $value }}">{{ $label }}</option>
-                                        @endif
-                                            {{--                                            RBPS_priznata_strucna_sprema--}}
                                         <option value="{{ $value }}">{{ $label }}</option>
                                     @endforeach
                                 </select>
@@ -286,31 +263,20 @@
                                         aria-describedby="span_priznata_strucna_sprema">
                                     <option value="0">Izaberite stručnu spremu</option>
                                     @foreach($kvalifikacije as $value => $label)
-                                        @if($value== $radnikData->RBPS_priznata_strucna_sprema)
-                                            <option selected value="{{ $value }}">{{ $label }}</option>
-                                        @endif
                                         <option value="{{ $value }}">{{ $label }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
                             <!-- 15. Koefinicijent slozenosti, text field -->
-
-                            @if((int) $radnikData->BRCL_redosled_poentazi > 100)
-
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text font-weight-bold" id="span_osnovna_zarada">Osnovna zarada:</span>
                                 </div>
                                 <input type="text" class="form-control" id="KOEF_osnovna_zarada"
                                        name="KOEF_osnovna_zarada"
-                                       value="{{$radnikData->KOEF_osnovna_zarada}}"
                                        aria-describedby="span_osnovna_zarada">
                             </div>
-                            @endif
-
-
-
 
                             <!-- 17. Licni broj gradjana, text field -->
                             <div class="input-group mb-3">
@@ -318,7 +284,7 @@
                                     <span class="input-group-text font-weight-bold" id="span_jmbg">JMBG:</span>
                                 </div>
                                 <input type="text" class="form-control" id="LBG_jmbg" name="LBG_jmbg"
-                                     value="{{$radnikData->LBG_jmbg}}"  aria-describedby="span_jmbg">
+                                       aria-describedby="span_jmbg">
                             </div>
 
                             <!-- 18. Pol, Radio buttons -->
@@ -328,12 +294,8 @@
                                 </div>
                                 <div class="form-group ml-5"
                                      style="display: flex; align-items: center; justify-content: center; margin-bottom: 0">
-                                    <div class="form-check form-check-inline">
-                                        <select class="custom-select" id="POL_pol"
-                                                name="POL_pol">
-                                            <option value="1">M</option>
-                                            <option value="2">Z</option>
-                                        </select>
+                                    <div class="form-check form-check-inline ">
+                                        <input class="form-control" type="text" name="POL_pol" id="POL_pol">
                                     </div>
                                 </div>
                             </div>
@@ -352,13 +314,12 @@
                             <!-- 20. Prosek za nadoknade, text field -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_prosecna_zarada">Prosečna zarada IZNETO:</span>
+                                    <span class="input-group-text font-weight-bold" id="span_prosecna_zarada">Prosečna zarada:</span>
                                 </div>
                                 <input type="text" class="form-control" id="IZNETO_ukupna_bruto_zarada" name="IZNETO_ukupna_bruto_zarada"
                                        value="0"
                                        aria-describedby="prosecna_zarada">
                             </div>
-
 
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -367,11 +328,7 @@
                                 <select class="custom-select" name="opstina_id" id="opstina_id"
                                         aria-describedby="opstina">
                                     <option value="0">Izaberite opštinu</option>
-
                                     @foreach($opstine as $value => $label)
-                                        @if($label['key']== $radnikData->opstina_id)
-                                            <option selected value="{{ $label['key']}}">{{ $label['value'] }}</option>
-                                        @endif
                                         <option value="{{ $value }}">{{ $label['value'] }}</option>
                                     @endforeach
                                 </select>
@@ -398,84 +355,86 @@
     <script src="{{asset('admin_assets/plugins/select2/js/select2.full.min.js')}}"></script>
 
     <script>
+        var user_id ='{{$user_id}}';
 
         $(function () {
 
+            debugger;
             // Maticni broj pretraga
-            $('.maticni_broj').select2({
-                minimumInputLength: 3,
-                language: {
-                    inputTooShort: function (args) {
-                        var remainingChars = args.minimum - args.input.length;
+            {{--$('.maticni_broj').select2({--}}
+            {{--    minimumInputLength: 3,--}}
+            {{--    language: {--}}
+            {{--        inputTooShort: function (args) {--}}
+            {{--            var remainingChars = args.minimum - args.input.length;--}}
 
-                        return 'Unesi ' + remainingChars + ' ili vise karaktera';
-                    },
-                    noResults: function () {
-                        return 'Nema rezultata';
-                    },
-                    searching: function () {
-                        return 'Pretražujem...';
-                    }
-                },
-                ajax: {
-                    url: '{!! route('radnici.findByMat') !!}',
-                    dataType: 'json',
-                    delay: 1000,
-                    data: function (params) {
-                        return {
-                            q: params.term, // search term
-                        };
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: data
-                        };
-                    },
-                    cache: false
-                }
-            }).on('select2:select', function (e) {
-                var selectedRadnikId = e.params.data.id;
-                getRadnikDataById(selectedRadnikId)
-            });
+            {{--            return 'Unesi ' + remainingChars + ' ili vise karaktera';--}}
+            {{--        },--}}
+            {{--        noResults: function () {--}}
+            {{--            return 'Nema rezultata';--}}
+            {{--        },--}}
+            {{--        searching: function () {--}}
+            {{--            return 'Pretražujem...';--}}
+            {{--        }--}}
+            {{--    },--}}
+            {{--    ajax: {--}}
+            {{--        url: '{!! route('radnici.findByMat') !!}',--}}
+            {{--        dataType: 'json',--}}
+            {{--        delay: 1000,--}}
+            {{--        data: function (params) {--}}
+            {{--            return {--}}
+            {{--                q: params.term, // search term--}}
+            {{--            };--}}
+            {{--        },--}}
+            {{--        processResults: function (data) {--}}
+            {{--            return {--}}
+            {{--                results: data--}}
+            {{--            };--}}
+            {{--        },--}}
+            {{--        cache: false--}}
+            {{--    }--}}
+            {{--}).on('select2:select', function (e) {--}}
+            {{--    var selectedRadnikId = e.params.data.id;--}}
+            {{--    getRadnikDataById(selectedRadnikId)--}}
+            {{--});--}}
 
             // Maticni broj pretraga END
 
             // Prezime pretraga
-            $('.prezime').select2({
-                minimumInputLength: 4,
-                language: {
-                    inputTooShort: function (args) {
-                        var remainingChars = args.minimum - args.input.length;
+            {{--$('.prezime').select2({--}}
+            {{--    minimumInputLength: 4,--}}
+            {{--    language: {--}}
+            {{--        inputTooShort: function (args) {--}}
+            {{--            var remainingChars = args.minimum - args.input.length;--}}
 
-                        return 'Unesi ' + remainingChars + ' ili vise karaktera';
-                    },
-                    noResults: function () {
-                        return 'Nema rezultata';
-                    },
-                    searching: function () {
-                        return 'Pretražujem...';
-                    }
-                },
-                ajax: {
-                    url: '{!! route('radnici.findByPrezime') !!}',
-                    dataType: 'json',
-                    delay: 1000,
-                    data: function (params) {
-                        return {
-                            q: params.term, // search term
-                        };
-                    },
-                    processResults: function (data) {
-                        return {
-                            results: data
-                        };
-                    },
-                    cache: false
-                }
-            }).on('select2:select', function (e) {
-                var selectedRadnikId = e.params.data.id;
-                getRadnikDataById(selectedRadnikId)
-            });
+            {{--            return 'Unesi ' + remainingChars + ' ili vise karaktera';--}}
+            {{--        },--}}
+            {{--        noResults: function () {--}}
+            {{--            return 'Nema rezultata';--}}
+            {{--        },--}}
+            {{--        searching: function () {--}}
+            {{--            return 'Pretražujem...';--}}
+            {{--        }--}}
+            {{--    },--}}
+            {{--    ajax: {--}}
+            {{--        url: '{!! route('radnici.findByPrezime') !!}',--}}
+            {{--        dataType: 'json',--}}
+            {{--        delay: 1000,--}}
+            {{--        data: function (params) {--}}
+            {{--            return {--}}
+            {{--                q: params.term, // search term--}}
+            {{--            };--}}
+            {{--        },--}}
+            {{--        processResults: function (data) {--}}
+            {{--            return {--}}
+            {{--                results: data--}}
+            {{--            };--}}
+            {{--        },--}}
+            {{--        cache: false--}}
+            {{--    }--}}
+            {{--}).on('select2:select', function (e) {--}}
+            {{--    var selectedRadnikId = e.params.data.id;--}}
+            {{--    getRadnikDataById(selectedRadnikId)--}}
+            {{--});--}}
 
             // Prezime pretraga END
 
@@ -484,7 +443,7 @@
 
 
         function getRadnikDataById(id) {
-
+debugger;
             var postData = {
                 radnikId: id
             };
@@ -496,7 +455,10 @@
                 data: postData,
                 success: function (response) {
 
-                    $('#ime').val(response.ime)
+                    $('#IME_ime').val(response.ime)
+                    $('#PREZIME_prezime').val(response.prezime)
+                    $('#MBRD_maticni_broj').val(response.maticni_broj)
+
                     $('#adresa_ulica_broj').val(response.adresa_ulica_broj)
                     $("#opstina_id").val(response.opstina_id)
                     $("#sifra_mesta_troska_id").val(response.sifra_mesta_troska_id)
@@ -504,10 +466,10 @@
                     $('#user_id').val(response.id);
 
 
-                    var prezimeOption = new Option(response.prezime, response.prezime, true, true);
-                    $('#prezime').append(prezimeOption).trigger('change');
-                    var maticniOption = new Option(response.maticni_broj, response.maticni_broj, true, true);
-                    $('#maticni_broj').append(maticniOption).trigger('change');
+                    // var prezimeOption = new Option(response.prezime, response.prezime, true, true);
+                    // $('#prezime').append(prezimeOption).trigger('change');
+                    // var maticniOption = new Option(response.maticni_broj, response.maticni_broj, true, true);
+                    // $('#maticni_broj').append(maticniOption).trigger('change');
                     // maticni_broj
                     // maticni_broj_value
                     // prezime
@@ -577,14 +539,14 @@
                 }
             });
 
-            $(this).find('select').each(function () {
-                if ($(this).val() === '0') {
-                    isValid = false;
-                    $(this).addClass('error');
-                } else {
-                    $(this).removeClass('error');
-                }
-            });
+            // $(this).find('select').each(function () {
+            //     if ($(this).val() === '0') {
+            //         isValid = false;
+            //         $(this).addClass('error');
+            //     } else {
+            //         $(this).removeClass('error');
+            //     }
+            // });
             $(window).scroll(function () {
                 if ($(this).scrollTop() > 100) {
                     $('#scrollToTopBtn').fadeIn();
@@ -601,6 +563,12 @@
             }
         });
 
+
+        debugger;
+
+        setTimeout(function() {
+            getRadnikDataById(user_id);
+        }, 3000);
     </script>
 
 @endsection

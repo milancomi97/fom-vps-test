@@ -58,6 +58,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        $test='test';
         return redirect(RouteServiceProvider::HOME);
     }
     public function poenterPermissionsTest()

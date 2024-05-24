@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserPermission;
+use App\Modules\Obracunzarada\Consts\UserRoles;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,12 @@ class UserConfigController extends Controller
         $orgCeline= $this->organizacionecelineInterface->getAll();
         $userData =User::with('permission')->find(Auth::id());
         $poenterPermission  = json_decode($userData->permission->troskovna_mesta_poenter,true);
-        return view('auth.user-permissions-config', ['userData' => $userData,'permissions'=>$userData->permission,'organizacioneCeline'=>$orgCeline,'poenterPermission'=>$poenterPermission]);
+        return view('auth.user-permissions-config',
+            ['userData' => $userData,
+                'permissions'=>$userData->permission,
+                'organizacioneCeline'=>$orgCeline,
+                'poenterPermission'=>$poenterPermission
+            ]);
     }
 
     public function permissionsUpdate(Request $request)
@@ -53,14 +59,15 @@ class UserConfigController extends Controller
     public function index()
     {
 
-        $users = User::all();
+        $permissionConstants =UserRoles::all();
+        $users = User::with('permission')->get();
 
         $userData = [];
         foreach ($users as $user) {
             $userData[] = [
                 $user->ime,
                 $user->prezime,
-                $user->email,
+                $permissionConstants[$user->permission->role_id],
                 $user->datum_odlaska,
                 $user->active,
                 $user->id
@@ -75,7 +82,7 @@ class UserConfigController extends Controller
     {
         $orgCeline= $this->organizacionecelineInterface->getAll();
         $userData =User::with('permission')->find($request->user_id);
-        return view('auth.user-permissions-config', ['userData' => $userData,'permissions'=>$userData->permission,'organizacione_celine'=>$orgCeline]);
+        return view('auth.user-permissions-config', ['userData' => $userData,'permissions'=>$userData->permission,'organizacioneCeline'=>$orgCeline]);
     }
 
     public function permissionsUpdatePoenter(Request $request)

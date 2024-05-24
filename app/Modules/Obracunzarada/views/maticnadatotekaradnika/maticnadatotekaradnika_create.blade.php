@@ -304,7 +304,7 @@
                             <!-- 19. Sati za nadoknade, text field -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text font-weight-bold" id="span_prosecni_sati">Prosečni sati PROVERI:</span>
+                                    <span class="input-group-text font-weight-bold" id="span_prosecni_sati">Prosečni sati:</span>
                                 </div>
                                 <input type="text" class="form-control" id="PRCAS_ukupni_sati_za_ukupan_bruto_iznost" value="0"
                                        name="PRCAS_ukupni_sati_za_ukupan_bruto_iznost"

@@ -81,10 +81,6 @@ Route::get('/', function () {
 
 
 
-Route::get('/backupdata', [\App\Http\Controllers\DatabaseBackupController::class, 'showBackupData'])->name('backup.index');
-
-Route::post('/backupdata', [\App\Http\Controllers\DatabaseBackupController::class, 'importBackup'])->name('backup.import');
-
 
 Route::get('/dashboard', function () {
     return view('/adminlte/welcome');
@@ -117,11 +113,17 @@ Route::resource("/partner", \App\Http\Controllers\PartnerController::class);
 Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
 
 
-Route::middleware('auth')->group(function () {
+//Route::middleware('auth')->group(function () {
+    Route::group(['middleware'=>['auth']],function () {
+
+
+        Route::get('/backupdata', [\App\Http\Controllers\DatabaseBackupController::class, 'showBackupData'])->name('backup.index');
+
+        Route::post('/backupdata', [\App\Http\Controllers\DatabaseBackupController::class, 'importBackup'])->name('backup.import');
 
 
 
-    Route::get('/forgot-password-cust/{token}', function (string $token) {
+        Route::get('/forgot-password-cust/{token}', function (string $token) {
 
         return view('auth.forgot-password-cust',['email'=>auth()->user()->email,'token'=>$token,'request'=>['route'=>$token]]);
     })->name('password.request_cust');
@@ -131,7 +133,6 @@ Route::middleware('auth')->group(function () {
         ->name('password-cust.store');
 
 
-//    Route::middleware(['auth','customrole'])->group(function () {
 
     Route::resource('coremodule', CoreModuleController::class);
     Route::get('getNbsData',[CoreModuleController::class,'sendSoapRequest']);
@@ -246,10 +247,13 @@ Route::middleware('auth')->group(function () {
     Route::get('obracunzarada/maticnadatotekaradnika/getById',[MaticnadatotekaradnikaController::class,'getById'])->name('radnici.getById');
     Route::post('obracunzarada/maticnadatotekaradnika/store',[MaticnadatotekaradnikaController::class,'store'])->name('maticnadatotekaradnika.store');
 
+        Route::get('obracunzarada/maticnadatotekaradnika/edit_by_userId',[MaticnadatotekaradnikaController::class,'editByUserId'])->name('maticnadatotekaradnika.editByUserId');
+        Route::get('obracunzarada/maticnadatotekaradnika/create_from_user',[MaticnadatotekaradnikaController::class,'createFromUser'])->name('maticnadatotekaradnika.createFromUser');
 
 
 
-    // Mesecna datotekaobracunskihkoeficijenata
+
+        // Mesecna datotekaobracunskihkoeficijenata
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/create',[DatotekaobracunskihkoeficijenataController::class,'create'])->name('datotekaobracunskihkoeficijenata.create');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/store',[DatotekaobracunskihkoeficijenataController::class,'store'])->name('datotekaobracunskihkoeficijenata.store');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getstoredata',[DatotekaobracunskihkoeficijenataController::class,'getStoreData'])->name('datotekaobracunskihkoeficijenata.getStoreData');
@@ -263,6 +267,8 @@ Route::middleware('auth')->group(function () {
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update',[DatotekaobracunskihkoeficijenataController::class,'update'])->name('datotekaobracunskihkoeficijenata.update');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/check',[DatotekaobracunskihkoeficijenataController::class,'check'])->name('datotekaobracunskihkoeficijenata.check');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje',[DatotekaobracunskihkoeficijenataController::class,'odobravanje'])->name('datotekaobracunskihkoeficijenata.odobravanje');
+
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_poenter',[DatotekaobracunskihkoeficijenataController::class,'odobravanjePoenter'])->name('datotekaobracunskihkoeficijenata.odobravanje_poenter');
 
     Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf',[DatotekaobracunskihkoeficijenataController::class,'odobravanjeExportPdf'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf');
     Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_xls',[DatotekaobracunskihkoeficijenataController::class,'odobravanjeExportXls'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_xls');

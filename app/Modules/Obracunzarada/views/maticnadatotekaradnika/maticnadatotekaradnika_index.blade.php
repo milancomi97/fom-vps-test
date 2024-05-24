@@ -12,7 +12,7 @@
             <!-- Content Header (Page header) -->
             <div class="content-header">
             </div>
-            
+
             <!-- /.content-header -->
             <!-- Main content -->
             <!-- /.content -->
@@ -89,7 +89,6 @@
                     {
                         title: 'Aktivan',
                         render: function (data, type) {
-                            console.log(data);
                             return data ?  '<i class="fa fa-circle" style="color: #28A745; font-size: 2em; margin-left: 13%;"><i class="d-none">' + data + '</i></i>' :
                                 '<i class="fas fa-circle fa-xl" style="color: #ff0000; font-size: 2em; margin-left: 13%;"><i class="d-none">' + data + '</i></i>' ;
                         }

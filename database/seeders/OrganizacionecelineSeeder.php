@@ -26,8 +26,8 @@ class OrganizacionecelineSeeder extends Seeder
                     'sifra_troskovnog_mesta' =>$data['RBTC'],
                     'naziv_troskovnog_mesta' =>$data['NATC'],
                     'active'=>$data['ACTIVE'] == "TAČNO",
-                    'poenteri_ids'=>'["2691", "2692"]',
-                    'odgovorna_lica_ids'=>'["2130", "2130"]',
+                    'poenteri_ids'=>'["1450","1596","1598","2692"]', //User Model ID
+                    'odgovorna_lica_ids'=>'["2540", "2130"]',  // User Model ID
                     'odgovorni_direktori_pravila'=>$this->resolveDirektori($data)
                 ]);
 
@@ -38,6 +38,10 @@ class OrganizacionecelineSeeder extends Seeder
         }
 
     }
+
+
+
+
 
     public function getDataFromCsv()
     {

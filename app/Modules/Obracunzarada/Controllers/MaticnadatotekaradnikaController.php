@@ -72,6 +72,35 @@ class MaticnadatotekaradnikaController extends Controller
 
     }
 
+
+
+    public function createFromUser(Request $request){
+
+        $radnaMesta = $this->radnamestaInterface->getSelectOptionData();
+        $opstine = $this->opstineInterface->getSelectOptionData();
+        $isplatnaMesta = $this->isplatnamestaInterface->getSelectOptionData(); // add key
+        $vrstaRada = $this->vrstaradasifarnikInterface->getSelectOptionData(); // add key
+        $kvalifikacije =  $this->strucnakvalifikacijaInterface->getSelectOptionData();
+        $troskMesta = $this->organizacionecelineInterface->getSelectOptionData(); // ADD KEY
+
+        return view('obracunzarada::maticnadatotekaradnika.maticnadatotekaradnika_create_by_user',
+            [
+                'opstine'=>$opstine,
+                'radnaMesta'=>$radnaMesta,
+                'isplatnaMesta'=>$isplatnaMesta,
+                'vrstaRada'=>$vrstaRada,
+                'kvalifikacije'=>$kvalifikacije,
+                'troskMesta' =>$troskMesta,
+                'user_id'=>$request->user_id
+            ]);
+
+    }
+
+
+
+
+
+
     public function edit(Request $request){
 
         $radnikId = $request->radnik_id;
@@ -95,6 +124,36 @@ class MaticnadatotekaradnikaController extends Controller
             ]);
 
     }
+
+    public function editByUserId(Request $request){
+
+        $radnikId = $request->user_id;
+        $maticnadatotekaradnikData = $this->maticnadatotekaradnikaInterface->where('user_id',$radnikId)->first();
+
+        if($maticnadatotekaradnikData==null){
+            return redirect()->route('maticnadatotekaradnika.createFromUser',['user_id'=>$radnikId]);
+
+        }
+        $radnaMesta = $this->radnamestaInterface->getSelectOptionData();
+        $opstine = $this->opstineInterface->getSelectOptionData();
+        $isplatnaMesta = $this->isplatnamestaInterface->getSelectOptionData(); // add key
+        $vrstaRada = $this->vrstaradasifarnikInterface->getSelectOptionData(); // add key
+        $kvalifikacije =  $this->strucnakvalifikacijaInterface->getSelectOptionData();
+        $troskMesta = $this->organizacionecelineInterface->getSelectOptionData(); // ADD KEY
+
+        return view('obracunzarada::maticnadatotekaradnika.maticnadatotekaradnika_edit',
+            [
+                'opstine'=>$opstine,
+                'radnaMesta'=>$radnaMesta,
+                'isplatnaMesta'=>$isplatnaMesta,
+                'vrstaRada'=>$vrstaRada,
+                'kvalifikacije'=>$kvalifikacije,
+                'troskMesta' =>$troskMesta,
+                'radnikData'=>$maticnadatotekaradnikData
+            ]);
+
+    }
+
     public function findByMat(Request $request)
     {
         $inputString = $request->q;

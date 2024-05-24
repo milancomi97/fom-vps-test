@@ -141,16 +141,16 @@
 
                     <!-- Date -->
                     <div class="form-group">
-                        <label for="datum_zasnivanja_radnog_odnosa">Datum Zasnivanja Radnog Odnosa // IZMENITI FORMAT
-                            DATUMA</label>
+                        <label for="datum_zasnivanja_radnog_odnosa">Datum Zasnivanja Radnog Odnosa
+                            </label>
                         <input type="date" class="form-control date" id="datum_zasnivanja_radnog_odnosa"
                                name="datum_zasnivanja_radnog_odnosa" value="{{$radnik->datum_zasnivanja_radnog_odnosa}}" >
                     </div>
 
                     <!-- Date -->
                     <div class="form-group">
-                        <label for="datum_prestanka_radnog_odnosa">Datum Prestanka Radnog Odnosa // IZMENITI FORMAT
-                            DATUMA</label>
+                        <label for="datum_prestanka_radnog_odnosa">Datum Prestanka Radnog Odnosa
+                            </label>
                         <input type="date" class="form-control date" id="datum_prestanka_radnog_odnosa"
                                value="{{$radnik->datum_prestanka_radnog_odnosa}}"
                                name="datum_prestanka_radnog_odnosa">

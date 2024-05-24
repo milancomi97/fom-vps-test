@@ -25,6 +25,9 @@ class RedirectIfAuthenticated
             }
         }
 
+
+        // TODO LOGIKA auth
+
         return $next($request);
     }
 }
