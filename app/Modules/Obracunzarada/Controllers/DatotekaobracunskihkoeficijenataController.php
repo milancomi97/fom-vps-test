@@ -424,7 +424,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
     }
 
     private function resolvePotpisPoentaze($data){
-        $html='<div class="footer-potpis-code">';
+        $html='<div class="footer-potpis-code"> "Poenter________________"<br>';
         foreach ($data as $item) {
             $html .= $item.' <br>';
         }
@@ -463,6 +463,42 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
 
     }
+
+
+
+    public function odobravanjePoenter(Request $request)
+    {
+
+        $user_id = auth()->user()->id;
+        $userPermission = UserPermission::where('user_id', $user_id)->first();
+        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
+        $id = $request->month_id;
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
+
+        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
+        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
+        $mesecnaTabelaPoentazaPermissions = $this->pripremiPermisijePoenteriOdobravanja->execute('obracunski_koef_id', $id);
+
+        $inputDate = Carbon::parse($monthData->datum);
+        $formattedDate = $inputDate->format('m.Y');
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_odobravanje_poenter',
+            [
+                'formattedDate' => $formattedDate,
+                'monthData' => $monthData,
+                'mesecnaTabelaPotenrazaTable' => $mesecnaTabelaPotenrazaTable,
+                'mesecnaTabelaPoentazaPermissions' => $mesecnaTabelaPoentazaPermissions,
+                'tableHeaders' => $tableHeaders,
+                'vrstePlacanjaDescription' => $this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
+                'troskovnaMestaPermission' => $troskovnaMestaPermission,
+                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
+                'userPermission' => $userPermission
+            ]);
+
+
+    }
+
+
+
 
     public function create()
     {
