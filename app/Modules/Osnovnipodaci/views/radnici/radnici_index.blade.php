@@ -4,6 +4,14 @@
 @section('custom-styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap4.min.css"/>
+<style>
+    div.dataTables_length select{
+        width: 40% !important;
+        text-align: center !important;
+    }
+
+
+</style>
 @endsection
 
 @section('content')
@@ -38,6 +46,7 @@
 
             var table = $('#table_id').DataTable({
                 data: {!! $users !!},
+                "order": [[ 4, "desc" ]],
                 scrollX: false,
                 decimal: ",",
                 language: {
@@ -76,15 +85,16 @@
                 },
                 columns: [
                     {
-                        title: 'Ime'
+                        title: 'Matični broj'
                     },
                     {
                         title: 'Prezime'
                     },
-                    {title: 'Email'},
-                    {title: 'Datum odlaska'},
+                    {title: 'Srednje Ime'},
+                    {title: 'Ime'},
                     {
                         title: 'Aktivan',
+                        className: 'myCustomClass',
                         render: function (data, type) {
                             return data ?  '<i class="fa fa-circle" style="color: #28A745; font-size: 2em; margin-left: 13%;"><i class="d-none">' + data + '</i></i>' :
                                 '<i class="fas fa-circle fa-xl" style="color: #ff0000; font-size: 2em; margin-left: 13%;"><i class="d-none">' + data + '</i></i>' ;
@@ -122,7 +132,10 @@
 
             table.draw();
             table.columns.adjust().draw()
+
         });
+
+
 
     </script>
 @endsection

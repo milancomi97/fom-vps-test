@@ -16,25 +16,57 @@
             font-size: 2em;
             margin-bottom: 2em;
         }
+        .form-control{
+            width: 100%;
+        }
+        .custom-select{
+            display: block;
+        }
+
+        .form-custom-checkbox{
+            width: 30px;
+            height: 30px;
+            transform: scale(1.5);
+            margin-top:0.5rem;
+        }
+
+        .form-check{
+            padding-left: 0.5rem!important;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 10px; /* Space between buttons */
+            align-items: center; /* Aligns items vertically in the center */
+            margin-top: 20px; /* Adjust margin to position the container */
+        }
+
+        .button-container .btn {
+            margin: 0;
+            padding: 10px 20px; /* Adjust padding as needed */
+        }
     </style>
 @endsection
 
 @section('content')
     <div class="container">
-        <div class="content">
+        <div class="content border mb-5">
             <!-- Content Header (Page header) -->
             <div class="content-header">
             </div>
             <!-- /.content-header -->
             <!-- Main content -->
             <!-- /.content -->
+
             <h1 class="text-center"> Izmena radnika  {!! $radnik->prezime !!} &nbsp;  {!! $radnik->ime!!} </h1>
             <div class="container mt-5">
+                <div class="row justify-content-center">
+
                 <form method="POST" action="{{ route('radnici.update', ['radnikId' => $radnik->id]) }}">
                     @csrf
                     <div class="form-group">
                         <label for="interni_maticni_broj">Maticni Broj</label>
-                        <input type="number" class="form-control" id="interni_maticni_broj" value="{{$radnik->maticni_broj}}" name="interni_maticni_broj">
+                        <input type="number" disabled class="form-control" id="interni_maticni_broj" value="{{$radnik->maticni_broj}}" name="interni_maticni_broj">
                     </div>
                     <!-- String -->
                     <div class="form-group">
@@ -62,6 +94,7 @@
                     <div class="form-group">
                         <label for="sifra_mesta_troska_id">Troškovno Mesto</label>
                         <select id="sifra_mesta_troska_id" class="custom-select form-control" name="sifra_mesta_troska_id">
+                            <option value="">Izaberi troškovno mesto</option>
                             @foreach($troskMesta as $value => $label)
                                 @if($label ==$radnik->sifra_mesta_troska_id)
                                 <option selected value="{{ $label['key'] }}">{{ $label['value'] }}</option>
@@ -119,18 +152,18 @@
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="drzava_id">Država</label>
-                        <select id="drzava_id" class="custom-select form-control" name="drzava_id">
-                            @foreach($drzave as $value => $label)
-                                @if($value ==$radnik->drzava_id)
-                                    <option selected value="{{ $value }}">{{ $label }}</option>
-                                @else
-                                    <option  value="{{ $value }}">{{ $label }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
+{{--                    <div class="form-group">--}}
+{{--                        <label for="drzava_id">Država</label>--}}
+{{--                        <select id="drzava_id" class="custom-select form-control" name="drzava_id">--}}
+{{--                            @foreach($drzave as $value => $label)--}}
+{{--                                @if($value ==$radnik->drzava_id)--}}
+{{--                                    <option selected value="{{ $value }}">{{ $label }}</option>--}}
+{{--                                @else--}}
+{{--                                    <option  value="{{ $value }}">{{ $label }}</option>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
 
                     <!-- UnsignedBigInteger -->
                     <div class="form-group">
@@ -151,25 +184,33 @@
                     <div class="form-group">
                         <label for="datum_prestanka_radnog_odnosa">Datum Prestanka Radnog Odnosa
                             </label>
-                        <input type="date" class="form-control date" id="datum_prestanka_radnog_odnosa"
+                        <input type="date" class="form-control date " id="datum_prestanka_radnog_odnosa"
                                value="{{$radnik->datum_prestanka_radnog_odnosa}}"
                                name="datum_prestanka_radnog_odnosa">
                     </div>
 
+
                     <!-- Boolean -->
                     <div class="form-group">
+                        <label  for="active">Aktivan</label>
                         <div class="form-check">
+
+
                             <input type="checkbox"
                                    {{$radnik->active ? 'checked' : ''}}
-                                   class="form-control" id="active" name="active">
-                            <label class="form-check-label" for="active">Aktivan</label>
+                                   class="form-control form-custom-checkbox" id="active" name="active">
                         </div>
                     </div>
+                    <div class="button-container mt-5 mb-5">
+                        <button type="submit" data-url-action="0" class="btn btn-primary">Sačuvaj</button>
+                        <a href="{{route('maticnadatotekaradnika.editByUserId',['user_id'=>$radnik->id])}}" class="btn btn-success">Pregled MDR</a>
+                        <a href="{{route('radnici.index')}}" class="btn btn-outline-secondary">Tabela radnika</a>
 
-                    <button type="submit" class="btn btn-primary">Sačuvaj</button>
+                    </div>
+
                 </form>
             </div>
-
+            </div>
         </div>
         <!-- /.content-wrapper -->
     </div>
@@ -178,5 +219,6 @@
 
 
 @section('custom-scripts')
+
 @endsection
 

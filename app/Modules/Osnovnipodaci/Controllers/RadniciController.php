@@ -69,15 +69,15 @@ class RadniciController extends Controller
     public function index()
     {
 
-        $users = User::all();
+        $users = User::all()->sortByDesc('active');
 
         $userData = [];
         foreach ($users as $user) {
             $userData[] = [
-                $user->ime,
+                $user->maticni_broj,
                 $user->prezime,
-                $user->email,
-                $user->datum_odlaska,
+                $user->srednje_ime,
+                $user->ime,
                 $user->active,
                 $user->id
             ];

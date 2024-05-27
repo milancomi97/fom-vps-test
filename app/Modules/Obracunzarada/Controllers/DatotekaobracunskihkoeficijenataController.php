@@ -263,6 +263,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         $html = '<!DOCTYPE html>
 <html lang="' . str_replace('_', '-', app()->getLocale()) . '">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
       <style>
 
         body {
@@ -410,9 +412,17 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 //            ->header('Content-Type', 'text/html');
         // Load the HTML content
         try {
-            $pdf = Pdf::loadHTML($html)->setPaper('a4', 'landscape');
-//        $pdf = PDF::loadView('materijal_pdf',$filteredData);
+//            $pdf = Pdf::loadHTML($html)->setPaper('a4', 'portrait');
+        $pdf = PDF::loadView('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf',
+            [
+            'mesecnaTabelaPotenrazaTable'=>$mesecnaTabelaPotenrazaTable,
+            'troskovnaMestaPermission'=>$troskovnaMestaPermission,
+            'tableHeaders'=>$tableHeaders,
+            'vrstePlacanjaDescription'=>$vrstePlacanjaDescription,
+            ]
+        );
             return $pdf->download('pdf_poenteri_'.date("d.m.y").'.pdf');
+//            Pdf::setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
 
         } catch (\Throwable $exception) {
 //            report("Proveri Formulu:".$vrstaPlacanjaSlog['sifra_vrste_placanja']);

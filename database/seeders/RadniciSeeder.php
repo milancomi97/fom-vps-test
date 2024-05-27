@@ -55,7 +55,7 @@ class RadniciSeeder extends Seeder
 
     public function resolveRoleByMaticni($maticniBroj){
 
-        $administratori = ['1234567","7654321',"0006001"];
+        $administratori = ["0006001"];
         $poenteri = ['0004026','0009326','0009363','0006026','0005577','0004791','0005643','0005561','0005740','0005680','0005642','0009405'];
 
 
