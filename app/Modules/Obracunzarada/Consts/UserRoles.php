@@ -9,6 +9,7 @@ class UserRoles
     const POENTER = 2;
     const DIREKTOR = 3;
     const ADMINISTRATOR = 4;
+    const SUPERVIZOR = 5;
 
     public static function all()
     {
@@ -17,7 +18,9 @@ class UserRoles
             self::DEFAULT => 'Korisnik',
             self::POENTER => 'Poenter',
             self::DIREKTOR => 'Direktor',
-            self::ADMINISTRATOR => 'Administrator'
+            self::ADMINISTRATOR => 'Administrator',
+            self::SUPERVIZOR => 'Supervizor'
+
         ];
     }
 }

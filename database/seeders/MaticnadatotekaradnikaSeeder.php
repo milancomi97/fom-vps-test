@@ -25,8 +25,9 @@ class MaticnadatotekaradnikaSeeder extends Seeder
                     'RBIM_isplatno_mesto_id' => $data['RBIM'],
                     'ZRAC_tekuci_racun' => $data['ZRAC'],
                     'BRCL_redosled_poentazi' => $data['BRCL'],
-                    'BR_vrsta_rada' => $data['BR'],
-                    'P_R_oblik_rada' => $data['P_R'], //
+//                    'BR_vrsta_rada' => $data['BR'],
+                    'BR_vrsta_rada' => '1',
+                    'P_R_oblik_rada' => $data['P_R'],
                     'RJ_radna_jedinica' => $data['RJ'],
                     'BRIG_brigada' => $data['BRIG'],
                     'GGST_godine_staza' => $data['GGST'],

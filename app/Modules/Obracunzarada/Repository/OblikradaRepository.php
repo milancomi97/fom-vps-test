@@ -17,4 +17,16 @@ class OblikradaRepository extends BaseRepository implements OblikradaRepositoryI
     {
         parent::__construct($model);
     }
+
+    public function getSelectOptionData(): array
+    {
+        $data= $this->getAll();
+        $resultCollection = $data->sortBy('sifra_oblika_rada')->map(function ($item) {
+            $newValue = $item['sifra_oblika_rada'] . ' ' . $item['naziv_oblika_rada'];
+
+            return $item['sifra_oblika_rada'] = $newValue;
+        });
+        return $resultCollection->toArray();
+    }
+
 }

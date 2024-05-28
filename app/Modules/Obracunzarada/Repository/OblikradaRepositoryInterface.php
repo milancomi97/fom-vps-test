@@ -6,6 +6,7 @@ use App\Repository\BaseRepositoryInterface;
 
 interface OblikradaRepositoryInterface extends BaseRepositoryInterface
 {
+    public function getSelectOptionData();
 
 }
 

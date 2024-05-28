@@ -273,7 +273,9 @@ Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
     Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf',[DatotekaobracunskihkoeficijenataController::class,'odobravanjeExportPdf'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf');
     Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_xls',[DatotekaobracunskihkoeficijenataController::class,'odobravanjeExportXls'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_xls');
 
-    // UNOS VARIJABILNIH
+        Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf_test',[DatotekaobracunskihkoeficijenataController::class,'odobravanjeExportPdfTest'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_test');
+
+        // UNOS VARIJABILNIH
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all',[DpsmPoentazaslogController::class,'showAll'])->name('datotekaobracunskihkoeficijenata.show_all');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show',[DpsmPoentazaslogController::class,'show'])->name('datotekaobracunskihkoeficijenata.show');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updateVariabilna',[DpsmPoentazaslogController::class,'updateVariabilna'])->name('datotekaobracunskihkoeficijenata.updateVariabilna');

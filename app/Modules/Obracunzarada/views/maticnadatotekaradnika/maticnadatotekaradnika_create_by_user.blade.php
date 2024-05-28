@@ -38,7 +38,7 @@
             <!-- /.content-header -->
             <!-- Main content -->
             <!-- /.content -->
-            <h1 class="text-center">Nova matična datoteka radnika </h1>
+            <h1 class="text-center">Matična datoteka radnika </h1>
             <div class="container mt-5">
 
                 <div class="row justify-content-center">

@@ -3,15 +3,18 @@
 namespace App\Modules\Obracunzarada\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Modules\Kadrovskaevidencija\Repository\RadnamestaRepositoryInterface;
 use App\Modules\Kadrovskaevidencija\Repository\StrucnakvalifikacijaRepositoryInterface;
 use App\Modules\Kadrovskaevidencija\Repository\VrstaradasifarnikRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\OblikradaRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\OpstineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\RadniciRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MaticnadatotekaradnikaController extends Controller
 {
@@ -24,7 +27,8 @@ class MaticnadatotekaradnikaController extends Controller
         private readonly StrucnakvalifikacijaRepositoryInterface $strucnakvalifikacijaInterface,
         private readonly RadniciRepositoryInterface $radniciRepositoryInterface,
         private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
-        private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface
+        private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
+        private readonly OblikradaRepositoryInterface $oblikradaInterface
     ) {
     }
 
@@ -129,6 +133,7 @@ class MaticnadatotekaradnikaController extends Controller
 
         $radnikId = $request->user_id;
         $maticnadatotekaradnikData = $this->maticnadatotekaradnikaInterface->where('user_id',$radnikId)->first();
+        $userData =User::with('permission')->find(Auth::id());
 
         if($maticnadatotekaradnikData==null){
             return redirect()->route('maticnadatotekaradnika.createFromUser',['user_id'=>$radnikId]);
@@ -136,20 +141,23 @@ class MaticnadatotekaradnikaController extends Controller
         }
         $radnaMesta = $this->radnamestaInterface->getSelectOptionData();
         $opstine = $this->opstineInterface->getSelectOptionData();
-        $isplatnaMesta = $this->isplatnamestaInterface->getSelectOptionData(); // add key
-        $vrstaRada = $this->vrstaradasifarnikInterface->getSelectOptionData(); // add key
+        $isplatnaMesta = $this->isplatnamestaInterface->getSelectOptionData();
+        $vrstaRada = $this->vrstaradasifarnikInterface->getSelectOptionData();
         $kvalifikacije =  $this->strucnakvalifikacijaInterface->getSelectOptionData();
-        $troskMesta = $this->organizacionecelineInterface->getSelectOptionData(); // ADD KEY
+        $troskMesta = $this->organizacionecelineInterface->getSelectOptionData();
 
+        $oblikRada = $this->oblikradaInterface->getSelectOptionData();
         return view('obracunzarada::maticnadatotekaradnika.maticnadatotekaradnika_edit',
             [
                 'opstine'=>$opstine,
                 'radnaMesta'=>$radnaMesta,
                 'isplatnaMesta'=>$isplatnaMesta,
                 'vrstaRada'=>$vrstaRada,
+                'oblikRada'=>$oblikRada,
                 'kvalifikacije'=>$kvalifikacije,
                 'troskMesta' =>$troskMesta,
-                'radnikData'=>$maticnadatotekaradnikData
+                'radnikData'=>$maticnadatotekaradnikData,
+                'userData'=>$userData
             ]);
 
     }

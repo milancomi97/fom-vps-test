@@ -55,12 +55,12 @@ class RadniciSeeder extends Seeder
 
     public function resolveRoleByMaticni($maticniBroj){
 
-        $administratori = ["0006001"];
+        $supervizor = ["0006001"];
         $poenteri = ['0004026','0009326','0009363','0006026','0005577','0004791','0005643','0005561','0005740','0005680','0005642','0009405'];
 
 
-        if(in_array($maticniBroj,$administratori)){
-          return UserRoles::ADMINISTRATOR;
+        if(in_array($maticniBroj,$supervizor)){
+          return UserRoles::SUPERVIZOR;
         }
 
         if(in_array($maticniBroj,$poenteri)){

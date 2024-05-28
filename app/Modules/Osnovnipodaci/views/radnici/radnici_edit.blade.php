@@ -58,7 +58,7 @@
             <!-- Main content -->
             <!-- /.content -->
 
-            <h1 class="text-center"> Izmena radnika  {!! $radnik->prezime !!} &nbsp;  {!! $radnik->ime!!} </h1>
+            <h1 class="text-center"> Korekcija:  {!! $radnik->prezime !!} &nbsp;  {!! $radnik->ime!!} </h1>
             <div class="container mt-5">
                 <div class="row justify-content-center">
 

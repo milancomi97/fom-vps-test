@@ -106,6 +106,13 @@
                 </form>
             </div>
             <div class="col-md-1">
+                <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_test')}}">
+                    @csrf
+                    <input type="hidden"  value="{{$monthData->id}}" name="month_id_pdf"/>
+                    <button id='export-pdf' class="btn btn-danger btn-lg">PDF Test Layout</button>
+                </form>
+            </div>
+            <div class="col-md-1">
                 <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_xls')}}">
                     @csrf
                     <input type="hidden" value="{{$monthData->id}}" name="month_id_xls"/>
