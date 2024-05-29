@@ -192,17 +192,20 @@ $(document).ready(function () {
     });
 
 
-    $(document).on('click', 'body .izvestaji-rang-lista-zarade', function (e) {
-        var id = $(this).data('month_id');
-        window.location.href = izvestajRangListaZarade + id;
-    });
+    // $(document).on('click', 'body .izvestaji-rang-lista-zarade', function (e) {
+    //     var id = $(this).data('month_id');
+    //     window.location.href = izvestajRangListaZarade + id;
+    // });
+    //
+    // $(document).on('click', 'body .izvestaji-rekapitulacija-zarada', function (e) {
+    //     var id = $(this).data('month_id');
+    //     window.location.href = izvestajRekapitulaciajaZarade + id;
+    // });
 
-    $(document).on('click', 'body .izvestaji-rekapitulacija-zarad', function (e) {
-        var id = $(this).data('month_id');
-        window.location.href = izvestajRekapitulaciajaZarade + id;
-    });
+    $(document).on('click', 'body .obrada', function (e) {
 
-    $(document).on('click', 'body .index-mesecna-obrada-priprema', function (e) {
+        debugger;
+        var redirectUrl = $(this).data('url-redirect');
 
         // var buttons = document.querySelectorAll('button');
         // buttons.forEach(function(button) {
@@ -220,13 +223,13 @@ $(document).ready(function () {
             type: 'POST',
             data: {
                 month_id:month_id,
+                redirect_url:redirectUrl,
                 _token: _token
             },
             success: function (response) {
                 debugger;
                 if(response.status){
-                    window.location.href = showPlateRoute + response.id;
-
+                    window.location.href = response.redirectUrl;
                 }else{
 
                     if (confirm(response.message)) {

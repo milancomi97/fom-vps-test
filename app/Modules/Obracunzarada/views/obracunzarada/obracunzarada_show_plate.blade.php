@@ -56,9 +56,13 @@
 
 @section('content')
     <div class="container mb-5">
-        <div class="col col-lg-12 text-right">
-
+        <div class="row">
+        <div class="col col-lg-2 text-left">
+            <a href="{{route('datotekaobracunskihkoeficijenata.show_all_plate',['month_id'=>$zarData->obracunski_koef_id])}}"class="btn btn-primary btn-lg mt-5 text-left">Lista &nbsp;&nbsp;<i class="fa fa-list fa-2xl " aria-hidden="true"></i></a>
+        </div>
+        <div class="col col-lg-9 text-right">
             <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.email_radnik')}}">
+
                 @csrf
                 <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">Pošalji email &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl " aria-hidden="true"></i></button>
             </form>
@@ -67,6 +71,7 @@
                 <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">Štampaj &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
             </form>
 
+        </div>
         </div>
         <div class="row mb-5 mt-5 border">
 

@@ -80,10 +80,11 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-warning izvestaji-rang-lista-zarade offset-1 col-sm-3 mt-3 border',
+                    'class': 'btn btn-warning izvestaji-rang-lista-zarade obrada offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
-                    'data-year': monthData.currYear
+                    'data-year': monthData.currYear,
+                    'data-url-redirect':'rang_lista_zarada'
                 }).text('Rang lista zarade').appendTo(monthCard);
 
 
@@ -99,19 +100,21 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-success index-mesecna-obrada-priprema offset-1 col-sm-3 mt-3 border',
+                    'class': 'btn btn-success index-mesecna-obrada-priprema obrada offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
-                    'data-year': monthData.currYear
+                    'data-year': monthData.currYear,
+                    'data-url-redirect':'obracunski_listovi'
                 }).text('Obrada plate').appendTo(monthCard);
 
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-warning izvestaji-rekapitulacija-zarad offset-1 col-sm-3 mt-3 border',
+                    'class': 'btn btn-warning izvestaji-rekapitulacija-zarada obrada offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-year': monthData.currYear,
-                    'data-month': monthData.currMonth
+                    'data-month': monthData.currMonth,
+                    'data-url-redirect':'rekapitulacija_zarada'
                 }).text('Rekapitulacija zarade').appendTo(monthCard);
 
                 $('<button>').attr({
@@ -131,10 +134,11 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-warning index-mesecna-obrada-priprema offset-1 col-sm-3 mt-3 border',
+                    'class': 'btn btn-warning index-mesecna-obrada-priprema obrada offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
-                    'data-year': monthData.currYear
+                    'data-year': monthData.currYear,
+                    'data-url-redirect':'obracunski_listovi'
                 }).text('Prikaz obracunskih listova (svi radnici)').appendTo(monthCard);
 
                 $('<button>').attr({

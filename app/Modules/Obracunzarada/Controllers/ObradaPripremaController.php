@@ -45,14 +45,14 @@ class ObradaPripremaController extends Controller
         private readonly DpsmFiksnaPlacanjaRepositoryInterface               $dpsmFiksnaPlacanjaInterface,
         private readonly DpsmKreditiRepositoryInterface                      $dpsmKreditiInterface,
         private readonly ObradaPripremaService                               $obradaPripremaService,
-        private readonly  ObradaPripremaValidacijaService                    $obradaPripremaValidacijaService,
+        private readonly ObradaPripremaValidacijaService                     $obradaPripremaValidacijaService,
         private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface       $dkopSveVrstePlacanjaInterface,
         private readonly PorezdoprinosiRepositoryInterface                   $porezdoprinosiInterface,
         private readonly ObradaObracunavanjeService                          $obradaObracunavanjeService,
         private readonly ObradaFormuleService                                $obradaFormuleService,
         private readonly MinimalnebrutoosnoviceRepositoryInterface           $minimalnebrutoosnoviceInterface,
-        private readonly ObradaZaraPoRadnikuRepositoryInterface $obradaZaraPoRadnikuInterface,
-        private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface
+        private readonly ObradaZaraPoRadnikuRepositoryInterface              $obradaZaraPoRadnikuInterface,
+        private readonly ObradaKreditiRepositoryInterface                    $obradaKreditiInterface
 
     )
     {
@@ -61,6 +61,7 @@ class ObradaPripremaController extends Controller
 
     public function obradaIndex(Request $request)
     {
+        $redirectUrl = $this->resolveRedirectUrl($request->redirect_url,$request->month_id);
 
 
         $user_id = auth()->user()->id;
@@ -81,7 +82,7 @@ class ObradaPripremaController extends Controller
 
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
         $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($monthData->datum);
-        $poenteriPrepared = $this->obradaPripremaService->pripremiUnosPoentera($poenteriData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData,$minimalneBrutoOsnoviceSifarnik);
+        $poenteriPrepared = $this->obradaPripremaService->pripremiUnosPoentera($poenteriData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
 //
 
 
@@ -121,28 +122,21 @@ class ObradaPripremaController extends Controller
 
 
         $message = $this->obradaPripremaValidacijaService->checkMinimalneBrutoOsnovice($minimalneBrutoOsnoviceSifarnik);
-        $potrebnaObrada = $this->obradaPripremaValidacijaService->checkIsDataUpdated($monthData);
 
-        if($message){
-            return response()->json(['status'=>false,'message'=>'Greska u obradi: '.$message]);
+        if ($message) {
+            return response()->json(['status' => false, 'message' => 'Greska u obradi: ' . $message]);
         }
 
-        if($potrebnaObrada){
-            try {
-                $sveVrstePlacanjaDataSummarize = $this->obradaPripremaService->pripremaZaraPodatkePoRadnikuBezMinulogRada($sveVrstePlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
-            } catch (\Throwable $exception) {
-                report($exception);
-                $newMessage = "Greska u obradi:";
-                return response()->json(['status'=>false,'message'=>'Greska u obradi: '.$exception->getMessage()]);
+        try {
+            $sveVrstePlacanjaDataSummarize = $this->obradaPripremaService->pripremaZaraPodatkePoRadnikuBezMinulogRada($sveVrstePlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
+        } catch (\Throwable $exception) {
+            report($exception);
+            $newMessage = "Greska u obradi:";
+            return response()->json(['status' => false, 'message' => 'Greska u obradi: ' . $exception->getMessage()]);
 
-            }
-
-
-            return response()->json(['id'=>$id,'status'=>true]);
-        }else{
-            return response()->json(['id'=>$id,'status'=>true]);
         }
 
+        return response()->json(['id' => $id, 'status' => true, 'redirectUrl' => $redirectUrl]);
 
     }
 
@@ -192,5 +186,18 @@ class ObradaPripremaController extends Controller
         return response()->json(['message' => $message, 'status' => false], 200);
     }
 
+    public function resolveRedirectUrl($url,$monthId)
+    {
 
+        if ($url == 'obracunski_listovi') {
+            return url('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate?month_id=').$monthId;
+        } elseif ($url == 'rang_lista_zarada') {
+            return url('obracunzarada/izvestaji/ranglistazarade?month_id=').$monthId;
+
+        } elseif ($url == 'rekapitulacija_zarada') {
+            return url('obracunzarada/izvestaji/rekapitulacijazarade?month_id=').$monthId;
+        }
+
+
+    }
 }
