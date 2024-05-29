@@ -24,6 +24,7 @@ use App\Modules\Obracunzarada\Service\KreirajPermisijePoenteriOdobravanja;
 use App\Modules\Obracunzarada\Service\ObradaFormuleService;
 use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
 use App\Modules\Obracunzarada\Service\ObradaPripremaService;
+use App\Modules\Obracunzarada\Service\ObradaPripremaValidacijaService;
 use App\Modules\Obracunzarada\Service\PripremiPermisijePoenteriOdobravanja;
 use App\Modules\Obracunzarada\Service\UpdateNapomena;
 use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
@@ -44,6 +45,7 @@ class ObradaPripremaController extends Controller
         private readonly DpsmFiksnaPlacanjaRepositoryInterface               $dpsmFiksnaPlacanjaInterface,
         private readonly DpsmKreditiRepositoryInterface                      $dpsmKreditiInterface,
         private readonly ObradaPripremaService                               $obradaPripremaService,
+        private readonly  ObradaPripremaValidacijaService                    $obradaPripremaValidacijaService,
         private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface       $dkopSveVrstePlacanjaInterface,
         private readonly PorezdoprinosiRepositoryInterface                   $porezdoprinosiInterface,
         private readonly ObradaObracunavanjeService                          $obradaObracunavanjeService,
@@ -118,46 +120,29 @@ class ObradaPripremaController extends Controller
 //        $this->obradaKreditiInterface->createMany($kreditiPrepared);
 
 
+        $message = $this->obradaPripremaValidacijaService->checkMinimalneBrutoOsnovice($minimalneBrutoOsnoviceSifarnik);
+        $potrebnaObrada = $this->obradaPripremaValidacijaService->checkIsDataUpdated($monthData);
 
-        try {
-            $sveVrstePlacanjaDataSummarize = $this->obradaPripremaService->pripremaZaraPodatkePoRadnikuBezMinulogRada($sveVrstePlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
-        } catch (\Throwable $exception) {
-            report($exception);
-            $newMessage = "Greska u obradi:";
-            return response()->json(['status'=>false,'message'=>'Greska u obradi: '.$exception->getMessage()]);
-
-//            $updatedException = new \Exception($newMessage, $exception->getCode(), $exception);
-//            // TODO FLAG OBRADA U TOKU
-//            throw $updatedException;
+        if($message){
+            return response()->json(['status'=>false,'message'=>'Greska u obradi: '.$message]);
         }
 
+        if($potrebnaObrada){
+            try {
+                $sveVrstePlacanjaDataSummarize = $this->obradaPripremaService->pripremaZaraPodatkePoRadnikuBezMinulogRada($sveVrstePlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
+            } catch (\Throwable $exception) {
+                report($exception);
+                $newMessage = "Greska u obradi:";
+                return response()->json(['status'=>false,'message'=>'Greska u obradi: '.$exception->getMessage()]);
 
-        // POK1 = K
-        // SLOV = T
-        // KSEC = R
-
-
-        // Logika za izracunavanje olaksice
-
-
-
-        //  LOGIKA G SLOV da se napravi promenljiva koja ce da sumira po radniku vrednosti
-        // POK2 = G   ---
-
-        // ZARA
-        // prvi zbir SSZNNE = SATI ZARADE
-        // IZNETO = sumiranje zarade
-        //
+            }
 
 
-        // G - Glavno
-        // I - Medjuzbir,
-        // K - Nema minuli rad,
+            return response()->json(['id'=>$id,'status'=>true]);
+        }else{
+            return response()->json(['id'=>$id,'status'=>true]);
+        }
 
-
-        return response()->json(['id'=>$id,'status'=>true]);
-//        return redirect()->route('datotekaobracunskihkoeficijenata.show_all_plate', ['obracunski_koef_id' => $id]);
-////            return view('obracunzarada::obracunzarada.obracunzarada_index');
 
     }
 

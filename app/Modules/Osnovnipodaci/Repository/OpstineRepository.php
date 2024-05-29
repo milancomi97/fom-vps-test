@@ -28,6 +28,7 @@ class OpstineRepository extends BaseRepository implements OpstineRepositoryInter
 
             return $item['id'] =['key'=> $item['sifra_opstine'],'value' => $newValue];
         });
+
         return $resultCollection->toArray();
     }
 }

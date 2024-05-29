@@ -26,6 +26,8 @@ class RadniciRepository extends BaseRepository implements RadniciRepositoryInter
     public function createUser(array $attributes): Model {
 
         $attributes['active'] = ( $attributes['active'] ?? "") =='on';
+
+
         return $this->create($attributes);
     }
 

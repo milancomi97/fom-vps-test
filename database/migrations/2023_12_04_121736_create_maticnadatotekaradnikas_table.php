@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('RBRM_radno_mesto')->nullable(); // sifra radnog mesta
             $table->unsignedBigInteger('RBIM_isplatno_mesto_id')->nullable(); // sifra isplatnog mesta // NOVO DODATO
             $table->string('ZRAC_tekuci_racun')->nullable();
-            $table->string('BRCL_redosled_poentazi')->nullable();
+            $table->integer('BRCL_redosled_poentazi')->nullable();
             $table->string('BR_vrsta_rada')->nullable();
             $table->string('P_R_oblik_rada')->nullable(); // DODATI NA FORMI
             $table->string('RJ_radna_jedinica')->nullable();

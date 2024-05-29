@@ -96,7 +96,7 @@
                         <select id="sifra_mesta_troska_id" class="custom-select form-control" name="sifra_mesta_troska_id">
                             <option value="">Izaberi troškovno mesto</option>
                             @foreach($troskMesta as $value => $label)
-                                @if($label ==$radnik->sifra_mesta_troska_id)
+                                @if($label['key'] ==$radnik->sifra_mesta_troska_id)
                                 <option selected value="{{ $label['key'] }}">{{ $label['value'] }}</option>
                                 @else
                                 <option  value="{{ $label['key'] }}">{{ $label['value'] }}</option>
@@ -112,11 +112,11 @@
                     </div>
 
                     <!-- String -->
-                    <div class="form-group">
-                        <label for="jmbg">JMBG</label>
-                        <input type="text" class="form-control" id="jmbg" name="jmbg" minlength="10" maxlength="10"
-                               value="{{$radnik->jmbg}}">
-                    </div>
+{{--                    <div class="form-group">--}}
+{{--                        <label for="jmbg">JMBG</label>--}}
+{{--                        <input type="text" class="form-control" id="jmbg" name="jmbg" minlength="10" maxlength="10"--}}
+{{--                               value="{{$radnik->jmbg}}">--}}
+{{--                    </div>--}}
                     <!-- String -->
                     <div class="form-group">
                         <label for="telefon_poslovni">Telefon Poslovni</label>
@@ -131,26 +131,26 @@
                     </div>
 
                     <!-- String -->
-                    <div class="form-group">
-                        <label for="adresa_ulica_broj">Adresa Ulica Broj</label>
-                        <input type="text" class="form-control" id="adresa_ulica_broj" name="adresa_ulica_broj"
-                               value="{{$radnik->adresa_ulica_broj}}"
-                        >
-                    </div>
+{{--                    <div class="form-group">--}}
+{{--                        <label for="adresa_ulica_broj">Adresa Ulica Broj</label>--}}
+{{--                        <input type="text" class="form-control" id="adresa_ulica_broj" name="adresa_ulica_broj"--}}
+{{--                               value="{{$radnik->adresa_ulica_broj}}"--}}
+{{--                        >--}}
+{{--                    </div>--}}
 
                     <!-- UnsignedBigInteger -->
-                    <div class="form-group">
-                        <label for="opstina_id">Opstina</label>
-                        <select id="opstina_id" class="custom-select form-control" name="opstina_id">
-                            @foreach($opstine as $value => $label)
-                                @if($value ==$radnik->opstina_id)
-                                    <option selected value="{{ $value }}">{{ $label['value'] }}</option>
-                                @else
-                                    <option  value="{{ $value }}">{{ $label['value'] }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
+{{--                    <div class="form-group">--}}
+{{--                        <label for="opstina_id">Opstina</label>--}}
+{{--                        <select id="opstina_id" class="custom-select form-control" name="opstina_id">--}}
+{{--                            @foreach($opstine as $value => $label)--}}
+{{--                                @if($value ==$radnik->opstina_id)--}}
+{{--                                    <option selected value="{{ $value }}">{{ $label['value'] }}</option>--}}
+{{--                                @else--}}
+{{--                                    <option  value="{{ $value }}">{{ $label['value'] }}</option>--}}
+{{--                                @endif--}}
+{{--                            @endforeach--}}
+{{--                        </select>--}}
+{{--                    </div>--}}
 
 {{--                    <div class="form-group">--}}
 {{--                        <label for="drzava_id">Država</label>--}}
@@ -215,10 +215,6 @@
         <!-- /.content-wrapper -->
     </div>
 @endsection
-
-
-
 @section('custom-scripts')
-
 @endsection
 

@@ -54,8 +54,7 @@
             <div class="container mt-5">
 
                 <div class="row justify-content-center">
-                    <h3 id="error-validator-text" class="text-danger d-none font-weight-bold">- Popunite sva polja
-                        -</h3>
+                    <h3 id="error-validator-text" class="text-danger d-none font-weight-bold"></h3>
 
                     <form id="maticnadatotekaradnika" method="post"
                           action="{{ route('maticnadatotekaradnika.store')}}">
@@ -95,6 +94,17 @@
                             <input type="text" class="form-control" id="PREZIME_prezime" aria-describedby="span_prezime"
                                    value="{{$radnikData->PREZIME_prezime}}"
                                    name="PREZIME_prezime"
+                            >
+                        </div>
+
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold" id="span_srednje_ime">Srednje Ime:</span>
+                            </div>
+                            <input type="text" class="form-control" id="srednje_ime" aria-describedby="span_srednje_ime"
+                                   value="{{$radnikData->srednje_ime}}"
+                                   name="srednje_ime"
                             >
                         </div>
 
@@ -183,7 +193,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text font-weight-bold" id="span_redosled_poentazi">Redosled u poentazi:</span>
                             </div>
-                            <input type="text" class="form-control" id="BRCL_redosled_poentazi"
+                            <input type="number" class="form-control" id="BRCL_redosled_poentazi"
                                    name="span_redosled_poentazi"
                                    value="{{$radnikData->BRCL_redosled_poentazi}}"
                                    aria-describedby="BRCL_redosled_poentazi">
@@ -236,13 +246,13 @@
 
                         <!-- 9.1 Brigada, text field -->
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text font-weight-bold" id="span_brigada">Brigada:</span>
-                            </div>
-                            <input type="text" class="form-control" id="BRIG_brigada" name="BRIG_brigada"
-                                   value="{{$radnikData->BRIG_brigada}}" aria-describedby="span_brigada">
-                        </div>
+{{--                        <div class="input-group mb-3">--}}
+{{--                            <div class="input-group-prepend">--}}
+{{--                                <span class="input-group-text font-weight-bold" id="span_brigada">Brigada:</span>--}}
+{{--                            </div>--}}
+{{--                            <input type="text" class="form-control" id="BRIG_brigada" name="BRIG_brigada"--}}
+{{--                                   value="{{$radnikData->BRIG_brigada}}" aria-describedby="span_brigada">--}}
+{{--                        </div>--}}
 
 
                         <!-- 10. Godine, text field -->
@@ -282,18 +292,18 @@
                         </div>
 
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text font-weight-bold" id="span_prebacaj">Prebacaj:</span>
-                            </div>
-                            <div class="col col-1">
-                                <input type="checkbox" class="form-control" name="PREB_prebacaj"
-                                       {{$radnikData->PREB_prebacaj ==1 ? "checked": ''}}
-                                       aria-label="Prebacaj"
-                                       id="span_prebacaj">
-                            </div>
+{{--                        <div class="input-group mb-3">--}}
+{{--                            <div class="input-group-prepend">--}}
+{{--                                <span class="input-group-text font-weight-bold" id="span_prebacaj">Prebacaj:</span>--}}
+{{--                            </div>--}}
+{{--                            <div class="col col-1">--}}
+{{--                                <input type="checkbox" class="form-control" name="PREB_prebacaj"--}}
+{{--                                       {{$radnikData->PREB_prebacaj ==1 ? "checked": ''}}--}}
+{{--                                       aria-label="Prebacaj"--}}
+{{--                                       id="span_prebacaj">--}}
+{{--                            </div>--}}
 
-                        </div>
+{{--                        </div>--}}
 
 
                         <!-- 13. Stvarna strucna sprema, select option -->
@@ -344,7 +354,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text font-weight-bold" id="span_osnovna_zarada">Osnovna zarada:</span>
                                 </div>
-                                <input type="text" class="form-control" id="KOEF_osnovna_zarada"
+                                <input type="number" class="form-control" id="KOEF_osnovna_zarada"
                                        name="KOEF_osnovna_zarada"
                                        value="{{$radnikData->KOEF_osnovna_zarada}}"
                                        aria-describedby="span_osnovna_zarada">
@@ -355,12 +365,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text font-weight-bold" id="span_osnovna_zarada">Osnovna zarada:</span>
                                 </div>
-                                <input type="text" class="form-control" id="KOEF_osnovna_zarada"
+                                <input type="number" class="form-control" id="KOEF_osnovna_zarada"
                                        name="KOEF_osnovna_zarada"
                                        value="{{$radnikData->KOEF_osnovna_zarada}}"
                                        aria-describedby="span_osnovna_zarada">
                             </div>
                         @endif
+
 
                         <!-- 17. Licni broj gradjana, text field -->
                         <div class="input-group mb-3">
@@ -376,13 +387,21 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text font-weight-bold" id="span_pol">Pol:</span>
                             </div>
-                            <div class="form-group ml-5"
+                            <div class="form-group"
                                  style="display: flex; align-items: center; justify-content: center; margin-bottom: 0">
                                 <div class="form-check form-check-inline">
                                     <select class="custom-select" id="POL_pol"
                                             name="POL_pol">
-                                        <option value="1">M</option>
-                                        <option value="2">Z</option>
+                                    @if($radnikData->Pol_pol=='Z')
+                                            <option  selected value="Z">Z</option>
+                                        @elseif($radnikData->Pol_pol=='M')
+                                            <option selected value="M">M</option>
+                                        @else
+                                            <option selected value="">- Izaberite pol - </option>
+                                            <option  value="M">M</option>
+                                            <option value="Z">Z</option>
+
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -394,7 +413,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text font-weight-bold" id="span_prosecni_sati">Sati zarade za nadoknade:</span>
                             </div>
-                            <input type="text" class="form-control" id="PRCAS_ukupni_sati_za_ukupan_bruto_iznost"
+                            <input type="number" class="form-control" id="PRCAS_ukupni_sati_za_ukupan_bruto_iznost"
                                    value="{{$radnikData->PRCAS_ukupni_sati_za_ukupan_bruto_iznost}}"
                                    name="PRCAS_ukupni_sati_za_ukupan_bruto_iznost"
                                    aria-describedby="span_prosecni_sati">
@@ -411,6 +430,15 @@
                                    aria-describedby="span_PRIZ_ukupan_bruto_iznos">
                         </div>
 
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold" id="span_adresa_ulica_broj">Ulica broj:</span>
+                            </div>
+                            <input type="text" class="form-control" id="adresa_ulica_broj" aria-describedby="span_adresa_ulica_broj"
+                                   value="{{$radnikData->adresa_ulica_broj}}"
+                                   name="adresa_ulica_broj"
+                            >
+                        </div>
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">

@@ -25,6 +25,7 @@ class IsplatnamestaRepository extends BaseRepository implements IsplatnamestaRep
 
             return $item['rbim_sifra_isplatnog_mesta'] =['key'=> $item['rbim_sifra_isplatnog_mesta'],'value'=>$newValue];
         });
+
         return $resultCollection->toArray();
     }
 }

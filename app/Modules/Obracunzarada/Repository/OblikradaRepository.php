@@ -26,6 +26,7 @@ class OblikradaRepository extends BaseRepository implements OblikradaRepositoryI
 
             return $item['sifra_oblika_rada'] = $newValue;
         });
+
         return $resultCollection->toArray();
     }
 

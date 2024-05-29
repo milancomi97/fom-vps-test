@@ -439,6 +439,7 @@
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_odobravanje/ajax_logic.js') }}"></script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_odobravanje/modal_logic.js') }}"></script>
 
+{{--    dodaj nov fajl koji ce da sredjuje kalkulaciju --}}
     <script src="{{asset('admin_assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 
 @endsection

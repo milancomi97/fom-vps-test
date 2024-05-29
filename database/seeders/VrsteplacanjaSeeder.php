@@ -30,7 +30,8 @@ class VrsteplacanjaSeeder extends Seeder
                 'PROSEK_prosecni_obracun' =>(int) $data['PROSEK'],
                 'VARI_minuli_rad' => $data['VARI'],
                 'DOVP_tip_vrste_placanja' => $data['DOVP'] =='TRUE',
-                'PLAC'=>$data['PLAC']
+                'PLAC'=>$data['PLAC'],
+                'KATEG_sumiranje_redova_poentaza'=>$data['KATEG']
             ]);
         }
     }

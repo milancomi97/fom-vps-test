@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('VARI_minuli_rad', 255)->nullable(); //BLOK_formula_za_obracun
             $table->boolean('DOVP_tip_vrste_placanja')->nullable(); //BLOK_formula_za_obracun
             $table->integer('PLAC')->nullable(); // DVPL_vrste_palcanja
+            $table->string('KATEG_sumiranje_redova_poentaza', 255)->nullable(); //BLOK_formula_za_obracun
 
 
 

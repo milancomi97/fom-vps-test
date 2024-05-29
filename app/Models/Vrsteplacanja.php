@@ -26,6 +26,7 @@ class Vrsteplacanja extends Model
         'PROSEK_prosecni_obracun',
         'VARI_minuli_rad',
         'DOVP_tip_vrste_placanja',
-        'PLAC'
+        'PLAC',
+        'KATEG_sumiranje_redova_poentaza'
     ];
 }

@@ -42,12 +42,13 @@ class RadniciController extends Controller
             4=>'Troskovno mesto 4',
         ];
 
+        $troskMesta = $this->organizacionecelineInterface->getSelectOptionData();
 
         return view('osnovnipodaci::radnici.radnici_create',
             [
                 'gradovi' => $gradovi,
                 'drzave'=>$drzave,
-                'trosMesta'=>$trosMesta
+                'troskMesta'=>$troskMesta
             ]);
 
     }
@@ -59,9 +60,30 @@ class RadniciController extends Controller
     public function store(Request $request)
     {
         $requestData = $request->all();
-        $user = $this->radniciRepositoryInterface->createUser($requestData);
-        if($user){
-        return redirect()->route('radnici.index');
+
+        try {
+
+            if (strlen($requestData['maticni_broj']) !== 4) {
+                return redirect()->route('radnici.create')->with('error', 'Neispravan matični broj.');
+
+            }
+
+//            if(){
+//
+//            }
+            $requestData['maticni_broj'] = '000' . $requestData['maticni_broj'];
+            $requestData['active'] = ($requestData['active'] ?? "") == 'on';
+
+           if($requestData['active'] && $requestData['datum_zasnivanja_radnog_odnosa']==null){
+               return redirect()->route('radnici.create')->with('error', 'Unesite datum zasnivanja radnog odnosa.');
+
+           }
+            $user = $this->radniciRepositoryInterface->createUser($requestData);
+            return redirect()->route('radnici.index');
+        } catch (\Exception $e) {
+            if($e->getCode()=='23000'){
+                return redirect()->route('radnici.create')->with('error', 'Podatak već postoji');
+            }
         }
     }
 

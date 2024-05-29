@@ -25,6 +25,7 @@ class RadnamestaRepository extends BaseRepository implements RadnamestaRepositor
 
             return $item['id'] = $newValue;
         });
+
         return $resultCollection->toArray();
     }
 }

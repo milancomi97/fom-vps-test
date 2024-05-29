@@ -25,6 +25,7 @@ class VrstaradasifarnikRepository extends BaseRepository implements Vrstaradasif
 
             return $item['id'] = $newValue;
         });
+
         return $resultCollection->toArray();
     }
 }

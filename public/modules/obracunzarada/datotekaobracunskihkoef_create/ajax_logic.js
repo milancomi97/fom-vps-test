@@ -226,8 +226,12 @@ $(document).ready(function () {
                     window.location.href = showPlateRoute + response.id;
 
                 }else{
-                    alert(response.message);
-                }
+
+                    if (confirm(response.message)) {
+                        window.location.reload();
+                    }else{
+                        window.location.reload();
+                    }                }
                 // ADD SHOW ALL PLATE ROUTE;
             },
             error: function (response) {

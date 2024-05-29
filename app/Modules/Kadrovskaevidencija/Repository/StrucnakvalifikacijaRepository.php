@@ -25,6 +25,7 @@ class StrucnakvalifikacijaRepository extends BaseRepository implements Strucnakv
 
             return $item['id'] = $newValue;
         });
+
         return $resultCollection->toArray();
     }
 }

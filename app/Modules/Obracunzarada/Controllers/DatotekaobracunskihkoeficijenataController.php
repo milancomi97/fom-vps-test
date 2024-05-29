@@ -478,6 +478,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
         $inputDate = Carbon::parse($monthData->datum);
         $formattedDate = $inputDate->format('m.Y');
+        // TODO da na frontend javacript stigne "KATEG_sumiranje_redova_poentaza"
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_odobravanje',
             [
                 'formattedDate' => $formattedDate,
