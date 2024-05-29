@@ -1,6 +1,8 @@
-let currentMonth = new Date().getMonth();
-let currentYear = new Date().getFullYear();
-
+// let currentMonth = new Date().getMonth();
+// let currentYear = new Date().getFullYear();
+let currentMonth = parseInt(activeMonth);
+let currentYear = parseInt(activeYear);
+debugger;
 function updateMonthContainer(activeMonth) {
 
     const monthContainer = document.getElementById('monthContainer');

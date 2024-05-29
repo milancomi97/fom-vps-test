@@ -4,6 +4,7 @@ namespace App\Modules\Obracunzarada\Controllers;
 
 use App\Exports\PoenterUnosExport;
 use App\Http\Controllers\Controller;
+use App\Models\Datotekaobracunskihkoeficijenata;
 use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
@@ -538,7 +539,21 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
         $data = $this->datotekaobracunskihkoeficijenataInterface->getAll();
 
-        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_create', ['datotekaobracunskihkoeficijenata' => json_encode($data)]);
+        $activeMonth = $this->datotekaobracunskihkoeficijenataInterface->where('status',Datotekaobracunskihkoeficijenata::AKTUELAN)->first();
+
+        if($activeMonth !==null){
+            $date = Carbon::parse($activeMonth->datum);
+
+            $activeMonthValue = $date->month -1 ; // JAVASCRIPT COUNT MONTHS
+            $activeYearValue = $date->year;
+        }else{
+            $currentDate = Carbon::now();
+            $activeMonthValue = $currentDate->month -1;
+            $activeYearValue = $currentDate->year;
+        }
+
+
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_create', ['datotekaobracunskihkoeficijenata' => json_encode($data),'activeMonth'=> $activeMonthValue,'activeYear'=>$activeYearValue]);
     }
 
     public function store(Request $request)

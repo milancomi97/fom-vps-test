@@ -46,7 +46,10 @@ class MartPlataSeeder extends Seeder
         $kreditiReader = $this->getDataFromCsvKrediti();
         $monthId = 0;
 
-        foreach ($podaciMesec as $data) {
+        foreach ($podaciMesec as $data2) {
+
+            $newDataPodaciMesec[]=$data2;
+        }
 //            {
 //                "kalendarski_broj_dana": "30",
 //  "mesecni_fond_sati": "168",
@@ -62,7 +65,9 @@ class MartPlataSeeder extends Seeder
 //  "period_isplate_od": "2024-04-01",
 //  "period_isplate_do": "2024-04-30"
 //}
+            $monthData='';
 
+        foreach ($newDataPodaciMesec as $data){
             if ($data['M_G'] == '0324') {
                 $test = 'test';
 
@@ -78,8 +83,8 @@ class MartPlataSeeder extends Seeder
                     'cena_rada_prethodni' => $data['C_R2'],
                     'vrednost_akontacije' => 0,
                     'datum' => $date->format('Y-m-d'),
-//'mesec'=>$data['DATA'],
-                    'godina' => $data['GOD'],
+                    'mesec'=>$date->month,
+                    'godina' =>$date->year,
                     'status' => Datotekaobracunskihkoeficijenata::AKTUELAN,
                     'period_isplate_od' => Carbon::createFromFormat('d/m/Y', $data['DATUM1']),
                     'period_isplate_do' => Carbon::createFromFormat('d/m/Y', $data['DATUM2']),

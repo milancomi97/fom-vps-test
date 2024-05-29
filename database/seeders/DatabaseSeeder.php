@@ -28,12 +28,7 @@ class DatabaseSeeder extends Seeder
             RadnamestaSeeder::class,
             ZanimanjasifarnikSeeder::class,
             PodaciofirmiSeeder::class,
-            MartPlataSeeder::class,
-
-//            PartnerSeeder::class,
-//           CategorySeeder::class,
-//           StanjeZalihaSeeder::class,
-//           MaterijalSeeder::class,
+            MartPlataSeeder::class
         ]);
 
     }
