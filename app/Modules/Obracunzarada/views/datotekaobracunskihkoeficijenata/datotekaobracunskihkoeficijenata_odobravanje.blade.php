@@ -6,6 +6,10 @@
 
     <style>
 
+        .calcBtn{
+            float:right;
+            margin:1em;
+        }
         .ime_prezime {
             display: block;
             width: 250px;
@@ -150,9 +154,13 @@
         @foreach($mesecnaTabelaPotenrazaTable as $key => $organizacionacelina)
             @if(isset($troskovnaMestaPermission[$key]) && $troskovnaMestaPermission[$key])
                 <div class="table-div mt-5">
+
                     <h3 class="text-center"> Organizaciona celina: <b>{{$key}} </b> -
                         &nbsp{{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}.</h3>
+                    <button class="calcBtn btn btn-outline-secondary" onclick="calculateSums('{{$key}}')">Calculate Sums for {{$key}}</button>
+
                     <div class="divider"></div>
+
                     <table class="table table-striped" id="table-div{{$key}}">
                         <thead>
                         <tr>
@@ -438,8 +446,10 @@
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_odobravanje/ajax_logic.js') }}"></script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_odobravanje/modal_logic.js') }}"></script>
+    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_odobravanje/recalculate_logic.js') }}"></script>
 
-{{--    dodaj nov fajl koji ce da sredjuje kalkulaciju --}}
+
+    {{--    dodaj nov fajl koji ce da sredjuje kalkulaciju --}}
     <script src="{{asset('admin_assets/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 
 @endsection
