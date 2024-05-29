@@ -133,13 +133,16 @@ class KreirajObracunskeKoeficiente
 
 
             if ($item['rbvp_sifra_vrste_placanja'] == '003' && $fondSatiPraznika !== null) {
-                $mesecniFondSati == $fondSatiPraznika;
+                $mesecniFondSati = (int)$fondSatiPraznika;
             }
 
 
             if ($item['rbvp_sifra_vrste_placanja'] == '001' || $item['rbvp_sifra_vrste_placanja'] == '019') {
                 // Uslovi za otvaranje radnika varijabilna vrste placanja poenterska
                 $mesecniFondSati = (int)$fondSati;
+                if($fondSatiPraznika !== null){
+                    $mesecniFondSati =$mesecniFondSati-(int)$fondSatiPraznika;
+                }
             }
 
             // Otvaranje praznih Vrsta placanja

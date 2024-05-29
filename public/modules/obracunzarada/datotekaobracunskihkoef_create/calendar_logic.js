@@ -25,7 +25,6 @@ function updateMonthContainer(activeMonth) {
                 {'label': 'Mesečni fond sati bez drzavnog praznika', 'val': `${monthData.mesecni_fond_sati}`},
                 {'label': 'Cena rada tekući', 'val': `${monthData.cena_rada_tekuci}`},
                 {'label': 'Cena rada prethodni', 'val': `${monthData.cena_rada_prethodni}`},
-                {'label': 'Vrednost akontacije', 'val': `${monthData.vrednost_akontacije}`},
             ], function(key, value) {
 
                 if(value.val !=='undefined'){
@@ -129,19 +128,32 @@ function updateMonthContainer(activeMonth) {
                 }).text('Poreska prijava').css('cursor','default').appendTo(monthCard);
 
 
-                $("<h1></h1>").attr({
-                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
-                }).text('').css('cursor','default').appendTo(monthCard);
 
-
-                // Akontacije AA klasa
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-primary index-akontacija-mesecna-poentazaa offset-1 col-sm-3 mt-3 border',
+                    'class': 'btn btn-warning index-mesecna-obrada-priprema offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Unos akontacije').appendTo(monthCard);
+                }).text('Prikaz obracunskih listova (svi radnici)').appendTo(monthCard);
+
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-primary index-fiksnap-mesecna-poentaza offset-1 col-sm-3 mt-3 border',
+                    'data-month_id': monthData.month_id,
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Unos f. plaćanja po radniku').appendTo(monthCard);
+
+
+                // Akontacije AA klasa
+                // $('<button>').attr({
+                //     'type': 'button',
+                //     'class': 'btn btn-primary index-akontacija-mesecna-poentazaa offset-1 col-sm-3 mt-3 border',
+                //     'data-month_id': monthData.month_id,
+                //     'data-month': monthData.currMonth,
+                //     'data-year': monthData.currYear
+                // }).text('Unos akontacije').appendTo(monthCard);
 
                 $("<h1></h1>").attr({
                     'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
@@ -153,14 +165,14 @@ function updateMonthContainer(activeMonth) {
 
 
 
+
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-primary index-fiksnap-mesecna-poentaza offset-1 col-sm-3 mt-3 border',
+                    'class': 'btn btn-primary index-krediti-mesecna-poentaza offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Unos f. plaćanja po radniku').appendTo(monthCard);
-
+                }).text('Unos Kredita').appendTo(monthCard);
                 $("<h1></h1>").attr({
                     'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
                 }).text('Arhiva').css('cursor','default').appendTo(monthCard);
@@ -171,13 +183,6 @@ function updateMonthContainer(activeMonth) {
 
 
 
-                $('<button>').attr({
-                    'type': 'button',
-                    'class': 'btn btn-primary index-krediti-mesecna-poentaza offset-1 col-sm-3 mt-3 border',
-                    'data-month_id': monthData.month_id,
-                    'data-month': monthData.currMonth,
-                    'data-year': monthData.currYear
-                }).text('Unos Kredita').appendTo(monthCard);
 
 
             }else{

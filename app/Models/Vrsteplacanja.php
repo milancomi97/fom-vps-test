@@ -27,6 +27,7 @@ class Vrsteplacanja extends Model
         'VARI_minuli_rad',
         'DOVP_tip_vrste_placanja',
         'PLAC',
-        'KATEG_sumiranje_redova_poentaza'
+        'KATEG_sumiranje_redova_poentaza',
+        'ANOM_poentaza_provera'
     ];
 }

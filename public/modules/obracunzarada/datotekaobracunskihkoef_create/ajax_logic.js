@@ -44,6 +44,7 @@ $(document).ready(function () {
 
     $('#submitFormBtn').on('click', function () {
 
+
         // Swal.fire({
         //     title: 'Da li želite da otvorite mesec?',
         //     text: "Unesi dinamicki kasnije",
@@ -58,6 +59,8 @@ $(document).ready(function () {
 
         var month_id = $('#month_id').val();
         if(month_id !==''){
+            $('#myModal').modal('hide');
+            return null;
 
             var mesecni_fond_sati = $('#mesecni_fond_sati_modal').val();
             var year = $('.create-mesecna-poentaza').data('year');
@@ -70,7 +73,6 @@ $(document).ready(function () {
             var period_isplate_do = $('#period_isplate_do_modal').val()
             var period_isplate_od = $('#period_isplate_od_modal').val()
             var vrednost_akontacije = $('#vrednost_akontacije_modal').val()
-
             var _token = $('input[name="_token"]').val();
             if(prosecni_godisnji_fond_sati !=='' && cena_rada_tekuci!=='' && cena_rada_prethodni!=='' && vrednost_akontacije!==''){
 
@@ -121,6 +123,8 @@ $(document).ready(function () {
             var mesecni_fond_sati = $('#mesecni_fond_sati_modal').val();
 
             var _token = $('input[name="_token"]').val();
+            vrednost_akontacije =0;
+
             if(prosecni_godisnji_fond_sati !=='' && cena_rada_tekuci!=='' && cena_rada_prethodni!=='' && vrednost_akontacije!==''){
 
                 $.ajax({
@@ -145,11 +149,11 @@ $(document).ready(function () {
                         if (response.status) {
                             location.reload()
                         } else {
-                            $("#statusMessage").text(response.message).addClass("text-danger");
+                            $("#statusModalMessage").text(response.message).addClass("text-danger");
                         }
                     },
                     error: function (response) {
-                        $("#statusMessage").text("Greska: " + response.message).addClass("error");
+                        $("#statusModalMessage").text("Greska: " + response.message).addClass("error");
                     }
                 });
             }else {
@@ -208,8 +212,6 @@ $(document).ready(function () {
         $('.loading').removeClass('hidden')
         $('.main-container-calendar').addClass('hidden')
 
-
-        debugger;
         var _token = $('input[name="_token"]').val();
         var month_id = $(this).data('month_id')
 

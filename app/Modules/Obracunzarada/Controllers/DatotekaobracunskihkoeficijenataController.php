@@ -14,6 +14,7 @@ use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterfac
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
 use App\Modules\Obracunzarada\Service\KreirajPermisijePoenteriOdobravanja;
+use App\Modules\Obracunzarada\Service\MesecValidationService;
 use App\Modules\Obracunzarada\Service\PripremiPermisijePoenteriOdobravanja;
 use App\Modules\Obracunzarada\Service\UpdateNapomena;
 use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
@@ -37,7 +38,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         private readonly PripremiPermisijePoenteriOdobravanja                $pripremiPermisijePoenteriOdobravanja,
         private readonly VrsteplacanjaRepository                             $vrsteplacanjaInterface,
         private readonly DpsmPoentazaslogRepositoryInterface                 $dpsmPoentazaslogInterface,
-        private readonly DpsmAkontacijeRepositoryInterface                   $dpsmAkontacijeInterface
+        private readonly DpsmAkontacijeRepositoryInterface                   $dpsmAkontacijeInterface,
+        private readonly MesecValidationService                               $mesecValidationService
     )
     {
     }
@@ -542,6 +544,11 @@ class DatotekaobracunskihkoeficijenataController extends Controller
     public function store(Request $request)
     {
 
+        // da li je zatvoren prethodni
+        $monthNotClosed = $this->mesecValidationService->checkMonthStatus($request->all());
+        if($monthNotClosed){
+            return response()->json(['message' => 'Prethodni mesec nije arhiviran', 'status' => false], 200);
+        }
         try {
             // Osnovni podaci o otvorenom mesecu
             $osnovniPodaciMesec = $this->datotekaobracunskihkoeficijenataInterface->createMesecnatabelapoentaza($request->all());

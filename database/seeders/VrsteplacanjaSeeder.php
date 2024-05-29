@@ -31,13 +31,14 @@ class VrsteplacanjaSeeder extends Seeder
                 'VARI_minuli_rad' => $data['VARI'],
                 'DOVP_tip_vrste_placanja' => $data['DOVP'] =='TRUE',
                 'PLAC'=>$data['PLAC'],
-                'KATEG_sumiranje_redova_poentaza'=>$data['KATEG']
+                'KATEG_sumiranje_redova_poentaza'=>(int)$data['KATEG'],
+                'ANOM_poentaza_provera'=>(int)$data['ANOM']
             ]);
         }
     }
 
     public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/novo/DVPL_2.csv');
+        $filePath = storage_path('app/backup/novo/DVPL_3.csv');
 //        $filePath = storage_path('app/backup/DVPL4.csv');
 
         $csv = Reader::createFromPath($filePath, 'r');

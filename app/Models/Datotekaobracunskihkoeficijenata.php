@@ -9,6 +9,22 @@ class Datotekaobracunskihkoeficijenata extends Model
 {
     use HasFactory;
 
+    const U_OBRADI = 0;
+    const AKTUELAN = 1;
+    const ARHIVIRAN = 2;
+    const GRESKA = 3;
+
+
+    public static function getMonthStatusData()
+    {
+        return [
+            self::U_OBRADI => 'U obradi',
+            self::AKTUELAN => 'Trenutan mesec u pripremi',
+            self::ARHIVIRAN => 'Arhiviran',
+            self::GRESKA => 'Greska',
+        ];
+    }
+
     protected $fillable = [
         'datum',
         'status',

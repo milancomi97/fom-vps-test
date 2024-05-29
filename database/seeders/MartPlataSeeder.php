@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Datotekaobracunskihkoeficijenata;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
@@ -79,7 +80,7 @@ class MartPlataSeeder extends Seeder
                     'datum' => $date->format('Y-m-d'),
 //'mesec'=>$data['DATA'],
                     'godina' => $data['GOD'],
-                    'status' => $data['OBP1'] == 'TRUE',
+                    'status' => Datotekaobracunskihkoeficijenata::AKTUELAN,
                     'period_isplate_od' => Carbon::createFromFormat('d/m/Y', $data['DATUM1']),
                     'period_isplate_do' => Carbon::createFromFormat('d/m/Y', $data['DATUM2']),
 

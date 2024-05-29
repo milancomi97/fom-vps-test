@@ -302,7 +302,7 @@
                             <label for="cena_rada_prethodni_modal">Pomoćni koeficijent</label>
                             <input type="text" min="0" max="2"  class="form-control" id="cena_rada_prethodni_modal" >
                         </div>
-                        <div class="form-group">
+                        <div class="form-group d-none">
                             <label for="vrednost_akontacije_modal">Vrednost akontacije</label>
                             <input type="number" class="form-control" value="0" id="vrednost_akontacije_modal" >
                         </div>
