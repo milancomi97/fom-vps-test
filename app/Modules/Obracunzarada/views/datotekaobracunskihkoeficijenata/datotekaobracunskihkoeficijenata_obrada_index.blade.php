@@ -180,7 +180,7 @@
                             <th>Matični broj</th>
                             <th>Prezime ime</th>
                             <th>Napomena</th>
-                            <th>STATUS</th>
+                            <th>Status</th>
                             <th>CHECK BOX</th>
                             <th>Prikaži podatke o zaradi</th>
                         </tr>

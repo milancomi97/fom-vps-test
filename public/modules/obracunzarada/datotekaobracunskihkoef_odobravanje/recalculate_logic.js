@@ -4,8 +4,13 @@ function calculateSums(tableSelector) {
     const rowCount = $rows.length;
     const colCount = $rows.first().find('th, td').length;
 
-    $rows.each(function() {
-        $(this).append('<td></td>');
+    $rows.each(function(index) {
+        if(index===0){
+            $(this).append('<td><b>Zbir:</b></td>');
+        }else{
+            $(this).append('<td></td>');
+
+        }
     });
 
     $rows.each(function(index) {
@@ -28,8 +33,8 @@ function calculateSums(tableSelector) {
     });
 
     const $sumRow = $('<tr></tr>').appendTo($table);
-    for (let i = 0; i <= colCount; i++) {
-        $sumRow.append('<td style="background-color: #ADD8E6"></td>');
+    for (let i = 0; i <= colCount-3; i++) {
+        $sumRow.append('<td style="background-color: #ADD8E6;"></td>');
     }
 
     for (let j = 2; j < colCount; j++) {
@@ -42,7 +47,10 @@ function calculateSums(tableSelector) {
             }
             }
         });
-        $sumRow.find('td').eq(j).text(colSum).css('font-weight',600);
+        if(j<colCount-2){
+            $sumRow.find('td').eq(j).text(colSum).css('font-weight',600);
+
+        }
     }
 
     // Add "Total" label to the new row

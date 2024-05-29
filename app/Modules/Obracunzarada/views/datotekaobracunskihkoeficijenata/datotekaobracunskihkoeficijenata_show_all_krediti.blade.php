@@ -133,7 +133,7 @@
                             <th>Matični broj</th>
                             <th>Prezime ime</th>
                             <th>Napomena</th>
-                            <th>STATUS</th>
+                            <th>Status</th>
                             <th>Izmena kredita</th>
                         </tr>
                         </thead>

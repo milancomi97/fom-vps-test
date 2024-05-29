@@ -168,7 +168,7 @@
                                 <th>{{ $header }}</th>
                             @endforeach
                             <th>Napomena</th>
-                            <th>STATUS</th>
+                            <th>Status</th>
 
                         </tr>
                         </thead>
