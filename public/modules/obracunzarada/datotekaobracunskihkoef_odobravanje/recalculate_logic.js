@@ -26,4 +26,27 @@ function calculateSums(tableSelector) {
         }
         $(this).find('td:last').text(rowSum);
     });
+
+    const $sumRow = $('<tr></tr>').appendTo($table);
+    for (let i = 0; i <= colCount; i++) {
+        $sumRow.append('<td style="background-color: #ADD8E6"></td>');
+    }
+
+    for (let j = 2; j < colCount; j++) {
+        let colSum = 0;
+        $rows.each(function(index) {
+            if (index > 1) {
+                if($(this).find('td').eq(j).hasClass('vrsta_placanja_td')){
+
+                colSum += parseFloat($(this).find('td').eq(j).find('input').val());
+            }
+            }
+        });
+        $sumRow.find('td').eq(j).text(colSum).css('font-weight',600);
+    }
+
+    // Add "Total" label to the new row
+    $sumRow.find('td').eq(0).text('XXXXXXX').css('font-weight',800);
+    $sumRow.find('td').eq(1).text('Ukupno:').css('font-weight',800);
+
 }
