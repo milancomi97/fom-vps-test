@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Datotekaobracunskihkoeficijenata;
 use App\Modules\Obracunzarada\Consts\UserRoles;
+use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,40 +15,64 @@ use Symfony\Component\HttpFoundation\Response;
 class CheckUserRole
 {
 
-    public function handle($request, Closure $next)
+    public function __construct(
+        private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface)
     {
-        $response = $next($request);
-//        if(Auth::user() !== null){
-//            $userData=Auth::user()->load(['permission']);
-//            $permissions  =$userData->permission;
-//            $path = $request->path();
-//            $parts = explode('/', $path);
-//            $requiredModule = $parts[0];
-//
-//            if($requiredModule=='osnovnipodaci' && $permissions->osnovni_podaci == true){
-//                return $next($request);
-//             } else if ($requiredModule=='osnovnipodaci' && $permissions->osnovni_podaci == true){
-//                return $next($request);
-//
-//            }else if(UserRoles::POENTER==$permissions->role_id){
-//
-//                    if(isset($parts[0]) && isset($parts[1]) && isset($parts[2]) && $parts[2]=='odobravanje_poenter'){
-//                        return $next($request);
-//                    }
-//                    return redirect('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_poenter?month_id=1');
-//
-//            }
-//        } else{
-////            $userData=Auth::user()->load(['permission']);
-////
-////            if(){
-////
-////            }
-//
-//            return $next($request);
-//        }
-        return $response;
-
     }
 
+    public const POENTER_ROUTES = [
+        'login',
+        'obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_poenter',
+        'obracunzarada/datotekaobracunskihkoeficijenata/update',
+    ];
+
+    public function handle($request, Closure $next)
+    {
+
+        $response = $next($request);
+        $path = $request->path();
+        $parts = explode('/', $path);
+        $requiredModule = $parts[0];
+
+        if (Auth::user() !== null) {
+            $userData = Auth::user()->load(['permission']);
+            $permissions = $userData->permission;
+
+            $isPoenter = UserRoles::POENTER == $permissions->role_id;
+            $poenterRoutes = in_array($request->path(), self::POENTER_ROUTES);
+            if ($isPoenter) {
+
+                if (!$poenterRoutes) {
+
+                    $activeMonth = $this->datotekaobracunskihkoeficijenataInterface->where('status', Datotekaobracunskihkoeficijenata::AKTUELAN)->first();
+                    return redirect(route('datotekaobracunskihkoeficijenata.odobravanje_poenter', ['month_id' => $activeMonth->id]));
+
+                }
+            } else {
+                // Sve osim poentera// provera modula
+                if ($requiredModule == 'osnovnipodaci' && $permissions->osnovni_podaci !==1) {
+
+                    return redirect(route('noPermission'));
+
+                } elseif ($requiredModule == 'obracunzarada' && $permissions->obracun_zarada !==1) {
+
+                    return redirect(route('noPermission'));
+                }elseif ($requiredModule == 'kadrovskaevidencija' && $permissions->kadrovska_evidencija !==1) {
+
+                    return redirect(route('noPermission'));
+                }
+            }
+
+                if($request->path()=='dashboard'){
+                    return redirect(route('datotekaobracunskihkoeficijenata.create'));
+
+                }
+        }
+        return $response;
+    }
 }
+//                if($request->path()=='dashboard'){
+//                    return redirect(route('datotekaobracunskihkoeficijenata.create'));
+//
+//                }else
+

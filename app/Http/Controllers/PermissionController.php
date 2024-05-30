@@ -14,7 +14,7 @@ class PermissionController extends Controller
         $platform = $request->server('HTTP_SEC_CH_UA_PLATFORM');
 
 
-        return "Nemate pristup modulu" ."<br>"."IP adressa: ".$ipAdresa."<br>"."User agent: ".$userAgent."<br>"."Platform: ".$platform; // TODO add page and back button
+        return view('no_permission');
 
     }
 }
