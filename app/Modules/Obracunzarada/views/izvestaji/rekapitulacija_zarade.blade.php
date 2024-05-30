@@ -36,18 +36,94 @@
                         </tr>
                         </thead>
                         <tbody>
-
+                        <?php
+                        $ukupanPrihod=0;
+                        ?>
                         @foreach($dkopData as $vrstaPlacanja)
+
+                            @if($vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['KESC_prihod_rashod_tip']=='P')
                         <tr>
                             <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>
                             <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
                             <td>{{number_format($vrstaPlacanja->sati)}}</td>
                             <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
-
-
                         </tr>
+                                <?php
+                            $ukupanPrihod+=$vrstaPlacanja->iznos;
+                                    ?>
+                            @endif
+
 
                         @endforeach
+                        <tr style="border-top:2px solid black">
+                            <td></td>
+                            <td></td>
+                            <td><b>Bruto zarada:</b></td>
+                            <td><b>{{number_format($ukupanPrihod, 2, '.', ',')}}</b></td>
+                        </tr>
+
+                        <?php
+                        $ukupniPorezi=0;
+                        ?>
+                        @foreach($dkopData as $vrstaPlacanja)
+
+                            @if($vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['KESC_prihod_rashod_tip']=='R' &&$vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['SLOV_grupe_vrsta_placanja']=='P')
+                                <tr>
+                                    <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>
+                                    <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
+                                    <td>{{number_format($vrstaPlacanja->sati)}}</td>
+                                    <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
+                                    <?php
+                                    $ukupniPorezi+=$vrstaPlacanja->iznos;
+                                    ?>
+                            @endif
+
+
+                        @endforeach
+                        <tr style="border-top:2px solid black">
+                            <td></td>
+                            <td></td>
+                            <td><b>Ukupni porezi:</b></td>
+                            <td><b>{{number_format($ukupniPorezi, 2, '.', ',')}}</b></td>
+                        </tr>
+
+                        <?php
+                        $ukupniRashod=0;
+                        ?>
+
+                            @foreach($dkopData as $vrstaPlacanja)
+
+                                @if($vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['KESC_prihod_rashod_tip']=='R'  &&$vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['SLOV_grupe_vrsta_placanja']!=='P')
+                            <tr>
+                                <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>
+                                <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
+                                <td>{{number_format($vrstaPlacanja->sati)}}</td>
+                                <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
+                                <?php
+                                 $ukupniRashod+=$vrstaPlacanja->iznos;
+                                ?>
+                                @endif
+
+                            @endforeach
+                            <tr style="border-top:2px solid black">
+                                <td></td>
+                                <td></td>
+                                <td><b>Ukupne obustave:</b></td>
+                                <td><b>{{number_format($ukupniRashod, 2, '.', ',')}}</b></td>
+                            </tr>
+
+{{--                        @foreach($dkopData as $vrstaPlacanja)--}}
+
+{{--                            <tr>--}}
+{{--                                <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>--}}
+{{--                                <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>--}}
+{{--                                <td>{{number_format($vrstaPlacanja->sati)}}</td>--}}
+{{--                                <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>--}}
+
+
+{{--                            </tr>--}}
+
+{{--                        @endforeach--}}
                         </tbody>
                     </table>
                 </div>

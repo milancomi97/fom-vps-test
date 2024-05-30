@@ -12,6 +12,7 @@ use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterfac
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
 use App\Modules\Obracunzarada\Service\PripremiPermisijePoenteriOdobravanja;
@@ -94,7 +95,9 @@ class IzvestajZaradaController extends Controller
         SUM(PIOP_penzijsko_osiguranje_na_teret_poslodavca) AS PIOP_penzijsko_osiguranje_na_teret_poslodavca,
         SUM(ZDRP_zdravstveno_osiguranje_na_teret_poslodavca) AS ZDRP_zdravstveno_osiguranje_na_teret_poslodavca
     ')->first();
-        return view('obracunzarada::izvestaji.rekapitulacija_zarade',['dkopData'=>$dkopData,'zaraData'=>$zaraData]);
+
+        $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
+        return view('obracunzarada::izvestaji.rekapitulacija_zarade',['dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik]);
     }
 
 
