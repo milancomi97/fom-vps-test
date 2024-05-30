@@ -141,7 +141,7 @@ function updateMonthContainer(activeMonth) {
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear,
                     'data-url-redirect':'obracunski_listovi'
-                }).text('Prikaz obracunskih listova (svi radnici)').appendTo(monthCard);
+                }).text('Prikaz obracunskih lista').appendTo(monthCard);
 
                 $('<button>').attr({
                     'type': 'button',

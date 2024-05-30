@@ -12,7 +12,7 @@
        $userData=Auth::user()->load(['permission']);
        $permissions = $userData->permission;
            ?>
-        @if($permissions['role_id']==UserRoles::SUPERVIZOR)
+        @if($permissions['role_id']==UserRoles::SUPERVIZOR || $permissions['role_id']==UserRoles::PROGRAMER)
 
         <a href="{{ route('backup.index') }}"><p><i class="fa fa-database" aria-hidden="true"></i>&nbsp;Backup baze</p></a>
         <a href="{{ url('/user/permissions_config') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;Podešavanje pristupa</p></a>

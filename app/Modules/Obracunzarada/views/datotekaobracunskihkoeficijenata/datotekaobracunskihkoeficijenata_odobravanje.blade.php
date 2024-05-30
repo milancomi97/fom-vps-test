@@ -157,7 +157,7 @@
 
                     <h3 class="text-center"> Organizaciona celina: <b>{{$key}} </b> -
                         &nbsp{{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}.</h3>
-                    <button class="calcBtn btn btn-outline-secondary" onclick="calculateSums('{{$key}}')">Calculate Sums for {{$key}}</button>
+                    <button class="calcBtn btn btn-outline-secondary" onclick="calculateSums('{{$key}}')">Proveri {{$key}} celinu</button>
 
                     <div class="divider"></div>
 
@@ -222,7 +222,7 @@
                                 <h2>Poenteri:</h2>
                                 <div class="d-flex flex-column align-items-start">
                                     @foreach($mesecnaTabelaPoentazaPermissions[$key]['poenterData'] as $poenterId => $poenterStatusData)
-                                        @if($userPermission->role_id == UserRoles::ADMINISTRATOR)
+                                        @if($userPermission->role_id == UserRoles::ADMINISTRATOR || $userPermission->role_id == UserRoles::SUPERVIZOR || $userPermission->role_id == UserRoles::PROGRAMER)
                                             <button class="administrator-config btn btn-link"
                                                     data-permission-record-id='{{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}'
                                                     data-user-id='{{$poenterId}}'
@@ -243,7 +243,7 @@
                                 <h2>Odgovorna lica:</h2>
                                 <div class="d-flex flex-column align-items-start">
                                     @foreach($mesecnaTabelaPoentazaPermissions[$key]['odgovornaLicaData'] as $odgovornoLiceId => $odgovornaLicaDataStatusData)
-                                        @if($userPermission->role_id == UserRoles::ADMINISTRATOR)
+                                        @if($userPermission->role_id == UserRoles::ADMINISTRATOR || $userPermission->role_id == UserRoles::SUPERVIZOR || $userPermission->role_id == UserRoles::PROGRAMER)
                                             <button class="administrator-config btn btn-link"
                                                     data-permission-record-id='{{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}'
                                                     data-user-id='{{$odgovornoLiceId}}'
