@@ -48,21 +48,26 @@
                             </tr>
                             </thead>
                             <tbody id="table-body">
+                                <?php
+                                $i=1;
+                                ?>
                             @foreach($troskovniCentar as $radnik)
+
                             <tr>
-                                <td>0</td>
+                                <td>{{$i++}}</td>
                                 <td>{{$radnik->maticni_broj}}</td>
                                 <td>{{$radnik->prezime.' '. $radnik->srednje_ime. ' '. $radnik->ime}}</td>
-                                <td>KV</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>0</td>
+                                <td>MATICNA STRUCN SPREMA</td>
+{{--                                <td>{{$MDR->KOEF}}</td>--}}
+                                 <td>0</td>
+                                <td>{{$radnik->UKSA_ukupni_sati_za_isplatu}}</td>
+                                <td>{{$radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade}}</td>
+                                <td>{{$radnik->NETO_neto_zarada}}</td>
+                                <td>{{$radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate}}/ IZVUCI STOPA1</td>
+                                <td>{{$radnik->PREK_prekovremeni}}</td>
+                                <td>{{$radnik->varijab}}</td>
+                                <td>{{$radnik->TOPLI_obrok_iznos}}// IZVUCI STOPA1</td>
+                                <td>{{$radnik->NETO_neto_zarada-$radnik->SIOB_ukupni_iznos_obustava-$radnik->ZARKR_ukupni_zbir_kredita}}</td>
                             </tr>
                             @endforeach
                             </tbody>

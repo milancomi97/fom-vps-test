@@ -48,7 +48,7 @@
         <i class="fas fa-lock"></i>
     </div>
     <p class="lead">Nemate potrebne dozvole za pristup ovoj stranici.</p>
-    <p>Kontaktirajte svog administratora ako smatrate da je ovo greška ili se vratite na početnu stranicu.</p>
+    <p>Kontaktirajte administratora ako smatrate da je ovo greška ili se vratite na početnu stranicu.</p>
     <a href="{{route('dashboard')}}" class="btn btn-primary btn-lg">Nazad</a>
 </div>
 </div>

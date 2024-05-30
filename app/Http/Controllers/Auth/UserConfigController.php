@@ -23,7 +23,8 @@ class UserConfigController extends Controller
         $userData =User::with('permission')->find(Auth::id());
         $poenterPermission  = json_decode($userData->permission->troskovna_mesta_poenter,true);
         return view('auth.user-permissions-config',
-            ['userData' => $userData,
+            [
+                'userData' => $userData,
                 'permissions'=>$userData->permission,
                 'organizacioneCeline'=>$orgCeline,
                 'poenterPermission'=>$poenterPermission
@@ -82,7 +83,14 @@ class UserConfigController extends Controller
     {
         $orgCeline= $this->organizacionecelineInterface->getAll();
         $userData =User::with('permission')->find($request->user_id);
-        return view('auth.user-permissions-config', ['userData' => $userData,'permissions'=>$userData->permission,'organizacioneCeline'=>$orgCeline]);
+        $poenterPermission  = json_decode($userData->permission->troskovna_mesta_poenter,true);
+
+        return view('auth.user-permissions-config', [
+            'userData' => $userData,
+            'permissions'=>$userData->permission,
+            'organizacioneCeline'=>$orgCeline,
+            'poenterPermission'=>$poenterPermission
+        ],         );
     }
 
     public function permissionsUpdatePoenter(Request $request)

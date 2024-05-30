@@ -171,7 +171,6 @@ return new class extends Migration
             $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
 
             $table->float('varijab')->nullable(); // Minuli rad
-//            $table->float('bmin_')->nullable(); //Prekovremeni rad iznos
             $table->float('UKIS_ukupan_iznos_za_izplatu')->nullable(); //Za isplatu rad iznos
 
 

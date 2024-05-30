@@ -70,7 +70,8 @@ class ObradaZaraPoRadniku extends Model
         'ISPLATA',
         'UKUPNO',
         'troskovno_mesto_id',
-        'organizaciona_celina_id'
+        'organizaciona_celina_id',
+        'varijab'
     ];
 
 }

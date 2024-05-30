@@ -61,7 +61,7 @@ class IzvestajZaradaController extends Controller
        $groupedZara = $zaraData->map(function($zaraRadnik) use($orgCelineData){
            $zaraRadnik['org_celina_data']= $orgCelineData[$zaraRadnik['organizaciona_celina_id']];
            return $zaraRadnik;
-       })->groupBy('organizaciona_celina_id')->sortBy('organizaciona_celina_id');
+       })->sortBy('organizaciona_celina_id')->groupBy('organizaciona_celina_id');
 
         return view('obracunzarada::izvestaji.ranglista_zarade',['groupedZara'=>$groupedZara]);
     }

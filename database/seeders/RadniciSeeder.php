@@ -60,6 +60,8 @@ class RadniciSeeder extends Seeder
         $supervizor = ["0006001"];
         $poenteri = ['0004026','0009326','0009363','0006026','0005577','0004791','0005643','0005561','0005740','0005680','0005642','0009405'];
 
+        $administratori=['0006026'];
+        $programeri = ['1234567','7654321'];
 
         if(in_array($maticniBroj,$supervizor)){
           return UserRoles::SUPERVIZOR;
@@ -67,6 +69,12 @@ class RadniciSeeder extends Seeder
 
         if(in_array($maticniBroj,$poenteri)){
             return UserRoles::POENTER;
+        }
+        if(in_array($maticniBroj,$administratori)){
+            return UserRoles::ADMINISTRATOR;
+        }
+        if(in_array($maticniBroj,$programeri)){
+            return UserRoles::PROGRAMERI;
         }
 
         return UserRoles::NONE;
