@@ -119,7 +119,7 @@ class KreirajObracunskeKoeficiente
 
     public function getPoenterVrstePlacanjaInitData($datotekaobracunskihkoeficijenata)
     {
-        $data = $this->vrsteplacanjaInterface->getAll()->sortBy('redosled_poentaza_zaglavlje')->take(19);
+        $data = $this->vrsteplacanjaInterface->getAll()->sortBy('redosled_poentaza_zaglavlje')->take(18);
         // Prvo sortiraj pa onda kada dodjes do 19, prestani
         // Treba da bude 19
 
@@ -205,7 +205,7 @@ class KreirajObracunskeKoeficiente
 
     public function otvoriAktivneRadnikeImport($datotekaobracunskihkoeficijenata, $varijabilneVrtsePlacanjaReader,$vrstePlacanjaSifarnik)
     {
-        $varijabilneVrtsePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAll()->sortBy('redosled_poentaza_zaglavlje')->take(19);
+        $varijabilneVrtsePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAll()->sortBy('redosled_poentaza_zaglavlje')->take(18);
         $vrstePlacanjaPoenterIds = $varijabilneVrtsePlacanjaSifarnik->pluck('rbvp_sifra_vrste_placanja')->toArray();
 
         $vrstaPlacanjaRadnik = [];

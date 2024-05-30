@@ -93,28 +93,28 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::get('/templatetheme', function () {
-    return view('/adminlte/welcome');
-});
-
-Route::post('/materijals_pdf', [\App\Http\Controllers\MaterijalController::class, 'pdfExport'])->name('profile.edit');
-
-Route::get('/user/permissions_config', [UserConfigController::class, 'permissionsConfig']);
-Route::get('/user/permissions_config_by_user', [UserConfigController::class, 'permissionsConfigByUserId']);
-
-
-Route::post('/user/permissions_poenter', [UserConfigController::class, 'permissionsUpdatePoenter'])->name('permissionsUpdatePoenter.update');
-
-Route::get('/user/index', [UserConfigController::class, 'index']);
-
-Route::post('/user/permissions_config_update', [UserConfigController::class, 'permissionsUpdate']);
-
-Route::resource("/partner", \App\Http\Controllers\PartnerController::class);
-Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
-
 
 //Route::middleware('auth')->group(function () {
     Route::group(['middleware'=>['auth']],function () {
+        Route::get('/templatetheme', function () {
+            return view('/adminlte/welcome');
+        });
+
+        Route::post('/materijals_pdf', [\App\Http\Controllers\MaterijalController::class, 'pdfExport'])->name('profile.edit');
+
+        Route::get('/user/permissions_config', [UserConfigController::class, 'permissionsConfig']);
+        Route::get('/user/permissions_config_by_user', [UserConfigController::class, 'permissionsConfigByUserId']);
+
+
+        Route::post('/user/permissions_poenter', [UserConfigController::class, 'permissionsUpdatePoenter'])->name('permissionsUpdatePoenter.update');
+
+        Route::get('/user/index', [UserConfigController::class, 'index']);
+
+        Route::post('/user/permissions_config_update', [UserConfigController::class, 'permissionsUpdate']);
+
+        Route::resource("/partner", \App\Http\Controllers\PartnerController::class);
+        Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
+
 
 
         Route::get('/backupdata', [\App\Http\Controllers\DatabaseBackupController::class, 'showBackupData'])->name('backup.index');

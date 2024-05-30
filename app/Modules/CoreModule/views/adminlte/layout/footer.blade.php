@@ -1,5 +1,6 @@
+@php use App\Modules\Obracunzarada\Consts\UserRoles; @endphp
 
-<!-- Control Sidebar -->
+    <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
@@ -7,9 +8,16 @@
         <p></p>
         <p></p>
         <a href="{{ url('/forgot-password-cust/123455')}}"><p><i class="fa fa-key" aria-hidden="true"></i>&nbsp;Izmena šifre</p></a>
+       <?php
+       $userData=Auth::user()->load(['permission']);
+       $permissions = $userData->permission;
+           ?>
+        @if($permissions['role_id']==UserRoles::SUPERVIZOR)
+
         <a href="{{ route('backup.index') }}"><p><i class="fa fa-database" aria-hidden="true"></i>&nbsp;Backup baze</p></a>
         <a href="{{ url('/user/permissions_config') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;Podešavanje pristupa</p></a>
         <a href="{{ url('/user/index') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Podešavanje pristupa radnika</p></a>
+       @endif
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
 

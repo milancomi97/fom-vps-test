@@ -7,7 +7,7 @@ class UserRoles
     const NONE = 0;
     const DEFAULT = 1;
     const POENTER = 2;
-    const PROGRAMERI = 3;
+    const PROGRAMER = 3;
     const ADMINISTRATOR = 4;
     const SUPERVIZOR = 5;
 
@@ -16,7 +16,7 @@ class UserRoles
         return [
             self::NONE => 'Bez pristupa',
             self::POENTER => 'Poenter',
-            self::PROGRAMERI => 'Programer',
+            self::PROGRAMER => 'Programer',
             self::ADMINISTRATOR => 'Administrator',
             self::SUPERVIZOR => 'Supervizor'
 

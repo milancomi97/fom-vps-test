@@ -39,8 +39,15 @@ class CheckUserRole
             $permissions = $userData->permission;
 
             $isPoenter = UserRoles::POENTER == $permissions->role_id;
+            $notAllowed = UserRoles::NONE==$permissions->role_id;
+
+
             $poenterRoutes = in_array($request->path(), self::POENTER_ROUTES);
-            if ($isPoenter) {
+            if($notAllowed && $request->path()!=='nopermission'){
+
+                return redirect(route('noPermission'));
+
+            } else if ($isPoenter) {
 
                 if (!$poenterRoutes) {
 

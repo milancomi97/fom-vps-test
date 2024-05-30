@@ -30,7 +30,7 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
 
         $unserializedVrstePlacanja= $result->map(function ($mesecnaTabelaPoentaza) {
             // Transform each item (user) by returning the desired value
-            // TODO SORT VRSTE PLACANJA
+
             $unsorted = json_decode($mesecnaTabelaPoentaza['vrste_placanja'],true);
             usort($unsorted,  function($a, $b) {
                 return $a['redosled_poentaza_zaglavlje'] - $b['redosled_poentaza_zaglavlje'];

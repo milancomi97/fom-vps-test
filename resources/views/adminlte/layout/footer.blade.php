@@ -1,26 +1,38 @@
-
-<!-- Control Sidebar -->
+@php use App\Modules\Obracunzarada\Consts\UserRoles; @endphp
+    <!-- Control Sidebar -->
 <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
     <div class="p-3">
         <h5>Podešavnja</h5>
         <p></p>
         <p></p>
-        <a href="{{ url('/forgot-password-cust/123455')}}"><p><i class="fa fa-key" aria-hidden="true"></i>&nbsp;Izmena šifre</p></a>
-        <a href="{{ route('backup.index') }}"><p><i class="fa fa-database" aria-hidden="true"></i>&nbsp;&nbsp;Backup baze</p></a>
-        <a href="{{ url('/user/permissions_config') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Podešavanje pristupa</p></a>
-        <a href="{{ url('/user/index') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Podešavanje pristupa radnika</p></a>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
+        <a href="{{ url('/forgot-password-cust/123455')}}"><p><i class="fa fa-key" aria-hidden="true"></i>&nbsp;Izmena
+                šifre</p></a>
+        <?php
+        $userData = Auth::user()->load(['permission']);
+        $permissions = $userData->permission;
+        ?>
+        @if($permissions['role_id']==UserRoles::SUPERVIZOR)
 
-                <x-responsive-nav-link :href="route('logout')"
-                                       onclick="event.preventDefault();
+            <a href="{{ route('backup.index') }}"><p><i class="fa fa-database" aria-hidden="true"></i>&nbsp;&nbsp;Backup
+                    baze</p></a>
+            <a href="{{ url('/user/permissions_config') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Podešavanje
+                    pristupa</p></a>
+            <a href="{{ url('/user/index') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Podešavanje pristupa
+                    radnika</p></a>
+        @endif
+
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+
+            <x-responsive-nav-link :href="route('logout')"
+                                   onclick="event.preventDefault();
                                         this.closest('form').submit();" style="padding-left:0 !important;">
-                    <i class="fa fa-sign-out-alt" aria-hidden="true"></i>
+                <i class="fa fa-sign-out-alt" aria-hidden="true"></i>
 
-                    {{ __('Odjavi se') }}
-                </x-responsive-nav-link>
-            </form>
+                {{ __('Odjavi se') }}
+            </x-responsive-nav-link>
+        </form>
 
 
     </div>
