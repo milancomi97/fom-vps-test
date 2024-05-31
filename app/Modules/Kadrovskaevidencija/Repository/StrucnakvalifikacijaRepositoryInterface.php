@@ -6,5 +6,5 @@ use App\Repository\BaseRepositoryInterface;
 
 interface StrucnakvalifikacijaRepositoryInterface extends BaseRepositoryInterface
 {
-
+    public function getAllKeySifra();
 }

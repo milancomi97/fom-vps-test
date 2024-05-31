@@ -138,6 +138,7 @@
                         </thead>
                         <tbody>
                         @foreach($organizacionacelina as $value)
+                            @if($value->maticnadatotekaradnika->BRCL_redosled_poentazi > 100)
                             <tr>
                                 <td>{{ $value['maticni_broj'] }}</td>
                                 <td class="ime_prezime">{{ $value['ime'] }}</td>
@@ -167,6 +168,38 @@
                                     <span class="napomena text-warning">   <i class="fas fa-coins"></i></span>
                                     </a>
                                 </td>
+                            @endif
+                                @if(auth()->user()->permission->role_id==UserRoles::SUPERVIZOR)
+                                <tr>
+                                    <td>{{ $value['maticni_broj'] }}</td>
+                                    <td class="ime_prezime">{{ $value['ime'] }}</td>
+                                    <td class="napomena_td" data-napomena-value="{{$value['napomena']}}"
+                                        data-radnik-name="{{$value['ime']}}" data-record-id="{{$value['id']}}">
+                                        @if($value['napomena'])
+                                            <span class="napomena text-danger">   <i class="fas fa-sticky-note"></i></span>
+                                        @else
+                                            <span class="napomena text-primary">  <i class="fas fa-plus"
+                                                                                     aria-hidden="true"></i></span>
+                                        @endif
+                                    </td>
+                                    <td class="status_td" data-status-value="{{$value['status_poentaze']}}"
+                                        data-radnik-name="{{$value['ime']}}" data-record-id="{{$value['id']}}">
+                                        @if($value['status_poentaze']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
+                                            <span class="status_icon text-success">   <i class="fas fa-check"></i></span>
+                                        @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
+                                            <span class="status_icon text-warning">   <i class="far fa-bell"></i></span>
+                                        @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::ODBIJEN)
+                                            <span class="status_icon text-danger">   <i
+                                                    class=" far fa-times-circle"></i></span>
+                                        @endif
+                                    </td>
+                                    <td class="izmena_akontacije_td text-center"
+                                        data-record-id="{{$value['id']}}">
+                                        <a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_plate?radnik_maticni=').$value['maticni_broj'].'&month_id='.$monthData->id!!}">
+                                            <span class="napomena text-warning">   <i class="fas fa-coins"></i></span>
+                                        </a>
+                                    </td>
+                                @endif
                                 @endforeach
                             </tr>
                         </tbody>

@@ -73,5 +73,8 @@ class ObradaZaraPoRadniku extends Model
         'organizaciona_celina_id',
         'varijab'
     ];
-
+    public function maticnadatotekaradnika()
+    {
+        return $this->belongsTo(Maticnadatotekaradnika::class, 'user_mdr_id');
+    }
 }

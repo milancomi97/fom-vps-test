@@ -1,3 +1,5 @@
+<?php use App\Modules\Obracunzarada\Consts\UserRoles; ?>
+
 @extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
@@ -53,13 +55,14 @@
                                 ?>
                             @foreach($troskovniCentar as $radnik)
 
+                                @if($radnik->maticnadatotekaradnika->BRCL_redosled_poentazi > 100)
                             <tr>
                                 <td>{{$i++}}</td>
                                 <td>{{$radnik->maticni_broj}}</td>
                                 <td>{{$radnik->prezime.' '. $radnik->srednje_ime. ' '. $radnik->ime}}</td>
-                                <td>MATICNA STRUCN SPREMA</td>
+                                <td>{{$strucneKvalifikacijeSifarnik[$radnik->maticnadatotekaradnika->RBPS_priznata_strucna_sprema]['naziv_kvalifikacije'] ?? ''}}</td>
 {{--                                <td>{{$MDR->KOEF}}</td>--}}
-                                 <td>0</td>
+                                 <td>{{$radnik->maticnadatotekaradnika->KOEF_osnovna_zarada}}</td>
                                 <td>{{$radnik->UKSA_ukupni_sati_za_isplatu}}</td>
                                 <td>{{$radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade}}</td>
                                 <td>{{$radnik->NETO_neto_zarada}}</td>
@@ -69,6 +72,26 @@
                                 <td>{{$radnik->TOPLI_obrok_iznos}}// IZVUCI STOPA1</td>
                                 <td>{{$radnik->NETO_neto_zarada-$radnik->SIOB_ukupni_iznos_obustava-$radnik->ZARKR_ukupni_zbir_kredita}}</td>
                             </tr>
+                                @endif
+
+                                @if(auth()->user()->permission->role_id==UserRoles::SUPERVIZOR)
+                                    <tr>
+                                        <td>{{$i++}}</td>
+                                        <td>{{$radnik->maticni_broj}}</td>
+                                        <td>{{$radnik->prezime.' '. $radnik->srednje_ime. ' '. $radnik->ime}}</td>
+                                        <td>{{$strucneKvalifikacijeSifarnik[$radnik->maticnadatotekaradnika->RBPS_priznata_strucna_sprema]['naziv_kvalifikacije'] ?? ''}}</td>
+                                        {{--                                <td>{{$MDR->KOEF}}</td>--}}
+                                        <td>{{$radnik->maticnadatotekaradnika->KOEF_osnovna_zarada}}</td>
+                                        <td>{{$radnik->UKSA_ukupni_sati_za_isplatu}}</td>
+                                        <td>{{number_format($radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade,2, '.', ',')}}</td>
+                                        <td>{{number_format($radnik->NETO_neto_zarada,2, '.', ',')}}</td>
+                                        <td>{{number_format($radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2, '.', ',')}}</td>
+                                        <td>{{$radnik->PREK_prekovremeni}}</td>
+                                        <td>{{number_format($radnik->varijab,2, '.', ',')}}</td>
+                                        <td>{{number_format($radnik->TOPLI_obrok_iznos/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2, '.', ',')}}</td>
+                                        <td>{{number_format($radnik->NETO_neto_zarada-$radnik->SIOB_ukupni_iznos_obustava-$radnik->ZARKR_ukupni_zbir_kredita,2, '.', ',')}}</td>
+                                    </tr>
+                                @endif
                             @endforeach
                             </tbody>
                             <tfoot>

@@ -28,4 +28,14 @@ class StrucnakvalifikacijaRepository extends BaseRepository implements Strucnakv
 
         return $resultCollection->toArray();
     }
+
+    public function getAllKeySifra(){
+        $data = $this->model->all()->toArray();
+
+        $keySifraArray=[];
+        foreach ($data as $vrstaPlacanja){
+            $keySifraArray[$vrstaPlacanja['sifra_kvalifikacije']] = $vrstaPlacanja;
+        }
+        return $keySifraArray;
+    }
 }

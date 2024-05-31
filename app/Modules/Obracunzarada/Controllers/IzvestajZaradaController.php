@@ -5,10 +5,12 @@ namespace App\Modules\Obracunzarada\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserPermission;
+use App\Modules\Kadrovskaevidencija\Repository\StrucnakvalifikacijaRepositoryInterface;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
@@ -39,6 +41,8 @@ class IzvestajZaradaController extends Controller
         private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
         private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface,
         private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
+        private readonly StrucnakvalifikacijaRepositoryInterface $strucnakvalifikacijaInterface,
+        private readonly  MinimalnebrutoosnoviceRepositoryInterface $minimalnebrutoosnoviceInterface
     )
     {
     }
@@ -51,25 +55,30 @@ class IzvestajZaradaController extends Controller
         $obracunskiKoeficijentId = $request->month_id;
 
         $dkopData =$this->obradaDkopSveVrstePlacanjaInterface->where('obracunski_koef_id',$obracunskiKoeficijentId)->get();
-        $zaraData =  $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id',$obracunskiKoeficijentId)->get();
+        $zaraData =  $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$obracunskiKoeficijentId)->get();
 
         $orgCelineData = $this->organizacionecelineInterface->getAll()->mapWithKeys(function($orgCelina){
             return [
                 $orgCelina->id=>$orgCelina->toArray()
             ];
-        })
-        ;
+        });
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+        $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($monthData->datum);
        $groupedZara = $zaraData->map(function($zaraRadnik) use($orgCelineData){
            $zaraRadnik['org_celina_data']= $orgCelineData[$zaraRadnik['organizaciona_celina_id']];
            return $zaraRadnik;
        })->sortBy('organizaciona_celina_id')->groupBy('organizaciona_celina_id');
 
-        return view('obracunzarada::izvestaji.ranglista_zarade',['groupedZara'=>$groupedZara]);
+       $strucneKvalifikacijeSifarnik =  $this->strucnakvalifikacijaInterface->getAllKeySifra();
+
+        return view('obracunzarada::izvestaji.ranglista_zarade',['groupedZara'=>$groupedZara,'strucneKvalifikacijeSifarnik'=>$strucneKvalifikacijeSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
     }
 
     public function rekapitulacijazarade(Request $request)
     {
 
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+        $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($monthData->datum);
         $obracunskiKoeficijentId = $request->month_id;
 
         $dkopData =$this->obradaDkopSveVrstePlacanjaInterface
@@ -97,7 +106,7 @@ class IzvestajZaradaController extends Controller
     ')->first();
 
         $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
-        return view('obracunzarada::izvestaji.rekapitulacija_zarade',['dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik]);
+        return view('obracunzarada::izvestaji.rekapitulacija_zarade',['dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
     }
 
 
