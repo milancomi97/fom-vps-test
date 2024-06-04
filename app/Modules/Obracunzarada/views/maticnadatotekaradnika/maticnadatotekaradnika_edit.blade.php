@@ -167,12 +167,11 @@
                             <select class="custom-select" id="RBIM_isplatno_mesto_id" name="RBIM_isplatno_mesto_id"
                                     aria-describedby="span_isplatno_mesto">
                                 <option value="0">Izaberite isplatno mesto</option>
-
                                 @foreach($isplatnaMesta as $key => $value )
-                                    @if($value['key']== $radnikData->RBIM_isplatno_mesto_id)
-                                        <option selected value="{{ $value['key'] }}">{{ $value['value'] }}</option>
+                                    @if($value['rbim_sifra_isplatnog_mesta']== $radnikData->RBIM_isplatno_mesto_id)
+                                        <option selected value="{{ $value['rbim_sifra_isplatnog_mesta'] }}">{{ $value['rbim_sifra_isplatnog_mesta'] }} {{ $value['naim_naziv_isplatnog_mesta']  }}</option>
                                     @else
-                                    <option value="{{ $value['key'] }}">{{ $value['value']  }}</option>
+                                    <option value="{{ $value['rbim_sifra_isplatnog_mesta'] }}">{{ $value['rbim_sifra_isplatnog_mesta']  }} {{ $value['naim_naziv_isplatnog_mesta']  }}</option>
                                     @endif
                                 @endforeach
                             </select>

@@ -19,13 +19,15 @@ class IsplatnamestaRepository extends BaseRepository implements IsplatnamestaRep
 
     public function getSelectOptionData(): array
     {
-        $data= $this->getAll();
-        $resultCollection = $data->sortBy('rbim_sifra_isplatnog_mesta')->map(function ($item) {
-            $newValue = $item['rbim_sifra_isplatnog_mesta'] . ' ' . $item['naim_naziv_isplatnog_mesta'];
+        $data= $this->getAll()->sortBy('rbim_sifra_isplatnog_mesta');
 
-            return $item['rbim_sifra_isplatnog_mesta'] =['key'=> $item['rbim_sifra_isplatnog_mesta'],'value'=>$newValue];
-        });
 
-        return $resultCollection->toArray();
+        $keySifraArray=[];
+        foreach ($data as $item){
+            $keySifraArray[$item->rbim_sifra_isplatnog_mesta] = $item->toArray();
+        }
+        return $keySifraArray;
+
     }
+
 }

@@ -127,8 +127,8 @@
                                 <select class="custom-select" id="RBIM_isplatno_mesto_id" name="RBIM_isplatno_mesto_id"
                                         aria-describedby="span_isplatno_mesto">
                                     <option value="0">Izaberite isplatno mesto</option>
-                                    @foreach($isplatnaMesta as $value => $label)
-                                        <option value="{{ $label['key'] }}">{{ $label['value'] }}</option>
+                                    @foreach($isplatnaMesta as $key => $value )
+                                            <option value="{{ $value['rbim_sifra_isplatnog_mesta'] }}">{{ $value['rbim_sifra_isplatnog_mesta']  }} {{ $value['naim_naziv_isplatnog_mesta']  }}</option>
                                     @endforeach
                                 </select>
                             </div>
