@@ -328,22 +328,22 @@
                                     <p class="small">Pregled poreza i doprinosa</p>
                                 </a>
                             </li>
-                            <li class="nav-header">
-                                <i class="nav-icon fas fa-file"></i>
-                                Matična datoteka radnika
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('maticnadatotekaradnika.index')}}" class="ml-3 nav-link">
-                                    <i class="fas fa-circle  nav-icon"></i>
-                                    <p class="small">Prikaz MDR</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('maticnadatotekaradnika.create')}}" class="ml-3 nav-link">
-                                    <i class="fas fa-circle  nav-icon"></i>
-                                    <p class="small">Kreiraj MDR</p>
-                                </a>
-                            </li>
+{{--                            <li class="nav-header">--}}
+{{--                                <i class="nav-icon fas fa-file"></i>--}}
+{{--                                Matična datoteka radnika--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{route('maticnadatotekaradnika.index')}}" class="ml-3 nav-link">--}}
+{{--                                    <i class="fas fa-circle  nav-icon"></i>--}}
+{{--                                    <p class="small">Prikaz MDR</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{route('maticnadatotekaradnika.create')}}" class="ml-3 nav-link">--}}
+{{--                                    <i class="fas fa-circle  nav-icon"></i>--}}
+{{--                                    <p class="small">Kreiraj MDR</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
                             <li class="nav-header">
                                 <i class="nav-icon fas fa-file"></i>
                                 Poentaža

@@ -19,14 +19,13 @@ class StrucnakvalifikacijaRepository extends BaseRepository implements Strucnakv
 
 
     public function getSelectOptionData(){
-        $data= $this->getAll();
-        $resultCollection = $data->sortBy('sifra_kvalifikacije')->map(function ($item) {
-            $newValue = $item['sifra_kvalifikacije'] . ' ' . $item['naziv_kvalifikacije'];
+        $data= $this->getAll()->sortBy('sifra_kvalifikacije');
 
-            return $item['id'] = $newValue;
-        });
-
-        return $resultCollection->toArray();
+        $keySifraArray=[];
+        foreach ($data as $item){
+            $keySifraArray[$item['sifra_kvalifikacije']] = $item;
+        }
+        return $keySifraArray;
     }
 
     public function getAllKeySifra(){

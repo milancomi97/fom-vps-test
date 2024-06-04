@@ -145,12 +145,12 @@
                             <select class="custom-select" name="RBRM_radno_mesto" id="RBRM_radno_mesto"
                                     aria-describedby="span_radno_mesto">
                                 <option value="0">Izaberite radno mesto</option>
-                                @foreach($radnaMesta as $value => $label)
+                                @foreach($radnaMesta as $label => $value)
                                     {{--                                        RBRM_radno_mesto--}}
-                                    @if($value== $radnikData->RBRM_radno_mesto)
-                                        <option selected value="{{ $value}}">{{ $label }}</option>
+                                    @if($value['rbrm_sifra_radnog_mesta']== $radnikData->RBRM_radno_mesto)
+                                        <option selected value="{{ $value['rbrm_sifra_radnog_mesta']}}">{{ $value['rbrm_sifra_radnog_mesta']}} {{ $value['narm_naziv_radnog_mesta'] }}</option>
                                     @else
-                                    <option value="{{ $value }}">{{ $label }}</option>
+                                    <option value="{{ $value['rbrm_sifra_radnog_mesta'] }}">{{ $value['rbrm_sifra_radnog_mesta']}} {{ $value['narm_naziv_radnog_mesta'] }}</option>
                                     @endif
                                 @endforeach
 
@@ -208,11 +208,11 @@
                             <select class="custom-select" id="P_R_oblik_rada" name="P_R_oblik_rada"
                                     aria-describedby="span_oblik_rada">
                                 <option value="0">Izaberite oblik rada</option>
-                                @foreach($oblikRada as $value => $label)
-                                    @if($value== $radnikData->P_R_oblik_rada)
-                                        <option selected value="{{ $value }}">{{ $label }}</option>
+                                @foreach($oblikRada as $label => $value)
+                                    @if($value['sifra_oblika_rada']== $radnikData->P_R_oblik_rada)
+                                        <option selected value="{{ $value['sifra_oblika_rada'] }}">{{ $value['sifra_oblika_rada'] }} {{ $value['naziv_oblika_rada'] }}</option>
                                     @else
-                                    <option value="{{ $value }}">{{ $label }}</option>
+                                    <option value="{{ $value['sifra_oblika_rada'] }}">{{ $value['sifra_oblika_rada'] }} {{ $value['naziv_oblika_rada'] }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -316,13 +316,13 @@
                                     name="RBSS_stvarna_strucna_sprema"
                                     aria-describedby="span_stvarna_strucna_sprema">
                                 <option value="0">Izaberite stručnu spremu</option>
-                                @foreach($kvalifikacije as $value => $label)
-                                    @if($value== $radnikData->RBSS_stvarna_strucna_sprema)
-                                        <option selected value="{{ $value }}">{{ $label }}</option>
+                                @foreach($kvalifikacije as $label => $value)
+                                    @if($value['sifra_kvalifikacije']== $radnikData->RBSS_stvarna_strucna_sprema)
+                                        <option selected value="{{ $value['sifra_kvalifikacije'] }}">{{ $value['sifra_kvalifikacije'] }} {{ $value['naziv_kvalifikacije'] }}</option>
                                     @else
-                                        <option value="{{ $value }}">{{ $label }}</option>
+                                        <option value="{{ $value['sifra_kvalifikacije'] }}">{{ $value['sifra_kvalifikacije'] }} {{ $value['naziv_kvalifikacije'] }}</option>
                                     @endif
-                                        {{--                                            RBPS_priznata_strucna_sprema--}}
+
                                 @endforeach
                             </select>
                         </div>
@@ -336,12 +336,13 @@
                                     name="RBPS_priznata_strucna_sprema"
                                     aria-describedby="span_priznata_strucna_sprema">
                                 <option value="0">Izaberite stručnu spremu</option>
-                                @foreach($kvalifikacije as $value => $label)
-                                    @if($value== $radnikData->RBPS_priznata_strucna_sprema)
-                                        <option selected value="{{ $value }}">{{ $label }}</option>
+                                @foreach($kvalifikacije as $label => $value)
+                                    @if($value['sifra_kvalifikacije']== $radnikData->RBPS_priznata_strucna_sprema)
+                                        <option selected value="{{ $value['sifra_kvalifikacije'] }}">{{ $value['sifra_kvalifikacije'] }} {{ $value['naziv_kvalifikacije'] }}</option>
                                     @else
-                                    <option value="{{ $value }}">{{ $label }}</option>
+                                        <option value="{{ $value['sifra_kvalifikacije'] }}">{{ $value['sifra_kvalifikacije'] }} {{ $value['naziv_kvalifikacije'] }}</option>
                                     @endif
+
                                 @endforeach
                             </select>
                         </div>

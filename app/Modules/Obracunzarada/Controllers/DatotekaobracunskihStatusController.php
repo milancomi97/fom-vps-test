@@ -82,4 +82,28 @@ class DatotekaobracunskihStatusController extends Controller
 
     }
 
+    public function odobravanjeCheckPoenteri(Request $request){
+
+        $monthId =$request->month_id;
+
+        $data=$this->permesecnatabelapoentInterface->where('obracunski_koef_id',$monthId)->get();
+
+        $sortByPoenterIds=[];
+        foreach ($data as $organizacionaCelina){
+            $poenterIds= json_decode($organizacionaCelina->poenteri_status,true);
+            foreach($poenterIds as $poenterId=> $status){
+                $sortByPoenterIds[$poenterId][$organizacionaCelina->organizaciona_celina_id]=$status;
+                $test='test';
+
+                // TODO ADD OC NAME AND OC STATUS
+            }
+
+            // TODO add poenter MATBROJ PREZIME IME
+        }
+//        $sortByPoenterId=
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_odobravanje_po_statusi',['poenteriData'=>$sortByPoenterIds]);
+    }
+
+
+
 }

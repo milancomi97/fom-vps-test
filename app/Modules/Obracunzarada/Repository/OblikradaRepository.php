@@ -20,14 +20,13 @@ class OblikradaRepository extends BaseRepository implements OblikradaRepositoryI
 
     public function getSelectOptionData(): array
     {
-        $data= $this->getAll();
-        $resultCollection = $data->sortBy('sifra_oblika_rada')->map(function ($item) {
-            $newValue = $item['sifra_oblika_rada'] . ' ' . $item['naziv_oblika_rada'];
+        $data= $this->getAll()->sortBy('sifra_oblika_rada');
 
-            return $item['sifra_oblika_rada'] = $newValue;
-        });
-
-        return $resultCollection->toArray();
+        $keySifraArray=[];
+        foreach ($data as $item){
+            $keySifraArray[$item['sifra_oblika_rada']] = $item;
+        }
+        return $keySifraArray;
     }
 
 }

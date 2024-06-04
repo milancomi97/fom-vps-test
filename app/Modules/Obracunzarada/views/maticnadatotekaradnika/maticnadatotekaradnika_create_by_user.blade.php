@@ -111,8 +111,8 @@
                                 <select class="custom-select" name="RBRM_radno_mesto" id="RBRM_radno_mesto"
                                         aria-describedby="span_radno_mesto">
                                     <option value="0">Izaberite radno mesto</option>
-                                    @foreach($radnaMesta as $value => $label)
-                                        <option value="{{ $value }}">{{ $label }}</option>
+                                    @foreach($radnaMesta as $label => $value)
+                                            <option value="{{ $value['rbrm_sifra_radnog_mesta'] }}">{{ $value['rbrm_sifra_radnog_mesta']}} {{ $value['narm_naziv_radnog_mesta'] }}</option>
                                     @endforeach
 
 
@@ -152,6 +152,24 @@
                                        name="span_redosled_poentazi"
                                        value="9999" aria-describedby="BRCL_redosled_poentazi">
                             </div>
+
+
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text font-weight-bold"
+                                          id="span_oblik_rada">Oblik rada:</span>
+                                </div>
+                                <select class="custom-select" id="P_R_oblik_rada" name="P_R_oblik_rada"
+                                        aria-describedby="span_oblik_rada">
+                                    <option value="0">Izaberite oblik rada</option>
+                                    @foreach($oblikRada as $label => $value)
+                                            <option value="{{ $value['sifra_oblika_rada'] }}">{{ $value['sifra_oblika_rada'] }} {{ $value['naziv_oblika_rada'] }}</option>
+                                    @endforeach
+                                </select>
+
+
+                            </div>
+
 
                             <!-- 8. Vrsta rada, select option -->
                             <div class="input-group mb-3">

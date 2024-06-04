@@ -87,6 +87,8 @@ class MaticnadatotekaradnikaController extends Controller
         $kvalifikacije =  $this->strucnakvalifikacijaInterface->getSelectOptionData();
         $troskMesta = $this->organizacionecelineInterface->getSelectOptionData(); // ADD KEY
 
+        $oblikRada = $this->oblikradaInterface->getSelectOptionData();
+
         return view('obracunzarada::maticnadatotekaradnika.maticnadatotekaradnika_create_by_user',
             [
                 'opstine'=>$opstine,
@@ -95,7 +97,8 @@ class MaticnadatotekaradnikaController extends Controller
                 'vrstaRada'=>$vrstaRada,
                 'kvalifikacije'=>$kvalifikacije,
                 'troskMesta' =>$troskMesta,
-                'user_id'=>$request->user_id
+                'user_id'=>$request->user_id,
+                'oblikRada'=>$oblikRada,
             ]);
 
     }

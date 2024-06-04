@@ -269,11 +269,16 @@ Route::middleware('auth')->group(function () {
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje',[DatotekaobracunskihkoeficijenataController::class,'odobravanje'])->name('datotekaobracunskihkoeficijenata.odobravanje');
 
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_poenter',[DatotekaobracunskihkoeficijenataController::class,'odobravanjePoenter'])->name('datotekaobracunskihkoeficijenata.odobravanje_poenter');
+        Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_check_sati',[DatotekaobracunskihkoeficijenataController::class,'odobravanjeCheckSati'])->name('datotekaobracunskihkoeficijenata.odobravanje_check_sati');
+
+
 
     Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf',[DatotekaobracunskihkoeficijenataController::class,'odobravanjeExportPdf'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf');
     Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_xls',[DatotekaobracunskihkoeficijenataController::class,'odobravanjeExportXls'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_xls');
 
         Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf_test',[DatotekaobracunskihkoeficijenataController::class,'odobravanjeExportPdfTest'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_test');
+
+
 
         // UNOS VARIJABILNIH
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all',[DpsmPoentazaslogController::class,'showAll'])->name('datotekaobracunskihkoeficijenata.show_all');
@@ -323,6 +328,7 @@ Route::middleware('auth')->group(function () {
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/permissionStatusUpdate',[DatotekaobracunskihStatusController::class,'permissionStatusUpdate'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatus');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updatePermissionStatusAdministrator',[DatotekaobracunskihStatusController::class,'updatePermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatusAdministrator');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getPermissionStatusAdministrator',[DatotekaobracunskihStatusController::class,'getPermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.getPermissionStatusAdministrator');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_check_poenteri',[DatotekaobracunskihStatusController::class,'odobravanjeCheckPoenteri'])->name('datotekaobracunskihkoeficijenata.odobravanje_check_poenteri');
 
 
     // Izvestaji

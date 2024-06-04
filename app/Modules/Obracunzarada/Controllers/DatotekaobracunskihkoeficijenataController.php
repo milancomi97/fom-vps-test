@@ -17,6 +17,7 @@ use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
 use App\Modules\Obracunzarada\Service\KreirajPermisijePoenteriOdobravanja;
 use App\Modules\Obracunzarada\Service\MesecValidationService;
 use App\Modules\Obracunzarada\Service\PripremiPermisijePoenteriOdobravanja;
+use App\Modules\Obracunzarada\Service\ProveraPoentazeService;
 use App\Modules\Obracunzarada\Service\UpdateNapomena;
 use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
 use Illuminate\Http\Request;
@@ -40,7 +41,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         private readonly VrsteplacanjaRepository                             $vrsteplacanjaInterface,
         private readonly DpsmPoentazaslogRepositoryInterface                 $dpsmPoentazaslogInterface,
         private readonly DpsmAkontacijeRepositoryInterface                   $dpsmAkontacijeInterface,
-        private readonly MesecValidationService                               $mesecValidationService
+        private readonly MesecValidationService                               $mesecValidationService,
+        private readonly ProveraPoentazeService $proveraPoentazeService
     )
     {
     }
@@ -481,12 +483,17 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
         $inputDate = Carbon::parse($monthData->datum);
         $formattedDate = $inputDate->format('m.Y');
-        // TODO da na frontend javacript stigne "KATEG_sumiranje_redova_poentaza"
+
+
+        $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
+//        $radnikCalculated = $this->proveraPoentazeService->kalkulacijaPoRadniku($mesecnaTabelaPotenrazaTable,$vrstePlacanjaSifarnik);
+        $troskovniCentarCalculated = $this->proveraPoentazeService->kalkulacijaPoTroskovnomCentru($mesecnaTabelaPotenrazaTable,$vrstePlacanjaSifarnik);
+
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_odobravanje',
             [
                 'formattedDate' => $formattedDate,
                 'monthData' => $monthData,
-                'mesecnaTabelaPotenrazaTable' => $mesecnaTabelaPotenrazaTable,
+                'mesecnaTabelaPotenrazaTable' => $troskovniCentarCalculated,
                 'mesecnaTabelaPoentazaPermissions' => $mesecnaTabelaPoentazaPermissions,
                 'tableHeaders' => $tableHeaders,
                 'vrstePlacanjaDescription' => $this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
@@ -531,6 +538,42 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
     }
 
+    public function odobravanjeCheckSati(Request $request)
+    {
+
+        $user_id = auth()->user()->id;
+        $userPermission = UserPermission::where('user_id', $user_id)->first();
+        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
+        $id = $request->month_id;
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
+
+        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
+        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
+        $mesecnaTabelaPoentazaPermissions = $this->pripremiPermisijePoenteriOdobravanja->execute('obracunski_koef_id', $id);
+
+        $inputDate = Carbon::parse($monthData->datum);
+        $formattedDate = $inputDate->format('m.Y');
+
+
+        $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
+//        $radnikCalculated = $this->proveraPoentazeService->kalkulacijaPoRadniku($mesecnaTabelaPotenrazaTable,$vrstePlacanjaSifarnik);
+        $troskovniCentarCalculated = $this->proveraPoentazeService->kalkulacijaPoTroskovnomCentru($mesecnaTabelaPotenrazaTable,$vrstePlacanjaSifarnik);
+
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_odobravanje_check',
+            [
+                'formattedDate' => $formattedDate,
+                'monthData' => $monthData,
+                'mesecnaTabelaPotenrazaTable' => $troskovniCentarCalculated,
+                'mesecnaTabelaPoentazaPermissions' => $mesecnaTabelaPoentazaPermissions,
+                'tableHeaders' => $tableHeaders,
+                'vrstePlacanjaDescription' => $this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
+                'troskovnaMestaPermission' => $troskovnaMestaPermission,
+                'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
+                'userPermission' => $userPermission
+            ]);
+
+
+    }
 
 
 
@@ -560,10 +603,10 @@ class DatotekaobracunskihkoeficijenataController extends Controller
     {
 
         // da li je zatvoren prethodni
-        $monthNotClosed = $this->mesecValidationService->checkMonthStatus($request->all());
-        if($monthNotClosed){
-            return response()->json(['message' => 'Prethodni mesec nije arhiviran', 'status' => false], 200);
-        }
+//        $monthNotClosed = $this->mesecValidationService->checkMonthStatus($request->all());
+//        if($monthNotClosed){
+//            return response()->json(['message' => 'Prethodni mesec nije arhiviran', 'status' => false], 200);
+//        }
         try {
             // Osnovni podaci o otvorenom mesecu
             $osnovniPodaciMesec = $this->datotekaobracunskihkoeficijenataInterface->createMesecnatabelapoentaza($request->all());
