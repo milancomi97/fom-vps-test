@@ -133,7 +133,6 @@
                 <li class="list-group-item">Cena rada prethodni:{{$monthData->cena_rada_prethodni}}</li>
             </ul>
         </div>
-        <button id='export-pdf' class="btn btn-secondary calcBtn">Štampaj sve u PDF</button>
 
         <div class="loader-container" style="text-align: center">
             <h3 id="statusMessage" class="text-success text-center"></h3>
@@ -143,21 +142,31 @@
         </form>
         <div class="loading" style="display: none;">
         </div>
+        <?php
+        $approvedStatus=0;
+        $approvedOrganizacioneCeline=[];
+        ?>
         @foreach($mesecnaTabelaPotenrazaTable as $key => $organizacionacelina)
             @if(isset($troskovnaMestaPermission[$key]) && $troskovnaMestaPermission[$key])
                 <div class="table-div mt-5">
                     <h3 class="text-center"> Organizaciona celina: <b>{{$key}} </b> -
                         &nbsp{{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}.</h3>
-                    <button class="calcBtn btn btn-outline-secondary" onclick="calculateSums('{{$key}}')">
-                        Proveri {{$key}} celinu
-                    </button>
                     @if(isset($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]))
                         @if($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]['status']==StatusRadnikaObracunskiKoef::UPRIPREMI)
-                            <button class="btn btn-primary calcBtn" onclick="submitTroskovniCentar('{{$key}}',{{auth()->user()->id}},{{$monthData->id}},{{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}})">
+                            {{$approvedStatus++}}
+                            <button class="btn btn-primary calcBtn" onclick="submitTroskovniCentar('{{$key}}',{{auth()->user()->id}},{{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}})">
                                 Zatvori {{$key}} celinu
                             </button>
-                        @else
-                            <button id='export-pdf' class="btn btn-secondary  calcBtn">Štampaj PDF</button>
+                        @elseif($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]['status']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
+                            <?php
+                                $approvedOrganizacioneCeline[]=$key;
+            ?>
+                            <form method="POST" action="">
+                                @csrf
+                                <input type="hidden" name="approved_org_celine value={{json_encode($key)}}">
+                                <input type="hidden" name="month_id" value="{{$monthData->id}}">
+                                <button id='export-pdf-celina' class="btn btn-secondary  calcBtn">Štampaj PDF</button>
+                            </form>
                         @endif
                     @endif
                     <div class="divider"></div>
@@ -167,58 +176,53 @@
                             @foreach($tableHeaders as $keyheader =>$header)
                                 <th>{{ $header }}</th>
                             @endforeach
-                            {{--                            <th>Napomena</th>--}}
+                                <th>Provera</th>
+                                {{--                            <th>Napomena</th>--}}
                             {{--                            <th>STATUS</th>--}}
 
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($organizacionacelina as $value)
+                        @foreach($organizacionacelina as $radnikId => $value)
                             {{--                            $mesecnaTabelaPoentazaPermissions[$key]['odgovornaLicaData'][auth()->user()->id]--}}
+                            @if($radnikId !=='columnSum')
 
                             <tr>
                                 <td>{{ $value['maticni_broj'] }}</td>
                                 <td class="ime_prezime">{{ $value['ime'] }}</td>
                                 @foreach( $value['vrste_placanja'] as $vrstaPlacanja)
-                                    <td class="vrsta_placanja_td"><input type="number" data-record-id="{{$value['id']}}"
-                                                                         min="0"
-                                                                         class="vrsta_placanja_input"
-                                                                         data-toggle="tooltip"
-                                                                         data-placement="top"
-
-                                                                         @if(isset($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]))
-                                                                             @if($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]['status']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
-                                                                                 disabled="disabled"
-                                                                             @endif
-                                                                         @endif
-
-                                                                         title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{ $vrstaPlacanja['sati']}}>
-                                    </td>
+                                    @if(isset($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]))
+                                        @if($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]['status']==StatusRadnikaObracunskiKoef::UPRIPREMI)
+                                            <td class="vrsta_placanja_td"><input type="number" data-record-id="{{$value['id']}}"
+                                                                                 min="0"
+                                                                                 class="vrsta_placanja_input"
+                                                                                 data-toggle="tooltip"
+                                                                                 data-placement="top"
+                                                                                 title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{ $vrstaPlacanja['sati']}}>
+                                            </td>
+                                        @elseif($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]['status']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
+                                            <td class="vrsta_placanja_td"><p class="vrsta_placanja_input" data-toggle="tooltip" data-placement="top" title={{ $vrstaPlacanja['name']}} >{{ $vrstaPlacanja['sati']}}</p></td>
+                                    @endif
+                                    @endif
                                 @endforeach
-                                {{--                                <td class="napomena_td" data-napomena-value="{{$value['napomena']}}"--}}
-                                {{--                                    data-radnik-name="{{$value['ime']}}" data-record-id="{{$value['id']}}">--}}
-                                {{--                                    @if($value['napomena'])--}}
-                                {{--                                        <span class="napomena text-danger">   <i class="fas fa-sticky-note"></i></span>--}}
-                                {{--                                    @else--}}
-                                {{--                                        <span class="napomena text-primary">  <i class="fas fa-plus"--}}
-                                {{--                                                                                 aria-hidden="true"></i></span>--}}
-                                {{--                                    @endif--}}
-                                {{--                                </td>--}}
-                                {{--                                <td class="status_td" data-status-value="{{$value['status_poentaze']}}"--}}
-                                {{--                                    data-radnik-name="{{$value['ime']}}" data-record-id="{{$value['id']}}">--}}
-                                {{--                                    @if($value['status_poentaze']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)--}}
-                                {{--                                        <span class="status_icon text-success">   <i class="fas fa-check"></i></span>--}}
-                                {{--                                    @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)--}}
-                                {{--                                        <span class="status_icon text-warning">   <i class="far fa-bell"></i></span>--}}
-                                {{--                                    @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::ODBIJEN)--}}
-                                {{--                                        <span class="status_icon text-danger">   <i--}}
-                                {{--                                                class=" far fa-times-circle"></i></span>--}}
-                                {{--                                    @endif--}}
-                                {{--                                </td>--}}
+
+                                <td class="{{$value->rowSum < 168 ? 'bg-danger': ''}}">{{$value->rowSum}}</td>
+                                @endif
                                 @endforeach
+                            </tr>
+                            <tr style="background-color: #ADD8E6;">
+
+                                <td></td>
+                                <td class="rowSum">Ukupno:</td>
+                                @foreach($organizacionacelina['columnSum'] as $sumKey =>$sumValue)
+                                    <td>{{$sumValue}}</td>
+                                @endforeach
+                                <td></td>
+
                             </tr>
                         </tbody>
                     </table>
+
                     <div class="container-fluid">
                         {!! $vrstePlacanjaDescription !!}
                     </div>
@@ -311,8 +315,16 @@
 
                     @endif
                     @endforeach
-
-
+                    @if($approvedStatus==0)
+                        <div class="container mt-5 mb-5 text-center">
+                            <form method="POST" action="">
+                                @csrf
+                                <input type="hidden" name="approved_org_celine value={{json_encode($approvedOrganizacioneCeline)}}">
+                                <input type="hidden" name="month_id" value="{{$monthData->id}}">
+                            </form>
+                        <button id='export-pdf' class="btn btn-secondary btn-lg">Štampaj sve</button>
+                        </div>
+                    @endif
                 </div>
     </div>
     <!-- Modal -->

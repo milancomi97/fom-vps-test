@@ -522,11 +522,15 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
         $inputDate = Carbon::parse($monthData->datum);
         $formattedDate = $inputDate->format('m.Y');
+
+        $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
+        $troskovniCentarCalculated = $this->proveraPoentazeService->kalkulacijaPoTroskovnomCentru($mesecnaTabelaPotenrazaTable,$vrstePlacanjaSifarnik);
+
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_odobravanje_poenter',
             [
                 'formattedDate' => $formattedDate,
                 'monthData' => $monthData,
-                'mesecnaTabelaPotenrazaTable' => $mesecnaTabelaPotenrazaTable,
+                'mesecnaTabelaPotenrazaTable' => $troskovniCentarCalculated,
                 'mesecnaTabelaPoentazaPermissions' => $mesecnaTabelaPoentazaPermissions,
                 'tableHeaders' => $tableHeaders,
                 'vrstePlacanjaDescription' => $this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
