@@ -12,76 +12,53 @@
     </style>
 </head>
 <body>
-@php
-    $rowsPerPage = 35; // Adjust this value based on your layout
-    $rowCount = count($rows);
-    $pages = ceil($rowCount / $rowsPerPage);
-@endphp
-
-@for($page = 0; $page < $pages; $page++)
-    <h1 style="text-align: center">Dynamic Table Header <b>PAGE:{{$page+1}}</b></h1>
+@foreach($data as $key => $radnici)
+        <?php $rowCounter=0; ?>
+    <h1 style="text-align: center">Org celina {{$key}} pocetak</h1>
     <table>
         <thead>
         <tr>
-            <th style="min-width: 10mm;text-align:center;">Maticni</th>
-            <th style="min-width: 25mm;text-align:left;">Prezime Srednje ime</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-            <th>SVP</th>
-
+           @foreach($tableHeaders as $header)
+               <th>{{$header}}</th>
+            @endforeach
+               <th>Provera</th>
         </tr>
         </thead>
         <tbody>
-        @for($i = $page * $rowsPerPage; $i < ($page + 1) * $rowsPerPage && $i < $rowCount; $i++)
+            @foreach($radnici as $subKey => $radnik)
+                @if($subKey !=='columnSum')
             <tr>
-                <td>{{ $rows[$i]['column1'] }}</td>
-                <td style="text-align:left;"><b>{{ $rows[$i]['column2'] }}</b></td>
-                <td>{{ $rows[$i]['column3'] }}</td>
-                <td>{{ $rows[$i]['column4'] }}</td>
-                <td>{{ $rows[$i]['column5'] }}</td>
-                <td>{{ $rows[$i]['column6'] }}</td>
-                <td>{{ $rows[$i]['column7'] }}</td>
-                <td>{{ $rows[$i]['column8'] }}</td>
-                <td>{{ $rows[$i]['column9'] }}</td>
-                <td>{{ $rows[$i]['column10'] }}</td>
-                <td>{{ $rows[$i]['column11'] }}</td>
-                <td>{{ $rows[$i]['column12'] }}</td>
-                <td>{{ $rows[$i]['column13'] }}</td>
-                <td>{{ $rows[$i]['column14'] }}</td>
-                <td>{{ $rows[$i]['column15'] }}</td>
-                <td>{{ $rows[$i]['column16'] }}</td>
-                <td>{{ $rows[$i]['column17'] }}</td>
-                <td>{{ $rows[$i]['column18'] }}</td>
-                <td>{{ $rows[$i]['column19'] }}</td>
-                <td>{{ $rows[$i]['column20'] }}</td>
-                <td>{{ $rows[$i]['column21'] }}</td>
-                <td>{{ $rows[$i]['column22'] }}</td>
+                <?php $rowCounter++; ?>
+                <td>{{$radnik['maticni_broj']}}</td>
+                <td>{{ $radnik['ime'] }}</td>
+                @foreach($radnik['vrste_placanja'] as $vrstaPlacanja)
+                    <td>{{$vrstaPlacanja['sati']}}</td>
+                @endforeach
+                <td>{{ $radnik['rowSum'] }}
             </tr>
-        @endfor
+            @endif
+                @if($rowCounter ==5)
         </tbody>
     </table>
-    <h1 style="text-align: center">Dynamic Table Footer</h1>
-    @if($page < $pages - 1)
+    <h1 style="text-align: center">Org celina {{$key}} kraj</h1>
+
+    <div class="page-break"></div>
+    <h1 style="text-align: center">Org celina {{$key}} pocetak</h1>
+                <table>
+                    <thead>
+                    <tr>
+                        @foreach($tableHeaders as $header)
+                            <th>{{$header}}</th>
+                        @endforeach
+                            <th>Provera</th>
+                    </tr>
+                @endif
+        @endforeach
+        </tbody>
+    </table>
+        <h1 style="text-align: center">Org celina {{$key}} kraj</h1>
         <div class="page-break"></div>
-    @endif
-@endfor
+@endforeach
 
 </body>
 </html>
