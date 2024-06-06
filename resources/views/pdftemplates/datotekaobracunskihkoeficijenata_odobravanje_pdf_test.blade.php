@@ -52,6 +52,7 @@
                         @endforeach
                             <th>Provera</th>
                     </tr>
+                  <?php  $rowCounter=0; ?>
                 @endif
         @endforeach
         </tbody>
