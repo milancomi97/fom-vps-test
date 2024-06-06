@@ -42,7 +42,7 @@
         }
 
         .vrsta_placanja_td {
-            padding: 10px 15px 0 0 !important;
+            padding: 0.75rem !important;
         }
 
         .divider {
@@ -151,7 +151,9 @@
                 <div class="table-div mt-5">
                     <h3 class="text-center"> Organizaciona celina: <b>{{$key}} </b> -
                         &nbsp{{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}.</h3>
-                    @if(isset($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]))
+                    <button id='osvezi_stranicu' onClick="window.location.reload()" class="btn btn-secondary  calcBtn">Osveži proveru</button>
+
+                @if(isset($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]))
                         @if($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]['status']==StatusRadnikaObracunskiKoef::UPRIPREMI)
                             {{$approvedStatus++}}
                             <button class="btn btn-primary calcBtn" onclick="submitTroskovniCentar('{{$key}}',{{auth()->user()->id}},{{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}})">
@@ -161,14 +163,15 @@
                             <?php
                                 $approvedOrganizacioneCeline[]=$key;
             ?>
-                            <form method="POST" action="">
+                            <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
                                 @csrf
-                                <input type="hidden" name="approved_org_celine value={{json_encode($key)}}">
+                                <input type="hidden" name="approved_org_celine" value="{{json_encode($key)}}">
                                 <input type="hidden" name="month_id" value="{{$monthData->id}}">
                                 <button id='export-pdf-celina' class="btn btn-secondary  calcBtn">Štampaj PDF</button>
                             </form>
                         @endif
                     @endif
+
                     <div class="divider"></div>
                     <table class="table table-striped" id="table-div{{$key}}">
                         <thead>
@@ -201,8 +204,11 @@
                                                                                  title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{ $vrstaPlacanja['sati']}}>
                                             </td>
                                         @elseif($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]['status']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
-                                            <td class="vrsta_placanja_td"><p class="vrsta_placanja_input" data-toggle="tooltip" data-placement="top" title={{ $vrstaPlacanja['name']}} >{{ $vrstaPlacanja['sati']}}</p></td>
+                                            <td class="vrsta_placanja_td">{{ $vrstaPlacanja['sati']}}</td>
                                     @endif
+{{--                                    @elseif($userPermission->role_id !== UserRoles::POENTER)--}}
+                                        @else
+                                        <td class="vrsta_placanja_td">{{ $vrstaPlacanja['sati']}}</td>
                                     @endif
                                 @endforeach
 
@@ -213,9 +219,9 @@
                             <tr style="background-color: #ADD8E6;">
 
                                 <td></td>
-                                <td class="rowSum">Ukupno:</td>
+                                <td class="rowSum ime_prezime">Ukupno:</td>
                                 @foreach($organizacionacelina['columnSum'] as $sumKey =>$sumValue)
-                                    <td>{{$sumValue}}</td>
+                                    <td class="vrsta_placanja_td">{{$sumValue}}</td>
                                 @endforeach
                                 <td></td>
 
@@ -226,103 +232,18 @@
                     <div class="container-fluid">
                         {!! $vrstePlacanjaDescription !!}
                     </div>
-                    {{--                    @if(isset($mesecnaTabelaPoentazaPermissions[$key]))--}}
-                    {{--                        <div class="row mt-5 mb-5 border">--}}
-                    {{--                            <div class="col-3">--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="col-3">--}}
-                    {{--                                <h2>Poenteri:</h2>--}}
-                    {{--                                <div class="d-flex flex-column align-items-start">--}}
-                    {{--                                    @foreach($mesecnaTabelaPoentazaPermissions[$key]['poenterData'] as $poenterId => $poenterStatusData)--}}
-                    {{--                                        @if($userPermission->role_id == UserRoles::ADMINISTRATOR)--}}
-                    {{--                                            <button class="administrator-config btn btn-link"--}}
-                    {{--                                                    data-permission-record-id='{{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}'--}}
-                    {{--                                                    data-user-id='{{$poenterId}}'--}}
-                    {{--                                                    data-status-type='poenteri_status'--}}
-                    {{--                                            >--}}
-                    {{--                                                {{$poenterStatusData['name'] }} ---}}
-                    {{--                                                <b> {{StatusPoenteraObracunskiKoef::all()[$poenterStatusData['status']]}}</b>--}}
-                    {{--                                            </button>--}}
-                    {{--                                        @else--}}
-                    {{--                                            <p>{{$poenterStatusData['name'] }} ---}}
-                    {{--                                                <b> {{StatusPoenteraObracunskiKoef::all()[$poenterStatusData['status']]}}</b>--}}
-                    {{--                                            </p>--}}
-                    {{--                                        @endif--}}
-                    {{--                                    @endforeach--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="col-3">--}}
-                    {{--                                <h2>Odgovorna lica:</h2>--}}
-                    {{--                                <div class="d-flex flex-column align-items-start">--}}
-                    {{--                                    @foreach($mesecnaTabelaPoentazaPermissions[$key]['odgovornaLicaData'] as $odgovornoLiceId => $odgovornaLicaDataStatusData)--}}
-                    {{--                                        @if($userPermission->role_id == UserRoles::ADMINISTRATOR)--}}
-                    {{--                                            <button class="administrator-config btn btn-link"--}}
-                    {{--                                                    data-permission-record-id='{{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}'--}}
-                    {{--                                                    data-user-id='{{$odgovornoLiceId}}'--}}
-                    {{--                                                    data-status-type='odgovorna_lica_status'--}}
-                    {{--                                            >--}}
-                    {{--                                                {{$odgovornaLicaDataStatusData['name'] }} ---}}
-                    {{--                                                <b> {{StatusPoenteraObracunskiKoef::all()[$odgovornaLicaDataStatusData['status']]}}</b>--}}
-                    {{--                                            </button>--}}
-                    {{--                                        @else--}}
-                    {{--                                            <p>{{$odgovornaLicaDataStatusData['name'] }} ---}}
-                    {{--                                                <b> {{StatusOdgovornihLicaObracunskiKoef::all()[$odgovornaLicaDataStatusData['status']]}}</b>--}}
-                    {{--                                            </p>--}}
-                    {{--                                        @endif--}}
-                    {{--                                    @endforeach--}}
-                    {{--                                </div>--}}
-                    {{--                            </div>--}}
-                    {{--                            <div class="col-3 text-right">--}}
-                    {{--                                @if(isset($mesecnaTabelaPoentazaPermissions[$key]['odgovornaLicaData'][auth()->user()->id]))--}}
-                    {{--                                    <button class="change-status btn btn-primary"--}}
-                    {{--                                            style="display: none"--}}
-                    {{--                                            data-status-type="odgovorna_lica_status"--}}
-                    {{--                                            data-permission-record-id={{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}--}}
-                    {{--                                        data-status="1"--}}
-                    {{--                                            data-user-id="{{auth()->user()->id}}"--}}
-                    {{--                                    >Odobri--}}
-                    {{--                                    </button>--}}
-                    {{--                                    <button class="change-status btn btn-dark"--}}
-                    {{--                                            data-status-type="odgovorna_lica_status"--}}
-                    {{--                                            data-permission-record-id={{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}--}}
-                    {{--                                        data-status="2" data-user-id="{{auth()->user()->id}}"--}}
-                    {{--                                    >Odbij--}}
-                    {{--                                    </button>--}}
-                    {{--                                @endif--}}
-
-
-
-                    {{--                                @if(isset($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]))--}}
-                    {{--                                    <button class="change-status btn btn-success" data-status-type="poenteri_status"--}}
-                    {{--                                            data-permission-record-id={{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}--}}
-                    {{--                                        data-status="1"--}}
-                    {{--                                            data-user-id="{{auth()->user()->id}}"--}}
-                    {{--                                    >Zatvori/zakljuci podatke--}}
-                    {{--                                    </button>--}}
-                    {{--                                    <button class="change-status btn btn-danger"--}}
-                    {{--                                            data-status-type="poenteri_status"--}}
-                    {{--                                            data-permission-record-id={{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}--}}
-                    {{--                                        data-status="2" data-user-id="{{auth()->user()->id}}"--}}
-                    {{--                                    >Ponovo menjaj--}}
-                    {{--                                    </button>--}}
-                    {{--                                @endif--}}
-
-
-                    {{--                            </div>--}}
-                    {{--                        </div>--}}
-                    {{--                    @endif--}}
                     <div class="end_org_celina"></div>
 
                     @endif
                     @endforeach
                     @if($approvedStatus==0)
                         <div class="container mt-5 mb-5 text-center">
-                            <form method="POST" action="">
+                            <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
                                 @csrf
-                                <input type="hidden" name="approved_org_celine value={{json_encode($approvedOrganizacioneCeline)}}">
+                                <input type="hidden" name="approved_org_celine" value="{{json_encode($approvedOrganizacioneCeline)}}">
                                 <input type="hidden" name="month_id" value="{{$monthData->id}}">
                             </form>
-                        <button id='export-pdf' class="btn btn-secondary btn-lg">Štampaj sve</button>
+                        <button id='export-pdf' class="btn btn-secondary btn-lg">Štampaj sve podatke</button>
                         </div>
                     @endif
                 </div>

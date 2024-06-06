@@ -9,6 +9,7 @@ use App\Modules\Kadrovskaevidencija\Controllers\RadnamestaController;
 use App\Modules\Kadrovskaevidencija\Controllers\StrucnakvalifikacijaController;
 use App\Modules\Kadrovskaevidencija\Controllers\VrstaradasifarnikController;
 use App\Modules\Kadrovskaevidencija\Controllers\ZanimanjasifarnikController;
+use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihExportController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihStatusController;
 use App\Modules\Obracunzarada\Controllers\DpsmAkontacijeController;
 use App\Modules\Obracunzarada\Controllers\DpsmFiksnaPlacanjaController;
@@ -40,12 +41,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
 Route::get('/details', function () {
     //RAM usage
 
     $free = shell_exec('free');
-    $free = (string) trim($free);
+    $free = (string)trim($free);
     $free_arr = explode("\n", $free);
     $mem = explode(" ", $free_arr[1]);
     $mem = array_filter($mem);
@@ -71,15 +71,13 @@ Route::get('/details', function () {
     $cpu_load = sys_getloadavg();
     $load = $cpu_load[0] . '% / 100%';
 
-    return view('details',compact('memory','totalram','usedmemInGB','load'));
+    return view('details', compact('memory', 'totalram', 'usedmemInGB', 'load'));
 });
 
 //** OLD Presentation logic, should be refactored  */
 Route::get('/', function () {
     return view('welcome');
 });
-
-
 
 
 Route::get('/dashboard', function () {
@@ -93,39 +91,36 @@ Route::middleware('auth')->group(function () {
 });
 
 
-
 //Route::middleware('auth')->group(function () {
-    Route::group(['middleware'=>['auth']],function () {
-        Route::get('/templatetheme', function () {
-            return view('/adminlte/welcome');
-        });
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/templatetheme', function () {
+        return view('/adminlte/welcome');
+    });
 
-        Route::post('/materijals_pdf', [\App\Http\Controllers\MaterijalController::class, 'pdfExport'])->name('profile.edit');
+    Route::post('/materijals_pdf', [\App\Http\Controllers\MaterijalController::class, 'pdfExport'])->name('profile.edit');
 
-        Route::get('/user/permissions_config', [UserConfigController::class, 'permissionsConfig']);
-        Route::get('/user/permissions_config_by_user', [UserConfigController::class, 'permissionsConfigByUserId']);
-
-
-        Route::post('/user/permissions_poenter', [UserConfigController::class, 'permissionsUpdatePoenter'])->name('permissionsUpdatePoenter.update');
-
-        Route::get('/user/index', [UserConfigController::class, 'index']);
-
-        Route::post('/user/permissions_config_update', [UserConfigController::class, 'permissionsUpdate']);
-
-        Route::resource("/partner", \App\Http\Controllers\PartnerController::class);
-        Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
+    Route::get('/user/permissions_config', [UserConfigController::class, 'permissionsConfig']);
+    Route::get('/user/permissions_config_by_user', [UserConfigController::class, 'permissionsConfigByUserId']);
 
 
+    Route::post('/user/permissions_poenter', [UserConfigController::class, 'permissionsUpdatePoenter'])->name('permissionsUpdatePoenter.update');
 
-        Route::get('/backupdata', [\App\Http\Controllers\DatabaseBackupController::class, 'showBackupData'])->name('backup.index');
+    Route::get('/user/index', [UserConfigController::class, 'index']);
 
-        Route::post('/backupdata', [\App\Http\Controllers\DatabaseBackupController::class, 'importBackup'])->name('backup.import');
+    Route::post('/user/permissions_config_update', [UserConfigController::class, 'permissionsUpdate']);
+
+    Route::resource("/partner", \App\Http\Controllers\PartnerController::class);
+    Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
 
 
+    Route::get('/backupdata', [\App\Http\Controllers\DatabaseBackupController::class, 'showBackupData'])->name('backup.index');
 
-        Route::get('/forgot-password-cust/{token}', function (string $token) {
+    Route::post('/backupdata', [\App\Http\Controllers\DatabaseBackupController::class, 'importBackup'])->name('backup.import');
 
-        return view('auth.forgot-password-cust',['email'=>auth()->user()->email,'token'=>$token,'request'=>['route'=>$token]]);
+
+    Route::get('/forgot-password-cust/{token}', function (string $token) {
+
+        return view('auth.forgot-password-cust', ['email' => auth()->user()->email, 'token' => $token, 'request' => ['route' => $token]]);
     })->name('password.request_cust');
 
 
@@ -133,12 +128,10 @@ Route::middleware('auth')->group(function () {
         ->name('password-cust.store');
 
 
-
     Route::resource('coremodule', CoreModuleController::class);
-    Route::get('getNbsData',[CoreModuleController::class,'sendSoapRequest']);
+    Route::get('getNbsData', [CoreModuleController::class, 'sendSoapRequest']);
 
     //** OLD Presentation logic, should be refactored  END */
-
 
 
     //** Modular logic, custom router cause problem, didn't load properly Facades and Laravel core */
@@ -148,33 +141,31 @@ Route::middleware('auth')->group(function () {
     //** Module architecture stand for customizations based on old Serbian ERP which is refactored in Laravel read Confluence for more*/
 
 
-
     //** Osnovni podaci modul  */
     // Radnici
     // Radnici Maticna datoteka radnika
-    Route::get('osnovnipodaci/radnici/index',[RadniciController::class,'index'])->name('radnici.index');
+    Route::get('osnovnipodaci/radnici/index', [RadniciController::class, 'index'])->name('radnici.index');
 
     // Radnici Maticna datoteka radnika END
 
-    Route::get('osnovnipodaci/radnici/create',[RadniciController::class,'create'])->name('radnici.create');
-    Route::post('osnovnipodaci/radnici/store',[RadniciController::class,'store'])->name('radnici.store');
+    Route::get('osnovnipodaci/radnici/create', [RadniciController::class, 'create'])->name('radnici.create');
+    Route::post('osnovnipodaci/radnici/store', [RadniciController::class, 'store'])->name('radnici.store');
 //    Route::get('osnovnipodaci/radnici/{radnikId}/edit',[RadniciController::class,'edit'])->name('radnici.edit');
-    Route::get('osnovnipodaci/radnici/edit_table',[RadniciController::class,'editRadnik'])->name('radnici.edit_table');
+    Route::get('osnovnipodaci/radnici/edit_table', [RadniciController::class, 'editRadnik'])->name('radnici.edit_table');
 
-    Route::post('osnovnipodaci/radnici/{radnikId}/update',[RadniciController::class,'update'])->name('radnici.update');
+    Route::post('osnovnipodaci/radnici/{radnikId}/update', [RadniciController::class, 'update'])->name('radnici.update');
 
 
     // Firma podaci
-    Route::get('osnovnipodaci/firmapodaci/index',[FirmaController::class,'view'])->name('firmapodaci.view');
-    Route::get('osnovnipodaci/firmapodaci/edit',[FirmaController::class,'edit'])->name('firmapodaci.edit');
-    Route::post('osnovnipodaci/firmapodaci/update',[FirmaController::class,'update'])->name('firmapodaci.update');
-
+    Route::get('osnovnipodaci/firmapodaci/index', [FirmaController::class, 'view'])->name('firmapodaci.view');
+    Route::get('osnovnipodaci/firmapodaci/edit', [FirmaController::class, 'edit'])->name('firmapodaci.edit');
+    Route::post('osnovnipodaci/firmapodaci/update', [FirmaController::class, 'update'])->name('firmapodaci.update');
 
 
     // Organizacione Celine
-    Route::get('osnovnipodaci/organizacioneceline/index',[OrganizacionecelineController::class,'index'])->name('organizacioneceline.index');
-    Route::get('osnovnipodaci/organizacioneceline/{id}/edit',[OrganizacionecelineController::class,'edit'])->name('organizacioneceline.edit');
-    Route::post('osnovnipodaci/organizacioneceline/post',[OrganizacionecelineController::class,'update'])->name('organizacioneceline.update');
+    Route::get('osnovnipodaci/organizacioneceline/index', [OrganizacionecelineController::class, 'index'])->name('organizacioneceline.index');
+    Route::get('osnovnipodaci/organizacioneceline/{id}/edit', [OrganizacionecelineController::class, 'edit'])->name('organizacioneceline.edit');
+    Route::post('osnovnipodaci/organizacioneceline/post', [OrganizacionecelineController::class, 'update'])->name('organizacioneceline.update');
 
 
     //** Osnovni podaci modul  KRAJ */
@@ -183,24 +174,24 @@ Route::middleware('auth')->group(function () {
     //** Kadrovska Evidencija modul   */
 
     // Zanimanja
-    Route::get('kadrovskaevidencija/zanimanjasifarnik/index',[ZanimanjasifarnikController::class,'index'])->name('zanimanjasifarnik.index');
-    Route::get('kadrovskaevidencija/zanimanjasifarnik/{id}/edit',[ZanimanjasifarnikController::class,'edit'])->name('zanimanjasifarnik.edit');
-    Route::post('kadrovskaevidencija/zanimanjasifarnik/post',[ZanimanjasifarnikController::class,'update'])->name('zanimanjasifarnik.update');
+    Route::get('kadrovskaevidencija/zanimanjasifarnik/index', [ZanimanjasifarnikController::class, 'index'])->name('zanimanjasifarnik.index');
+    Route::get('kadrovskaevidencija/zanimanjasifarnik/{id}/edit', [ZanimanjasifarnikController::class, 'edit'])->name('zanimanjasifarnik.edit');
+    Route::post('kadrovskaevidencija/zanimanjasifarnik/post', [ZanimanjasifarnikController::class, 'update'])->name('zanimanjasifarnik.update');
 
     // Radna mesta
-    Route::get('kadrovskaevidencija/radnamesta/index',[RadnamestaController::class,'index'])->name('radnamesta.index');
-    Route::get('kadrovskaevidencija/radnamesta/{id}/edit',[RadnamestaController::class,'edit'])->name('radnamesta.edit');
-    Route::post('kadrovskaevidencija/radnamesta/post',[RadnamestaController::class,'update'])->name('radnamesta.update');
+    Route::get('kadrovskaevidencija/radnamesta/index', [RadnamestaController::class, 'index'])->name('radnamesta.index');
+    Route::get('kadrovskaevidencija/radnamesta/{id}/edit', [RadnamestaController::class, 'edit'])->name('radnamesta.edit');
+    Route::post('kadrovskaevidencija/radnamesta/post', [RadnamestaController::class, 'update'])->name('radnamesta.update');
 
     // Strucna kvalifikacija
-    Route::get('kadrovskaevidencija/strucnakvalifikacija/index',[StrucnakvalifikacijaController::class,'index'])->name('strucnakvalifikacija.index');
-    Route::get('kadrovskaevidencija/strucnakvalifikacija/{id}/edit',[StrucnakvalifikacijaController::class,'edit'])->name('strucnakvalifikacija.edit');
-    Route::post('kadrovskaevidencija/strucnakvalifikacija/post',[StrucnakvalifikacijaController::class,'update'])->name('strucnakvalifikacija.update');
+    Route::get('kadrovskaevidencija/strucnakvalifikacija/index', [StrucnakvalifikacijaController::class, 'index'])->name('strucnakvalifikacija.index');
+    Route::get('kadrovskaevidencija/strucnakvalifikacija/{id}/edit', [StrucnakvalifikacijaController::class, 'edit'])->name('strucnakvalifikacija.edit');
+    Route::post('kadrovskaevidencija/strucnakvalifikacija/post', [StrucnakvalifikacijaController::class, 'update'])->name('strucnakvalifikacija.update');
 
     // Vrste rada
-    Route::get('kadrovskaevidencija/vrstaradasifarnik/index',[VrstaradasifarnikController::class,'index'])->name('vrstaradasifarnik.index');
-    Route::get('kadrovskaevidencija/vrstaradasifarnik/{id}/edit',[VrstaradasifarnikController::class,'edit'])->name('vrstaradasifarnik.edit');
-    Route::post('kadrovskaevidencija/vrstaradasifarnik/post',[VrstaradasifarnikController::class,'update'])->name('vrstaradasifarnik.update');
+    Route::get('kadrovskaevidencija/vrstaradasifarnik/index', [VrstaradasifarnikController::class, 'index'])->name('vrstaradasifarnik.index');
+    Route::get('kadrovskaevidencija/vrstaradasifarnik/{id}/edit', [VrstaradasifarnikController::class, 'edit'])->name('vrstaradasifarnik.edit');
+    Route::post('kadrovskaevidencija/vrstaradasifarnik/post', [VrstaradasifarnikController::class, 'update'])->name('vrstaradasifarnik.update');
 
     //** Kadrovska Evidencija modul kraj   */
 
@@ -209,101 +200,96 @@ Route::middleware('auth')->group(function () {
 
     // Oblik rada
 
-    Route::get('obracunzarada/oblikrada/index',[OblikradaController::class,'index'])->name('oblikrada.index');
-    Route::get('obracunzarada/oblikrada/{id}/edit',[OblikradaController::class,'edit'])->name('oblikrada.edit');
-    Route::post('obracunzarada/oblikrada/post',[OblikradaController::class,'update'])->name('oblikrada.update');
+    Route::get('obracunzarada/oblikrada/index', [OblikradaController::class, 'index'])->name('oblikrada.index');
+    Route::get('obracunzarada/oblikrada/{id}/edit', [OblikradaController::class, 'edit'])->name('oblikrada.edit');
+    Route::post('obracunzarada/oblikrada/post', [OblikradaController::class, 'update'])->name('oblikrada.update');
 
     // Vrste placanja
 
-    Route::get('obracunzarada/vrsteplacanja/index',[VrsteplacanjaController::class,'index'])->name('vrsteplacanja.index');
-    Route::get('obracunzarada/vrsteplacanja/{id}/edit',[VrsteplacanjaController::class,'edit'])->name('vrsteplacanja.edit');
-    Route::post('obracunzarada/vrsteplacanja/post',[VrsteplacanjaController::class,'update'])->name('vrsteplacanja.update');
+    Route::get('obracunzarada/vrsteplacanja/index', [VrsteplacanjaController::class, 'index'])->name('vrsteplacanja.index');
+    Route::get('obracunzarada/vrsteplacanja/{id}/edit', [VrsteplacanjaController::class, 'edit'])->name('vrsteplacanja.edit');
+    Route::post('obracunzarada/vrsteplacanja/post', [VrsteplacanjaController::class, 'update'])->name('vrsteplacanja.update');
 
     // Kreditori
 
-    Route::get('obracunzarada/kreditori/index',[KreditoriController::class,'index'])->name('kreditori.index');
-    Route::get('obracunzarada/kreditori/{id}/edit',[KreditoriController::class,'edit'])->name('kreditori.edit');
-    Route::post('obracunzarada/kreditori/post',[KreditoriController::class,'update'])->name('kreditori.update');
+    Route::get('obracunzarada/kreditori/index', [KreditoriController::class, 'index'])->name('kreditori.index');
+    Route::get('obracunzarada/kreditori/{id}/edit', [KreditoriController::class, 'edit'])->name('kreditori.edit');
+    Route::post('obracunzarada/kreditori/post', [KreditoriController::class, 'update'])->name('kreditori.update');
 
     // Minimalne bruto osnovice
 
-    Route::get('obracunzarada/minimalnebrutoosnovice/index',[MinimalnebrutoosnoviceController::class,'index'])->name('minimalnebrutoosnovice.index');
-    Route::get('obracunzarada/minimalnebrutoosnovice/{id}/edit',[MinimalnebrutoosnoviceController::class,'edit'])->name('minimalnebrutoosnovice.edit');
-    Route::post('obracunzarada/minimalnebrutoosnovice/post',[MinimalnebrutoosnoviceController::class,'update'])->name('minimalnebrutoosnovice.update');
+    Route::get('obracunzarada/minimalnebrutoosnovice/index', [MinimalnebrutoosnoviceController::class, 'index'])->name('minimalnebrutoosnovice.index');
+    Route::get('obracunzarada/minimalnebrutoosnovice/{id}/edit', [MinimalnebrutoosnoviceController::class, 'edit'])->name('minimalnebrutoosnovice.edit');
+    Route::post('obracunzarada/minimalnebrutoosnovice/post', [MinimalnebrutoosnoviceController::class, 'update'])->name('minimalnebrutoosnovice.update');
 
     // Porez i doprinosi
 
-    Route::get('obracunzarada/porezdoprinosi/index',[PorezdobrinosiController::class,'index'])->name('porezdoprinosi.index');
-    Route::get('obracunzarada/porezdoprinosi/{id}/edit',[PorezdobrinosiController::class,'edit'])->name('porezdoprinosi.edit');
-    Route::post('obracunzarada/porezdoprinosi/post',[PorezdobrinosiController::class,'update'])->name('porezdoprinosi.update');
+    Route::get('obracunzarada/porezdoprinosi/index', [PorezdobrinosiController::class, 'index'])->name('porezdoprinosi.index');
+    Route::get('obracunzarada/porezdoprinosi/{id}/edit', [PorezdobrinosiController::class, 'edit'])->name('porezdoprinosi.edit');
+    Route::post('obracunzarada/porezdoprinosi/post', [PorezdobrinosiController::class, 'update'])->name('porezdoprinosi.update');
 
     // Maticna datoteka radnika
 
-    Route::get('obracunzarada/maticnadatotekaradnika/index',[MaticnadatotekaradnikaController::class,'index'])->name('maticnadatotekaradnika.index');
-    Route::get('obracunzarada/maticnadatotekaradnika/edit',[MaticnadatotekaradnikaController::class,'edit'])->name('maticnadatotekaradnika.edit');
-    Route::get('obracunzarada/maticnadatotekaradnika/create',[MaticnadatotekaradnikaController::class,'create'])->name('maticnadatotekaradnika.create');
-    Route::get('obracunzarada/maticnadatotekaradnika/findByMat',[MaticnadatotekaradnikaController::class,'findByMat'])->name('radnici.findByMat');
-    Route::get('obracunzarada/maticnadatotekaradnika/findByPrezime',[MaticnadatotekaradnikaController::class,'findByPrezime'])->name('radnici.findByPrezime');
-    Route::get('obracunzarada/maticnadatotekaradnika/getById',[MaticnadatotekaradnikaController::class,'getById'])->name('radnici.getById');
-    Route::post('obracunzarada/maticnadatotekaradnika/store',[MaticnadatotekaradnikaController::class,'store'])->name('maticnadatotekaradnika.store');
+    Route::get('obracunzarada/maticnadatotekaradnika/index', [MaticnadatotekaradnikaController::class, 'index'])->name('maticnadatotekaradnika.index');
+    Route::get('obracunzarada/maticnadatotekaradnika/edit', [MaticnadatotekaradnikaController::class, 'edit'])->name('maticnadatotekaradnika.edit');
+    Route::get('obracunzarada/maticnadatotekaradnika/create', [MaticnadatotekaradnikaController::class, 'create'])->name('maticnadatotekaradnika.create');
+    Route::get('obracunzarada/maticnadatotekaradnika/findByMat', [MaticnadatotekaradnikaController::class, 'findByMat'])->name('radnici.findByMat');
+    Route::get('obracunzarada/maticnadatotekaradnika/findByPrezime', [MaticnadatotekaradnikaController::class, 'findByPrezime'])->name('radnici.findByPrezime');
+    Route::get('obracunzarada/maticnadatotekaradnika/getById', [MaticnadatotekaradnikaController::class, 'getById'])->name('radnici.getById');
+    Route::post('obracunzarada/maticnadatotekaradnika/store', [MaticnadatotekaradnikaController::class, 'store'])->name('maticnadatotekaradnika.store');
 
-        Route::get('obracunzarada/maticnadatotekaradnika/edit_by_userId',[MaticnadatotekaradnikaController::class,'editByUserId'])->name('maticnadatotekaradnika.editByUserId');
-        Route::get('obracunzarada/maticnadatotekaradnika/create_from_user',[MaticnadatotekaradnikaController::class,'createFromUser'])->name('maticnadatotekaradnika.createFromUser');
-
-
+    Route::get('obracunzarada/maticnadatotekaradnika/edit_by_userId', [MaticnadatotekaradnikaController::class, 'editByUserId'])->name('maticnadatotekaradnika.editByUserId');
+    Route::get('obracunzarada/maticnadatotekaradnika/create_from_user', [MaticnadatotekaradnikaController::class, 'createFromUser'])->name('maticnadatotekaradnika.createFromUser');
 
 
-        // Mesecna datotekaobracunskihkoeficijenata
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/create',[DatotekaobracunskihkoeficijenataController::class,'create'])->name('datotekaobracunskihkoeficijenata.create');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/store',[DatotekaobracunskihkoeficijenataController::class,'store'])->name('datotekaobracunskihkoeficijenata.store');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getstoredata',[DatotekaobracunskihkoeficijenataController::class,'getStoreData'])->name('datotekaobracunskihkoeficijenata.getStoreData');
+    // Mesecna datotekaobracunskihkoeficijenata
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/create', [DatotekaobracunskihkoeficijenataController::class, 'create'])->name('datotekaobracunskihkoeficijenata.create');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/store', [DatotekaobracunskihkoeficijenataController::class, 'store'])->name('datotekaobracunskihkoeficijenata.store');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getstoredata', [DatotekaobracunskihkoeficijenataController::class, 'getStoreData'])->name('datotekaobracunskihkoeficijenata.getStoreData');
 
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getmonthbyid',[DatotekaobracunskihkoeficijenataController::class,'getMonthDataById'])->name('datotekaobracunskihkoeficijenata.getMonthDataById');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getmonthbyid', [DatotekaobracunskihkoeficijenataController::class, 'getMonthDataById'])->name('datotekaobracunskihkoeficijenata.getMonthDataById');
 
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/store_update',[DatotekaobracunskihkoeficijenataController::class,'storeUpdate'])->name('datotekaobracunskihkoeficijenata.store_update');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/store_update', [DatotekaobracunskihkoeficijenataController::class, 'storeUpdate'])->name('datotekaobracunskihkoeficijenata.store_update');
 
     // POENTERSKI UNOS
 
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update',[DatotekaobracunskihkoeficijenataController::class,'update'])->name('datotekaobracunskihkoeficijenata.update');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/check',[DatotekaobracunskihkoeficijenataController::class,'check'])->name('datotekaobracunskihkoeficijenata.check');
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje',[DatotekaobracunskihkoeficijenataController::class,'odobravanje'])->name('datotekaobracunskihkoeficijenata.odobravanje');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update', [DatotekaobracunskihkoeficijenataController::class, 'update'])->name('datotekaobracunskihkoeficijenata.update');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/check', [DatotekaobracunskihkoeficijenataController::class, 'check'])->name('datotekaobracunskihkoeficijenata.check');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje', [DatotekaobracunskihkoeficijenataController::class, 'odobravanje'])->name('datotekaobracunskihkoeficijenata.odobravanje');
 
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_poenter',[DatotekaobracunskihkoeficijenataController::class,'odobravanjePoenter'])->name('datotekaobracunskihkoeficijenata.odobravanje_poenter');
-        Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_check_sati',[DatotekaobracunskihkoeficijenataController::class,'odobravanjeCheckSati'])->name('datotekaobracunskihkoeficijenata.odobravanje_check_sati');
-
-
-
-    Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf',[DatotekaobracunskihkoeficijenataController::class,'odobravanjeExportPdf'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf');
-    Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_xls',[DatotekaobracunskihkoeficijenataController::class,'odobravanjeExportXls'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_xls');
-
-        Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf_test',[DatotekaobracunskihkoeficijenataController::class,'odobravanjeExportPdfTest'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_test');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_poenter', [DatotekaobracunskihkoeficijenataController::class, 'odobravanjePoenter'])->name('datotekaobracunskihkoeficijenata.odobravanje_poenter');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_check_sati', [DatotekaobracunskihkoeficijenataController::class, 'odobravanjeCheckSati'])->name('datotekaobracunskihkoeficijenata.odobravanje_check_sati');
 
 
+    Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_xls', [DatotekaobracunskihExportController::class, 'odobravanjeExportXls'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_xls');
+    Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf_test', [DatotekaobracunskihExportController::class, 'odobravanjeExportPdfTest'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_test');
+    Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf_po_org_cel', [DatotekaobracunskihExportController::class, 'odobravanjeExportPdf'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine');
 
-        // UNOS VARIJABILNIH
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all',[DpsmPoentazaslogController::class,'showAll'])->name('datotekaobracunskihkoeficijenata.show_all');
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show',[DpsmPoentazaslogController::class,'show'])->name('datotekaobracunskihkoeficijenata.show');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updateVariabilna',[DpsmPoentazaslogController::class,'updateVariabilna'])->name('datotekaobracunskihkoeficijenata.updateVariabilna');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/deleteVariabilna',[DpsmPoentazaslogController::class,'deleteVariabilna'])->name('datotekaobracunskihkoeficijenata.deleteVariabilna');
+
+    // UNOS VARIJABILNIH
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all', [DpsmPoentazaslogController::class, 'showAll'])->name('datotekaobracunskihkoeficijenata.show_all');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show', [DpsmPoentazaslogController::class, 'show'])->name('datotekaobracunskihkoeficijenata.show');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updateVariabilna', [DpsmPoentazaslogController::class, 'updateVariabilna'])->name('datotekaobracunskihkoeficijenata.updateVariabilna');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/deleteVariabilna', [DpsmPoentazaslogController::class, 'deleteVariabilna'])->name('datotekaobracunskihkoeficijenata.deleteVariabilna');
 
     // AKONTACIJE
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_akontacije',[DpsmAkontacijeController::class,'showAllAkontacije'])->name('datotekaobracunskihkoeficijenata.show_all_akontacije');
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_akontacije',[DpsmAkontacijeController::class,'showAkontacije'])->name('datotekaobracunskihkoeficijenata.show_akontacije');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_akontacije',[DpsmAkontacijeController::class,'updateAkontacije'])->name('datotekaobracunskihkoeficijenata.update_akontacije');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_akontacije', [DpsmAkontacijeController::class, 'showAllAkontacije'])->name('datotekaobracunskihkoeficijenata.show_all_akontacije');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_akontacije', [DpsmAkontacijeController::class, 'showAkontacije'])->name('datotekaobracunskihkoeficijenata.show_akontacije');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_akontacije', [DpsmAkontacijeController::class, 'updateAkontacije'])->name('datotekaobracunskihkoeficijenata.update_akontacije');
 
 
     // FIKSNA PLACANJA
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_fiksnap',[DpsmFiksnaPlacanjaController::class,'showAllFiksnap'])->name('datotekaobracunskihkoeficijenata.show_all_fiksnap');
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_fiksnap',[DpsmFiksnaPlacanjaController::class,'showFiksnap'])->name('datotekaobracunskihkoeficijenata.show_fiksnap');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_fiksnap',[DpsmFiksnaPlacanjaController::class,'updateFiksnap'])->name('datotekaobracunskihkoeficijenata.update_fiksnap');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/delete_fiksnap',[DpsmFiksnaPlacanjaController::class,'deleteFiksnap'])->name('datotekaobracunskihkoeficijenata.delete_fiksnap');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_fiksnap', [DpsmFiksnaPlacanjaController::class, 'showAllFiksnap'])->name('datotekaobracunskihkoeficijenata.show_all_fiksnap');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_fiksnap', [DpsmFiksnaPlacanjaController::class, 'showFiksnap'])->name('datotekaobracunskihkoeficijenata.show_fiksnap');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_fiksnap', [DpsmFiksnaPlacanjaController::class, 'updateFiksnap'])->name('datotekaobracunskihkoeficijenata.update_fiksnap');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/delete_fiksnap', [DpsmFiksnaPlacanjaController::class, 'deleteFiksnap'])->name('datotekaobracunskihkoeficijenata.delete_fiksnap');
 
 
     // KREDITI
-      Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_krediti',[DpsmKreditiController::class,'showAllKrediti'])->name('datotekaobracunskihkoeficijenata.show_all_krediti');
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_krediti',[DpsmKreditiController::class,'showKrediti'])->name('datotekaobracunskihkoeficijenata.show_krediti');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_krediti',[DpsmKreditiController::class,'updateKrediti'])->name('datotekaobracunskihkoeficijenata.update_krediti');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/delete_krediti',[DpsmKreditiController::class,'deleteKrediti'])->name('datotekaobracunskihkoeficijenata.delete_krediti');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_krediti', [DpsmKreditiController::class, 'showAllKrediti'])->name('datotekaobracunskihkoeficijenata.show_all_krediti');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_krediti', [DpsmKreditiController::class, 'showKrediti'])->name('datotekaobracunskihkoeficijenata.show_krediti');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update_krediti', [DpsmKreditiController::class, 'updateKrediti'])->name('datotekaobracunskihkoeficijenata.update_krediti');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/delete_krediti', [DpsmKreditiController::class, 'deleteKrediti'])->name('datotekaobracunskihkoeficijenata.delete_krediti');
 
 
     // Obracun zarada
@@ -313,35 +299,32 @@ Route::middleware('auth')->group(function () {
 
     // Mesecna Obrada
 
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index',[ObradaPripremaController::class,'obradaIndex'])->name('datotekaobracunskihkoeficijenata.mesecna_obrada_index');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index', [ObradaPripremaController::class, 'obradaIndex'])->name('datotekaobracunskihkoeficijenata.mesecna_obrada_index');
 //    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index',[ObradaPripremaController::class,'obradaShow'])->name('datotekaobracunskihkoeficijenata.mesecna_obrada_index');
 
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/obrada_radnik',[  ObracunZaradaController::class,'obradaRadnik'])->name('datotekaobracunskihkoeficijenata.obrada_radnik');
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate',[ObracunZaradaController::class,'showAllPlate'])->name('datotekaobracunskihkoeficijenata.show_all_plate');
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_plate',[ObracunZaradaController::class,'showPlate'])->name('datotekaobracunskihkoeficijenata.show_plate');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/obrada_radnik', [ObracunZaradaController::class, 'obradaRadnik'])->name('datotekaobracunskihkoeficijenata.obrada_radnik');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate', [ObracunZaradaController::class, 'showAllPlate'])->name('datotekaobracunskihkoeficijenata.show_all_plate');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_plate', [ObracunZaradaController::class, 'showPlate'])->name('datotekaobracunskihkoeficijenata.show_plate');
 
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_radnik',[  ObracunZaradaController::class,'stampaRadnik'])->name('datotekaobracunskihkoeficijenata.stampa_radnik');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/email_radnik',[  ObracunZaradaController::class,'emailRadnik'])->name('datotekaobracunskihkoeficijenata.email_radnik');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_radnik', [ObracunZaradaController::class, 'stampaRadnik'])->name('datotekaobracunskihkoeficijenata.stampa_radnik');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/email_radnik', [ObracunZaradaController::class, 'emailRadnik'])->name('datotekaobracunskihkoeficijenata.email_radnik');
 
 
-
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/permissionStatusUpdate',[DatotekaobracunskihStatusController::class,'permissionStatusUpdate'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatus');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updatePermissionStatusAdministrator',[DatotekaobracunskihStatusController::class,'updatePermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatusAdministrator');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getPermissionStatusAdministrator',[DatotekaobracunskihStatusController::class,'getPermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.getPermissionStatusAdministrator');
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_check_poenteri',[DatotekaobracunskihStatusController::class,'odobravanjeCheckPoenteri'])->name('datotekaobracunskihkoeficijenata.odobravanje_check_poenteri');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/permissionStatusUpdate', [DatotekaobracunskihStatusController::class, 'permissionStatusUpdate'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatus');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updatePermissionStatusAdministrator', [DatotekaobracunskihStatusController::class, 'updatePermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatusAdministrator');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getPermissionStatusAdministrator', [DatotekaobracunskihStatusController::class, 'getPermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.getPermissionStatusAdministrator');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_check_poenteri', [DatotekaobracunskihStatusController::class, 'odobravanjeCheckPoenteri'])->name('datotekaobracunskihkoeficijenata.odobravanje_check_poenteri');
 
 
     // Izvestaji
-    Route::get('obracunzarada/izvestaji/ranglistazarade',[\App\Modules\Obracunzarada\Controllers\IzvestajZaradaController::class,'ranglistazarade'])->name('izvestaj.ranglistazarade');
-    Route::get('obracunzarada/izvestaji/rekapitulacijazarade',[\App\Modules\Obracunzarada\Controllers\IzvestajZaradaController::class,'rekapitulacijazarade'])->name('izvestaj.rekapitulacijazarade');
+    Route::get('obracunzarada/izvestaji/ranglistazarade', [\App\Modules\Obracunzarada\Controllers\IzvestajZaradaController::class, 'ranglistazarade'])->name('izvestaj.ranglistazarade');
+    Route::get('obracunzarada/izvestaji/rekapitulacijazarade', [\App\Modules\Obracunzarada\Controllers\IzvestajZaradaController::class, 'rekapitulacijazarade'])->name('izvestaj.rekapitulacijazarade');
 
 
 });
 
 
-
-Route::get('nopermission',[PermissionController::class,'index'])->name('noPermission');
-
+Route::get('nopermission', [PermissionController::class, 'index'])->name('noPermission');
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

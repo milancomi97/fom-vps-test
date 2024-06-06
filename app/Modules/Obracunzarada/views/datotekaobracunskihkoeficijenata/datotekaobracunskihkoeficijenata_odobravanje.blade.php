@@ -107,15 +107,15 @@
 
             </div>
             <div class="col-md-2">
-                <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_sati',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola radnika</a>
+                <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_sati',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola sati</a>
 
             </div>
             <div class="col-md-2">
-                <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_poenteri',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola poentera</a>
+                <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_poenteri',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola statusa</a>
 
             </div>
             <div class="col-md-1">
-                <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf')}}">
+                <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
                     @csrf
                     <input type="hidden"  value="{{$monthData->id}}" name="month_id_pdf"/>
                     <button id='export-pdf' class="btn btn-secondary btn-lg">PDF</button>
@@ -126,7 +126,6 @@
                     @csrf
                     <input type="hidden"  value="{{$monthData->id}}" name="month_id_pdf"/>
                     <button id='export-pdf' class="btn btn-danger btn-lg">PDF Test Layout</button>
-
                 </form>
             </div>
             <div class="col-md-1">
@@ -164,12 +163,25 @@
         </form>
         <div class="loading" style="display: none;">
         </div>
+        <?php
+        $approvedStatus=0;
+        $approvedOrganizacioneCeline=[];
+        ?>
         @foreach($mesecnaTabelaPotenrazaTable as $key => $organizacionacelina)
             @if(isset($troskovnaMestaPermission[$key]) && $troskovnaMestaPermission[$key])
                 <div class="table-div mt-5">
-
+                        <?php
+                        $approvedOrganizacioneCeline[]=$key;
+                        ?>
                     <h3 class="text-center"> Organizaciona celina: <b>{{$key}} </b> -
                         &nbsp{{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}.</h3>
+                    <button id='osvezi_stranicu' onClick="window.location.reload()" class="btn btn-secondary  calcBtn">Osveži proveru</button>
+                    <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
+                        @csrf
+                        <input type="hidden" name="approved_org_celine value={{json_encode($key)}}">
+                        <input type="hidden" name="month_id" value="{{$monthData->id}}">
+                        <button id='export-pdf-celina' class="btn btn-secondary  calcBtn">Štampaj PDF</button>
+                    </form>
                     <div class="divider"></div>
 
                     <table class="table table-striped" id="table-div{{$key}}">
@@ -292,41 +304,6 @@
                                 </div>
                             </div>
                             <div class="col-3 text-right">
-                                @if(isset($mesecnaTabelaPoentazaPermissions[$key]['odgovornaLicaData'][auth()->user()->id]))
-                                    <button class="change-status btn btn-primary"
-                                            style="display: none"
-                                            data-status-type="odgovorna_lica_status"
-                                            data-permission-record-id={{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}
-                                        data-status="1"
-                                            data-user-id="{{auth()->user()->id}}"
-                                    >Odobri
-                                    </button>
-                                    <button class="change-status btn btn-dark"
-                                            data-status-type="odgovorna_lica_status"
-                                            data-permission-record-id={{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}
-                                        data-status="2" data-user-id="{{auth()->user()->id}}"
-                                    >Odbij
-                                    </button>
-                                @endif
-
-
-
-                                @if(isset($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]))
-                                    <button class="change-status btn btn-success" data-status-type="poenteri_status"
-                                            data-permission-record-id={{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}
-                                        data-status="1"
-                                            data-user-id="{{auth()->user()->id}}"
-                                    >Zatvori/zakljuci podatke
-                                    </button>
-                                    <button class="change-status btn btn-danger"
-                                            data-status-type="poenteri_status"
-                                            data-permission-record-id={{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}}
-                                        data-status="2" data-user-id="{{auth()->user()->id}}"
-                                    >Ponovo menjaj
-                                    </button>
-                                @endif
-
-
                             </div>
                         </div>
                     @endif
@@ -335,7 +312,14 @@
                     @endif
                     @endforeach
 
-
+                        <div class="container mt-5 mb-5 text-center">
+                            <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
+                                @csrf
+                                <input type="hidden" name="approved_org_celine" value="{{json_encode($approvedOrganizacioneCeline)}}">
+                                <input type="hidden" name="month_id" value="{{$monthData->id}}">
+                            </form>
+                            <button id='export-pdf' class="btn btn-secondary btn-lg">Štampaj sve podatke</button>
+                        </div>
                 </div>
     </div>
     <!-- Modal -->

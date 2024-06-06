@@ -4,18 +4,18 @@ namespace App\Modules\Obracunzarada\Consts;
 
 class StatusPoenteraObracunskiKoef
 {
-    const NACEKANJU = 0;
-    const ODOBREN = 1;
-    const PROVERA = 2;
-    const PROVERAPODATAKA = 3;
+    const UPRIPREMI = 0;
+    const POSLATNAPROVERU = 1;
+    const ODOBREN = 2;
+    const ODBIJEN = 3;
 
     public static function all()
     {
         return [
-            self::NACEKANJU => 'Na čekanju',
+            self::UPRIPREMI => 'U pripremi',
+            self::POSLATNAPROVERU => 'Poslat na proveru',
             self::ODOBREN => 'Odobren',
-            self::PROVERA => 'Proveri sa (Odgovorno lice)',
-            self::PROVERAPODATAKA => 'Proveri podatke'
+            self::ODBIJEN => 'Odbijen'
 
         ];
     }

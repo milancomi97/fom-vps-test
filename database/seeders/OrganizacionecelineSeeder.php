@@ -26,7 +26,7 @@ class OrganizacionecelineSeeder extends Seeder
                     'sifra_troskovnog_mesta' =>$data['RBTC'],
                     'naziv_troskovnog_mesta' =>$data['NATC'],
                     'active'=>$data['ACTIVE'] == "TAČNO",
-                    'poenteri_ids'=>'["559","2140","1596","1603","2734"]', //User Model ID
+                    'poenteri_ids'=>'["559","2140","1596","1603","2734","2735"]', //User Model ID
                     'odgovorna_lica_ids'=>'["2540", "2109"]',  // User Model ID
                     'odgovorni_direktori_pravila'=>$this->resolveDirektori($data)
                 ]);
