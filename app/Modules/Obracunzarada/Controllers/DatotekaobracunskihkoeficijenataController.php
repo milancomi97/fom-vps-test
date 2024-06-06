@@ -526,6 +526,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
         $troskovniCentarCalculated = $this->proveraPoentazeService->kalkulacijaPoTroskovnomCentru($mesecnaTabelaPotenrazaTable,$vrstePlacanjaSifarnik);
 
+
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_odobravanje_poenter',
             [
                 'formattedDate' => $formattedDate,
