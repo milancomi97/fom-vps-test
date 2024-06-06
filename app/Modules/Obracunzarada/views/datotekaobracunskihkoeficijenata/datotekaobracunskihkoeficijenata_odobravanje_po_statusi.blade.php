@@ -6,14 +6,16 @@
 
     <style>
 
-        .rowSum{
+        .rowSum {
             text-align: right;
             font-weight: 800;
         }
-        .calcBtn{
-            float:right;
-            margin:1em;
+
+        .calcBtn {
+            float: right;
+            margin: 1em;
         }
+
         .ime_prezime {
             display: block;
             width: 250px;
@@ -102,46 +104,55 @@
         <h1 class="text-center">Pregled poentera</h1>
 
         <div class="container ml-5">
-            <div class="table-responsive" style="width: 1800px"  >
-        <table class="table"  >
-            <thead>
-{{--            <tr>--}}
-{{--                <th>Key</th>--}}
-{{--                @if(!empty($poenteriData))--}}
-{{--                    @foreach(array_keys(reset($poenteriData)) as $header)--}}
-{{--                        <th>{{ $header }}</th>--}}
-{{--                    @endforeach--}}
-{{--                @endif--}}
-{{--            </tr>--}}
-            </thead>
-            <tbody>
-            @foreach($poenteriData as $key => $subList)
-                <tr>
-                    <td class="border-0" colspan="3"></td>
-                    <td class="border-0" colspan="1"><b>{{ $key }} Maticni broj</b></td>
-                    <td class="border-0" colspan="1"><b>Prezime</b></td>
-                    <td class="border-0" colspan="1"><b>Ime</b></td>
-                    <td class="border-0" colspan="40"></td>
+            <div class="table-responsive" style="width: 1800px">
+                <table class="table">
+                    <thead>
+                    {{--            <tr>--}}
+                    {{--                <th>Key</th>--}}
+                    {{--                @if(!empty($poenteriData))--}}
+                    {{--                    @foreach(array_keys(reset($poenteriData)) as $header)--}}
+                    {{--                        <th>{{ $header }}</th>--}}
+                    {{--                    @endforeach--}}
+                    {{--                @endif--}}
+                    {{--            </tr>--}}
+                    </thead>
+                    <tbody>
+                    @foreach($poenteriData as $key => $subList)
+                        <tr>
+                            <td class="border-0" colspan="3"></td>
+                            <td class="border-0" colspan="3"><b>{{ $subList['poenterDetails'] }}</b></td>
+                            <td class="border-0" colspan="40"></td>
 
-                </tr>
-                <tr >
-                @foreach($subList as $subKey => $value)
+                        </tr>
+                        <tr>
 
-                        <td  style="min-width: 150px" class="{{ $value > 0 ? "bg-danger":"bg-success" }}">{{$subKey}} : {{ $value }}</td>
+                            @foreach($subList as $subKey => $value)
+
+                                @if($subKey !=='poenterDetails')
+                                    <td style="min-width: 200px; text-align: center"
+                                        class="{{ $value > 0 ? "bg-danger":"bg-success" }}">{{$subKey}}
+                                        <br/> {{StatusRadnikaObracunskiKoef::all()[$value]}}</td>
+                                @endif
+
+                            @endforeach
+                        </tr>
+
+                        <tr>
+                            <td class="border-0" colspan="50"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-0" colspan="50"></td>
+                        </tr>
+                        <tr>
+                            <td class="border-0" colspan="50"></td>
+                        </tr>
+
                     @endforeach
-                </tr>
-
-                <tr><td class="border-0" colspan="50"></td></tr>
-                <tr ><td class="border-0" colspan="50"></td></tr>
-                <tr ><td class="border-0" colspan="50"></td></tr>
-
-            @endforeach
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    </div>
-    </div>
-
 
 @endsection
 
@@ -166,7 +177,8 @@
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_odobravanje/ajax_logic.js') }}"></script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_odobravanje/modal_logic.js') }}"></script>
-    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_odobravanje/recalculate_logic.js') }}"></script>
+    <script
+        src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_odobravanje/recalculate_logic.js') }}"></script>
 
 
     {{--    dodaj nov fajl koji ce da sredjuje kalkulaciju --}}

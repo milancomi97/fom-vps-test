@@ -647,7 +647,7 @@
             $(this).find(':input').each(function () {
                 // $(this).find(':input[required]').each(function () {
 
-                if ($(this)[0].id === 'tekuci_racun' || $(this)[0].id === 'radna_jedinica' || $(this)[0].id === 'submit_btn' || $(this)[0].id === 'brigada') {
+                if ($(this)[0].id === 'radna_jedinica' || $(this)[0].id === 'submit_btn' || $(this)[0].id === 'brigada') {
                     return;
                 }
 

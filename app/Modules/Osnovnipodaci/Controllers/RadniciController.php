@@ -3,6 +3,7 @@
 namespace App\Modules\Osnovnipodaci\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\OpstineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\RadniciRepositoryInterface;
@@ -15,7 +16,8 @@ class RadniciController extends Controller
     public function __construct(
         private readonly RadniciRepositoryInterface $radniciRepositoryInterface,
         private readonly OpstineRepositoryInterface $opstineInterface,
-        private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface
+        private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
+        private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface
     )
     {
     }
@@ -145,10 +147,24 @@ class RadniciController extends Controller
 
         $requestData['active'] = ( $requestData['active'] ?? "") =='on';
 
+        $active =  $requestData['active'];
         $userId = $request->radnikId;
         $user = User::findOrFail($userId);
+
+
         $status = $user->update($requestData);
 
+        $maticniBroj  = $user->maticni_broj;
+        $mdrResult =$this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj',$maticniBroj)->get();
+
+        $test='test';
+
+        if(count($mdrResult)){
+            $mdrData = $mdrResult->first();
+            $mdrData->ACTIVE_aktivan= (int) $active;
+            $mdrData->save();
+            $test='test';
+        }
         if($status){
          return redirect()->route('radnici.index');
         }

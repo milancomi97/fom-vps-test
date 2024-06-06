@@ -206,7 +206,7 @@
                                         <span class="status_icon text-success">   <i class="fas fa-check"></i></span>
                                     @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
                                         <span class="status_icon text-warning">   <i class="far fa-bell"></i></span>
-                                    @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::ODBIJEN)
+                                    @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::ODOBREN)
                                         <span class="status_icon text-danger">   <i
                                                 class=" far fa-times-circle"></i></span>
                                     @endif

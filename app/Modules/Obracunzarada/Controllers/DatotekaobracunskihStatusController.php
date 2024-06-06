@@ -95,8 +95,14 @@ class DatotekaobracunskihStatusController extends Controller
                 $sortByPoenterIds[$poenterId][$organizacionaCelina->organizaciona_celina_id]=$status;
                 $test='test';
 
-                // TODO ADD OC NAME AND OC STATUS
+                if(!isset($sortByPoenterIds[$poenterId]['poenterDetails'])){
+                   $poenterData =User::findOrFail($poenterId);
+                    $sortByPoenterIds[$poenterId]['poenterDetails']= $poenterData->maticni_broj . ' '.$poenterData->prezime . ' '.$poenterData->ime;
+                }
+
+
             }
+
 
             // TODO add poenter MATBROJ PREZIME IME
         }

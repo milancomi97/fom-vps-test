@@ -242,8 +242,8 @@
                                 @csrf
                                 <input type="hidden" name="approved_org_celine" value="{{json_encode($approvedOrganizacioneCeline)}}">
                                 <input type="hidden" name="month_id" value="{{$monthData->id}}">
+                                <button id='export-pdf' type="submit" class="btn btn-secondary btn-lg">Štampaj sve podatke</button>
                             </form>
-                        <button id='export-pdf' class="btn btn-secondary btn-lg">Štampaj sve podatke</button>
                         </div>
                     @endif
                 </div>

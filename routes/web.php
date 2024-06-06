@@ -254,7 +254,7 @@ Route::group(['middleware' => ['auth']], function () {
     // POENTERSKI UNOS
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update', [DatotekaobracunskihkoeficijenataController::class, 'update'])->name('datotekaobracunskihkoeficijenata.update');
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/check', [DatotekaobracunskihkoeficijenataController::class, 'check'])->name('datotekaobracunskihkoeficijenata.check');
+//    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/check', [DatotekaobracunskihkoeficijenataController::class, 'check'])->name('datotekaobracunskihkoeficijenata.check');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje', [DatotekaobracunskihkoeficijenataController::class, 'odobravanje'])->name('datotekaobracunskihkoeficijenata.odobravanje');
 
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_poenter', [DatotekaobracunskihkoeficijenataController::class, 'odobravanjePoenter'])->name('datotekaobracunskihkoeficijenata.odobravanje_poenter');

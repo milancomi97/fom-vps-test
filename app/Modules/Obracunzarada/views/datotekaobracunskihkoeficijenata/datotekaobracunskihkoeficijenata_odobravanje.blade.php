@@ -178,7 +178,7 @@
                     <button id='osvezi_stranicu' onClick="window.location.reload()" class="btn btn-secondary  calcBtn">Osveži proveru</button>
                     <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
                         @csrf
-                        <input type="hidden" name="approved_org_celine value={{json_encode($key)}}">
+                        <input type="hidden" name="approved_org_celine" value="{{json_encode($key)}}">
                         <input type="hidden" name="month_id" value="{{$monthData->id}}">
                         <button id='export-pdf-celina' class="btn btn-secondary  calcBtn">Štampaj PDF</button>
                     </form>
@@ -228,7 +228,7 @@
                                         <span class="status_icon text-success">   <i class="fas fa-check"></i></span>
                                     @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
                                         <span class="status_icon text-warning">   <i class="far fa-bell"></i></span>
-                                    @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::ODBIJEN)
+                                    @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::ODOBREN)
                                         <span class="status_icon text-danger">   <i
                                                 class=" far fa-times-circle"></i></span>
                                     @endif
@@ -293,7 +293,7 @@
                                                     data-status-type='odgovorna_lica_status'
                                             >
                                                 {{$odgovornaLicaDataStatusData['name'] }} -
-                                                <b> {{StatusPoenteraObracunskiKoef::all()[$odgovornaLicaDataStatusData['status']]}}</b>
+                                                <b> {{StatusOdgovornihLicaObracunskiKoef::all()[$odgovornaLicaDataStatusData['status']]}}</b>
                                             </button>
                                         @else
                                             <p>{{$odgovornaLicaDataStatusData['name'] }} -
@@ -317,8 +317,8 @@
                                 @csrf
                                 <input type="hidden" name="approved_org_celine" value="{{json_encode($approvedOrganizacioneCeline)}}">
                                 <input type="hidden" name="month_id" value="{{$monthData->id}}">
+                                <button type="submit" id='export-pdf' class="btn btn-secondary btn-lg">Štampaj sve podatke</button>
                             </form>
-                            <button id='export-pdf' class="btn btn-secondary btn-lg">Štampaj sve podatke</button>
                         </div>
                 </div>
     </div>

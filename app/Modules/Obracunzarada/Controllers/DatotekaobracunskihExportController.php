@@ -101,6 +101,11 @@ class DatotekaobracunskihExportController extends Controller
 
     public function odobravanjeExportPdf(Request $request)
     {
+        $celineZaStampu = $request->approved_org_celine;
+        $monthId = $request->month_id;
+
+        $orgCelineData = json_decode($celineZaStampu,true);
+        $orgCelineArray = !is_array($orgCelineData) ? [$orgCelineData] : $orgCelineData;
 
         $user_id = auth()->user()->id;
         $userPermission = UserPermission::where('user_id', $user_id)->first();
