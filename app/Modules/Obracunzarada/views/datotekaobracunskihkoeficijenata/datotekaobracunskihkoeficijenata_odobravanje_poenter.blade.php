@@ -234,6 +234,7 @@
                     </div>
                     <div class="end_org_celina"></div>
 
+                </div>
                     @endif
                     @endforeach
                     @if($approvedStatus==0)

@@ -308,7 +308,7 @@
                         </div>
                     @endif
                     <div class="end_org_celina"></div>
-
+                </div>
                     @endif
                     @endforeach
 
