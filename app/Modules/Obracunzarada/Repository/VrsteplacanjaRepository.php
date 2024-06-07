@@ -42,14 +42,14 @@ class VrsteplacanjaRepository extends BaseRepository implements VrsteplacanjaRep
             ];
         });
 
-        $html = '<table class="footer-potpis-table"><tr class="no-border">';
+        $html = '<table class="footer-potpis-table mt-5"><tr class="no-border">';
             $counter = 0;
 
             foreach ($filteredData->take(31) as $item) {
                 if ($counter > 0 && $counter % 5 == 0) {
                     $html .= '</tr><tr>';
                 }
-                $html .= '<td class="footer-opis-code">' . $item['key'] . ' - ' . $item['name'] . '</td>';
+                $html .= '<td class="footer-opis-code no-border">' . $item['key'] . ' - ' . $item['name'] . '</td>';
                 $counter++;
             }
 

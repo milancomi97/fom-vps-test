@@ -20,6 +20,7 @@ use App\Modules\Obracunzarada\Service\PripremiPermisijePoenteriOdobravanja;
 use App\Modules\Obracunzarada\Service\ProveraPoentazeService;
 use App\Modules\Obracunzarada\Service\UpdateNapomena;
 use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
+use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
 use function Psy\debug;
@@ -42,7 +43,8 @@ class DatotekaobracunskihExportController extends Controller
         private readonly DpsmPoentazaslogRepositoryInterface                 $dpsmPoentazaslogInterface,
         private readonly DpsmAkontacijeRepositoryInterface                   $dpsmAkontacijeInterface,
         private readonly MesecValidationService                               $mesecValidationService,
-        private readonly ProveraPoentazeService $proveraPoentazeService
+        private readonly ProveraPoentazeService $proveraPoentazeService,
+        private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface
     )
     {
     }
@@ -118,6 +120,7 @@ class DatotekaobracunskihExportController extends Controller
         $troskovniCentarCalculated = $this->proveraPoentazeService->kalkulacijaPoTroskovnomCentru($celineZaStampuData,$vrstePlacanjaSifarnik);
         $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
 
+        $organizacioneCelineSifarnik = $this->organizacionecelineInterface->getAll()->keyBy('id');
         $rows = [];
         for ($i=0;$i<200;$i++) {
             $rows[] = ['column1' => '0002222', 'column2' => 'Prezime SR Imeeee', 'column3' => '123', 'column4' => '123', 'column5' => '123', 'column6' => '123', 'column7' => '123', 'column8' => '123', 'column9' => '123', 'column10' => '123', 'column11' => '123', 'column12' => '123', 'column13' => '123', 'column14' => '123', 'column15' => '123', 'column16' => '123', 'column17' => '123', 'column18' => '123', 'column19' => '123', 'column20' => '123', 'column21' => '123', 'column22' => '123'];
@@ -126,11 +129,24 @@ class DatotekaobracunskihExportController extends Controller
 //            [
 //                'rows'=>$rows
 //            ]);
+        $vrstePlacanjaDescription = $this->vrsteplacanjaInterface->getVrstePlacanjaOpisPdf();
+
+//        return view('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
+//            [
+//                'rows'=>$rows,
+//                'data'=>$troskovniCentarCalculated,
+//                'tableHeaders'=>$tableHeaders,
+//                'vrstePlacanjaDescription'=>$vrstePlacanjaDescription,
+//                'organizacioneCelineSifarnik'=>$organizacioneCelineSifarnik
+//            ]
+//        );
         $pdf = PDF::loadView('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
             [
                 'rows'=>$rows,
                 'data'=>$troskovniCentarCalculated,
-                'tableHeaders'=>$tableHeaders
+                'tableHeaders'=>$tableHeaders,
+                'vrstePlacanjaDescription'=>$vrstePlacanjaDescription,
+                'organizacioneCelineSifarnik'=>$organizacioneCelineSifarnik
             ]
         )->setPaper('a4', 'portrait');
 
@@ -335,24 +351,6 @@ class DatotekaobracunskihExportController extends Controller
     }
 
 
-    public function odobravanjeExportPdfTest(Request $request)
-    {
-        $rows = [];
-        for ($i=0;$i<200;$i++) {
-            $rows[] = ['column1' => '0002222', 'column2' => 'Prezime SR Imeeee', 'column3' => '123', 'column4' => '123', 'column5' => '123', 'column6' => '123', 'column7' => '123', 'column8' => '123', 'column9' => '123', 'column10' => '123', 'column11' => '123', 'column12' => '123', 'column13' => '123', 'column14' => '123', 'column15' => '123', 'column16' => '123', 'column17' => '123', 'column18' => '123', 'column19' => '123', 'column20' => '123', 'column21' => '123', 'column22' => '123'];
-        }
-//        return view('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
-//            [
-//                'rows'=>$rows
-//            ]);
-        $pdf = PDF::loadView('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
-            [
-                'rows'=>$rows
-            ]
-        )->setPaper('a4', 'portrait');
-
-        return $pdf->download('pdf_poenteri_'.date("d.m.y").'.pdf');
-    }
 
     private function resolvePotpisPoentaze($data){
         $html='<div class="footer-potpis-code"> Poenter________________<br>';
