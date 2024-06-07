@@ -2,10 +2,6 @@
 <html>
 <head>
     <style>
-        body {
-            font-family: DejaVu Sans, sans-serif;
-        }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -26,21 +22,9 @@
             page-break-before: always;
         }
 
-        thead {
-            display: table-header-group;
-        }
-
-        tfoot {
-            display: table-footer-group;
-        }
-
         .no-border {
             border: 0px solid black;
             text-align: left;
-        }
-
-        .footer-potpis-table {
-            margin-top: 20px;
         }
 
         .celina-details {
@@ -49,7 +33,6 @@
             margin-bottom: 1px;
 
         }
-
         .celina-details-div {
             float: right;
             margin-right: 10px;
@@ -61,16 +44,6 @@
             margin-left: auto;
             margin-right: auto;
             max-width: 500px;
-            font-size: 10px;
-        }
-
-        .text-left-ime {
-            text-align: left;
-        }
-        .custom-table{
-            margin-top:50px;
-        }
-        .footer-potpis-code{
             font-size: 10px;
         }
     </style>
@@ -92,8 +65,8 @@
         <h1 style="text-align: center">Organizaciona celina: {{$key}}</h1>
         </div>
 
-        <table class="custom-table">
-        <thead>
+        <table style="margin-top:50px;">
+        <thead style="display: table-header-group;">
         <tr>
             @foreach($tableHeaders as $header)
                 <th>{{$header}}</th>
@@ -107,14 +80,14 @@
                 <tr>
                         <?php $rowCounter++; ?>
                     <td>{{$radnik['maticni_broj']}}</td>
-                    <td class="text-left-ime">{{ $radnik['ime'] }}</td>
+                    <td style="text-align: left;">{{ $radnik['ime'] }}</td>
                     @foreach($radnik['vrste_placanja'] as $vrstaPlacanja)
                         <td>{{$vrstaPlacanja['sati']}}</td>
                     @endforeach
                     <td>{{ $radnik['rowSum'] }}
                 </tr>
             @endif
-            @if($rowCounter ==20)
+            @if($rowCounter ==15)
                     <?php $pageCounter++ ?>
         </tbody>
     </table>
@@ -122,9 +95,9 @@
         {!! $vrstePlacanjaDescription !!}
     </div>
     <div class="container-fluid mt-5">
-        <div class="footer-potpis-code"><p>Poenter________________</p>
+        <div style="font-size: 10px;"><p>Poenter________________</p>
             @foreach($potpisi as $potpis)
-                <div class="footer-potpis-code"><p> {{$potpis}}</p>
+                <div style="font-size: 10px;"><p> {{$potpis}}</p>
                     @endforeach
                 </div>
                 <div class="page-break"></div>
@@ -139,7 +112,7 @@
                     <h1 style="text-align: center">Organizaciona celina: {{$key}}</h1>
                 </div>
                 <table class="custom-table">
-                    <thead>
+                    <thead style="display: table-header-group;">
                     <tr>
                         @foreach($tableHeaders as $header)
                             <th>{{$header}}</th>
@@ -152,6 +125,7 @@
                         ?>
                     @endif
                     @endforeach
+                    </thead>
                     </tbody>
                 </table>
                 <div class="container-fluid">
@@ -163,8 +137,9 @@
                             <div class="footer-potpis-code"><p> {{$potpis}}</p>
                                 @endforeach
                             </div>
-                            <div class="page-break"></div>
+                            @if(!$loop->last)
+                                <div class="page-break"></div>
+        @endif
 @endforeach
-
 </body>
 </html>
