@@ -55,7 +55,7 @@
             margin: 10px 0; /* Add margin for spacing if needed */
         }
 
-        .loading {
+        .loading2 {
             height: 0;
             width: 0;
             padding: 15px;
@@ -96,11 +96,208 @@
             display: table;
             margin-top: 3rem;
         }
+
+
+        div.loadingInit{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(16, 16, 16, 0);
+        }
+        div.loading{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(16, 16, 16, 0);
+        }
+
+        @-webkit-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @-webkit-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @-moz-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @-ms-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @-moz-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @-webkit-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @-o-keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes uil-ring-anim {
+            0% {
+                -ms-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -webkit-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -ms-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+        .uil-ring-css {
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            width: 200px;
+            height: 800px;
+        }
+        .uil-ring-css > div {
+            position: absolute;
+            display: block;
+            width: 200px;
+            height: 200px;
+            top: 20px;
+            left: 20px;
+            border-radius: 100px;
+            box-shadow: 0 8px 0 0 #BDC7FF;
+            -ms-animation: uil-ring-anim 1.4s linear infinite;
+            -moz-animation: uil-ring-anim 1.4s linear infinite;
+            -webkit-animation: uil-ring-anim 1.4s linear infinite;
+            -o-animation: uil-ring-anim 1.4s linear infinite;
+            animation: uil-ring-anim 1.4s linear infinite;
+        }
+
+        *.hidden {
+            display: none !important;
+        }
+
+        .invisible{
+           visibility: hidden !important;
+        }
+
     </style>
 @endsection
 
 @section('content')
+
     <div class="container-fluid mt-5">
+        <div class="loadingInit">
+            <div class='uil-ring-css' style='transform:scale(0.79);'>
+                <div></div>
+            </div>
+            <h1 class="obrada-title text-center text-primary mt-5">Učitavanje podataka</h1>
+
+        </div>
+
+        <div class="loading hidden">
+            <div class='uil-ring-css' style='transform:scale(0.79);'>
+                <div></div>
+            </div>
+            <h1 class="obrada-title text-center text-primary mt-5">Generisanje PDF-a u toku</h1>
+
+        </div>
 
         <div class="row">
             <div class="col-md-6">
@@ -108,25 +305,9 @@
             </div>
             <div class="col-md-2">
                 <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_sati',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola sati</a>
-
             </div>
             <div class="col-md-2">
                 <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_poenteri',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola statusa</a>
-
-            </div>
-            <div class="col-md-1">
-                <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
-                    @csrf
-                    <input type="hidden"  value="{{$monthData->id}}" name="month_id_pdf"/>
-                    <button id='export-pdf' class="btn btn-secondary btn-lg">PDF</button>
-                </form>
-            </div>
-            <div class="col-md-1">
-                <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_test')}}">
-                    @csrf
-                    <input type="hidden"  value="{{$monthData->id}}" name="month_id_pdf"/>
-                    <button id='export-pdf' class="btn btn-danger btn-lg">PDF Test Layout</button>
-                </form>
             </div>
             <div class="col-md-1">
                 <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_xls')}}">
@@ -138,7 +319,7 @@
             </div>
         </div>
     </div>
-    <div class="container main-container mb-5">
+    <div class="container invisible maincontainer main-container mb-5">
 
 
 
@@ -155,13 +336,11 @@
             </ul>
         </div>
 
-        <div class="loader-container" style="text-align: center">
-            <h3 id="statusMessage" class="text-success text-center"></h3>
-        </div>
+
         <form>
             @csrf
         </form>
-        <div class="loading" style="display: none;">
+        <div class="loading2" style="display: none;">
         </div>
         <?php
         $approvedStatus=0;
@@ -176,12 +355,14 @@
                     <h3 class="text-center"> Organizaciona celina: <b>{{$key}} </b> -
                         &nbsp{{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}.</h3>
                     <button id='osvezi_stranicu' onClick="window.location.reload()" class="btn btn-secondary  calcBtn">Osveži proveru</button>
-                    <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
+                    <form target="hiddenIframe2" class="loaderEvent" method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
                         @csrf
                         <input type="hidden" name="approved_org_celine" value="{{json_encode($key)}}">
                         <input type="hidden" name="month_id" value="{{$monthData->id}}">
                         <button id='export-pdf-celina' class="btn btn-secondary  calcBtn">Štampaj PDF</button>
                     </form>
+                    <iframe id="hiddenIframe2" name="hiddenIframe2" style="display:none;"></iframe>
+
                     <div class="divider"></div>
 
                     <table class="table table-striped" id="table-div{{$key}}">
@@ -313,12 +494,14 @@
                     @endforeach
 
                         <div class="container mt-5 mb-5 text-center">
-                            <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
+                            <form class="loaderEvent" method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
                                 @csrf
                                 <input type="hidden" name="approved_org_celine" value="{{json_encode($approvedOrganizacioneCeline)}}">
                                 <input type="hidden" name="month_id" value="{{$monthData->id}}">
                                 <button type="submit" id='export-pdf' class="btn btn-secondary btn-lg">Štampaj sve podatke</button>
                             </form>
+                            <iframe id="hiddenIframe" name="hiddenIframe" style="display:none;"></iframe>
+
                         </div>
                 </div>
     </div>

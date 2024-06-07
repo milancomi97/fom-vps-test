@@ -49,7 +49,7 @@ class VrsteplacanjaRepository extends BaseRepository implements VrsteplacanjaRep
                 if ($counter > 0 && $counter % 5 == 0) {
                     $html .= '</tr><tr>';
                 }
-                $html .= '<td class="footer-opis-code no-border">' . $item['key'] . ' - ' . $item['name'] . '</td>';
+                $html .= '<td class="footer-opis-code" style="border: 0px solid black;text-align: left;">' . $item['key'] . ' - ' . $item['name'] . '</td>';
                 $counter++;
             }
 

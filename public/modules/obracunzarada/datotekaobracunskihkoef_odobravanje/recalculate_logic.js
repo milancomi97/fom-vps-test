@@ -58,3 +58,18 @@ function calculateSums(tableSelector) {
     $sumRow.find('td').eq(1).text('Ukupno:').css('font-weight',800);
 
 }
+
+$(document).ready(function () {
+    // Attach a click event handler to the button
+
+    debugger;
+    $('.loaderEvent').on('submit', function (event) {
+        debugger;
+        $('.loading').toggleClass('hidden')
+        $('.maincontainer').toggleClass('invisible')
+    });
+
+
+        $('.loadingInit').toggleClass('hidden')
+        $('.maincontainer').toggleClass('invisible')
+});

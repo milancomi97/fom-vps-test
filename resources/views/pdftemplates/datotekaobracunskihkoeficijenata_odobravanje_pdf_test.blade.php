@@ -132,9 +132,9 @@
                     {!! $vrstePlacanjaDescription !!}
                 </div>
                 <div class="container-fluid mt-5">
-                    <div class="footer-potpis-code"><p>Poenter________________</p>
+                    <div ><p>Poenter________________</p>
                         @foreach($potpisi as $potpis)
-                            <div class="footer-potpis-code"><p> {{$potpis}}</p>
+                            <div ><p> {{$potpis}}</p>
                                 @endforeach
                             </div>
                             @if(!$loop->last)
