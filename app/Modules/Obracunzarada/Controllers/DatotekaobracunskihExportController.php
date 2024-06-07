@@ -140,6 +140,7 @@ class DatotekaobracunskihExportController extends Controller
 //                'organizacioneCelineSifarnik'=>$organizacioneCelineSifarnik
 //            ]
 //        );
+        set_time_limit(0);
         $pdf = PDF::loadView('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
             [
                 'rows'=>$rows,
