@@ -5,9 +5,10 @@
     <link rel="stylesheet" href="{{asset('admin_assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 
     <style>
-        .select2-selection__choice{
+        .select2-selection__choice {
             background: #0c84ff !important;
         }
+
         .error {
             border: 1px solid red;
         }
@@ -60,26 +61,25 @@
 
                     <div class="form-group">
                         <label>Poenteri:</label>
-                        <select class="js-example-basic-multiple" name="poenteri_ids[]" multiple="multiple"
+                        <select class="poenteri-basic-multiple" name="poenteri_ids[]" multiple="multiple"
                                 style="width: 100%;">
-                            @foreach($radnici as $value => $label)
-                                <option data-select2-id='{{ $label->id }}'
-                                        value="{{ $label->id }}">{{ $label->maticni_broj .' '. $label->prezime . ' ' . $label->ime }}</option>
-                            @endforeach
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label>Odgovorna lica:</label>
-                        <select class="js-example-basic-multiple" name="odgovorna_lica_ids[]" multiple="multiple"
+                        <select class="odg-lica-basic-multiple" name="odgovorna_lica_ids[]" multiple="multiple"
                                 style="width: 100%;">
-                            @foreach($radnici as $value => $label)
-                                <option data-select2-id='{{ $label->id.'select2Sufix' }}'
-                                        value="{{ $label->id }}">{{ $label->maticni_broj .' '. $label->prezime . ' ' . $label->ime }}</option>
-                            @endforeach
+
+
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Sačuvaj izmene</button>
+
+                    <div class="form-group">
+                        <label for="odgovorni_direktori_pravila">Potpisi:</label>
+                        <textarea name="odgovorni_direktori_pravila" class="form-control" rows="5" id="odgovorni_direktori_pravila">{!! $potpisiFormated !!}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" >Sačuvaj izmene</button>
                 </form>
             </div>
         </div>
@@ -95,7 +95,30 @@
     <script>
         $(document).ready(function () {
             $('.js-example-basic-multiple').select2();
+
+            var radniciSelect2String='{!!$radniciSelect2!!}';
+            var radniciSelect2Object= JSON.parse(radniciSelect2String);
+            var radniciSelect2Array = Object.values(radniciSelect2Object);
+
+            var odgovornaLica = '{!! $odgovornaLica !!}';
+            var odgovorniPoenteri = '{!! $odgovorniPoenteri !!}';
+
+            var odgLicaSelect =$('.odg-lica-basic-multiple').select2({
+                data: radniciSelect2Array
+            });
+
+            var poenteriSelect =$('.poenteri-basic-multiple').select2({
+                data: radniciSelect2Array
+            });
+
+
+            odgLicaSelect.val(JSON.parse(odgovornaLica)).trigger("change")
+            poenteriSelect.val(JSON.parse(odgovorniPoenteri)).trigger("change")
+
+
         });
+
+
     </script>
 @endsection
 

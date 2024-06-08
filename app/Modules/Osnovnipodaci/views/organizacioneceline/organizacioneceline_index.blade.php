@@ -46,8 +46,19 @@
                         <tr>
                             <td>{{ $item->sifra_troskovnog_mesta }}</td>
                             <td>{{ $item->naziv_troskovnog_mesta }}</td>
-                            <td>{{ $item->poenteri_ids}}</td>
-                            <td>{{ $item->odgovorna_lica_ids}}</td>
+
+
+                            <td>
+                            @foreach($item->poenteri_ids as $userId)
+                                    <p style="display:block;width:100%;"> {{$radniciFullData[$userId]->maticni_broj}} {{$radniciFullData[$userId]->prezime}}  {{$radniciFullData[$userId]->ime}}  </p>
+                                @endforeach
+                            </td>
+                            <td>
+                            @foreach($item->odgovorna_lica_ids as $userId)
+                                    <p style="display:block;width:100%;"> {{$radniciFullData[$userId]->maticni_broj}} {{$radniciFullData[$userId]->prezime}}  {{$radniciFullData[$userId]->ime}} </p>
+                                @endforeach
+                            </td>
+
                             <td>{{ $item->active ? 'Yes' : 'No' }}</td>
                             <td>
                                 <!-- Edit button -->
