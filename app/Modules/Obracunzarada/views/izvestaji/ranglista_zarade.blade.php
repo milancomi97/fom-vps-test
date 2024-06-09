@@ -18,6 +18,13 @@
             font-size: 2em;
             margin-bottom: 2em;
         }
+        th{
+            min-width: 100px;
+
+        }
+        td{
+            min-width: 100px;
+        }
     </style>
 @endsection
 
@@ -26,27 +33,50 @@
         <div class="content" >
             <!-- Content Header (Page header) -->
             <h2 class="text-center">RANG LISTA BRUTO ZARADA po TC-ima</h2>
+            <div class="row mb-3">
+                <div class="col-sm-10"></div>
+                <div class="col-sm-2 text-right">
+
+                    <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_rang_liste')}}">
+                        @csrf
+                        <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
+                    </form>
+                </div>
+            </div>
             <div class="container mt-4 mb-5">
                 <h4>ZA MESEC: 0324</h4>
 
                 @foreach($groupedZara as $troskovniCentar)
-                    <h4>TROSKOVNI CENTAR:{{$troskovniCentar[0]['org_celina_data']['id']}} {{$troskovniCentar[0]['org_celina_data']['naziv_troskovnog_mesta']}} </h4>
+                    <h4 class="mt-5 text-center">TROSKOVNI CENTAR:{{$troskovniCentar[0]['org_celina_data']['id']}} {{$troskovniCentar[0]['org_celina_data']['naziv_troskovnog_mesta']}} </h4>
                         <table class="table table-striped mt-3">
                             <thead>
                             <tr>
-                                <th onclick="sortTable(0)">Rb</th>
-                                <th onclick="sortTable(1)">MB</th>
-                                <th onclick="sortTable(2)">Prezime i ime</th>
-                                <th onclick="sortTable(3)">Kval.</th>
-                                <th onclick="sortTable(4)">Osnovna</th>
-                                <th onclick="sortTable(5)">SATI</th>
-                                <th onclick="sortTable(6)">BRUTO ZARADA</th>
-                                <th onclick="sortTable(7)">NETO ZARADA</th>
-                                <th onclick="sortTable(8)">REDOVNI RAD</th>
-                                <th onclick="sortTable(9)">PREKOVREMENI RAD</th>
-                                <th onclick="sortTable(10)">MINULI RAD</th>
-                                <th onclick="sortTable(11)">TOPLI OBROK</th>
-                                <th onclick="sortTable(12)">ZA ISPLATU</th>
+{{--                                <th onclick="sortTable(0)">Rb</th>--}}
+{{--                                <th onclick="sortTable(1)">MB</th>--}}
+{{--                                <th onclick="sortTable(2)">Prezime i ime</th>--}}
+{{--                                <th onclick="sortTable(3)">Kval.</th>--}}
+{{--                                <th onclick="sortTable(4)">Osnovna</th>--}}
+{{--                                <th onclick="sortTable(5)">SATI</th>--}}
+{{--                                <th onclick="sortTable(6)">BRUTO ZARADA</th>--}}
+{{--                                <th onclick="sortTable(7)">NETO ZARADA</th>--}}
+{{--                                <th onclick="sortTable(8)">REDOVNI RAD</th>--}}
+{{--                                <th onclick="sortTable(9)">PREKOVREMENI RAD</th>--}}
+{{--                                <th onclick="sortTable(10)">MINULI RAD</th>--}}
+{{--                                <th onclick="sortTable(11)">TOPLI OBROK</th>--}}
+{{--                                <th onclick="sortTable(12)">ZA ISPLATU</th>--}}
+                                <th >Rb</th>
+                                <th >MB</th>
+                                <th >Prezime i ime</th>
+                                <th >Kval.</th>
+                                <th >Osnovna</th>
+                                <th >SATI</th>
+                                <th >BRUTO ZARADA</th>
+                                <th >NETO ZARADA</th>
+                                <th >REDOVNI RAD</th>
+                                <th >PREKOVREMENI RAD</th>
+                                <th >MINULI RAD</th>
+                                <th >TOPLI OBROK</th>
+                                <th >ZA ISPLATU</th>
                             </tr>
                             </thead>
                             <tbody id="table-body">
@@ -54,7 +84,6 @@
                                 $i=1;
                                 ?>
                             @foreach($troskovniCentar as $radnik)
-
                                 @if($radnik->maticnadatotekaradnika->BRCL_redosled_poentazi > 100)
                             <tr>
                                 <td>{{$i++}}</td>
@@ -64,13 +93,13 @@
 {{--                                <td>{{$MDR->KOEF}}</td>--}}
                                  <td>{{$radnik->maticnadatotekaradnika->KOEF_osnovna_zarada}}</td>
                                 <td>{{$radnik->UKSA_ukupni_sati_za_isplatu}}</td>
-                                <td>{{$radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade}}</td>
-                                <td>{{$radnik->NETO_neto_zarada}}</td>
-                                <td>{{$radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate}}/ IZVUCI STOPA1</td>
+                                <td>{{number_format($radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade,2,'.',',')}}</td>
+                                <td>{{number_format($radnik->NETO_neto_zarada,2,'.',',')}}</td>
+                                <td>{{number_format($radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,'.',',')}}</td>
                                 <td>{{$radnik->PREK_prekovremeni}}</td>
-                                <td>{{$radnik->varijab}}</td>
-                                <td>{{$radnik->TOPLI_obrok_iznos}}// IZVUCI STOPA1</td>
-                                <td>{{$radnik->NETO_neto_zarada-$radnik->SIOB_ukupni_iznos_obustava-$radnik->ZARKR_ukupni_zbir_kredita}}</td>
+                                <td>{{number_format($radnik->varijab,2,'.',',')}}</td>
+                                <td>{{number_format($radnik->TOPLI_obrok_iznos/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,'.',',')}}</td>
+                                <td>{{number_format($radnik->NETO_neto_zarada-$radnik->SIOB_ukupni_iznos_obustava-$radnik->ZARKR_ukupni_zbir_kredita,2,'.',',')}}</td>
                             </tr>
                                 @endif
 
@@ -130,15 +159,6 @@
         return total.toLocaleString();
     }
 
-    window.onload = function() {
-        document.getElementById('total-bruto').innerText = sumColumn(6);
-        document.getElementById('total-neto').innerText = sumColumn(7);
-        document.getElementById('total-redovni').innerText = sumColumn(8);
-        document.getElementById('total-prekovremeni').innerText = sumColumn(9);
-        document.getElementById('total-minuli').innerText = sumColumn(10);
-        document.getElementById('total-topli').innerText = sumColumn(11);
-        document.getElementById('total-isplatu').innerText = sumColumn(12);
-    };
     function sortTable(n) {
         var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
         table = document.querySelector(".table");

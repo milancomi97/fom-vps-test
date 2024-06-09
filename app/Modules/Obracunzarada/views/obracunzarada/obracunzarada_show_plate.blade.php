@@ -66,9 +66,9 @@
                 @csrf
                 <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">Pošalji email &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl " aria-hidden="true"></i></button>
             </form>
-            <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik')}}">
+            <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_rang_liste')}}">
                 @csrf
-                <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">Štampaj &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
+                <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
             </form>
 
         </div>
@@ -384,6 +384,7 @@
         </div>
     </div>
 
+    @if(\App\Models\User::with('permission')->find(Auth::id())->permission->role_id ==\App\Modules\Obracunzarada\Consts\UserRoles::PROGRAMER)
         <h1 class="text-center font-weight-bold">Kontrola tabele</h1>
     <div class="container-fluid mt-5" style="margin-left:150px">
         <h1 class="text-center font-weight-bold">ZARA</h1>
@@ -485,6 +486,7 @@
     </div>
 
 
+    @endif
 @endsection
 
 

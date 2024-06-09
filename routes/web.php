@@ -265,6 +265,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf_test', [DatotekaobracunskihExportController::class, 'odobravanjeExportPdfTest'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_test');
     Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf_po_org_cel', [DatotekaobracunskihExportController::class, 'odobravanjeExportPdf'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine');
 
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_radnik_lista', [DatotekaobracunskihExportController::class, 'stampaRadnikLista'])->name('datotekaobracunskihkoeficijenata.stampa_radnik_lista');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_ostvarene_zarade', [DatotekaobracunskihExportController::class, 'stampaOstvareneZarade'])->name('datotekaobracunskihkoeficijenata.stampa_ostvarene_zarade');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_rang_liste', [DatotekaobracunskihExportController::class, 'stampaRangListe'])->name('datotekaobracunskihkoeficijenata.stampa_rang_liste');
+
 
     // UNOS VARIJABILNIH
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all', [DpsmPoentazaslogController::class, 'showAll'])->name('datotekaobracunskihkoeficijenata.show_all');
@@ -306,7 +310,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate', [ObracunZaradaController::class, 'showAllPlate'])->name('datotekaobracunskihkoeficijenata.show_all_plate');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_plate', [ObracunZaradaController::class, 'showPlate'])->name('datotekaobracunskihkoeficijenata.show_plate');
 
-    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_radnik', [ObracunZaradaController::class, 'stampaRadnik'])->name('datotekaobracunskihkoeficijenata.stampa_radnik');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/email_radnik', [ObracunZaradaController::class, 'emailRadnik'])->name('datotekaobracunskihkoeficijenata.email_radnik');
 
 

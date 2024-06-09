@@ -26,6 +26,16 @@
 
                 <div class="container mt-4">
                     <h2 class="text-center">Rekapitulacija Ostvarene Zarade</h2>
+                    <div class="row mb-3">
+                        <div class="col-sm-10"></div>
+                        <div class="col-sm-2 text-right">
+
+                        <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_ostvarene_zarade')}}">
+                        @csrf
+                        <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
+                    </form>
+                        </div>
+                    </div>
                     <table class="table table-striped">
                         <thead>
                         <tr>
