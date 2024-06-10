@@ -32,8 +32,6 @@
 
                         <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_ostvarene_zarade')}}">
                         @csrf
-                            <input type="hidden" name="month_id" value="{{$month_id}}">
-
                             <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
                     </form>
                         </div>

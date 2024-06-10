@@ -71,7 +71,8 @@ class IzvestajZaradaController extends Controller
 
        $strucneKvalifikacijeSifarnik =  $this->strucnakvalifikacijaInterface->getAllKeySifra();
 
-        return view('obracunzarada::izvestaji.ranglista_zarade',['groupedZara'=>$groupedZara,'strucneKvalifikacijeSifarnik'=>$strucneKvalifikacijeSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
+        return view('obracunzarada::izvestaji.ranglista_zarade',
+            ['month_id'=>$request->month_id,'groupedZara'=>$groupedZara,'strucneKvalifikacijeSifarnik'=>$strucneKvalifikacijeSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
     }
 
     public function rekapitulacijazarade(Request $request)
@@ -106,7 +107,8 @@ class IzvestajZaradaController extends Controller
     ')->first();
 
         $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
-        return view('obracunzarada::izvestaji.rekapitulacija_zarade',['dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
+        return view('obracunzarada::izvestaji.rekapitulacija_zarade',
+            ['month_id'=>$request->month_id,'dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
     }
 
 

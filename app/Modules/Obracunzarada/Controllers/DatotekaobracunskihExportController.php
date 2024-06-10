@@ -6,11 +6,15 @@ use App\Exports\PoenterUnosExport;
 use App\Http\Controllers\Controller;
 use App\Models\Datotekaobracunskihkoeficijenata;
 use App\Models\UserPermission;
+use App\Modules\Kadrovskaevidencija\Repository\StrucnakvalifikacijaRepositoryInterface;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmAkontacijeRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
@@ -32,19 +36,15 @@ class DatotekaobracunskihExportController extends Controller
 {
     public function __construct(
         private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface,
-        private readonly KreirajObracunskeKoeficiente                        $kreirajObracunskeKoeficienteService,
         private readonly MesecnatabelapoentazaRepositoryInterface            $mesecnatabelapoentazaInterface,
-        private readonly UpdateVrstePlacanjaJson                             $updateVrstePlacanjaJson,
-        private readonly UpdateNapomena                                      $updateNapomena,
-        private readonly PermesecnatabelapoentRepositoryInterface            $permesecnatabelapoentInterface,
-        private readonly KreirajPermisijePoenteriOdobravanja                 $kreirajPermisijePoenteriOdobravanja,
-        private readonly PripremiPermisijePoenteriOdobravanja                $pripremiPermisijePoenteriOdobravanja,
         private readonly VrsteplacanjaRepository                             $vrsteplacanjaInterface,
-        private readonly DpsmPoentazaslogRepositoryInterface                 $dpsmPoentazaslogInterface,
-        private readonly DpsmAkontacijeRepositoryInterface                   $dpsmAkontacijeInterface,
-        private readonly MesecValidationService                               $mesecValidationService,
         private readonly ProveraPoentazeService $proveraPoentazeService,
-        private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface
+        private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
+        private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface       $obradaDkopSveVrstePlacanjaInterface,
+        private readonly ObradaZaraPoRadnikuRepositoryInterface              $obradaZaraPoRadnikuInterface,
+        private readonly StrucnakvalifikacijaRepositoryInterface $strucnakvalifikacijaInterface,
+        private readonly  MinimalnebrutoosnoviceRepositoryInterface $minimalnebrutoosnoviceInterface
+
     )
     {
     }
@@ -156,22 +156,85 @@ class DatotekaobracunskihExportController extends Controller
     }
 
     public function stampaRadnikLista(Request $request){
+
+
+//          $pdf = PDF::loadView('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
+//              [
+//                  'rows'=>$rows,
+//                  'data'=>$troskovniCentarCalculated,
+//                  'tableHeaders'=>$tableHeaders,
+//                  'vrstePlacanjaDescription'=>$vrstePlacanjaDescription,
+//                  'organizacioneCelineSifarnik'=>$organizacioneCelineSifarnik
+//              ]
+//          )->setPaper('a4', 'portrait');
+//
+//        return $pdf->download('pdf_poenteri_'.date("d.m.y").'.pdf');
+
         $test='test';
-//        obracunzarada_show_plate.blade
+
+    }
+
+
+
+    public function stampaRangListe(Request $request){
+
+        $obracunskiKoeficijentId = $request->month_id;
+
+        $dkopData =$this->obradaDkopSveVrstePlacanjaInterface->where('obracunski_koef_id',$obracunskiKoeficijentId)->get();
+        $zaraData =  $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$obracunskiKoeficijentId)->get();
+
+        $orgCelineData = $this->organizacionecelineInterface->getAll()->mapWithKeys(function($orgCelina){
+            return [
+                $orgCelina->id=>$orgCelina->toArray()
+            ];
+        });
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+        $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($monthData->datum);
+        $groupedZara = $zaraData->map(function($zaraRadnik) use($orgCelineData){
+            $zaraRadnik['org_celina_data']= $orgCelineData[$zaraRadnik['organizaciona_celina_id']];
+            return $zaraRadnik;
+        })->sortBy('organizaciona_celina_id')->groupBy('organizaciona_celina_id');
+
+        $strucneKvalifikacijeSifarnik =  $this->strucnakvalifikacijaInterface->getAllKeySifra();
+
+        return view('obracunzarada::izvestaji.ranglista_zarade_export_pdf',
+            ['groupedZara'=>$groupedZara,'strucneKvalifikacijeSifarnik'=>$strucneKvalifikacijeSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
+
 
     }
 
     public function stampaOstvareneZarade(Request $request){
+        //Rekapitulacija Ostvarene Zarade
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+        $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($monthData->datum);
+        $obracunskiKoeficijentId = $request->month_id;
 
-//        rekapitulacija_zarade.blade
-        $test='test';
-    }
+        $dkopData =$this->obradaDkopSveVrstePlacanjaInterface
+            ->where('obracunski_koef_id',$obracunskiKoeficijentId)
+            ->orderBy('sifra_vrste_placanja')
+            ->groupBy('sifra_vrste_placanja','naziv_vrste_placanja')
+            ->selectRaw('sifra_vrste_placanja,naziv_vrste_placanja, SUM(iznos) as iznos, SUM(sati) as sati')
+            ->get();
 
-    public function stampaRangListe(Request $request){
 
+        $zaraData =$this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id',$obracunskiKoeficijentId)
+            ->selectRaw('
+        SUM(IZNETO_zbir_ukupni_iznos_naknade_i_naknade) AS IZNETO_zbir_ukupni_iznos_naknade_i_naknade,
+        SUM(SID_ukupni_iznos_doprinosa) AS SID_ukupni_iznos_doprinosa,
+        SUM(SIP_ukupni_iznos_poreza) AS SIP_ukupni_iznos_poreza,
+        SUM(SIOB_ukupni_iznos_obustava) AS SIOB_ukupni_iznos_obustava,
+        SUM(ZARKR_ukupni_zbir_kredita) AS ZARKR_ukupni_zbir_kredita,
+        SUM(POROSL_poresko_oslobodjenje) AS POROSL_poresko_oslobodjenje,
+        SUM(NETO_neto_zarada) AS NETO_neto_zarada,
+        SUM(PIOR_penzijsko_osiguranje_na_teret_radnika) AS PIOR_penzijsko_osiguranje_na_teret_radnika,
+        SUM(ZDRR_zdravstveno_osiguranje_na_teret_radnika) AS ZDRR_zdravstveno_osiguranje_na_teret_radnika,
+        SUM(ONEZR_osiguranje_od_nezaposlenosti_teret_radnika) AS ONEZR_osiguranje_od_nezaposlenosti_teret_radnika,
+        SUM(PIOP_penzijsko_osiguranje_na_teret_poslodavca) AS PIOP_penzijsko_osiguranje_na_teret_poslodavca,
+        SUM(ZDRP_zdravstveno_osiguranje_na_teret_poslodavca) AS ZDRP_zdravstveno_osiguranje_na_teret_poslodavca
+    ')->first();
 
-//        ranglista_zarade.blade
-        $test='test';
-
+        $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
+        return view('obracunzarada::izvestaji.rekapitulacija_zarade_export_pdf',
+            ['dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
     }
 }
