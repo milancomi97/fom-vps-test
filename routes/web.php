@@ -272,6 +272,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/email_radnik_lista', [DatotekaobracunskihEmailController::class, 'emailRadnikLista'])->name('datotekaobracunskihkoeficijenata.email_radnik_lista');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/email_ostvarene_zarade', [DatotekaobracunskihEmailController::class, 'emailOstvareneZarade'])->name('datotekaobracunskihkoeficijenata.email_ostvarene_zarade');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/email_rang_liste', [DatotekaobracunskihEmailController::class, 'emailRangListe'])->name('datotekaobracunskihkoeficijenata.email_rang_liste');
 
 
     // UNOS VARIJABILNIH

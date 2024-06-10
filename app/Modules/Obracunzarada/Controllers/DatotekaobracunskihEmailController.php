@@ -273,7 +273,7 @@ class DatotekaobracunskihEmailController extends Controller
 
 
 
-    public function stampaRangListe(Request $request){
+    public function emailRangListe(Request $request){
 
         $obracunskiKoeficijentId = $request->month_id;
 
@@ -305,7 +305,21 @@ class DatotekaobracunskihEmailController extends Controller
                 'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]
         )->setPaper('a4', 'portrait');
 
-        return $pdf->download('pdf_rang_lista_'.date("d.m.y").'.pdf');
+        if($request->email_to !==null) {
+            $mailData = [
+                'title' => 'Naslov',
+                'body' => 'Sadrzaj',
+                'subject' => 'Rang lista: '.date("d.m.y"),
+                'pdf' => $pdf->output(),
+                'filenamepdf'=>'rang_lista_'.date("d.m.y")
+            ];
+
+
+            Mail::to($request->email_to)->send(new DemoMail($mailData));
+        }
+//
+//        return $pdf->output();
+        return redirect()->back();
 
     }
 
