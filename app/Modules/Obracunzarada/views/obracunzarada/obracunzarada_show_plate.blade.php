@@ -57,21 +57,31 @@
 @section('content')
     <div class="container mb-5">
         <div class="row">
-        <div class="col col-lg-2 text-left">
+        <div class="col col-lg-4 text-left">
             <a href="{{route('datotekaobracunskihkoeficijenata.show_all_plate',['month_id'=>$zarData->obracunski_koef_id])}}"class="btn btn-primary btn-lg mt-5 text-left">Lista &nbsp;&nbsp;<i class="fa fa-list fa-2xl " aria-hidden="true"></i></a>
         </div>
-        <div class="col col-lg-9 text-right">
-            <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.email_radnik')}}">
 
-                @csrf
-                <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">Pošalji email &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl " aria-hidden="true"></i></button>
-            </form>
-            <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_rang_liste')}}">
+            <div class="col col-lg-2 text-right">
+
+            <form method="POST" class="" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik_lista')}}">
                 @csrf
                 <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
             </form>
+            </div>
+            <div class="col col-lg-3 text-right">
+            </div>
+            <div class="col col-lg-3 text-right">
+                <form method="POST" class="" action="{{route('datotekaobracunskihkoeficijenata.email_radnik')}}">
+                    @csrf
+                    <div class="input-group">
+                        <button type="submit" class="btn mt-5 btn-secondary btn-lg" style="width: 200px" id="print-page">Pošalji email &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl " aria-hidden="true"></i></button>
+                        <label>
+                            <input type="email" class="form-control mt-2" style="width: 200px" name="email_to" placeholder="Uneti email">
+                        </label>
+                    </div>
 
-        </div>
+                </form>
+            </div>
         </div>
         <div class="row mb-5 mt-5 border">
 

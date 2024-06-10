@@ -157,15 +157,20 @@ class DatotekaobracunskihExportController extends Controller
 
     public function stampaRadnikLista(Request $request){
         $test='test';
+//        obracunzarada_show_plate.blade
 
     }
 
     public function stampaOstvareneZarade(Request $request){
 
+//        rekapitulacija_zarade.blade
         $test='test';
     }
 
     public function stampaRangListe(Request $request){
+
+
+//        ranglista_zarade.blade
         $test='test';
 
     }
