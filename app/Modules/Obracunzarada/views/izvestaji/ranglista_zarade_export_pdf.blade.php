@@ -1,69 +1,19 @@
 <?php use App\Modules\Obracunzarada\Consts\UserRoles; ?>
-
-@extends('obracunzarada::theme.layout.app')
-
-@section('custom-styles')
+    <!DOCTYPE html>
+<html>
+<head>
     <style>
-        .error {
-            border: 1px solid red;
-        }
+        </style>
 
-        .infoAcc {
-            margin-bottom: 0;
-        }
-
-        #errorContainer {
-            color: red;
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 2em;
-        }
-        th{
-            min-width: 100px;
-
-        }
-        td{
-            min-width: 100px;
-        }
-    </style>
-@endsection
-
-@section('content')
-    <div class="container">
-        <div class="content" >
-            <!-- Content Header (Page header) -->
-            <h2 class="text-center">RANG LISTA BRUTO ZARADA po TC-ima</h2>
-            <div class="row mb-3">
-                <div class="col-sm-10"></div>
-                <div class="col-sm-2 text-right">
-
-                    <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_rang_liste')}}">
-                        @csrf
-                        <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
-                    </form>
-                </div>
-            </div>
+</head>
+<body>
             <div class="container mt-4 mb-5">
                 <h4>ZA MESEC: 0324</h4>
-
                 @foreach($groupedZara as $troskovniCentar)
                     <h4 class="mt-5 text-center">TROSKOVNI CENTAR:{{$troskovniCentar[0]['org_celina_data']['id']}} {{$troskovniCentar[0]['org_celina_data']['naziv_troskovnog_mesta']}} </h4>
                         <table class="table table-striped mt-3">
                             <thead>
                             <tr>
-{{--                                <th onclick="sortTable(0)">Rb</th>--}}
-{{--                                <th onclick="sortTable(1)">MB</th>--}}
-{{--                                <th onclick="sortTable(2)">Prezime i ime</th>--}}
-{{--                                <th onclick="sortTable(3)">Kval.</th>--}}
-{{--                                <th onclick="sortTable(4)">Osnovna</th>--}}
-{{--                                <th onclick="sortTable(5)">SATI</th>--}}
-{{--                                <th onclick="sortTable(6)">BRUTO ZARADA</th>--}}
-{{--                                <th onclick="sortTable(7)">NETO ZARADA</th>--}}
-{{--                                <th onclick="sortTable(8)">REDOVNI RAD</th>--}}
-{{--                                <th onclick="sortTable(9)">PREKOVREMENI RAD</th>--}}
-{{--                                <th onclick="sortTable(10)">MINULI RAD</th>--}}
-{{--                                <th onclick="sortTable(11)">TOPLI OBROK</th>--}}
-{{--                                <th onclick="sortTable(12)">ZA ISPLATU</th>--}}
                                 <th >Rb</th>
                                 <th >MB</th>
                                 <th >Prezime i ime</th>
@@ -136,66 +86,7 @@
                             </tr>
                             </tfoot>
                         </table>
-
                 @endforeach
             </div>
-        </div>
-
-        <!-- /.content-wrapper -->
-    </div>
-@endsection
-
-
-
-@section('custom-scripts')
-<script>
-    function sumColumn(index) {
-        let total = 0;
-        const rows = document.querySelectorAll("#table-body tr");
-        rows.forEach(row => {
-            const value = row.cells[index].innerText.replace(',', '').trim();
-            total += parseFloat(value);
-        });
-        return total.toLocaleString();
-    }
-
-    function sortTable(n) {
-        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-        table = document.querySelector(".table");
-        switching = true;
-        dir = "asc";
-        while (switching) {
-            switching = false;
-            rows = table.querySelectorAll("tbody tr"); // Only select rows within the tbody
-            for (i = 0; i < (rows.length - 1); i++) {  // Adjust loop to account for tbody specific indexing
-                shouldSwitch = false;
-                x = rows[i].getElementsByTagName("TD")[n];
-                y = rows[i + 1].getElementsByTagName("TD")[n];
-                if (dir == "asc") {
-                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                        shouldSwitch = true;
-                        break;
-                    }
-                } else if (dir == "desc") {
-                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                        shouldSwitch = true;
-                        break;
-                    }
-                }
-            }
-            if (shouldSwitch) {
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
-                switchcount++;
-            } else {
-                if (switchcount == 0 && dir == "asc") {
-                    dir = "desc";
-                    switching = true;
-                }
-            }
-        }
-    }
-
-</script>
-@endsection
-
+</body>
+</html>

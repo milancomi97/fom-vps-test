@@ -9,6 +9,7 @@ use App\Modules\Kadrovskaevidencija\Controllers\RadnamestaController;
 use App\Modules\Kadrovskaevidencija\Controllers\StrucnakvalifikacijaController;
 use App\Modules\Kadrovskaevidencija\Controllers\VrstaradasifarnikController;
 use App\Modules\Kadrovskaevidencija\Controllers\ZanimanjasifarnikController;
+use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihEmailController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihExportController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihStatusController;
 use App\Modules\Obracunzarada\Controllers\DpsmAkontacijeController;
@@ -268,6 +269,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_radnik_lista', [DatotekaobracunskihExportController::class, 'stampaRadnikLista'])->name('datotekaobracunskihkoeficijenata.stampa_radnik_lista');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_ostvarene_zarade', [DatotekaobracunskihExportController::class, 'stampaOstvareneZarade'])->name('datotekaobracunskihkoeficijenata.stampa_ostvarene_zarade');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_rang_liste', [DatotekaobracunskihExportController::class, 'stampaRangListe'])->name('datotekaobracunskihkoeficijenata.stampa_rang_liste');
+
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/email_radnik_lista', [DatotekaobracunskihEmailController::class, 'emailRadnikLista'])->name('datotekaobracunskihkoeficijenata.email_radnik_lista');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/email_ostvarene_zarade', [DatotekaobracunskihEmailController::class, 'emailOstvareneZarade'])->name('datotekaobracunskihkoeficijenata.email_ostvarene_zarade');
 
 
     // UNOS VARIJABILNIH

@@ -8,6 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Attachment;
 
 class DemoMail extends Mailable
 {
@@ -28,7 +29,7 @@ class DemoMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Demo Mail',
+            subject: $this->mailData['subject'],
         );
     }
 
@@ -49,6 +50,11 @@ class DemoMail extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        $pdfData = $this->mailData['pdf']; // Assuming the PDF data is passed in the mailData array
+
+        return [
+            Attachment::fromData(fn() => $pdfData, $this->mailData['filenamepdf'].'.pdf')
+                ->withMime('application/pdf'),
+        ];
     }
 }

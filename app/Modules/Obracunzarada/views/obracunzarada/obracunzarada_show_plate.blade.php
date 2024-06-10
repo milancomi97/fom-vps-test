@@ -62,19 +62,22 @@
         </div>
 
             <div class="col col-lg-2 text-right">
-
             <form method="POST" class="" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik_lista')}}">
                 @csrf
+                <input type="hidden" name="radnik_maticni" value="{{$radnik_maticni}}">
+                <input type="hidden" name="month_id" value="{{$month_id}}">
                 <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
             </form>
             </div>
             <div class="col col-lg-3 text-right">
             </div>
             <div class="col col-lg-3 text-right">
-                <form method="POST" class="" action="{{route('datotekaobracunskihkoeficijenata.email_radnik')}}">
+                <form method="POST" class="" action="{{route('datotekaobracunskihkoeficijenata.email_radnik_lista')}}">
                     @csrf
                     <div class="input-group">
                         <button type="submit" class="btn mt-5 btn-secondary btn-lg" style="width: 200px" id="print-page">Pošalji email &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl " aria-hidden="true"></i></button>
+                        <input type="hidden" name="radnik_maticni" value="{{$radnik_maticni}}">
+                        <input type="hidden" name="month_id" value="{{$month_id}}">
                         <label>
                             <input type="email" class="form-control mt-2" style="width: 200px" name="email_to" placeholder="Uneti email">
                         </label>

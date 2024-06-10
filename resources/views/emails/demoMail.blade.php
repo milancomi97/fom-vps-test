@@ -6,6 +6,8 @@
     <title>{{ config('app.name', 'Fom app') }} </title>
 </head>
 <body>
-<h1>Email poruka - MILAN TEST SERVER</h1>
+<h1>Testiranje Email-a sa attachment.</h1>
+<h2>Ovde je telo email-a.</h2>
+
 </body>
 </html>

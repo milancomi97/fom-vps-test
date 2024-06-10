@@ -27,7 +27,7 @@
                 <div class="container mt-4">
                     <h2 class="text-center">Rekapitulacija Ostvarene Zarade</h2>
                     <div class="row mb-3">
-                        <div class="col-sm-10"></div>
+                        <div class="col-sm-5"></div>
                         <div class="col-sm-2 text-right">
 
                         <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_ostvarene_zarade')}}">
@@ -37,6 +37,22 @@
                             <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
                     </form>
                         </div>
+                        <div class="col-sm-1"></div>
+
+                        <div class="col col-sm-3 text-right">
+                            <form method="POST" class="" action="{{route('datotekaobracunskihkoeficijenata.email_ostvarene_zarade')}}">
+                                @csrf
+                                <div class="input-group">
+                                    <button type="submit" class="btn mt-5 btn-secondary btn-lg" style="width: 200px" id="print-page">Pošalji email &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl " aria-hidden="true"></i></button>
+                                    <input type="hidden" name="month_id" value="{{$month_id}}">
+                                    <label>
+                                        <input type="email" class="form-control mt-2" style="width: 200px" name="email_to" placeholder="Uneti email">
+                                    </label>
+                                </div>
+
+                            </form>
+                        </div>
+
                     </div>
                     <table class="table table-striped">
                         <thead>

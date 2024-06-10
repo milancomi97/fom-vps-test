@@ -196,6 +196,8 @@ class ObracunZaradaController extends Controller
                 'podaciMesec' => $podaciMesec,
                 'troskovnoMesto'=> $troskovnoMesto,
                 'datumStampe'=>$datumStampe,
+                'month_id'=>$request->month_id,
+                'radnik_maticni'=>$radnikMaticniId
 //                'zaraData'=>$zaraData
             ]);
     }

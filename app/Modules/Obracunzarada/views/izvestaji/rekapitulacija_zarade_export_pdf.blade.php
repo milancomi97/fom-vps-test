@@ -1,25 +1,11 @@
-@extends('obracunzarada::theme.layout.app')
-
-@section('custom-styles')
+<!DOCTYPE html>
+<html>
+<head>
     <style>
-        .error {
-            border: 1px solid red;
-        }
-
-        .infoAcc {
-            margin-bottom: 0;
-        }
-
-        #errorContainer {
-            color: red;
-            text-align: center;
-            font-size: 2em;
-            margin-bottom: 2em;
-        }
     </style>
-@endsection
 
-@section('content')
+</head>
+<body>
     <div class="container">
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
@@ -29,11 +15,6 @@
                     <div class="row mb-3">
                         <div class="col-sm-10"></div>
                         <div class="col-sm-2 text-right">
-
-                        <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_ostvarene_zarade')}}">
-                        @csrf
-                            <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
-                    </form>
                         </div>
                     </div>
                     <table class="table table-striped">
@@ -62,7 +43,6 @@
                             $ukupanPrihod+=$vrstaPlacanja->iznos;
                                     ?>
                             @endif
-
 
                         @endforeach
                         <tr style="border-top:2px solid black">
@@ -137,8 +117,6 @@
                         </tbody>
                     </table>
                 </div>
-
-
                 <div class="container mt-5">
                     <table class="table table-bordered">
                         <tbody>
@@ -230,51 +208,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- /.content-wrapper -->
     </div>
-@endsection
-
-
-
-@section('custom-scripts')
-    <script>
-        function sortTable(n) {
-            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-            table = document.querySelector(".table");
-            switching = true;
-            dir = "asc"; // Set the sorting direction to ascending initially
-            while (switching) {
-                switching = false;
-                rows = table.rows;
-                for (i = 1; i < (rows.length - 1); i++) {
-                    shouldSwitch = false;
-                    x = rows[i].getElementsByTagName("TD")[n];
-                    y = rows[i + 1].getElementsByTagName("TD")[n];
-                    if (dir == "asc") {
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    } else if (dir == "desc") {
-                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
-                }
-                if (shouldSwitch) {
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-                    switchcount++;
-                } else {
-                    if (switchcount == 0 && dir == "asc") {
-                        dir = "desc";
-                        switching = true;
-                    }
-                }
-            }
-        }
-    </script>
-@endsection
-
+</body>
+</html>

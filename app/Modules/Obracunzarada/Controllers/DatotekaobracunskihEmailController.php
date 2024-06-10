@@ -28,7 +28,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Models\User;
 
 
-class DatotekaobracunskihExportController extends Controller
+class DatotekaobracunskihEmailController extends Controller
 {
     public function __construct(
         private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface,
@@ -156,7 +156,7 @@ class DatotekaobracunskihExportController extends Controller
 
     }
 
-    public function stampaRadnikLista(Request $request){
+    public function emailRadnikLista(Request $request){
 
 
 //          $pdf = PDF::loadView('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
@@ -231,19 +231,21 @@ class DatotekaobracunskihExportController extends Controller
         $test='test';
 
 //        Mail::to('snezat@gmail.com')->send(new DemoMail($mailData));
-//        $mailData = [
-//            'title' => 'Naslov',
-//            'body' => 'Sadrzaj',
-//            'subject'=>'Obračunski list: '.$radnikMaticniId,
-//            'pdf'=>$pdf->output()
-//        ];
-////        Mail::to('snezat@gmail.com')->send(new DemoMail($mailData));
-//
-//
-//        Mail::to('dimitrijevicm1997@gmail.com')->send(new DemoMail($mailData));
+        if($request->email_to !==null) {
+            $mailData = [
+                'title' => 'Naslov',
+                'body' => 'Sadrzaj',
+                'subject' => 'Obračunski list: ' . $radnikMaticniId,
+                'pdf' => $pdf->output(),
+                'filenamepdf'=>'obracunska_lista_'.$radnikMaticniId.'_'.date("d.m.y")
+            ];
+
+
+            Mail::to($request->email_to)->send(new DemoMail($mailData));
+        }
 //
 //        return $pdf->output();
-        return $pdf->download('pdf_radnik_lista_'.$radnikMaticniId.'_'.date("d.m.y").'.pdf');
+        return redirect()->back();
 
 
         return view('obracunzarada::izvestaji.obracunzarada_show_plate_export_pdf',
@@ -307,7 +309,7 @@ class DatotekaobracunskihExportController extends Controller
 
     }
 
-    public function stampaOstvareneZarade(Request $request){
+    public function emailOstvareneZarade(Request $request){
         //Rekapitulacija Ostvarene Zarade
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
         $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($monthData->datum);
@@ -344,11 +346,21 @@ class DatotekaobracunskihExportController extends Controller
         $pdf = PDF::loadView('obracunzarada::izvestaji.rekapitulacija_zarade_export_pdf',
             ['dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik])->setPaper('a4', 'portrait');
 
-        return $pdf->download('pdf_ostvarene_zarade_'.date("d.m.y").'.pdf');
+
+        if($request->email_to !==null) {
+            $mailData = [
+                'title' => 'Naslov',
+                'body' => 'Sadrzaj',
+                'subject' => 'Ostvarene zarade: '.date("d.m.y"),
+                'pdf' => $pdf->output(),
+                'filenamepdf'=>'ostvarene_zarade_'.date("d.m.y")
+            ];
 
 
-
-        return view('obracunzarada::izvestaji.rekapitulacija_zarade_export_pdf',
-            ['dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
+            Mail::to($request->email_to)->send(new DemoMail($mailData));
+        }
+//
+//        return $pdf->output();
+        return redirect()->back();
     }
 }
