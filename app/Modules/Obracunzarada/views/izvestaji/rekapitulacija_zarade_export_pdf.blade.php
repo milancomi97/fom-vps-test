@@ -2,6 +2,52 @@
 <html>
 <head>
     <style>
+        @page {
+            size: A4 portrait;
+            margin: 25mm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /*table-layout: fixed;*/
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 2px 1px;
+            text-align: center
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .text-left{
+            text-align: left;
+        }
+        .text-center{
+            text-align: center;
+        }
+        .table-container {
+            width: 100%;
+            max-width: 150mm; /* A4 width in mm minus margins */
+            margin: 0 auto;
+        }
+
+        .container-below{
+            margin-top: 20px;
+        }
+        .radnik_name{
+            min-width: 100px;
+            text-align: left;
+            padding: 5px 5px 5px 5px;
+        }
     </style>
 
 </head>
@@ -20,10 +66,10 @@
                     <table class="table table-striped">
                         <thead>
                         <tr>
-                            <th onclick="sortTable(0)">VP</th>
-                            <th onclick="sortTable(1)">Naziv vrste placanja</th>
-                            <th onclick="sortTable(2)">Sati</th>
-                            <th onclick="sortTable(3)">Iznos</th>
+                            <th >VP</th>
+                            <th class="text-left" >Naziv vrste placanja</th>
+                            <th >Sati</th>
+                            <th >Iznos</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -35,7 +81,7 @@
                             @if($vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['KESC_prihod_rashod_tip']=='P')
                         <tr>
                             <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>
-                            <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
+                            <td  class="text-left">{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
                             <td>{{number_format($vrstaPlacanja->sati)}}</td>
                             <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
                         </tr>
@@ -60,7 +106,7 @@
                             @if($vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['KESC_prihod_rashod_tip']=='R' &&$vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['SLOV_grupe_vrsta_placanja']=='P')
                                 <tr>
                                     <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>
-                                    <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
+                                    <td  class="text-left">{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
                                     <td>{{number_format($vrstaPlacanja->sati)}}</td>
                                     <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
                                     <?php
@@ -86,7 +132,7 @@
                                 @if($vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['KESC_prihod_rashod_tip']=='R'  &&$vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['SLOV_grupe_vrsta_placanja']!=='P')
                             <tr>
                                 <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>
-                                <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
+                                <td class="text-left">{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
                                 <td>{{number_format($vrstaPlacanja->sati)}}</td>
                                 <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
                                 <?php
@@ -117,7 +163,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="container mt-5">
+                <div class="container-below">
                     <table class="table table-bordered">
                         <tbody>
                         <tr>

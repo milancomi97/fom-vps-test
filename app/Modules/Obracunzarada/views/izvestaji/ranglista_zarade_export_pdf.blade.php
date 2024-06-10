@@ -47,7 +47,7 @@
             <div class="table-container">
                 <h4>ZA MESEC: 0324</h4>
                 @foreach($groupedZara as $troskovniCentar)
-                    <h4 class="mt-5 text-center">TROSKOVNI CENTAR:{{$troskovniCentar[0]['org_celina_data']['id']}} {{$troskovniCentar[0]['org_celina_data']['naziv_troskovnog_mesta']}} </h4>
+                    <h4 style="text-align: center;margin-top: 20px">TROSKOVNI CENTAR:{{$troskovniCentar[0]['org_celina_data']['id']}} {{$troskovniCentar[0]['org_celina_data']['naziv_troskovnog_mesta']}} </h4>
                         <table class="table table-striped mt-3">
                             <thead>
                             <tr>
@@ -60,7 +60,7 @@
                                 <th >BRUTO ZARADA</th>
                                 <th >NETO ZARADA</th>
                                 <th >REDOVNI RAD</th>
-                                <th >PREKOVREMENI RAD</th>
+                                <th >PREK. RAD</th>
                                 <th >MINULI RAD</th>
                                 <th >TOPLI OBROK</th>
                                 <th >ZA ISPLATU</th>

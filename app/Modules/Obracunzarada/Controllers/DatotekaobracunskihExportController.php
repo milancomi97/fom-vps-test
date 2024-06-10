@@ -209,6 +209,9 @@ class DatotekaobracunskihExportController extends Controller
         $userData= User::where('maticni_broj',$radnikMaticniId)->first();
 
         set_time_limit(0);
+
+
+
         $pdf = PDF::loadView('obracunzarada::izvestaji.obracunzarada_show_plate_export_pdf',
             [
                 'radnikData' => $radnikData,
@@ -350,6 +353,11 @@ class DatotekaobracunskihExportController extends Controller
         $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
 
         set_time_limit(0);
+//        return view('obracunzarada::izvestaji.rekapitulacija_zarade_export_pdf',
+//            ['dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
+
+
+
         $pdf = PDF::loadView('obracunzarada::izvestaji.rekapitulacija_zarade_export_pdf',
             ['dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik])->setPaper('a4', 'portrait');
 

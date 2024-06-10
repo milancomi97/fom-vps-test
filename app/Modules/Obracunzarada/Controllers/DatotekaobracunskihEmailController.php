@@ -306,16 +306,19 @@ class DatotekaobracunskihEmailController extends Controller
         )->setPaper('a4', 'portrait');
 
         if($request->email_to !==null) {
+            $pdfOutput=$pdf->output();
             $mailData = [
                 'title' => 'Naslov',
                 'body' => 'Sadrzaj',
-                'subject' => 'Rang lista: '.date("d.m.y"),
-                'pdf' => $pdf->output(),
+                'subject' => '10 Rang lista: '.date("d.m.y"),
+                'pdf' => $pdfOutput,
                 'filenamepdf'=>'rang_lista_'.date("d.m.y")
             ];
 
+                Mail::to($request->email_to)->send(new DemoMail($mailData));
+                $test='';
 
-            Mail::to($request->email_to)->send(new DemoMail($mailData));
+//            Mail::to($request->email_to)->send(new DemoMail($mailData));
         }
 //
 //        return $pdf->output();
