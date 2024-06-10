@@ -296,6 +296,15 @@ class DatotekaobracunskihExportController extends Controller
 //            ['groupedZara'=>$groupedZara,'strucneKvalifikacijeSifarnik'=>$strucneKvalifikacijeSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
 
         set_time_limit(0);
+
+
+//        return view('obracunzarada::izvestaji.ranglista_zarade_export_pdf',
+//            [
+//                'groupedZara'=>$groupedZara,
+//                'strucneKvalifikacijeSifarnik'=>$strucneKvalifikacijeSifarnik,
+//                'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]
+//        );
+
         $pdf = PDF::loadView('obracunzarada::izvestaji.ranglista_zarade_export_pdf',
             [
                 'groupedZara'=>$groupedZara,

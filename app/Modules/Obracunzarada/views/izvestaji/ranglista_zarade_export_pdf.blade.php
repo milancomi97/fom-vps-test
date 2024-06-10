@@ -3,11 +3,48 @@
 <html>
 <head>
     <style>
+        @page {
+            size: A4 portrait;
+            margin: 5mm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /*table-layout: fixed;*/
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 2px 1px;
+            text-align: center
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .table-container {
+            width: 100%;
+            max-width: 200mm; /* A4 width in mm minus margins */
+            margin: 0 auto;
+        }
+
+        .radnik_name{
+            min-width: 100px;
+            text-align: left;
+            padding: 5px 5px 5px 5px;
+        }
         </style>
 
 </head>
 <body>
-            <div class="container mt-4 mb-5">
+            <div class="table-container">
                 <h4>ZA MESEC: 0324</h4>
                 @foreach($groupedZara as $troskovniCentar)
                     <h4 class="mt-5 text-center">TROSKOVNI CENTAR:{{$troskovniCentar[0]['org_celina_data']['id']}} {{$troskovniCentar[0]['org_celina_data']['naziv_troskovnog_mesta']}} </h4>
@@ -16,7 +53,7 @@
                             <tr>
                                 <th >Rb</th>
                                 <th >MB</th>
-                                <th >Prezime i ime</th>
+                                <th>Prezime i ime</th>
                                 <th >Kval.</th>
                                 <th >Osnovna</th>
                                 <th >SATI</th>
@@ -38,10 +75,11 @@
                             <tr>
                                 <td>{{$i++}}</td>
                                 <td>{{$radnik->maticni_broj}}</td>
-                                <td>{{$radnik->prezime.' '. $radnik->srednje_ime. ' '. $radnik->ime}}</td>
-                                <td>{{$strucneKvalifikacijeSifarnik[$radnik->maticnadatotekaradnika->RBPS_priznata_strucna_sprema]['naziv_kvalifikacije'] ?? ''}}</td>
+                                <td class="radnik_name">{{$radnik->prezime.' '. $radnik->srednje_ime. ' '. $radnik->ime}}</td>
+                                <td>skrati</td>
+{{--                                <td>{{$strucneKvalifikacijeSifarnik[$radnik->maticnadatotekaradnika->RBPS_priznata_strucna_sprema]['naziv_kvalifikacije'] ?? ''}}</td>--}}
 {{--                                <td>{{$MDR->KOEF}}</td>--}}
-                                 <td>{{$radnik->maticnadatotekaradnika->KOEF_osnovna_zarada}}</td>
+                                 <td>{{number_format($radnik->maticnadatotekaradnika->KOEF_osnovna_zarada,2,'.',',')}}</td>
                                 <td>{{$radnik->UKSA_ukupni_sati_za_isplatu}}</td>
                                 <td>{{number_format($radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade,2,'.',',')}}</td>
                                 <td>{{number_format($radnik->NETO_neto_zarada,2,'.',',')}}</td>
