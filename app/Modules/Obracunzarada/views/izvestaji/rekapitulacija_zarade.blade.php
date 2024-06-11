@@ -46,7 +46,7 @@
                                     <button type="submit" class="btn mt-5 btn-secondary btn-lg" style="width: 200px" id="print-page">Pošalji email &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl " aria-hidden="true"></i></button>
                                     <input type="hidden" name="month_id" value="{{$month_id}}">
                                     <label>
-                                        <input type="email" class="form-control mt-2" style="width: 200px" name="email_to" placeholder="Uneti email">
+                                        <input type="email" class="form-control mt-2" style="width: 200px" name="email_to" placeholder="Email primaoca">
                                     </label>
                                 </div>
 

@@ -79,7 +79,7 @@
                         <input type="hidden" name="radnik_maticni" value="{{$radnik_maticni}}">
                         <input type="hidden" name="month_id" value="{{$month_id}}">
                         <label>
-                            <input type="email" class="form-control mt-2" style="width: 200px" name="email_to" placeholder="Uneti email">
+                            <input type="email" class="form-control mt-2" style="width: 200px" name="email_to" placeholder="Email primaoca">
                         </label>
                     </div>
 
