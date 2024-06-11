@@ -12,6 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->job(new \App\Jobs\SendEmailJob);
+
         // $schedule->command('inspire')->hourly();
     }
 
