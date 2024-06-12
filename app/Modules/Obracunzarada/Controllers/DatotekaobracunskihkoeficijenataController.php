@@ -315,7 +315,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
             $status = $this->updateVrstePlacanjaJson->updateSatiByKey($radnikEvidencija, $input_key, $input_value);
         }
 
-        if ($status > 0) {
+        if ($status !=='nov_podatak') {
             $message = 'Podatak je uspesno izmenjen, redovni rad i topli obrok je umanjen';
         } else {
             $message = 'Podatak je uspesno izmenjen';

@@ -23,10 +23,10 @@ function updateMonthContainer(activeMonth) {
 
             $.each([
                 {'label': 'Kalendarski broj dana', 'val': `${monthData.kalendarski_broj_dana}`},
-                {'label': 'Prosečni godišnji fond sati', 'val': `${monthData.prosecni_godisnji_fond_sati}`},
-                {'label': 'Mesečni fond sati bez drzavnog praznika', 'val': `${monthData.mesecni_fond_sati}`},
-                {'label': 'Cena rada tekući', 'val': `${monthData.cena_rada_tekuci}`},
-                {'label': 'Cena rada prethodni', 'val': `${monthData.cena_rada_prethodni}`},
+                // {'label': 'Prosečni godišnji fond sati', 'val': `${monthData.prosecni_godisnji_fond_sati}`},
+                {'label': 'Mesečni fond sati', 'val': `${monthData.mesecni_fond_sati}`},
+                {'label': 'Статус месеца ', 'val': `Договорити се са Снежом`},
+                // {'label': 'Cena rada prethodni', 'val': `${monthData.cena_rada_prethodni}`},
             ], function(key, value) {
 
                 if(value.val !=='undefined'){

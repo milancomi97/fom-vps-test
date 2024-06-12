@@ -46,7 +46,7 @@ class DpsmKreditiController extends Controller
         $id = $request->month_id;
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
 
-        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTableAkontacije('obracunski_koef_id', $id);
+        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $id);
 
         $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
 
@@ -153,7 +153,9 @@ class DpsmKreditiController extends Controller
                             'GLAVN_glavnica'=>$vrstaPlacanja['glavnica'] ?? '',
                             'SALD_saldo'=>$vrstaPlacanja['saldo'] ?? '',
                             'RATA_rata'=>$vrstaPlacanja['rata'] ?? '',
-                            'PART_partija_poziv_na_broj'=>$vrstaPlacanja['rata'] ?? ''
+                            'PART_partija_poziv_na_broj'=>$vrstaPlacanja['partija'] ?? '',
+                            'maticni_broj'=>$mesecnaTabelaPoentaza['maticni_broj'],
+                            'POCE_pocetak_zaduzenja'=>$vrstaPlacanja['pocetak_zaduzenja']=="true",
                         ];
                         $this->dpsmKreditiInterface->update($vrstaPlacanja['updateId'], $data);
 
@@ -167,8 +169,10 @@ class DpsmKreditiController extends Controller
                             'GLAVN_glavnica'=>$vrstaPlacanja['glavnica'] ?? '',
                             'SALD_saldo'=>$vrstaPlacanja['saldo'] ?? '',
                             'RATA_rata'=>$vrstaPlacanja['rata'] ?? '',
-                            'PART_partija_poziv_na_broj'=>$vrstaPlacanja['rata'] ?? ''
-//                            'POCE_pocetak_zaduzenja'=>$vrstaPlacanja['pocetak_zaduzenja'] ?? 0,
+                            'PART_partija_poziv_na_broj'=>$vrstaPlacanja['partija'] ?? '',
+                            'maticni_broj'=>$mesecnaTabelaPoentaza['maticni_broj'],
+                            'user_mdr_id'=>$mesecnaTabelaPoentaza->id,
+                            'POCE_pocetak_zaduzenja'=>true,
 //                            'DATUM_zaduzenja'=>$vrstaPlacanja['datum_zaduzenja'] ?? 0,
                         ];
                         $this->dpsmKreditiInterface->create($data);

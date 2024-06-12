@@ -97,7 +97,6 @@ class DatotekaobracunskihEmailController extends Controller
 //        }
 
         array_unshift($header, $headerData);
-        $test = 'testt';
 
         return Excel::download(new PoenterUnosExport($header), 'data.xlsx');
     }

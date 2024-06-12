@@ -37,13 +37,15 @@ class UpdateVrstePlacanjaJson
         if ($this->validateVrstePlacanja($vrstePlacanje)) {
 
 
-            //Update
+
+            // TODO check old value
             foreach ($vrstePlacanje as &$placanje) {
                 if ($placanje['key'] == $input_key) {
+                    $oldValue=$placanje['sati'];
                     $placanje['sati'] = (int) $input_value;
 
                     if(in_array($input_key,$listOdbitnihVrstaPlacanjaNaPlatu)){
-                        $negativniBrojac+=$input_value;
+                        $negativniBrojac+= (int)$input_value- $oldValue;
                     }
 
                 }
@@ -53,7 +55,7 @@ class UpdateVrstePlacanjaJson
 
             //Umanji Sate
 
-            if($negativniBrojac > 0){
+            if($negativniBrojac !== 0){
 
             foreach ($vrstePlacanje as &$placanje) {
 
@@ -76,7 +78,7 @@ class UpdateVrstePlacanjaJson
 
             $radnikEvidencija->vrste_placanja = json_encode($vrstePlacanje);
             $radnikEvidencija->save();
-            return 0;
+            return 'nov_podatak';
         }
     }
 

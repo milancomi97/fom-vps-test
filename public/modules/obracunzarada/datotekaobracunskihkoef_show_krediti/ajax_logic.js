@@ -31,7 +31,7 @@ $(document).ready(function () {
     <td><input type="number" class="form-control col-width" name="saldo" value="${item.SALD_saldo}"></td>
     <td><input type="number" class="form-control col-width" name="rata" value="${item.RATA_rata}"></td>
         <input type="hidden" name="update_id" value="${item.id}">
-    <td><input type="checkbox" class="form-control col-width" name="pocetak_zaduzenja" value=""></td>
+    <td><input type="checkbox" class="form-control col-width" ${item.POCE_pocetak_zaduzenja ==1 ? 'checked' : ''} name="pocetak_zaduzenja"></td>
      <td><input type="date" class="form-control col-width" name="datum_zaduzenja" value=""></td>
     <td><button type="button" class="btn btn-danger btn-sm delete-row" data-delete-id="${item.id}" >Obriši</button></td>
   </tr>
@@ -184,6 +184,7 @@ $(document).ready(function () {
             var rata = $(input).find(':input[name="rata"]');
             var datum_zaduzenja = $(input).find(':input[name="datum_zaduzenja"]');
             var updateId = $(input).find(':input[name="update_id"]');
+            var pocetak_zaduzenja = $(input).find(':input[name="pocetak_zaduzenja"]').is(':checked');
 
             key.val() !== '' ? data.key = key.val() : undefined;
             partija.val()  !== '' ? data.partija = partija.val() : undefined;
@@ -193,7 +194,7 @@ $(document).ready(function () {
             datum_zaduzenja.val() !== '' ? data.datum_zaduzenja = datum_zaduzenja.val() : undefined;
             naziv.val() !== '' ? data.naziv = naziv.val() : undefined;
             updateId.val() !== '' ? data.updateId = updateId.val() : undefined;
-
+            data.pocetak_zaduzenja = pocetak_zaduzenja;
             if(key.val() !=='' && (glavnica.val() !=='' || partija.val() !==''  || saldo.val() !=='')){
                 listaKreditora.push(data);
             }
@@ -201,6 +202,7 @@ $(document).ready(function () {
 
             var _token = $('input[name="_token"]').val();
 
+            debugger;
         $.ajax({
                 url: storeAllRoute,
                 type: 'POST',

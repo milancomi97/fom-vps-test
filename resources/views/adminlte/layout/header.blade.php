@@ -17,7 +17,7 @@
         <!-- Navbar Search -->
         <li class="nav-item" style="margin-right: 50em">
             <a class="nav-link " href="{{route('datotekaobracunskihkoeficijenata.create')}}" role="button">
-                Poentaža  <i class="fas fa-file"></i>
+                <b>Poentaža</b>  <i class="fas fa-file"></i>
             </a>
         </li>
         <li class="nav-item">

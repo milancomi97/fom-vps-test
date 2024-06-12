@@ -151,8 +151,8 @@
         <div class="container mt-5">
             <ul class="list-group">
                 <li class="list-group-item">Kalendarski broj dana: {{$monthData->kalendarski_broj_dana}}</li>
-                <li class="list-group-item">Prosečni godišnji fond
-                    sati: {{$monthData->prosecni_godisnji_fond_sati}}</li>
+{{--                <li class="list-group-item">Prosečni godišnji fond--}}
+{{--                    sati: {{$monthData->prosecni_godisnji_fond_sati}}</li>--}}
                 <li class="list-group-item">Mesečni fond sati: {{$monthData->mesecni_fond_sati}}</li>
                 <li class="list-group-item">Cena rada tekući: {{$monthData->cena_rada_tekuci}}</li>
                 <li class="list-group-item">Cena rada prethodni:{{$monthData->cena_rada_prethodni}}</li>

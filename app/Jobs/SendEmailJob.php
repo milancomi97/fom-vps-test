@@ -30,7 +30,7 @@ class SendEmailJob implements ShouldQueue
         $mailData = [
             'title' => 'Naslov',
             'body' => 'Sadrzaj',
-            'subject' => 'Ostvarene zarade: '.date("d.m.y"),
+            'subject' => 'Schedule test: '.date("d.m.y"),
             'pdf' => '',
             'filenamepdf'=>'ostvarene_zarade_'.date("d.m.y")
         ];
