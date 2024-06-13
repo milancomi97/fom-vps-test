@@ -25,6 +25,7 @@ class KreditoriController extends Controller
 
     public function edit($id){
         $data = $this->kreditoriInterface->getById($id);
+
         return view('obracunzarada::kreditori.kreditori_edit', ['data' => $data]);
 
     }

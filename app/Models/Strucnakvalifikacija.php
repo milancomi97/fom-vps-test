@@ -11,6 +11,7 @@ class Strucnakvalifikacija extends Model
 
     protected $fillable = [
         'sifra_kvalifikacije',
-        'naziv_kvalifikacije'
+        'naziv_kvalifikacije',
+        'skraceni_naziv_kvalifikacije'
     ];
 }

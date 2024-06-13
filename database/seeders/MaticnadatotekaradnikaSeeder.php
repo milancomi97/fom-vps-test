@@ -15,7 +15,6 @@ class MaticnadatotekaradnikaSeeder extends Seeder
 
         foreach ($datas as $data) {
             DB::table('maticnadatotekaradnikas')->insert(
-
                 $this->userExists([
                     'MBRD_maticni_broj' => $data['MBRD'],
                     'PREZIME_prezime' => $data['PREZIME'],
@@ -34,8 +33,8 @@ class MaticnadatotekaradnikaSeeder extends Seeder
                     'MMST_meseci_staza' => $data['MMST'],
                     'MRAD_minuli_rad_aktivan' => $data['MRAD'] == "D",
                     'PREB_prebacaj' => $data['PREB'],
-                    'RBSS_stvarna_strucna_sprema' => (int)$data['RBSS'],
-                    'RBPS_priznata_strucna_sprema' => (int)$data['RBPS'],
+                    'RBSS_stvarna_strucna_sprema' => $data['RBSS'],
+                    'RBPS_priznata_strucna_sprema' => $data['RBPS'],
                     'KOEF_osnovna_zarada' => $data['KOEF'] !== '' ? $data['KOEF'] : 0,
                     'KOEF1_prethodna_osnovna_zarada' => $data['KOEF1'] !== '' ? $data['KOEF1'] : 0,
                     'LBG_jmbg' => $data['LBG'],

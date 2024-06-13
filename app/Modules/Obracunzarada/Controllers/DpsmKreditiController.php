@@ -95,7 +95,7 @@ class DpsmKreditiController extends Controller
         $kreditoriList = $this->kreditoriInteface->getAll();
 //        sifk_sifra_kreditora imek_naziv_kreditora
 
-        $kreditiData = $this->dpsmKreditiInterface->where('user_dpsm_id',$id)->get();
+        $kreditiData = $this->dpsmKreditiInterface->where('maticni_broj',$mesecnaTabelaPoentaza->maticni_broj)->get();
 
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_krediti',
             [

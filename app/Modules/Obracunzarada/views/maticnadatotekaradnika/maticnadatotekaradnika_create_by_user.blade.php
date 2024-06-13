@@ -291,7 +291,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text font-weight-bold" id="span_osnovna_zarada">Osnovna zarada:</span>
                                 </div>
-                                <input type="text" class="form-control" id="KOEF_osnovna_zarada"
+                                <input type="number" class="form-control" id="KOEF_osnovna_zarada"
                                        name="KOEF_osnovna_zarada"
                                        aria-describedby="span_osnovna_zarada">
                             </div>

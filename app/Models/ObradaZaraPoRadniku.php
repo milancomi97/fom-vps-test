@@ -71,7 +71,8 @@ class ObradaZaraPoRadniku extends Model
         'UKUPNO',
         'troskovno_mesto_id',
         'organizaciona_celina_id',
-        'varijab'
+        'varijab',
+        'BMIN_prekovremeni_iznos'
     ];
     public function maticnadatotekaradnika()
     {

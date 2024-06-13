@@ -30,8 +30,8 @@ return new class extends Migration
             $table->boolean('MRAD_minuli_rad_aktivan')->nullable(); // D tačno
             $table->float('PREB_prebacaj')->nullable(); // 1 // DODATI NA FORMI
             $table->integer('DANI_kalendarski_dani')->nullable(); // broj meseci znacajan za obracun proseka
-            $table->unsignedBigInteger('RBSS_stvarna_strucna_sprema')->nullable();
-            $table->unsignedBigInteger('RBPS_priznata_strucna_sprema')->nullable();
+            $table->string('RBSS_stvarna_strucna_sprema')->nullable();
+            $table->string('RBPS_priznata_strucna_sprema')->nullable();
             $table->float('KOEF_osnovna_zarada',15,4)->nullable();
             $table->float('KOEF1_prethodna_osnovna_zarada',15,4)->nullable(); // Novo dodato
             $table->string('LBG_jmbg')->nullable();

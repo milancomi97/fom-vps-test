@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('maticni_broj');
-            $table->unsignedBigInteger('SIFK_sifra_kreditora')->nullable();
+            $table->string('SIFK_sifra_kreditora')->nullable();
 
             $table->string('IMEK_naziv_kreditora')->nullable();
 

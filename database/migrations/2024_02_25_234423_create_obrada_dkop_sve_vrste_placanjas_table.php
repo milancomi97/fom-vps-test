@@ -22,7 +22,7 @@ return new class extends Migration
             $table->float('procenat',15,4)->nullable();
             $table->float('SALD_saldo',15,5)->nullable(); // SVUDA
             $table->string('POK2_obracun_minulog_rada')->nullable(); // DVPL_vrste_palcanja
-            $table->string('KOEF_osnovna_zarada')->nullable(); // MDR
+            $table->float('KOEF_osnovna_zarada',15,4)->nullable(); // MDR
             $table->string('RBRM_radno_mesto')->nullable(); // MDR
             $table->string('KESC_prihod_rashod_tip')->nullable(); // DVPL_vrste_palcanja
 

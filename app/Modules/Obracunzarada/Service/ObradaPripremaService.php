@@ -325,6 +325,7 @@ class ObradaPripremaService
             $s = 0;
             $ss = 0;
             $varijaIznos = 0;
+            $BMIN_prekovremeni_iznos=0;
 //            $sizn = 0;
             // PETLJA LOGIKE ZA SUMIRANJE START
             $zaraUpdated=[];
@@ -343,6 +344,7 @@ class ObradaPripremaService
                     if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'G') {
                         // PREKOVREMENI RAD
                         $gSumiranjePrekovremeniPREK += $vrstaPlacanjaSlog['sati'];
+                        $BMIN_prekovremeni_iznos +=$newIznos;
                     }
 
 //                    if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'N') {
@@ -485,6 +487,7 @@ class ObradaPripremaService
                 'PRCAS' => $prosecniSati,
                 'PERC' => ((int)$mdr['GGST_godine_staza']) * 0.4,
                 'VARIJAB' => $varijaIznos,
+                'BMIN_prekovremeni_iznos'=>$BMIN_prekovremeni_iznos,
                 'PREK' => $gSumiranjePrekovremeniPREK,
                 'P_R' => $mdr['P_R_oblik_rada'],
 //                    'MINIM' => $s / $ss,
@@ -546,6 +549,7 @@ class ObradaPripremaService
             $iznosZarade = $zar['iznos_zarade'];
             $mdr = '';
             $varijaIznos = $zar['VARIJAB'];
+            $BMIN_prekovremeni_iznos=$zar['BMIN_prekovremeni_iznos'];
             $gSumiranjePrekovremeniPREK = $zar['PREK'];
             $s = $zar['S'];
             $ss = $zar['SS'];
@@ -579,6 +583,8 @@ $test='TEST';
                     if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'G') {
 
                         $gSumiranjePrekovremeniPREK += $vrstaPlacanjaSlog['sati'];
+                        $BMIN_prekovremeni_iznos +=$newIznos;
+
                     }
 
 //                    if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'N') {
@@ -705,6 +711,7 @@ $test='TEST';
                     $zaraUpdated['S'] = $s;
                     $zaraUpdated['SS'] = $ss;
                     $zaraUpdated['VARIJAB'] = $varijaIznos;
+                    $zaraUpdated['BMIN_prekovremeni_iznos'] =$BMIN_prekovremeni_iznos;
 
 
 
@@ -743,6 +750,7 @@ $test='TEST';
                 'S' => $s,
                 'SS' => $ss,
                 'VARIJAB' => $varijaIznos,
+                'BMIN_prekovremeni_iznos'=>$BMIN_prekovremeni_iznos
 //                'SINNE' => $iznosNaknada
             ];
 
@@ -876,7 +884,8 @@ $test='TEST';
             'user_mdr_id' => $radnik[0]->user_mdr_id,
             'PERC' => $zar['PERC'],
             'PLACENO' => 0,
-            'VARIJAB'=>$zar['VARIJAB']
+            'VARIJAB'=>$zar['VARIJAB'],
+            'BMIN_prekovremeni_iznos'=>$zar['BMIN_prekovremeni_iznos']
         ];
 
         $izbr1 = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
@@ -1567,7 +1576,8 @@ $test='TEST';
             'UKUPNO'=>$zar['UKUPNO'],
             'organizaciona_celina_id'=>$mdr['troskovno_mesto_id'],
             'troskovno_mesto_id'=>$mdr['troskovno_mesto_id'],
-            'varijab'=>$zar['VARIJAB']
+            'varijab'=>$zar['VARIJAB'],
+            'BMIN_prekovremeni_iznos'=>$zar['BMIN_prekovremeni_iznos'], // TODO PROVERI SA SNEZOM IMPORT
 //            '' =>$zar['SIPPR'] +
 
             //            'DBDATA' => $zar['UKUPNO'],
