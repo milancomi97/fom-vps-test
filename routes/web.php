@@ -9,6 +9,7 @@ use App\Modules\Kadrovskaevidencija\Controllers\RadnamestaController;
 use App\Modules\Kadrovskaevidencija\Controllers\StrucnakvalifikacijaController;
 use App\Modules\Kadrovskaevidencija\Controllers\VrstaradasifarnikController;
 use App\Modules\Kadrovskaevidencija\Controllers\ZanimanjasifarnikController;
+use App\Modules\Obracunzarada\Controllers\ArhivaController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihEmailController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihExportController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihStatusController;
@@ -16,6 +17,7 @@ use App\Modules\Obracunzarada\Controllers\DpsmAkontacijeController;
 use App\Modules\Obracunzarada\Controllers\DpsmFiksnaPlacanjaController;
 use App\Modules\Obracunzarada\Controllers\DpsmKreditiController;
 use App\Modules\Obracunzarada\Controllers\DpsmPoentazaslogController;
+use App\Modules\Obracunzarada\Controllers\IzvestajZaradaController;
 use App\Modules\Obracunzarada\Controllers\KreditoriController;
 use App\Modules\Obracunzarada\Controllers\MaticnadatotekaradnikaController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihkoeficijenataController;
@@ -325,9 +327,14 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     // Izvestaji
-    Route::get('obracunzarada/izvestaji/ranglistazarade', [\App\Modules\Obracunzarada\Controllers\IzvestajZaradaController::class, 'ranglistazarade'])->name('izvestaj.ranglistazarade');
-    Route::get('obracunzarada/izvestaji/rekapitulacijazarade', [\App\Modules\Obracunzarada\Controllers\IzvestajZaradaController::class, 'rekapitulacijazarade'])->name('izvestaj.rekapitulacijazarade');
+    Route::get('obracunzarada/izvestaji/ranglistazarade', [IzvestajZaradaController::class, 'ranglistazarade'])->name('izvestaj.ranglistazarade');
+    Route::get('obracunzarada/izvestaji/rekapitulacijazarade', [IzvestajZaradaController::class, 'rekapitulacijazarade'])->name('izvestaj.rekapitulacijazarade');
 
+
+    // Arhiva
+    Route::get('obracunzarada/arhiva/index', [ArhivaController::class, 'index'])->name('arhiva.index');
+    Route::get('obracunzarada/arhiva/mesec', [ArhivaController::class, 'mesec'])->name('arhiva.mesec');
+    Route::get('obracunzarada/arhiva/radnik', [ArhivaController::class, 'radnik'])->name('arhiva.radnik');
 
 });
 

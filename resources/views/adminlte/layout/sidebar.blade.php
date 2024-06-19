@@ -354,6 +354,15 @@
                                     <p class="small">Datoteka obračunskih koeficienata</p>
                                 </a>
                             </li>
+
+
+                            <li class="nav-item">
+                                <a href="{{route('arhiva.index')}}" class="ml-3 nav-link">
+                                    <i class="fas fa-circle nav-icon "></i>
+                                    <p class="small">Pregled arhive</p>
+                                </a>
+                            </li>
+
                         </ul>
                     </li>
                     {{--                    <li class="nav-item">--}}

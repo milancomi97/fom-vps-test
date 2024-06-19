@@ -9,6 +9,7 @@ class Maticnadatotekaradnika extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'maticni_broj',
         'prezime',

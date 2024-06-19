@@ -12,6 +12,12 @@ use App\Modules\Kadrovskaevidencija\Repository\VrstaradasifarnikRepository;
 use App\Modules\Kadrovskaevidencija\Repository\VrstaradasifarnikRepositoryInterface;
 use App\Modules\Kadrovskaevidencija\Repository\ZanimanjasifarnikRepository;
 use App\Modules\Kadrovskaevidencija\Repository\ZanimanjasifarnikRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ArhivaDarhObradaSveDkopRepository;
+use App\Modules\Obracunzarada\Repository\ArhivaDarhObradaSveDkopRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ArhivaMaticnadatotekaradnikaRepository;
+use App\Modules\Obracunzarada\Repository\ArhivaMaticnadatotekaradnikaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ArhivaSumeZaraPoRadnikuRepository;
+use App\Modules\Obracunzarada\Repository\ArhivaSumeZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmAkontacijeRepository;
 use App\Modules\Obracunzarada\Repository\DpsmAkontacijeRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepository;
@@ -112,6 +118,11 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ObradaZaraPoRadnikuRepositoryInterface::class, ObradaZaraPoRadnikuRepository::class);
         $this->app->bind(ObradaDkopSveVrstePlacanjaRepositoryInterface::class, ObradaDkopSveVrstePlacanjaRepository::class);
         $this->app->bind(ObradaKreditiRepositoryInterface::class, ObradaKreditiRepository::class);
+
+        // Arhiva
+        $this->app->bind(ArhivaMaticnadatotekaradnikaRepositoryInterface::class, ArhivaMaticnadatotekaradnikaRepository::class);
+        $this->app->bind(ArhivaDarhObradaSveDkopRepositoryInterface::class, ArhivaDarhObradaSveDkopRepository::class);
+        $this->app->bind(ArhivaSumeZaraPoRadnikuRepositoryInterface::class, ArhivaSumeZaraPoRadnikuRepository::class);
 
     }
 
