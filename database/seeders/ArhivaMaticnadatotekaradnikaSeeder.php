@@ -96,24 +96,24 @@ class ArhivaMaticnadatotekaradnikaSeeder extends Seeder
 
     private function userExists($data)
     {
-        $user = User::where('maticni_broj', $data['MBRD_maticni_broj'])->get();
-        if (isset($user[0])) {
-
-            $data['user_id'] = $user[0]->id;
-
-            if ($data['IME_ime'] == '') {
-                $data['IME_ime'] = $user[0]->ime;
-                $data['srednje_ime'] = $user[0]->srednje_ime;
-            }
-
-            if ($data['PREZIME_prezime'] == '') {
-                $data['PREZIME_prezime'] = $user[0]->prezime;
-                $data['srednje_ime'] = $user[0]->srednje_ime;
-
-            }
-
-            return $data;
-        }
+//        $user = User::where('maticni_broj', $data['MBRD_maticni_broj'])->get();
+//        if (isset($user[0])) {
+//
+//            $data['user_id'] = $user[0]->id;
+//
+//            if ($data['IME_ime'] == '') {
+//                $data['IME_ime'] = $user[0]->ime;
+//                $data['srednje_ime'] = $user[0]->srednje_ime;
+//            }
+//
+//            if ($data['PREZIME_prezime'] == '') {
+//                $data['PREZIME_prezime'] = $user[0]->prezime;
+//                $data['srednje_ime'] = $user[0]->srednje_ime;
+//
+//            }
+//
+//            return $data;
+//        }
         return $data;
 
     }
