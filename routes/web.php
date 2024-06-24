@@ -336,6 +336,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('obracunzarada/arhiva/mesec', [ArhivaController::class, 'mesec'])->name('arhiva.mesec');
     Route::get('obracunzarada/arhiva/radnik', [ArhivaController::class, 'radnik'])->name('arhiva.radnik');
 
+
+    Route::get('obracunzarada/arhiva/arhivaMaticneDatoteke', [ArhivaController::class, 'arhivaMaticneDatoteke'])->name('arhiva.arhivaMaticneDatoteke');
+    Route::get('obracunzarada/arhiva/obracunskeListe', [ArhivaController::class, 'obracunskeListe'])->name('arhiva.obracunskeListe');
+    Route::get('obracunzarada/arhiva/ukupnaRekapitulacija', [ArhivaController::class, 'ukupnaRekapitulacija'])->name('arhiva.ukupnaRekapitulacija');
+
+    Route::get('obracunzarada/arhiva/potvrdaProseka', [ArhivaController::class, 'potvrdaProseka'])->name('arhiva.potvrdaProseka');
+    Route::get('obracunzarada/arhiva/godisnjiKarton', [ArhivaController::class, 'godisnjiKarton'])->name('arhiva.godisnjiKarton');
+    Route::get('obracunzarada/arhiva/pppPrijava', [ArhivaController::class, 'pppPrijava'])->name('arhiva.pppPrijava');
+
+
 });
 
 

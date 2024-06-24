@@ -35,23 +35,23 @@
                         @csrf
                         <div class="form-group">
                             <label for="datetimepicker">Matični broj (Search po prezimenu, padajuci meni)</label>
-                            <div class="input-group" id="maticni_broj" data-target-input="nearest">
-                                <input type="text" name="maticni_broj" class="form-control "/>
+                            <div class="input-group" data-target-input="nearest">
+                                <input type="text" id="maticni_broj_mesec"  name="maticni_broj_mesec" class="form-control "/>
                             </div>
                         </div>
                         <div class="form-group" style="margin-bottom: 100px">
                             <label for="datetimepicker">Mesec - Godina</label>
                             <div class="input-group date" id="datetimepicker" data-target-input="nearest">
-                                <input type="text" name="arhiva_datum" class="form-control datetimepicker-input" data-target="#datetimepicker" />
+                                <input type="text" id="arhiva_datum_mesec" name="arhiva_datum_mesec" class="form-control datetimepicker-input" data-target="#datetimepicker" />
                                 <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary btn-block"> Arhiva maticne datoteke</button>
-                        <button type="submit" class="btn btn-primary btn-block"> Obracunske liste</button>
-                        <button type="submit" class="btn btn-secondary btn-block">Ukupna rekapitulacija</button>
+                        <button type="button" class="btn btn-primary btn-block arhiva_maticne_datoteke"> Arhiva maticne datoteke</button>
+                        <button type="button" class="btn btn-primary btn-block obracunske_liste"> Obracunske liste</button>
+                        <button type="button" class="btn btn-secondary btn-block ukupna_rekapitulacija">Ukupna rekapitulacija</button>
 
                     </form>
                 </div>
@@ -64,14 +64,14 @@
                         @csrf
                         <div class="form-group">
                             <label for="datetimepicker">Matični broj (Search po prezimenu, padajuci meni)</label>
-                            <div class="input-group" id="maticni_broj" data-target-input="nearest">
-                                <input type="text" name="maticni_broj" class="form-control "/>
+                            <div class="input-group" data-target-input="nearest">
+                                <input type="text"  id="maticni_broj_period" name="maticni_broj_period" class="form-control "/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="datetimepicker">Period od:</label>
                             <div class="input-group date" id="datetimepicker" data-target-input="nearest">
-                                <input type="text" name="arhiva_datum" class="form-control datetimepicker-input" data-target="#datetimepicker" />
+                                <input type="text" id="arhiva_datum_od" name="arhiva_datum_od" class="form-control datetimepicker-input" data-target="#datetimepicker" />
                                 <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
@@ -80,15 +80,15 @@
                         <div class="form-group ">
                             <label for="datetimepicker">Period do:</label>
                             <div class="input-group date" id="datetimepicker" data-target-input="nearest">
-                                <input type="text" name="arhiva_datum" class="form-control datetimepicker-input" data-target="#datetimepicker" />
+                                <input type="text"  id="arhiva_datum_do" name="arhiva_datum_do" class="form-control datetimepicker-input" data-target="#datetimepicker" />
                                 <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block">Potvrda (prosek)</button>
-                        <button type="submit" class="btn btn-primary btn-block"> Godisnji karton</button>
-                        <button type="submit" class="btn btn-secondary btn-block"> PPP Prijava</button>
+                        <button type="button" class="btn btn-primary btn-block potvrda_proseka">Potvrda (prosek)</button>
+                        <button type="button" class="btn btn-primary btn-block godisnji_karton"> Godisnji karton</button>
+                        <button type="button" class="btn btn-secondary btn-block ppp_prijava"> PPP Prijava</button>
 
                     </form>
                 </div>
@@ -107,6 +107,116 @@
     <!-- Tempus Dominus JS -->
     <script src="https://cdn.jsdelivr.net/npm/tempusdominus-bootstrap-4@5.39.0/build/js/tempusdominus-bootstrap-4.min.js"></script>
     <script>
+
+
+        // arhiva_maticne_datoteke
+        // obracunske_liste
+        // ukupna_rekapitulacija
+        // potvrda_proseka
+        // godisnji_karton
+        // ppp_prijava
+
+        $(document).on('click', 'body .arhiva_maticne_datoteke', function (e) {
+            // var id = $(this).data('month_id');
+            // window.location.href = showRoute + id;
+            // maticni_broj_mesec
+            // arhiva_datum_mesec
+            var maticniBroj = $('#maticni_broj_mesec').val();
+            var datum = $('#arhiva_datum_mesec').val();
+
+           if(maticniBroj !=='' && datum !==''){
+
+               window.location.href = '{{ route('arhiva.arhivaMaticneDatoteke') }}' +
+                   '?maticniBroj=' + encodeURIComponent(maticniBroj) +
+                   '&datum=' + encodeURIComponent(datum);
+
+               // Redirect to the constructed URL
+           }
+
+        });
+
+        $(document).on('click', 'body .obracunske_liste', function (e) {
+            // var id = $(this).data('month_id');
+            // window.location.href = showRoute + id;
+            var maticniBroj = $('#maticni_broj_mesec').val();
+            var datum = $('#arhiva_datum_mesec').val();
+
+            if(maticniBroj !=='' && datum !=='') {
+
+                window.location.href = '{{ route('arhiva.obracunskeListe') }}' +
+                    '?maticniBroj=' + encodeURIComponent(maticniBroj) +
+                    '&datum=' + encodeURIComponent(datum);
+
+                // Redirect to the constructed URL
+
+            }
+        });
+
+        $(document).on('click', 'body .ukupna_rekapitulacija', function (e) {
+            var maticniBroj = $('#maticni_broj_mesec').val();
+            var datum = $('#arhiva_datum_mesec').val();
+
+            if(maticniBroj !=='' && datum !=='') {
+                // Construct the URL with query parameters
+                window.location.href ='{{ route('arhiva.ukupnaRekapitulacija') }}' +
+                    '?maticniBroj=' + encodeURIComponent(maticniBroj) +
+                    '&datum=' + encodeURIComponent(datum);
+
+                // Redirect to the constructed URL
+            }
+        });
+
+        $(document).on('click', 'body .potvrda_proseka', function (e) {
+            // var id = $(this).data('month_id');
+            // window.location.href = showRoute + id;
+            var maticniBroj = $('#maticni_broj_period').val();
+            var datumOd = $('#arhiva_datum_od').val();
+            var datumDo = $('#arhiva_datum_do').val();
+
+
+            if (maticniBroj !== '' && datumOd !== '' && datumDo!== '') {
+                window.location.href ='{{ route('arhiva.potvrdaProseka') }}' +
+                    '?maticniBroj=' + encodeURIComponent(maticniBroj) +
+                    '&datumOd=' + encodeURIComponent(datumOd) +
+                    '&datumDo=' + encodeURIComponent(datumDo);
+
+            }
+
+        });
+
+        $(document).on('click', 'body .godisnji_karton', function (e) {
+            // var id = $(this).data('month_id');
+            // window.location.href = showRoute + id;
+            var maticniBroj = $('#maticni_broj_period').val();
+            var datumOd = $('#arhiva_datum_od').val();
+            var datumDo = $('#arhiva_datum_do').val();
+
+
+            if (maticniBroj !== '' && datumOd !== '' && datumDo!== '') {
+                window.location.href ='{{ route('arhiva.godisnjiKarton') }}' +
+                    '?maticniBroj=' + encodeURIComponent(maticniBroj) +
+                    '&datumOd=' + encodeURIComponent(datumOd) +
+                    '&datumDo=' + encodeURIComponent(datumDo);
+
+            }
+        });
+
+        $(document).on('click', 'body .ppp_prijava', function (e) {
+            // var id = $(this).data('month_id');
+            var maticniBroj = $('#maticni_broj_period').val();
+            var datumOd = $('#arhiva_datum_od').val();
+            var datumDo = $('#arhiva_datum_do').val();
+
+            if (maticniBroj !== '' && datumOd !== '' && datumDo!== '') {
+                window.location.href = '{{ route('arhiva.pppPrijava') }}' +
+                    '?maticniBroj=' + encodeURIComponent(maticniBroj) +
+                    '&datumOd=' + encodeURIComponent(datumOd) +
+                    '&datumDo=' + encodeURIComponent(datumDo);
+            }
+        });
+
+
+
         $(function () {
             $('#datetimepicker').datetimepicker({
                 format: 'MM.YYYY'
