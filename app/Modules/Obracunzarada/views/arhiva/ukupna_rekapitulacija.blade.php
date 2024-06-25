@@ -15,7 +15,7 @@
         </div>
         <div class="container-lg">
             <h1 class="text-center">Progamerski deo:</h1>
-            <h2 class="text-center">Prikaz SUME</h2>
+            <h2 class="text-center">Prikaz tabele SUME</h2>
             <div class="table-container mb-5">
                 <table class="table table-striped">
                     <thead>
