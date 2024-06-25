@@ -14,7 +14,7 @@
 @section('content')
     <div class="container mb-5">
         <div class="content mb-5" >
-            <h1 class="text-center">Arhiva  radniku</h1>
+            <h1 class="text-center">Arhiva matične datoteke za: <b>{{$archiveDate}}</b></h1>
      </div>
     </div>
 

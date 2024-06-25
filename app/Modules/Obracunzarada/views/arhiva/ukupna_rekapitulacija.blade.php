@@ -11,7 +11,7 @@
 @section('content')
     <div class="container">
         <div class="content" >
-            <h1>Arhiva po radniku</h1>
+            <h1 class="text-center">Ukupna rekapitulacija za:<b>{{$archiveDate}}</b></h1>
         </div>
         <div class="container-lg">
             <h1 class="text-center">Progamerski deo:</h1>

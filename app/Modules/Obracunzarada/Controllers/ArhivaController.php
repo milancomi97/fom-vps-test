@@ -71,7 +71,7 @@ class ArhivaController extends Controller
 //        $arhivaMaticnadatotekaradnikaInterface
 //        $arhivaSumeZaraPoRadnikuInterface
 //        $arhivaDarhObradaSveDkopInterface
-        return view('obracunzarada::arhiva.arhiva_maticne_datoteke',['arhivaMdr'=>$arhivaMdr]);
+        return view('obracunzarada::arhiva.arhiva_maticne_datoteke',['arhivaMdr'=>$arhivaMdr,'archiveDate'=>$datum]);
     }
     public function obracunskeListe(Request $request)
     {
@@ -83,7 +83,7 @@ class ArhivaController extends Controller
         $dkopData = $this->arhivaDarhObradaSveDkopInterface->where('M_G_date', $startDate)->where('maticni_broj',$maticniBroj)->get();
 
         $test='test';
-        return view('obracunzarada::arhiva.obracunske_liste',['zaraData'=>$zaraData,'dkopData'=>$dkopData]);
+        return view('obracunzarada::arhiva.obracunske_liste',['zaraData'=>$zaraData,'dkopData'=>$dkopData,'archiveDate'=>$datum]);
     }
     public function ukupnaRekapitulacija(Request $request)
     {
@@ -94,7 +94,7 @@ class ArhivaController extends Controller
 
         $zaraData =$this->arhivaSumeZaraPoRadnikuInterface->where('M_G_date', $startDate)->get();
 
-        return view('obracunzarada::arhiva.ukupna_rekapitulacija',['zaraData'=>$zaraData]);
+        return view('obracunzarada::arhiva.ukupna_rekapitulacija',['zaraData'=>$zaraData,'archiveDate'=>$datum]);
     }
 
     public function potvrdaProseka(Request $request)
