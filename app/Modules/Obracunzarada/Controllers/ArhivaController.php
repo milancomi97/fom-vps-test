@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Obracunzarada\Repository\ArhivaDarhObradaSveDkopRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ArhivaMaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ArhivaSumeZaraPoRadnikuRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -17,7 +18,8 @@ class ArhivaController extends Controller
     public function __construct(
         private readonly ArhivaMaticnadatotekaradnikaRepositoryInterface $arhivaMaticnadatotekaradnikaInterface,
         private readonly ArhivaSumeZaraPoRadnikuRepositoryInterface $arhivaSumeZaraPoRadnikuInterface,
-        private readonly ArhivaDarhObradaSveDkopRepositoryInterface $arhivaDarhObradaSveDkopInterface
+        private readonly ArhivaDarhObradaSveDkopRepositoryInterface $arhivaDarhObradaSveDkopInterface,
+        private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface
     ){
     }
 
@@ -26,7 +28,16 @@ class ArhivaController extends Controller
     public function index(Request $request)
     {
 
-        return view('obracunzarada::arhiva.arhiva_index');
+        $radniciSelectData=[];
+       $data = $this->maticnadatotekaradnikaInterface->getAll();
+
+       foreach ($data as $radnik){
+           $test='test';
+           $radniciSelectData[]=['id'=>$radnik->MBRD_maticni_broj ,'text'=>$radnik->MBRD_maticni_broj.' '. $radnik->PREZIME_prezime .' '.  $radnik->srednje_ime.' '.  $radnik->IME_ime];
+       }
+
+       $test='test';
+        return view('obracunzarada::arhiva.arhiva_index',['radniciSelectData'=>$radniciSelectData]);
     }
 
     public function mesec(Request $request)
@@ -76,9 +87,14 @@ class ArhivaController extends Controller
     }
     public function ukupnaRekapitulacija(Request $request)
     {
-        $maticniBroj = $request->maticniBroj;
         $datum = $request->datum;
-        return view('obracunzarada::arhiva.ukupna_rekapitulacija');
+        $startOfMonth = Carbon::createFromFormat('m.Y', $datum)->startOfMonth();
+
+        $startDate = $startOfMonth->format('Y-m-d');
+
+        $zaraData =$this->arhivaSumeZaraPoRadnikuInterface->where('M_G_date', $startDate)->get();
+
+        return view('obracunzarada::arhiva.ukupna_rekapitulacija',['zaraData'=>$zaraData]);
     }
 
     public function potvrdaProseka(Request $request)

@@ -7,8 +7,13 @@
     <!-- Tempus Dominus CSS -->
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tempusdominus-bootstrap-4@5.39.0/build/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet">
-    <style>
+    <link rel="stylesheet" href="{{asset('admin_assets/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('admin_assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 
+    <style>
+        .select2-selection__rendered {
+            line-height:14px !important;
+        }
         .form-container {
             max-width: 600px;
             margin: 200px auto;
@@ -34,9 +39,11 @@
                     <form method="GET" action="{{route('arhiva.mesec')}}">
                         @csrf
                         <div class="form-group">
-                            <label for="datetimepicker">Matični broj (Search po prezimenu, padajuci meni)</label>
+                            <label for="datetimepicker">Matični broj</label>
                             <div class="input-group" data-target-input="nearest">
-                                <input type="text" id="maticni_broj_mesec"  name="maticni_broj_mesec" class="form-control "/>
+                                <select class="form-control custom-select maticni_broj_mesec" id="maticni_broj_mesec" name="maticni_broj_mesec"
+                                        aria-describedby="maticni_broj_mesec">
+                                </select>
                             </div>
                         </div>
                         <div class="form-group" style="margin-bottom: 100px">
@@ -63,10 +70,15 @@
                     <form method="GET" action="{{route('arhiva.mesec')}}">
                         @csrf
                         <div class="form-group">
-                            <label for="datetimepicker">Matični broj (Search po prezimenu, padajuci meni)</label>
+                            <label for="datetimepicker">Matični broj</label>
                             <div class="input-group  data-target-input="nearest">
-                                <input type="text"  id="maticni_broj_period" name="maticni_broj_period" class="form-control "/>
+                            <select class="custom-select form-control maticni_broj_period" id="maticni_broj_period" name="maticni_broj_period"
+                                    aria-describedby="maticni_broj_period">
+                            </select>
                             </div>
+
+
+
                         </div>
                 <div class="form-group">
                     <label for="datetimepicker1">Period od:</label>
@@ -103,6 +115,7 @@
 
 
 @section('custom-scripts')
+    <script src="{{asset('admin_assets/plugins/select2/js/select2.full.min.js')}}"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <!-- Tempus Dominus JS -->
@@ -157,11 +170,10 @@
             var maticniBroj = $('#maticni_broj_mesec').val();
             var datum = $('#arhiva_datum_mesec').val();
 
-            if(maticniBroj !=='' && datum !=='') {
+            if(datum !=='') {
                 // Construct the URL with query parameters
                 window.location.href ='{{ route('arhiva.ukupnaRekapitulacija') }}' +
-                    '?maticniBroj=' + encodeURIComponent(maticniBroj) +
-                    '&datum=' + encodeURIComponent(datum);
+                    '?datum=' + encodeURIComponent(datum);
 
                 // Redirect to the constructed URL
             }
@@ -232,7 +244,30 @@
             $('#datetimepicker2').datetimepicker({
                 format: 'MM.YYYY'
             });
+
+
+
+
+
+            var data ={!! json_encode($radniciSelectData) !!};
+
+
+            $(".maticni_broj_period").select2({
+                data: data,
+                // width: 'resolve'
+            })
+
+            $(".maticni_broj_mesec").select2({
+                data: data,
+                // width: 'resolve'
+            })
+
+
+
+
         });
+
+
 
         // $(function () {
         //     $('#datetimepicker2').datetimepicker({
