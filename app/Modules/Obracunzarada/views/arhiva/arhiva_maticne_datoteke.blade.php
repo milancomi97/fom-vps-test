@@ -39,6 +39,7 @@
                         <input type="hidden" name="user_id" id="user_id">
 
 
+                        @if($arhivaMdr->isNotEmpty())
 
                        @foreach($arhivaMdr[0]->toArray() as $key=> $value)
                             <div class="input-group mb-3">
@@ -54,7 +55,9 @@
                             </div>
                         @endforeach
 
-
+                        @else
+                            <h1 class="text-center mt-5">Podaci za unete parametre ne postoje</h1>
+                        @endif
                         {{--                                <input type="hidden" id="prezime_value">--}}
 
                         {{--                                <input type="text" class="form-control" id="prezime" aria-describedby="prezime">--}}

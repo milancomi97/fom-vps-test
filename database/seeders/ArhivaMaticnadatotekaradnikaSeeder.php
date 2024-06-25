@@ -35,9 +35,9 @@ class ArhivaMaticnadatotekaradnikaSeeder extends Seeder
 //                    'IME_ime' => $data['IME'],
 //                    'srednje_ime' => '',
                     'RBRM_radno_mesto' => $data['RBRM'],
-                    'RBIM_isplatno_mesto_id' => $data['RBIM'],
+                    'RBIM_isplatno_mesto_id' => $data['RBIM'] !== '' ? $data['RBIM'] : 0,
                     'ZRAC_tekuci_racun' => $data['ZRAC'],
-                    'BRCL_redosled_poentazi' => $data['BRCL'],
+                    'BRCL_redosled_poentazi' => $data['BRCL'] !== '' ? $data['BRCL'] : 9999,
 //                    'BR_vrsta_rada' => $data['BR'],
                     'BR_vrsta_rada' => '1',
                     'P_R_oblik_rada' => $data['P_R'],
@@ -120,10 +120,10 @@ class ArhivaMaticnadatotekaradnikaSeeder extends Seeder
 
     public function getDataFromCsv()
     {
-        $filePath = storage_path('app/backup/arhiva/ARMD.csv');
+        $filePath = storage_path('app/backup/arhiva2/ARMD.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
-        $csv->setDelimiter(';');
+        $csv->setDelimiter(',');
         return $csv;
     }
 }

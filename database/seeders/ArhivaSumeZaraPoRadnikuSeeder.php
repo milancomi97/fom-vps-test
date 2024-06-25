@@ -36,7 +36,7 @@ class ArhivaSumeZaraPoRadnikuSeeder extends Seeder
             DB::table('arhiva_sume_zara_po_radnikus')->insert([
                 'M_G_mesec_godina' =>$data['M_G'],
                 'M_G_date' =>$date->format('Y-m-d'),
-                'rbim_sifra_isplatnog_mesta' =>$data['RBIM'],
+                'rbim_sifra_isplatnog_mesta' =>$data['RBIM'] !== '' ? $data['RBIM'] : 0,
                 'maticni_broj' =>$data['MBRD'],
 //                'sifra_troskovnog_mesta' =>$data['DATAAA'],
                 'SSZNE_suma_sati_zarade' =>$data['SSZNE'],
@@ -108,10 +108,10 @@ class ArhivaSumeZaraPoRadnikuSeeder extends Seeder
 
     public function getDataFromCsv()
     {
-        $filePath = storage_path('app/backup/arhiva/SUME.csv');
+        $filePath = storage_path('app/backup/arhiva2/SUME.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
-        $csv->setDelimiter(';');
+        $csv->setDelimiter(',');
         return $csv;
     }
 }
