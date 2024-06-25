@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group" style="margin-bottom: 100px">
                             <label for="datetimepicker">Mesec - Godina</label>
-                            <div class="input-group date" id="datetimepicker" data-target-input="nearest">
+                            <div class="input-group date datetimepicker-icon" id="datetimepicker" data-target-input="nearest">
                                 <input type="text" id="arhiva_datum_mesec" name="arhiva_datum_mesec" class="form-control datetimepicker-input" data-target="#datetimepicker" />
                                 <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -64,29 +64,30 @@
                         @csrf
                         <div class="form-group">
                             <label for="datetimepicker">Matični broj (Search po prezimenu, padajuci meni)</label>
-                            <div class="input-group" data-target-input="nearest">
+                            <div class="input-group  data-target-input="nearest">
                                 <input type="text"  id="maticni_broj_period" name="maticni_broj_period" class="form-control "/>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="datetimepicker">Period od:</label>
-                            <div class="input-group date" id="datetimepicker" data-target-input="nearest">
-                                <input type="text" id="arhiva_datum_od" name="arhiva_datum_od" class="form-control datetimepicker-input" data-target="#datetimepicker" />
-                                <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
+                <div class="form-group">
+                    <label for="datetimepicker1">Period od:</label>
+                    <div class="input-group date datetimepicker-icon" id="datetimepicker1" data-target-input="nearest">
+                        <input type="text" id="arhiva_datum_od" name="arhiva_datum_od" class="form-control datetimepicker-input" data-target="#datetimepicker1" />
+                        <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-                        <div class="form-group ">
-                            <label for="datetimepicker">Period do:</label>
-                            <div class="input-group date" id="datetimepicker" data-target-input="nearest">
-                                <input type="text"  id="arhiva_datum_do" name="arhiva_datum_do" class="form-control datetimepicker-input" data-target="#datetimepicker" />
-                                <div class="input-group-append" data-target="#datetimepicker" data-toggle="datetimepicker">
-                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="datetimepicker2">Period do:</label>
+                    <div class="input-group date datetimepicker-icon" id="datetimepicker2" data-target-input="nearest">
+                        <input type="text" id="arhiva_datum_do" name="arhiva_datum_do" class="form-control datetimepicker-input" data-target="#datetimepicker2" />
+                        <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-                        <button type="button" class="btn btn-primary btn-block potvrda_proseka">Potvrda (prosek)</button>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-primary btn-block potvrda_proseka">Potvrda (prosek)</button>
                         <button type="button" class="btn btn-primary btn-block godisnji_karton"> Godisnji karton</button>
                         <button type="button" class="btn btn-secondary btn-block ppp_prijava"> PPP Prijava</button>
 
@@ -218,10 +219,31 @@
 
 
         $(function () {
-            $('#datetimepicker').datetimepicker({
+            $('.datetimepicker-icon').datetimepicker({
                 format: 'MM.YYYY'
             });
         });
+
+        $(document).ready(function () {
+            $('#datetimepicker1').datetimepicker({
+                format: 'MM.YYYY'
+            });
+
+            $('#datetimepicker2').datetimepicker({
+                format: 'MM.YYYY'
+            });
+        });
+
+        // $(function () {
+        //     $('#datetimepicker2').datetimepicker({
+        //         format: 'MM.YYYY'
+        //     });
+        // });
+        // $(function () {
+        //     $('#datetimepicker3').datetimepicker({
+        //         format: 'MM.YYYY'
+        //     });
+        // });
     </script>
 @endsection
 

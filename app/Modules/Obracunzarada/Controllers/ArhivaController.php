@@ -4,16 +4,21 @@ namespace App\Modules\Obracunzarada\Controllers;
 
 use App\Http\Controllers\Controller;
 
+use App\Modules\Obracunzarada\Repository\ArhivaDarhObradaSveDkopRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ArhivaMaticnadatotekaradnikaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ArhivaSumeZaraPoRadnikuRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 
 class ArhivaController extends Controller
 {
 
     public function __construct(
-
-     )
-    {
+        private readonly ArhivaMaticnadatotekaradnikaRepositoryInterface $arhivaMaticnadatotekaradnikaInterface,
+        private readonly ArhivaSumeZaraPoRadnikuRepositoryInterface $arhivaSumeZaraPoRadnikuInterface,
+        private readonly ArhivaDarhObradaSveDkopRepositoryInterface $arhivaDarhObradaSveDkopInterface
+    ){
     }
 
 
@@ -44,13 +49,30 @@ class ArhivaController extends Controller
     {
         $maticniBroj = $request->maticniBroj;
         $datum = $request->datum;
-        return view('obracunzarada::arhiva.arhiva_maticne_datoteke');
+
+// Parse the input date to get the start and end of the month
+        $startOfMonth = Carbon::createFromFormat('m.Y', $datum)->startOfMonth();
+        $startDate = $startOfMonth->format('Y-m-d');
+
+// Retrieve records using Eloquent
+        $arhivaMdr =$this->arhivaMaticnadatotekaradnikaInterface->where('M_G_date', $startDate)->where('MBRD_maticni_broj',$maticniBroj)->get();
+
+//        $arhivaMaticnadatotekaradnikaInterface
+//        $arhivaSumeZaraPoRadnikuInterface
+//        $arhivaDarhObradaSveDkopInterface
+        return view('obracunzarada::arhiva.arhiva_maticne_datoteke',['arhivaMdr'=>$arhivaMdr]);
     }
     public function obracunskeListe(Request $request)
     {
         $maticniBroj = $request->maticniBroj;
         $datum = $request->datum;
-        return view('obracunzarada::arhiva.obracunske_liste');
+        $startOfMonth = Carbon::createFromFormat('m.Y', $datum)->startOfMonth();
+        $startDate = $startOfMonth->format('Y-m-d');
+        $zaraData =$this->arhivaSumeZaraPoRadnikuInterface->where('M_G_date', $startDate)->where('maticni_broj',$maticniBroj)->get();
+        $dkopData = $this->arhivaDarhObradaSveDkopInterface->where('M_G_date', $startDate)->where('maticni_broj',$maticniBroj)->get();
+
+        $test='test';
+        return view('obracunzarada::arhiva.obracunske_liste',['zaraData'=>$zaraData,'dkopData'=>$dkopData]);
     }
     public function ukupnaRekapitulacija(Request $request)
     {

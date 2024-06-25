@@ -16,4 +16,8 @@ class ArhivaMaticnadatotekaradnikaRepository extends BaseRepository implements A
         parent::__construct($model);
     }
 
+    public function whereBetween($dateStart,$dateEnd){
+       return $this->model->whereBetween('M_G_date', [$dateStart, $dateEnd]);
+    }
+
 }
