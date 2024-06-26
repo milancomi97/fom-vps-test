@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-
+            DatotekaobracunskihKoefMesecDataSeeder::class,
 
             PorezdoprinosiSeeder::class,
             KreditoriSeeder::class,
@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             ZanimanjasifarnikSeeder::class,
             PodaciofirmiSeeder::class,
             // Trenutna plata
-//            MartPlataSeeder::class,
+            MartPlataSeeder::class,
 
             // Arhiva
             ArhivaMaticnadatotekaradnikaSeeder::class,

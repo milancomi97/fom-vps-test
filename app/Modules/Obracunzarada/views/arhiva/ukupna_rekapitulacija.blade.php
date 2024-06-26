@@ -10,6 +10,21 @@
     <link rel="stylesheet" href="{{asset('admin_assets/plugins/select2/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('admin_assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
 
+    <style>
+        .form-container {
+            /*max-width: 600px;*/
+            /*margin: 200px auto;*/
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -29,9 +44,9 @@
             <div class="col-lg-10 offset-lg-1">
 
                 <div class="container mt-4">
-                    <div class="row mb-3">
-                        <div class="col-sm-3 mb-5 mt-5">
-                            <div class="form-container">
+                    <div class="row mb-3 form-container">
+                        <div class="col-sm-4 mb-5 mt-5">
+                            <div class="">
                                 <form method="GET" action="{{route('arhiva.mesec')}}">
                                     @csrf
                                     <div class="form-group" class="text-center" style="margin-bottom: 10px">
@@ -58,7 +73,7 @@
                                 <button type="submit" class="btn btn-secondary btn-lg" style="width: 200px" id="print-page">PDF &nbsp;&nbsp;<i class="fa fa-print " aria-hidden="true"></i></button>
                             </form>
                         </div>
-                        <div class="col-sm-3"></div>
+                        <div class="col-sm-2"></div>
 
                         <div class="col col-sm-3 mt-5 text-right">
                             <form method="POST" class="" action="{{route('datotekaobracunskihkoeficijenata.email_ostvarene_zarade')}}">

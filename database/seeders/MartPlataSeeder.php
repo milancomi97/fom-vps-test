@@ -50,21 +50,7 @@ class MartPlataSeeder extends Seeder
 
             $newDataPodaciMesec[]=$data2;
         }
-//            {
-//                "kalendarski_broj_dana": "30",
-//  "mesecni_fond_sati": "168",
-//  "prosecni_godisnji_fond_sati": "174",
-//  "cena_rada_tekuci": "1",
-//  "mesecni_fond_sati_praznika": null,
-//  "cena_rada_prethodni": "1",
-//  "vrednost_akontacije": "0",
-//  "datum": "2024-04-01T00:00:00.000000Z",
-//  "mesec": "3",
-//  "godina": "2024",
-//  "status": 1,
-//  "period_isplate_od": "2024-04-01",
-//  "period_isplate_do": "2024-04-30"
-//}
+
             $monthData='';
 
         foreach ($newDataPodaciMesec as $data){

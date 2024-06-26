@@ -1,3 +1,4 @@
+@php use App\Modules\Obracunzarada\Consts\UserRoles; @endphp
 @extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
@@ -8,22 +9,23 @@
             border-color: black !important;
         }
 
-        .border-bottom-custom{
+        .border-bottom-custom {
             border-bottom-style: dashed !important;
             border-bottom-width: 3px !important;
             border-bottom-color: black !important;
         }
 
-        .border-top-custom{
+        .border-top-custom {
             border-top-style: dashed !important;
             border-top-width: 3px !important;
             border-top-color: black !important;
         }
-        .header-custom{
+
+        .header-custom {
             letter-spacing: 3px;
         }
 
-        .border-left-disabled{
+        .border-left-disabled {
             border-left-width: 0 !important;
         }
 
@@ -35,39 +37,44 @@
         .section {
             margin-bottom: 10px;
         }
+
         .strong {
             font-weight: bold;
         }
+
         .header {
             font-weight: bold;
             text-decoration: underline;
         }
 
-        h1{
+        h1 {
             font-size: 1.3rem
         }
-        h2{
+
+        h2 {
             font-size: 1.6rem
         }
     </style>
-
 
 @endsection
 
 @section('content')
     <div class="container mb-5">
         <div class="row">
-        <div class="col col-lg-4 text-left">
-            <a href="{{route('datotekaobracunskihkoeficijenata.show_all_plate',['month_id'=>$zarData->obracunski_koef_id])}}"class="btn btn-primary btn-lg mt-5 text-left">Lista &nbsp;&nbsp;<i class="fa fa-list fa-2xl " aria-hidden="true"></i></a>
-        </div>
+            <div class="col col-lg-4 text-left">
+                <a href="{{route('datotekaobracunskihkoeficijenata.show_all_plate',['month_id'=>$zarData->obracunski_koef_id])}}"
+                   class="btn btn-primary btn-lg mt-5 text-left">Lista &nbsp;&nbsp;<i class="fa fa-list fa-2xl "
+                                                                                      aria-hidden="true"></i></a>
+            </div>
 
             <div class="col col-lg-2 text-right">
-            <form method="POST" class="" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik_lista')}}">
-                @csrf
-                <input type="hidden" name="radnik_maticni" value="{{$radnik_maticni}}">
-                <input type="hidden" name="month_id" value="{{$month_id}}">
-                <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
-            </form>
+                <form method="POST" class="" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik_lista')}}">
+                    @csrf
+                    <input type="hidden" name="radnik_maticni" value="{{$radnik_maticni}}">
+                    <input type="hidden" name="month_id" value="{{$month_id}}">
+                    <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">PDF &nbsp;&nbsp;<i
+                            class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
+                </form>
             </div>
             <div class="col col-lg-3 text-right">
             </div>
@@ -75,11 +82,14 @@
                 <form method="POST" class="" action="{{route('datotekaobracunskihkoeficijenata.email_radnik_lista')}}">
                     @csrf
                     <div class="input-group">
-                        <button type="submit" class="btn mt-5 btn-secondary btn-lg" style="width: 200px" id="print-page">Pošalji email &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl " aria-hidden="true"></i></button>
+                        <button type="submit" class="btn mt-5 btn-secondary btn-lg" style="width: 200px"
+                                id="print-page">Pošalji email &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl "
+                                                                             aria-hidden="true"></i></button>
                         <input type="hidden" name="radnik_maticni" value="{{$radnik_maticni}}">
                         <input type="hidden" name="month_id" value="{{$month_id}}">
                         <label>
-                            <input type="email" class="form-control mt-2" style="width: 200px" name="email_to" placeholder="Email primaoca">
+                            <input type="email" class="form-control mt-2" style="width: 200px" name="email_to"
+                                   placeholder="Email primaoca">
                         </label>
                     </div>
 
@@ -87,7 +97,6 @@
             </div>
         </div>
         <div class="row mb-5 mt-5 border">
-
 
 
             {{--                <p>{{$podaciFirme['skraceni_naziv_firme']}}</p>--}}
@@ -141,12 +150,17 @@
             <div class="col-md-6 pl-3">
                 <div class="section ">
                     ZA MESEC: {{$datum}}<br>
-                    TROSKOVNI CENTAR: {{$troskovnoMesto['sifra_troskovnog_mesta']}} {{ $troskovnoMesto['naziv_troskovnog_mesta']}}<br>
-                   <b> {{$mdrData['MBRD_maticni_broj']}}</b> - {{$userData['prezime']}}  {{$userData['srednje_ime']}}. {{$userData['ime']}}<br>
+                    TROSKOVNI
+                    CENTAR: {{$troskovnoMesto['sifra_troskovnog_mesta']}} {{ $troskovnoMesto['naziv_troskovnog_mesta']}}
+                    <br>
+                    <b> {{$mdrData['MBRD_maticni_broj']}}</b> - {{$userData['prezime']}}  {{$userData['srednje_ime']}}
+                    . {{$userData['ime']}}<br>
                     {{$mdrData['adresa_mesto']}} <br>
                     {{$mdrData['adresa_ulica_broj']}} <br>
                     {{$mdrPreparedData['RBIM_isplatno_mesto_id']}} tekuci racun: {{$mdrData['ZRAC_tekuci_racun']}}<br>
-                    Datum dospelosti: {{\Carbon\Carbon::createFromFormat('Y-m-d', $podaciMesec['period_isplate_do'])->format('d.m.Y')}}<br>
+                    Datum
+                    dospelosti: {{\Carbon\Carbon::createFromFormat('Y-m-d', $podaciMesec['period_isplate_do'])->format('d.m.Y')}}
+                    <br>
                 </div>
             </div>
             <div class="col-md-6">
@@ -159,7 +173,9 @@
                 <div class="section">
                     Staz kod poslodavca: {{$mdrData['GGST_godine_staza']}} god {{$mdrData['MMST_meseci_staza']}} m<br>
                     Osnovna bruto zarada: {{$mdrData['KOEF_osnovna_zarada']}}<br>
-                    Prosecna bruto zarada/cas: {{  number_format($mdrData['PRIZ_ukupan_bruto_iznos']/$mdrData['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'], 2, '.', ',')}}<br>
+                    Prosecna bruto
+                    zarada/cas: {{  number_format($mdrData['PRIZ_ukupan_bruto_iznos']/$mdrData['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'], 2, '.', ',')}}
+                    <br>
                 </div>
             </div>
         </div>
@@ -175,7 +191,6 @@
             </div>
         </div>
         @foreach($radnikData as $radnik)
-
 
             @if($radnik['KESC_prihod_rashod_tip']=='P')
                 <div class="row">
@@ -193,7 +208,6 @@
         @endforeach
 
 
-
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-top border-top-custom border-bottom-custom">
                 <h1 class="text-left header-custom">1. BRUTO ZARADA :</h1>
@@ -209,7 +223,7 @@
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-left header-custom"> <b>-</b> IZNOS PORESKOG OSLOBODJENJA :</h2>
+                <h2 class="text-left header-custom"><b>-</b> IZNOS PORESKOG OSLOBODJENJA :</h2>
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
@@ -219,7 +233,7 @@
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-left header-custom"> <b>-</b> Oporezivi iznos zarade :</h2>
+                <h2 class="text-left header-custom"><b>-</b> Oporezivi iznos zarade :</h2>
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
@@ -276,9 +290,7 @@
         </div>
 
 
-
         @foreach($radnikData as $radnik)
-
 
             @if($radnik['KESC_prihod_rashod_tip']=='R')
                 <div class="row">
@@ -397,107 +409,113 @@
         </div>
     </div>
 
-    @if(\App\Models\User::with('permission')->find(Auth::id())->permission->role_id ==\App\Modules\Obracunzarada\Consts\UserRoles::PROGRAMER)
+    @if(\App\Models\User::with('permission')->find(Auth::id())->permission->role_id ==UserRoles::PROGRAMER)
         <h1 class="text-center font-weight-bold">Kontrola tabele</h1>
-    <div class="container-fluid mt-5" style="margin-left:150px">
-        <h1 class="text-center font-weight-bold">ZARA</h1>
+        <div class="container-fluid mt-5" style="margin-left:150px">
+            <h1 class="text-center font-weight-bold">ZARA</h1>
 
-        <div style="width: 90% !important;">
-        <table class="table table-responsive">
-            <thead>
-            <tr>
-                @foreach ($zarData->toArray() as $key => $value)
-                    <th>{{ ucfirst($key) }}</th>
-                @endforeach
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                @foreach ($zarData->toArray() as $value)
-                    <td>{{ $value }}</td>
-                @endforeach
-            </tr>
-            </tbody>
-        </table>
+            <div style="width: 90% !important;">
+                <table class="table table-responsive">
+                    <thead>
+                    <tr>
+                        @foreach ($zarData->toArray() as $key => $value)
+                            <th>{{ ucfirst($key) }}</th>
+                        @endforeach
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        @foreach ($zarData->toArray() as $value)
+                            <td>{{ $value }}</td>
+                        @endforeach
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
         <div class="container-fluid mt-5" style="margin-left:150px">
             <h1 class="text-center font-weight-bold">DKOP</h1>
             <div style="width: 90% !important;">
 
-            <table class="table-striped table-bordered table-responsive">
-                <thead>
-                <tr>
-                    @foreach ($dkopData->first()->toArray() as $key => $value)
-                        <th>{{ ucfirst($key) }}</th>
-                    @endforeach
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($dkopData as $dkop)
+                <table class="table-striped table-bordered table-responsive">
+                    <thead>
                     <tr>
-                        @foreach ($dkop->toArray() as $value)
-                            <td class="text-center">{{ $value }}</td>
+                        @foreach ($dkopData->first()->toArray() as $key => $value)
+                            <th>{{ ucfirst($key) }}</th>
                         @endforeach
                     </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-        </div>
-
-    @if(count($kreditiData))
-        <div class="container-fluid mt-5" style="margin-left:150px">
-            <h1 class="text-center font-weight-bold">Krediti</h1>
-            <div style="width: 90% !important;">
-            <table class="table  table-responsive">
-                <thead>
-                <tr>
-                    @foreach ($kreditiData->first()->toArray() as $key => $value)
-                        <th>{{ ucfirst($key) }}</th>
+                    </thead>
+                    <tbody>
+                    @foreach ($dkopData as $dkop)
+                        <tr>
+                            @foreach ($dkop->toArray() as $value)
+                                <td class="text-center">{{ $value }}</td>
+                            @endforeach
+                        </tr>
                     @endforeach
-                </tr>
-                </thead>
-                <tbody>
-                @foreach ($kreditiData as $dkop)
-                    <tr>
-                        @foreach ($dkop->toArray() as $value)
-                            <td>{{ $value }}</td>
-                        @endforeach
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
             </div>
         </div>
-    @endif
 
-    <div class="container-fluid mt-5" style="margin-left:150px">
-        <h1 class="text-center font-weight-bold">SVE FORMULE</h1>
-        <div style="width: 90% !important;">
+        @if(count($kreditiData))
+            <div class="container-fluid mt-5" style="margin-left:150px">
+                <h1 class="text-center font-weight-bold">Krediti</h1>
+                <div style="width: 90% !important;">
+                    <table class="table  table-responsive">
+                        <thead>
+                        <tr>
+                            @foreach ($kreditiData->first()->toArray() as $key => $value)
+                                <th>{{ ucfirst($key) }}</th>
+                            @endforeach
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($kreditiData as $dkop)
+                            <tr>
+                                @foreach ($dkop->toArray() as $value)
+                                    <td>{{ $value }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
 
-        <table class="table-dark table-bordered  table-responsive">
-            <thead>
-            <tr>
-                @foreach (array_values($vrstePlacanjaData)[0] as $key => $value)
-                    <th>{{ ucfirst($key) }}</th>
-                @endforeach
-            </tr>
-            </thead>
-            <tbody>
-            @foreach ($vrstePlacanjaData as $vrstaPlacanja)
-                <tr>
-                    @foreach ($vrstaPlacanja as $value)
-                        <td  class="text-center" style="white-space: nowrap;" >{{ $value }}</td>
-                    @endforeach
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-        </div>
-    </div>
+            <?php
+            $userData = Auth::user()->load(['permission']);
+            $permissions = $userData->permission;
+            ?>
+        @if($permissions['role_id']==UserRoles::PROGRAMER)
 
+            <div class="container-fluid mt-5" style="margin-left:150px">
+                <h1 class="text-center font-weight-bold">SVE FORMULE</h1>
+                <div style="width: 90% !important;">
+
+                    <table class="table-dark table-bordered  table-responsive">
+                        <thead>
+                        <tr>
+                            @foreach (array_values($vrstePlacanjaData)[0] as $key => $value)
+                                <th>{{ ucfirst($key) }}</th>
+                            @endforeach
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($vrstePlacanjaData as $vrstaPlacanja)
+                            <tr>
+                                @foreach ($vrstaPlacanja as $value)
+                                    <td class="text-center" style="white-space: nowrap;">{{ $value }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
 
     @endif
 @endsection
