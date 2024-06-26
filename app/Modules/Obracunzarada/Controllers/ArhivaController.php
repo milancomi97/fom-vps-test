@@ -10,6 +10,9 @@ use App\Modules\Obracunzarada\Repository\ArhivaMaticnadatotekaradnikaRepositoryI
 use App\Modules\Obracunzarada\Repository\ArhivaSumeZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\ArhivaObracunavanjeService;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\PodaciofirmiRepositoryInterface;
@@ -29,8 +32,9 @@ class ArhivaController extends Controller
         private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
         private readonly ArhivaObracunavanjeService $arhivaObracunavanjeService,
         private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface,
-
-
+        private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface       $obradaDkopSveVrstePlacanjaInterface,
+        private readonly  MinimalnebrutoosnoviceRepositoryInterface $minimalnebrutoosnoviceInterface,
+        private readonly VrsteplacanjaRepositoryInterface                    $vrsteplacanjaInterface,
 
     ){
     }
@@ -155,9 +159,41 @@ class ArhivaController extends Controller
 
         $startDate = $startOfMonth->format('Y-m-d');
 
-        $zaraData =$this->arhivaSumeZaraPoRadnikuInterface->where('M_G_date', $startDate)->get();
 
-        return view('obracunzarada::arhiva.ukupna_rekapitulacija',['zaraData'=>$zaraData,'archiveDate'=>$datum]);
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->where('datum', $startDate);
+        $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($startDate);
+        $dkopData =$this->arhivaDarhObradaSveDkopInterface
+            ->where('M_G_date', $startDate)
+            ->orderBy('sifra_vrste_placanja')
+            ->groupBy('sifra_vrste_placanja','naziv_vrste_placanja')
+            ->selectRaw('sifra_vrste_placanja,naziv_vrste_placanja, SUM(iznos) as iznos, SUM(sati) as sati')
+            ->get();
+
+
+        $zaraData =$this->arhivaSumeZaraPoRadnikuInterface->where('M_G_date', $startDate)
+            ->selectRaw('
+        SUM(IZNETO_zbir_ukupni_iznos_naknade_i_naknade) AS IZNETO_zbir_ukupni_iznos_naknade_i_naknade,
+        SUM(SID_ukupni_iznos_doprinosa) AS SID_ukupni_iznos_doprinosa,
+        SUM(SIP_ukupni_iznos_poreza) AS SIP_ukupni_iznos_poreza,
+        SUM(SIOB_ukupni_iznos_obustava) AS SIOB_ukupni_iznos_obustava,
+        SUM(ZARKR_ukupni_zbir_kredita) AS ZARKR_ukupni_zbir_kredita,
+        SUM(POROSL_poresko_oslobodjenje) AS POROSL_poresko_oslobodjenje,
+        SUM(NETO_neto_zarada) AS NETO_neto_zarada,
+        SUM(PIOR_penzijsko_osiguranje_na_teret_radnika) AS PIOR_penzijsko_osiguranje_na_teret_radnika,
+        SUM(ZDRR_zdravstveno_osiguranje_na_teret_radnika) AS ZDRR_zdravstveno_osiguranje_na_teret_radnika,
+        SUM(ONEZR_osiguranje_od_nezaposlenosti_teret_radnika) AS ONEZR_osiguranje_od_nezaposlenosti_teret_radnika,
+        SUM(PIOP_penzijsko_osiguranje_na_teret_poslodavca) AS PIOP_penzijsko_osiguranje_na_teret_poslodavca,
+        SUM(ZDRP_zdravstveno_osiguranje_na_teret_poslodavca) AS ZDRP_zdravstveno_osiguranje_na_teret_poslodavca
+    ')->first();
+
+        $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
+        return view('obracunzarada::arhiva.ukupna_rekapitulacija',[
+            'archiveDate'=>$datum,
+            'dkopData'=>$dkopData,
+            'zaraData'=>$zaraData,
+            'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,
+            'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik
+        ]);
     }
 
     public function potvrdaProseka(Request $request)

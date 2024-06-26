@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +11,13 @@ use League\Csv\Reader;
 
 class ArhivaDarhObradaSveDkopSeeder extends Seeder
 {
+    public function __construct(
+        private readonly VrsteplacanjaRepositoryInterface                    $vrsteplacanjaInterface,
+    )
+    {
+
+    }
+
     public function run(): void
     {
         $datas = $this->getDataFromCsv();
@@ -17,6 +25,8 @@ class ArhivaDarhObradaSveDkopSeeder extends Seeder
 //KESC;POK2;SIFK;SALD;RBRM;RBPS;P_R;KOEF;REC;GRAD;KPREB;LPREB;STSALD;
 //RATP;RATB;HKMB;RBTC;PART;MRBTC;NAZI
         // TODO RBPS,REC,KPREB,GRAD,LPREB
+        $sifarnikVrstePlacanja = $this->vrsteplacanjaInterface->getAllKeySifra();
+
         foreach ($datas as $data) {
             $date = Carbon::createFromFormat('my', $data['M_G'])->startOfMonth()->setDay(1);
 
@@ -25,7 +35,7 @@ class ArhivaDarhObradaSveDkopSeeder extends Seeder
                 'M_G_date' =>$date->format('Y-m-d'),
                 'maticni_broj'=>$data['MBRD'],
                 'sifra_vrste_placanja'=>$data['RBVP'],
-                'naziv_vrste_placanja'=>$data['NAZI'],
+                'naziv_vrste_placanja'=>isset($sifarnikVrstePlacanja[$data['RBVP']]) ? $sifarnikVrstePlacanja[$data['RBVP']]['naziv_naziv_vrste_placanja']: 'SIFRA NE POSTOJI U TRENUTNOM SIFARNIKU',
                 'SLOV_grupa_vrste_placanja'=>$data['SLOV'],
                 'sati'=>$data['SATI'],
                 'iznos'=>$data['IZNO'],
