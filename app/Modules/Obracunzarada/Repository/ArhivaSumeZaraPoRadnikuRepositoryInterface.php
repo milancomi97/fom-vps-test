@@ -6,6 +6,6 @@ use App\Repository\BaseRepositoryInterface;
 
 interface ArhivaSumeZaraPoRadnikuRepositoryInterface extends BaseRepositoryInterface
 {
-
+    public function whereIn($column,$dataList);
 }
 

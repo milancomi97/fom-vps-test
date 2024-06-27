@@ -16,6 +16,7 @@ use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\ArhivaObracunavanjeService;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\PodaciofirmiRepositoryInterface;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -24,45 +25,45 @@ class ArhivaController extends Controller
 {
 
     public function __construct(
-        private readonly ArhivaMaticnadatotekaradnikaRepositoryInterface $arhivaMaticnadatotekaradnikaInterface,
-        private readonly ArhivaSumeZaraPoRadnikuRepositoryInterface $arhivaSumeZaraPoRadnikuInterface,
-        private readonly ArhivaDarhObradaSveDkopRepositoryInterface $arhivaDarhObradaSveDkopInterface,
-        private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
+        private readonly ArhivaMaticnadatotekaradnikaRepositoryInterface     $arhivaMaticnadatotekaradnikaInterface,
+        private readonly ArhivaSumeZaraPoRadnikuRepositoryInterface          $arhivaSumeZaraPoRadnikuInterface,
+        private readonly ArhivaDarhObradaSveDkopRepositoryInterface          $arhivaDarhObradaSveDkopInterface,
+        private readonly MaticnadatotekaradnikaRepositoryInterface           $maticnadatotekaradnikaInterface,
         private readonly PodaciofirmiRepositoryInterface                     $podaciofirmiInterface,
-        private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
-        private readonly ArhivaObracunavanjeService $arhivaObracunavanjeService,
+        private readonly OrganizacionecelineRepositoryInterface              $organizacionecelineInterface,
+        private readonly ArhivaObracunavanjeService                          $arhivaObracunavanjeService,
         private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface,
         private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface       $obradaDkopSveVrstePlacanjaInterface,
-        private readonly  MinimalnebrutoosnoviceRepositoryInterface $minimalnebrutoosnoviceInterface,
+        private readonly MinimalnebrutoosnoviceRepositoryInterface           $minimalnebrutoosnoviceInterface,
         private readonly VrsteplacanjaRepositoryInterface                    $vrsteplacanjaInterface,
 
-    ){
+    )
+    {
     }
-
 
 
     public function index(Request $request)
     {
 
-        $radniciSelectData=[];
-       $data = $this->maticnadatotekaradnikaInterface->getAll();
+        $radniciSelectData = [];
+        $data = $this->maticnadatotekaradnikaInterface->getAll();
 
-       foreach ($data as $radnik){
-           $test='test';
-           $radniciSelectData[]=['id'=>$radnik->MBRD_maticni_broj ,'text'=>$radnik->MBRD_maticni_broj.' '. $radnik->PREZIME_prezime .' '.  $radnik->srednje_ime.' '.  $radnik->IME_ime];
-       }
+        foreach ($data as $radnik) {
+            $test = 'test';
+            $radniciSelectData[] = ['id' => $radnik->MBRD_maticni_broj, 'text' => $radnik->MBRD_maticni_broj . ' ' . $radnik->PREZIME_prezime . ' ' . $radnik->srednje_ime . ' ' . $radnik->IME_ime];
+        }
 
-       $test='test';
-        return view('obracunzarada::arhiva.arhiva_index',['radniciSelectData'=>$radniciSelectData]);
+        $test = 'test';
+        return view('obracunzarada::arhiva.arhiva_index', ['radniciSelectData' => $radniciSelectData]);
     }
 
     public function mesec(Request $request)
     {
 
 
-        $arhiva_datum=$request->arhiva_datum;
+        $arhiva_datum = $request->arhiva_datum;
 
-        return view('obracunzarada::arhiva.arhiva_mesec',['arhiva_datum'=>$arhiva_datum]);
+        return view('obracunzarada::arhiva.arhiva_mesec', ['arhiva_datum' => $arhiva_datum]);
     }
 
     public function radnik(Request $request)
@@ -82,39 +83,38 @@ class ArhivaController extends Controller
         $startDate = $startOfMonth->format('Y-m-d');
 
 // Retrieve records using Eloquent
-        $arhivaMdr =$this->arhivaMaticnadatotekaradnikaInterface->where('M_G_date', $startDate)->where('MBRD_maticni_broj',$maticniBroj)->get();
+        $arhivaMdr = $this->arhivaMaticnadatotekaradnikaInterface->where('M_G_date', $startDate)->where('MBRD_maticni_broj', $maticniBroj)->get();
 
 
-
-        $radniciSelectData=[];
+        $radniciSelectData = [];
         $data = $this->maticnadatotekaradnikaInterface->getAll();
 
-        foreach ($data as $radnik){
-            $test='test';
-            $radniciSelectData[]=['id'=>$radnik->MBRD_maticni_broj ,'text'=>$radnik->MBRD_maticni_broj.' '. $radnik->PREZIME_prezime .' '.  $radnik->srednje_ime.' '.  $radnik->IME_ime];
+        foreach ($data as $radnik) {
+            $test = 'test';
+            $radniciSelectData[] = ['id' => $radnik->MBRD_maticni_broj, 'text' => $radnik->MBRD_maticni_broj . ' ' . $radnik->PREZIME_prezime . ' ' . $radnik->srednje_ime . ' ' . $radnik->IME_ime];
         }
 
 
-
-        return view('obracunzarada::arhiva.arhiva_maticne_datoteke',['arhivaMdr'=>$arhivaMdr,'archiveDate'=>$datum,'radniciSelectData'=>$radniciSelectData]);
+        return view('obracunzarada::arhiva.arhiva_maticne_datoteke', ['arhivaMdr' => $arhivaMdr, 'archiveDate' => $datum, 'radniciSelectData' => $radniciSelectData]);
     }
+
     public function obracunskeListe(Request $request)
     {
         $maticniBroj = $request->maticniBroj;
         $datum = $request->datum;
         $startOfMonth = Carbon::createFromFormat('m.Y', $datum)->startOfMonth();
         $startDate = $startOfMonth->format('Y-m-d');
-        $zaraData =$this->arhivaSumeZaraPoRadnikuInterface->where('M_G_date', $startDate)->where('maticni_broj',$maticniBroj)->get()->first();
-        $dkopData = $this->arhivaDarhObradaSveDkopInterface->where('M_G_date', $startDate)->where('maticni_broj',$maticniBroj)->get();
+        $zaraData = $this->arhivaSumeZaraPoRadnikuInterface->where('M_G_date', $startDate)->where('maticni_broj', $maticniBroj)->get()->first();
+        $dkopData = $this->arhivaDarhObradaSveDkopInterface->where('M_G_date', $startDate)->where('maticni_broj', $maticniBroj)->get();
 
-        $test='test';
+        $test = 'test';
         $data = $this->maticnadatotekaradnikaInterface->getAll();
 
-        foreach ($data as $radnik){
-            $test='test';
-            $radniciSelectData[]=['id'=>$radnik->MBRD_maticni_broj ,'text'=>$radnik->MBRD_maticni_broj.' '. $radnik->PREZIME_prezime .' '.  $radnik->srednje_ime.' '.  $radnik->IME_ime];
+        foreach ($data as $radnik) {
+            $test = 'test';
+            $radniciSelectData[] = ['id' => $radnik->MBRD_maticni_broj, 'text' => $radnik->MBRD_maticni_broj . ' ' . $radnik->PREZIME_prezime . ' ' . $radnik->srednje_ime . ' ' . $radnik->IME_ime];
         }
-        $radniciSelectData[]=['id'=>$radnik->MBRD_maticni_broj ,'text'=>$radnik->MBRD_maticni_broj.' '. $radnik->PREZIME_prezime .' '.  $radnik->srednje_ime.' '.  $radnik->IME_ime];
+        $radniciSelectData[] = ['id' => $radnik->MBRD_maticni_broj, 'text' => $radnik->MBRD_maticni_broj . ' ' . $radnik->PREZIME_prezime . ' ' . $radnik->srednje_ime . ' ' . $radnik->IME_ime];
 
         $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
 
@@ -122,36 +122,35 @@ class ArhivaController extends Controller
 
 
 //        $mdrData = $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj',$startDate)->get()->first();
-        $arhivaMdr =$this->arhivaMaticnadatotekaradnikaInterface->where('M_G_date', $startDate)->where('MBRD_maticni_broj',$maticniBroj)->get()->first();
+        $arhivaMdr = $this->arhivaMaticnadatotekaradnikaInterface->where('M_G_date', $startDate)->where('MBRD_maticni_broj', $maticniBroj)->get()->first();
         $mdrDataCollection = collect($arhivaMdr);
         $mdrPreparedData = $this->arhivaObracunavanjeService->pripremaMdrPodatakaRadnik($mdrDataCollection);
         $troskovnoMesto = $this->organizacionecelineInterface->getById($mdrDataCollection['troskovno_mesto_id']);
-        $userData= User::where('maticni_broj',$maticniBroj)->first();
+        $userData = User::where('maticni_broj', $maticniBroj)->first();
 
-        $podaciMesec = $this->datotekaobracunskihkoeficijenataInterface->where('datum',$startDate)->get()->first();
-
-
-        $radnikData = $this->arhivaObracunavanjeService->pripremaPodatakaRadnik($startDate,$maticniBroj);
+        $podaciMesec = $this->datotekaobracunskihkoeficijenataInterface->where('datum', $startDate)->get()->first();
 
 
+        $radnikData = $this->arhivaObracunavanjeService->pripremaPodatakaRadnik($startDate, $maticniBroj);
 
 
         // Get by DATE datotekaobracunskih koeficijenata
-        return view('obracunzarada::arhiva.obracunske_liste',[
-            'zarData'=>$zaraData,
-            'dkopData'=>$dkopData,
-            'datum'=>$datum,
-            'datumStampe'=>$datumStampe,
-            'radniciSelectData'=>$radniciSelectData,
+        return view('obracunzarada::arhiva.obracunske_liste', [
+            'zarData' => $zaraData,
+            'dkopData' => $dkopData,
+            'datum' => $datum,
+            'datumStampe' => $datumStampe,
+            'radniciSelectData' => $radniciSelectData,
             'podaciFirme' => $podaciFirme,
             'mdrPreparedData' => $mdrPreparedData,
-            'troskovnoMesto'=> $troskovnoMesto,
+            'troskovnoMesto' => $troskovnoMesto,
             'mdrData' => $mdrDataCollection,
-            'userData'=>$userData,
+            'userData' => $userData,
             'podaciMesec' => $podaciMesec,
             'radnikData' => $radnikData,
         ]);
     }
+
     public function ukupnaRekapitulacija(Request $request)
     {
         $datum = $request->datum;
@@ -162,15 +161,15 @@ class ArhivaController extends Controller
 
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->where('datum', $startDate);
         $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($startDate);
-        $dkopData =$this->arhivaDarhObradaSveDkopInterface
+        $dkopData = $this->arhivaDarhObradaSveDkopInterface
             ->where('M_G_date', $startDate)
             ->orderBy('sifra_vrste_placanja')
-            ->groupBy('sifra_vrste_placanja','naziv_vrste_placanja')
+            ->groupBy('sifra_vrste_placanja', 'naziv_vrste_placanja')
             ->selectRaw('sifra_vrste_placanja,naziv_vrste_placanja, SUM(iznos) as iznos, SUM(sati) as sati')
             ->get();
 
 
-        $zaraData =$this->arhivaSumeZaraPoRadnikuInterface->where('M_G_date', $startDate)
+        $zaraData = $this->arhivaSumeZaraPoRadnikuInterface->where('M_G_date', $startDate)
             ->selectRaw('
         SUM(IZNETO_zbir_ukupni_iznos_naknade_i_naknade) AS IZNETO_zbir_ukupni_iznos_naknade_i_naknade,
         SUM(SID_ukupni_iznos_doprinosa) AS SID_ukupni_iznos_doprinosa,
@@ -187,12 +186,12 @@ class ArhivaController extends Controller
     ')->first();
 
         $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
-        return view('obracunzarada::arhiva.ukupna_rekapitulacija',[
-            'archiveDate'=>$datum,
-            'dkopData'=>$dkopData,
-            'zaraData'=>$zaraData,
-            'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,
-            'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik
+        return view('obracunzarada::arhiva.ukupna_rekapitulacija', [
+            'archiveDate' => $datum,
+            'dkopData' => $dkopData,
+            'zaraData' => $zaraData,
+            'vrstePlacanjaSifarnik' => $vrstePlacanjaSifarnik,
+            'minimalneBrutoOsnoviceSifarnik' => $minimalneBrutoOsnoviceSifarnik
         ]);
     }
 
@@ -203,7 +202,47 @@ class ArhivaController extends Controller
         $datumOd = $request->datumOd;
         $datumDo = $request->datumDo;
 
-        return view('obracunzarada::arhiva.potvrda_proseka');
+
+        $startPeriod = Carbon::createFromFormat('m.Y', $datumOd)->startOfMonth();
+        $endPeriod = Carbon::createFromFormat('m.Y', $datumDo)->endOfMonth();
+
+// Izračunaj broj meseci
+        $monthsDifference = $startPeriod->diffInMonths($endPeriod);
+
+// Kreiraj listu datuma između perioda
+        $period = CarbonPeriod::create($startPeriod, '1 month', $endPeriod);
+
+        $listOfDates = [];
+        foreach ($period as $date) {
+            $listOfDates[] = $date->format('Y-m-d');
+        }
+
+        $sumeZaraPeriod = $this->arhivaSumeZaraPoRadnikuInterface->whereIn('M_G_date', $listOfDates)->where('maticni_broj', $maticniBroj)->get();
+
+        $resultData = [];
+        $resultData['izneto'] = 0;
+        $resultData['neto'] = 0;
+        foreach ($sumeZaraPeriod as $mesecData) {
+            $resultData[] = [
+                'IZNETO' => $mesecData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade,
+                'NETO' => $mesecData->NETO_neto_zarada,
+                'datum' => $mesecData->M_G_date
+            ];
+
+            $resultData['izneto']+= $mesecData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade;
+            $resultData['neto'] +=$mesecData->NETO_neto_zarada;
+
+        }
+        $radnikData =User::where('maticni_broj',$maticniBroj)->get()->first();
+
+        $test = 'test';
+
+        return view('obracunzarada::arhiva.potvrda_proseka',[
+            'resultData'=>$resultData,
+            'radnikData'=>$radnikData,
+            'datumOd'=>$datumOd,
+            'datumDo'=>$datumDo
+        ]);
     }
 
     public function godisnjiKarton(Request $request)

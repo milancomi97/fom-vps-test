@@ -17,4 +17,10 @@ class ArhivaSumeZaraPoRadnikuRepository extends BaseRepository implements Arhiva
     }
 
 
+    public function whereIn($column,$dataList){
+
+        return $this->model->whereIn($column,$dataList);
+    }
+
+
 }
