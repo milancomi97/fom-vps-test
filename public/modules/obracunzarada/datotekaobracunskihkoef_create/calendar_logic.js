@@ -128,9 +128,13 @@ function updateMonthContainer(activeMonth) {
                 }).text('Unos poentaže po radniku').appendTo(monthCard);
 
 
-                $("<h1></h1>").attr({
-                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
-                }).text('Poreska prijava').css('cursor','default').appendTo(monthCard);
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-success poreska-prijava offset-1 col-sm-3 mt-3 border',
+                    'data-month_id': monthData.month_id,
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Poreska prijava').appendTo(monthCard);
 
 
 
@@ -161,9 +165,19 @@ function updateMonthContainer(activeMonth) {
                 //     'data-year': monthData.currYear
                 // }).text('Unos akontacije').appendTo(monthCard);
 
-                $("<h1></h1>").attr({
-                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
-                }).text('Priprema podataka za banke').css('cursor','default').appendTo(monthCard);
+                // $("<h1></h1>").attr({
+                //     'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
+                // }).text('Priprema podataka za banke').css('cursor','default').appendTo(monthCard);
+
+
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-success priprema-banke offset-1 col-sm-3 mt-3 border',
+                    'data-month_id': monthData.month_id,
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Priprema podataka za banke').appendTo(monthCard);
+
 
                 $("<h1></h1>").attr({
                     'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
@@ -179,9 +193,20 @@ function updateMonthContainer(activeMonth) {
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
                 }).text('Unos Kredita').appendTo(monthCard);
-                $("<h1></h1>").attr({
-                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
-                }).text('Arhiva').css('cursor','default').appendTo(monthCard);
+
+                //
+                // $("<h1></h1>").attr({
+                //     'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
+                // }).text('Arhiva').css('cursor','default').appendTo(monthCard);
+
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-success index-arhiviraj-mesec offset-1 col-sm-3 mt-3 border',
+                    'data-month_id': monthData.month_id,
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Arhiviraj - Zatvori mesec').appendTo(monthCard);
+
 
                 $("<h1></h1>").attr({
                     'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
