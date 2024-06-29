@@ -20,12 +20,20 @@ function updateMonthContainer(activeMonth) {
 
             var list = $('<ul class="list-group mb-5"></ul>');
 
+            var statusData ={'1':'U obradi','2':'Arhiviran'};
+            if(monthData.status){
+                var monthStatusString = statusData[monthData.status];
+
+            }else{
+                var monthStatusString = 'Prazan';
+
+            }
 
             $.each([
                 {'label': 'Kalendarski broj dana', 'val': `${monthData.kalendarski_broj_dana}`},
                 // {'label': 'Prosečni godišnji fond sati', 'val': `${monthData.prosecni_godisnji_fond_sati}`},
                 {'label': 'Mesečni fond sati', 'val': `${monthData.mesecni_fond_sati}`},
-                {'label': 'Статус месеца ', 'val': `Договорити се са Снежом`},
+                {'label': 'Status meseca', 'val': `${monthStatusString}`},
                 // {'label': 'Cena rada prethodni', 'val': `${monthData.cena_rada_prethodni}`},
             ], function(key, value) {
 
@@ -41,7 +49,7 @@ function updateMonthContainer(activeMonth) {
 
 
 
-            if(monthData.status){
+            if(monthData.status=='1'){
 
                 $("<h1></h1>").attr({
                     'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold',
@@ -201,7 +209,7 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-success index-arhiviraj-mesec offset-1 col-sm-3 mt-3 border',
+                    'class': 'btn btn-success arhiviranje_meseca offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
@@ -214,7 +222,27 @@ function updateMonthContainer(activeMonth) {
 
 
 
+            }else if(monthData.status=='2'){
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-warning arhiva_maticne_datoteke offset-1 col-sm-3 mt-3 border',
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Arhiva maticne datoteke').appendTo(monthCard);
 
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-warning obracunske_liste offset-1 col-sm-3 mt-3 border',
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Obracunske liste').appendTo(monthCard);
+
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-warning ukupna_rekapitulacija offset-1 col-sm-3 mt-3 border',
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Ukupna rekapitulacija').appendTo(monthCard);
 
             }else{
                 $('<button>').attr({

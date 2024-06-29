@@ -12,7 +12,10 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('click', 'body .create-mesecna-poentaza', function (e) {
+
+
+
+        $(document).on('click', 'body .create-mesecna-poentaza', function (e) {
 
         $('#myForm :input').val('');
         var _token = $('input[name="_token"]').val();
@@ -202,6 +205,32 @@ $(document).ready(function () {
     //     window.location.href = izvestajRekapitulaciajaZarade + id;
     // });
 
+    // arhiviranjeMeseca
+    $(document).on('click', 'body .arhiviranje_meseca', function (e) {
+
+        var _token = $('input[name="_token"]').val();
+        var month_id = $(this).data('month_id')
+
+        $.ajax({
+            url: arhiviranjeMeseca,
+            type: 'POST',
+            data: {
+                month_id:month_id,
+                _token: _token
+            },
+            success: function (response) {
+                debugger;
+                alert(response.status)
+
+                // ADD SHOW ALL PLATE ROUTE;
+            },
+            error: function (response) {
+                debugger;
+            }
+        });
+
+
+    });
     $(document).on('click', 'body .obrada', function (e) {
 
         debugger;

@@ -359,6 +359,9 @@
         let izvestajRangListaZarade ='{!! url('obracunzarada/izvestaji/ranglistazarade?month_id=') !!}'
         let izvestajRekapitulaciajaZarade ='{!! url('obracunzarada/izvestaji/rekapitulacijazarade?month_id=') !!}'
 
+        let arhiviranjeMeseca ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/arhiviranje_meseca?month_id=') !!}'
+
+
         let activeMonth ='{{$activeMonth}}';
         let activeYear = '{{$activeYear}}';
 

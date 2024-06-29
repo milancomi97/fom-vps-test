@@ -22,5 +22,9 @@ class ArhivaSumeZaraPoRadnikuRepository extends BaseRepository implements Arhiva
         return $this->model->whereIn($column,$dataList);
     }
 
+    public function createMany($array)
+    {
+        return $this->model->insert($array);
+    }
 
 }

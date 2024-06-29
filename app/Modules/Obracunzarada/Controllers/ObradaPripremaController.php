@@ -11,6 +11,7 @@ use App\Modules\Obracunzarada\Repository\DpsmAkontacijeRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
@@ -19,6 +20,7 @@ use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
+use App\Modules\Obracunzarada\Service\ArhiviranjeMesecaService;
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
 use App\Modules\Obracunzarada\Service\KreirajPermisijePoenteriOdobravanja;
 use App\Modules\Obracunzarada\Service\ObradaFormuleService;
@@ -40,19 +42,19 @@ class ObradaPripremaController extends Controller
         private readonly MesecnatabelapoentazaRepositoryInterface            $mesecnatabelapoentazaInterface,
         private readonly UpdateVrstePlacanjaJson                             $updateVrstePlacanjaJson,
         private readonly VrsteplacanjaRepository                             $vrsteplacanjaInterface,
-        private readonly DpsmAkontacijeRepositoryInterface                   $dpsmAkontacijeInterface,
         private readonly DpsmPoentazaslogRepositoryInterface                 $dpsmPoentazaslogInterface,
         private readonly DpsmFiksnaPlacanjaRepositoryInterface               $dpsmFiksnaPlacanjaInterface,
-        private readonly DpsmKreditiRepositoryInterface                      $dpsmKreditiInterface,
         private readonly ObradaPripremaService                               $obradaPripremaService,
         private readonly ObradaPripremaValidacijaService                     $obradaPripremaValidacijaService,
         private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface       $dkopSveVrstePlacanjaInterface,
         private readonly PorezdoprinosiRepositoryInterface                   $porezdoprinosiInterface,
-        private readonly ObradaObracunavanjeService                          $obradaObracunavanjeService,
-        private readonly ObradaFormuleService                                $obradaFormuleService,
         private readonly MinimalnebrutoosnoviceRepositoryInterface           $minimalnebrutoosnoviceInterface,
         private readonly ObradaZaraPoRadnikuRepositoryInterface              $obradaZaraPoRadnikuInterface,
-        private readonly ObradaKreditiRepositoryInterface                    $obradaKreditiInterface
+        private readonly ArhiviranjeMesecaService $arhiviranjeMesecaService,
+        private readonly PermesecnatabelapoentRepositoryInterface $permesecnatabelapoentInterface,
+        private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
+        private readonly DpsmKreditiRepositoryInterface $dpsmKreditiInterface,
+        private readonly ObradaKreditiRepositoryInterface                    $obradaKreditiInterface,
 
     )
     {
@@ -198,6 +200,101 @@ class ObradaPripremaController extends Controller
             return url('obracunzarada/izvestaji/rekapitulacijazarade?month_id=').$monthId;
         }
 
+
+    }
+
+
+    public function arhiviranjeMeseca(Request $request){
+
+        $monthId= $request->month_id;
+        $test='test';
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($monthId);
+        $pristupi=$this->permesecnatabelapoentInterface->getAll();
+
+
+       $data = $this->arhiviranjeMesecaService->getDataByMonthId($monthId);
+
+
+
+
+
+
+
+        $datum = Carbon::createFromFormat('Y-m-d', $monthData->datum);
+
+        // TODO 2. ARCHIVE
+        $mdrData =$this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',1)->get();
+//        $mdrData = $this->arhiviranjeMesecaService->archiveMDR($mdrData,$datum);
+
+
+
+        $dkopData = $this->dkopSveVrstePlacanjaInterface->getAll();
+//        $dkopData = $this->arhiviranjeMesecaService->archiveDkop($dkopData,$datum);
+
+        $zaraData = $this->obradaZaraPoRadnikuInterface->getAll();
+//        $zaraData = $this->arhiviranjeMesecaService->archiveZara($zaraData,$datum);
+
+//        $zaraData->each->delete();
+//        $dkopData->each->delete();
+//        $pristupi->each->delete();
+
+        $varijabilna =$this->dpsmPoentazaslogInterface->getAll();
+        $poenterData =$this->mesecnatabelapoentazaInterface->getAll();
+        $varijabilnaData = $this->dpsmPoentazaslogInterface->getAll();
+
+        // GLAVNA KREDITI
+       $dpsmKrediti = $this->dpsmKreditiInterface->getAll();
+
+       // POMOCNA KREDITI
+        $obradaKrediti = $this->obradaKreditiInterface->getAll();
+
+//        $this->obradaKreditiInterface->where('obracunski_koef_id', $id)->delete();
+//        \App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface
+//        $poenterData =$this->mesecnatabelapoentazaInterface->getAll();
+
+
+
+
+
+
+        // TODO 1.UPDATE
+        $mdrResult = $this->arhiviranjeMesecaService->getUpdateCurrentMDR($monthId);
+        $kreditiData = $this->arhiviranjeMesecaService->updateKrediti($monthId);
+        $monthData = $this->arhiviranjeMesecaService->updateCurrentMesecData($monthId);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // $fiksnaPlacanja = $this->arhiviranjeMesecaService->removeFiksnaPlacanja($monthId);
+
+        // MDR DA SE POVECAJU PARAMETRI
+        // KREDITI DA SE UPDATE
+        // ZARA
+        // DKOP
+        // KREDITI POMOCNI
+        // DA SE OCISTI Permisije za mesec
+        // DA SE OCISTE NAPOMENE ZA MESEC
+        // DA SE SACUVAJU NOVE ARHIVE SVA TRI KORAKA
+        // DA SE PROMENI STATUS MESECA
+        // POENTERSKI UNOS DA SE OCISTI
+        // VARIJABILNI UNOS da se ocisti
+        // UNOS FIKSNIH PLACANJA da se ocisti
+        return response()->json(['status' => true]);
 
     }
 }

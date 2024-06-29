@@ -254,6 +254,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/store_update', [DatotekaobracunskihkoeficijenataController::class, 'storeUpdate'])->name('datotekaobracunskihkoeficijenata.store_update');
 
+
     // POENTERSKI UNOS
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/update', [DatotekaobracunskihkoeficijenataController::class, 'update'])->name('datotekaobracunskihkoeficijenata.update');
@@ -312,6 +313,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index', [ObradaPripremaController::class, 'obradaIndex'])->name('datotekaobracunskihkoeficijenata.mesecna_obrada_index');
 //    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index',[ObradaPripremaController::class,'obradaShow'])->name('datotekaobracunskihkoeficijenata.mesecna_obrada_index');
+
+
+    // Arhiviranje meseca
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/arhiviranje_meseca', [ObradaPripremaController::class, 'arhiviranjeMeseca'])->name('datotekaobracunskihkoeficijenata.arhiviranje_meseca');
+
+
 
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/obrada_radnik', [ObracunZaradaController::class, 'obradaRadnik'])->name('datotekaobracunskihkoeficijenata.obrada_radnik');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate', [ObracunZaradaController::class, 'showAllPlate'])->name('datotekaobracunskihkoeficijenata.show_all_plate');

@@ -16,5 +16,9 @@ class ArhivaDarhObradaSveDkopRepository extends BaseRepository implements Arhiva
         parent::__construct($model);
     }
 
+    public function createMany($array)
+    {
+        return $this->model->insert($array);
+    }
 
 }

@@ -20,4 +20,9 @@ class ArhivaMaticnadatotekaradnikaRepository extends BaseRepository implements A
        return $this->model->whereBetween('M_G_date', [$dateStart, $dateEnd]);
     }
 
+    public function createMany($array)
+    {
+        return $this->model->insert($array);
+    }
+
 }
