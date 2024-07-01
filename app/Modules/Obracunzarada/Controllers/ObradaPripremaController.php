@@ -226,7 +226,7 @@ class ObradaPripremaController extends Controller
 
         // TODO 2. ARCHIVE
         $mdrData =$this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',1)->get();
-        $mdrData = $this->arhiviranjeMesecaService->archiveMDR($mdrData,$datum);
+        $mdrDataResult = $this->arhiviranjeMesecaService->archiveMDR($mdrData,$datum);
 
 
 
@@ -242,60 +242,32 @@ class ObradaPripremaController extends Controller
         $poenterData =$this->mesecnatabelapoentazaInterface->getAll();
         $pristupi=$this->permesecnatabelapoentInterface->getAll();
 
-       // POMOCNA KREDITI
-        $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $monthId)->delete();
-        $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->delete();
-        $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->delete();
-
-
-
-        $pristupi->each->delete();
-//        $obradaKrediti->each->delete();
-        $varijabilna->each->delete();
-        $poenterData->each->delete();
-
-        $monthData->status = Datotekaobracunskihkoeficijenata::ARHIVIRAN;
-        $monthData->save();
-        // GLAVNA KREDITI
+        // glavnaKrediti
         $dpsmKrediti = $this->dpsmKreditiInterface->getAll();
-
-//        // TODO 1.UPDATE
-//        $mdrResult = $this->arhiviranjeMesecaService->getUpdateCurrentMDR($monthId);
-//        $kreditiData = $this->arhiviranjeMesecaService->updateKrediti($monthId);
-//        $monthData = $this->arhiviranjeMesecaService->updateCurrentMesecData($monthId);
+        // POMOCNA KREDITI
+       $kreditiPomocni =  $this->obradaKreditiInterface->getAll();
 
 
+        $zaraDataResult = $this->arhiviranjeMesecaService->resolveKrediti($dpsmKrediti,$kreditiPomocni);
+
+
+//        $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $monthId)->delete();
+//        $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->delete();
+//
+//        $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->delete();
+//
+//
+//
+//        $pristupi->each->delete();
+//        $kreditiPomocni->each->delete();
+//        $varijabilna->each->delete();
+//        $poenterData->each->delete();
+//        $monthData->status = Datotekaobracunskihkoeficijenata::ARHIVIRAN;
+//        $monthData->save();
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // $fiksnaPlacanja = $this->arhiviranjeMesecaService->removeFiksnaPlacanja($monthId);
-
-        // MDR DA SE POVECAJU PARAMETRI
-        // KREDITI DA SE UPDATE
-        // ZARA
-        // DKOP
-        // KREDITI POMOCNI
-        // DA SE OCISTI Permisije za mesec
-        // DA SE OCISTE NAPOMENE ZA MESEC
-        // DA SE SACUVAJU NOVE ARHIVE SVA TRI KORAKA
-        // DA SE PROMENI STATUS MESECA
-        // POENTERSKI UNOS DA SE OCISTI
-        // VARIJABILNI UNOS da se ocisti
-        // UNOS FIKSNIH PLACANJA da se ocisti
         return response()->json(['status' => true]);
 
     }

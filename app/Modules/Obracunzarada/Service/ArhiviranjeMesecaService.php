@@ -8,6 +8,7 @@ use App\Modules\Obracunzarada\Repository\ArhivaDarhObradaSveDkopRepositoryInterf
 use App\Modules\Obracunzarada\Repository\ArhivaMaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ArhivaSumeZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
 use Illuminate\Support\Carbon;
 
@@ -21,6 +22,8 @@ class ArhiviranjeMesecaService
         private readonly ArhivaDarhObradaSveDkopRepositoryInterface $arhivaDarhObradaSveDkopInterface,
         private readonly ArhivaMaticnadatotekaradnikaRepositoryInterface $arhivaMaticnadatotekaradnikaInterface,
         private readonly ArhivaSumeZaraPoRadnikuRepositoryInterface $arhivaSumeZaraPoRadnikuInterface,
+        private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
+
 
     )
     {
@@ -37,15 +40,31 @@ class ArhiviranjeMesecaService
 //        $mdrArray=$mdrData->toArray();
 
         $updatedMdr = $mdrData->map(function ($mdr)  use($datum) {
+
             unset($mdr->id);
+            unset($mdr->updated_at);
+            unset($mdr->created_at);
 
             $mdr['M_G_mesec_godina']=$datum->format('my');
             $mdr['M_G_date']=$datum;
+
             return $mdr;
         });
         $result =$this->arhivaMaticnadatotekaradnikaInterface->createMany($updatedMdr->toArray());
-        return $result;
+
+        $oldData =$this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',1)->get();
+
+        $updatedMdr = $oldData->map(function ($mdr) {
+            $mdr->update(['PREB_prebacaj'=>1.0]);
+
+            return $mdr;
+
+        });
+            return $result;
     }
+
+
+
 
 
     public function archiveDkop($dkopData,$datum){
@@ -110,5 +129,20 @@ class ArhiviranjeMesecaService
 
 
 
+    public function resolveKrediti($dpsmKrediti,$kreditiPomocni){
+
+        $allData = [];
+
+
+        foreach ($dpsmKrediti as $glavniKredit){
+            foreach ($kreditiPomocni as $pomocniKredit){
+                $test='test';
+
+
+            }
+        }
+
+        return $allData;
+}
 
 }

@@ -152,6 +152,7 @@ class MartPlataSeeder extends Seeder
 
                 foreach ($krediti as $kredit){
                     if($kredit['SIFK'] ==''){
+                        var_dump('SIFRA KREDITORA NE POSTOJI');
                         continue;
                     }
                     $data=[
