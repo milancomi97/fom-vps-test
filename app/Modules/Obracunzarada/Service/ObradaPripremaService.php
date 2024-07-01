@@ -1399,7 +1399,7 @@ $test='TEST';
 
 
                 }
-
+// test
                 if(!empty($data)){
                     $kreditiData[] = $data;
                 }
