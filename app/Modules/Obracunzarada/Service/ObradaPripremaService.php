@@ -1335,7 +1335,8 @@ $test='TEST';
                         'iznos'=> $kredit->RATA_rata,
                         'user_mdr_id' => $kredit->user_mdr_id,
                         'RBZA'=>$kredit->RBZA,
-                        'RATB'=>$kredit->RATB
+                        'RATB'=>$kredit->RATB,
+                        'kredit_glavna_tabela_id'=>$kredit->id
                     ];
 
 
@@ -1363,7 +1364,8 @@ $test='TEST';
                         'iznos'=> $neto2- $siobkr,
                         'user_mdr_id' => $kredit->user_mdr_id,
                         'RBZA'=>$kredit->RBZA,
-                        'RATB'=>$kredit->RATB
+                        'RATB'=>$kredit->RATB,
+                        'kredit_glavna_tabela_id'=>$kredit->id
                     ];
 
 
@@ -1389,7 +1391,8 @@ $test='TEST';
                         'iznos'=> 0,
                         'user_mdr_id' => $kredit->user_mdr_id,
                         'RBZA'=>$kredit->RBZA,
-                        'RATB'=>$kredit->RATB
+                        'RATB'=>$kredit->RATB,
+                        'kredit_glavna_tabela_id'=>$kredit->id
                     ];
 
 

@@ -28,6 +28,7 @@ class ObradaKrediti extends Model
         'user_mdr_id',
         'RBZA',
         'RATB',
-        'iznos'
+        'iznos',
+        'kredit_glavna_tabela_id'
     ];
 }
