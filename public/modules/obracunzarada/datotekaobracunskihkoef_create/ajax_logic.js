@@ -211,24 +211,45 @@ $(document).ready(function () {
         var _token = $('input[name="_token"]').val();
         var month_id = $(this).data('month_id')
 
-        $.ajax({
-            url: arhiviranjeMeseca,
-            type: 'POST',
-            data: {
-                month_id:month_id,
-                _token: _token
-            },
-            success: function (response) {
-                debugger;
-                alert(response.status)
 
-                // ADD SHOW ALL PLATE ROUTE;
-            },
-            error: function (response) {
-                debugger;
+
+
+        Swal.fire({
+            title: 'Da li želite da arhivirate?',
+            text: $('#monthYear').text(),
+            icon: 'warning',
+            confirmButtonText: 'Arhiviraj',
+            cancelButtonText: 'Odustani',
+            showCancelButton: true,
+            showCloseButton: true,
+            confirmButtonColor: "#cc3f44",
+
+        }).then((result) => {
+
+            if(result.isConfirmed){
+
+                $('.obrada-title').removeClass('hidden').text('Arhiviranje je u toku');
+                $('.loading').removeClass('hidden')
+                $('.main-container-calendar').addClass('hidden')
+
+                $.ajax({
+                    url: arhiviranjeMeseca,
+                    type: 'POST',
+                    data: {
+                        month_id:month_id,
+                        _token: _token
+                    },
+                    success: function (response) {
+                        window.location.reload();
+
+                    },
+                    error: function (response) {
+                        debugger;
+                    }
+                });
             }
+            debugger;
         });
-
 
     });
     $(document).on('click', 'body .obrada', function (e) {

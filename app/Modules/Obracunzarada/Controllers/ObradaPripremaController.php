@@ -3,6 +3,7 @@
 namespace App\Modules\Obracunzarada\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Datotekaobracunskihkoeficijenata;
 use App\Models\User;
 use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
@@ -207,16 +208,8 @@ class ObradaPripremaController extends Controller
     public function arhiviranjeMeseca(Request $request){
 
         $monthId= $request->month_id;
-        $test='test';
+
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($monthId);
-        $pristupi=$this->permesecnatabelapoentInterface->getAll();
-
-
-       $data = $this->arhiviranjeMesecaService->getDataByMonthId($monthId);
-
-
-
-
 
 
 
@@ -224,43 +217,43 @@ class ObradaPripremaController extends Controller
 
         // TODO 2. ARCHIVE
         $mdrData =$this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',1)->get();
-//        $mdrData = $this->arhiviranjeMesecaService->archiveMDR($mdrData,$datum);
+        $mdrData = $this->arhiviranjeMesecaService->archiveMDR($mdrData,$datum);
 
 
 
         $dkopData = $this->dkopSveVrstePlacanjaInterface->getAll();
-//        $dkopData = $this->arhiviranjeMesecaService->archiveDkop($dkopData,$datum);
+        $dkopDataResult = $this->arhiviranjeMesecaService->archiveDkop($dkopData,$datum);
 
         $zaraData = $this->obradaZaraPoRadnikuInterface->getAll();
-//        $zaraData = $this->arhiviranjeMesecaService->archiveZara($zaraData,$datum);
+        $zaraDataResult = $this->arhiviranjeMesecaService->archiveZara($zaraData,$datum);
 
-//        $zaraData->each->delete();
-//        $dkopData->each->delete();
-//        $pristupi->each->delete();
+
 
         $varijabilna =$this->dpsmPoentazaslogInterface->getAll();
         $poenterData =$this->mesecnatabelapoentazaInterface->getAll();
-        $varijabilnaData = $this->dpsmPoentazaslogInterface->getAll();
-
-        // GLAVNA KREDITI
-       $dpsmKrediti = $this->dpsmKreditiInterface->getAll();
+        $pristupi=$this->permesecnatabelapoentInterface->getAll();
 
        // POMOCNA KREDITI
-        $obradaKrediti = $this->obradaKreditiInterface->getAll();
-
-//        $this->obradaKreditiInterface->where('obracunski_koef_id', $id)->delete();
-//        \App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface
-//        $poenterData =$this->mesecnatabelapoentazaInterface->getAll();
+        $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $monthId)->delete();
+        $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->delete();
+        $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->delete();
 
 
 
+        $pristupi->each->delete();
+//        $obradaKrediti->each->delete();
+        $varijabilna->each->delete();
+        $poenterData->each->delete();
 
+        $monthData->status = Datotekaobracunskihkoeficijenata::ARHIVIRAN;
+        $monthData->save();
+        // GLAVNA KREDITI
+        $dpsmKrediti = $this->dpsmKreditiInterface->getAll();
 
-
-        // TODO 1.UPDATE
-        $mdrResult = $this->arhiviranjeMesecaService->getUpdateCurrentMDR($monthId);
-        $kreditiData = $this->arhiviranjeMesecaService->updateKrediti($monthId);
-        $monthData = $this->arhiviranjeMesecaService->updateCurrentMesecData($monthId);
+//        // TODO 1.UPDATE
+//        $mdrResult = $this->arhiviranjeMesecaService->getUpdateCurrentMDR($monthId);
+//        $kreditiData = $this->arhiviranjeMesecaService->updateKrediti($monthId);
+//        $monthData = $this->arhiviranjeMesecaService->updateCurrentMesecData($monthId);
 
 
 

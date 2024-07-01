@@ -303,13 +303,15 @@
             <div class="col-md-6">
 
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_sati',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola sati</a>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_poenteri',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola statusa</a>
             </div>
             <div class="col-md-1">
+                <a  href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="btn btn-secondary btn-lg">Poentaža</a>
+
             </div>
         </div>
     </div>
