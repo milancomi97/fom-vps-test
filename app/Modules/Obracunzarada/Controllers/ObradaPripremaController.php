@@ -64,57 +64,59 @@ class ObradaPripremaController extends Controller
 
     public function obradaIndex(Request $request)
     {
-        $redirectUrl = $this->resolveRedirectUrl($request->redirect_url,$request->month_id);
 
 
-        $user_id = auth()->user()->id;
-        $userPermission = UserPermission::where('user_id', $user_id)->first();
-        $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
-        $id = $request->month_id;
+        if($request->redirect_url =='obrada_plate') {
 
-        $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $id)->delete();
-        $this->obradaKreditiInterface->where('obracunski_koef_id', $id)->delete();
-        $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $id)->delete();
+
+            $user_id = auth()->user()->id;
+            $userPermission = UserPermission::where('user_id', $user_id)->first();
+            $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
+            $id = $request->month_id;
+
+            $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $id)->delete();
+            $this->obradaKreditiInterface->where('obracunski_koef_id', $id)->delete();
+            $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $id)->delete();
 
 //        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->select('vrste_placanja','user_id','maticni_broj','obracunski_koef_id')->get();
-        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
+            $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
 
-        // $prviPodatakListaPlacanjaKojaSeObradjuje
-        $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
-        $poresDoprinosiSifarnik = $this->porezdoprinosiInterface->getAll()->first();
+            // $prviPodatakListaPlacanjaKojaSeObradjuje
+            $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
+            $poresDoprinosiSifarnik = $this->porezdoprinosiInterface->getAll()->first();
 
-        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
-        $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($monthData->datum);
-        $poenteriPrepared = $this->obradaPripremaService->pripremiUnosPoentera($poenteriData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
+            $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($id);
+            $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($monthData->datum);
+            $poenteriPrepared = $this->obradaPripremaService->pripremiUnosPoentera($poenteriData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
 //
 
 
-        $allFiksnaPlacanjaData = $this->dpsmFiksnaPlacanjaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
-        if ($allFiksnaPlacanjaData->count()) {
-            $allFiksnaPlacanjaPrepared = $this->obradaPripremaService->pripremiFiksnaPlacanja($allFiksnaPlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik);
-            $status = $this->dkopSveVrstePlacanjaInterface->createMany($allFiksnaPlacanjaPrepared);
-        }
+            $allFiksnaPlacanjaData = $this->dpsmFiksnaPlacanjaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
+            if ($allFiksnaPlacanjaData->count()) {
+                $allFiksnaPlacanjaPrepared = $this->obradaPripremaService->pripremiFiksnaPlacanja($allFiksnaPlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik);
+                $status = $this->dkopSveVrstePlacanjaInterface->createMany($allFiksnaPlacanjaPrepared);
+            }
 
 
 //            $akontacijeData = $this->dpsmAkontacijeInterface->where('obracunski_koef_id',$id)->get();
 //            $akontacijePrepared = $this->obradaPripremaService->pripremiAkontacije($akontacijeData);
 //
-        $varijabilnaData = $this->dpsmPoentazaslogInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
-        if ($varijabilnaData->count()) {
-            $varijabilnaPrepared = $this->obradaPripremaService->pripremiVarijabilnihPlacanja($varijabilnaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik);
-            $status = $this->dkopSveVrstePlacanjaInterface->createMany($varijabilnaPrepared);
+            $varijabilnaData = $this->dpsmPoentazaslogInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
+            if ($varijabilnaData->count()) {
+                $varijabilnaPrepared = $this->obradaPripremaService->pripremiVarijabilnihPlacanja($varijabilnaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik);
+                $status = $this->dkopSveVrstePlacanjaInterface->createMany($varijabilnaPrepared);
 
-        }
+            }
 
-        $status = $this->dkopSveVrstePlacanjaInterface->createMany($poenteriPrepared);
+            $status = $this->dkopSveVrstePlacanjaInterface->createMany($poenteriPrepared);
 
 
-        $minuliRadData = $this->obradaPripremaService->pripremiMinuliRad($poenteriData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik);
+            $minuliRadData = $this->obradaPripremaService->pripremiMinuliRad($poenteriData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik);
 
-        $status = $this->dkopSveVrstePlacanjaInterface->createMany($minuliRadData);
+            $status = $this->dkopSveVrstePlacanjaInterface->createMany($minuliRadData);
 
-        $sveVrstePlacanjaData = $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $id)->get();
-        //
+            $sveVrstePlacanjaData = $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $id)->get();
+            //
 //
 //            $sveVrstePlacanjaDataFormule = $this->obradaFormuleService->obradiFormule($sveVrstePlacanjaData); // G i EVAL odradi
 
@@ -124,22 +126,24 @@ class ObradaPripremaController extends Controller
 //        $this->obradaKreditiInterface->createMany($kreditiPrepared);
 
 
-        $message = $this->obradaPripremaValidacijaService->checkMinimalneBrutoOsnovice($minimalneBrutoOsnoviceSifarnik);
+            $message = $this->obradaPripremaValidacijaService->checkMinimalneBrutoOsnovice($minimalneBrutoOsnoviceSifarnik);
 
-        if ($message) {
-            return response()->json(['status' => false, 'message' => 'Greska u obradi: ' . $message]);
+            if ($message) {
+                return response()->json(['status' => false, 'message' => 'Greska u obradi: ' . $message]);
+            }
+
+            try {
+                $sveVrstePlacanjaDataSummarize = $this->obradaPripremaService->pripremaZaraPodatkePoRadnikuBezMinulogRada($sveVrstePlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
+            } catch (\Throwable $exception) {
+                report($exception);
+                $newMessage = "Greska u obradi:";
+                return response()->json(['status' => false, 'message' => 'Greska u obradi: ' . $exception->getMessage()]);
+
+            }
         }
+        $redirectUrl = $this->resolveRedirectUrl($request->redirect_url,$request->month_id);
 
-        try {
-            $sveVrstePlacanjaDataSummarize = $this->obradaPripremaService->pripremaZaraPodatkePoRadnikuBezMinulogRada($sveVrstePlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
-        } catch (\Throwable $exception) {
-            report($exception);
-            $newMessage = "Greska u obradi:";
-            return response()->json(['status' => false, 'message' => 'Greska u obradi: ' . $exception->getMessage()]);
-
-        }
-
-        return response()->json(['id' => $id, 'status' => true, 'redirectUrl' => $redirectUrl]);
+        return response()->json(['id' => $request->month_id, 'status' => true, 'redirectUrl' => $redirectUrl]);
 
     }
 
@@ -192,6 +196,11 @@ class ObradaPripremaController extends Controller
     public function resolveRedirectUrl($url,$monthId)
     {
 
+        if($url == 'obrada_plate'){
+
+            return url('obracunzarada/datotekaobracunskihkoeficijenata/create');
+
+        }
         if ($url == 'obracunski_listovi') {
             return url('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate?month_id=').$monthId;
         } elseif ($url == 'rang_lista_zarada') {

@@ -277,17 +277,20 @@ $(document).ready(function () {
                 _token: _token
             },
             success: function (response) {
-                debugger;
                 if(response.status){
-                    window.location.href = response.redirectUrl;
-                }else{
 
-                    if (confirm(response.message)) {
-                        window.location.reload();
-                    }else{
-                        window.location.reload();
-                    }                }
-                // ADD SHOW ALL PLATE ROUTE;
+                    Swal.fire({
+                        title: 'Obrada je završena',
+                        icon: 'success',
+                        confirmButtonText: 'Potvrdi poruku',
+                        showCloseButton: true,
+                        confirmButtonColor: "#5cb85c"
+                    }).then((result) => {
+                        window.location.href = response.redirectUrl;
+                });
+                }
+
+
             },
             error: function (response) {
                 debugger;
@@ -331,6 +334,8 @@ $(document).ready(function () {
 
 
     });
+
+
 
 
 

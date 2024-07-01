@@ -78,14 +78,15 @@ function updateMonthContainer(activeMonth) {
                 // IBRISI BLANK POLJE OFFSET
 
 
-
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-success offset-1 col-sm-3 mt-3 border',
+                    'class': 'btn btn-success index-mesecna-obrada-priprema obrada offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
-                    'data-year': monthData.currYear
-                }).text('Obrada proseka').appendTo(monthCard);
+                    'data-year': monthData.currYear,
+                    'data-url-redirect':'obrada_plate'
+                }).text('Obrada plate').appendTo(monthCard);
+
 
 
                 $('<button>').attr({
@@ -107,16 +108,13 @@ function updateMonthContainer(activeMonth) {
                 }).text('Priprema poentaže').appendTo(monthCard);
 
 
-
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-success index-mesecna-obrada-priprema obrada offset-1 col-sm-3 mt-3 border',
+                    'class': 'btn btn-success offset-1 col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
-                    'data-year': monthData.currYear,
-                    'data-url-redirect':'obracunski_listovi'
-                }).text('Obrada plate').appendTo(monthCard);
-
+                    'data-year': monthData.currYear
+                }).text('Obrada proseka').appendTo(monthCard);
 
                 $('<button>').attr({
                     'type': 'button',

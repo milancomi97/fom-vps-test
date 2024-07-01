@@ -33,9 +33,9 @@ class DatabaseSeeder extends Seeder
             DatotekaobracunskihKoefMesecDataSeeder::class,
 
             // Arhiva
-            ArhivaMaticnadatotekaradnikaSeeder::class,
-            ArhivaDarhObradaSveDkopSeeder::class,
-            ArhivaSumeZaraPoRadnikuSeeder::class,
+//            ArhivaMaticnadatotekaradnikaSeeder::class,
+//            ArhivaDarhObradaSveDkopSeeder::class,
+//            ArhivaSumeZaraPoRadnikuSeeder::class,
 
         ]);
 
