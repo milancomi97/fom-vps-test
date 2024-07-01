@@ -25,7 +25,7 @@ function updateMonthContainer(activeMonth) {
                 var monthStatusString = statusData[monthData.status];
 
             }else{
-                var monthStatusString = 'Prazan';
+                var monthStatusString = 'Mesec nije otvoren';
 
             }
 
