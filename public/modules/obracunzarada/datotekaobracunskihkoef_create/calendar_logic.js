@@ -2,7 +2,7 @@
 // let currentYear = new Date().getFullYear();
 let currentMonth = parseInt(activeMonth);
 let currentYear = parseInt(activeYear);
-debugger;
+
 function updateMonthContainer(activeMonth) {
 
     const monthContainer = document.getElementById('monthContainer');
@@ -25,7 +25,7 @@ function updateMonthContainer(activeMonth) {
                 var monthStatusString = statusData[monthData.status];
 
             }else{
-                var monthStatusString = 'Mesec nije otvoren';
+                var monthStatusString = 'Mesec nije otvoren, zatvori prethodni.';
 
             }
 
@@ -36,17 +36,22 @@ function updateMonthContainer(activeMonth) {
                 {'label': 'Status meseca', 'val': `${monthStatusString}`},
                 // {'label': 'Cena rada prethodni', 'val': `${monthData.cena_rada_prethodni}`},
             ], function(key, value) {
+                debugger;
 
-                if(value.val !=='undefined'){
-                    list.append($('<li class="list-group-item">' +  value.label + ': ' + value.val + '</li>'));
-                }else {
-                    list.append($('<li class="list-group-item">' +  value.label + '</li>'));
+                if(value.label==='Status meseca') {
+                    list.append($('<li class="list-group-item">' + value.label + ': <b>' + value.val + '</b></li>'));
+                }else if(value.val !=='undefined'){
+                        list.append($('<li class="list-group-item">' +  value.label + ': ' + value.val + '</li>'));
+                }else{
+                    list.append($('<li class="list-group-item">' +  value.label + ': 0</li>'));
 
                 }
+
+
+
             });
 
             $(monthCard).append(list);
-
 
 
             if(monthData.status=='1'){
@@ -221,34 +226,36 @@ function updateMonthContainer(activeMonth) {
 
 
             }else if(monthData.status=='2'){
-                $('<button>').attr({
-                    'type': 'button',
-                    'class': 'btn btn-warning arhiva_maticne_datoteke offset-1 col-sm-3 mt-3 border',
-                    'data-month': monthData.currMonth,
-                    'data-year': monthData.currYear
-                }).text('Arhiva maticne datoteke').appendTo(monthCard);
-
-                $('<button>').attr({
-                    'type': 'button',
-                    'class': 'btn btn-warning obracunske_liste offset-1 col-sm-3 mt-3 border',
-                    'data-month': monthData.currMonth,
-                    'data-year': monthData.currYear
-                }).text('Obracunske liste').appendTo(monthCard);
-
-                $('<button>').attr({
-                    'type': 'button',
-                    'class': 'btn btn-warning ukupna_rekapitulacija offset-1 col-sm-3 mt-3 border',
-                    'data-month': monthData.currMonth,
-                    'data-year': monthData.currYear
-                }).text('Ukupna rekapitulacija').appendTo(monthCard);
+                // $('<button>').attr({
+                //     'type': 'button',
+                //     'class': 'btn btn-warning arhiva_maticne_datoteke offset-1 col-sm-3 mt-3 border',
+                //     'data-month': monthData.currMonth,
+                //     'data-year': monthData.currYear
+                // }).text('Arhiva maticne datoteke').appendTo(monthCard);
+                //
+                // $('<button>').attr({
+                //     'type': 'button',
+                //     'class': 'btn btn-warning obracunske_liste offset-1 col-sm-3 mt-3 border',
+                //     'data-month': monthData.currMonth,
+                //     'data-year': monthData.currYear
+                // }).text('Obracunske liste').appendTo(monthCard);
+                //
+                // $('<button>').attr({
+                //     'type': 'button',
+                //     'class': 'btn btn-warning ukupna_rekapitulacija offset-1 col-sm-3 mt-3 border',
+                //     'data-month': monthData.currMonth,
+                //     'data-year': monthData.currYear
+                // }).text('Ukupna rekapitulacija').appendTo(monthCard);
 
             }else{
-                $('<button>').attr({
-                    'type': 'button',
-                    'class': 'btn btn-success create-mesecna-poentaza offset-1 col-sm-3 mt-3 border',
-                    'data-month': monthData.currMonth,
-                    'data-year': monthData.currYear
-                }).text('Otvorite mesec').appendTo(monthCard);
+                if(activeMonthExist==''){
+                    $('<button>').attr({
+                        'type': 'button',
+                        'class': 'btn btn-success create-mesecna-poentaza offset-1 col-sm-3 mt-3 border',
+                        'data-month': monthData.currMonth,
+                        'data-year': monthData.currYear
+                    }).text('Otvorite mesec').appendTo(monthCard);
+                }
             }
 
 

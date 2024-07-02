@@ -170,14 +170,18 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
             $activeMonthValue = $date->month -1 ; // JAVASCRIPT COUNT MONTHS
             $activeYearValue = $date->year;
+            $activeMonthExist=true;
+
         }else{
+            $activeMonthExist=false;
             $currentDate = Carbon::now();
             $activeMonthValue = $currentDate->month -1;
             $activeYearValue = $currentDate->year;
+
         }
 
 
-        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_create', ['datotekaobracunskihkoeficijenata' => json_encode($data),'activeMonth'=> $activeMonthValue,'activeYear'=>$activeYearValue]);
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_create', ['datotekaobracunskihkoeficijenata' => json_encode($data),'activeMonth'=> $activeMonthValue,'activeYear'=>$activeYearValue,'activeMonthExist'=>$activeMonthExist]);
     }
 
     public function store(Request $request)

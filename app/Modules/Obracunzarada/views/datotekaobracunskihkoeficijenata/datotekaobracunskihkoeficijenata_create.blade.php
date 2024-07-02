@@ -364,6 +364,7 @@
 
         let activeMonth ='{{$activeMonth}}';
         let activeYear = '{{$activeYear}}';
+        let activeMonthExist = '{{$activeMonthExist}}';
 
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_create/calendar_logic.js') }}"></script>
