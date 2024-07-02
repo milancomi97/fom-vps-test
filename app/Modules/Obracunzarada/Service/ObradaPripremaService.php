@@ -1317,6 +1317,7 @@ $test='TEST';
                 if (($neto2 - $siobkr - $kredit->RATA_rata -$kredit->RATB) > 0 && $kredit->SALD_saldo-$kredit->RATB > 0) {
 
                     $data = [
+//                        id=222
                         'maticni_broj' => $kredit->maticni_broj,
                         'sifra_vrste_placanja' => '093',
                         'naziv_vrste_placanja' => $vrstePlacanjaSifarnik['093']['naziv_naziv_vrste_placanja'],
@@ -1344,7 +1345,7 @@ $test='TEST';
                     $siobkr += $kredit->RATA_rata;
                 } else if ($neto2 > 0 && $kredit->SALD_saldo > 0) {
 
-
+                    // id = 582
                     $data = [
                         'maticni_broj' => $kredit->maticni_broj,
                         'sifra_vrste_placanja' => '093',
@@ -1373,6 +1374,7 @@ $test='TEST';
 
                 } else if ($neto2 - $siobkr <= 0 && $kredit->SALD_saldo > 0) {
                     $data = [
+//                        id =58
                         'maticni_broj' => $kredit->maticni_broj,
                         'sifra_vrste_placanja' => '093',
                         'naziv_vrste_placanja' => $vrstePlacanjaSifarnik['093']['naziv_naziv_vrste_placanja'],

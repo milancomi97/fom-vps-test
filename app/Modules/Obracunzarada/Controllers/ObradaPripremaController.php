@@ -251,19 +251,19 @@ class ObradaPripremaController extends Controller
         $zaraDataResult = $this->arhiviranjeMesecaService->resolveKrediti($dpsmKrediti,$kreditiPomocni);
 
 
-//        $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $monthId)->delete();
-//        $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->delete();
-//
-//        $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->delete();
-//
-//
-//
-//        $pristupi->each->delete();
-//        $kreditiPomocni->each->delete();
-//        $varijabilna->each->delete();
-//        $poenterData->each->delete();
-//        $monthData->status = Datotekaobracunskihkoeficijenata::ARHIVIRAN;
-//        $monthData->save();
+        $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $monthId)->delete();
+        $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->delete();
+
+        $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->delete();
+
+
+
+        $pristupi->each->delete();
+        $kreditiPomocni->each->delete();
+        $varijabilna->each->delete();
+        $poenterData->each->delete();
+        $monthData->status = Datotekaobracunskihkoeficijenata::ARHIVIRAN;
+        $monthData->save();
 
 
 

@@ -11,6 +11,7 @@ use App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
 use Illuminate\Support\Carbon;
+use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 
 class ArhiviranjeMesecaService
 {
@@ -23,6 +24,7 @@ class ArhiviranjeMesecaService
         private readonly ArhivaMaticnadatotekaradnikaRepositoryInterface $arhivaMaticnadatotekaradnikaInterface,
         private readonly ArhivaSumeZaraPoRadnikuRepositoryInterface $arhivaSumeZaraPoRadnikuInterface,
         private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
+        private readonly DpsmKreditiRepositoryInterface $dpsmKreditiInterface
 
 
     )
@@ -55,7 +57,12 @@ class ArhiviranjeMesecaService
         $oldData =$this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',1)->get();
 
         $updatedMdr = $oldData->map(function ($mdr) {
-            $mdr->update(['PREB_prebacaj'=>1.0]);
+
+            $newDate = $this->resolveDateStaz($mdr);
+
+            $mdr->update(['PREB_prebacaj'=>1.0,'GGST_godine_staza'=>$newDate['godine'],'MMST_meseci_staza'=>$newDate['meseci']]);
+
+
 
             return $mdr;
 
@@ -65,7 +72,25 @@ class ArhiviranjeMesecaService
 
 
 
+        public function resolveDateStaz($mdr){
 
+
+        $godine = (int)$mdr->GGST_godine_staza;
+            $meseci = (int)$mdr->MMST_meseci_staza;
+
+            if($meseci ==11){
+                $godine =$godine+1;
+                $meseci= 0 ;
+            } else{
+                $meseci = $meseci+1;
+            }
+
+            return ['godine'=>$godine,'meseci'=>$meseci];
+                $test='test';
+
+
+
+       }
 
     public function archiveDkop($dkopData,$datum){
 //        $mdrArray=$mdrData->toArray();
@@ -134,13 +159,40 @@ class ArhiviranjeMesecaService
         $allData = [];
 
 
-        foreach ($dpsmKrediti as $glavniKredit){
+
+
+
+///
+///
+///
+///                 } else if ($neto2 - $siobkr <= 0 && $kredit->SALD_saldo > 0) {
+////                        id =58
+
+//        foreach ($dpsmKrediti as $glavniKredit){
+
+
+
+///
+///
+//    } else if ($neto2 > 0 && $kredit->SALD_saldo > 0) {
+//    // id = 582
+
+        //        if (($neto2 - $siobkr - $kredit->RATA_rata -$kredit->RATB) > 0 && $kredit->SALD_saldo-$kredit->RATB > 0) {
+////                        id=222
             foreach ($kreditiPomocni as $pomocniKredit){
+
+                if($pomocniKredit->kredit_glavna_tabela_id == 58 || $pomocniKredit->kredit_glavna_tabela_id == 222|| $pomocniKredit->kredit_glavna_tabela_id == 582){
+
+                    $glavniKreditId= $pomocniKredit->kredit_glavna_tabela_id;
+                    $pomocniKredit= $pomocniKredit->toArray();
+                    $glavniKreditData =$this->dpsmKreditiInterface->getById($glavniKreditId)->toArray();
+                    $test='test';
+                }
                 $test='test';
 
 
             }
-        }
+//        }
 
         return $allData;
 }
