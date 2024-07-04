@@ -35,7 +35,7 @@ class ProveraPoentazeService
                 $brojacRadnik=0;
                 foreach($data->vrste_placanja as $vrstaPlacanja) {
 
-                    if($vrstePlacanjaSifarnik[$vrstaPlacanja['key']]['ANOM_poentaza_provera']==5 || $vrstePlacanjaSifarnik[$vrstaPlacanja['key']]['ANOM_poentaza_provera']==3){
+                    if($vrstePlacanjaSifarnik[$vrstaPlacanja['key']]['ANOM_poentaza_provera']==5 || $vrstePlacanjaSifarnik[$vrstaPlacanja['key']]['ANOM_poentaza_provera']==3 || $vrstePlacanjaSifarnik[$vrstaPlacanja['key']]['ANOM_poentaza_provera']==1){
                         $test='test';
                         $brojacRadnik+=$vrstaPlacanja['sati'];
                     }
