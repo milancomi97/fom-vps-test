@@ -4,11 +4,10 @@ namespace App\Modules\Obracunzarada\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Datotekaobracunskihkoeficijenata;
-use App\Models\User;
 use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
+use App\Modules\Obracunzarada\Repository\ArhivaSumeZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
-use App\Modules\Obracunzarada\Repository\DpsmAkontacijeRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
@@ -22,18 +21,12 @@ use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterfac
 use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 use App\Modules\Obracunzarada\Service\ArhiviranjeMesecaService;
-use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
-use App\Modules\Obracunzarada\Service\KreirajPermisijePoenteriOdobravanja;
-use App\Modules\Obracunzarada\Service\ObradaFormuleService;
-use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
 use App\Modules\Obracunzarada\Service\ObradaPripremaService;
 use App\Modules\Obracunzarada\Service\ObradaPripremaValidacijaService;
-use App\Modules\Obracunzarada\Service\PripremiPermisijePoenteriOdobravanja;
-use App\Modules\Obracunzarada\Service\UpdateNapomena;
 use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
-use function Psy\debug;
 
 
 class ObradaPripremaController extends Controller
@@ -51,11 +44,13 @@ class ObradaPripremaController extends Controller
         private readonly PorezdoprinosiRepositoryInterface                   $porezdoprinosiInterface,
         private readonly MinimalnebrutoosnoviceRepositoryInterface           $minimalnebrutoosnoviceInterface,
         private readonly ObradaZaraPoRadnikuRepositoryInterface              $obradaZaraPoRadnikuInterface,
-        private readonly ArhiviranjeMesecaService $arhiviranjeMesecaService,
-        private readonly PermesecnatabelapoentRepositoryInterface $permesecnatabelapoentInterface,
-        private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
-        private readonly DpsmKreditiRepositoryInterface $dpsmKreditiInterface,
+        private readonly ArhiviranjeMesecaService                            $arhiviranjeMesecaService,
+        private readonly PermesecnatabelapoentRepositoryInterface            $permesecnatabelapoentInterface,
+        private readonly MaticnadatotekaradnikaRepositoryInterface           $maticnadatotekaradnikaInterface,
+        private readonly DpsmKreditiRepositoryInterface                      $dpsmKreditiInterface,
         private readonly ObradaKreditiRepositoryInterface                    $obradaKreditiInterface,
+        private readonly ArhivaSumeZaraPoRadnikuRepositoryInterface          $arhivaSumeZaraPoRadnikuInterface,
+
 
     )
     {
@@ -66,7 +61,7 @@ class ObradaPripremaController extends Controller
     {
 
 
-        if($request->redirect_url =='obrada_plate') {
+        if ($request->redirect_url == 'obrada_plate') {
 
 
             $user_id = auth()->user()->id;
@@ -141,7 +136,7 @@ class ObradaPripremaController extends Controller
 
             }
         }
-        $redirectUrl = $this->resolveRedirectUrl($request->redirect_url,$request->month_id);
+        $redirectUrl = $this->resolveRedirectUrl($request->redirect_url, $request->month_id);
 
         return response()->json(['id' => $request->month_id, 'status' => true, 'redirectUrl' => $redirectUrl]);
 
@@ -193,69 +188,66 @@ class ObradaPripremaController extends Controller
         return response()->json(['message' => $message, 'status' => false], 200);
     }
 
-    public function resolveRedirectUrl($url,$monthId)
+    public function resolveRedirectUrl($url, $monthId)
     {
 
-        if($url == 'obrada_plate'){
+        if ($url == 'obrada_plate') {
 
             return url('obracunzarada/datotekaobracunskihkoeficijenata/create');
 
         }
         if ($url == 'obracunski_listovi') {
-            return url('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate?month_id=').$monthId;
+            return url('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate?month_id=') . $monthId;
         } elseif ($url == 'rang_lista_zarada') {
-            return url('obracunzarada/izvestaji/ranglistazarade?month_id=').$monthId;
+            return url('obracunzarada/izvestaji/ranglistazarade?month_id=') . $monthId;
 
         } elseif ($url == 'rekapitulacija_zarada') {
-            return url('obracunzarada/izvestaji/rekapitulacijazarade?month_id=').$monthId;
+            return url('obracunzarada/izvestaji/rekapitulacijazarade?month_id=') . $monthId;
         }
 
 
     }
 
 
-    public function arhiviranjeMeseca(Request $request){
+    public function arhiviranjeMeseca(Request $request)
+    {
 
-        $monthId= $request->month_id;
+        $monthId = $request->month_id;
 
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($monthId);
-
 
 
         $datum = Carbon::createFromFormat('Y-m-d', $monthData->datum);
 
         // TODO 2. ARCHIVE
-        $mdrData =$this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',1)->get();
-        $mdrDataResult = $this->arhiviranjeMesecaService->archiveMDR($mdrData,$datum);
-
+        $mdrData = $this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan', 1)->get();
+        $mdrDataResult = $this->arhiviranjeMesecaService->archiveMDR($mdrData, $datum);
 
 
         $dkopData = $this->dkopSveVrstePlacanjaInterface->getAll();
-        $dkopDataResult = $this->arhiviranjeMesecaService->archiveDkop($dkopData,$datum);
+        $dkopDataResult = $this->arhiviranjeMesecaService->archiveDkop($dkopData, $datum);
 
         $zaraData = $this->obradaZaraPoRadnikuInterface->getAll();
-        $zaraDataResult = $this->arhiviranjeMesecaService->archiveZara($zaraData,$datum);
+        $zaraDataResult = $this->arhiviranjeMesecaService->archiveZara($zaraData, $datum);
 
 
-
-        $varijabilna =$this->dpsmPoentazaslogInterface->getAll();
-        $poenterData =$this->mesecnatabelapoentazaInterface->getAll();
-        $pristupi=$this->permesecnatabelapoentInterface->getAll();
+        $varijabilna = $this->dpsmPoentazaslogInterface->getAll();
+        $poenterData = $this->mesecnatabelapoentazaInterface->getAll();
+        $pristupi = $this->permesecnatabelapoentInterface->getAll();
 
         // glavnaKrediti
         $dpsmKrediti = $this->dpsmKreditiInterface->getAll();
         // POMOCNA KREDITI
-       $kreditiPomocni =  $this->obradaKreditiInterface->getAll();
+        $kreditiPomocni = $this->obradaKreditiInterface->getAll();
 
 
-        $zaraDataResult = $this->arhiviranjeMesecaService->resolveKrediti($dpsmKrediti,$kreditiPomocni);
+        $zaraDataResult = $this->arhiviranjeMesecaService->resolveKrediti($dpsmKrediti, $kreditiPomocni);
 
 
         $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $monthId)->delete();
         $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->delete();
 
         $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->delete();
-
 
 
         $pristupi->each->delete();
@@ -266,9 +258,118 @@ class ObradaPripremaController extends Controller
         $monthData->save();
 
 
-
-
         return response()->json(['status' => true]);
 
+    }
+
+
+    public function obradaProseka(Request $request)
+    {
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+        $datum = Carbon::createFromFormat('Y-m-d', $monthData->datum)->startOfMonth();
+        $endDate = $datum->format('m.Y');
+
+
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_obrada_proseka',[
+            'endDate'=>$endDate,
+            'monthId'=>$request->month_id
+        ]);
+    }
+
+
+    public function obradaProsekaPrikaz(Request $request)
+    {
+        // SKINI 1 mesec
+
+        $periodOd = $request->arhiva_datum_od;
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+//        $datum = Carbon::createFromFormat('Y-m-d', $monthData->datum)->startOfMonth();
+//        $periodDo = $datum->format('m.Y');
+//        $startOfMonth = \Illuminate\Support\Carbon::createFromFormat('m.Y', $datum)->startOfMonth();
+
+        $zarData = $this->obradaZaraPoRadnikuInterface->getById($request->month_id);
+//        $zarSumeData = $this->arhivaSumeZaraPoRadnikuInterface->where('M_G_date')->get();
+        $test='test';
+
+
+        $startPeriod = \Illuminate\Support\Carbon::createFromFormat('m.Y', $periodOd)->startOfMonth();
+//        $endPeriod = Carbon::createFromFormat('m.Y', $datumDo)->endOfMonth();
+        $startDate = $startPeriod->format('Y-m-d');
+
+// Izračunaj broj meseci
+        $monthsDifference = $startPeriod->diffInMonths($monthData->datum);
+
+// Kreiraj listu datuma između perioda
+        $period = CarbonPeriod::create($startDate, '1 month', $monthData->datum);
+
+        $listOfDates = [];
+        foreach ($period as $date) {
+            $listOfDates[] = $date->format('Y-m-d');
+        }
+
+//        $sumeZaraPeriod = $this->arhivaSumeZaraPoRadnikuInterface->whereIn('M_G_date', $listOfDates)->get();
+
+
+        $sumeZaraPeriodBetween = $this->arhivaSumeZaraPoRadnikuInterface->between('M_G_date', $startPeriod, $monthData->datum)->get();
+
+
+        $activeMDR = $this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',1)->pluck('ACTIVE_aktivan','MBRD_maticni_broj')->toArray();
+
+        $zaraSummarize = $this->arhivaSumeZaraPoRadnikuInterface
+            ->between('M_G_date', $startPeriod, $monthData->datum)
+            ->get();
+
+
+        $zaraResult =$zaraSummarize->groupBy('maticni_broj');
+
+        $test='test';
+
+        $sumResult=[];
+        foreach ($zaraResult as $datum => $radnikData){
+
+            foreach ($radnikData as $mesecData){
+                $maticniBroj = $mesecData['maticni_broj'];
+
+                    if(in_array($maticniBroj,array_keys($sumResult))){
+
+                        $sumResult[$maticniBroj]=[
+                            'PRIZ_prosecni_iznos_godina'=>$mesecData['PRIZ_prosecni_iznos_godina']+$sumResult[$maticniBroj]['PRIZ_prosecni_iznos_godina'],
+                            'PRCAS_prosecni_sati_godina'=> $mesecData['PRCAS_prosecni_sati_godina']+$sumResult[$maticniBroj]['PRCAS_prosecni_sati_godina'],
+                            'broj_meseci'=>$sumResult[$maticniBroj]['broj_meseci']+1
+                        ];
+                    }else{
+                        $sumResult[$maticniBroj]=[
+                            'PRIZ_prosecni_iznos_godina'=>$mesecData['PRIZ_prosecni_iznos_godina'],
+                            'PRCAS_prosecni_sati_godina'=> $mesecData['PRCAS_prosecni_sati_godina'],
+                            'broj_meseci'=>1
+                        ];
+                    }
+
+                }
+
+            $Test='sledeciMesec';
+
+        }
+        $test='test';
+
+
+
+
+        foreach ($sumResult as $maticniBroj => $radnik){
+           $mdr=  $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj',$maticniBroj)->where('ACTIVE_aktivan',1)->first();
+
+            if($mdr!==null){
+                $mdr->PRIZ_ukupan_bruto_iznos =$radnik['PRIZ_prosecni_iznos_godina'];
+                $mdr->PRCAS_ukupni_sati_za_ukupan_bruto_iznost=$radnik['PRCAS_prosecni_sati_godina'];
+                $mdr->BROJ_broj_meseci_za_obracun=$radnik['broj_meseci'];
+                $mdr->save();
+            }
+        }
+
+        $updatedMdr = $this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',1)->get();
+
+        $test='test';
+
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_obrada_proseka_prikaz',['sumResult'=>$updatedMdr]);
     }
 }

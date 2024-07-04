@@ -12,19 +12,14 @@ use League\Csv\Reader;
 class ArhivaDarhObradaSveDkopSeeder extends Seeder
 {
     public function __construct(
-        private readonly VrsteplacanjaRepositoryInterface                    $vrsteplacanjaInterface,
+        private readonly VrsteplacanjaRepositoryInterface $vrsteplacanjaInterface,
     )
     {
-
     }
 
     public function run(): void
     {
         $datas = $this->getDataFromCsv();
-//        RBVP;PERC;SATI;IZNO;SLOV;
-//KESC;POK2;SIFK;SALD;RBRM;RBPS;P_R;KOEF;REC;GRAD;KPREB;LPREB;STSALD;
-//RATP;RATB;HKMB;RBTC;PART;MRBTC;NAZI
-        // TODO RBPS,REC,KPREB,GRAD,LPREB
         $sifarnikVrstePlacanja = $this->vrsteplacanjaInterface->getAllKeySifra();
 
         foreach ($datas as $data) {
@@ -46,18 +41,10 @@ class ArhivaDarhObradaSveDkopSeeder extends Seeder
                 'RBRM_radno_mesto'=>$data['RBRM'],
                 'KESC_prihod_rashod_tip'=>$data['KESC'],
                 'P_R_oblik_rada'=>$data['P_R'],
-//                'RBIM_isplatno_mesto_id'=>$data['DATAAA'], // TODO ??????? Da li je potrebno
-//                'troskovno_mesto_id'=>$data['DATAAA'], // TODO ??????? Da li je potrebno
-//                'organizaciona_celina_id'=>$data['DATAAA'], // TODO ??????? Da li je potrebno
                 'SIFK_sifra_kreditora'=>$data['SIFK'],
                 'STSALD_Prethodni_saldo'=>$data['STSALD'],
-//                'NEAK_neopravdana_akontacija'=>$data['DATAAA'], // TODO ??????? Da li je potrebno
                 'PART_partija_kredita'=>$data['PART'],
-//                'POROSL_poresko_oslobodjenje'=>$data['DATAAA'], // TODO ??????? Da li je potrebno
-//                'obracunski_koef_id'=>$data['DATAAA'], // TODO ??????? Da li je potrebno
-//                'user_dpsm_id'=>$data['DATAAA'], // TODO ??????? Da li je potrebno
-//                'user_mdr_id'=>$data['DATAAA'], // TODO ??????? Da li je potrebno
-//                'tip_unosa'=>$data['DATAAA'], // TODO ??????? Da li je potrebno
+
                 ]);
         }
 

@@ -185,6 +185,7 @@ class ArhiviranjeMesecaService
 
                     $glavniKreditId= $pomocniKredit->kredit_glavna_tabela_id;
                     $pomocniKredit= $pomocniKredit->toArray();
+
                     $glavniKreditData =$this->dpsmKreditiInterface->getById($glavniKreditId)->toArray();
                     $test='test';
                 }

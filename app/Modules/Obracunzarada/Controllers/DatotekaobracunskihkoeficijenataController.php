@@ -324,6 +324,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         } else {
             $message = 'Podatak je uspesno izmenjen';
 
+            $status=0;
         }
         return response()->json(['message' => $message, 'status' => true,'negativni_brojac'=>$status,'record_id'=>$record_id], 200);
     }

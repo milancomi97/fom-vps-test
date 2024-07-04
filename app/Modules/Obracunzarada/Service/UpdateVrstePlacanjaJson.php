@@ -38,7 +38,6 @@ class UpdateVrstePlacanjaJson
 
 
 
-            // TODO check old value
             foreach ($vrstePlacanje as &$placanje) {
                 if ($placanje['key'] == $input_key) {
                     $oldValue=$placanje['sati'];

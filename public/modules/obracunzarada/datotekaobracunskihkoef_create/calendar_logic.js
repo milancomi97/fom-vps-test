@@ -115,7 +115,7 @@ function updateMonthContainer(activeMonth) {
 
                 $('<button>').attr({
                     'type': 'button',
-                    'class': 'btn btn-success offset-1 col-sm-3 mt-3 border',
+                    'class': 'btn btn-success offset-1 obradaproseka col-sm-3 mt-3 border',
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear

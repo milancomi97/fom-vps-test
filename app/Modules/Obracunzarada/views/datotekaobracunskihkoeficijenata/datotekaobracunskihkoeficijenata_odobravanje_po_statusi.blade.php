@@ -101,9 +101,9 @@
 
 @section('content')
     <div class="content-wrapper mt-5 pl-5">
-        <h1 class="text-center">Pregled poentera</h1>
+        <h1 class="ml-5 mb-5">Poentaža - status troškovnih mesta po poenterima</h1>
 
-        <div class="container ml-5">
+        <div class="container ml-5 mt-5">
             <div class="table-responsive" style="width: 1800px">
                 <table class="table">
                     <thead>
@@ -128,9 +128,19 @@
 
                             @foreach($subList as $subKey => $value)
 
+                                    <?php
+                                    if($value=='0'){
+                                        $color="bg-danger";
+                                    }elseif($value=='1'){
+                                        $color="bg-warning";
+                                    }elseif($value='2'){
+                                        $color = "bg-success";
+                                    }
+                                    ?>
                                 @if($subKey !=='poenterDetails')
                                     <td style="min-width: 200px; text-align: center"
-                                        class="{{ $value > 0 ? "bg-danger":"bg-success" }}">{{$subKey}}
+
+                                        class="{{$color}}">{{$subKey}}
                                         <br/> {{StatusRadnikaObracunskiKoef::all()[$value]}}</td>
                                 @endif
 

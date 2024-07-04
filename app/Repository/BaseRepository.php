@@ -88,7 +88,7 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function between($column, $start, $end)
     {
-        return $this->model->whereBetween($column, [$start, $end])->get();
+        return $this->model->whereBetween($column, [$start, $end]);
     }
 
     /**

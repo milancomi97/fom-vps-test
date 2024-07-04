@@ -13,22 +13,16 @@ class ArhivaSumeZaraPoRadnikuSeeder extends Seeder
     public function run(): void
     {
         $datas = $this->getDataFromCsv();
-//        ;;;;;;;;;;
-//;;;;;;;;;;
-//;;;;;;;;;;
-//;;;;;;;;;;
-//;;;;;;;;;;
-//;;;;;;;;;;;;
-//;;;;;;;;;;;;;
-// TODO SKINULI PIOR1;ZDRR1;ONEZR1;PIOP1;ZDRP1;ONEZP1;BROSN1;POROSL1;SIP1;IZNETO1;N
 
-        // todo UKKONTR, SIZN, IZBRUTO,POREZ1,POREZ2,IZBRPR,IZBRBOL
+        // todo IZBRPR,IZBRBOL
+        // dodaj kao pomocne
+        // DODAJ UKNETO
+        // UKIS_ukupan_iznos_za_izplatu = UKIS
+        // RBTC - troskovni centar
+        // DEO1,- isplata iz dva puta
+        // onezp - ONEZP_osiguranje_od_nezaposlenosti_teret_poslodavca
+        // SOP- sifra opstine
 
-        // todo SIPPR, SIPBOL, SIP_D, POSPOR, IZNETO2,AK,NRAKON,VAKON,UKNETO
-        // todo KOEF, RBTC, UKIS, UKSIOB,UKZARKR,UKAKONT,UKNRAKON
-        // todo DEO1, REC, HKMB, IZBRBO1, SIN,RAD2;RAD3;RAD4,VISP
-        // todo OSNOV, DEOIM, IZN2, BROJ, MRBTC, GOD_30, GOD_50
-        // todo ONEZP, SOP,DBEN, UKUPNO1
         foreach ($datas as $data) {
             $date = Carbon::createFromFormat('my', $data['M_G'])->startOfMonth()->setDay(1);
 
@@ -79,13 +73,6 @@ class ArhivaSumeZaraPoRadnikuSeeder extends Seeder
                 'ONEZR_osiguranje_od_nezaposlenosti_teret_radnika' =>$data['ONEZR'],
                 'PIOP_penzijsko_osiguranje_na_teret_poslodavca' =>$data['PIOP'],
                 'ZDRP_zdravstveno_osiguranje_na_teret_poslodavca' =>$data['ZDRP'],
-//                'ZRAC_tekuci_racun' =>$data['DATAAA'],
-//                'POROSL1_poresko_oslobodjenje_za_prvu_isplatu' =>$data['DATAAA'],
-//                'PIOR1_penzijsko_osiguranje_radnik_prva_isplata' =>$data['DATAAA'],
-//                'PIOP1_penzijsko_osiguranje_poslodavac_prva_isplata' =>$data['DATAAA'],
-//                'ZDRR1_zdravstveno_osig_radnik_prva_isplata' =>$data['DATAAA'],
-//                'ZDRP1_zdravstveno_osig_poslodavac_prva_isplata' =>$data['DATAAA'],
-//                'ONEZR1_osiguranje_od_nezaposlenosti_radnik' =>$data['DATAAA'],
 //                'UKSA_ukupni_sati_za_isplatu' =>$data['DATAAA'],
                 'olaksica' =>$data['OLAKSICA'],
 //                'PREK_prekovremeni' =>$data['DATAAA'],

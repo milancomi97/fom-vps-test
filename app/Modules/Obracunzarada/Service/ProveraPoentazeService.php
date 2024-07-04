@@ -40,10 +40,10 @@ class ProveraPoentazeService
                         $brojacRadnik+=$vrstaPlacanja['sati'];
                     }
 
-                    if($vrstePlacanjaSifarnik[$vrstaPlacanja['key']]['ANOM_poentaza_provera']==1){
-                        $test='test';
-                        $brojacRadnik-=$vrstaPlacanja['sati'];
-                    }
+//                    if($vrstePlacanjaSifarnik[$vrstaPlacanja['key']]['ANOM_poentaza_provera']==1){
+//                        $test='test';
+//                        $brojacRadnik-=$vrstaPlacanja['sati'];
+//                    }
 
 
                     if (isset($brojac[$vrstaPlacanja['key']])) {

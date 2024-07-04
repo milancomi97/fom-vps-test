@@ -172,6 +172,11 @@ $(document).ready(function () {
         window.location.href = showRoute + id;
     });
 
+    $(document).on('click', 'body .obradaproseka', function (e) {
+        var id = $(this).data('month_id');
+        window.location.href = obradaProsekaRoute + id;
+    });
+
 
 
     $(document).on('click', 'body .odobravanje-mesecna-poentaza', function (e) {

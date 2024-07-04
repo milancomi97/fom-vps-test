@@ -366,6 +366,8 @@
         let activeYear = '{{$activeYear}}';
         let activeMonthExist = '{{$activeMonthExist}}';
 
+        let obradaProsekaRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/obrada_proseka?month_id=')!!}'
+
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_create/calendar_logic.js') }}"></script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_create/ajax_logic.js') }}"></script>
