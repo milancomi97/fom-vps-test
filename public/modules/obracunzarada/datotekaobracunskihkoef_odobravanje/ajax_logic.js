@@ -63,13 +63,16 @@ $(document).ready(function () {
 
             if(shouldUpdate!==undefined) {
                 // var shouldUpdate = $(event.currentTarget).data('update-value');
-                if (event.target.value !== '') {
+                if (event.target.value !== '' || shouldUpdate) {
                     if(shouldUpdate != event.target.value){
                     event.stopImmediatePropagation();
                     $(".loading").show();
                     $('input').prop('disabled', true);
 
                     var input_value = event.target.value;
+                    if(input_value==''){
+                        input_value=0;
+                    }
                     var input_key = event.target.dataset.vrstaPlacanjaKey
                     var record_id = event.target.dataset.recordId
                     var _token = $('input[name="_token"]').val();
