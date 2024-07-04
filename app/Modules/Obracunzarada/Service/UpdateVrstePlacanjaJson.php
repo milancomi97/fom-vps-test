@@ -71,21 +71,42 @@ class UpdateVrstePlacanjaJson
             }
 
 
-                $vrstePlacanje['019']=$vrstePlacanje['001'] + $vrstePlacanje['002'];
                 $radnikEvidencija->vrste_placanja = json_encode($vrstePlacanje);
                 $radnikEvidencija->save();
-                return $negativniBrojac;
+                return ['result'=>'negativni_brojac','value'=>$negativniBrojac];
             }
+
+            $result1 = array_filter($vrstePlacanje, fn($item) => $item['key'] === '001');
+            $result2 = array_filter($vrstePlacanje, fn($item) => $item['key'] === '002');
+            $result6 = array_filter($vrstePlacanje, fn($item) => $item['key'] === '006');
+
+
+
+            $vrstePlacanje = array_map(function($item) use ($result2,$result1,$result6) {
+                if ($item['key'] =='019') {
+
+                    $val1=reset($result1);
+                    $val2=reset($result2);
+                    $val6=reset($result6);
+
+                    $item['sati']=$val1['sati']+$val2['sati']+$val6['sati'];
+                }
+                return $item;
+            }, $vrstePlacanje);
+
+            $result019 = array_filter($vrstePlacanje, fn($item) => $item['key'] === '019');
 
             $radnikEvidencija->vrste_placanja = json_encode($vrstePlacanje);
             $radnikEvidencija->save();
-            return 'nov_podatak';
+
+            return ['result'=>'nov_podatak_topli_obrok','value'=>reset($result019)['sati']];
         }
     }
 
     public function validateVrstePlacanja($vrstePlacanja)
     {
         foreach ($vrstePlacanja as $placanje) {
+
         }
         return true;
     }
