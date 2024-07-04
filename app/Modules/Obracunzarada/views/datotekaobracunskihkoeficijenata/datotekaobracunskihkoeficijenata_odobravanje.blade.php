@@ -5,7 +5,16 @@
     <link rel="stylesheet" href="{{asset('admin_assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
 
     <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
 
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
         .rowSum{
             text-align: right;
             font-weight: 800;
@@ -387,7 +396,7 @@
                                                                          class="vrsta_placanja_input"
                                                                          data-toggle="tooltip"
                                                                          data-placement="top"
-                                                                         title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{ $vrstaPlacanja['sati']}}>
+                                                                         title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{($vrstaPlacanja['sati'] > 0) ? $vrstaPlacanja['sati'] : null}}>
                                     </td>
                                 @endforeach
                                 <td class="napomena_td" data-napomena-value="{{$value['napomena']}}"
