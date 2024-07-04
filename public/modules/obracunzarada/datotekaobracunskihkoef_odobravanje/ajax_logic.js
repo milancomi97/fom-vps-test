@@ -31,10 +31,31 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on('change', 'body .vrsta_placanja_td input', function (event) {
+    $(document).on('click', 'body .vrsta_placanja_td input', function (event) {
         $(event.currentTarget).attr('data-update-value', $(event.currentTarget).val());
 
         debugger;
+    });
+
+    $(document).on('select', 'body .vrsta_placanja_td input', function (event) {
+        $(event.currentTarget).attr('data-update-value', $(event.currentTarget).val());
+
+        debugger;
+    });
+
+    $(document).on('change', 'body .vrsta_placanja_td input', function (event) {
+
+        debugger;
+       var oldValue = $(event.currentTarget).data('update-value');
+       var newValue = $(event.currentTarget).val();
+        if($(event.currentTarget).data('update-value')){
+            $(event.currentTarget).attr('data-update-value', oldValue);
+
+        }else{
+            $(event.currentTarget).attr('data-update-value', newValue);
+
+        }
+
     });
         $(document).on('focusout', 'body .vrsta_placanja_td input', function (event) {
             debugger;
@@ -43,6 +64,7 @@ $(document).ready(function () {
             if(shouldUpdate!==undefined) {
                 // var shouldUpdate = $(event.currentTarget).data('update-value');
                 if (event.target.value !== '') {
+                    if(shouldUpdate != event.target.value){
                     event.stopImmediatePropagation();
                     $(".loading").show();
                     $('input').prop('disabled', true);
@@ -95,6 +117,7 @@ $(document).ready(function () {
                         }
                     });
                 }
+            }
             }
     });
 });

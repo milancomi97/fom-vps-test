@@ -48,8 +48,6 @@ class UpdateVrstePlacanjaJson
                     }
 
                 }
-
-
             }
 
             //Umanji Sate
@@ -64,12 +62,16 @@ class UpdateVrstePlacanjaJson
                 }
 
                 if($placanje['key'] == '019' ) {
+
+
                     $placanje['sati'] =  $placanje['sati']-$negativniBrojac;
                 }
 
 
             }
 
+
+                $vrstePlacanje['019']=$vrstePlacanje['001'] + $vrstePlacanje['002'];
                 $radnikEvidencija->vrste_placanja = json_encode($vrstePlacanje);
                 $radnikEvidencija->save();
                 return $negativniBrojac;
