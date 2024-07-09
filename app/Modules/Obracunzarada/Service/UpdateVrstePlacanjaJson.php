@@ -9,6 +9,14 @@ use App\Modules\Osnovnipodaci\Repository\RadniciRepository;
 
 class UpdateVrstePlacanjaJson
 {
+    const UPDATEACTION =[
+        0=>'bezpravila',
+        1=>'umanjiradobrok',
+        5=>'uvecajobrok',
+        2=>'umanjirad'
+    ];
+
+
     public function __construct(readonly private VrsteplacanjaRepositoryInterface $vrsteplacanjaInterface)
     {
     }
@@ -17,99 +25,95 @@ class UpdateVrstePlacanjaJson
     {
 
         $negativniBrojac = 0;
-        $listOdbitnihVrstaPlacanjaNaPlatu = [
-            '003',
-            '009',
-            '010',
-            '011',
-            '012',
-            '013',
-            '014',
-            '016',
-            '017',
-            '018',
-            '023',
-            '024'
-        ];
+        $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
 
         $vrstePlacanje = json_decode($radnikEvidencija->vrste_placanja, true);
+        $anomRule = $vrstePlacanjaSifarnik[$input_key]['ANOM_poentaza_provera'];
+        $anomAction = self::UPDATEACTION[$anomRule];
 
-        if ($this->validateVrstePlacanja($vrstePlacanje)) {
 
+            $updatedVrstePlacanja = array_map(function ($placanje) use ($anomRule,$input_value,$input_key,&$negativniBrojac) {
 
+                if($input_key==$placanje['key']){
 
-            foreach ($vrstePlacanje as &$placanje) {
-                if ($placanje['key'] == $input_key) {
                     $oldValue=$placanje['sati'];
                     $placanje['sati'] = (int) $input_value;
+                    $inputValueInt= (int)$input_value;
 
-                    if(in_array($input_key,$listOdbitnihVrstaPlacanjaNaPlatu)){
-                        $negativniBrojac+= (int)$input_value- $oldValue;
-                    }
+                  if($anomRule >0){
+                    $negativniBrojac+= $inputValueInt- $oldValue;
+                  }
 
                 }
-            }
+                return $placanje;
+            }, $vrstePlacanje);
 
-            //Umanji Sate
+
+            $test='test';
 
             if($negativniBrojac !== 0){
 
-            foreach ($vrstePlacanje as &$placanje) {
 
+                $calculatedVrstePlacanja = array_map(function ($placanje) use ($anomAction,&$negativniBrojac) {
 
-                if ($placanje['key'] == '001'){
+                    if($anomAction=='umanjiradobrok' &&('001'==$placanje['key'] || '019'== $placanje['key'])){
                     $placanje['sati'] =  $placanje['sati']-$negativniBrojac;
-                }
+                    }
 
-                if($placanje['key'] == '019' ) {
-
-
-                    $placanje['sati'] =  $placanje['sati']-$negativniBrojac;
-                }
+                    if($anomAction=='umanjirad' && '001'==$placanje['key']){
+                        $placanje['sati'] =  $placanje['sati']-$negativniBrojac;
+                    }
 
 
+                    if($anomAction=='uvecajobrok' && '019'==$placanje['key']){
+                        $placanje['sati'] =  $placanje['sati']+$negativniBrojac;
+                    }
+
+
+                    return $placanje;
+                }, $updatedVrstePlacanja);
+
+
+
+//
+//            foreach ($vrstePlacanje as &$placanje) {
+//
+//
+//                if ($placanje['key'] == '001'){
+//                    $placanje['sati'] =  $placanje['sati']-$negativniBrojac;
+//                }
+//
+//                if($placanje['key'] == '019' ) {
+//
+//
+//                    $placanje['sati'] =  $placanje['sati']-$negativniBrojac;
+//                }
+//
+//
+//            }
+
+
+
+
+
+//                $radnikEvidencija->vrste_placanja = json_encode($calculatedVrstePlacanja);
+//                $radnikEvidencija->save();
+//                return ['result'=>'negativni_brojac','value'=>$negativniBrojac];
             }
 
-
-                $radnikEvidencija->vrste_placanja = json_encode($vrstePlacanje);
-                $radnikEvidencija->save();
-                return ['result'=>'negativni_brojac','value'=>$negativniBrojac];
-            }
-
-            $result1 = array_filter($vrstePlacanje, fn($item) => $item['key'] === '001');
-            $result2 = array_filter($vrstePlacanje, fn($item) => $item['key'] === '002');
-            $result6 = array_filter($vrstePlacanje, fn($item) => $item['key'] === '006');
-
-
-
-            $vrstePlacanje = array_map(function($item) use ($result2,$result1,$result6) {
-                if ($item['key'] =='019') {
-
-                    $val1=reset($result1);
-                    $val2=reset($result2);
-                    $val6=reset($result6);
-
-                    $item['sati']=$val1['sati']+$val2['sati']+$val6['sati'];
-                }
-                return $item;
-            }, $vrstePlacanje);
-
-            $result019 = array_filter($vrstePlacanje, fn($item) => $item['key'] === '019');
-
-            $radnikEvidencija->vrste_placanja = json_encode($vrstePlacanje);
+        if(isset($calculatedVrstePlacanja)){
+            $radnikEvidencija->vrste_placanja = json_encode($calculatedVrstePlacanja);
             $radnikEvidencija->save();
+            return $calculatedVrstePlacanja;
 
-            return ['result'=>'nov_podatak_topli_obrok','value'=>reset($result019)['sati']];
+        }else{
+            $radnikEvidencija->vrste_placanja = json_encode($updatedVrstePlacanja);
+            $radnikEvidencija->save();
+            return $updatedVrstePlacanja;
         }
+
     }
 
-    public function validateVrstePlacanja($vrstePlacanja)
-    {
-        foreach ($vrstePlacanja as $placanje) {
-
-        }
-        return true;
-    }
 
     public function updateAll($radnikEvidencija, $vrstePlacanjaData)
     {

@@ -310,23 +310,20 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         $record_id = $request->record_id;
         $radnikEvidencija = $this->mesecnatabelapoentazaInterface->getById($record_id);
         if ($input_key == 'napomena') {
-            $status = $this->updateNapomena->execute($radnikEvidencija, $input_key, $input_value);
+            $result = $this->updateNapomena->execute($radnikEvidencija, $input_key, $input_value);
+            $action = 'napomenaUpdated';
 
         } elseif ($input_key == 'status_poentaze') {
             $radnikEvidencija->status_poentaze = (int)$input_value;
-            $status = $radnikEvidencija->save();
+            $result = $radnikEvidencija->save();
+            $action='statusUpdated';
         } else {
-            $status = $this->updateVrstePlacanjaJson->updateSatiByKey($radnikEvidencija, $input_key, $input_value);
-        }
-
-        if ($status['result'] =='nov_podatak_topli_obrok') {
-            $message = 'Podatak je uspesno izmenjen, redovni rad i topli obrok je umanjen';
-        } elseif($status['result']=='negativni_brojac') {
-            $message = 'Podatak je uspesno izmenjen';
+            $result = $this->updateVrstePlacanjaJson->updateSatiByKey($radnikEvidencija, $input_key, $input_value);
+            $action='vrstePlacanjaUpdated';
         }
 
 
-        return response()->json(['message' => $message,'result'=>$status['result'],'status' => true,'negativni_brojac'=>$status['value'],'record_id'=>$record_id], 200);
+        return response()->json(['action'=>$action,'result'=>$result,'record_id'=>$record_id], 200);
     }
 //
 //    public function updateAll(Request $request)

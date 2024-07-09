@@ -34,19 +34,16 @@ $(document).ready(function () {
     $(document).on('click', 'body .vrsta_placanja_td input', function (event) {
         $(event.currentTarget).attr('data-update-value', $(event.currentTarget).val());
 
-        debugger;
     });
 
 
     $(document).on('change', 'body .vrsta_placanja_td input', function (event) {
 
-        debugger;
        var newValue = $(event.currentTarget).val();
             $(event.currentTarget).attr('data-update-value', newValue);
 
     });
         $(document).on('focusout', 'body .vrsta_placanja_td input', function (event) {
-            debugger;
             var shouldUpdate = $(event.currentTarget).data('update-value');
 
             if(shouldUpdate!==undefined) {
@@ -74,23 +71,43 @@ $(document).ready(function () {
                         },
                         success: function (response) {
 
-                            var vrednostBrojaca = response.negativni_brojac;
-                           var result = response.result;
-
-                            var record_update_id = response.record_id;
-                            if(result=='negativni_brojac'){
-
-
                             debugger;
-                                var redovni_rad = $('input[data-record-id="' + record_update_id + '"][data-vrsta-placanja-key="001"]');
-                                var topli_obrok = $('input[data-record-id="' + record_update_id + '"][data-vrsta-placanja-key="019"]');
+                            if(response.action=='vrstePlacanjaUpdated'){
 
-                                redovni_rad.val(parseInt(redovni_rad.val()) - vrednostBrojaca)
-                                topli_obrok.val(parseInt(topli_obrok.val()) - vrednostBrojaca)
-                           }else if(result=='nov_podatak_topli_obrok'){
-                               var topli_obrok = $('input[data-record-id="' + record_update_id + '"][data-vrsta-placanja-key="019"]');
-                               topli_obrok.val(parseInt(vrednostBrojaca));
-                           }
+
+                                for(let index in response.result){
+
+                                    var vrstaPlacanjaData = response.result[index];
+                                    var sifraVrstePlacanja = vrstaPlacanjaData['key'];
+                                    var satiVrstePlacanja = vrstaPlacanjaData['sati'];
+
+                                    debugger
+                                    if(satiVrstePlacanja!='0'){
+                                        var vrstePlacanjaElement =  $('input[data-record-id="' + response.record_id + '"][data-vrsta-placanja-key="'+sifraVrstePlacanja+'"]');
+                                        vrstePlacanjaElement.val(satiVrstePlacanja)
+                                    }
+
+
+
+                                }
+                            }
+                           //  var vrednostBrojaca = response.negativni_brojac;
+                           // var result = response.result;
+                           //
+                           //  var record_update_id = response.record_id;
+                           //  if(result=='negativni_brojac'){
+                           //
+                           //
+                           //  debugger;
+                           //      var redovni_rad = $('input[data-record-id="' + record_update_id + '"][data-vrsta-placanja-key="001"]');
+                           //      var topli_obrok = $('input[data-record-id="' + record_update_id + '"][data-vrsta-placanja-key="019"]');
+                           //
+                           //      redovni_rad.val(parseInt(redovni_rad.val()) - vrednostBrojaca)
+                           //      topli_obrok.val(parseInt(topli_obrok.val()) - vrednostBrojaca)
+                           // }else if(result=='nov_podatak_topli_obrok'){
+                           //     var topli_obrok = $('input[data-record-id="' + record_update_id + '"][data-vrsta-placanja-key="019"]');
+                           //     topli_obrok.val(parseInt(vrednostBrojaca));
+                           // }
                             var Toast = Swal.mixin({
                                 toast: true,
                                 position: 'top',
@@ -101,7 +118,7 @@ $(document).ready(function () {
 
                             Toast.fire({
                                 icon: 'success',
-                                title: response.message
+                                title: 'Podaci izmenjeni'
                             })
                             $(".loading").hide();
                             $('input').prop('disabled', false);
