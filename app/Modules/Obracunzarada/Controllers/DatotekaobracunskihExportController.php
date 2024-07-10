@@ -356,10 +356,28 @@ class DatotekaobracunskihExportController extends Controller
 //        return view('obracunzarada::izvestaji.rekapitulacija_zarade_export_pdf',
 //            ['dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
 
+        $zaraUkupno =$this->obradaZaraPoRadnikuInterface->getAll();
 
+        $date = new \DateTime($monthData->datum);
+        $datum = $date->format('m.Y');
+
+        $radnikaSaZaradom=$this->obradaZaraPoRadnikuInterface->whereCondition('IZNETO_zbir_ukupni_iznos_naknade_i_naknade','>',0)->get();
+        $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
+        $datumStampe = Carbon::now()->format('d.m.Y');
 
         $pdf = PDF::loadView('obracunzarada::izvestaji.rekapitulacija_zarade_export_pdf',
-            ['dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik])->setPaper('a4', 'portrait');
+            [
+                'dkopData'=>$dkopData,
+                'zaraData'=>$zaraData,
+                'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,
+                'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik,
+                'aktivnihRadnika'=>$zaraUkupno->count(),
+                'radnikaSaZaradom'=>$radnikaSaZaradom->count(),
+                'datum'=>$datum,
+                'podaciFirme'=>$podaciFirme,
+                'datumStampe'=>$datumStampe
+
+            ])->setPaper('a4', 'portrait');
 
         return $pdf->download('pdf_ostvarene_zarade_'.date("d.m.y").'.pdf');
 

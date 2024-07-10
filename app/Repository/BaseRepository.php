@@ -106,4 +106,10 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return $this->model->where($column,$value);
     }
+
+
+    public function whereCondition($column,$condition, $value)
+    {
+        return $this->model->where($column,$condition,$value);
+    }
 }

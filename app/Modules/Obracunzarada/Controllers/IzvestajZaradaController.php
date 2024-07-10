@@ -106,9 +106,25 @@ class IzvestajZaradaController extends Controller
         SUM(ZDRP_zdravstveno_osiguranje_na_teret_poslodavca) AS ZDRP_zdravstveno_osiguranje_na_teret_poslodavca
     ')->first();
 
+//        $zaraUkupno = $zaraData =$this->obradaZaraPoRadnikuInterface->getAll();
+        $zaraUkupno =$this->obradaZaraPoRadnikuInterface->getAll();
+
+        $date = new \DateTime($monthData->datum);
+        $datum = $date->format('m.Y');
+
+        $radnikaSaZaradom=$this->obradaZaraPoRadnikuInterface->whereCondition('IZNETO_zbir_ukupni_iznos_naknade_i_naknade','>',0)->get();
         $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
         return view('obracunzarada::izvestaji.rekapitulacija_zarade',
-            ['month_id'=>$request->month_id,'dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
+            [
+                'month_id'=>$request->month_id,
+                'dkopData'=>$dkopData,
+                'zaraData'=>$zaraData,
+                'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,
+                'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik,
+                'aktivnihRadnika'=>$zaraUkupno->count(),
+                'radnikaSaZaradom'=>$radnikaSaZaradom->count(),
+                'datum'=>$datum
+            ]);
     }
 
 

@@ -24,7 +24,12 @@ class MinimalnebrutoosnoviceRepository extends BaseRepository implements Minimal
         $year = date('y', $timestamp);
         $criteria = $month.$year;
 
-        return $this->model->where('M_G_mesec_dodina',$criteria)->first();
+        $result = $this->model->where('M_G_mesec_dodina',$criteria)->first();
+        if($result!==null){
+            return $result;
+        }else{
+          return $this->model->latest('M_G_date')->take(1)->get()->first();
+        }
 
         // TODO Za testiranje otvaranja meseca, da se ne brise baza
 //        return $this->model->where('M_G_mesec_dodina','0123')->first();

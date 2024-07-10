@@ -17,7 +17,7 @@ class PodaciofirmiSeeder extends Seeder
             DB::table('podaciofirmis')->insert([
                 'naziv_firme' => $data['Naziv Firme-Skraceni naziv'],
                 'poslovno_ime' => $data['Poslovno_ime'],
-                'skraceni_naziv_firme' => $data['Naziv Firme-Skraceni naziv'],
+                'skraceni_naziv_firme' => $data['Skraceni naziv'],
                 'status' => $data['Status'],
                 'pravna_forma' => $data['Pravna_forma'],
                 'maticni_broj' => $data['maticni_broj'],

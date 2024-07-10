@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use League\Csv\Reader;
@@ -13,9 +14,12 @@ class MinimalnebrutoosnoviceSeeder extends Seeder
         $datas = $this->getDataFromCsv();
 
         foreach ($datas as $data) {
+            $date = Carbon::createFromFormat('my', $data['M_G'])->startOfMonth()->setDay(1);
+
 
             DB::table('minimalnebrutoosnovices')->insert([
                 'M_G_mesec_dodina' =>$data['M_G'],
+                'M_G_date' =>$date->format('Y-m-d'),
                 'NT1_prosecna_mesecna_zarada_u_republici' => (float) str_replace(",", ".",$data['NT1']),
                 'STOPA2_minimalna_neto_zarada_po_satu' => (float) str_replace(",", ".", $data['STOPA2']),
                 'STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos' => (float) str_replace(",", ".",$data['STOPA6']),

@@ -190,9 +190,14 @@ function updateMonthContainer(activeMonth) {
                 }).text('Priprema podataka za banke').appendTo(monthCard);
 
 
-                $("<h1></h1>").attr({
-                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
-                }).text('').css('cursor','default').appendTo(monthCard);
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-warning prikaz-po-vrsti-placanja offset-1 col-sm-3 mt-3 border',
+                    'data-month_id': monthData.month_id,
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Prikaz po vrsti placanja').appendTo(monthCard);
+
 
 
 

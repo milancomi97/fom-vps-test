@@ -12,6 +12,8 @@ class Minimalnebrutoosnovice extends Model
     protected $fillable = [
         'mesec',
         'godina',
+        'M_G_mesec_dodina',
+        'M_G_date',
         'nt1_prosecna_mesecna_osnovica',
         'stopa2_minimalna_neto_zarada_po_satu',
         'stopa6_koeficijent_najvise_osnovice_za_obracun_doprinos',

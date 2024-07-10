@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('minimalnebrutoosnovices', function (Blueprint $table) {
             $table->id();
             $table->string('M_G_mesec_dodina')->nullable();
+            $table->date('M_G_date'); // MDR
             $table->float('NT1_prosecna_mesecna_zarada_u_republici', 10, 4)->nullable();
             $table->float('STOPA2_minimalna_neto_zarada_po_satu', 10, 4)->nullable();
             $table->float('STOPA6_koeficijent_najvise_osnovice_za_obracun_doprinos', 10, 4)->nullable();

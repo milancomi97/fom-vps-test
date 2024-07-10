@@ -26,6 +26,8 @@
 
                 <div class="container mt-4">
                     <h2 class="text-center">Rekapitulacija Ostvarene Zarade</h2>
+                    <h2 class="text-center">{{$datum}}</h2>
+
                     <div class="row mb-3">
                         <div class="col-sm-5"></div>
                         <div class="col-sm-2 text-right">
@@ -111,8 +113,35 @@
                         <tr style="border-top:2px solid black">
                             <td></td>
                             <td></td>
-                            <td><b>Ukupni porezi:</b></td>
+                            <td><b>Ukupni doprinosi na teret radnika:</b></td>
                             <td><b>{{number_format($ukupniPorezi, 2, '.', ',')}}</b></td>
+                        </tr>
+
+                        <?php
+                        $ukupniPoreziLicnaPrimanja=0;
+                        ?>
+
+                        @foreach($dkopData as $vrstaPlacanja)
+
+                            @if($vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['KESC_prihod_rashod_tip']=='R'  &&$vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['SLOV_grupe_vrsta_placanja']==='U')
+                                <tr>
+                                    <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>
+                                    <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
+                                    <td>{{number_format($vrstaPlacanja->sati)}}</td>
+                                    <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
+                                    <?php
+                                   $ukupniPoreziLicnaPrimanja+=$vrstaPlacanja->iznos;
+                                    ?>
+                            @endif
+
+                        @endforeach
+
+
+                        <tr style="border-top:2px solid black">
+                            <td></td>
+                            <td></td>
+                            <td><b>Ukupan porez na lična primanja:</b></td>
+                            <td><b>{{number_format($ukupniPoreziLicnaPrimanja, 2, '.', ',')}}</b></td>
                         </tr>
 
                         <?php
@@ -121,7 +150,7 @@
 
                             @foreach($dkopData as $vrstaPlacanja)
 
-                                @if($vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['KESC_prihod_rashod_tip']=='R'  &&$vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['SLOV_grupe_vrsta_placanja']!=='P')
+                                @if($vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['KESC_prihod_rashod_tip']=='R' && $vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['SLOV_grupe_vrsta_placanja']!=='P' && $vrstePlacanjaSifarnik[$vrstaPlacanja->sifra_vrste_placanja]['SLOV_grupe_vrsta_placanja']!=='U')
                             <tr>
                                 <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>
                                 <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
@@ -140,18 +169,7 @@
                                 <td><b>{{number_format($ukupniRashod, 2, '.', ',')}}</b></td>
                             </tr>
 
-{{--                        @foreach($dkopData as $vrstaPlacanja)--}}
 
-{{--                            <tr>--}}
-{{--                                <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>--}}
-{{--                                <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>--}}
-{{--                                <td>{{number_format($vrstaPlacanja->sati)}}</td>--}}
-{{--                                <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>--}}
-
-
-{{--                            </tr>--}}
-
-{{--                        @endforeach--}}
                         </tbody>
                     </table>
                 </div>
@@ -186,7 +204,7 @@
                             <td>{{number_format($zaraData->SIOB_ukupni_iznos_obustava +  $zaraData->ZARKR_ukupni_zbir_kredita, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
-                            <td >4. ZA ISPLATU (1-5-3)</td>
+                            <td >4. ZA ISPLATU</td>
                             <td></td>
                             <td>{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade -  $zaraData->SIP_ukupni_iznos_poreza - $zaraData->SID_ukupni_iznos_doprinosa - $zaraData->SIOB_ukupni_iznos_obustava - $zaraData->ZARKR_ukupni_zbir_kredita, 2, '.', ',')}}</td>
                         </tr>
@@ -196,18 +214,18 @@
                             <td>{{number_format($zaraData->SID_ukupni_iznos_doprinosa, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
-                            <td>050 POREZ (10%)</td>
+                            <td >050 POREZ (10%)</td>
                             <td></td>
                             <td>{{number_format($zaraData->SIP_ukupni_iznos_poreza, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
-                            <td >5. UKUPNI POREZI I DOPRINOSI (a+b)</td>
+                            <td >5. Ukupni porezi i doprinosi na teret radnika</td>
                             <td></td>
                             <td>{{number_format($zaraData->SIP_ukupni_iznos_poreza + $zaraData->SID_ukupni_iznos_doprinosa, 2, '.', ',')}}</td>
                         </tr>
 
                         <tr>
-                            <td >6. OBAVEZE NA TERET POSLODAVCA: </td>
+                            <td >6. Ukupni doprinosi na teret poslodavca: </td>
                             <td></td>
                             <td></td>
 
@@ -228,7 +246,7 @@
                             <td>{{number_format($zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
-                            <td >7. UKUPNA BRUTO ZARADA:</td>
+                            <td >7. Potrebna sredstva (BRUTO II):</td>
                             <td></td>
                             <td>{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade +$zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
 
@@ -236,12 +254,12 @@
                         <tr>
                             <td >12. BROJ AKTIVNIH RADNIKA:</td>
                             <td></td>
-                            <td></td>
+                            <td>{{$aktivnihRadnika}}</td>
                         </tr>
                         <tr>
                             <td >13. BROJ RADNIKA SA ZARADOM:</td>
                             <td></td>
-                            <td></td>
+                            <td>{{$radnikaSaZaradom}}</td>
                         </tr>
                         </tbody>
                     </table>
