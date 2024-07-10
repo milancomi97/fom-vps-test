@@ -34,7 +34,8 @@ class ObradaDkopSveVrstePlacanja extends Model
         'obracunski_koef_id',
         'user_dpsm_id',
         'user_mdr_id',
-        'tip_unosa'
+        'tip_unosa',
+        'kredit_glavna_tabela_id'
     ];
 
     public function maticnadatotekaradnika()

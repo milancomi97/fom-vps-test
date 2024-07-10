@@ -48,6 +48,7 @@ return new class extends Migration
             $table->unsignedBigInteger('obracunski_koef_id')->nullable();
             $table->unsignedBigInteger('user_dpsm_id')->nullable(); // Mesec-Radnik-id
             $table->unsignedBigInteger('user_mdr_id')->nullable();
+            $table->unsignedBigInteger('kredit_glavna_tabela_id')->nullable();
 
             $table->foreign('user_dpsm_id')->references('id')->on('mesecnatabelapoentazas')->onDelete('cascade');
             $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');

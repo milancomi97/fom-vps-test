@@ -1462,7 +1462,8 @@ $test='TEST';
                 'user_mdr_id' => $vrstaPlacanja['user_mdr_id'],
                 'obracunski_koef_id' => $vrstaPlacanja['obracunski_koef_id'],
                 'user_dpsm_id' => null,
-                'tip_unosa' => 'kroz_kod'
+                'tip_unosa' => 'kroz_kod',
+                'kredit_glavna_tabela_id'=>$vrstaPlacanja['kredit_glavna_tabela_id']
             ];
             $data[] = $data1;
         }
