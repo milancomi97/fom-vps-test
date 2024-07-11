@@ -276,7 +276,6 @@ class ObradaPripremaController extends Controller
         ]);
     }
 
-
     public function obradaProsekaPrikaz(Request $request)
     {
         // SKINI 1 mesec
@@ -371,5 +370,25 @@ class ObradaPripremaController extends Controller
         $test='test';
 
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_obrada_proseka_prikaz',['sumResult'=>$updatedMdr]);
+    }
+
+
+    public function prikazPoVrstiPlacanja(Request $request){
+
+        $test='test';
+    }
+
+    public function formaPoVrstiPlacanja(Request $request)
+    {
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+
+        $selectOptionData =$this->dkopSveVrstePlacanjaInterface->getAll()->unique('sifra_vrste_placanja')->pluck('naziv_vrste_placanja','sifra_vrste_placanja')->toArray();;
+
+        ksort($selectOptionData);
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_form_po_vrsti_placanja',[
+            'selectOptionData'=>$selectOptionData
+        ]);
+
+        $test='test';
     }
 }

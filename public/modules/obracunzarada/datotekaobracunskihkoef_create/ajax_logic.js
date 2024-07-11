@@ -178,6 +178,13 @@ $(document).ready(function () {
     });
 
 
+    $(document).on('click', 'body .prikaz-po-vrsti-placanja', function (e) {
+        var id = $(this).data('month_id');
+        window.location.href = prikazPoVrstiPlacanjaRoute + id;
+    });
+
+
+
 
     $(document).on('click', 'body .odobravanje-mesecna-poentaza', function (e) {
         var id = $(this).data('month_id');

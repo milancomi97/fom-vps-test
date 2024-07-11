@@ -199,9 +199,6 @@ function updateMonthContainer(activeMonth) {
                 }).text('Prikaz po vrsti placanja').appendTo(monthCard);
 
 
-
-
-
                 $('<button>').attr({
                     'type': 'button',
                     'class': 'btn btn-primary index-krediti-mesecna-poentaza offset-1 col-sm-3 mt-3 border',

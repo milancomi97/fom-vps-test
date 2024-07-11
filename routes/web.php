@@ -327,6 +327,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/obrada_proseka_prikaz', [ObradaPripremaController::class, 'obradaProsekaPrikaz'])->name('datotekaobracunskihkoeficijenata.obrada_proseka_prikaz');
 
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/form_po_vrsti_placanja', [ObradaPripremaController::class, 'formaPoVrstiPlacanja'])->name('datotekaobracunskihkoeficijenata.form_po_vrsti_placanja');
+
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/prikaz_po_vrsti_placanja', [ObradaPripremaController::class, 'prikazPoVrstiPlacanja'])->name('datotekaobracunskihkoeficijenata.prikaz_po_vrsti_placanja');
+
+
+
+
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/obrada_radnik', [ObracunZaradaController::class, 'obradaRadnik'])->name('datotekaobracunskihkoeficijenata.obrada_radnik');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate', [ObracunZaradaController::class, 'showAllPlate'])->name('datotekaobracunskihkoeficijenata.show_all_plate');
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/show_plate', [ObracunZaradaController::class, 'showPlate'])->name('datotekaobracunskihkoeficijenata.show_plate');
