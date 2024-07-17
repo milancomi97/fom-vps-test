@@ -223,35 +223,35 @@
                         <select class="form-control" id="vrsta_placanja" name="vrsta_placanja">
                             <!-- Assume $options is an array of dynamic data -->
                             @foreach($selectOptionData as $key =>$value)
-                                <option value="{{ $key}}">{{$key}} - {{$value }}</option>
+                                <option value="{{ $value['sifra_vrste_placanja']}}">{{$value['sifra_vrste_placanja']}} - {{$value['naziv_vrste_placanja'] }}</option>
                             @endforeach
                         </select>
+
+                        <input type="hidden" name="month_id" value="{{$month_id}}">
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Prikaži</button>
                     </div>
+                </form>
 
                     <div class="form-group mt-5">
                         <h3 class="text-center">Ostali izveštaji:</h3>
                         <form action="{{ route('datotekaobracunskihkoeficijenata.prikaz_po_vrsti_placanja') }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-secondary mt-3 btn-block mb-2">Krediti</button>
-                            <input type="hidden" name="vrsta_placanja" value="33">
+                            <input type="hidden" name="vrsta_placanja" value="093">
+                            <input type="hidden" name="month_id" value="{{$month_id}}">
                         </form>
                         <form action="{{ route('datotekaobracunskihkoeficijenata.prikaz_po_vrsti_placanja') }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-secondary mt-3 btn-block mb-2">Alimentacije</button>
-                            <input type="hidden" name="vrsta_placanja" value="33">
-                        </form>
-                        <form action="{{ route('datotekaobracunskihkoeficijenata.prikaz_po_vrsti_placanja') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="vrsta_placanja" value="33">
-                            <button type="submit" class="btn btn-secondary mt-3 btn-block">Dotacija do minimalca</button>
+                            <input type="hidden" name="vrsta_placanja" value="503">
+                            <input type="hidden" name="month_id" value="{{$month_id}}">
                         </form>
                     </div>
 
-                </form>
-            </div>        </div>
+            </div>
+        </div>
 
     <!-- Modal -->
 

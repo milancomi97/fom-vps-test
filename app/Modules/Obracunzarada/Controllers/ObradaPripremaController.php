@@ -374,19 +374,37 @@ class ObradaPripremaController extends Controller
 
 
     public function prikazPoVrstiPlacanja(Request $request){
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+        $sifraVrstePlacanja = $request->vrsta_placanja;
+        $dkopData = $this->dkopSveVrstePlacanjaInterface->where('sifra_vrste_placanja',$sifraVrstePlacanja)->where('obracunski_koef_id',$request->month_id)->orderBy('iznos', 'desc')
+            ->orderBy('sati', 'desc')->get();
 
-        $test='test';
+
+        $updatedDkopData =  $dkopData->map(function ($dkop){
+            $dkop['mdrData']=$this->maticnadatotekaradnikaInterface->getById($dkop->user_mdr_id);
+            return $dkop;
+        });
+        $date = new \DateTime($monthData->datum);
+        $datum = $date->format('m.Y');
+
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_prikaz_po_vrsti_placanja',[
+            'month_id'=>$request->month_id,
+            'sifraVrstePlacanja'=>$sifraVrstePlacanja,
+            'dkopData'=>$updatedDkopData,
+            'datum'=>$datum
+        ]);
     }
 
     public function formaPoVrstiPlacanja(Request $request)
     {
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
 
-        $selectOptionData =$this->dkopSveVrstePlacanjaInterface->getAll()->unique('sifra_vrste_placanja')->pluck('naziv_vrste_placanja','sifra_vrste_placanja')->toArray();;
+        $selectOptionData =$this->dkopSveVrstePlacanjaInterface->getAll()->unique('sifra_vrste_placanja')->toArray();
 
-        ksort($selectOptionData);
+//        ksort($selectOptionData);
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_form_po_vrsti_placanja',[
-            'selectOptionData'=>$selectOptionData
+            'selectOptionData'=>$selectOptionData,
+            'month_id'=>$request->month_id
         ]);
 
         $test='test';

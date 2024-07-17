@@ -212,21 +212,42 @@
 
 @section('content')
 
-     <h1 class="text-center">Prikaz proseka</h1>
-        <div class="container">
+     <h1 class="text-center mt-5">Prikaz vrste placanja:</h1>
+     <h1 class="text-center mt-5">{{$dkopData[0]['sifra_vrste_placanja']}} - {{$dkopData[0]['naziv_vrste_placanja'] }}</h1>
 
-            <table class="table table-bordered">
+     <h1 class="text-center mt-5">{{$datum}}</h1>
+        <div class="container">
+            <div class="text-end">
+                <a href='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/form_po_vrsti_placanja?month_id=').$month_id!!}' class="btn btn-primary">Nazad na pretragu</a>
+            </div>
+            <table class="table table-bordered mt-5">
                 <thead>
                 <tr>
-                    <th>Maticni Broj</th>
                     <th>Radnik</th>
-                    <th>PRIZ Ukupan Bruto Iznos</th>
-                    <th>PRCAS Ukupni Sat</th>
-                    <th>Prosek</th>
-                    <th>BROJ Broj Meseci</th>
+                    <th>Organizaciona celina</th>
+                    <th>Sati</th>
+                    <th>Iznos</th>
                 </tr>
                 </thead>
                 <tbody>
+                <?php
+                $satiBrojac=0;
+                $iznosBrojac=0;
+                    ?>
+                @foreach($dkopData as $vrstaPlacanja)
+                                    <tr>
+                                        <td>{{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }} {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
+                                        <td>{{$vrstaPlacanja['troskovno_mesto_id']}}</td>
+                                        <td class="text-right">{{   $vrstaPlacanja['sati']}}</td>
+                                        <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,'.',',') }}</td>
+                                    </tr>
+                    <?php
+                    $satiBrojac+= $vrstaPlacanja['sati'];
+                    $iznosBrojac+=$vrstaPlacanja['iznos'];
+                        ?>
+
+
+                @endforeach
 {{--                @foreach($sumResult as $item)--}}
 {{--                    <tr class=" {{$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'] == 0 ? 'bg-warning':'' }}--}}
 {{--                    ">--}}
@@ -242,6 +263,13 @@
 {{--                        <td>{{ $item['BROJ_broj_meseci_za_obracun'] }}</td>--}}
 {{--                    </tr>--}}
 {{--                @endforeach--}}
+                <tr>
+                    <td colspan="2">
+                        Ukupno:
+                    </td>
+                    <td class="text-right">{{$satiBrojac}}</td>
+                    <td class="text-right">{{number_format($iznosBrojac,2,'.',',')}}</td>
+                </tr>
                 </tbody>
             </table>
         </div>
