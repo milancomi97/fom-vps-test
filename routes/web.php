@@ -331,6 +331,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/prikaz_po_vrsti_placanja', [ObradaPripremaController::class, 'prikazPoVrstiPlacanja'])->name('datotekaobracunskihkoeficijenata.prikaz_po_vrsti_placanja');
 
+    Route::post('obracunzarada/izvestaji/stampa_po_vrsti_placanja', [DatotekaobracunskihExportController::class, 'stampaPoVrstiPlacanja'])->name('izvestaji.stampa_po_vrsti_placanja');
 
 
 
@@ -362,7 +363,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('obracunzarada/arhiva/obracunskeListe', [ArhivaController::class, 'obracunskeListe'])->name('arhiva.obracunskeListe');
     Route::get('obracunzarada/arhiva/ukupnaRekapitulacija', [ArhivaController::class, 'ukupnaRekapitulacija'])->name('arhiva.ukupnaRekapitulacija');
 
+    Route::post('obracunzarada/arhiva/stampa_radnik_lista', [ArhivaController::class, 'stampaArhivaRadnikLista'])->name('arhiva.stampa_radnik_lista');
+    Route::post('obracunzarada/arhiva/stampa_ostvarene_zarade', [ArhivaController::class, 'stampaArhivaOstvareneZarade'])->name('arhiva.stampa_ostvarene_zarade');
+    Route::post('obracunzarada/arhiva/stampa_rang_liste', [ArhivaController::class, 'stampaArhivaRangListe'])->name('arhiva.stampa_rang_liste');
+
+
+
     Route::get('obracunzarada/arhiva/potvrdaProseka', [ArhivaController::class, 'potvrdaProseka'])->name('arhiva.potvrdaProseka');
+    Route::post('obracunzarada/arhiva/stampaPotvrdaProseka', [ArhivaController::class, 'stampaPotvrdaProseka'])->name('arhiva.stampaPotvrdaProseka');
+
+
     Route::get('obracunzarada/arhiva/godisnjiKarton', [ArhivaController::class, 'godisnjiKarton'])->name('arhiva.godisnjiKarton');
     Route::get('obracunzarada/arhiva/pppPrijava', [ArhivaController::class, 'pppPrijava'])->name('arhiva.pppPrijava');
 

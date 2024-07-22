@@ -217,8 +217,23 @@
 
      <h1 class="text-center mt-5">{{$datum}}</h1>
         <div class="container">
-            <div class="text-end">
-                <a href='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/form_po_vrsti_placanja?month_id=').$month_id!!}' class="btn btn-primary">Nazad na pretragu</a>
+
+            <div class="row">
+                <div class="col d-flex justify-content-end">
+                    <a href='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/form_po_vrsti_placanja?month_id=') . $month_id !!}' class="btn mt-5 mr-5 btn-primary btn-lg">
+                        Nazad na pretragu
+                    </a>
+                    <form method="POST"  action="{{ route('izvestaji.stampa_po_vrsti_placanja') }}">
+                        @csrf
+                        <input type="hidden" name="month_id" value="{{ $month_id }}">
+                        <input type="hidden" name="vrsta_placanja" value="{{ $vrsta_placanja }}">
+
+                        <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">
+                            PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl" aria-hidden="true"></i>
+                        </button>
+                    </form>
+
+                </div>
             </div>
             <table class="table table-bordered mt-5">
                 <thead>
@@ -236,7 +251,7 @@
                     ?>
                 @foreach($dkopData as $vrstaPlacanja)
                                     <tr>
-                                        <td>{{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }} {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
+                                        <td>{{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
                                         <td>{{$vrstaPlacanja['troskovno_mesto_id']}}</td>
                                         <td class="text-right">{{   $vrstaPlacanja['sati']}}</td>
                                         <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,'.',',') }}</td>

@@ -131,7 +131,7 @@
 
                     <div class="row mb-3">
                         <h2 class="text-center"></h2>
-                        <h2 class="text-center">Rekapitulacija Ostvarene Zarade</h2>
+                        <h2 class="text-center">Arhiva Ostvarene Zarade</h2>
 
                         <h1 class="text-center">Datum:<b>{{$datum}}</b></h1>
                         <div class="col-sm-10"></div>
@@ -347,16 +347,16 @@
                             <td  class="text-right">{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade +$zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
 
                         </tr>
-                        <tr>
-                            <td class="text-left">12. BROJ AKTIVNIH RADNIKA:</td>
-                            <td></td>
-                            <td class="text-right">{{$aktivnihRadnika}}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-left">13. BROJ RADNIKA SA ZARADOM:</td>
-                            <td></td>
-                            <td class="text-right">{{$radnikaSaZaradom}}</td>
-                        </tr>
+{{--                        <tr>--}}
+{{--                            <td class="text-left">12. BROJ AKTIVNIH RADNIKA:</td>--}}
+{{--                            <td></td>--}}
+{{--                            <td class="text-right">{{$aktivnihRadnika}}</td>--}}
+{{--                        </tr>--}}
+{{--                        <tr>--}}
+{{--                            <td class="text-left">13. BROJ RADNIKA SA ZARADOM:</td>--}}
+{{--                            <td></td>--}}
+{{--                            <td class="text-right">{{$radnikaSaZaradom}}</td>--}}
+{{--                        </tr>--}}
                         </tbody>
                     </table>
                 </div>

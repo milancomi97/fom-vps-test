@@ -46,6 +46,8 @@ class DatotekaobracunskihExportController extends Controller
         private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface,
 
 
+
+
     )
     {
     }
@@ -386,4 +388,36 @@ class DatotekaobracunskihExportController extends Controller
         return view('obracunzarada::izvestaji.rekapitulacija_zarade_export_pdf',
             ['dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
     }
+
+
+    public function stampaPoVrstiPlacanja(Request $request)
+    {
+
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+        $sifraVrstePlacanja = $request->vrsta_placanja;
+        $dkopData = $this->obradaDkopSveVrstePlacanjaInterface->where('sifra_vrste_placanja',$sifraVrstePlacanja)->where('obracunski_koef_id',$request->month_id)->orderBy('iznos', 'desc')
+            ->orderBy('sati', 'desc')->get();
+
+
+        $updatedDkopData =  $dkopData->map(function ($dkop){
+            $dkop['mdrData']=$this->maticnadatotekaradnikaInterface->getById($dkop->user_mdr_id);
+            return $dkop;
+        });
+        $date = new \DateTime($monthData->datum);
+        $datum = $date->format('m.Y');
+        set_time_limit(0);
+        $pdf = PDF::loadView('obracunzarada::izvestaji.datotekaobracunskihkoeficijenata_exportpdf_po_vrsti_placanja',[
+            'month_id'=>$request->month_id,
+            'sifraVrstePlacanja'=>$sifraVrstePlacanja,
+            'dkopData'=>$updatedDkopData,
+            'datum'=>$datum
+        ])->setPaper('a4', 'portrait');
+
+        set_time_limit(0);
+
+
+        return $pdf->download('pdf_'.$sifraVrstePlacanja.'_'.date("d.m.y").'.pdf');
+    }
+
+
 }

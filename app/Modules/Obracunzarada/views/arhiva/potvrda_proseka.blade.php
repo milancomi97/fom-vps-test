@@ -14,7 +14,21 @@
             <h1 class="text-center mt-5">Potvrda proseka</h1>
             <h2 class="text-center mt-5">{{$radnikData->maticni_broj}} {{ $radnikData->prezime}} {{ $radnikData->ime}}</h2>
             <h2 class="text-center mt-5"><b> {{ $datumOd}} - {{$datumDo}} </b></h2>
+            <div class="row">
+                <div class="col d-flex justify-content-end">
+                    <form method="POST"  action="{{ route('arhiva.stampaPotvrdaProseka') }}">
+                        @csrf
+                        <input type="hidden" name="maticniBroj" value="{{ $maticniBroj }}">
+                        <input type="hidden" name="datumOd" value="{{ $datumOd }}">
+                        <input type="hidden" name="datumDo" value="{{ $datumDo }}">
 
+                        <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">
+                            PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl" aria-hidden="true"></i>
+                        </button>
+                    </form>
+
+                </div>
+            </div>
             <table class="table text-center table-striped table-bordered mt-5 mb-5 mt-3">
                 <thead>
                 <tr><th>#</th>

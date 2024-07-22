@@ -30,7 +30,7 @@
 @section('content')
     <div class="container">
         <div class="content" >
-            <h1 class="text-center mt-5">Ukupna rekapitulacija za:<b>{{$archiveDate}}</b></h1>
+            <h1 class="text-center mt-5">Arhiva ukupne rekapitulacija za:<b>{{$archiveDate}}</b></h1>
         </div>
         <div class="container-lg">
             <div class="row mb-5 ">
@@ -65,9 +65,9 @@
                         <div class="col-sm-1"></div>
                         <div class="col-sm-2 text-right">
 
-                            <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_ostvarene_zarade')}}">
+                            <form method="POST" class="d-inline" action="{{route('arhiva.stampa_ostvarene_zarade')}}">
                                 @csrf
-{{--                                <input type="hidden" name="month_id" value="--}}{{--{{$month_id}}--}}{{--">--}}
+                                <input type="hidden" name="datum" value="{{$datum}}">
                                 <button type="submit" class="btn mt-5 btn-secondary btn-lg" style="width: 200px; visibility: hidden" id="print-page">PDF &nbsp;&nbsp;<i class="fa fa-print " aria-hidden="true"></i></button>
 
                                 <button type="submit" class="btn btn-secondary btn-lg" style="width: 200px" id="print-page">PDF &nbsp;&nbsp;<i class="fa fa-print " aria-hidden="true"></i></button>

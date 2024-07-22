@@ -391,7 +391,8 @@ class ObradaPripremaController extends Controller
             'month_id'=>$request->month_id,
             'sifraVrstePlacanja'=>$sifraVrstePlacanja,
             'dkopData'=>$updatedDkopData,
-            'datum'=>$datum
+            'datum'=>$datum,
+            'vrsta_placanja'=>$sifraVrstePlacanja
         ]);
     }
 
