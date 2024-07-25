@@ -231,7 +231,7 @@ function updateMonthContainer(activeMonth) {
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Podesavanje Korisnika').appendTo(monthCard);
+                }).text('Podesavanje pristupa poentazi').appendTo(monthCard);
 
             }else if(monthData.status=='2'){
                 // $('<button>').attr({

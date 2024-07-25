@@ -264,6 +264,14 @@ $(document).ready(function () {
         });
 
     });
+
+
+    $(document).on('click', 'body .podesavanje-pristupa', function (e) {
+        var id = $(this).data('month_id');
+        window.location.href = showPodesavanjePristupa + id;
+    });
+
+
     $(document).on('click', 'body .obrada', function (e) {
 
         debugger;

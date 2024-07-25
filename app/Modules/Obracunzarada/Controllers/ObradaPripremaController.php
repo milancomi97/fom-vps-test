@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Datotekaobracunskihkoeficijenata;
 use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
+use App\Modules\Obracunzarada\Consts\UserRoles;
 use App\Modules\Obracunzarada\Repository\ArhivaSumeZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepositoryInterface;
@@ -24,6 +25,7 @@ use App\Modules\Obracunzarada\Service\ArhiviranjeMesecaService;
 use App\Modules\Obracunzarada\Service\ObradaPripremaService;
 use App\Modules\Obracunzarada\Service\ObradaPripremaValidacijaService;
 use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
+use App\Modules\Osnovnipodaci\Repository\RadniciRepository;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
@@ -50,6 +52,7 @@ class ObradaPripremaController extends Controller
         private readonly DpsmKreditiRepositoryInterface                      $dpsmKreditiInterface,
         private readonly ObradaKreditiRepositoryInterface                    $obradaKreditiInterface,
         private readonly ArhivaSumeZaraPoRadnikuRepositoryInterface          $arhivaSumeZaraPoRadnikuInterface,
+        private readonly RadniciRepository $radniciInterface,
 
 
     )
@@ -410,4 +413,147 @@ class ObradaPripremaController extends Controller
 
         $test='test';
     }
+
+    public function podesavanjePristupa(Request $request){
+
+       $organizacioneCelineData = $this->permesecnatabelapoentInterface->where('obracunski_koef_id',$request->month_id)->get();
+        $radniciCollection = $this->radniciInterface->where('active',1)->get()->keyBy('id');
+
+        $dataFullData = $organizacioneCelineData->map(function ($item, $key) {
+            $item['odgovorna_lica_ids']=json_decode($item['odgovorna_lica_ids'],true);
+            $item['poenteri_ids']=json_decode($item['poenteri_ids'],true);
+
+            return $item;
+        });
+
+
+        $selectPoenteri = UserPermission::where('role_id',UserRoles::POENTER)->get()->pluck('user_id','user_id');
+
+        $selectOdgovornaLica = UserPermission::where('role_id',UserRoles::ADMINISTRATOR)->orWhere('role_id',UserRoles::SUPERVIZOR)->get()->pluck('user_id','user_id');
+
+
+        $test='test';
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_podesavanje_pristupa', [
+            'data' => $dataFullData,
+            'radniciFullData'=>$radniciCollection,
+            'selectPoenteri'=>$selectPoenteri,
+            'selectOdgovornaLica'=>$selectOdgovornaLica
+            ]);
+
+    }
+
+    public function brisanjePristupa(Request $request){
+
+        $month_id = $request->month_id;
+        $user_id=   $request->user_id;
+        $org_celina_id= $request->org_celina_id;
+        $type = $request->type;
+        $organizacioneCelineData = $this->permesecnatabelapoentInterface->where('obracunski_koef_id',$month_id)->get()->keyBy('organizaciona_celina_id');
+
+
+        if($type=='poenter_delete'){
+
+            $poenterJsonData = json_decode($organizacioneCelineData[$org_celina_id]->poenteri_ids, true);
+
+            if (($key = array_search($user_id, $poenterJsonData)) !== false) {
+                unset($poenterJsonData[$key]);
+
+                // Re-index the array
+                $poenterJsonData = array_values($poenterJsonData);
+
+                // Encode back to JSON
+                $organizacioneCelineData[$org_celina_id]->poenteri_ids = json_encode($poenterJsonData);
+                $organizacioneCelineData[$org_celina_id]->save();
+                }
+
+            $poenterStatusjsonData = json_decode($organizacioneCelineData[$org_celina_id]->poenteri_status, true);
+
+            if (isset($poenterStatusjsonData[$user_id])) {
+                unset($poenterStatusjsonData[$user_id]);
+
+                // Encode back to JSON
+                $organizacioneCelineData[$org_celina_id]->poenteri_status = json_encode($poenterStatusjsonData);
+                $organizacioneCelineData[$org_celina_id]->save();
+            }
+
+
+
+        }
+        if($type=='odg_lice_delete'){
+
+
+            $odgLiceJsonData = json_decode($organizacioneCelineData[$org_celina_id]->odgovorna_lica_ids, true);
+
+            if (($key = array_search($user_id, $odgLiceJsonData)) !== false) {
+                unset($odgLiceJsonData[$key]);
+
+                // Re-index the array
+                $odgLiceJsonData = array_values($odgLiceJsonData);
+
+                // Encode back to JSON
+                $organizacioneCelineData[$org_celina_id]->odgovorna_lica_ids = json_encode($odgLiceJsonData);
+                $organizacioneCelineData[$org_celina_id]->save();
+            }
+
+            $odgLiceStatusjsonData = json_decode($organizacioneCelineData[$org_celina_id]->odgovorna_lica_status, true);
+
+            if (isset($odgLiceStatusjsonData[$user_id])) {
+                unset($odgLiceStatusjsonData[$user_id]);
+
+                // Encode back to JSON
+                $organizacioneCelineData[$org_celina_id]->odgovorna_lica_status = json_encode($odgLiceStatusjsonData);
+                $organizacioneCelineData[$org_celina_id]->save();
+            }
+
+        }
+
+    }
+    public function izmenaPristupa(Request $request){
+
+
+        $month_id = $request->month_id;
+        $user_id=   $request->user_id;
+        $org_celina_id= $request->org_celina_id;
+        $type = $request->type;
+        $organizacioneCelineData = $this->permesecnatabelapoentInterface->where('obracunski_koef_id',$month_id)->get()->keyBy('organizaciona_celina_id');
+
+
+        if($type=='poenter_dodaj'){
+            $poenterJsonData = json_decode($organizacioneCelineData[$org_celina_id]->poenteri_ids, true);
+            $poenterStatusjsonData = json_decode($organizacioneCelineData[$org_celina_id]->poenteri_ids, true);
+
+            $poenterJsonData[]=$user_id;
+
+
+            $poenterStatusjsonData[$user_id]=0;
+
+            $organizacioneCelineData[$org_celina_id]->poenteri_ids = json_encode($poenterJsonData);
+            $organizacioneCelineData[$org_celina_id]->poenteri_status = json_encode($poenterStatusjsonData);
+            $organizacioneCelineData[$org_celina_id]->save();
+
+
+        }
+
+
+
+        if($type=='odg_lice_dodaj'){
+
+
+            $test='test';
+
+            $odgLicaJsonData = json_decode($organizacioneCelineData[$org_celina_id]->odgovorna_lica_ids, true);
+            $odgLicaStatusjsonData = json_decode($organizacioneCelineData[$org_celina_id]->odgovorna_lica_status, true);
+
+            $odgLicaJsonData[]=$user_id;
+            $odgLicaStatusjsonData[$user_id]=0;
+
+            $organizacioneCelineData[$org_celina_id]->odgovorna_lica_ids = json_encode($odgLicaJsonData);
+            $organizacioneCelineData[$org_celina_id]->odgovorna_lica_status = json_encode($odgLicaStatusjsonData);
+            $organizacioneCelineData[$org_celina_id]->save();
+
+        }
+
+
+    }
+
 }

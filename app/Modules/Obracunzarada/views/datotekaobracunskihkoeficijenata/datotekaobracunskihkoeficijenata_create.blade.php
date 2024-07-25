@@ -370,6 +370,9 @@
 
         let prikazPoVrstiPlacanjaRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/form_po_vrsti_placanja?month_id=')!!}'
 
+        let showPodesavanjePristupa = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/podesavanje_pristupa?month_id=')!!}'
+
+
 
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_create/calendar_logic.js') }}"></script>
