@@ -26,6 +26,7 @@ use App\Modules\Obracunzarada\Service\ObradaPripremaService;
 use App\Modules\Obracunzarada\Service\ObradaPripremaValidacijaService;
 use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
 use App\Modules\Osnovnipodaci\Repository\RadniciRepository;
+use App\Modules\Osnovnipodaci\Repository\RadniciRepositoryInterface;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
@@ -52,7 +53,7 @@ class ObradaPripremaController extends Controller
         private readonly DpsmKreditiRepositoryInterface                      $dpsmKreditiInterface,
         private readonly ObradaKreditiRepositoryInterface                    $obradaKreditiInterface,
         private readonly ArhivaSumeZaraPoRadnikuRepositoryInterface          $arhivaSumeZaraPoRadnikuInterface,
-        private readonly RadniciRepository $radniciInterface,
+        private readonly RadniciRepositoryInterface $radniciRepositoryInterface
 
 
     )
@@ -417,7 +418,7 @@ class ObradaPripremaController extends Controller
     public function podesavanjePristupa(Request $request){
 
        $organizacioneCelineData = $this->permesecnatabelapoentInterface->where('obracunski_koef_id',$request->month_id)->get();
-        $radniciCollection = $this->radniciInterface->where('active',1)->get()->keyBy('id');
+        $radniciCollection = $this->radniciRepositoryInterface->where('active',1)->get()->keyBy('id');
 
         $dataFullData = $organizacioneCelineData->map(function ($item, $key) {
             $item['odgovorna_lica_ids']=json_decode($item['odgovorna_lica_ids'],true);
@@ -432,12 +433,15 @@ class ObradaPripremaController extends Controller
         $selectOdgovornaLica = UserPermission::where('role_id',UserRoles::ADMINISTRATOR)->orWhere('role_id',UserRoles::SUPERVIZOR)->get()->pluck('user_id','user_id');
 
 
+        $userIds = array_merge($selectPoenteri->toArray(), $selectOdgovornaLica->toArray());
+        $maticnaSifarnik =$this->radniciRepositoryInterface->whereIn('id',$userIds)->get()->keyBy('id');
         $test='test';
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_podesavanje_pristupa', [
             'data' => $dataFullData,
             'radniciFullData'=>$radniciCollection,
             'selectPoenteri'=>$selectPoenteri,
-            'selectOdgovornaLica'=>$selectOdgovornaLica
+            'selectOdgovornaLica'=>$selectOdgovornaLica,
+            'maticnaSifarnik'=>$maticnaSifarnik
             ]);
 
     }

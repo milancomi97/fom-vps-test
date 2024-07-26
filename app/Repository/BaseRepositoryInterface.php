@@ -58,6 +58,21 @@ interface BaseRepositoryInterface
 
     /**
      * @param $column
+     * @param $condition
+     * @param $value
+     * @return mixed
+     */
+    public function whereCondition($column,$condition, $value);
+
+    /**
+     * @param $column
+     * @param $value
+     * @return mixed
+     */
+    public function whereIn($column, $value);
+
+    /**
+     * @param $column
      * @param $start
      * @param $end
      * @return mixed

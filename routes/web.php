@@ -345,7 +345,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/permissionStatusUpdate', [DatotekaobracunskihStatusController::class, 'permissionStatusUpdate'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatus');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/updatePermissionStatusAdministrator', [DatotekaobracunskihStatusController::class, 'updatePermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.updatePermissionStatusAdministrator');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/getPermissionStatusAdministrator', [DatotekaobracunskihStatusController::class, 'getPermissionStatusAdministrator'])->name('datotekaobracunskihkoeficijenata.getPermissionStatusAdministrator');
-    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_check_poenteri', [DatotekaobracunskihStatusController::class, 'odobravanjeCheckPoenteri'])->name('datotekaobracunskihkoeficijenata.podesavanje_pristupa');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_check_poenteri', [DatotekaobracunskihStatusController::class, 'odobravanjeCheckPoenteri'])->name('datotekaobracunskihkoeficijenata.odobravanje_check_poenteri');
 
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/podesavanje_pristupa', [ObradaPripremaController::class, 'podesavanjePristupa'])->name('datotekaobracunskihkoeficijenata.podesavanje_pristupa');
 

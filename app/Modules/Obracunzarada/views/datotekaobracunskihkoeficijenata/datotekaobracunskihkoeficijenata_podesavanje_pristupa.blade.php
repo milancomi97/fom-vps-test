@@ -82,7 +82,7 @@
                             <label for="selectOption">Poenteri</label>
                             <select class="form-control" id="poenter_selected_id">
                                 @foreach($selectPoenteri as $poenter)
-                                    <option value="{{$poenter}}">{{$poenter}}</option>
+                                    <option value="{{$poenter}}">{{$maticnaSifarnik[$poenter]->maticni_broj}} {{$maticnaSifarnik[$poenter]->prezime}} {{$maticnaSifarnik[$poenter]->ime}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -112,7 +112,7 @@
                             <label for="selectOption">Odgovorna lica</label>
                             <select class="form-control" id="odg_lice_selected_id">
                                 @foreach($selectOdgovornaLica as $odgLice)
-                                    <option value="{{$odgLice}}">{{$odgLice}}</option>
+                                    <option value="{{$odgLice}}">{{$maticnaSifarnik[$odgLice]->maticni_broj}} {{$maticnaSifarnik[$odgLice]->prezime}} {{$maticnaSifarnik[$odgLice]->ime}}</option>
                                 @endforeach
                             </select>
                         </div>
