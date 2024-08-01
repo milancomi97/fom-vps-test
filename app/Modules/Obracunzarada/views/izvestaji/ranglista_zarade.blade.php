@@ -34,7 +34,15 @@
             <!-- Content Header (Page header) -->
             <h2 class="text-center">RANG LISTA BRUTO ZARADA po TC-ima</h2>
             <div class="row mb-3">
-                <div class="col-sm-6"></div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-2 text-right">
+
+                    <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_rang_liste_excel')}}">
+                        @csrf
+                        <input type="hidden" name="month_id" value="{{$month_id}}">
+                        <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">Excel &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
+                    </form>
+                </div>
                 <div class="col-sm-2 text-right">
 
                     <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_rang_liste')}}">

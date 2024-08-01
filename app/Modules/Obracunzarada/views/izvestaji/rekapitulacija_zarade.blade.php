@@ -29,7 +29,16 @@
                     <h2 class="text-center">{{$datum}}</h2>
 
                     <div class="row mb-3">
-                        <div class="col-sm-5"></div>
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-2 text-right">
+
+                            <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_ostvarene_zarade')}}">
+                                @csrf
+                                <input type="hidden" name="month_id" value="{{$month_id}}">
+
+                                <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">Excel &nbsp;&nbsp;<i class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
+                            </form>
+                        </div>
                         <div class="col-sm-2 text-right">
 
                         <form method="POST" class="d-inline" action="{{route('datotekaobracunskihkoeficijenata.stampa_ostvarene_zarade')}}">
@@ -61,8 +70,8 @@
                         <tr>
                             <th onclick="sortTable(0)">VP</th>
                             <th onclick="sortTable(1)">Naziv vrste placanja</th>
-                            <th onclick="sortTable(2)">Sati</th>
-                            <th onclick="sortTable(3)">Iznos</th>
+                            <th class="text-right" onclick="sortTable(2)">Sati</th>
+                            <th class="text-right" onclick="sortTable(3)">Iznos</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -75,8 +84,8 @@
                         <tr>
                             <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>
                             <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
-                            <td>{{number_format($vrstaPlacanja->sati)}}</td>
-                            <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($vrstaPlacanja->sati)}}</td>
+                            <td class="text-right">{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
                         </tr>
                                 <?php
                             $ukupanPrihod+=$vrstaPlacanja->iznos;
@@ -89,7 +98,7 @@
                             <td></td>
                             <td></td>
                             <td><b>Bruto zarada:</b></td>
-                            <td><b>{{number_format($ukupanPrihod, 2, '.', ',')}}</b></td>
+                            <td class="text-right"><b>{{number_format($ukupanPrihod, 2, '.', ',')}}</b></td>
                         </tr>
 
                         <?php
@@ -101,8 +110,8 @@
                                 <tr>
                                     <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>
                                     <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
-                                    <td>{{number_format($vrstaPlacanja->sati)}}</td>
-                                    <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
+                                    <td class="text-right">{{number_format($vrstaPlacanja->sati)}}</td>
+                                    <td class="text-right">{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
                                     <?php
                                     $ukupniPorezi+=$vrstaPlacanja->iznos;
                                     ?>
@@ -114,7 +123,7 @@
                             <td></td>
                             <td></td>
                             <td><b>Ukupni doprinosi na teret radnika:</b></td>
-                            <td><b>{{number_format($ukupniPorezi, 2, '.', ',')}}</b></td>
+                            <td class="text-right"><b>{{number_format($ukupniPorezi, 2, '.', ',')}}</b></td>
                         </tr>
 
                         <?php
@@ -127,8 +136,8 @@
                                 <tr>
                                     <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>
                                     <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
-                                    <td>{{number_format($vrstaPlacanja->sati)}}</td>
-                                    <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
+                                    <td class="text-right">{{number_format($vrstaPlacanja->sati)}}</td>
+                                    <td class="text-right">{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
                                     <?php
                                    $ukupniPoreziLicnaPrimanja+=$vrstaPlacanja->iznos;
                                     ?>
@@ -141,7 +150,7 @@
                             <td></td>
                             <td></td>
                             <td><b>Ukupan porez na lična primanja:</b></td>
-                            <td><b>{{number_format($ukupniPoreziLicnaPrimanja, 2, '.', ',')}}</b></td>
+                            <td class="text-right"><b>{{number_format($ukupniPoreziLicnaPrimanja, 2, '.', ',')}}</b></td>
                         </tr>
 
                         <?php
@@ -154,8 +163,8 @@
                             <tr>
                                 <td>{{$vrstaPlacanja->sifra_vrste_placanja}}</td>
                                 <td>{{$vrstaPlacanja->naziv_vrste_placanja}}</td>
-                                <td>{{number_format($vrstaPlacanja->sati)}}</td>
-                                <td>{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
+                                <td class="text-right">{{number_format($vrstaPlacanja->sati)}}</td>
+                                <td class="text-right">{{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}</td>
                                 <?php
                                  $ukupniRashod+=$vrstaPlacanja->iznos;
                                 ?>
@@ -166,7 +175,7 @@
                                 <td></td>
                                 <td></td>
                                 <td><b>Ukupne obustave:</b></td>
-                                <td><b>{{number_format($ukupniRashod, 2, '.', ',')}}</b></td>
+                                <td class="text-right"><b>{{number_format($ukupniRashod, 2, '.', ',')}}</b></td>
                             </tr>
 
 
@@ -181,47 +190,47 @@
                         <tr>
                             <td >1. BRUTO ZARADA</td>
                             <td></td>
-                            <td>{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >- IZNOS PORESKOG OSLOBODJENJA</td>
                             <td></td>r
-                            <td>{{number_format($zaraData->POROSL_poresko_oslobodjenje, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($zaraData->POROSL_poresko_oslobodjenje, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >- OPOREZIVI IZNOS ZARADE</td>
                             <td></td>
-                            <td>{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade -$zaraData->POROSL_poresko_oslobodjenje, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade -$zaraData->POROSL_poresko_oslobodjenje, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >2. NETO ZARADA (1-5)</td>
                             <td></td>
-                            <td>{{number_format($zaraData->NETO_neto_zarada , 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($zaraData->NETO_neto_zarada , 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >3. UK. OBUSTAVE</td>
                             <td></td>
-                            <td>{{number_format($zaraData->SIOB_ukupni_iznos_obustava +  $zaraData->ZARKR_ukupni_zbir_kredita, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($zaraData->SIOB_ukupni_iznos_obustava +  $zaraData->ZARKR_ukupni_zbir_kredita, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >4. ZA ISPLATU</td>
                             <td></td>
-                            <td>{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade -  $zaraData->SIP_ukupni_iznos_poreza - $zaraData->SID_ukupni_iznos_doprinosa - $zaraData->SIOB_ukupni_iznos_obustava - $zaraData->ZARKR_ukupni_zbir_kredita, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade -  $zaraData->SIP_ukupni_iznos_poreza - $zaraData->SID_ukupni_iznos_doprinosa - $zaraData->SIOB_ukupni_iznos_obustava - $zaraData->ZARKR_ukupni_zbir_kredita, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >UKUPNI DOPRINOSI</td>
                             <td></td>
-                            <td>{{number_format($zaraData->SID_ukupni_iznos_doprinosa, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($zaraData->SID_ukupni_iznos_doprinosa, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >050 POREZ (10%)</td>
                             <td></td>
-                            <td>{{number_format($zaraData->SIP_ukupni_iznos_poreza, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($zaraData->SIP_ukupni_iznos_poreza, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >5. Ukupni porezi i doprinosi na teret radnika</td>
                             <td></td>
-                            <td>{{number_format($zaraData->SIP_ukupni_iznos_poreza + $zaraData->SID_ukupni_iznos_doprinosa, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($zaraData->SIP_ukupni_iznos_poreza + $zaraData->SID_ukupni_iznos_doprinosa, 2, '.', ',')}}</td>
                         </tr>
 
                         <tr>
@@ -233,33 +242,33 @@
                         <tr>
                             <td >Zdravstveno osiguranje (p)</td>
                             <td></td>
-                            <td>{{number_format($zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >Penzijsko-invalidsko osig. (p)</td>
                             <td></td>
-                            <td>{{number_format($zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >Ukupni doprinosi</td>
                             <td></td>
-                            <td>{{number_format($zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
                         </tr>
                         <tr>
                             <td >7. Potrebna sredstva (BRUTO II):</td>
                             <td></td>
-                            <td>{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade +$zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
+                            <td class="text-right">{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade +$zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
 
                         </tr>
                         <tr>
                             <td >12. BROJ AKTIVNIH RADNIKA:</td>
                             <td></td>
-                            <td>{{$aktivnihRadnika}}</td>
+                            <td class="text-right">{{$aktivnihRadnika}}</td>
                         </tr>
                         <tr>
                             <td >13. BROJ RADNIKA SA ZARADOM:</td>
                             <td></td>
-                            <td>{{$radnikaSaZaradom}}</td>
+                            <td class="text-right">{{$radnikaSaZaradom}}</td>
                         </tr>
                         </tbody>
                     </table>

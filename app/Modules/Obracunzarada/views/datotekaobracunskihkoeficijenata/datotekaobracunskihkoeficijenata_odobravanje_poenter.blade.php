@@ -5,6 +5,16 @@
     <link rel="stylesheet" href="{{asset('admin_assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
 
     <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
 
         .calcBtn {
             float: right;
@@ -201,7 +211,7 @@
                                                                                  class="vrsta_placanja_input"
                                                                                  data-toggle="tooltip"
                                                                                  data-placement="top"
-                                                                                 title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{ $vrstaPlacanja['sati']}}>
+                                                                                 title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{($vrstaPlacanja['sati'] > 0) ? $vrstaPlacanja['sati'] : null}}>
                                             </td>
                                         @elseif($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]['status']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
                                             <td class="vrsta_placanja_td">{{ $vrstaPlacanja['sati']}}</td>
@@ -221,7 +231,7 @@
                                 <td></td>
                                 <td class="rowSum ime_prezime">Ukupno:</td>
                                 @foreach($organizacionacelina['columnSum'] as $sumKey =>$sumValue)
-                                    <td class="vrsta_placanja_td">{{$sumValue}}</td>
+                                    <td class="vrsta_placanja_td text-center">{{$sumValue}}</td>
                                 @endforeach
                                 <td></td>
 

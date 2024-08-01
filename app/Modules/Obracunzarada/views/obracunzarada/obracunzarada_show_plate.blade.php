@@ -168,6 +168,8 @@
                 <div class="section">
                     Strucna sprema: {{$mdrPreparedData['RBPS_priznata_strucna_sprema']}}<br>
                     Radno mesto: {{$mdrPreparedData['RBRM_radno_mesto']}}<br>
+                    JMBG: {{$mdrPreparedData['LBG_jmbg']}}<br>
+
                 </div>
 
                 <div class="section">

@@ -270,8 +270,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf_po_org_cel', [DatotekaobracunskihExportController::class, 'odobravanjeExportPdf'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine');
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_radnik_lista', [DatotekaobracunskihExportController::class, 'stampaRadnikLista'])->name('datotekaobracunskihkoeficijenata.stampa_radnik_lista');
+
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_ostvarene_zarade', [DatotekaobracunskihExportController::class, 'stampaOstvareneZarade'])->name('datotekaobracunskihkoeficijenata.stampa_ostvarene_zarade');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_rang_liste', [DatotekaobracunskihExportController::class, 'stampaRangListe'])->name('datotekaobracunskihkoeficijenata.stampa_rang_liste');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_rang_liste_excel', [DatotekaobracunskihExportController::class, 'stampaRangListeExcel'])->name('datotekaobracunskihkoeficijenata.stampa_rang_liste_excel');
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/email_radnik_lista', [DatotekaobracunskihEmailController::class, 'emailRadnikLista'])->name('datotekaobracunskihkoeficijenata.email_radnik_lista');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/email_ostvarene_zarade', [DatotekaobracunskihEmailController::class, 'emailOstvareneZarade'])->name('datotekaobracunskihkoeficijenata.email_ostvarene_zarade');

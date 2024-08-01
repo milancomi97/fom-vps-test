@@ -59,6 +59,7 @@ class DatotekaobracunskihEmailController extends Controller
 
         $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
 //        $id = $request->month_id; // TODO OVO OBAVEZNO
+//        $id = $request->month_id; // TODO OVO OBAVEZNO
 
         $id = '1';
 

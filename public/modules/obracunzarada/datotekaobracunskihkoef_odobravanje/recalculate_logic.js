@@ -48,7 +48,10 @@ function calculateSums(tableSelector) {
             }
         });
         if(j<colCount-2){
-            $sumRow.find('td').eq(j).text(colSum).css('font-weight',600);
+            $sumRow.find('td').eq(j).text(colSum).css({
+                'font-weight': 600,
+                'text-align': 'center'
+            });
 
         }
     }

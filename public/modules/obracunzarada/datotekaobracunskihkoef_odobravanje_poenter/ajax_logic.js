@@ -30,16 +30,40 @@ $(document).ready(function () {
             }
         });
     });
-    $(document).on('focusout', 'body .vrsta_placanja_td', function (event) {
-        if (event.target.value !== '') {
+
+    $(document).on('click', 'body .vrsta_placanja_td input', function (event) {
+        $(event.currentTarget).attr('data-update-value', $(event.currentTarget).val());
+
+        debugger;
+    });
+
+
+    $(document).on('change', 'body .vrsta_placanja_td input', function (event) {
+
+        debugger;
+        var newValue = $(event.currentTarget).val();
+        $(event.currentTarget).attr('data-update-value', newValue);
+
+    });
+
+    $(document).on('focusout', 'body .vrsta_placanja_td input', function (event) {
+        var shouldUpdate = $(event.currentTarget).data('update-value');
+
+        debugger;
+        if(shouldUpdate!==undefined) {
+            // var shouldUpdate = $(event.currentTarget).data('update-value');
             event.stopImmediatePropagation();
             $(".loading").show();
             $('input').prop('disabled', true);
 
             var input_value = event.target.value;
+            if(input_value==''){
+                input_value=0;
+            }
             var input_key = event.target.dataset.vrstaPlacanjaKey
             var record_id = event.target.dataset.recordId
             var _token = $('input[name="_token"]').val();
+
 
             $.ajax({
                 url: storeRoute,
@@ -52,15 +76,27 @@ $(document).ready(function () {
                 },
                 success: function (response) {
 
-                    var vrednostBrojaca =response.negativni_brojac;
-                    var record_update_id = response.record_id;
-                    if(vrednostBrojaca){
-                       var redovni_rad = $('input[data-record-id="'+record_update_id+'"][data-vrsta-placanja-key="001"]');
-                       var topli_obrok = $('input[data-record-id="'+record_update_id+'"][data-vrsta-placanja-key="019"]');
 
-                        redovni_rad.val(parseInt(redovni_rad.val() - vrednostBrojaca))
-                        topli_obrok.val(parseInt(topli_obrok.val() - vrednostBrojaca))
+                    debugger;
+                    if(response.action=='vrstePlacanjaUpdated'){
+
+
+                        for(let index in response.result){
+
+                            var vrstaPlacanjaData = response.result[index];
+                            var sifraVrstePlacanja = vrstaPlacanjaData['key'];
+                            var satiVrstePlacanja = vrstaPlacanjaData['sati'];
+
+                            if(satiVrstePlacanja!='0'){
+                                var vrstePlacanjaElement =  $('input[data-record-id="' + response.record_id + '"][data-vrsta-placanja-key="'+sifraVrstePlacanja+'"]');
+                                vrstePlacanjaElement.val(satiVrstePlacanja)
+                            }
+
+
+
+                        }
                     }
+
                     var Toast = Swal.mixin({
                         toast: true,
                         position: 'top',
@@ -71,7 +107,7 @@ $(document).ready(function () {
 
                     Toast.fire({
                         icon: 'success',
-                        title: response.message
+                        title: 'Podaci izmenjeni'
                     })
                     $(".loading").hide();
                     $('input').prop('disabled', false);

@@ -81,7 +81,6 @@ $(document).ready(function () {
                                     var sifraVrstePlacanja = vrstaPlacanjaData['key'];
                                     var satiVrstePlacanja = vrstaPlacanjaData['sati'];
 
-                                    debugger
                                     if(satiVrstePlacanja!='0'){
                                         var vrstePlacanjaElement =  $('input[data-record-id="' + response.record_id + '"][data-vrsta-placanja-key="'+sifraVrstePlacanja+'"]');
                                         vrstePlacanjaElement.val(satiVrstePlacanja)
@@ -91,23 +90,7 @@ $(document).ready(function () {
 
                                 }
                             }
-                           //  var vrednostBrojaca = response.negativni_brojac;
-                           // var result = response.result;
-                           //
-                           //  var record_update_id = response.record_id;
-                           //  if(result=='negativni_brojac'){
-                           //
-                           //
-                           //  debugger;
-                           //      var redovni_rad = $('input[data-record-id="' + record_update_id + '"][data-vrsta-placanja-key="001"]');
-                           //      var topli_obrok = $('input[data-record-id="' + record_update_id + '"][data-vrsta-placanja-key="019"]');
-                           //
-                           //      redovni_rad.val(parseInt(redovni_rad.val()) - vrednostBrojaca)
-                           //      topli_obrok.val(parseInt(topli_obrok.val()) - vrednostBrojaca)
-                           // }else if(result=='nov_podatak_topli_obrok'){
-                           //     var topli_obrok = $('input[data-record-id="' + record_update_id + '"][data-vrsta-placanja-key="019"]');
-                           //     topli_obrok.val(parseInt(vrednostBrojaca));
-                           // }
+
                             var Toast = Swal.mixin({
                                 toast: true,
                                 position: 'top',

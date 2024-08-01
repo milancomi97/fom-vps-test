@@ -429,9 +429,9 @@
                             <tr style="background-color: #ADD8E6;">
 
                                 <td></td>
-                                <td class="rowSum">Ukupno:</td>
+                                <td class="rowSum ime_prezime">Ukupno:</td>
                                 @foreach($organizacionacelina['columnSum'] as $sumKey =>$sumValue)
-                                    <td>{{$sumValue}}</td>
+                                    <td class="vrsta_placanja_td text-center">{{$sumValue}}</td>
                                 @endforeach
                                 <td></td>
                                 <td></td>

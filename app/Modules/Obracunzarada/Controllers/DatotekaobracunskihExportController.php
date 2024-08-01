@@ -61,6 +61,7 @@ class DatotekaobracunskihExportController extends Controller
 
         $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
 //        $id = $request->month_id; // TODO OVO OBAVEZNO
+//        $id = $request->month_id; // TODO OVO OBAVEZNO
 
         $id = '1';
 
@@ -275,7 +276,88 @@ class DatotekaobracunskihExportController extends Controller
     }
 
 
+    public function stampaRangListeExcel(Request $request)
+    {
+        $user_id = auth()->user()->id;
 
+        $userPermission = UserPermission::where('user_id', $user_id)->first();
+
+        $obracunskiKoeficijentId = $request->month_id;
+
+        $dkopData =$this->obradaDkopSveVrstePlacanjaInterface->where('obracunski_koef_id',$obracunskiKoeficijentId)->get();
+        $zaraData =  $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$obracunskiKoeficijentId)->get();
+
+        $orgCelineData = $this->organizacionecelineInterface->getAll()->mapWithKeys(function($orgCelina){
+            return [
+                $orgCelina->id=>$orgCelina->toArray()
+            ];
+        });
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+        $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($monthData->datum);
+        $groupedZara = $zaraData->map(function($zaraRadnik) use($orgCelineData){
+            $zaraRadnik['org_celina_data']= $orgCelineData[$zaraRadnik['organizaciona_celina_id']];
+            return $zaraRadnik;
+        })->sortBy('organizaciona_celina_id')->groupBy('organizaciona_celina_id');
+
+        $strucneKvalifikacijeSifarnik =  $this->strucnakvalifikacijaInterface->getAllKeySifra();
+//        $groupedZara // TODO ovo koristim
+        // TODO DOVDE JE LOGIKA SA PODACIMA
+
+        $excelData = [];
+        //        $id = $request->month_id; // TODO OVO OBAVEZNO
+
+// TODO OVO OBAVEZNO
+
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($obracunskiKoeficijentId);
+        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $obracunskiKoeficijentId);
+
+        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
+
+
+        $header = [
+            'MB',
+            'Prezime i ime',
+            'Kvalifikacija',
+            'Osnovna',
+            'SATI',
+            'BRUTO ZARADA',
+            'NETO ZARADA',
+            'REDOVNI RAD',
+            'PREKOVREMENI RAD',
+            'MINULI RAD',
+            'TOPLI OBROK',
+            'ZA ISPLATU'
+        ];
+
+        $radnikData = [];
+        $radnikData[]=$header;
+        foreach ($groupedZara as $celinaZara){
+
+            foreach ($celinaZara as $radnik){
+                $radnikData[] = [
+                    $radnik->maticni_broj,
+                    $radnik->prezime . ' ' . $radnik->srednje_ime . ' ' . $radnik->ime,
+                    $strucneKvalifikacijeSifarnik[$radnik->maticnadatotekaradnika->RBPS_priznata_strucna_sprema]['skraceni_naziv_kvalifikacije'] ?? '',
+                    number_format($radnik->maticnadatotekaradnika->KOEF_osnovna_zarada, 2, '.', ','),
+                    $radnik->UKSA_ukupni_sati_za_isplatu,
+                    number_format($radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade, 2, '.', ','),
+                    number_format($radnik->NETO_neto_zarada, 2, '.', ','),
+                    number_format($radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate / $minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto, 2, '.', ','),
+                    number_format($radnik->BMIN_prekovremeni_iznos, 2, '.', ','),
+                    number_format($radnik->varijab, 2, '.', ','),
+                    number_format($radnik->TOPLI_obrok_iznos / $minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto, 2, '.', ','),
+                    number_format($radnik->NETO_neto_zarada - $radnik->SIOB_ukupni_iznos_obustava - $radnik->ZARKR_ukupni_zbir_kredita, 2, '.', ',')
+                ];
+            }
+            $radnikData[]=['','','','','','','','','','',''];
+        }
+
+        $inputDate = Carbon::parse($monthData->datum);
+        $formattedDate = $inputDate->format('m.Y');
+
+        $test='test';
+        return Excel::download(new PoenterUnosExport($radnikData), $formattedDate.'_rang_lista_bruto_zarada.xlsx');
+    }
     public function stampaRangListe(Request $request){
 
         $obracunskiKoeficijentId = $request->month_id;
