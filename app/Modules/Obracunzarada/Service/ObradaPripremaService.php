@@ -1498,7 +1498,8 @@ $test='TEST';
                 'user_mdr_id' => $vrstaPlacanja['user_mdr_id'],
                 'obracunski_koef_id' => $vrstaPlacanja['obracunski_koef_id'],
                 'user_dpsm_id' => $vrstaPlacanja['user_dpsm_id'],
-                'tip_unosa' => 'kroz_kod'
+                'tip_unosa' => 'kroz_kod',
+                'kredit_glavna_tabela_id'=>null
             ];
             $data[] = $data2;
         }
@@ -1507,6 +1508,8 @@ $test='TEST';
         try {
             $this->dkopSveVrstePlacanjaInterface->createMany($data);
         } catch (\Throwable $exception) {
+
+        $test='test';
             report($exception);
         }
     }

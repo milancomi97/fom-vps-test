@@ -285,7 +285,7 @@ class DatotekaobracunskihExportController extends Controller
         $obracunskiKoeficijentId = $request->month_id;
 
         $dkopData =$this->obradaDkopSveVrstePlacanjaInterface->where('obracunski_koef_id',$obracunskiKoeficijentId)->get();
-        $zaraData =  $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$obracunskiKoeficijentId)->get();
+        $zaraData =  $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$obracunskiKoeficijentId)->get()->sortByDesc('IZNETO_zbir_ukupni_iznos_naknade_i_naknade');
 
         $orgCelineData = $this->organizacionecelineInterface->getAll()->mapWithKeys(function($orgCelina){
             return [
@@ -315,6 +315,7 @@ class DatotekaobracunskihExportController extends Controller
 
 
         $header = [
+            'Sifra TC',
             'MB',
             'Prezime i ime',
             'Kvalifikacija',
@@ -331,25 +332,51 @@ class DatotekaobracunskihExportController extends Controller
 
         $radnikData = [];
         $radnikData[]=$header;
-        foreach ($groupedZara as $celinaZara){
+        foreach ($groupedZara as $key=>$celinaZara){
+
+            $test='test';
+                    $brojaCKOEF_osnovna_zarada=0;
+                    $brojaCUKSA_ukupni_sati_za_isplatu=0;
+                    $brojaCIZNETO_zbir_ukupni_iznos_naknade_i_naknade=0;
+                    $brojaCNETO_neto_zarada=0;
+                    $brojaCEFIZNO_kumulativ_iznosa_za_efektivne_sate=0;
+                    $brojaCBMIN_prekovremeni_iznos=0;
+                    $brojaCvarijab=0;
+                    $brojaCTOPLI_obrok_iznos=0;
+                    $brojacZaIsplatu=0;
+            $radnikData[]=[$key.' - '.$orgCelineData[$key]['naziv_troskovnog_mesta'],'','','','','','',];
 
             foreach ($celinaZara as $radnik){
                 $radnikData[] = [
+                    $radnik->sifra_troskovnog_mesta,
                     $radnik->maticni_broj,
                     $radnik->prezime . ' ' . $radnik->srednje_ime . ' ' . $radnik->ime,
                     $strucneKvalifikacijeSifarnik[$radnik->maticnadatotekaradnika->RBPS_priznata_strucna_sprema]['skraceni_naziv_kvalifikacije'] ?? '',
-                    number_format($radnik->maticnadatotekaradnika->KOEF_osnovna_zarada, 2, '.', ','),
+                    $radnik->maticnadatotekaradnika->KOEF_osnovna_zarada,
                     $radnik->UKSA_ukupni_sati_za_isplatu,
-                    number_format($radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade, 2, '.', ','),
-                    number_format($radnik->NETO_neto_zarada, 2, '.', ','),
-                    number_format($radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate / $minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto, 2, '.', ','),
-                    number_format($radnik->BMIN_prekovremeni_iznos, 2, '.', ','),
-                    number_format($radnik->varijab, 2, '.', ','),
-                    number_format($radnik->TOPLI_obrok_iznos / $minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto, 2, '.', ','),
-                    number_format($radnik->NETO_neto_zarada - $radnik->SIOB_ukupni_iznos_obustava - $radnik->ZARKR_ukupni_zbir_kredita, 2, '.', ',')
+                    $radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade,
+                    $radnik->NETO_neto_zarada,
+                    $radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate / $minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,
+                    $radnik->BMIN_prekovremeni_iznos,
+                    $radnik->varijab,
+                    $radnik->TOPLI_obrok_iznos / $minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,
+                    $radnik->NETO_neto_zarada - $radnik->SIOB_ukupni_iznos_obustava - $radnik->ZARKR_ukupni_zbir_kredita
                 ];
+
+                    $brojaCKOEF_osnovna_zarada+=$radnik->maticnadatotekaradnika->KOEF_osnovna_zarada;
+                    $brojaCUKSA_ukupni_sati_za_isplatu+=$radnik->UKSA_ukupni_sati_za_isplatu;
+                    $brojaCIZNETO_zbir_ukupni_iznos_naknade_i_naknade+= $radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade;
+                    $brojaCNETO_neto_zarada+=$radnik->NETO_neto_zarada;
+                    $brojaCEFIZNO_kumulativ_iznosa_za_efektivne_sate+=$radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate / $minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto;
+                    $brojaCBMIN_prekovremeni_iznos+=$radnik->BMIN_prekovremeni_iznos;
+                    $brojaCvarijab+=$radnik->varijab;
+                    $brojaCTOPLI_obrok_iznos+=$radnik->TOPLI_obrok_iznos / $minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto;
+                    $brojacZaIsplatu+=$radnik->NETO_neto_zarada - $radnik->SIOB_ukupni_iznos_obustava - $radnik->ZARKR_ukupni_zbir_kredita;
             }
-            $radnikData[]=['','','','','','','','','','',''];
+
+
+            $radnikData[]=['UKUPNO:','','','',$brojaCKOEF_osnovna_zarada,$brojaCUKSA_ukupni_sati_za_isplatu,$brojaCIZNETO_zbir_ukupni_iznos_naknade_i_naknade,$brojaCNETO_neto_zarada,$brojaCEFIZNO_kumulativ_iznosa_za_efektivne_sate,$brojaCBMIN_prekovremeni_iznos,$brojaCvarijab,$brojaCTOPLI_obrok_iznos,$brojaCNETO_neto_zarada];
+            $radnikData[]=['***************','***************','***************','***************','***************','***************','***************','***************','***************','***************','***************','***************'];
         }
 
         $inputDate = Carbon::parse($monthData->datum);

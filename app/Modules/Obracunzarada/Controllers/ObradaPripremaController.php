@@ -12,6 +12,8 @@ use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataReposit
 use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\KreditoriRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
@@ -53,7 +55,10 @@ class ObradaPripremaController extends Controller
         private readonly DpsmKreditiRepositoryInterface                      $dpsmKreditiInterface,
         private readonly ObradaKreditiRepositoryInterface                    $obradaKreditiInterface,
         private readonly ArhivaSumeZaraPoRadnikuRepositoryInterface          $arhivaSumeZaraPoRadnikuInterface,
-        private readonly RadniciRepositoryInterface $radniciRepositoryInterface
+        private readonly RadniciRepositoryInterface $radniciRepositoryInterface,
+        private readonly IsplatnamestaRepositoryInterface $isplatnamestaInterface,
+        private readonly KreditoriRepositoryInterface $kreditoriInterface
+
 
 
     )
@@ -415,6 +420,7 @@ class ObradaPripremaController extends Controller
         $test='test';
     }
 
+
     public function podesavanjePristupa(Request $request){
 
        $organizacioneCelineData = $this->permesecnatabelapoentInterface->where('obracunski_koef_id',$request->month_id)->get();
@@ -557,6 +563,39 @@ class ObradaPripremaController extends Controller
 
         }
 
+
+    }
+    public function pripremaBanke(Request $request)
+    {
+
+        $isplatnaMestaData =$this->isplatnamestaInterface->getAll()->toArray();
+
+        $isplatnaMestaSelectOption = array_map(function($isplatnoMesto) {
+            return [
+                'id' => $isplatnoMesto['rbim_sifra_isplatnog_mesta'],
+                'text' =>$isplatnoMesto['rbim_sifra_isplatnog_mesta'].' - '. $isplatnoMesto['naim_naziv_isplatnog_mesta']
+            ];
+        }, $isplatnaMestaData);
+
+        $kreditoriData = $this->kreditoriInterface->getAll()->toArray();
+        $kreditoriSelectOption = array_map(function($isplatnoMesto) {
+            return [
+                'id' => $isplatnoMesto['sifk_sifra_kreditora'],
+                'text' =>$isplatnoMesto['sifk_sifra_kreditora'].' - '. $isplatnoMesto['imek_naziv_kreditora']
+            ];
+        }, $kreditoriData);
+
+
+        $test='test';
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_priprema_banke', [
+            'bankeData'=>$isplatnaMestaSelectOption,
+            'kreditoriData'=>$kreditoriSelectOption,
+//            'data' => $dataFullData,
+//            'radniciFullData'=>$radniciCollection,
+//            'selectPoenteri'=>$selectPoenteri,
+//            'selectOdgovornaLica'=>$selectOdgovornaLica,
+//            'maticnaSifarnik'=>$maticnaSifarnik
+        ]);
 
     }
 

@@ -350,6 +350,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_check_poenteri', [DatotekaobracunskihStatusController::class, 'odobravanjeCheckPoenteri'])->name('datotekaobracunskihkoeficijenata.odobravanje_check_poenteri');
 
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/podesavanje_pristupa', [ObradaPripremaController::class, 'podesavanjePristupa'])->name('datotekaobracunskihkoeficijenata.podesavanje_pristupa');
+    Route::get('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke', [ObradaPripremaController::class, 'pripremaBanke'])->name('datotekaobracunskihkoeficijenata.priprema_banke');
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/brisanje_pristupa', [ObradaPripremaController::class, 'brisanjePristupa'])->name('datotekaobracunskihkoeficijenata.brisanje_pristupa');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/izmena_pristupa', [ObradaPripremaController::class, 'izmenaPristupa'])->name('datotekaobracunskihkoeficijenata.izmena_pristupa');
@@ -357,6 +358,11 @@ Route::group(['middleware' => ['auth']], function () {
     // Izvestaji
     Route::get('obracunzarada/izvestaji/ranglistazarade', [IzvestajZaradaController::class, 'ranglistazarade'])->name('izvestaj.ranglistazarade');
     Route::get('obracunzarada/izvestaji/rekapitulacijazarade', [IzvestajZaradaController::class, 'rekapitulacijazarade'])->name('izvestaj.rekapitulacijazarade');
+
+    //
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke_radnik', [IzvestajZaradaController::class, 'pripremaBankeRadnik'])->name('datotekaobracunskihkoeficijenata.priprema_banke_radnik');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke_krediti', [IzvestajZaradaController::class, 'pripremaBankeKrediti'])->name('datotekaobracunskihkoeficijenata.priprema_banke_krediti');
+
 
 
     // Arhiva

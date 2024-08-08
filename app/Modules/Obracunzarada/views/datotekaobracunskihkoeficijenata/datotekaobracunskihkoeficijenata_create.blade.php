@@ -352,6 +352,8 @@
         let odobravanjeRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje?month_id=')!!}'
         let getMonthDataByIdRoute = '{{ route('datotekaobracunskihkoeficijenata.getMonthDataById') }}'
 
+        let pripremaBankeRoute= '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke?month_id=')!!}'
+
         let indexObradaRoute ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/mesecna_obrada_index?month_id=') !!}'
         let showPlateRoute ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_all_plate?month_id=') !!}'
 

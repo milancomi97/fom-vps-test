@@ -38,6 +38,7 @@ class ObracunZaradaController extends Controller
         private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
         private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface,
         private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
+        private readonly \App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface $isplatnamestaInterface,
     )
     {
     }
@@ -181,6 +182,7 @@ class ObracunZaradaController extends Controller
         $datumStampe = Carbon::now()->format('d.m.Y');
         $kreditiData = $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get();
         $userData= User::where('maticni_broj',$radnikMaticniId)->first();
+//        RBIM_isplatno_mesto_id
         return view('obracunzarada::obracunzarada.obracunzarada_show_plate',
             [
                 'radnikData' => $radnikData,

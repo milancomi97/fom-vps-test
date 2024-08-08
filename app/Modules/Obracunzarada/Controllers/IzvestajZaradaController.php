@@ -8,6 +8,8 @@ use App\Models\UserPermission;
 use App\Modules\Kadrovskaevidencija\Repository\StrucnakvalifikacijaRepositoryInterface;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
@@ -21,6 +23,7 @@ use App\Modules\Obracunzarada\Service\PripremiPermisijePoenteriOdobravanja;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\PodaciofirmiRepositoryInterface;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Mail\DemoMail;
@@ -39,10 +42,13 @@ class IzvestajZaradaController extends Controller
         private readonly MesecnatabelapoentazaRepositoryInterface            $mesecnatabelapoentazaInterface,
         private readonly PripremiPermisijePoenteriOdobravanja $pripremiPermisijePoenteriOdobravanja,
         private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
-        private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface,
         private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
         private readonly StrucnakvalifikacijaRepositoryInterface $strucnakvalifikacijaInterface,
-        private readonly  MinimalnebrutoosnoviceRepositoryInterface $minimalnebrutoosnoviceInterface
+        private readonly  MinimalnebrutoosnoviceRepositoryInterface $minimalnebrutoosnoviceInterface,
+        private readonly IsplatnamestaRepositoryInterface $isplatnamestaInterface,
+        private readonly DpsmKreditiRepositoryInterface $dpsmKreditiInterface,
+        private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface,
+
     )
     {
     }
@@ -74,6 +80,7 @@ class IzvestajZaradaController extends Controller
         return view('obracunzarada::izvestaji.ranglista_zarade',
             ['month_id'=>$request->month_id,'groupedZara'=>$groupedZara,'strucneKvalifikacijeSifarnik'=>$strucneKvalifikacijeSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
     }
+
 
     public function rekapitulacijazarade(Request $request)
     {
@@ -109,7 +116,7 @@ class IzvestajZaradaController extends Controller
 //        $zaraUkupno = $zaraData =$this->obradaZaraPoRadnikuInterface->getAll();
         $zaraUkupno =$this->obradaZaraPoRadnikuInterface->getAll();
 
-        $date = new \DateTime($monthData->datum);
+        $date = new DateTime($monthData->datum);
         $datum = $date->format('m.Y');
 
         $radnikaSaZaradom=$this->obradaZaraPoRadnikuInterface->whereCondition('IZNETO_zbir_ukupni_iznos_naknade_i_naknade','>',0)->get();
@@ -128,4 +135,48 @@ class IzvestajZaradaController extends Controller
     }
 
 
+    public function pripremaBankeRadnik(Request $request)
+    {
+        $isplatnaMestaData =$this->isplatnamestaInterface->getAll();
+        $test='test';
+
+        $showAll = (int)$request->prikazi_sve;
+
+
+        if($showAll){
+
+        }else{
+
+        if(isset($request->banke_ids)){
+            $bankeIds = $request->banke_ids;
+
+            $resultData = $this->obradaZaraPoRadnikuInterface->whereIn('rbim_sifra_isplatnog_mesta',$bankeIds)->with('maticnadatotekaradnika')->get();
+//            rbim_sifra_isplatnog_mesta
+
+        }
+
+        }
+        $test2='test2';
+    }
+    public function pripremaBankeKrediti(Request $request)
+    {
+
+        $showAll = (int)$request->prikazi_sve;
+
+
+        if($showAll){
+
+        }else{
+
+            if(isset($request->kreditori_ids)){
+                $kreditoriIds = $request->kreditori_ids;
+
+                $resultData = $this->obradaKreditiInterface->whereIn('SIFK_sifra_kreditora',$kreditoriIds)->get();
+
+
+            }
+
+        }
+        $test2='test2';
+    }
 }

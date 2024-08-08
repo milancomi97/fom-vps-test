@@ -177,6 +177,11 @@ $(document).ready(function () {
         window.location.href = obradaProsekaRoute + id;
     });
 
+    $(document).on('click', 'body .priprema-banke', function (e) {
+        var id = $(this).data('month_id');
+        window.location.href = pripremaBankeRoute + id;
+    });
+
 
     $(document).on('click', 'body .prikaz-po-vrsti-placanja', function (e) {
         var id = $(this).data('month_id');
