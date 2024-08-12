@@ -206,7 +206,30 @@
                 <h1 class="text-center header-custom"></h1>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-lg-8 p-3 border border-custom">
+                <h1 class="text-left header-custom"> Osnovna bruto zarada
+                </h1>
+            </div>
+            <div class="col-lg-2 p-3 border-left-disabled border border-custom">
+                <h1 class="text-center header-custom"> </h1>
+            </div>
+            <div class="col-lg-2 p-3 border-left-disabled border border-custom">
+                <h1 class="text-center header-custom"></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 p-3 border border-custom">
+                <h1 class="text-left header-custom"> Prosecna bruto zarada
+                </h1>
+            </div>
+            <div class="col-lg-2 p-3 border-left-disabled border border-custom">
+                <h1 class="text-center header-custom">Učinak </h1>
+            </div>
+            <div class="col-lg-2 p-3 border-left-disabled border border-custom">
+                <h1 class="text-center header-custom"></h1>
+            </div>
+        </div>
         @foreach($radnikData as $radnik)
 
             @if($radnik['KESC_prihod_rashod_tip']=='P')
@@ -296,6 +319,37 @@
         @foreach($radnikData as $radnik)
 
             @if($radnik['KESC_prihod_rashod_tip']=='R')
+                @if($radnik['sifra_vrste_placanja']=='093')
+                    <div class="row">
+{{--                        kreditAdditionalData--}}
+{{--                        kreditorAdditionalData--}}
+
+
+
+
+
+                        <div class="col-lg-2 p-2 ">
+                            <h2 class="text-left header-custom">{{$radnik['sifra_vrste_placanja']}} {{$radnik['naziv_vrste_placanja']}}</h2>
+                        </div>
+                        <div class="col-lg-2 p-2 ">
+                            <p class="text-left header-custom">{{$radnik['kreditorAdditionalData']['imek_naziv_kreditora']}}</p>
+                        </div>
+                        <div class="col-lg-2 p-2 ">
+                            <p class="text-left header-custom">saldo:{{$radnik['kreditAdditionalData']['SALD_saldo']}}</p>
+                        </div>
+{{--                        <div class="col-lg-2 p-2 ">--}}
+{{--                            <h2 class="text-right header-custom">{{$radnik['sati']  !== null  ? $radnik['sati'] : 0}}</h2>--}}
+{{--                        </div>--}}
+
+
+                        <div class="col-lg-3 p-2 ">
+                            <p class="text-right header-custom">{{$radnik['kreditAdditionalData']['PART_partija_poziv_na_broj']}}</p>
+                        </div>
+                        <div class="col-lg-3 p-2 ">
+                            <p class="text-right header-custom">{{ $radnik['iznos'] !== null  ? number_format($radnik['iznos'], 2, '.', ',') : 0}} {{--    RATA: {{$radnik['kreditAdditionalData']['RATA_rata']}}--}} </p>
+                        </div>
+                    </div>
+                    @else
                 <div class="row">
                     <div class="col-lg-8 p-2 ">
                         <h2 class="text-left header-custom">{{$radnik['sifra_vrste_placanja']}} {{$radnik['naziv_vrste_placanja']}}</h2>
@@ -307,6 +361,7 @@
                         <h2 class="text-right header-custom">{{ $radnik['iznos'] !== null  ? number_format($radnik['iznos'], 2, '.', ',') : 0}}  </h2>
                     </div>
                 </div>
+                    @endif
             @endif
         @endforeach
 

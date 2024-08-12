@@ -568,23 +568,29 @@ class ObradaPripremaController extends Controller
     public function pripremaBanke(Request $request)
     {
 
-        $isplatnaMestaData =$this->isplatnamestaInterface->getAll()->toArray();
-
-        $isplatnaMestaSelectOption = array_map(function($isplatnoMesto) {
+        $isplatnaMestaData =$this->isplatnamestaInterface->getAll()->keyBy('rbim_sifra_isplatnog_mesta')->toArray();
+       $isplatnaMestaZara = array_keys($this->obradaZaraPoRadnikuInterface->getAll()->groupBy('rbim_sifra_isplatnog_mesta')->toArray());
+        $isplatnaMestaSelectOption = array_map(function($isplatnoMestoId) use ($isplatnaMestaData) {
             return [
-                'id' => $isplatnoMesto['rbim_sifra_isplatnog_mesta'],
-                'text' =>$isplatnoMesto['rbim_sifra_isplatnog_mesta'].' - '. $isplatnoMesto['naim_naziv_isplatnog_mesta']
+                'id' => $isplatnaMestaData[$isplatnoMestoId]['rbim_sifra_isplatnog_mesta'],
+                'text' =>$isplatnaMestaData[$isplatnoMestoId]['rbim_sifra_isplatnog_mesta'].' - '. $isplatnaMestaData[$isplatnoMestoId]['naim_naziv_isplatnog_mesta']
             ];
-        }, $isplatnaMestaData);
+        }, $isplatnaMestaZara);
 
-        $kreditoriData = $this->kreditoriInterface->getAll()->toArray();
-        $kreditoriSelectOption = array_map(function($isplatnoMesto) {
+        $kreditoriData = $this->kreditoriInterface->getAll()->keyBy('sifk_sifra_kreditora')->toArray();
+
+
+        $kreditoriKrediti = array_keys($this->obradaKreditiInterface->getAll()->groupBy('SIFK_sifra_kreditora')->toArray());
+
+
+        $kreditoriSelectOption = array_map(function($kreditor) use ($kreditoriData) {
+
+            $test='test';
             return [
-                'id' => $isplatnoMesto['sifk_sifra_kreditora'],
-                'text' =>$isplatnoMesto['sifk_sifra_kreditora'].' - '. $isplatnoMesto['imek_naziv_kreditora']
+                'id' => $kreditoriData[$kreditor]['sifk_sifra_kreditora'],
+                'text' =>$kreditoriData[$kreditor]['sifk_sifra_kreditora'].' - '. $kreditoriData[$kreditor]['imek_naziv_kreditora']
             ];
-        }, $kreditoriData);
-
+        }, $kreditoriKrediti);
 
         $test='test';
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_priprema_banke', [

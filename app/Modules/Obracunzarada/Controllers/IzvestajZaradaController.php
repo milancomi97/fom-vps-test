@@ -10,6 +10,7 @@ use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\KreditoriRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
@@ -48,6 +49,8 @@ class IzvestajZaradaController extends Controller
         private readonly IsplatnamestaRepositoryInterface $isplatnamestaInterface,
         private readonly DpsmKreditiRepositoryInterface $dpsmKreditiInterface,
         private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface,
+        private readonly KreditoriRepositoryInterface $kreditoriInterface
+
 
     )
     {
@@ -137,25 +140,32 @@ class IzvestajZaradaController extends Controller
 
     public function pripremaBankeRadnik(Request $request)
     {
-        $isplatnaMestaData =$this->isplatnamestaInterface->getAll();
+        $isplatnaMestaSifarnika =$this->isplatnamestaInterface->getAll()->keyBy('rbim_sifra_isplatnog_mesta');
         $test='test';
 
         $showAll = (int)$request->prikazi_sve;
 
 
         if($showAll){
-
+            $resultData = $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->get();
+//            rbim_sifra_isplatnog_mesta
+            $groupedData = $resultData->sortBy('maticni_broj')->groupBy('rbim_sifra_isplatnog_mesta');
         }else{
 
         if(isset($request->banke_ids)){
             $bankeIds = $request->banke_ids;
 
             $resultData = $this->obradaZaraPoRadnikuInterface->whereIn('rbim_sifra_isplatnog_mesta',$bankeIds)->with('maticnadatotekaradnika')->get();
-//            rbim_sifra_isplatnog_mesta
+           $groupedData = $resultData->sortBy('maticni_broj')->groupBy('rbim_sifra_isplatnog_mesta');
 
         }
 
         }
+                return view('obracunzarada::izvestaji.banke_banke_radnik',
+            [
+                'bankeDataZara' =>$groupedData,
+                'isplatnaMestaSifarnika'=>$isplatnaMestaSifarnika
+            ]);
         $test2='test2';
     }
     public function pripremaBankeKrediti(Request $request)
@@ -164,7 +174,14 @@ class IzvestajZaradaController extends Controller
         $showAll = (int)$request->prikazi_sve;
 
 
+        $kreditoriSifarnik = $this->kreditoriInterface->getAll()->keyBy('sifk_sifra_kreditora')->toArray();
+
+        $maticnaDatotekaRadnika = $this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',true)->get()->keyBy('MBRD_maticni_broj')->toArray();
+
         if($showAll){
+            $resultData = $this->obradaKreditiInterface->getAll();
+//            rbim_sifra_isplatnog_mesta
+            $groupedData = $resultData->sortBy('maticni_broj')->groupBy('SIFK_sifra_kreditora');
 
         }else{
 
@@ -172,11 +189,19 @@ class IzvestajZaradaController extends Controller
                 $kreditoriIds = $request->kreditori_ids;
 
                 $resultData = $this->obradaKreditiInterface->whereIn('SIFK_sifra_kreditora',$kreditoriIds)->get();
+                // ucitaj mdr
+                $groupedData = $resultData->sortBy('maticni_broj')->groupBy('SIFK_sifra_kreditora');
 
 
             }
 
         }
-        $test2='test2';
+                return view('obracunzarada::izvestaji.banke_kreditori_radnik',
+            [
+                'kreditiDataZara' =>$groupedData,
+                'kreditoriSifarnik'=>$kreditoriSifarnik,
+                'mdrSifarnik'=>$maticnaDatotekaRadnika
+            ]);
+
     }
 }

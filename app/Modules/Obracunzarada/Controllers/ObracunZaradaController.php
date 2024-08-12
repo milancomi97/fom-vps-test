@@ -175,7 +175,7 @@ class ObracunZaradaController extends Controller
         $date = new \DateTime($podaciMesec->datum);
         $formattedDate = $date->format('m.Y');
 
-        $dkopData = $this->obradaDkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get();
+        $dkopData = $this->obradaDkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->orderBy('sifra_vrste_placanja')->get();
 
 
         $zarData = $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get()->first();

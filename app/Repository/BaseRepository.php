@@ -116,4 +116,8 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return $this->model->whereIn($column,$value);
     }
+
+    public function model(){
+        return $this->model;
+    }
 }

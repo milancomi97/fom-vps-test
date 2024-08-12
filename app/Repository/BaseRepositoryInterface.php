@@ -84,4 +84,6 @@ interface BaseRepositoryInterface
      * @return mixed
      */
     public function with($relation);
+
+    public function model();
 }

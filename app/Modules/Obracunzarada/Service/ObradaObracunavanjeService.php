@@ -4,7 +4,9 @@ namespace App\Modules\Obracunzarada\Service;
 
 use App\Modules\Kadrovskaevidencija\Repository\RadnamestaRepositoryInterface;
 use App\Modules\Kadrovskaevidencija\Repository\StrucnakvalifikacijaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\KreditoriRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
 
 class ObradaObracunavanjeService
@@ -14,7 +16,9 @@ class ObradaObracunavanjeService
         private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface $dkopSveVrstePlacanjaInterface,
         private readonly IsplatnamestaRepositoryInterface $isplatnamestaInterface,
         private readonly RadnamestaRepositoryInterface $radnamestaInterface,
-        private readonly StrucnakvalifikacijaRepositoryInterface $strucnakvalifikacijaInterface
+        private readonly StrucnakvalifikacijaRepositoryInterface $strucnakvalifikacijaInterface,
+        private readonly DpsmKreditiRepositoryInterface $dpsmKreditiInterface,
+        private readonly KreditoriRepositoryInterface $kreditoriInterface
 
     )
     {
@@ -32,24 +36,23 @@ class ObradaObracunavanjeService
 
     public function pripremaPodatakaRadnik($monthId,$radnikMaticniId) // Radnik napravi logiku za sve ostale radnike
     {
-//        $testMaticni = '0005399';
 
-        $testMaticni = '0008320'; // TODO Dejan Test
-
-//        0005399
-//        0005399
-//0004021
-//0004202
-//0004337
-//0004770
-//0004870
-//0004908
-//0005091
         $radnikData = [];
-        $data = $this->dkopSveVrstePlacanjaInterface->where('maticni_broj', $radnikMaticniId)->where('obracunski_koef_id', $monthId)->with('maticnadatotekaradnika')->get();
+        $data = $this->dkopSveVrstePlacanjaInterface->where('maticni_broj', $radnikMaticniId)->where('obracunski_koef_id', $monthId)->with('maticnadatotekaradnika')->get()->sortBy('sifra_vrste_placanja');
 
         foreach ($data as $radnik) {
 
+
+
+            if($radnik['sifra_vrste_placanja']=='093'){
+//                ;
+                $kreditData = $this->dpsmKreditiInterface->getById($radnik['kredit_glavna_tabela_id']);
+                $kreditorData = $this->kreditoriInterface->getById($kreditData->SIFK_sifra_kreditora);
+
+                $radnik['kreditAdditionalData']=$kreditData->toArray();
+                $radnik['kreditorAdditionalData']=$kreditorData->toArray();
+
+            }
             $radnikData[]= $radnik;
         }
 

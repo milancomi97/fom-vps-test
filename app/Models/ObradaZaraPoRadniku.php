@@ -72,7 +72,8 @@ class ObradaZaraPoRadniku extends Model
         'troskovno_mesto_id',
         'organizaciona_celina_id',
         'varijab',
-        'BMIN_prekovremeni_iznos'
+        'BMIN_prekovremeni_iznos',
+        'UKIS_ukupan_iznos_za_izplatu'
     ];
     public function maticnadatotekaradnika()
     {
