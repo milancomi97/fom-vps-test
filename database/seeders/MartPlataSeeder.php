@@ -39,7 +39,7 @@ class MartPlataSeeder extends Seeder
 
     public function run(): void
     {
-        Log::channel('user_action')->debug('Test custom logger START MART');
+//        Log::channel('user_action')->debug('Test custom logger START MART');
 
         var_dump('test');
         $podaciMesec = $this->getDataFromCsvPodaciMesec();

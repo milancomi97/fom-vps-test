@@ -21,6 +21,7 @@
         .page-break {
             page-break-before: always;
         }
+        .page-number:after { content: counter(page); }
 
         .no-border {
             border: 0px solid black;
@@ -56,10 +57,11 @@
         $potpisi = json_decode($organizacioneCelineSifarnik[$key]->odgovorni_direktori_pravila, true);
         ?>
     <div class="celina-details-div">
-
+        <span class="strong">{{$podaciFirme['skraceni_naziv_firme']}}</span><br>
         <h5 class="celina-details">Mesec: {{date('m')}}</h5>
         <h5 class="celina-details">Datum štampe: {{date('m')}}</h5>
-        <h5 class="celina-details">Strana: {{$pageCounter}}</h5>
+        <span class="page-number">Stranica </span>
+        <h5 class="celina-details"> <span class="page-number">Stranica </span></h5>
     </div>
         <div class="celina-data">
         <h1 style="text-align: center">Organizaciona celina: {{$key}}</h1>

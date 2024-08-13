@@ -145,13 +145,17 @@ class DatotekaobracunskihExportController extends Controller
 //            ]
 //        );
         set_time_limit(0);
+        $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
+
+
         $pdf = PDF::loadView('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
             [
                 'rows'=>$rows,
                 'data'=>$troskovniCentarCalculated,
                 'tableHeaders'=>$tableHeaders,
                 'vrstePlacanjaDescription'=>$vrstePlacanjaDescription,
-                'organizacioneCelineSifarnik'=>$organizacioneCelineSifarnik
+                'organizacioneCelineSifarnik'=>$organizacioneCelineSifarnik,
+                'podaciFirme' => $podaciFirme,
             ]
         )->setPaper('a4', 'portrait');
 
