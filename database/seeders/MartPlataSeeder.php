@@ -135,14 +135,6 @@ class MartPlataSeeder extends Seeder
             }
             $test = "test";
 
-
-
-
-
-
-
-
-
             foreach ($kreditiReader as $kredit) {
                 $kreditiReaderdata[] = $kredit;
             }
