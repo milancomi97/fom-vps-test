@@ -16,6 +16,7 @@ use App\Modules\Obracunzarada\Service\KreirajPermisijePoenteriOdobravanja;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use League\Csv\Reader;
 
 class MartPlataSeeder extends Seeder
@@ -38,6 +39,8 @@ class MartPlataSeeder extends Seeder
 
     public function run(): void
     {
+        Log::channel('user_action')->debug('Test custom logger START MART');
+
         var_dump('test');
         $podaciMesec = $this->getDataFromCsvPodaciMesec();
 
@@ -212,6 +215,8 @@ class MartPlataSeeder extends Seeder
 //                'minulirad_aktivan' => true
 //            ]);
 //        }
+
+        Log::channel('user_action')->debug('Test custom logger END MART');
 
     }
 
