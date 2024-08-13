@@ -164,10 +164,67 @@ class IzvestajZaradaController extends Controller
                 return view('obracunzarada::izvestaji.banke_banke_radnik',
             [
                 'bankeDataZara' =>$groupedData,
-                'isplatnaMestaSifarnika'=>$isplatnaMestaSifarnika
+                'isplatnaMestaSifarnika'=>$isplatnaMestaSifarnika,
+                'pdfInputShowAll'=>$showAll,
+                'pdfInputBankeIds'=>$request->banke_ids
             ]);
-        $test2='test2';
+
     }
+
+
+    public function pripremaBankeRadnikPdfExport(Request $request)
+    {
+        $isplatnaMestaSifarnika = $this->isplatnamestaInterface->getAll()->keyBy('rbim_sifra_isplatnog_mesta');
+        $test = 'test';
+
+        $showAll = (int)$request->prikazi_sve;
+
+
+        if ($showAll) {
+            $resultData = $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->get();
+//            rbim_sifra_isplatnog_mesta
+            $groupedData = $resultData->sortBy('maticni_broj')->groupBy('rbim_sifra_isplatnog_mesta');
+        } else {
+
+            if (isset($request->banke_ids)) {
+                $bankeIds =json_decode($request->banke_ids,true);
+
+                $resultData = $this->obradaZaraPoRadnikuInterface->whereIn('rbim_sifra_isplatnog_mesta', $bankeIds)->with('maticnadatotekaradnika')->get();
+                $groupedData = $resultData->sortBy('maticni_broj')->groupBy('rbim_sifra_isplatnog_mesta');
+
+            }
+
+        }
+        set_time_limit(0);
+//
+//        return view('obracunzarada::izvestaji.banke_banke_radnik_pdf',
+//            [
+//                'bankeDataZara' => $groupedData,
+//                'isplatnaMestaSifarnika' => $isplatnaMestaSifarnika
+//            ]);
+        $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
+        $datumStampe = \Carbon\Carbon::now()->format('d.m.Y');
+
+                $pdf = PDF::loadView('obracunzarada::izvestaji.banke_banke_radnik_pdf',
+                    [
+                        'bankeDataZara' => $groupedData,
+                        'isplatnaMestaSifarnika' => $isplatnaMestaSifarnika,
+                        'podaciFirme'=>$podaciFirme,
+                        'datumStampe'=>$datumStampe
+                        ])->setPaper('a4', 'portrait');
+
+        return $pdf->download('pdf_isplate_po_tc_'.date("d.m.y").'.pdf');
+
+    }
+
+
+
+//
+//
+//
+//
+
+
     public function pripremaBankeKrediti(Request $request)
     {
 
@@ -200,8 +257,64 @@ class IzvestajZaradaController extends Controller
             [
                 'kreditiDataZara' =>$groupedData,
                 'kreditoriSifarnik'=>$kreditoriSifarnik,
-                'mdrSifarnik'=>$maticnaDatotekaRadnika
+                'mdrSifarnik'=>$maticnaDatotekaRadnika,
+                'pdfInputShowAll'=>$showAll,
+                'pdfInputKreditoriIds'=>$request->kreditori_ids
             ]);
+
+    }
+
+    public function pripremaBankeKreditiPdfExport(Request $request)
+    {
+
+        $showAll = (int)$request->prikazi_sve;
+
+
+        $kreditoriSifarnik = $this->kreditoriInterface->getAll()->keyBy('sifk_sifra_kreditora')->toArray();
+
+        $maticnaDatotekaRadnika = $this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',true)->get()->keyBy('MBRD_maticni_broj')->toArray();
+
+        if($showAll){
+            $resultData = $this->obradaKreditiInterface->getAll();
+//            rbim_sifra_isplatnog_mesta
+            $groupedData = $resultData->sortBy('maticni_broj')->groupBy('SIFK_sifra_kreditora');
+
+        }else{
+
+            if(isset($request->kreditori_ids)){
+                $kreditoriIds = json_decode($request->kreditori_ids,true);
+
+                $resultData = $this->obradaKreditiInterface->whereIn('SIFK_sifra_kreditora',$kreditoriIds)->get();
+                // ucitaj mdr
+                $groupedData = $resultData->sortBy('maticni_broj')->groupBy('SIFK_sifra_kreditora');
+
+
+            }
+
+        }
+
+        set_time_limit(0);
+//
+//        return view('obracunzarada::izvestaji.banke_banke_radnik_pdf',
+//            [
+//                'bankeDataZara' => $groupedData,
+//                'isplatnaMestaSifarnika' => $isplatnaMestaSifarnika
+//            ]);
+        $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
+        $datumStampe = \Carbon\Carbon::now()->format('d.m.Y');
+
+
+
+        $pdf = PDF::loadView('obracunzarada::izvestaji.banke_kreditori_radnik_pdf',
+            [
+                'kreditiDataZara' =>$groupedData,
+                'kreditoriSifarnik'=>$kreditoriSifarnik,
+                'mdrSifarnik'=>$maticnaDatotekaRadnika,
+                'podaciFirme' => $podaciFirme,
+                'datumStampe'=>$datumStampe
+            ])->setPaper('a4', 'portrait');
+
+        return $pdf->download('pdf_isplate_krediti_'.date("d.m.y").'.pdf');
 
     }
 }
