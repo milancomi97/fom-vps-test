@@ -163,6 +163,63 @@ class DatotekaobracunskihExportController extends Controller
 
     }
 
+    public function odobravanjeExportExcel(Request $request)
+    {
+        $celineZaStampu = $request->approved_org_celine;
+        $monthId = $request->month_id;
+        $orgCelineRequestData = json_decode($celineZaStampu,true);
+        $orgCelineRequestArray = !is_array($orgCelineRequestData) ? [$orgCelineRequestData] : $orgCelineRequestData;
+
+        $celineZaStampuData =[];
+        $mesecnaTabelaPotenrazaTable = $this->mesecnatabelapoentazaInterface->groupForTable('obracunski_koef_id', $monthId);
+
+        foreach ($orgCelineRequestArray as $ogCelinaId){
+
+            $celineZaStampuData[$ogCelinaId]=$mesecnaTabelaPotenrazaTable[$ogCelinaId];
+        }
+
+        $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
+//        $troskovniCentarCalculated = $this->proveraPoentazeService->kalkulacijaPoTroskovnomCentru($celineZaStampuData,$vrstePlacanjaSifarnik);
+        $tableHeaders = $this->mesecnatabelapoentazaInterface->getTableHeaders($mesecnaTabelaPotenrazaTable);
+
+        // todo $tableHeaders zaglavlja
+        $organizacioneCelineSifarnik = $this->organizacionecelineInterface->getAll()->keyBy('id');
+
+
+//        return view('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
+//            [
+//                'rows'=>$rows
+//            ]);
+        $vrstePlacanjaDescription = $this->vrsteplacanjaInterface->getVrstePlacanjaOpisPdf();
+
+        $excelData =[];
+        $excelData[]=$tableHeaders;
+        foreach ($celineZaStampuData as $key=>$celina){
+            $excelData[]=[$key,$organizacioneCelineSifarnik[$key]->naziv_troskovnog_mesta,'','','','','','','','','',];
+            foreach ($celina as $key2=>$radnik){
+
+                $radnikData=[];
+                $radnikSati = array_column($radnik->vrste_placanja,'sati');
+
+                array_unshift($radnikSati, $radnik->ime);
+                array_unshift($radnikSati, $radnik->maticni_broj);
+
+                $excelData[]=$radnikSati;
+                $test='test';
+
+
+            }
+            $excelData[]=['','','','','','','','','','','','','',''];
+        }
+
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($monthId);
+        $inputDate = Carbon::parse($monthData->datum);
+        $formattedDate = $inputDate->format('m.Y');
+//
+//        $test='test';
+        return Excel::download(new PoenterUnosExport($excelData), 'poentaza_'.$formattedDate.'.xlsx');
+
+    }
     public function stampaRadnikLista(Request $request){
 
 

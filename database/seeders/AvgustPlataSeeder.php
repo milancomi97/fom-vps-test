@@ -147,7 +147,7 @@ class AvgustPlataSeeder extends Seeder
     public function getDataFromCsvVarijabilnaP()
     {
 
-        $filePath = storage_path('app/backup/avgustPlata/DPSM.csv');
+        $filePath = storage_path('app/backup/avgustPlata/DPSM_2.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(',');
@@ -226,9 +226,12 @@ class AvgustPlataSeeder extends Seeder
 
 
             if($userData->count()==0){
-                var_dump('userData:'.$userData->count());
-                var_dump('mdrData:'.$mdrData->count());
-                return false;
+                var_dump('userData:'.$userData->count().'-'.$maticniBroj);
+                var_dump('mdrData:'.$mdrData->count().'-'.$maticniBroj);
+//                return false;
+//                0006725
+                //0006725
+                //0006729
             }
 
 

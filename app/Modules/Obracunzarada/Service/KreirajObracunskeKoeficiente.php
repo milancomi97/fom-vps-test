@@ -225,11 +225,21 @@ class KreirajObracunskeKoeficiente
             $PoenterVarijabilneVrsteP = [];
 
 //            $mdr->loadWhere MBRD_maticni_broj $radnik['MBRD'];
-            $radnikMdrData = $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj', $radnik[0]['MBRD'])->first()->toArray();
 
+            $radnikMdrDataResult = $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj', $radnik[0]['MBRD'])->first();
+
+            if(null!==$radnikMdrDataResult){
+
+
+            $radnikMdrData =$radnikMdrDataResult->toArray();
             foreach ($radnik as $vrstaPlacanja) {
                 $sifraVrstePlacanja = $vrstaPlacanja['RBVP'];
-                if (in_array($sifraVrstePlacanja, $vrstePlacanjaPoenterIds)) {
+                if($sifraVrstePlacanja==''){
+                    $test='test';
+                    continue;
+                }
+
+                if ($sifraVrstePlacanja!==''&&in_array($sifraVrstePlacanja, $vrstePlacanjaPoenterIds)) {
                     $PoenterVarijabilneVrsteP[] = $vrstaPlacanja;
                 } else {
                     $nonPoenterVarijabilneVrsteP[] = $vrstaPlacanja;
@@ -268,7 +278,7 @@ class KreirajObracunskeKoeficiente
 
            }
 
-
+            }
         }
 
         return $radnikNewData;

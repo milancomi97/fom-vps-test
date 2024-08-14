@@ -269,6 +269,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf_test', [DatotekaobracunskihExportController::class, 'odobravanjeExportPdfTest'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_test');
     Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf_po_org_cel', [DatotekaobracunskihExportController::class, 'odobravanjeExportPdf'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine');
 
+    Route::POST('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_excel_po_org_cel', [DatotekaobracunskihExportController::class, 'odobravanjeExportExcel'])->name('datotekaobracunskihkoeficijenata.odobravanje_export_excel_org_celine');
+
+
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_radnik_lista', [DatotekaobracunskihExportController::class, 'stampaRadnikLista'])->name('datotekaobracunskihkoeficijenata.stampa_radnik_lista');
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_ostvarene_zarade', [DatotekaobracunskihExportController::class, 'stampaOstvareneZarade'])->name('datotekaobracunskihkoeficijenata.stampa_ostvarene_zarade');

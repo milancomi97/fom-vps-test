@@ -66,7 +66,7 @@ class PoenterUnosExport  extends DefaultValueBinder  implements  FromArray, With
         return [
              1 => ['font' => ['bold' => true]],
             'A'  => ['font' => ['italic' => true]],
-            'B'  => ['alignment' => ['horizontal' => 'center']],
+            'B'  => ['alignment' => ['horizontal' => 'left'],'font' => ['bold' => true]],
         ];
     }
 }

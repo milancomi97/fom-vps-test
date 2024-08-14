@@ -499,12 +499,27 @@
                     @endforeach
 
                         <div class="container mt-5 mb-5 text-center">
-                            <form class="loaderEvent" method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
-                                @csrf
-                                <input type="hidden" name="approved_org_celine" value="{{json_encode($approvedOrganizacioneCeline)}}">
-                                <input type="hidden" name="month_id" value="{{$monthData->id}}">
-                                <button type="submit" id='export-pdf' class="btn btn-secondary btn-lg">Štampaj sve podatke</button>
-                            </form>
+                            <div class="row">
+                                <div class="col-3">
+                                </div>
+                                <div class="col-3">
+                                    <form class="loaderEvent" method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
+                                        @csrf
+                                        <input type="hidden" name="approved_org_celine" value="{{json_encode($approvedOrganizacioneCeline)}}">
+                                        <input type="hidden" name="month_id" value="{{$monthData->id}}">
+                                        <button type="submit" id='export-pdf' class="btn btn-secondary btn-lg">PDF</button>
+                                    </form>
+                                </div>
+                                <div class="col-3">
+                                    <form class="loaderEvent" method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_excel_org_celine')}}">
+                                        @csrf
+                                        <input type="hidden" name="approved_org_celine" value="{{json_encode($approvedOrganizacioneCeline)}}">
+                                        <input type="hidden" name="month_id" value="{{$monthData->id}}">
+                                        <button type="submit" id='export-pdf' class="btn btn-secondary btn-lg">Excel</button>
+                                    </form>
+                                </div>
+                            </div>
+
                             <iframe id="hiddenIframe" name="hiddenIframe" style="display:none;"></iframe>
 
                         </div>
