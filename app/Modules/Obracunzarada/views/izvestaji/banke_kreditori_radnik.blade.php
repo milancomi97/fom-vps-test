@@ -39,7 +39,7 @@
             <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_krediti_pdf') }}">
                 @csrf
                 <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
-                <input type="hidden" name="banke_ids" value="{{json_encode($pdfInputKreditoriIds)}}"/>                <div class="form-group text-center">
+                <input type="hidden" name="kreditori_ids" value="{{json_encode($pdfInputKreditoriIds)}}"/>                <div class="form-group text-center">
                     <button type="submit" class="btn btn-secondary">PDF</button>
                 </div>
             </form>

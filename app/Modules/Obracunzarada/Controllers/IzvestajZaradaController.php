@@ -19,6 +19,7 @@ use App\Modules\Obracunzarada\Repository\ObradaKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Service\ExportFajlovaBankeService;
 use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
 use App\Modules\Obracunzarada\Service\PripremiPermisijePoenteriOdobravanja;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
@@ -30,8 +31,13 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Mail\DemoMail;
 use Illuminate\Support\Facades\Mail;
 
+use ZipArchive;
+
 class IzvestajZaradaController extends Controller
 {
+
+
+
 
     public function __construct(
         private readonly ObradaObracunavanjeService                          $obradaObracunavanjeService,
@@ -49,7 +55,8 @@ class IzvestajZaradaController extends Controller
         private readonly IsplatnamestaRepositoryInterface $isplatnamestaInterface,
         private readonly DpsmKreditiRepositoryInterface $dpsmKreditiInterface,
         private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface,
-        private readonly KreditoriRepositoryInterface $kreditoriInterface
+        private readonly KreditoriRepositoryInterface $kreditoriInterface,
+        private readonly ExportFajlovaBankeService $exportFajlovaBankeService
 
 
     )
@@ -213,6 +220,8 @@ class IzvestajZaradaController extends Controller
                         'datumStampe'=>$datumStampe
                         ])->setPaper('a4', 'portrait');
 
+        return $pdf->stream('pdf_isplate_po_tc_'.date("d.m.y").'.pdf');
+
         return $pdf->download('pdf_isplate_po_tc_'.date("d.m.y").'.pdf');
 
     }
@@ -314,7 +323,91 @@ class IzvestajZaradaController extends Controller
                 'datumStampe'=>$datumStampe
             ])->setPaper('a4', 'portrait');
 
+        return $pdf->stream('pdf_isplate_krediti_'.date("d.m.y").'.pdf');
+
         return $pdf->download('pdf_isplate_krediti_'.date("d.m.y").'.pdf');
+
+    }
+
+
+
+    public function pripremaBankeFajloviExport(Request $request)
+    {
+        $isplatnaMestaSifarnika = $this->isplatnamestaInterface->getAll()->keyBy('rbim_sifra_isplatnog_mesta');
+        $test = 'test';
+
+        $showAll = (int)$request->prikazi_sve;
+
+
+        if ($showAll) {
+            $resultData = $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->get();
+//            rbim_sifra_isplatnog_mesta
+            $groupedData = $resultData->sortBy('maticni_broj')->groupBy('rbim_sifra_isplatnog_mesta');
+        } else {
+
+            if (isset($request->banke_ids)) {
+                $bankeIds =json_decode($request->banke_ids,true);
+
+                $resultData = $this->obradaZaraPoRadnikuInterface->whereIn('rbim_sifra_isplatnog_mesta', $bankeIds)->with('maticnadatotekaradnika')->get();
+                $groupedData = $resultData->sortBy('maticni_broj')->groupBy('rbim_sifra_isplatnog_mesta');
+
+            }
+
+        }
+        set_time_limit(0);
+//
+//        return view('obracunzarada::izvestaji.banke_banke_radnik_pdf',
+//            [
+//                'bankeDataZara' => $groupedData,
+//                'isplatnaMestaSifarnika' => $isplatnaMestaSifarnika
+//            ]);
+        $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
+        $datumStampe = \Carbon\Carbon::now()->format('d.m.Y');
+        $downloadRawData =[];
+        foreach ($groupedData as $groupKey => $groupItems) {
+            if(ExportFajlovaBankeService::BANKEIDS[$groupKey]=='RAIFFEISEN'){
+                $fileContent = $this->exportFajlovaBankeService->exportRaiffeisen($groupItems);
+                $downloadRawData[]=$fileContent;
+
+            }
+
+            if(ExportFajlovaBankeService::BANKEIDS[$groupKey]=='DIREKTNAEURO') {
+                $fileContent = $this->exportFajlovaBankeService->exportDirektnaEuro($groupItems);
+                $downloadRawData[]=$fileContent;
+
+            }
+
+        }
+
+
+//        $txtContent = '';
+
+//        if(count($downloadRawData)==1){
+//            $fileName = 'platni_spisak_' . now()->format('Ymd_His') . '.txt';
+//            $txtContent= $downloadRawData[0];
+//            return response()->streamDownload(function () use ($txtContent) {
+//                echo $txtContent;
+//            }, $fileName);
+//        }
+        if(count($downloadRawData)>0){
+            $zip = new ZipArchive;
+            $zipFileName = 'izvestaji_' . now()->format('Ymd_His') . '.zip';
+            $zipPath = storage_path("app/{$zipFileName}");
+            if ($zip->open($zipPath, ZipArchive::CREATE) === TRUE) {
+                foreach ($downloadRawData as $data) {
+                    if ($data !== '') {
+                        $fileName = 'platni_spisak_' . now()->format('Ymd_His') . '.txt';
+                        $zip->addFromString($fileName, $data);
+                    }
+
+
+                }
+                $zip->close();
+            }
+            return response()->download($zipPath)->deleteFileAfterSend(true);
+
+        }
+
 
     }
 }

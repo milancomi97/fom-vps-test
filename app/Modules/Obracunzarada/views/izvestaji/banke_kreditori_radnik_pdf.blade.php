@@ -7,7 +7,10 @@
     <style>
         @page {
             size: A4 portrait;
-            margin: 5mm;
+            margin-top: 2mm;
+            margin-right: 5mm;
+            margin-bottom: 10mm;
+            margin-left: 5mm;
         }
 
         body {
@@ -55,26 +58,40 @@
             text-align: right;
             padding-right: 2mm;
         }
+        .text-bottom{
+            vertical-align: bottom;
+        }
+        .text-top{
+            vertical-align: top;
+        }
+        .borderless{
+            border-width: 2px !important;
+            background-color: hotpink;
+            height: 20mm!important;
+        }
     </style>
 
 </head>
 <body>
+<span class="page-number">Strana </span>
+
 <div class="table-container">
-    <h4>ZA MESEC: 0324</h4>
-    {{--    {{$pageNumber}}--}}
-    {{--    {{$PAGE_NUM}}--}}
-
-
     @foreach($kreditiDataZara as $key=> $troskovnoMesto)
         {{--        <h4 style="text-align: center;margin-top: 20px">{{$key}} - {{$isplatnaMestaSifarnika[$key]['naim_naziv_isplatnog_mesta']}} </h4>--}}
         {{--        <script type="text/php">$PAGE_NUM</script>--}}
-        <span class="page-number">Stranica </span>
         <table class="table table-striped mt-3">
             <thead>
-            <tr>
-                <th colspan="2">Podaci o firmi da se ponavlja test</th>
-                <th colspan="2">Podaci o firmi da se ponavlja test</th>
-
+            <tr >
+                <th class="borderless" colspan="4"><span class="page-number">Stranica </span></th>
+            </tr>
+            <tr >
+                <th class="borderless text-left" colspan="2">Podaci o firmi da se ponavlja test</th>
+                <th class="borderless text-right" colspan="2">Podaci o firmi da se ponavlja test</th>
+            </tr>
+            <tr >
+                <th class="borderless text-top" colspan=""><span>layout sa 3 kolone</span></th>
+                <th class="borderless" colspan=""><span>layout sa 3 kolone</span></th>
+                <th class="borderless text-bottom" colspan="2"><span>layout sa 3 kolone</span></th>
             </tr>
             <tr>
                 <th colspan="4">{{$key}} - {{$kreditoriSifarnik[$key]['imek_naziv_kreditora']}} </th>

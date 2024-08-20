@@ -36,16 +36,29 @@
         <!-- /.content -->
 
         <h1 class="text-center">Lista isplate po troškovnim mestima</h1>
-        <div class="col-sm-12 form-container">
-            <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_radnik_pdf') }}">
-                @csrf
-                <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
-                <input type="hidden" name="banke_ids" value="{{json_encode($pdfInputBankeIds)}}"/>
-                <div class="form-group text-center">
-                    <button type="submit" class="btn btn-secondary">PDF</button>
-                </div>
-            </form>
-
+        <div class="container">
+        <div class="row">
+            <div class="col-6 d-flex align-items-center">
+                <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_radnik_pdf') }}">
+                    @csrf
+                    <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
+                    <input type="hidden" name="banke_ids" value="{{json_encode($pdfInputBankeIds)}}"/>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-secondary">PDF</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-3 d-flex align-items-center">
+                <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_radnik_fajlovi') }}">
+                    @csrf
+                    <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
+                    <input type="hidden" name="banke_ids" value="{{json_encode($pdfInputBankeIds)}}"/>
+                    <div class="form-group text-center">
+                        <button type="submit" class="btn btn-secondary">Izvoz fajlova</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         </div>
         <div class="row mb-5 mt-5 justify-content-center">
 

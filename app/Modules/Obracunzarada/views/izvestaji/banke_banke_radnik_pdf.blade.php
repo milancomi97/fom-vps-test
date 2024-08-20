@@ -65,34 +65,31 @@
 
 </head>
 <body>
-<div class="table-container">
-    <h4>ZA MESEC: 0324</h4>
-{{--    {{$pageNumber}}--}}
-{{--    {{$PAGE_NUM}}--}}
+<span class="page-number">Strana </span>
 
+<div class="table-container">
 
 @foreach($bankeDataZara as $key=>  $troskovnoMesto)
 {{--        <h4 style="text-align: center;margin-top: 20px">{{$key}} - {{$isplatnaMestaSifarnika[$key]['naim_naziv_isplatnog_mesta']}} </h4>--}}
 {{--        <script type="text/php">$PAGE_NUM</script>--}}
-            <span class="page-number">Stranica </span>
         <table class="table table-striped mt-3">
             <thead>
             <tr >
-                <th class="borderless" colspan="2">Podaci o firmi da se ponavlja test</th>
-                <th class="borderless" colspan="2">Podaci o firmi da se ponavlja test</th>
+                <th class="borderless" colspan="4"><span class="page-number">Stranica </span></th>
             </tr>
             <tr >
-                <th class="borderless" colspan="4"></th>
+                <th class="borderless text-left" colspan="2">Podaci o firmi da se ponavlja test</th>
+                <th class="borderless text-right" colspan="2">Podaci o firmi da se ponavlja test</th>
+            </tr>
+            <tr >
+                <th class="borderless text-top" colspan=""><span>layout sa 3 kolone</span></th>
+                <th class="borderless" colspan=""><span>layout sa 3 kolone</span></th>
+                <th class="borderless text-bottom" colspan="2"><span>layout sa 3 kolone</span></th>
             </tr>
             <tr>
                 <th colspan="4">{{$key}} - {{$isplatnaMestaSifarnika[$key]['naim_naziv_isplatnog_mesta']}} </th>
             </tr>
             <tr>
-                <th>Maticni broj</th>
-                <th>Prezime i ime</th>
-                <th>Za isplatu</th>
-                <th>Broj računa</th>
-            </tr>
             </thead>
             <tbody id="table-body">
                 <?php

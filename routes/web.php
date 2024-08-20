@@ -368,6 +368,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke_radnik_pdf', [IzvestajZaradaController::class, 'pripremaBankeRadnikPdfExport'])->name('datotekaobracunskihkoeficijenata.priprema_banke_radnik_pdf');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke_krediti_pdf', [IzvestajZaradaController::class, 'pripremaBankeKreditiPdfExport'])->name('datotekaobracunskihkoeficijenata.priprema_banke_krediti_pdf');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke_radnik_fajlovi', [IzvestajZaradaController::class, 'pripremaBankeFajloviExport'])->name('datotekaobracunskihkoeficijenata.priprema_banke_radnik_fajlovi');
 
 
     // Arhiva
