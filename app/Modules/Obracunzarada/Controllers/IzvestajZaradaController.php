@@ -365,39 +365,66 @@ class IzvestajZaradaController extends Controller
         $datumStampe = \Carbon\Carbon::now()->format('d.m.Y');
         $downloadRawData =[];
         foreach ($groupedData as $groupKey => $groupItems) {
+            if(isset(ExportFajlovaBankeService::BANKEIDS[$groupKey])){
+
             if(ExportFajlovaBankeService::BANKEIDS[$groupKey]=='RAIFFEISEN'){
-                $fileContent = $this->exportFajlovaBankeService->exportRaiffeisen($groupItems);
+                $fileContent = $this->exportFajlovaBankeService->exportRaiffeisen($groupItems,$groupKey,ExportFajlovaBankeService::BANKEIDS[$groupKey]);
                 $downloadRawData[]=$fileContent;
 
             }
 
             if(ExportFajlovaBankeService::BANKEIDS[$groupKey]=='DIREKTNAEURO') {
-                $fileContent = $this->exportFajlovaBankeService->exportDirektnaEuro($groupItems);
+                $fileContent = $this->exportFajlovaBankeService->exportDirektnaEuro($groupItems,$groupKey,ExportFajlovaBankeService::BANKEIDS[$groupKey]);
                 $downloadRawData[]=$fileContent;
 
             }
 
+            if(ExportFajlovaBankeService::BANKEIDS[$groupKey]=='INTESA') {
+                $fileContent = $this->exportFajlovaBankeService->exportIntesa($groupItems,$groupKey,ExportFajlovaBankeService::BANKEIDS[$groupKey]);
+                $downloadRawData[]=$fileContent;
+
+            }
+
+            if(ExportFajlovaBankeService::BANKEIDS[$groupKey]=='OTP') {
+                $fileContent = $this->exportFajlovaBankeService->exportOtp($groupItems,$groupKey,ExportFajlovaBankeService::BANKEIDS[$groupKey]);
+                $downloadRawData[]=$fileContent;
+
+            }
+
+
+            if(ExportFajlovaBankeService::BANKEIDS[$groupKey]=='POSTANSKASTEDIONICA') {
+                $fileContent = $this->exportFajlovaBankeService->exportPostanskaStedionica($groupItems,$groupKey,ExportFajlovaBankeService::BANKEIDS[$groupKey]);
+                $downloadRawData[]=$fileContent;
+
+            }
+            if(ExportFajlovaBankeService::BANKEIDS[$groupKey]=='UNICREDIT') {
+                $fileContent = $this->exportFajlovaBankeService->exportUnicredit($groupItems,$groupKey,ExportFajlovaBankeService::BANKEIDS[$groupKey]);
+                $downloadRawData[]=$fileContent;
+
+            }
+
+            }
         }
 
 
 //        $txtContent = '';
 
-//        if(count($downloadRawData)==1){
-//            $fileName = 'platni_spisak_' . now()->format('Ymd_His') . '.txt';
-//            $txtContent= $downloadRawData[0];
-//            return response()->streamDownload(function () use ($txtContent) {
-//                echo $txtContent;
-//            }, $fileName);
-//        }
-        if(count($downloadRawData)>0){
+        if(count($downloadRawData)==1){
+            $fileName = $downloadRawData[0]['fileName'].'_platni_spisak_' . now()->format('Ymd_His') . '.txt';
+            $txtContent= $downloadRawData[0]['data'];
+            return response()->streamDownload(function () use ($txtContent) {
+                echo $txtContent;
+            }, $fileName);
+        }
+        if(count($downloadRawData)>1){
             $zip = new ZipArchive;
             $zipFileName = 'izvestaji_' . now()->format('Ymd_His') . '.zip';
             $zipPath = storage_path("app/{$zipFileName}");
             if ($zip->open($zipPath, ZipArchive::CREATE) === TRUE) {
-                foreach ($downloadRawData as $data) {
-                    if ($data !== '') {
-                        $fileName = 'platni_spisak_' . now()->format('Ymd_His') . '.txt';
-                        $zip->addFromString($fileName, $data);
+                foreach ($downloadRawData as $key=>$data) {
+                    if ($data['data'] !== '') {
+                        $fileName = $data['fileName'].'_platni_spisak_' . now()->format('Ymd_His') . '.txt';
+                        $zip->addFromString($fileName, $data['data']);
                     }
 
 
@@ -410,4 +437,5 @@ class IzvestajZaradaController extends Controller
 
 
     }
+
 }
