@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
 //            // Trenutna plata
             MartPlataSeeder::class,
 
-            MartPlataSeeder::class,
+//            MartPlataSeeder::class,
 //            AvgustPlataSeeder::class,
 //            AvgustPlataSeeder::class,
             DatotekaobracunskihKoefMesecDataSeeder::class,
