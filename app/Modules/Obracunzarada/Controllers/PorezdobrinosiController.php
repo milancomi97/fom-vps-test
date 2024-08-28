@@ -29,9 +29,11 @@ class PorezdobrinosiController extends Controller
     }
 
     public function update(Request $request){
+
         $updateData = $request->all();
         unset($updateData['_token']);
         $data = $this->porezdoprinosiInterface->update($request->id,$updateData);
+
         return redirect()->route('porezdoprinosi.index');
     }
 }

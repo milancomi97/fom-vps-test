@@ -370,7 +370,7 @@
                 <h1 class="text-left header-custom">UKUPNI DOPRINOSI</h1>
             </div>
             <div class="col-lg-2 p-3  border-bottom border-top border-top-custom border-bottom-custom">
-                <h2 class="text-right header-custom">0,00</h2>
+                <h2 class="text-right header-custom"></h2>
             </div>
             <div class="col-lg-2 p-3  border-bottom border-top border-top-custom border-bottom-custom">
                 <h2 class="text-right header-custom">{{ number_format($zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',')}}</h2>
@@ -382,7 +382,7 @@
                 <h1 class="text-left header-custom">050 POREZ ( 10 % )</h1>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">0,00</h2>
+                <h2 class="text-right header-custom"></h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
                 <h2 class="text-right header-custom">{{ number_format($zarData->SIP_ukupni_iznos_poreza, 2, '.', ',')}}</h2>
@@ -391,10 +391,10 @@
 
         <div class="row">
             <div class="col-lg-8 p-3 border-bottom border-bottom-custom">
-                <h1 class="text-left header-custom">5. UKUPNI POREZI I DOPRINOSI (a + b) :</h1>
+                <h1 class="text-left header-custom">5. UKUPNI POREZI I DOPRINOSI:</h1>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">0,00</h2>
+                <h2 class="text-right header-custom"></h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
                 <h2 class="text-right header-custom SIP_D">{{ number_format($zarData->SIP_ukupni_iznos_poreza + $zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',')}} </h2>

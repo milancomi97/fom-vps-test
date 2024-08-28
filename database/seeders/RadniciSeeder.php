@@ -30,14 +30,14 @@ class RadniciSeeder extends Seeder
                 'active' => (bool)$radnik['ACTIVE'],
                 'ime' => $radnik['IME'],
                 'prezime' => $radnik['PREZIME'],
-                'ime_oca'=>$radnik['IMEOCA'],
-                'srednje_ime'=>$radnik['SREDIME'],
-                'datum_prestanka_radnog_odnosa' =>$this->resolvedate($radnik['DAT_KRA']),
-                'datum_zasnivanja_radnog_odnosa'=>$this->resolvedate($radnik['DAT_POC']),
-            //   'broj_ugovora_o_radu'
+                'ime_oca' => $radnik['IMEOCA'],
+                'srednje_ime' => $radnik['SREDIME'],
+                'datum_prestanka_radnog_odnosa' => $this->resolvedate($radnik['DAT_KRA']),
+                'datum_zasnivanja_radnog_odnosa' => $this->resolvedate($radnik['DAT_POC']),
+                //   'broj_ugovora_o_radu'
                 'sifra_mesta_troska_id' => (int)$radnik['RBTC'],
                 'maticni_broj' => $radnik['MBRD'],
-                'email' => $radnik['MBRD'].'@fom.com',
+                'email' => $radnik['MBRD'] . '@fom.com',
                 'password' => Hash::make('Test1234')
             ]);
 
@@ -45,51 +45,729 @@ class RadniciSeeder extends Seeder
 
 
             $user[0]->permission()->create([
-                'role_id' =>$this->resolveRoleByMaticni($radnik['MBRD']),
+                'role_id' => $this->resolveRoleByMaticni($radnik['MBRD']),
                 'user_id' => $user[0]->id,
                 'osnovni_podaci' => true,
                 'obracun_zarada' => true,
                 'kadrovska_evidencija' => true,
-                'troskovna_mesta_poenter' =>$this->resolvePoenterPermission($radnik['MBRD'])
+                'troskovna_mesta_poenter' => $this->resolvePoenterPermission($radnik['MBRD'], $user[0])
             ]);
         }
     }
 
-    public function resolvePoenterPermission($maticniBroj){
+    public function resolvePoenterPermission($maticniBroj, $user)
+    {
 
-        if($maticniBroj=='1234567' || $maticniBroj=='0006001' || $maticniBroj=='0006026'){
-            return '{"10000000": true, "20000000": true, "21000000": true, "22000000": true, "22100000": true, "22200000": true, "22300000": true, "22400000": true, "23000000": true, "23100000": true, "23200000": true, "30000000": true, "31000000": true, "31100000": true, "31200000": true, "31300000": true, "31400000": true, "32100000": true, "32110000": true, "32120000": true, "32200000": true, "32210000": true, "32220000": true, "32230000": true, "32240000": true, "32250000": true, "32260000": true, "32270000": true, "32280000": true, "32290000": true, "32300000": true, "32310000": true, "32320000": true, "32330000": true, "32340000": true, "32400000": true, "32500000": true, "33000000": true, "33000002": true, "33100000": true, "33200000": true, "33300000": true, "40000000": true, "41000000": true, "42000000": true, "50000000": true, "60000000": true, "90000000": true, "90000001": true, "90000002": true, "90000003": true, "90000004": true}';
-        } elseif($maticniBroj=='7654321'|| $maticniBroj=='5555555') {
-            return '{"10000000":true, "20000000":false, "21000000":false, "22000000":false, "22100000":false, "22200000":false, "22300000":false, "22400000":false, "23000000":false, "23100000":false, "23200000":false, "30000000":false, "31000000":false, "31100000":false, "31200000":false, "31300000":false, "31400000":false, "32100000":true, "32110000":true, "32120000":true, "32200000":true, "32210000":true, "32220000":true, "32230000":true, "32240000":false, "32250000":false, "32260000":false, "32270000":false, "32280000":false, "32290000":false, "32300000":false, "32310000":false, "32320000":false, "32330000":false, "32340000":false, "32400000":false, "32500000":false, "33000000":false, "33000002":false, "33100000":false, "33200000":false, "33300000":false, "40000000":false, "41000000":false, "42000000":false, "50000000":false, "60000000":false, "90000000":false, "90000001":false, "90000002":false, "90000003":false, "90000004": true}';
-        }else{
-            return '{"10000000":false, "20000000":false, "21000000":false, "22000000":false, "22100000":false, "22200000":false, "22300000":false, "22400000":false, "23000000":false, "23100000":false, "23200000":false, "30000000":false, "31000000":false, "31100000":false, "31200000":false, "31300000":false, "31400000":false, "32100000":false, "32110000":false, "32120000":false, "32200000":false, "32210000":false, "32220000":false, "32230000":false, "32240000":false, "32250000":false, "32260000":false, "32270000":false, "32280000":false, "32290000":false, "32300000":false, "32310000":false, "32320000":false, "32330000":false, "32340000":false, "32400000":false, "32500000":false, "33000000":false, "33000002":false, "33100000":false, "33200000":false, "33300000":false, "40000000":false, "41000000":false, "42000000":false, "50000000":false, "60000000":false, "90000000":false, "90000001":false, "90000002":false, "90000003":false, "90000004": true}';
+        switch ($maticniBroj) {
+            case '1234567': // Test poenter
+            case '0006001': // Marko
+            case '7654321': // Sneza
+                return '{"10000000": true, "20000000": true, "21000000": true, "22000000": true, "22100000": true, "22200000": true, "22300000": true, "22400000": true, "23000000": true, "23100000": true, "23200000": true, "30000000": true, "31000000": true, "31100000": true, "31200000": true, "31300000": true, "31400000": true, "32100000": true, "32110000": true, "32120000": true, "32200000": true, "32210000": true, "32220000": true, "32230000": true, "32240000": true, "32250000": true, "32260000": true, "32270000": true, "32280000": true, "32290000": true, "32300000": true, "32310000": true, "32320000": true, "32330000": true, "32340000": true, "32400000": true, "32500000": true, "33000000": true, "33000002": true, "33100000": true, "33200000": true, "33300000": true, "40000000": true, "41000000": true, "42000000": true, "50000000": true, "60000000": true, "90000000": true, "90000001": true, "90000002": true, "90000003": true, "90000004": true}';
+
+            case '0009326': // Djuric Dejana -
+                return '{
+                          "10000000": false,
+                          "20000000": false,
+                          "21000000": false,
+                          "22000000": false,
+                          "22100000": false,
+                          "22200000": false,
+                          "22300000": false,
+                          "22400000": false,
+                          "23000000": false,
+                          "23100000": false,
+                          "23200000": false,
+                          "30000000": false,
+                          "31000000": false,
+                          "31100000": false,
+                          "31200000": false,
+                          "31300000": false,
+                          "31400000": false,
+                          "32100000": false,
+                          "32110000": false,
+                          "32120000": false,
+                          "32200000": false,
+                          "32210000": true,
+                          "32220000": true,
+                          "32230000": true,
+                          "32240000": true,
+                          "32250000": false,
+                          "32260000": false,
+                          "32270000": true,
+                          "32280000": true,
+                          "32290000": false,
+                          "32300000": false,
+                          "32310000": false,
+                          "32320000": false,
+                          "32330000": false,
+                          "32340000": false,
+                          "32400000": false,
+                          "32500000": false,
+                          "33000000": false,
+                          "33000002": false,
+                          "33100000": false,
+                          "33200000": false,
+                          "33300000": false,
+                          "40000000": false,
+                          "41000000": false,
+                          "42000000": false,
+                          "50000000": false,
+                          "60000000": false,
+                          "90000000": false,
+                          "90000001": false,
+                          "90000002": false,
+                          "90000003": false,
+                          "90000004": false}';
+
+            case '0004026': // STEVANOVIC Vesna -
+                return '{
+                          "10000000": false,
+                          "20000000": false,
+                          "21000000": false,
+                          "22000000": false,
+                          "22100000": false,
+                          "22200000": false,
+                          "22300000": false,
+                          "22400000": false,
+                          "23000000": false,
+                          "23100000": false,
+                          "23200000": false,
+                          "30000000": true,
+                          "31000000": false,
+                          "31100000": false,
+                          "31200000": false,
+                          "31300000": false,
+                          "31400000": false,
+                          "32100000": true,
+                          "32110000": false,
+                          "32120000": false,
+                          "32200000": true,
+                          "32210000": false,
+                          "32220000": false,
+                          "32230000": false,
+                          "32240000": false,
+                          "32250000": true,
+                          "32260000": true,
+                          "32270000": false,
+                          "32280000": false,
+                          "32290000": false,
+                          "32300000": true,
+                          "32310000": true,
+                          "32320000": true,
+                          "32330000": true,
+                          "32340000": true,
+                          "32400000": true,
+                          "32500000": false,
+                          "33000000": false,
+                          "33000002": false,
+                          "33100000": false,
+                          "33200000": false,
+                          "33300000": false,
+                          "40000000": false,
+                          "41000000": false,
+                          "42000000": false,
+                          "50000000": false,
+                          "60000000": false,
+                          "90000000": false,
+                          "90000001": false,
+                          "90000002": false,
+                          "90000003": false,
+                          "90000004": false}';
+
+            case '0009363': // Vitosevic Jelena
+                return '{
+                            "10000000": false,
+                            "20000000": false,
+                            "21000000": false,
+                            "22000000": false,
+                            "22100000": false,
+                            "22200000": false,
+                            "22300000": false,
+                            "22400000": false,
+                            "23000000": false,
+                            "23100000": false,
+                            "23200000": false,
+                            "30000000": false,
+                            "31000000": false,
+                            "31100000": false,
+                            "31200000": false,
+                            "31300000": false,
+                            "31400000": false,
+                            "32100000": false,
+                            "32110000": false,
+                            "32120000": false,
+                            "32200000": false,
+                            "32210000": false,
+                            "32220000": false,
+                            "32230000": false,
+                            "32240000": false,
+                            "32250000": false,
+                            "32260000": false,
+                            "32270000": false,
+                            "32280000": false,
+                            "32290000": false,
+                            "32300000": false,
+                            "32310000": false,
+                            "32320000": false,
+                            "32330000": false,
+                            "32340000": false,
+                            "32400000": false,
+                            "32500000": false,
+                            "33000000": false,
+                            "33000002": false,
+                            "33100000": false,
+                            "33200000": false,
+                            "33300000": false,
+                            "40000000": false,
+                            "41000000": false,
+                            "42000000": true,
+                            "50000000": false,
+                            "60000000": false,
+                            "90000000": false,
+                            "90000001": false,
+                            "90000002": false,
+                            "90000003": false,
+                            "90000004": false
+}';
+
+            case '0006026': // STEVIC-BELJAKOVIC MILENA
+                return '{
+                            "10000000": false,
+                            "20000000": false,
+                            "21000000": false,
+                            "22000000": false,
+                            "22100000": false,
+                            "22200000": false,
+                            "22300000": false,
+                            "22400000": false,
+                            "23000000": false,
+                            "23100000": false,
+                            "23200000": false,
+                            "30000000": false,
+                            "31000000": false,
+                            "31100000": false,
+                            "31200000": false,
+                            "31300000": false,
+                            "31400000": false,
+                            "32100000": false,
+                            "32110000": false,
+                            "32120000": false,
+                            "32200000": false,
+                            "32210000": false,
+                            "32220000": false,
+                            "32230000": false,
+                            "32240000": false,
+                            "32250000": false,
+                            "32260000": false,
+                            "32270000": false,
+                            "32280000": false,
+                            "32290000": false,
+                            "32300000": false,
+                            "32310000": false,
+                            "32320000": false,
+                            "32330000": false,
+                            "32340000": false,
+                            "32400000": false,
+                            "32500000": false,
+                            "33000000": false,
+                            "33000002": false,
+                            "33100000": false,
+                            "33200000": false,
+                            "33300000": false,
+                            "40000000": true,
+                            "41000000": true,
+                            "42000000": false,
+                            "50000000": false,
+                            "60000000": false,
+                            "90000000": false,
+                            "90000001": false,
+                            "90000002": false,
+                            "90000003": false,
+                            "90000004": false}';
+
+            case '0005577': // Resavac Slavica
+                return '{
+                          "10000000": true,
+                          "20000000": false,
+                          "21000000": false,
+                          "22000000": false,
+                          "22100000": false,
+                          "22200000": false,
+                          "22300000": false,
+                          "22400000": false,
+                          "23000000": false,
+                          "23100000": false,
+                          "23200000": false,
+                          "30000000": false,
+                          "31000000": false,
+                          "31100000": false,
+                          "31200000": false,
+                          "31300000": false,
+                          "31400000": false,
+                          "32100000": false,
+                          "32110000": false,
+                          "32120000": false,
+                          "32200000": false,
+                          "32210000": false,
+                          "32220000": false,
+                          "32230000": false,
+                          "32240000": false,
+                          "32250000": false,
+                          "32260000": false,
+                          "32270000": false,
+                          "32280000": false,
+                          "32290000": false,
+                          "32300000": false,
+                          "32310000": false,
+                          "32320000": false,
+                          "32330000": false,
+                          "32340000": false,
+                          "32400000": false,
+                          "32500000": false,
+                          "33000000": false,
+                          "33000002": false,
+                          "33100000": false,
+                          "33200000": false,
+                          "33300000": false,
+                          "40000000": false,
+                          "41000000": false,
+                          "42000000": false,
+                          "50000000": false,
+                          "60000000": false,
+                          "90000000": false,
+                          "90000001": false,
+                          "90000002": false,
+                          "90000003": false,
+                          "90000004": false}';
+
+            case '0004791': // Popovic Svetlana
+                return '{
+                          "10000000": false,
+                          "20000000": false,
+                          "21000000": false,
+                          "22000000": false,
+                          "22100000": false,
+                          "22200000": false,
+                          "22300000": false,
+                          "22400000": false,
+                          "23000000": true,
+                          "23100000": true,
+                          "23200000": true,
+                          "30000000": false,
+                          "31000000": false,
+                          "31100000": false,
+                          "31200000": false,
+                          "31300000": false,
+                          "31400000": false,
+                          "32100000": false,
+                          "32110000": false,
+                          "32120000": false,
+                          "32200000": false,
+                          "32210000": false,
+                          "32220000": false,
+                          "32230000": false,
+                          "32240000": false,
+                          "32250000": false,
+                          "32260000": false,
+                          "32270000": false,
+                          "32280000": false,
+                          "32290000": false,
+                          "32300000": false,
+                          "32310000": false,
+                          "32320000": false,
+                          "32330000": false,
+                          "32340000": false,
+                          "32400000": false,
+                          "32500000": false,
+                          "33000000": false,
+                          "33000002": false,
+                          "33100000": false,
+                          "33200000": false,
+                          "33300000": false,
+                          "40000000": false,
+                          "41000000": false,
+                          "42000000": false,
+                          "50000000": false,
+                          "60000000": false,
+                          "90000000": false,
+                          "90000001": false,
+                          "90000002": false,
+                          "90000003": false,
+                          "90000004": false}';
+
+            case '0005643': // Vulovic Dragana
+                return '{
+                          "10000000": false,
+                          "20000000": false,
+                          "21000000": false,
+                          "22000000": true,
+                          "22100000": true,
+                          "22200000": true,
+                          "22300000": true,
+                          "22400000": false,
+                          "23000000": false,
+                          "23100000": false,
+                          "23200000": false,
+                          "30000000": false,
+                          "31000000": false,
+                          "31100000": false,
+                          "31200000": false,
+                          "31300000": false,
+                          "31400000": false,
+                          "32100000": false,
+                          "32110000": false,
+                          "32120000": false,
+                          "32200000": false,
+                          "32210000": false,
+                          "32220000": false,
+                          "32230000": false,
+                          "32240000": false,
+                          "32250000": false,
+                          "32260000": false,
+                          "32270000": false,
+                          "32280000": false,
+                          "32290000": false,
+                          "32300000": false,
+                          "32310000": false,
+                          "32320000": false,
+                          "32330000": false,
+                          "32340000": false,
+                          "32400000": false,
+                          "32500000": false,
+                          "33000000": false,
+                          "33000002": false,
+                          "33100000": false,
+                          "33200000": false,
+                          "33300000": false,
+                          "40000000": false,
+                          "41000000": false,
+                          "42000000": false,
+                          "50000000": false,
+                          "60000000": false,
+                          "90000000": false,
+                          "90000001": false,
+                          "90000002": false,
+                          "90000003": false,
+                          "90000004": false}';
+
+            case '0005561': // Lidija Semenjuk
+                return '{
+                          "10000000": false,
+                          "20000000": true,
+                          "21000000": false,
+                          "22000000": false,
+                          "22100000": false,
+                          "22200000": false,
+                          "22300000": false,
+                          "22400000": false,
+                          "23000000": false,
+                          "23100000": false,
+                          "23200000": false,
+                          "30000000": false,
+                          "31000000": false,
+                          "31100000": false,
+                          "31200000": false,
+                          "31300000": false,
+                          "31400000": false,
+                          "32100000": false,
+                          "32110000": false,
+                          "32120000": false,
+                          "32200000": false,
+                          "32210000": false,
+                          "32220000": false,
+                          "32230000": false,
+                          "32240000": false,
+                          "32250000": false,
+                          "32260000": false,
+                          "32270000": false,
+                          "32280000": false,
+                          "32290000": false,
+                          "32300000": false,
+                          "32310000": false,
+                          "32320000": false,
+                          "32330000": false,
+                          "32340000": false,
+                          "32400000": false,
+                          "32500000": false,
+                          "33000000": false,
+                          "33000002": false,
+                          "33100000": false,
+                          "33200000": false,
+                          "33300000": false,
+                          "40000000": false,
+                          "41000000": false,
+                          "42000000": false,
+                          "50000000": false,
+                          "60000000": false,
+                          "90000000": false,
+                          "90000001": false,
+                          "90000002": false,
+                          "90000003": false,
+                          "90000004": false}';
+
+            case '0005740': // Panic Dejan
+                return '{
+                          "10000000": false,
+                          "20000000": false,
+                          "21000000": false,
+                          "22000000": false,
+                          "22100000": false,
+                          "22200000": false,
+                          "22300000": false,
+                          "22400000": false,
+                          "23000000": false,
+                          "23100000": false,
+                          "23200000": false,
+                          "30000000": false,
+                          "31000000": false,
+                          "31100000": false,
+                          "31200000": false,
+                          "31300000": false,
+                          "31400000": false,
+                          "32100000": false,
+                          "32110000": false,
+                          "32120000": false,
+                          "32200000": false,
+                          "32210000": false,
+                          "32220000": false,
+                          "32230000": false,
+                          "32240000": false,
+                          "32250000": false,
+                          "32260000": false,
+                          "32270000": false,
+                          "32280000": false,
+                          "32290000": true,
+                          "32300000": false,
+                          "32310000": false,
+                          "32320000": false,
+                          "32330000": false,
+                          "32340000": false,
+                          "32400000": false,
+                          "32500000": false,
+                          "33000000": false,
+                          "33000002": false,
+                          "33100000": false,
+                          "33200000": false,
+                          "33300000": false,
+                          "40000000": false,
+                          "41000000": false,
+                          "42000000": false,
+                          "50000000": false,
+                          "60000000": false,
+                          "90000000": false,
+                          "90000001": false,
+                          "90000002": false,
+                          "90000003": false,
+                          "90000004": false}';
+
+            case '0005680': // Drazic Violeta
+                return '{
+                          "10000000": false,
+                          "20000000": false,
+                          "21000000": false,
+                          "22000000": true,
+                          "22100000": true,
+                          "22200000": true,
+                          "22300000": true,
+                          "22400000": false,
+                          "23000000": false,
+                          "23100000": false,
+                          "23200000": false,
+                          "30000000": false,
+                          "31000000": false,
+                          "31100000": false,
+                          "31200000": false,
+                          "31300000": false,
+                          "31400000": false,
+                          "32100000": false,
+                          "32110000": false,
+                          "32120000": false,
+                          "32200000": false,
+                          "32210000": false,
+                          "32220000": false,
+                          "32230000": false,
+                          "32240000": false,
+                          "32250000": false,
+                          "32260000": false,
+                          "32270000": false,
+                          "32280000": false,
+                          "32290000": false,
+                          "32300000": false,
+                          "32310000": false,
+                          "32320000": false,
+                          "32330000": false,
+                          "32340000": false,
+                          "32400000": false,
+                          "32500000": false,
+                          "33000000": false,
+                          "33000002": false,
+                          "33100000": false,
+                          "33200000": false,
+                          "33300000": false,
+                          "40000000": false,
+                          "41000000": false,
+                          "42000000": false,
+                          "50000000": false,
+                          "60000000": false,
+                          "90000000": false,
+                          "90000001": false,
+                          "90000002": false,
+                          "90000003": false,
+                          "90000004": false}';
+
+            case '0005642': // Ivanovic Ivan
+                return '{
+                          "10000000": false,
+                          "20000000": false,
+                          "21000000": false,
+                          "22000000": false,
+                          "22100000": false,
+                          "22200000": false,
+                          "22300000": false,
+                          "22400000": false,
+                          "23000000": false,
+                          "23100000": false,
+                          "23200000": false,
+                          "30000000": false,
+                          "31000000": false,
+                          "31100000": false,
+                          "31200000": false,
+                          "31300000": false,
+                          "31400000": false,
+                          "32100000": false,
+                          "32110000": true,
+                          "32120000": true,
+                          "32200000": false,
+                          "32210000": false,
+                          "32220000": false,
+                          "32230000": false,
+                          "32240000": false,
+                          "32250000": false,
+                          "32260000": false,
+                          "32270000": false,
+                          "32280000": false,
+                          "32290000": false,
+                          "32300000": false,
+                          "32310000": false,
+                          "32320000": false,
+                          "32330000": false,
+                          "32340000": false,
+                          "32400000": false,
+                          "32500000": false,
+                          "33000000": false,
+                          "33000002": false,
+                          "33100000": false,
+                          "33200000": false,
+                          "33300000": false,
+                          "40000000": false,
+                          "41000000": false,
+                          "42000000": false,
+                          "50000000": false,
+                          "60000000": false,
+                          "90000000": false,
+                          "90000001": false,
+                          "90000002": false,
+                          "90000003": false,
+                          "90000004": false}';
+
+            case '0009405': // Tosevic Natasa
+                return '{
+                          "10000000": false,
+                          "20000000": false,
+                          "21000000": false,
+                          "22000000": false,
+                          "22100000": false,
+                          "22200000": false,
+                          "22300000": false,
+                          "22400000": false,
+                          "23000000": false,
+                          "23100000": false,
+                          "23200000": false,
+                          "30000000": false,
+                          "31000000": false,
+                          "31100000": false,
+                          "31200000": false,
+                          "31300000": false,
+                          "31400000": false,
+                          "32100000": false,
+                          "32110000": false,
+                          "32120000": false,
+                          "32200000": false,
+                          "32210000": false,
+                          "32220000": false,
+                          "32230000": false,
+                          "32240000": false,
+                          "32250000": false,
+                          "32260000": false,
+                          "32270000": false,
+                          "32280000": false,
+                          "32290000": false,
+                          "32300000": false,
+                          "32310000": false,
+                          "32320000": false,
+                          "32330000": false,
+                          "32340000": false,
+                          "32400000": false,
+                          "32500000": false,
+                          "33000000": false,
+                          "33000002": false,
+                          "33100000": false,
+                          "33200000": false,
+                          "33300000": false,
+                          "40000000": false,
+                          "41000000": false,
+                          "42000000": false,
+                          "50000000": true,
+                          "60000000": false,
+                          "90000000": false,
+                          "90000001": false,
+                          "90000002": false,
+                          "90000003": false,
+                          "90000004": false}';
+            default:
+                return '{"10000000":false, "20000000":false, "21000000":false, "22000000":false, "22100000":false, "22200000":false, "22300000":false, "22400000":false, "23000000":false, "23100000":false, "23200000":false, "30000000":false, "31000000":false, "31100000":false, "31200000":false, "31300000":false, "31400000":false, "32100000":false, "32110000":false, "32120000":false, "32200000":false, "32210000":false, "32220000":false, "32230000":false, "32240000":false, "32250000":false, "32260000":false, "32270000":false, "32280000":false, "32290000":false, "32300000":false, "32310000":false, "32320000":false, "32330000":false, "32340000":false, "32400000":false, "32500000":false, "33000000":false, "33000002":false, "33100000":false, "33200000":false, "33300000":false, "40000000":false, "41000000":false, "42000000":false, "50000000":false, "60000000":false, "90000000":false, "90000001":false, "90000002":false, "90000003":false, "90000004": false}';
         }
+
+
+//        if($maticniBroj=='1234567' || $maticniBroj=='0006001' || $maticniBroj=='0006026'){
+//            return '{"10000000": true, "20000000": true, "21000000": true, "22000000": true, "22100000": true, "22200000": true, "22300000": true, "22400000": true, "23000000": true, "23100000": true, "23200000": true, "30000000": true, "31000000": true, "31100000": true, "31200000": true, "31300000": true, "31400000": true, "32100000": true, "32110000": true, "32120000": true, "32200000": true, "32210000": true, "32220000": true, "32230000": true, "32240000": true, "32250000": true, "32260000": true, "32270000": true, "32280000": true, "32290000": true, "32300000": true, "32310000": true, "32320000": true, "32330000": true, "32340000": true, "32400000": true, "32500000": true, "33000000": true, "33000002": true, "33100000": true, "33200000": true, "33300000": true, "40000000": true, "41000000": true, "42000000": true, "50000000": true, "60000000": true, "90000000": true, "90000001": true, "90000002": true, "90000003": true, "90000004": true}';
+//        } elseif($maticniBroj=='7654321'|| $maticniBroj=='5555555') {
+//            return '{"10000000":true, "20000000":false, "21000000":false, "22000000":false, "22100000":false, "22200000":false, "22300000":false, "22400000":false, "23000000":false, "23100000":false, "23200000":false, "30000000":false, "31000000":false, "31100000":false, "31200000":false, "31300000":false, "31400000":false, "32100000":true, "32110000":true, "32120000":true, "32200000":true, "32210000":true, "32220000":true, "32230000":true, "32240000":false, "32250000":false, "32260000":false, "32270000":false, "32280000":false, "32290000":false, "32300000":false, "32310000":false, "32320000":false, "32330000":false, "32340000":false, "32400000":false, "32500000":false, "33000000":false, "33000002":false, "33100000":false, "33200000":false, "33300000":false, "40000000":false, "41000000":false, "42000000":false, "50000000":false, "60000000":false, "90000000":false, "90000001":false, "90000002":false, "90000003":false, "90000004": true}';
+//        }elseif($maticniBroj==''){
+////            0004026
+
+//            }else
+//            return '{"10000000":false, "20000000":false, "21000000":false, "22000000":false, "22100000":false, "22200000":false, "22300000":false, "22400000":false, "23000000":false, "23100000":false, "23200000":false, "30000000":false, "31000000":false, "31100000":false, "31200000":false, "31300000":false, "31400000":false, "32100000":false, "32110000":false, "32120000":false, "32200000":false, "32210000":false, "32220000":false, "32230000":false, "32240000":false, "32250000":false, "32260000":false, "32270000":false, "32280000":false, "32290000":false, "32300000":false, "32310000":false, "32320000":false, "32330000":false, "32340000":false, "32400000":false, "32500000":false, "33000000":false, "33000002":false, "33100000":false, "33200000":false, "33300000":false, "40000000":false, "41000000":false, "42000000":false, "50000000":false, "60000000":false, "90000000":false, "90000001":false, "90000002":false, "90000003":false, "90000004": false}';
+//        }
     }
-    public function resolveRoleByMaticni($maticniBroj){
+
+    public function resolveRoleByMaticni($maticniBroj)
+    {
 
         $supervizor = ["0006001"];
-        $poenteri = ['5555555','0004026','0009326','0009363','0006026','0005577','0004791','0005643','0005561','0005740','0005680','0005642','0009405'];
+        $poenteri = ['0004026', '0009326', '0009363', '0006026', '0005577', '0004791', '0005643', '0005561', '0005740', '0005680', '0005642', '0009405'];
 
-        $administratori=['0006026'];
-        $programeri = ['1234567','7654321'];
+        $administratori = ['0006026'];
+        $programeri = ['1234567', '7654321'];
 
-        if(in_array($maticniBroj,$supervizor)){
-          return UserRoles::SUPERVIZOR;
+        if (in_array($maticniBroj, $supervizor)) {
+            return UserRoles::SUPERVIZOR;
         }
 
-        if(in_array($maticniBroj,$poenteri)){
+        if (in_array($maticniBroj, $poenteri)) {
             return UserRoles::POENTER;
         }
-        if(in_array($maticniBroj,$administratori)){
+        if (in_array($maticniBroj, $administratori)) {
             return UserRoles::ADMINISTRATOR;
         }
-        if(in_array($maticniBroj,$programeri)){
+        if (in_array($maticniBroj, $programeri)) {
             return UserRoles::PROGRAMER;
         }
 
         return UserRoles::NONE;
 
     }
+
     public function getPartnerArray2()
     {
         $filePath = storage_path('app/backup/novo/KADR.csv');
@@ -104,16 +782,17 @@ class RadniciSeeder extends Seeder
         return '{"10000000": true, "20000000": true, "21000000": true, "22000000": true, "22100000": true, "22200000": true, "22300000": true, "22400000": true, "23000000": true, "23100000": true, "23200000": true, "30000000": true, "31000000": true, "31100000": true, "31200000": true, "31300000": true, "31400000": true, "32100000": true, "32110000": true, "32120000": true, "32200000": true, "32210000": true, "32220000": true, "32230000": true, "32240000": true, "32250000": true, "32260000": true, "32270000": true, "32280000": true, "32290000": true, "32300000": true, "32310000": true, "32320000": true, "32330000": true, "32340000": true, "32400000": true, "32500000": true, "33000000": true, "33000002": true, "33100000": true, "33200000": true, "33300000": true, "40000000": true, "41000000": true, "42000000": true, "50000000": true, "60000000": true, "90000000": true, "90000001": true, "90000002": true, "90000003": true, "90000004": true}';
     }
 
-    public function resolvedate($datum){
+    public function resolvedate($datum)
+    {
 
 
-        if($datum !== ''){
-            $date=Carbon::createFromFormat('m/d/Y', $datum);
+        if ($datum !== '') {
+            $date = Carbon::createFromFormat('m/d/Y', $datum);
             if ($date->year < 1930) {
                 $date->addYears(100);// Add 100 years to the date
             }
             return $date->format('Y-m-d');
-        }else{
+        } else {
             return null;
         }
     }

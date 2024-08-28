@@ -403,6 +403,12 @@ class IzvestajZaradaController extends Controller
 
             }
 
+
+            if(ExportFajlovaBankeService::BANKEIDS[$groupKey]=='KOMERCIJALNA') {
+                $fileContent = $this->exportFajlovaBankeService->exportKomercijalna($groupItems,$groupKey,ExportFajlovaBankeService::BANKEIDS[$groupKey]);
+                $downloadRawData[]=$fileContent;
+
+            }
             }
         }
 

@@ -131,6 +131,11 @@ return [
             'path' => storage_path('logs/user_action.log'),
             'level' => env('LOG_LEVEL', 'debug')
         ],
+        'check_oc_poenters_sum' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/oc_poenters_sum.log'),
+            'level' => env('LOG_LEVEL', 'debug')
+        ],
         'vps_debug' => [
             'driver' => 'single',
             'path' => storage_path('logs/vps_debug.log'),
