@@ -30,7 +30,7 @@ class OrganizacionecelineSeeder extends Seeder
                     'active'=>$data['ACTIVE'] == "TAČNO",
                     'poenteri_ids'=>$this->resolvePoenteri($data), //User Model ID
 //                    'poenteri_ids'=>'["559","2140","1596","1603","2734","2735"]', //User Model ID
-                    'odgovorna_lica_ids'=>'["2540", "2109"]',  // User Model ID
+                    'odgovorna_lica_ids'=>'["2109"]',  // User Model ID
                     'odgovorni_direktori_pravila'=>$this->resolveDirektori($data)
                 ]);
 

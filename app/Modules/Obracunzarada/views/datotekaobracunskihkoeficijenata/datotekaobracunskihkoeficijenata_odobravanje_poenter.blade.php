@@ -109,26 +109,6 @@
 @section('content')
     <div class="container-fluid mt-5">
 
-        {{--        <div class="row">--}}
-        {{--            <div class="col-md-9">--}}
-
-        {{--            </div>--}}
-        {{--            <div class="col-md-1">--}}
-        {{--                <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf')}}">--}}
-        {{--                    @csrf--}}
-        {{--                    <input type="hidden"  value="{{$monthData->id}}" name="month_id_pdf"/>--}}
-        {{--                    <button id='export-pdf' class="btn btn-secondary btn-lg">PDF</button>--}}
-        {{--                </form>--}}
-        {{--            </div>--}}
-        {{--            <div class="col-md-1">--}}
-        {{--                <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_xls')}}">--}}
-        {{--                    @csrf--}}
-        {{--                    <input type="hidden" value="{{$monthData->id}}" name="month_id_xls"/>--}}
-
-        {{--                    <button id='export-xls' class="btn btn-secondary btn-lg">Excel</button>--}}
-        {{--                </form>--}}
-        {{--            </div>--}}
-        {{--        </div>--}}
     </div>
     <div class="container main-container mb-5">
         <h2 class="text-center ml-5">Evidencija rada i odsustvovanje radnika</h2>
@@ -136,11 +116,7 @@
         <div class="container  ml-5">
             <ul class="list-group">
                 <li class="list-group-item">Kalendarski broj dana: {{$monthData->kalendarski_broj_dana}}</li>
-                <li class="list-group-item">Prosečni godišnji fond
-                    sati: {{$monthData->prosecni_godisnji_fond_sati}}</li>
                 <li class="list-group-item">Mesečni fond sati: {{$monthData->mesecni_fond_sati}}</li>
-                <li class="list-group-item">Cena rada tekući: {{$monthData->cena_rada_tekuci}}</li>
-                <li class="list-group-item">Cena rada prethodni:{{$monthData->cena_rada_prethodni}}</li>
             </ul>
         </div>
 
