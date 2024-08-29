@@ -131,6 +131,11 @@ return [
             'path' => storage_path('logs/user_action.log'),
             'level' => env('LOG_LEVEL', 'debug')
         ],
+        'evidencija_dodavanja_poentera' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/evidencija_dodavanja_poentera.log'),
+            'level' => env('LOG_LEVEL', 'debug')
+        ],
         'check_oc_poenters_sum' => [
             'driver' => 'single',
             'path' => storage_path('logs/oc_poenters_sum.log'),

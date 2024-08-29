@@ -22,6 +22,8 @@ use App\Modules\Obracunzarada\Service\UpdateNapomena;
 use App\Modules\Obracunzarada\Service\UpdateVrstePlacanjaJson;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use function Psy\debug;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
@@ -308,7 +310,14 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         $input_value = $request->input_value;
         $input_key = $request->input_key;
         $record_id = $request->record_id;
+
+
         $radnikEvidencija = $this->mesecnatabelapoentazaInterface->getById($record_id);
+
+
+
+        Log::channel('evidencija_dodavanja_poentera')->debug('Poenter: '.Auth::user()->prezime .' '.Auth::user()->ime .' dodao_vrste_placanja: '.$input_key . ' sati: '.$input_value.' Radniku: '.$radnikEvidencija->maticni_broj  .' '.$radnikEvidencija->prezime .' '.$radnikEvidencija->ime);
+
         if ($input_key == 'napomena') {
             $result = $this->updateNapomena->execute($radnikEvidencija, $input_key, $input_value);
             $action = 'napomenaUpdated';

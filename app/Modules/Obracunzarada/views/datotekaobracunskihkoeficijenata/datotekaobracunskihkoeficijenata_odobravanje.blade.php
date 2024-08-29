@@ -48,10 +48,11 @@
             margin-left: 100px !important;
         }
 
-        .vrsta_placanja_input {
-            width: 60px;
-            text-align: center;
-        }
+          .vrsta_placanja_input {  width: 60px;
+    font-size: 25px;
+    padding: 0;
+    font-weight: 900;
+    text-align: center;}
 
         .vrsta_placanja_td {
             padding: 10px 15px 0 0 !important;
@@ -370,7 +371,7 @@
 
                     <div class="divider"></div>
 
-                    <table class="table table-striped" id="table-div{{$key}}">
+                    <table class="table table-striped" id="table-div{{$key}}"  loading="lazy">
                         <thead>
                         <tr>
                             @foreach($tableHeaders as $keyheader =>$header)
