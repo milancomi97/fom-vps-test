@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use League\Csv\Reader;
+use Exception;
 
 class PartnerSeeder extends Seeder
 {
@@ -18,7 +19,9 @@ class PartnerSeeder extends Seeder
         $datas = $this->getPartnerArray2();
 
         foreach ($datas as $data) {
-            DB::table('partners')->insert([
+            try {
+
+                DB::table('partners')->insert([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'short_name' => $data['short_name'],
@@ -36,6 +39,10 @@ class PartnerSeeder extends Seeder
                 'internal_sifra' =>$data['internal_sifra']
 
             ]);
+            } catch (Exception $exception ){
+
+                $testt='test';
+            }
         }
 
     }
@@ -88,6 +95,6 @@ class PartnerSeeder extends Seeder
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
-        return $csv;
+        return $csv->getRecords();
     }
 }

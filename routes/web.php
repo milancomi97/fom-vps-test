@@ -12,6 +12,7 @@ use App\Modules\Kadrovskaevidencija\Controllers\ZanimanjasifarnikController;
 use App\Modules\Obracunzarada\Controllers\ArhivaController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihEmailController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihExportController;
+use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihkoeficijenataController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihStatusController;
 use App\Modules\Obracunzarada\Controllers\DpsmAkontacijeController;
 use App\Modules\Obracunzarada\Controllers\DpsmFiksnaPlacanjaController;
@@ -20,7 +21,6 @@ use App\Modules\Obracunzarada\Controllers\DpsmPoentazaslogController;
 use App\Modules\Obracunzarada\Controllers\IzvestajZaradaController;
 use App\Modules\Obracunzarada\Controllers\KreditoriController;
 use App\Modules\Obracunzarada\Controllers\MaticnadatotekaradnikaController;
-use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihkoeficijenataController;
 use App\Modules\Obracunzarada\Controllers\MinimalnebrutoosnoviceController;
 use App\Modules\Obracunzarada\Controllers\OblikradaController;
 use App\Modules\Obracunzarada\Controllers\ObracunZaradaController;
@@ -100,7 +100,7 @@ Route::group(['middleware' => ['auth']], function () {
         return view('/adminlte/welcome');
     });
 
-    Route::post('/materijals_pdf', [\App\Http\Controllers\MaterijalController::class, 'pdfExport'])->name('profile.edit');
+
 
     Route::get('/user/permissions_config', [UserConfigController::class, 'permissionsConfig']);
     Route::get('/user/permissions_config_by_user', [UserConfigController::class, 'permissionsConfigByUserId']);
@@ -111,10 +111,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/user/index', [UserConfigController::class, 'index']);
 
     Route::post('/user/permissions_config_update', [UserConfigController::class, 'permissionsUpdate']);
-
-    Route::resource("/partner", \App\Http\Controllers\PartnerController::class);
-    Route::resource("/materijal", \App\Http\Controllers\MaterijalController::class);
-
 
     Route::get('/backupdata', [\App\Http\Controllers\DatabaseBackupController::class, 'showBackupData'])->name('backup.index');
 
@@ -395,6 +391,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('obracunzarada/arhiva/pppPrijava', [ArhivaController::class, 'pppPrijava'])->name('arhiva.pppPrijava');
 
 
+//    MATERIJALNO MODUL START
+
+    Route::post('/materijals_pdf', [\App\Modules\Materijalno\Controllers\MaterijalController::class, 'pdfExport'])->name('profile.edit');
+
+    Route::resource("/materijalno/materijal", \App\Modules\Materijalno\Controllers\MaterijalController::class);
+    Route::resource("/magacini/partner", \App\Modules\Materijalno\Controllers\PartnerController::class);
+
+
+//    MATERIIJALNO MODUL END
 });
 
 

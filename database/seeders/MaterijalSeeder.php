@@ -43,6 +43,7 @@ class MaterijalSeeder extends Seeder
 //            } catch (QueryException $exception ){ Ovako ovo radi
             } catch (Exception $exception ){
 
+                $testt='test';
             }
 
         }
@@ -54,6 +55,6 @@ class MaterijalSeeder extends Seeder
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
-        return $csv;
+        return $csv->getRecords();
     }
 }

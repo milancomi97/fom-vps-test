@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Modules\Materijalno\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateMaterijalRequest;
 use App\Models\Materijal;
 use App\Models\StanjeZaliha;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class MaterijalController extends Controller
@@ -33,7 +33,7 @@ class MaterijalController extends Controller
             ];
         }
 
-        return view('materijali.materijali_show_all', ['materijals' => json_encode($materijalData)]);
+        return view('materijalno::materijali.materijali_show_all', ['materijals' => json_encode($materijalData)]);
     }
 
     /**
@@ -41,7 +41,7 @@ class MaterijalController extends Controller
      */
     public function create()
     {
-        return view('materijali.create_materijal');
+        return view('materijal::materijali.create_materijal');
     }
 
     /**

@@ -35,7 +35,7 @@ return new class extends Migration {
             $table->string('dimenzija_2')->nullable();
             $table->string('dimenzija_3')->nullable();
             $table->string('dimenzija_4')->nullable();
-            $table->unsignedBigInteger('sifra_standarda')->nullable();
+            $table->string('sifra_standarda')->nullable();
             $table->string('napomena')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();

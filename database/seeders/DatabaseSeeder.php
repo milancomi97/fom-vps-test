@@ -19,7 +19,13 @@ class DatabaseSeeder extends Seeder
 
 //            AvgustPravaPlataSeeder::class,
 
+        // Materijalno start
+            PartnerSeeder::class,
 
+            CategorySeeder::class,
+            MaterijalSeeder::class,
+
+            // Materijalno end
             PorezdoprinosiSeeder::class,
             KreditoriSeeder::class,
             VrsteplacanjaSeeder::class,
@@ -56,9 +62,9 @@ class DatabaseSeeder extends Seeder
 
 
 //             Arhiva
-//            ArhivaMaticnadatotekaradnikaSeeder::class,
-//            ArhivaDarhObradaSveDkopSeeder::class,
-//            ArhivaSumeZaraPoRadnikuSeeder::class,
+            ArhivaMaticnadatotekaradnikaSeeder::class,
+            ArhivaDarhObradaSveDkopSeeder::class,
+            ArhivaSumeZaraPoRadnikuSeeder::class,
 
         ]);
 

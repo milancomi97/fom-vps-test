@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Modules\Materijalno\Controllers;
 
 use App\Enums\PartnerFields;
+use App\Http\Controllers\Controller;
 use App\Models\Partner;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Session;
 
