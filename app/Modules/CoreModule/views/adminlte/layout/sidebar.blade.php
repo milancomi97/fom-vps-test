@@ -128,10 +128,12 @@
                             </li>
                         </ul>
                     </li>
+
+
                 @endif
                 @if($permissions->materijalno_k)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon far fa-circle"></i>
                             <p class="small">
                                 Materijalno knjigovodstvo
@@ -176,6 +178,9 @@
                         </ul>
                     </li>
                 @endif
+
+
+
                 @if($permissions->pogonsko)
                     <li class="nav-item menu">
                         <a href="#" class="nav-link active">

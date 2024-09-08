@@ -14,14 +14,18 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+
+            // remove after devv
+
+//            AvgustPravaPlataSeeder::class,
+
+
             PorezdoprinosiSeeder::class,
             KreditoriSeeder::class,
             VrsteplacanjaSeeder::class,
-            MinimalnebrutoosnoviceSeeder::class,
             RadniciSeeder::class,
             MaticnadatotekaradnikaSeeder::class,
             OrganizacionecelineSeeder::class,
-            IsplatnamestaSeeder::class,
             OpstineSeeder::class,
             OblikradaSeeder::class,
             VrstaradasifarnikSeeder::class,
@@ -29,15 +33,28 @@ class DatabaseSeeder extends Seeder
             RadnamestaSeeder::class,
             ZanimanjasifarnikSeeder::class,
             PodaciofirmiSeeder::class,
-//            // Trenutna plata
+            IsplatnamestaSeeder::class,
+            MinimalnebrutoosnoviceSeeder::class,
+
+
+//            // Avgust razliika
+//            IsplatnamestaAvgustSeeder::class,
+//            MinimalnebrutoosnoviceAvgustSeeder::class,
+
+        // Nove Stvari za jul platu
+//            JulDPSMPlataSeeder::class,
+
             MartPlataSeeder::class,
+
+
+//            AvgustNovoPlataSeeder::class,
 
 //            MartPlataSeeder::class,
 //            AvgustPlataSeeder::class,
-//            AvgustPlataSeeder::class,
             DatotekaobracunskihKoefMesecDataSeeder::class,
-//            AvgustPlataSeeder::class,
-//            DatotekaobracunskihKoefMesecDataSeeder::class,
+
+
+
 //             Arhiva
 //            ArhivaMaticnadatotekaradnikaSeeder::class,
 //            ArhivaDarhObradaSveDkopSeeder::class,

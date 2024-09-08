@@ -50,10 +50,21 @@ class RadniciSeeder extends Seeder
                 'osnovni_podaci' => true,
                 'obracun_zarada' => true,
                 'kadrovska_evidencija' => true,
+                'magacini' => $this->resolveModule('magacini',$radnik['MBRD']),
+                'materijalno_k' => $this->resolveModule('materijalno_k',$radnik['MBRD']),
                 'troskovna_mesta_poenter' => $this->resolvePoenterPermission($radnik['MBRD'], $user[0])
             ]);
         }
     }
+
+
+    public function resolveModule($module, $userMaticni){
+
+        if($userMaticni=='1234567' && ($module=='magacini'|| $module=='materijalno_k')){
+            return true;
+        }
+        return false;
+}
 
     public function resolvePoenterPermission($maticniBroj, $user)
     {

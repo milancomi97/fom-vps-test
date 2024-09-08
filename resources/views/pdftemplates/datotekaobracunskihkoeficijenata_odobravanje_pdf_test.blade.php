@@ -34,18 +34,22 @@
             margin-bottom: 1px;
 
         }
+
+        .document-header{
+            width: 700px;
+
+        }
         .celina-details-div {
-            float: right;
+            /*float: right;*/
             margin-right: 10px;
             display:inline-block;
             font-size: 10px;
-
         }
+
         .celina-data{
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 500px;
+            display:inline-block;
             font-size: 10px;
+            width: 50%;
         }
     </style>
 </head>
@@ -56,7 +60,8 @@
         $pageCounter = 1;
         $potpisi = json_decode($organizacioneCelineSifarnik[$key]->odgovorni_direktori_pravila, true);
         ?>
-    <div class="celina-details-div">
+    <div class="document-header">
+    <div class="celina-details-div" style="width: 30%;">
         <span class="strong">{{$podaciFirme['skraceni_naziv_firme']}}</span><br>
         <h5 class="celina-details">Mesec: {{date('m')}}</h5>
         <h5 class="celina-details">Datum štampe: {{date('m')}}</h5>
@@ -64,9 +69,16 @@
         <h5 class="celina-details"> <span class="page-number">Stranica </span></h5>
     </div>
         <div class="celina-data">
-        <h1 style="text-align: center">Organizaciona celina: {{$key}}</h1>
+        <h1 style="text-align: left">Organizaciona celina: {{$key}}</h1>
         </div>
-
+        <div class="celina-details-div" style="width: 10%;">
+            <span class="strong">{{$podaciFirme['skraceni_naziv_firme']}}</span><br>
+            <h5 class="celina-details">Mesec: {{date('m')}}</h5>
+            <h5 class="celina-details">Datum štampe: {{date('m')}}</h5>
+            <span class="page-number">Stranica </span>
+            <h5 class="celina-details"> <span class="page-number">Stranica </span></h5>
+        </div>
+    </div>
         <table style="margin-top:50px;">
         <thead style="display: table-header-group;">
         <tr>
@@ -104,14 +116,24 @@
                 </div>
                 <div class="page-break"></div>
 
-                <div class="celina-details-div">
-
-                    <h5 class="celina-details">Mesec: {{date('m')}}</h5>
-                    <h5 class="celina-details">Datum štampe: {{date('m')}}</h5>
-                    <h5 class="celina-details">Strana: {{$pageCounter}}</h5>
-                </div>
-                <div class="celina-data">
-                    <h1 style="text-align: center">Organizaciona celina: {{$key}}</h1>
+                <div class="document-header">
+                    <div class="celina-details-div" style="width: 30%;">
+                        <span class="strong">{{$podaciFirme['skraceni_naziv_firme']}}</span><br>
+                        <h5 class="celina-details">Mesec: {{date('m')}}</h5>
+                        <h5 class="celina-details">Datum štampe: {{date('m')}}</h5>
+                        <span class="page-number">Stranica </span>
+                        <h5 class="celina-details"> <span class="page-number">Stranica </span></h5>
+                    </div>
+                    <div class="celina-data">
+                        <h1 style="text-align: left">Organizaciona celina: {{$key}}</h1>
+                    </div>
+                    <div class="celina-details-div" style="width: 10%;">
+                        <span class="strong">{{$podaciFirme['skraceni_naziv_firme']}}</span><br>
+                        <h5 class="celina-details">Mesec: {{date('m')}}</h5>
+                        <h5 class="celina-details">Datum štampe: {{date('m')}}</h5>
+                        <span class="page-number">Stranica </span>
+                        <h5 class="celina-details"> <span class="page-number">Stranica </span></h5>
+                    </div>
                 </div>
                 <table class="custom-table">
                     <thead style="display: table-header-group;">
@@ -128,7 +150,6 @@
                     @endif
                     @endforeach
                     </thead>
-                    </tbody>
                 </table>
                 <div class="container-fluid">
                     {!! $vrstePlacanjaDescription !!}

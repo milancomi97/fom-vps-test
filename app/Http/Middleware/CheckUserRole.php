@@ -24,7 +24,8 @@ class CheckUserRole
         'login',
         'obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_poenter',
         'obracunzarada/datotekaobracunskihkoeficijenata/update',
-        'obracunzarada/datotekaobracunskihkoeficijenata/permissionStatusUpdate'
+        'obracunzarada/datotekaobracunskihkoeficijenata/permissionStatusUpdate',
+        'obracunzarada/datotekaobracunskihkoeficijenata/odobravanje_pdf_po_org_cel'
     ];
 
     public function handle($request, Closure $next)

@@ -148,6 +148,19 @@ class DatotekaobracunskihExportController extends Controller
         $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
 
 
+
+//        return view('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
+//            [
+//                'rows'=>$rows,
+//                'data'=>$troskovniCentarCalculated,
+//                'tableHeaders'=>$tableHeaders,
+//                'vrstePlacanjaDescription'=>$vrstePlacanjaDescription,
+//                'organizacioneCelineSifarnik'=>$organizacioneCelineSifarnik,
+//                'podaciFirme' => $podaciFirme,
+//            ]
+//        );
+
+
         $pdf = PDF::loadView('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
             [
                 'rows'=>$rows,
@@ -158,7 +171,7 @@ class DatotekaobracunskihExportController extends Controller
                 'podaciFirme' => $podaciFirme,
             ]
         )->setPaper('a4', 'portrait');
-
+        // TODO Test
         return $pdf->download('pdf_poenteri_'.date("d.m.y").'.pdf');
 
     }

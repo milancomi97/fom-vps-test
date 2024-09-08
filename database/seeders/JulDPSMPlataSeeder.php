@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use League\Csv\Reader;
 
-class AvgustPlataSeeder extends Seeder
+class JulDPSMPlataSeeder extends Seeder
 {
 
     public function __construct(
@@ -175,6 +175,11 @@ class AvgustPlataSeeder extends Seeder
         return $csv->getRecords();
 
     }
+//DIMR.csv // Isplatna mesta
+//DNTO.csv  // DNTO
+
+//DKRE.csv
+//MKRE.csv
 
 //    public function getDataFromCsvFiksnaP()
 //    {
