@@ -56,6 +56,6 @@ class StanjeZalihaSeeder extends Seeder
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
-        return $csv;
+        return $csv->getRecords();
     }
 }

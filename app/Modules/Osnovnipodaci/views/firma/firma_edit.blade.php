@@ -1,4 +1,4 @@
-@extends('osnovnipodaci::theme.layout.app')
+@extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
     <!-- Select2 -->

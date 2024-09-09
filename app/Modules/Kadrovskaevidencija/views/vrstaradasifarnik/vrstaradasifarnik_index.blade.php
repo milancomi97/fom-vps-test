@@ -1,4 +1,4 @@
-@extends('kadrovskaevidencija::theme.layout.app')
+@extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
 

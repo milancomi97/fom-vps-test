@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
 
             CategorySeeder::class,
             MaterijalSeeder::class,
+            StanjeZalihaSeeder::class,
+
 
             // Materijalno end
             PorezdoprinosiSeeder::class,

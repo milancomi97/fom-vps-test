@@ -31,10 +31,10 @@
 
 <body class="hold-transition sidebar-mini  sidebar-collapse">
 <div class="wrapper">
-    @include('coremodule::adminlte.layout.header')
-    @include('coremodule::adminlte.layout.sidebar')
+    @include('obracunzarada::theme.layout.header')
+    @include('obracunzarada::theme.layout.sidebar')
     @yield('content')
-    @include('coremodule::adminlte.layout.footer')
+    @include('obracunzarada::theme.layout.footer')
 
 
 </div>

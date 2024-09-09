@@ -47,7 +47,7 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon far fa-circle"></i>
                             <p>
-                                Osnovni podaci  Test2
+                                Osnovni podaci TESTTT 1
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
@@ -128,10 +128,12 @@
                             </li>
                         </ul>
                     </li>
+
+
                 @endif
                 @if($permissions->materijalno_k)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon far fa-circle"></i>
                             <p class="small">
                                 Materijalno knjigovodstvo
@@ -152,7 +154,6 @@
                                     <p class="small">Materijali (pregled)</p>
                                 </a>
                             </li>
-
                             <li class="nav-item">
                                 <a href="{{route('category.create')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle  nav-icon"></i>
@@ -189,6 +190,9 @@
                         </ul>
                     </li>
                 @endif
+
+
+
                 @if($permissions->pogonsko)
                     <li class="nav-item menu">
                         <a href="#" class="nav-link active">
@@ -368,68 +372,66 @@
                                 </a>
                             </li>
 
-
                             <li class="nav-item">
                                 <a href="{{route('arhiva.index')}}" class="ml-3 nav-link">
                                     <i class="fas fa-circle nav-icon "></i>
                                     <p class="small">Pregled arhive</p>
                                 </a>
                             </li>
-
                         </ul>
                     </li>
-                    {{--                    <li class="nav-item">--}}
-                    {{--                        <a href="#" class="nav-link">--}}
-                    {{--                            <i class="nav-icon fas fa-circle"></i>--}}
-                    {{--                            <p>--}}
-                    {{--                                Primer sa tri nivoa--}}
-                    {{--                                <i class="right fas fa-angle-left"></i>--}}
-                    {{--                            </p>--}}
-                    {{--                        </a>--}}
-                    {{--                        <ul class="nav nav-treeview" style="display: none;">--}}
-                    {{--                            <li class="nav-item">--}}
-                    {{--                                <a href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="nav-link">--}}
-                    {{--                                    <i class="far fa-circle nav-icon "></i>--}}
-                    {{--                                    <p class="small">Datoteka obračunskih koeficienata</p>--}}
-                    {{--                                </a>--}}
-                    {{--                            </li>--}}
-                    {{--                            <li class="nav-item">--}}
-                    {{--                                <a href="#" class="nav-link">--}}
-                    {{--                                    <i class="far fa-circle nav-icon"></i>--}}
-                    {{--                                    <p>--}}
-                    {{--                                        Primer sa tri nivoa--}}
-                    {{--                                        <i class="right fas fa-angle-left"></i>--}}
-                    {{--                                    </p>--}}
-                    {{--                                </a>--}}
-                    {{--                                <ul class="nav nav-treeview" style="display: none;">--}}
-                    {{--                                    <li class="nav-item">--}}
-                    {{--                                        <a href="#" class="nav-link">--}}
-                    {{--                                            <i class="far fa-dot-circle nav-icon"></i>--}}
-                    {{--                                            <p>Level 3</p>--}}
-                    {{--                                        </a>--}}
-                    {{--                                    </li>--}}
-                    {{--                                    <li class="nav-item">--}}
-                    {{--                                        <a href="#" class="nav-link">--}}
-                    {{--                                            <i class="far fa-dot-circle nav-icon"></i>--}}
-                    {{--                                            <p>Level 3</p>--}}
-                    {{--                                        </a>--}}
-                    {{--                                    </li>--}}
-                    {{--                                    <li class="nav-item">--}}
-                    {{--                                        <a href="#" class="nav-link">--}}
-                    {{--                                            <i class="far fa-dot-circle nav-icon"></i>--}}
-                    {{--                                            <p>Level 3</p>--}}
-                    {{--                                        </a>--}}
-                    {{--                                    </li>--}}
-                    {{--                                </ul>--}}
-                    {{--                            </li>--}}
-                    {{--                            <li class="nav-item">--}}
-                    {{--                                <a href="#" class="nav-link">--}}
-                    {{--                                    <i class="far fa-circle nav-icon"></i>--}}
-                    {{--                                    <p>Level 2</p>--}}
-                    {{--                                </a>--}}
-                    {{--                            </li>--}}
-                    {{--                        </ul>--}}
-                    {{--                    </li>--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <a href="#" class="nav-link">--}}
+{{--                            <i class="nav-icon fas fa-circle"></i>--}}
+{{--                            <p>--}}
+{{--                                Primer sa tri nivoa--}}
+{{--                                <i class="right fas fa-angle-left"></i>--}}
+{{--                            </p>--}}
+{{--                        </a>--}}
+{{--                        <ul class="nav nav-treeview" style="display: none;">--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="nav-link">--}}
+{{--                                    <i class="far fa-circle nav-icon "></i>--}}
+{{--                                    <p class="small">Datoteka obračunskih koeficienata</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="#" class="nav-link">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>--}}
+{{--                                        Primer sa tri nivoa--}}
+{{--                                        <i class="right fas fa-angle-left"></i>--}}
+{{--                                    </p>--}}
+{{--                                </a>--}}
+{{--                                <ul class="nav nav-treeview" style="display: none;">--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="#" class="nav-link">--}}
+{{--                                            <i class="far fa-dot-circle nav-icon"></i>--}}
+{{--                                            <p>Level 3</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="#" class="nav-link">--}}
+{{--                                            <i class="far fa-dot-circle nav-icon"></i>--}}
+{{--                                            <p>Level 3</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li class="nav-item">--}}
+{{--                                        <a href="#" class="nav-link">--}}
+{{--                                            <i class="far fa-dot-circle nav-icon"></i>--}}
+{{--                                            <p>Level 3</p>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                </ul>--}}
+{{--                            </li>--}}
+{{--                            <li class="nav-item">--}}
+{{--                                <a href="#" class="nav-link">--}}
+{{--                                    <i class="far fa-circle nav-icon"></i>--}}
+{{--                                    <p>Level 2</p>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </li>--}}
                 @endif
                 @if($permissions->tehnologija)
                     <li class="nav-item menu">

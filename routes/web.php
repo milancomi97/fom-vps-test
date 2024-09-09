@@ -9,6 +9,11 @@ use App\Modules\Kadrovskaevidencija\Controllers\RadnamestaController;
 use App\Modules\Kadrovskaevidencija\Controllers\StrucnakvalifikacijaController;
 use App\Modules\Kadrovskaevidencija\Controllers\VrstaradasifarnikController;
 use App\Modules\Kadrovskaevidencija\Controllers\ZanimanjasifarnikController;
+use App\Modules\Materijalno\Controllers\CategoryController;
+use App\Modules\Materijalno\Controllers\MagacinController;
+use App\Modules\Materijalno\Controllers\MaterijalController;
+use App\Modules\Materijalno\Controllers\PartnerController;
+use App\Modules\Materijalno\Controllers\StanjeZalihaController;
 use App\Modules\Obracunzarada\Controllers\ArhivaController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihEmailController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihExportController;
@@ -393,11 +398,39 @@ Route::group(['middleware' => ['auth']], function () {
 
 //    MATERIJALNO MODUL START
 
-    Route::post('/materijals_pdf', [\App\Modules\Materijalno\Controllers\MaterijalController::class, 'pdfExport'])->name('profile.edit');
+//    Materijali
+    Route::post('/materijals_pdf', [MaterijalController::class, 'pdfExport'])->name('profile.edit');
+    Route::resource("/materijalno/materijal", MaterijalController::class);
 
-    Route::resource("/materijalno/materijal", \App\Modules\Materijalno\Controllers\MaterijalController::class);
-    Route::resource("/magacini/partner", \App\Modules\Materijalno\Controllers\PartnerController::class);
+    // Kategorije materijala
+    // web.php
+    Route::get('/materijalno/category/create', [CategoryController::class, 'create'])->name('category.create');
+    Route::post('/materijalno/category', [CategoryController::class, 'store'])->name('category.store');
+    Route::get('/materijalno/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::put('/materijalno/category/{id}', [CategoryController::class, 'update'])->name('category.update');
 
+
+    // stanje zaliha
+    // web.php
+    Route::get('/stanje-zaliha', [StanjeZalihaController::class, 'index'])->name('stanje-zaliha.index');
+    Route::get('/stanje-zaliha/create', [StanjeZalihaController::class, 'create'])->name('stanje-zaliha.create');
+    Route::post('/stanje-zaliha', [StanjeZalihaController::class, 'store'])->name('stanje-zaliha.store');
+    Route::get('/stanje-zaliha/{id}/edit', [StanjeZalihaController::class, 'edit'])->name('stanje-zaliha.edit');
+    Route::put('/stanje-zaliha/{id}', [StanjeZalihaController::class, 'update'])->name('stanje-zaliha.update');
+
+
+    // web.php
+    Route::get('/materijalno/category', [CategoryController::class, 'index'])->name('category.index');
+
+
+
+
+
+
+    Route::resource("/materijalno/partner", PartnerController::class);
+    Route::resource('/materijalno/magacin', MagacinController::class);
+
+//    Route::post('materijalno/matrijal/updatePost', [MaterijalController::class, 'updatePost'])->name('materijal.update_post');
 
 //    MATERIIJALNO MODUL END
 });

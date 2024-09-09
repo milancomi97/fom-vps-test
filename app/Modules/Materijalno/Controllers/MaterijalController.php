@@ -8,6 +8,7 @@ use App\Models\Materijal;
 use App\Models\StanjeZaliha;
 use Illuminate\Http\Request;
 use PDF;
+use App\Models\Category;
 
 class MaterijalController extends Controller
 {
@@ -41,7 +42,9 @@ class MaterijalController extends Controller
      */
     public function create()
     {
-        return view('materijal::materijali.create_materijal');
+        $categories = Category::all();
+
+        return view('materijalno::materijali.create_materijal',compact('categories'));
     }
 
     /**
@@ -50,28 +53,10 @@ class MaterijalController extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $materijal = Materijal::create([
-            'adress' => $input['adress'],
-            'contact_employee' => $input['contact_employee'],
-            'email' => $input['email'],
-            'maticni_broj' => $input['maticni_broj'],
-            'mesto' => intval($input['mesto']),
-            'name' => $input['name'],
-            'odgovorno_lice' => $input['odgovorno_lice'],
-            'phone' => $input['phone'],
-            'pib' => $input['pib'],
-            'pripada_pdvu' => $input['pripada_pdvu'] == 'true',
-            'registarski_broj' => $input['registarski_broj'],
-            'short_name' => $input['short_name'],
-            'sifra_delatnosti' => $input['sifra_delatnosti'],
-            'web_site' => $input['web_site'],
-            'adress' => $input['adress'],
-            'active' => $input['active'] == 'true',
-            'internal_sifra' => $input['internal_sifra']
-        ]);
+        $materijal = Materijal::create($input);
 
+        return redirect()->route('materijal.create')->with('message', 'Materijal successfully added.');
 
-        return  ;
     }
 
     /**
@@ -85,19 +70,35 @@ class MaterijalController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Materijal $materijal)
+    public function edit($id)
     {
-        //
+        $materijal = Materijal::findOrFail($id);  // Fetch the materijal by ID
+        $categories = Category::all();            // Get all categories for the dropdown
+        return view('materijalno::materijali.edit_materijal', compact('materijal', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMaterijalRequest $request, Materijal $materijal)
+    public function update(Request $request, Materijal $materijal)
     {
-        //
+        $inputData = $request->input();
+        $materijalModel = Materijal::findOrFail($materijal->id);
+        $materijalModel->update($inputData);
+
+//         Redirect with success message
+        return redirect()->route('materijal.edit', $materijalModel->id)->with('message', 'Materijal successfully updated.');
     }
 
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updatePost(Request $request, Materijal $materijal)
+    {
+        $test='ttest';
+        //
+    }
     /**
      * Remove the specified resource from storage.
      */

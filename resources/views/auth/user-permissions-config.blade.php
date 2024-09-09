@@ -1,5 +1,5 @@
 @php use App\Modules\Obracunzarada\Consts\UserRoles; @endphp
-@extends('adminlte.layout.app')
+@extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
 

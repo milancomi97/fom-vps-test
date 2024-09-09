@@ -1,4 +1,4 @@
-@extends('adminlte.layout.app')
+@extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css"/>
