@@ -410,15 +410,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/materijalno/category/{id}', [CategoryController::class, 'update'])->name('category.update');
 
 
-    // stanje zaliha
-    // web.php
-    Route::get('/stanje-zaliha', [StanjeZalihaController::class, 'index'])->name('stanje-zaliha.index');
-    Route::get('/stanje-zaliha/create', [StanjeZalihaController::class, 'create'])->name('stanje-zaliha.create');
-    Route::post('/stanje-zaliha', [StanjeZalihaController::class, 'store'])->name('stanje-zaliha.store');
-    Route::get('/stanje-zaliha/{id}/edit', [StanjeZalihaController::class, 'edit'])->name('stanje-zaliha.edit');
-    Route::put('/stanje-zaliha/{id}', [StanjeZalihaController::class, 'update'])->name('stanje-zaliha.update');
-
-
     // web.php
     Route::get('/materijalno/category', [CategoryController::class, 'index'])->name('category.index');
 
@@ -429,6 +420,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource("/materijalno/partner", PartnerController::class);
     Route::resource('/materijalno/magacin', MagacinController::class);
+
+
+    Route::resource('/materijalno/stanje-zaliha', StanjeZalihaController::class);
+
+
 
 //    Route::post('materijalno/matrijal/updatePost', [MaterijalController::class, 'updatePost'])->name('materijal.update_post');
 

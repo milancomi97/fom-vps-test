@@ -167,13 +167,39 @@
                                     <p class="small">Kategorija materiijala (pregled)</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{route('magacin.create')}}" class="ml-3 nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Magacini za materiijale (kreiraj)</p>
+                                </a>
+                            </li>
 
+                            <li class="nav-item">
+                                <a href="{{route('magacin.index')}}" class="ml-3 nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Magacini za materiijale (pregled)</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{route('stanje-zaliha.create')}}" class="ml-3 nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Stanje zaliha materijala (kreiraj)</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{route('stanje-zaliha.index')}}" class="ml-3 nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Stanje zaliha materijala (pregled)</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endif
                 @if($permissions->magacini)
                     <li class="nav-item menu">
-                        <a href="#" class="nav-link active">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon far fa-circle"></i>
                             <p>
                                 Magacini

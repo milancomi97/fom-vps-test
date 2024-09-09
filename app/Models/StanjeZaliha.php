@@ -29,9 +29,15 @@ class StanjeZaliha extends Model
         'cena'
     ];
 
+
     public function material()
     {
-        return $this->belongsTo(Materijal::class, 'sifra_materijala');
+        return $this->belongsTo(Materijal::class, 'sifra_materijala', 'sifra_materijala');
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Magacin::class, 'magacin_id');
     }
 
 }

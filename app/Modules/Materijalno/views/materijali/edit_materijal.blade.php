@@ -4,7 +4,7 @@
 
 @section('custom-styles')
     <!-- Include Select2 CSS for searchable category select -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{asset('admin_assets/plugins/select2/css/select2.min.css')}}">
 @endsection
 
 @section('content')
