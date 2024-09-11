@@ -156,7 +156,7 @@ function updateMonthContainer(activeMonth) {
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear,
                     'data-url-redirect':'obracunski_listovi'
-                }).text('Prikaz obracunskih lista').appendTo(monthCard);
+                }).text('Obracunske liste').appendTo(monthCard);
 
                 $('<button>').attr({
                     'type': 'button',
