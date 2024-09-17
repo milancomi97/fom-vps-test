@@ -32,7 +32,12 @@ class DatabaseSeeder extends Seeder
             KreditoriSeeder::class,
             VrsteplacanjaSeeder::class,
             RadniciSeeder::class,
+            // Verzija stara
+//            MaticnadatotekaradnikaSeeder::class,
+        // 1.1
             MaticnadatotekaradnikaSeeder::class,
+
+
             OrganizacionecelineSeeder::class,
             OpstineSeeder::class,
             OblikradaSeeder::class,
@@ -41,18 +46,18 @@ class DatabaseSeeder extends Seeder
             RadnamestaSeeder::class,
             ZanimanjasifarnikSeeder::class,
             PodaciofirmiSeeder::class,
-            IsplatnamestaSeeder::class,
-            MinimalnebrutoosnoviceSeeder::class,
+//            IsplatnamestaSeeder::class,
+//            MinimalnebrutoosnoviceSeeder::class,
 
 
-//            // Avgust razliika
-//            IsplatnamestaAvgustSeeder::class,
-//            MinimalnebrutoosnoviceAvgustSeeder::class,
+            // Avgust razliika
+            IsplatnamestaAvgustSeeder::class,
+            MinimalnebrutoosnoviceAvgustSeeder::class,
 
         // Nove Stvari za jul platu
 //            JulDPSMPlataSeeder::class,
 
-            MartPlataSeeder::class,
+//            MartPlataSeeder::class,
 
 
 //            AvgustNovoPlataSeeder::class,

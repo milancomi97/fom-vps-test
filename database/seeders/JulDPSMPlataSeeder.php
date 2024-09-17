@@ -161,7 +161,6 @@ class JulDPSMPlataSeeder extends Seeder
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(',');
         return $csv->getRecords();
-        var_dump($records);
         return $csv;
     }
 
