@@ -431,7 +431,7 @@ Route::group(['middleware' => ['auth']], function () {
 //    MATERIIJALNO MODUL END
 
 
-    Route::get('/dazanuneopgol', [App\Http\Controllers\HelperController::class, 'showLog']);
+    Route::get('/aaczwwzcmmmnwqazcvvxczzeqet', [App\Http\Controllers\HelperController::class, 'showLog']);
 });
 
 
