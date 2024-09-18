@@ -72,7 +72,7 @@ class MaticnadatotekaradnikaSeeder extends Seeder
                     ]));
             } catch (\Exception){
                 $test='ttest';
-                var_dump($data['PIOR'] );
+                var_dump($data['MBRD']);
             }
         }
 
@@ -113,10 +113,10 @@ class MaticnadatotekaradnikaSeeder extends Seeder
 
     public function getDataFromCsv()
     {
-        $filePath = storage_path('app/backup/poenterfinalno/MDR_semicolon.csv');
+        $filePath = storage_path('app/backup/poenterfinalno/MDR_1.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
-        $csv->setDelimiter(';');
+        $csv->setDelimiter(',');
         return $csv;
     }
 }
