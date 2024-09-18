@@ -20,11 +20,11 @@ class DatabaseSeeder extends Seeder
 //            AvgustPravaPlataSeeder::class,
 
         // Materijalno start
-            PartnerSeeder::class,
-
-            CategorySeeder::class,
-            MaterijalSeeder::class,
-            StanjeZalihaSeeder::class,
+//            PartnerSeeder::class,
+//
+//            CategorySeeder::class,
+//            MaterijalSeeder::class,
+//            StanjeZalihaSeeder::class,
 
 
             // Materijalno end
