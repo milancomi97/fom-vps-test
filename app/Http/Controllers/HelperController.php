@@ -25,7 +25,7 @@ class HelperController extends Controller
 
             // Optionally limit the number of lines to avoid loading large files
             $logLines = explode("\n", $log);
-            $logLines = array_slice($logLines, -100); // Show only the last 100 lines
+//            $logLines = array_slice($logLines, -1000); // Show only the last 100 lines
 
             // Format it for display in the browser (or just return as text)
             return response()->view('poenter_log_review', ['log' => $logLines]);
