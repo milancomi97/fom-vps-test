@@ -429,6 +429,9 @@ Route::group(['middleware' => ['auth']], function () {
 //    Route::post('materijalno/matrijal/updatePost', [MaterijalController::class, 'updatePost'])->name('materijal.update_post');
 
 //    MATERIIJALNO MODUL END
+
+
+    Route::get('/dazanuneopgol', [App\Http\Controllers\HelperController::class, 'showLog']);
 });
 
 
