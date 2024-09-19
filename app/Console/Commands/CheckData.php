@@ -2,8 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Maticnadatotekaradnika;
+use App\Models\Mesecnatabelapoentaza;
+use App\Models\User;
+use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use Illuminate\Console\Command;
 use League\Csv\Reader;
+use Illuminate\Support\Facades\DB;
 
 class CheckData extends Command
 {
@@ -24,56 +29,77 @@ class CheckData extends Command
     /**
      * Execute the console command.
      */
+
+
+    // MDR VREDNOST U KADR TABELU VREDNOST ZA ORG JEDINICU
+
+
     public function handle()
     {
         $id = $this->argument('id');
 
+        $mdrData = $this->getMdrDataFromCsv();
 
-        $dkopCSV = $this->getDkopDataFromCsv();
-        $zaraCSV =$this->getZaraDataFromCsv();
-
-        $bar = $this->output->createProgressBar(count($dkopCSV));
-
+        $bar = $this->output->createProgressBar($mdrData->count());
+//
         $bar->start();
+//        DB::beginTransaction();
 
-        foreach ($datas as $data) {
-            $this->info('Maticni broj: '.$data['MBRD']);
+        $updatePrviCounter= 0;
+        $updateDrugiCounter= 0;
+
+        foreach ($mdrData as $user) {
+//            $userData= Maticnadatotekaradnika::where('maticni_broj',$user['MBRD'])->first();
+            $currentUser= User::where('maticni_broj',$user['MBRD'])->get();
+
+            if(count($currentUser)){
+                $ttet='test';
+                if($user['RBTC']!==''){
+                    $currentUserData = $currentUser->first();
+                    $currentUserData->sifra_mesta_troska_id=$user['RBTC'];
+                    $currentUserData->save();
+                    $updatePrviCounter++;
+                }
+            }else{
+
+            }
+
+
+            $currentUserMTP= Mesecnatabelapoentaza::where('maticni_broj',$user['MBRD'])->get();
+
+
+            if(count($currentUserMTP)){
+                $ttet='test';
+                if($user['RBTC']!==''){
+                    $currentMtpUserData = $currentUserMTP->first();
+                    $currentMtpUserData->organizaciona_celina_id=$user['RBTC'];
+                    $currentMtpUserData->save();
+                    $updateDrugiCounter++;
+                }
+            }else{
+
+            }
+
+
             $bar->advance();
 
         }
         $bar->finish();
 
 
-
-
-
-        $this->askWithCompletion('Koji podatak zelite da proverite ?',['1','2']);
-//        $this->info('Provera podataka za ID: '.$id);
-//        $this->comment('Provera podataka za ID: '.$id);
-//        $this->question('Provera podataka za ID: '.$id);
-//        $this->error('Provera podataka za ID: '.$id);
-//        $this->warn('Provera podataka za ID: '.$id);
-
-        $this->alert('Komanda je uspesno izvrsena');
+        $this->alert(PHP_EOL.'Komanda je uspesno izvrsena : res1:'.$updatePrviCounter.' res2'.$updateDrugiCounter);
     }
 
-    public function getDkopDataFromCsv()
+
+    public function getMdrDataFromCsv()
     {
-        $filePath = storage_path('app/backup/novo/ZARA.csv');
+        $filePath = storage_path('app/backup/avgustPlataNovo/MDR.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(',');
         return $csv;
     }
 
-    public function getZaraDataFromCsv()
-    {
-        $filePath = storage_path('app/backup/novo/DKOP.csv');
-        $csv = Reader::createFromPath($filePath, 'r');
-        $csv->setHeaderOffset(0);
-        $csv->setDelimiter(',');
-        return $csv;
-    }
 
 //array_diff(): Compares arrays and returns the values that are present in the first array but not in the others.
 //
