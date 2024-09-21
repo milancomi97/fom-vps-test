@@ -149,6 +149,7 @@ class ObracunZaradaController extends Controller
 
         $radnikMaticniId=$request->radnik_maticni;
 
+        return dd([$monthId,$radnikMaticniId]);
 //        (($podaci o firmi) ULICA OPSTINA PIB RACUN BANKE
 //        Za mesec: 03.2024.(($formatirajDatum))
 //        (($Ulica broj)) $((Grad)) //PREBACI LOGIKU U MDR da ne povlacis podatke
