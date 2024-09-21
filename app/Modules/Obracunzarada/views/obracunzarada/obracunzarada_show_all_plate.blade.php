@@ -380,6 +380,6 @@
 
         });
     </script>
-    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show_all_fiksnap/ajax_logic.js') }}"></script>
-    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show_all_fiksnap/modal_logic.js') }}"></script>
+    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show_all/ajax_logic.js') }}"></script>
+    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show_all/modal_logic.js') }}"></script>
 @endsection
