@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
 
             // remove after devv
 
+
+
 //            AvgustPravaPlataSeeder::class,
 
         // Materijalno start
