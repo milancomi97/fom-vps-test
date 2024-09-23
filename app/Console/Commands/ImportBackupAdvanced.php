@@ -10,7 +10,7 @@ class ImportBackupAdvanced extends Command
 {
     /**
      * The name and signature of the console command.
-     *
+    tt
      * @var string
      */
     protected $signature = 'backup:import-advanced';
@@ -51,7 +51,7 @@ class ImportBackupAdvanced extends Command
         }
 
         // Step 3: Prompt user to select a file
-        $selectedIndex = $this->ask('Enter the index of the file you want to import');
+        $selectedIndex = $this->ask('Izaberi indeks baze koju zelis da povratis');
 
         if (!isset($files[$selectedIndex])) {
             $this->error('Invalid selection. Please choose a valid file index.');
