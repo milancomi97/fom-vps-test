@@ -1,0 +1,7 @@
+php artisan backup:currentday
+
+php artisan backup:import-advanced
+
+php artisan backup:check-data 1
+
+php artisan backup:update-data

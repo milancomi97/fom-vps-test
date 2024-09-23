@@ -10,14 +10,14 @@ use Illuminate\Console\Command;
 use League\Csv\Reader;
 use Illuminate\Support\Facades\DB;
 
-class CheckData extends Command
+class UpdateData extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'backup:check-data {id}';
+    protected $signature = 'backup:update-data';
 
     /**
      * The console command description.
@@ -36,7 +36,6 @@ class CheckData extends Command
 
     public function handle()
     {
-        $id = $this->argument('id');
 
         $mdrData = $this->getMdrDataFromCsv();
 
