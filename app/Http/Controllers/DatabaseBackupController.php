@@ -4,45 +4,57 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class DatabaseBackupController extends Controller
 {
-    public function showBackupData()
-    {
-        $directoryPath = storage_path('backupdb');
+
+    public function showBackupData(){
+        $directoryPath = storage_path('backupdb'); // Replace 'public' with your directory name
+
+        // Get all files from the directory
         $files = scandir($directoryPath);
+
+        // Remove '.' and '..' from the list
         $files = array_diff($files, ['.', '..']);
+
+        // Pass the files array to the view
         return view('backuptool.index', ['files' => $files]);
     }
 
-    public function importBackup(Request $request)
-    {
+    public function importBackup(Request $request){
+//        Artisan::call('migrate:fresh', []);
+//        $output = Artisan::output();
         $directoryPath = storage_path('backupdb');
-        $fullFilePath = $directoryPath . "/" . $request->file;
+
+        $fullFilePath =$directoryPath."/".$request->file;
 
         try {
-            // Prepare the gunzip and MySQL import command
-            $command = "gunzip < $fullFilePath | mysql -u " . escapeshellarg(env('DB_USERNAME')) .
-                " -p" . escapeshellarg(env('DB_PASSWORD')) . " " . escapeshellarg(env('DB_DATABASE'));
+        $response =  exec("gunzip < $fullFilePath | mysql -u ".env('DB_USERNAME')." -p".env('DB_PASSWORD')." ".env('DB_DATABASE'));
 
-            $process = new Process([$command]);
-            $process->run();
 
-            if (!$process->isSuccessful()) {
-                throw new ProcessFailedException($process);
-            }
-
-            $output = $process->getOutput();
-            $brojRadnika = User::count();
-
-            return response()->json([
-                'message' => 'Backup imported successfully: ' . $request->file,
-                'number_of_users' => $brojRadnika
-            ]);
-        } catch (\Exception $exception) {
-            return response()->json(['error' => $exception->getMessage()], 500);
+        $brojRadnika =User::all()->count();
+            return response('<h1 style="text-align: center">Uspešno je importovana baza: <span style="color:red">'.$request->file.PHP_EOL.'<span/></h1> <h1 style="text-align: center">Test komande broj veci od 0: <span style="color:red">'.$brojRadnika.'<span/></h1>' );
+        }catch (\Exception $exception){
+            return response('EXCEPTION');
         }
+        return response('EXCEPTION');
+
+//        $process = new Process(['gunzip', '-c', $fullFilePath]);
+//        $process->run();
+//// Check if the command was successful
+//        if (!$process->isSuccessful()) {
+//            throw new \RuntimeException($process->getErrorOutput());
+//        }
+//
+//// Get the output of the command (decompressed content)
+//        $decompressedContent = $process->getOutput();
+//
+//// Return the response with the decompressed content
+
+//        return response(exec("gunzip < ".$fullFilePath));
+//        DB::unprepared(file_get_contents('./dump.sql'));
+//        return response('<p>'.$output.'</p>'.'<h1>Izabrali ste backup NAZIV:'.$request->file.'</h1><h2>TODO sledi logika za import</h2>');
     }
 }
