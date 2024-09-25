@@ -420,7 +420,9 @@
                                                 class=" far fa-times-circle"></i></span>
                                     @endif
                                 </td>
-                                <td class="{{$value->rowSum < 168 ? 'bg-danger': ''}}">{{$value->rowSum}}</td>
+{{--                                {{dd([$monthData->mesecni_fond_sati,$value->rowSum])}}--}}
+{{--                                mesecni_fond_sati--}}
+                                <td class="{{$value->rowSum < $monthData->mesecni_fond_sati ? 'bg-danger': ''}}">{{$value->rowSum}}</td>
 
                                 @endif
 

@@ -5,3 +5,7 @@ php artisan backup:import-advanced
 php artisan backup:check-data 1
 
 php artisan backup:update-data
+
+
+KOMANDA ZA WINDOWS LOKAL IMPORT:
+php artisan migrate:fresh ; echo freshDONE; cmd.exe /c "C:/laragon/bin/mysql/mysql-8.0.30-winx64/bin/mysql.exe --database=adminlte --user=root --host=127.0.0.1 --port=3306 < C:\laragon\www\fom-vps-test\storage\app\dbfullimport\backup_22_09_2024_12_01.sql" ; echo importDONE
