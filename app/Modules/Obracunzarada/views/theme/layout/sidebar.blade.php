@@ -47,7 +47,7 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon far fa-circle"></i>
                             <p>
-                                Osnovni podaci TESTTT 1
+                                Osnovni podaci
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
@@ -194,6 +194,16 @@
                                     <p class="small">Stanje zaliha materijala (pregled)</p>
                                 </a>
                             </li>
+
+
+
+                            <li class="nav-item">
+                                <a href="{{route('materijalno.svi_podaci')}}" class="ml-3 nav-link">
+                                    <i class="fas fa-circle  nav-icon"></i>
+                                    <p class="small">Test stranica</p>
+                                </a>
+                            </li>
+
                         </ul>
                     </li>
                 @endif

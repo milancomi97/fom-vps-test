@@ -73,9 +73,9 @@ class DatabaseSeeder extends Seeder
 
 
 //             Arhiva
-//            ArhivaMaticnadatotekaradnikaSeeder::class,
-//            ArhivaDarhObradaSveDkopSeeder::class,
-//            ArhivaSumeZaraPoRadnikuSeeder::class,
+            ArhivaMaticnadatotekaradnikaSeeder::class,
+            ArhivaDarhObradaSveDkopSeeder::class,
+            ArhivaSumeZaraPoRadnikuSeeder::class,
 
         ]);
 

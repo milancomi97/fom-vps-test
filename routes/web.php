@@ -14,6 +14,7 @@ use App\Modules\Materijalno\Controllers\MagacinController;
 use App\Modules\Materijalno\Controllers\MaterijalController;
 use App\Modules\Materijalno\Controllers\PartnerController;
 use App\Modules\Materijalno\Controllers\StanjeZalihaController;
+use App\Modules\Materijalno\Controllers\SviPodaciController;
 use App\Modules\Obracunzarada\Controllers\ArhivaController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihEmailController;
 use App\Modules\Obracunzarada\Controllers\DatotekaobracunskihExportController;
@@ -424,7 +425,14 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::resource('/materijalno/stanje-zaliha', StanjeZalihaController::class);
 
+    Route::resource('/materijalno/stanje-zaliha', StanjeZalihaController::class);
 
+
+    Route::get('/materijalno/svi-podaci', [SviPodaciController::class, 'allDataTestt'])->name('materijalno.svi_podaci');
+    Route::get('materijali/data', [SviPodaciController::class, 'getDataMaterijal'])->name('materijali.data');
+    Route::get('stanjeMaterijala/data', [SviPodaciController::class, 'getDataStanjeMaterijala'])->name('stanjeMaterijala.data');
+    Route::get('kartice/data', [SviPodaciController::class, 'getDataKartice'])->name('kartice.data');
+    Route::get('porudzbine/data', [SviPodaciController::class, 'getDataPorudzbine'])->name('porudzbine.data');
 
 //    Route::post('materijalno/matrijal/updatePost', [MaterijalController::class, 'updatePost'])->name('materijal.update_post');
 

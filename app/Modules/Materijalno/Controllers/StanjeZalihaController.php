@@ -17,6 +17,7 @@ class StanjeZalihaController extends Controller
         return view('materijalno::stanje-zaliha.index', compact('stanjeZaliha'));
     }
 
+
     // Show the form for creating a new stock record
     public function create()
     {
@@ -98,4 +99,8 @@ class StanjeZalihaController extends Controller
 
         return redirect()->route('stanje-zaliha.index')->with('message', 'Stock record deleted successfully.');
     }
+
+
+
+
 }
