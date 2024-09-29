@@ -72,8 +72,6 @@ class KarticeSeeder extends Seeder
 
                 }
 
-                Log::error('Error processing mat Kartice: ' . $exception->getMessage());
-
             }
 
         }
