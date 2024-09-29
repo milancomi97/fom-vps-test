@@ -141,6 +141,11 @@ return [
             'path' => storage_path('logs/oc_poenters_sum.log'),
             'level' => env('LOG_LEVEL', 'debug')
         ],
+        'check_materijal_import_errors' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/check_materijal_import_errors.log'),
+            'level' => env('LOG_LEVEL', 'debug')
+        ],
         'vps_debug' => [
             'driver' => 'single',
             'path' => storage_path('logs/vps_debug.log'),

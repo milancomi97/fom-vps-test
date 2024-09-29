@@ -24,10 +24,12 @@ class DatabaseSeeder extends Seeder
         // Materijalno start
 //            PartnerSeeder::class,
 //
-//            CategorySeeder::class,
-//            MaterijalSeeder::class,
-//            StanjeZalihaSeeder::class,
-
+            CategorySeeder::class,
+            MagacinSeeder::class,
+            MaterijalSeeder::class,
+            StanjeZalihaSeeder::class,
+            KarticeSeeder::class,
+            PorudzbineSeeder::class,
 
             // Materijalno end
             PorezdoprinosiSeeder::class,

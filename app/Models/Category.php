@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'parent_id','id','created_at','updated_at'];
+    protected $fillable = ['gru','name', 'parent_id','id','created_at','updated_at'];
 
     public function parent()
     {
@@ -23,6 +23,6 @@ class Category extends Model
 
     public function materials()
     {
-        return $this->hasMany(Materijal::class);
+        return $this->hasMany(Materijal::class,'category_id');
     }
 }

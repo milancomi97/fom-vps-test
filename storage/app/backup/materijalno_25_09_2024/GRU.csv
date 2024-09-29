@@ -1,0 +1,1634 @@
+GRU;NAZIV
+1;CRNA I OBOJENA METALURGIJA
+11;Polupr. cr.i oboj. metal.(lim.,fi..,prof.,cevi..
+111;limovi,trake,ploce...
+1111;limovi ravni
+11111;limovi ravni tanki beli,pocinkovani(1mm-4mm)
+11112;limovi ravni celicni
+11113;limovi ravni od obojenih metala i njihovih leg.
+1112;limovi rebrasti
+1115;limovi profilisani
+11151;limovi profilisani celicni
+11153;limovi profilisani od obojenih metala i legura
+1119;limovi perforirani
+11191;limovi perforirani celicni
+1113;trake
+11131;trake celicne
+11132;trake od  obojenih metala
+1117;folije(lim beli...)
+11171;folije celicne
+11172;folije od obojenih metala i njihovih legura
+11179;folije ostale
+1116;lamele
+11161;lamele celicne
+1118;ploce
+11181;ploce celicne
+11182;ploce od od obojenih metala ilegura
+11183;ploce od plemenitih metala
+119;polup. crne i oboj. metal. ostalo
+112;okrugli,pljosnati,poluokrugli,kvadratni
+1121;okrugli materijal
+11211;okrugli celicni
+11212;okrugli od obojenih metala injihovih leg.
+11213;okrugli ostalo
+1122;pljosnati mater.
+11221;pljosnati celik
+122117;pljosnati cel. ug. sa gar. sastavom za automate
+11225;pljosnati mater. od al i al legura
+11227;pljosnati mater. od cu i cu legura
+11229;pljosnati ostalo
+1125;kvadratni mater.
+11251;kvadratni celik
+11255;kvadratni mater. od al i al legura
+11256;kvadratni mater. od cu i cu legura
+11259;kvadratni ostalo
+1126;poluokrugli mater.
+11261;poluokrugli celik
+11262;poluokrugli mater. od al i al legura
+11265;poluokrugli mater. od cu i cu legura
+11269;poluokrugli mater. ostalo
+1127;sestougaoni materijal.
+11271;sestougaoni celik
+11272;sestougaoni mater. od obojenih metala
+1128;mnogougaoni i raznougaoni mater.
+11281;mnogougaoni celik
+11282;mnogougaoni od obojenih metala
+11289;mnogougaoni ostalo
+1129;zica
+11291;zica celicna
+11292;zica od obojenih materijala
+115;ugaonici,nosaci,profili, sine...
+1151;ugaonici
+11511;ugaonici ravnokraki cel
+11512;ugaonici raznokraki cel
+11513;ugaonici od obojenih met. i njihovih leg.
+1152;nosaci
+11521;nosaci I oblika  cel
+11522;nosaci U oblika  cel
+11523;nosaci T oblika  cel
+11524;nosaci raznih oblika cel
+11525;nosaci od obojenih metala
+1156;sine
+11561;sine tip A
+11562;sine tip S
+11565;sine specijalne
+11569;sine ostalo
+1159;ostalo
+116;cevi...
+1161;cevi okrugle
+11611;cevi okrugle bez sava cel
+11612;cevi okrugle sa savom cel
+11613;cevi okrugle od obojenih metala i legura
+1162;cevi kvadratne
+11621;cevi kvadratne cel i poc.
+11622;cevi kvadratne od ob. metala
+1163;cevi pravougone
+11631;cevi pravougaone cel i poc.
+11632;cevi pravougaone od oboj. metala
+17;odlivci,otkivci,otpresci...
+171;odlivci
+1711;odlivci od sivog liva
+1712;odlivci od celicnog liva
+1715;odlivci od nodularnog liva
+1716;odlivci od temper liva
+1717;odlivci od obojenih metala ilegura
+172;otkivci
+1721;otkivci po crtezu
+1722;otkivci standardni
+17221;otkivci stand. cel. izduzeni
+17222;otkivci stand. cel. kruznog preseka
+17224;otkivci stand. cel. vretenasti
+17225;otkivci stand. cel. rogljasti
+17226;otkivci stand. cel. cevasti
+17228;otkivci stand. cel. prstenatog preseka
+17229;otkivci stand. ostalo
+1729;otkivci ostalo
+175;otpresci
+1751;otpresci po crtezu
+17511;otpresci po crtezu od uglj. cel.
+17515;otpresci po crt. od celika za poboljsanje
+17517;otpresci po crt. od obojenih metala
+17519;otpresci po crtezu ostalo
+1752;otpresci standardni
+1759;otpresci ostalo
+1789;ostalo
+179;ostalo
+19;razni proizvodi crne i obojene metalurgije
+3;METALNI (gotovi) PROIZVODI
+31;elementi za spajanje, vezivanje i osigur
+311;vijci
+3111;vijci sa sestostranom glavom
+3112;vijci za tacno naleganje
+3113;vijci sa cetvrtastom glavom
+3114;vijci sa cilindricnom glavom
+3115;vijci sa poluokruglom gl.,sociv. i upust. gl.
+3116;vijci sa cilin.i upust.glav. i sest.rup. IMBUS
+3117;vijci sa karakakteristicnim oblikom i glavom
+3118;vijci svorni , urezni i bez. glave
+3119;vijci za lim, drvo, plasticne tiplove i ostali
+312;navrtke
+3121;navrtke sestostrane i za opstu namenu
+3122;navrtke samoosig.,sa vencem, zatvor., za zavariv
+3123;navrtke  krunaste
+3124;navrtke cetv.,sa vencem, prsten,krilas., narezan
+3125;navrtke za osiguranje
+3126;navrtke za cevne spojke
+313;podloske
+3131;podloske - podlozne plocice
+3132;podloske ravne,kvadratne i kose
+3133;podloske elasticne
+3134;podloske za osiguranje
+3135;podloske -zaptivaci
+314;zakovice
+315;civije
+3151;civije cilindricne
+3152;civije konicne
+3153;civije elasticne
+316;cepovi
+3161;cepovi sa estostranom rupom
+3162;cepovi sa sestostranom glavom
+3163;cepovi ostalih oblika i namena
+317;rascepke
+3171;rascepke okrugle
+3172;rascekpke pljosnate i klinaste
+3173;rascepke ostalih oblika i namena
+3141;zakovice sa poluokruglom i socivastom glavom
+3142;zakovice sa upustenom glavom
+3143;zakovice sa trapezastom glavom
+318;klinovi
+3181;klinovi standardni(ravni i kosi)
+3182;klinovi po crtezu
+319;ekseri i ostalo
+32;Lezajevi,pribor za lezajeve i prateca oprema
+321;lezajevi
+3211;lezajevi kotrljajuci
+3212;lezajevi klizni
+32111;lezajevi kotrljajuci kuglicni
+32112;lezajevi kotrljajuci valjcani
+32113;lezajevi kotrljajuci iglicasti
+32114;lezajevi kotrljajuci konusni
+32115;lezajevi kotrljajuci bacvati
+322;pribor za lezajeve
+3221;uskocnici
+3222;MB osiguraci
+3223;KM navrtke
+3224;kuglice
+3225;sedla za pritezanje(Hilzne)
+32211;uskocnici unutrasnji
+32212;uskocnici spoljasnji
+323;prateca oprema za lezajeve
+3231;kucista za lezajeve
+3232;ostala oprema za lezajeve
+34;vodoistalacini materijal
+35;lanci uzad i prateci pribor
+33;Materijal i delovi za hidrauliku i pnematiku
+4;NEMETALI (guma,plastika,koza,drvo,staklo i sl.)
+41;proizvodi od gume(materjal idelovi za ugr.
+4122;platna gumirana
+4123;folije
+411;trake ,profili,ploce...
+4111;trake i ploce gumene ravne
+4112;profilisana guma
+4114;trake transportne
+413;zaptivni materijal
+4131;semerinzi
+4132;manzetne
+4133;"""o""prstenovi"
+4134;zaptivke
+41341;zaptivke prstenaste
+41342;zaptivke tvrde prstenaste
+41343;zaptivke za zaptivanje naglavaka
+41344;zaptivke za visoke pritiske
+41349;zaptivke ostalo
+4139;zaptivni materjal ostalo
+414;cevi i creva
+4141;cevi
+4142;creva
+41421;creva za gasove
+414211;creva za gasove za zavarivanje
+414212;creva za gasove za komprimovani vazduh
+414213;creva za gasove za komprimovani vazduh za alate
+414215;creva za gasove i vodenu paru
+414219;creva ostalo
+41422;creva za neagresivne tecnosti
+41423;creva za agresivne tecnosti
+41424;creva za naftne derivate
+41425;creva za rastresite materijale
+41426;creva za visestruku namenu
+41427;creva za posebne namene
+414271;creva za posebne namene za hidrauliku
+414272;creva za posebne namene za hladnjake
+414273;creva za posebne namene za laboratoriju
+414279;creva za posebne namene ostalo
+41429;creva ostalo
+4149;cevi i creva ostalo
+415;remeni
+4151;remeni klinasti
+41511;remeni klinasti beskonacni normalne sirine
+41512;remeni klinasti beskonacni uski
+41513;remeni klinasti beskonacni siroki za varijatore
+41514;remeni klinasti beskonacni ozubljeni za male rem
+41517;remeni klinasti konacni
+41519;remeni klinasti ostalo
+4159;remeni ostalo
+416;gume za transportna sredstva
+4161;gume spoljne
+4162;gume unutrasnje
+4163;gumeni pojasevi
+417;galanterija (tehnicki gumeni proizvodi)
+4171;amortizeri
+4172;ulosci gumeni
+4173;odbojnici
+4174;podmetaci
+418;izolacioni materijal
+419;proizvodi od gume ostalo
+42;plasticni proizvodi(materjal i delovi za ugradnj
+421;ploce,trake,profili
+4211;ploce
+4212;trake
+4214;okrugla i profilisana plastika
+4219;ploce, trake ,profili ostalo
+422;cevi,creva i cevni elementi
+4221;cevi
+42211;cevi za energetiku
+42212;cevi za hidrauliku i pneumatiku
+42213;cevi za klimatizaciju i ventilaciju
+42214;cevi za transport fluida
+42215;cevi za vodovod i kanalizaciju
+42219;cevi ostalo
+4222;creva
+4223;lukovi,kolena...
+4224;racve
+4229;cevi, creva i cevni elementi ostalo
+423;folije,plastificirana platna
+425;galanterija
+427;plasticne komponente
+429;plasticni proizvodi ostalo
+44;proizvodi od koze i krzna
+441;proizvodi od koze
+4411;remeni
+4412;trake
+4414;kaisevi
+4416;vezice
+4419;proizvodi od koze ostalo
+442;proizvodi od krzna
+449;proizvodi od krzna ostalo
+45;proizvodi od drveta
+451;rezana drvena gradja
+452;gotovi(industrijski) drveni proizvodi
+453;razna drvena galanterija
+4511;rezana drvena gradja-grede
+457;pluta
+459;proizvodi od drveta ostalo
+46;proizvodi od stakla
+461;staklo ravno
+4611;staklo ravno obicno
+4612;staklo ravno armirano
+4614;staklo ravno vatrootporno
+4619;staklo ostalo
+462;staklo po crtezu
+464;proizvodi od stakla i sl. mater.
+4641;staklo klirit
+47;materijali za peskarenje ,koksovanje..
+471;materijali za peskarenje i sacmarenje
+4711;kvarcni pesak
+4713;pasta za sacmarenje
+472;marerijali za koksovanje
+49;nemetali ostalo
+5;ELEKTROTEHNICKI MATERIJAL
+51;elektromotori,transformatori...
+511;elektromotori
+512;agregati...
+513;transformatori
+519;elektromotori,transformatori ostalo
+52;elektroinstalacioni materjal
+521;provodnici,kablovi, pribor za prov.,kablove
+5211;provodnici sa izolacijom
+5212;kablovi
+5213;kablovi produzni
+5214;provodnici bez izol. (Zica)
+5215;trake za uzmljenje,sine za razvod i sl.
+5217;pribor za provodnike i kablove i elektromntaz.m.
+5219;provodnici ostalo
+522;xx
+523;komponente rasklopnih postrojenja
+5231;prekidaci
+5232;kontaktori
+5233;releji,bimetali
+5234;rastavljaci
+5235;osiguraci
+5236;oduzimaci
+5237;prikljucni pribor
+5239;komponente rasklopnih postrojenja ostalo
+524;prikljucnice(preb.na grupu 5272-uticnice)
+525;rasvetna tela i svetiljke
+5251;sijalice elektricne
+5252;cevi svetlosne
+5253;svetiljke
+5255;pribor za elektricne sijalice
+5256;pribor za svetlosne cevi
+5257;pribor za svetiljke
+5259;rasvetna tela i svetiljke ostalo
+526;kutije instalacione
+527;uitikaci i uticnice
+528;xx
+529;elektroinstalacionimaterjal ostalo
+53;elektroizolacioni materijal
+531;izolatori
+532;trake samolepive
+533;papir za elektro svrhe
+539;elektroizolacioni materjal ostalo
+54;elektrohemijski izvori
+541;baterije
+542;akumulatori
+543;elekroliti
+549;elektrohemijski izvori ostalo
+55;delovi elektro uredjaja
+551;komponente uredjaja rashlade i termotehnike
+5511;grejaci
+5512;regulatori temperature (termostati)
+5513;temperaturni davaci
+5514;isparivaci
+5515;kompresori
+5516;rashladni kondenzatori
+5517;ventilatori
+5518;pribori
+5519;komponente ostalo
+552;pretvaracki uredjaji,meraci,napajaci...
+555;elektro delovi masina
+559;delovi elektro uredjaja ostalo
+56;komponente za elektroniku i telekomunikaciju
+561;ekonderi i ...
+562;kondezatori
+563;poluprovodnicke komponente
+5633;tranzistori
+5638;stabilizatori
+5639;poluuprovodnicke komponente ostalo
+564;potencimetri, otpornici..
+565;el. mag. kartice i stampane ploce
+569;komponente za elektroniku i telekomunikacije ost
+58;elektricni uredjaji za motorna vozila
+581;alternatori,razvodnici paaljenja,releji..
+5852;farovi stop svetla
+585;zvucno svetlosna signalizacija
+586;elektricni  instrumenti za motor. vozila
+589;elektricni uredjaji za motorna vozila ostalo
+59;elektrotehnicki materjal ostalo
+6;HTZ OPREMA
+61;licna zastitna sredstva
+611;odela(komlet)
+619;kape,slemovi,kapuljacei ostala oprema
+612;mantili
+613;prsluci
+614;rukavice
+615;cipele,cizme.borosane...
+616;maske
+617;kecelje,pregace
+618;bunde
+62;vatrogasna zastitna sredstva
+63;sanitarna zastitna sredstva
+69;htz ostalo
+7;ANTIKOROZIVNA ZASTITA I HEMIJSKI PROIZVODI
+7619;premazi ostalo
+8;rezervni (Netipicni) delovi i potrosni mater.
+9;OSTALO
+999999;KLASIFIKATOR MATERIJALA I ALATA
+5555555;VVV
+36;opruge,zupcanoci...
+361;opruge
+3611;opruge po crtezu
+3612;opruge po standardu
+4512;rezana drvena gradja- daske
+4513;rezana drvena gradja -letve
+4514;rezana drvena gradja- lajsne
+4521;sanduci drveni
+4522;palete drvene
+4523;podmetaci drveni
+4524;ostali got.drveni proizvodi
+43;proizvodi od azbesta,prespana,tekstila,papira...
+431;materijal i gotovi delovi od azbesta
+432;prespan,jugelit,klingerit i sl.
+433;proizvodi od tekstila
+434;papir
+435;izolacioni materijal(stirior,staklena vuna)
+4311;kocione obloge-ferode...
+4312;table,ploce,trake ,lepenke azbestne
+4313;pletenice azbestnei sl.
+4314;zaptivke azbestne i sl.
+4321;prespan
+4322;jugelit
+4323;tekstolit
+4324;klingerit
+4331;pamucne pletenice,kanapi...
+4332;cirade,azbestno platno...
+4333;galanter.teks.(zavese,dzakovi,kucina,pucv.,filc)
+4351;stiropor
+4352;staklena vuna,tervol,filc keramicki...
+4341;terpapir,smirgle,flizelin...
+4342;ostali papir. prizvodi(tapete,karton...)
+1293;pletena zica
+4325;grafit
+5111;elektromotori trofazni
+5112;elektromotori mofazni
+37;razni masinski sklopovi i rezervni delovi
+39;razna gotova roba
+391;metalni okov i drugi bravarski delovi
+393;ostala gotova roba
+351;lanci
+353;kuke
+354;priveznice
+355;stezaci ,drzaci...
+356;uske(omce)
+357;skopac
+358;uzad
+359;clanci za lance
+3511;lanci industrijski(galov)
+3512;lanci obicni
+3911;kvake
+3912;brave
+3913;katanci
+331;prikljucci,drzaci cevi,usecni prstenovi...
+3311;prikljucci
+3312;drzaci cevi
+3313;usecni prstenovi
+3314;selne,spojna navrtka,razni elemen.priklj.
+3315;dozatori
+3316;odusci
+332;razni delovi za hidrauliku i pneumatiku
+3321;mazalice i pribor za mazalice
+3322;manometri,termometri,sonde...
+3323;cilindri,aktuatori,pribor za cil.,hladnjaci...
+3324;magneti
+3325;razni elementi pneumatike(prigusnice,
+3326;filtri
+3327;kardanska vratila sa prib.za vezivanje
+341;vodoinstalacioni materijal(delovi)
+342;vodoinstalacioni materijal(gotovi proizvodi)
+343;vodoistalacioni materijal(razni elementi)
+3411;slavine
+3412;cevni lukovi
+3413;ventili i reduciri(i za hidrauliku i pnematiku)
+3414;prirubnice
+3415;holenderi
+3416;kolena
+3417;mufovi
+3418;T-komadi(racve)
+3419;dupli nipli
+34131;ventili
+34132;reduciri
+3421;lavabo
+3422;kade
+3423;bojleri
+3424;vodokotlici
+3425;pisoari
+3426;podne resetke
+3431;kontra navrtke
+3432;vijci za lavabo i sl.
+3226;stezni prsten
+71;tecna goriva ulja i maziva
+711;tecna goriva
+712;ulja i maziva
+7111;nafta
+7112;benzin
+7113;ostala tecna goriva
+72;gasovi industrijski
+721;industrijski gasovi iz centralnog razvoda
+722;industrijski gasovi u boci
+7121;mptorna ulja
+7123;industrijska ulja
+7129;ostala ulja i maziva
+71211;motorna ulja za teretna vozila i mehanizaciju
+71212;motorna ulja za putnicka vozila
+71213;motorna ulja za motoc. i male polj. masine
+71214;motorna ulja za traktore
+371;gazista,oprema za gazista,ograde i sl.
+3711;gazista lim-lim
+3712;gazista sa istegnutim metalom
+3713;oprema za gazista
+372;oprema i gotovi proizvodi za ugradnju
+373;rezervni delovi za masine,opremu i aparate
+3732;rezervni delovi za masine
+7122;specijalna ulja za motorna vozila i industr. mas
+71221;ulja za menjace
+71222;ulja za hidraulicne kocnice
+71223;tecnost za rashladne sisteme(antifrizi)
+71224;ulja za lance motornih testera
+71229;ostala specijalna ulj za masine
+71231;hidraulicna ulja
+71232;reduktorska ulja
+71233;ulja za klizne staze
+71234;ulja za lezajeve
+71239;ostala industrijska ulja
+7124;industrijske i automobilske masti
+71241;automobilske masti
+71242;univerzalne industrijske masti
+71243;masti za visoke pritiske
+71244;masti za visoke temperature
+71245;masti za ekstremne uslove(paste)
+71246;masti za zaupcaste prenosnike
+71247;masti za prehrmbenu industriju
+71248;masti za lance
+71249;masti za posebne namene
+7125;sredstva za mehanicku i termicku obr. metala
+71251;sredstva za obradu struganjem i brusenjem
+71252;sredstva za obradu rezanjem
+71253;sredstva za obradu dubokim busenjem
+71254;sredsva za obradu honovanjem i superfinisiranj.
+71255;sredsva za obradu kovanjem
+71256;sredsva za obradu kaljenjem
+71259;ostala sredsva za mehanicku i term. obradu
+73;premazna sredstva
+731;radionicka premazna sredstva
+732;osnovna premazna sredstva
+733;medjupremazna sredstva
+734;zavrsna premazna sredstva
+736;vodorastvorna premazna sredstva
+739;ostala premazna sredstva
+7311;sop- prajmeri jednokomponentni 1K
+7312;sop- prajmeri dvokomponentni 2K
+7313;vos- prajmeri
+7319;ostala radionicka premazna sredstva
+7321;osnovna alkidna premazna sredstva
+7322;osovna epoksiestarska premazna sredstva
+7323;osnovna epoksidna premazna sredstva
+7324;osnovna hlorkaucuk premazna sredstva
+7325;osnovna vinilna premazna sredstva
+7326;osnovna silikatna premazna sredstva
+7327;osnovna bitumenska premazna sredstva
+7328;osnovna poliuretanska premazna sredstva
+7329;specijalna osnovna premazna sredstva
+7331;alkidna medjupremazna sredstva
+7332;epoksiestarska medjupremazna sredstva
+7333;epoksidna medjupremazna sredstva
+7334;hlorkaucuk medjupremazna sredstva
+7335;akrilna medjupremazna sredstva
+7336;vinilna medjupremazna sredstva
+7337;bitumenska medjupremazna sredstva
+7338;poliuretanska medjupremazna sredstva
+7339;ostala medjupremazna sredstva
+74;razredjivaci i odmascivaci
+741;razredjivaci za premazna sredstva
+742;odmascivaci
+749;ostali razredjivaci i odmascivaci
+7411;razredjivaci za jednokom. prem. sredstva
+7412;razredjivaci za dvokomp. prem. sredstva
+7419;ostali razredjivaci
+74111;razredjivaci za hlorkaucuk sistem
+74112;razredjivaci za alkidni sistem
+74113;razredjivaci za epoksiestarski sistem
+74114;razredjivaci za vinilni-akrilni 1k sistem
+74116;razredjivaci za nitro sistem
+74117;razredjivaci za protivpozarni sistem
+74119;ostali razredjvaci za jednokomp prem. sred.
+74115;razredjivaci za silikonski sistem
+74121;razredjivaci za sop-prajmer 2k
+74122;rezredjivaci za epoksidni sistem
+74123;razredjivaci za vos-prajmere 2k
+74124;razredjivaci za poliuretanski sistem
+74125;razredjivaci za akrilni 2k sistem
+74126;razredjivaci za silikatni sistem
+74127;razredjivaci za poliester sistem
+74129;ostali razredjivaci za dvokomp. prem. sred.
+7413;specijalni razredjivaci
+74131;razredjivaci za pranje alata
+74132;razredivaci za skidanje stare boje
+74133;razredjivaci za uklanjanje kamenca iz instal.
+74139;ostali specijalni razredjivaci
+5551;elektromag. kocnice, spojnice ...
+5552;el.ventili...
+7314;sredstva za fosfatizaciju
+1719;odlivci bez kvaliteta( ?)
+5559;razni elektro dlovi mas. i post.(pripor,kleme...
+7341;zavrsna alkidna premazna sredstva
+7342;zavrsna silikatna premazna sredstva
+7343;zavrsna epoksidna premazna sredstva
+7344;zavrsna hlorkaucuk premazna sredstva
+7345;zavrsna akrilna premazna sredstva 1k i 2k
+7346;zavrsna vinilna i vinil-akrilna prem. sredstva
+7347;zavrsna bitumenska premazna sredstva
+7348;zavrsna poliuretanska premazna sredstva
+7349;silikonska i ostala zavrsna prem. sredstva
+5421;akumulatori za industriju
+5422;akumulatori za automob. ,kamione ...
+4231;folije
+362;zupcanici,caure...
+363;vratila,rez.delovi za vratila,viljuske
+3631;vratila(osovine)
+3632;rezervni delovi za vratila
+3722;delovi za ugradnju - valjci i sl.
+7421;odmascivaci na bazi rastvaraca
+7422;odmascivaci na bazi naftnih derivata
+7423;odmascivaci na bazi deterdzenata
+7429;ostali odmascivaci
+75;lepkovi,kitovi,sredstva za zaptiv. i izolaciju
+751;lepkovi
+752;sredstva za zaptivanje
+753;kitovi u antikorozionim sistemima
+754;sredstva za hidro i zvucnu izolaziju
+7511;neoprenski jednokomponentni lepkovi
+7512;neoprenski dvokomponentni lepkovi
+7513;epoksidni dvokomponentni lepkovi
+7514;cijano-akrilni jednokomponentni lepkovi
+7515;polivinil-acetatni lepkovi(za drvo)
+7516;poliuretanski dvokomponentni lepkovi
+7519;ostali lepkovi
+7521;trajno elasticna zaptivna srdstva
+7522;trajno plasticna zaptivna sredstva
+7531;poliester dvokomp. brzosusivi kit
+7532;poliester dvokomp. sporosusivi kit
+7533;epoksidni dvokomp. kit
+7534;nitro jednokomp. kit
+7535;alkidni jednokomp. kit
+7536;uljani jednokomp kit
+7537;akrilni jednokomp. vodorastvorni kit
+7539;ostali kitovi za antikorozivne sisteme
+7541;sredstva za hidro izolaziju
+7542;sredstva za zvucnu izolaziju
+7549;ostala sredstva za izolaciju
+75411;bitumenske trake na papiru,platnu i plastici
+75412;bitumenske mase za hidroizolaziju
+75413;bitumenske trake sa staklenom armaturom
+735;specijalna premazna sredstva
+7351;prem. sredstva za privremenu zastitu
+7352;prem. sredstva u prahu (elektrostatska)
+7353;protivpozarna prem. sredstva
+7354;premazna sredstva u gradjevinarstvu
+7355;premazna sredstva za drvo
+7356;premazna sredstva za industrijske podove
+7357;premazna sredstva za pecenje
+7359;ostala specijalna premazna sredstva
+73511;nesusiva prem. sred. za konzerviranje
+73512;susiva prem. sred, za konzerviranje
+73513;antikorozivna ulja za fine uredjaje
+73514;antikorozivna ulja za oruzje i orudje
+73515;susiva prem. sred. za obojene metale
+73516;susiva prem. sred. za ofarbane met. povrsine
+73517;prem. sred. za konzerviranje u namen. programu
+73519;ostala sredstva za konzerviranje
+73521;epoksidna prem. sred. u prahu
+73522;epoksiestarska prem. sred. u prahu
+73523;polestarska prem. sred. u prahu
+73529;ostala prem. sred. u prahu
+73531;sinteticka protivpozarna prem. sred.
+73532;neorganska protivpozarna prem. sred.(vodorast.)
+73539;ostala protivpozar. prem. srdstva
+73591;prmazna sredstva protiv obrastaja
+73592;slovopisacke boje i boje za obelezavanje
+73599;ostala specijalna premazna sredstva
+4721;koks,ugalj i sl.
+4722;materijali za ter. obradu i sl.(katalizator...)
+365;kleme
+364;zapt.met.prstenovi,cepovi...
+3642;zaptivi met. prstenovi,dist.prst...
+631;pripor za odrzavanje cistoce(metle,cetke...)
+6311;metle
+6312;cetke
+632;sredsva za odrzavanje higijene(sapuni,paste...)
+6321;pasta za ruke
+5113;delovi elektromotora i prateca oprema
+3721;got.pr.-kasete,rasps.ulja,redukt.,kabine,vrata..
+3723;delovi za ugradnju... gibanj, karika....
+1294;zica-armaturna mreza
+1295;zica-sito mreza
+333;podmazivaci,pumpe,meraci.regulatori...
+3331;podmazivaci
+3333;pumpe
+3334;regulat.,meraci prot.gasa,kompresori,razdel.gasa
+3335;prikljucne table,ploce i sl.
+18;Elektrode, elektrodni materijal i uredj. (rez.de
+181;Oblo`ene elektrode za runo elektrolu~no zavariva
+1811;Celulozne, rutilne i kisele oblo`ene elektrode
+1812;Rutilne visokoproduktivne elektrode
+1813;Bazi~ne elektrode za ugljeni~ne i niskolegirane
+1814;Bazi~ne niskolegirane elektrode za zvar.finozrni
+1815;Sred. i visokoleg. baz. ele. za ~el. otporne na
+1819;Ostale specijalne elektrode
+182;@ice za zavarivanje u za[titnoj atmosferi
+1816;Bazi~ne i rutilne elektrode za ner\aju]e i visok
+1817;Ele. za tvrdo nav.i spe.  ele. za tvrda nav. otp
+1818;Elektrode za zavarivanje livenih gvo`\a (sivog l
+184;Pra[kovi za zavarivanje
+1841;Pra[kovi za ugljeni~ne i konstrukcione ~elike
+1842;Pra[. za niskoleg.,legirane i mikroleg. rinozrne
+1843;Pra[kovi za visokilegirane i ner\aju]e ~elike
+185;@ice za TIG postupak
+1851;@ice za TIG postupak za ugljeni~ne i konstr.~eli
+1852;@ice za TIG postupak za legirane ~elike
+1821;@ice za zavarivanje ugljeni~nih i konstrukcijski
+1822;@ice za zav. u za[t. atm. niskoleg. finozrnih i
+1823;@ice za zav. u za[t. atm. ner\aju]. i visokoleg.
+183;@ice za zavarivanje pod pra[kom
+1831;@ice za zav. pod pra[kom za ugljeni~ne ~elike
+1832;@ice za zav. pod pra[kom za niskolegirane ~elike
+1833;@ice za zav. pod pra[kom za visokoleg. i ner\aju
+1853;@ice za TIG postupak za visokolegirane i ner\aju
+186;Punjene `ice za zavarivanje u za[titnoj atmosfer
+1861;Punjene `ice za zavarivanje ugljeni~nih i konstr
+1862;Punjena `ica za zavar. niskoleg., legiranih i mi
+1863;Punjene `ice za zavar. visoko legirani i ner\aju
+1871;ELEKTRODA ZA `LJEBLJENJE(GRAFITNE,ARC-AIR)
+1881;Topitelji za oksi-acetilensko zavarivanje
+18811;BORAKS
+1882;Sprej za lak[e uklanjanje bobica
+18821;ESAB sprej
+18822;"""HIGH TECK"" sprej"
+1885;Bolcnovi
+1886;Kerami~ki prstenovi
+189;Ostali proizvodi
+188;pomocni i dodatni materijal za zavarivanje
+187;elektrode za zljebljenje(grafitne,ARC-AIR)
+81;rezervni delovi
+82;potrosni materijal
+811;rezervni delovi za aparate za zavarivanje
+8111;rervni delovi za zavarivanje(KEMPY)
+8112;univerzalni delovi za sve aparate
+8119;maske,klesta za zav.,drzaci za masu...
+81191;klesta za zav.,stez.mase,spojke kabl.,tobolac...
+81121;dizne, mlaznice ,vodjice ,sobe...
+81192;maske za zavarivanje
+81122;polikabli , creva za zav. ,sajle, krivi vrat..
+81123;rezervni delovi za zavarivanje(Elektro)
+3724;eht podizaci,esm podizaci...
+3725;lancanici
+81124;ostali delovi za aparate za zav.(tockici,bravice
+3733;rez.delovi za prevozna sredstva
+3726;dizalice.uredjaji za dizanje....
+4152;KAIS PLJOSNATI
+3227;valjci za lezaj
+5331;FILTERI ZA ELEKTRO SVRHE
+3714;gazista sa zicom
+3715;ograde , ravne platforme ,stepeniste
+37111;gazista lim-lim pocinkovana
+37112;gazista lim-lim crna
+37121;gazista sa istegnutim met.pocink.
+37122;gazista sa istegnutim met.crna
+37141;gazista sa zicom pocinkovana
+37142;gazista sa zicom crna
+3336;meraci i kontrolnici ulja
+3332;AGREGATI ZA PODMAZIVANJE
+52351;nozasti i ultrabrzi osiguraci
+52352;cevasti osiguraci
+52359;patroni,postolja,osnove,kape,kuc.(za osigurace)
+37151;ograde
+37152;ravne platforme
+32213;uskocnici po crtezu
+4175;caure gumene
+3434;sklopke za vodu
+621;protivpoz.aparati
+3727;komandni pultovi....
+5691;senzori...
+3933;zastitnici,kutije,poklopci,kadice...
+3551;stezaci(stege)
+3552;drzaci
+3435;sifoni za lav.,sifoni ostali...
+3337;kucista cel.opsega...
+5521;pretvaracki uredjaji i za napajanje
+5522;meraci i merni instrumenti
+5611;ZADAVAC VR. ,MODULI ZA NAPAJANJE...
+5617;enkoderi (davaci)
+5591;kocioni otpornici pogona
+568;sklopovi za elektroniku
+5682;industrijski kontroleri
+5683;ultrazvucne glave
+5692;alarmi,uredjaji za prer,vode....
+592;oprema za posebne porudzbine(nejasno)
+5264;kucista elektrour.
+5263;poklopci za kuc.,orm.,brave,krovni filtri...
+6313;kante
+5131;transformatori(trafoi)
+5851;sirene
+4225;sifoni plasticni
+3934;gromobrani,oluci...
+4354;ostali izolacioni materijal
+4353;pur-pena
+4334;sintetic.proizv.-kofil filtri,creva trevira...
+4274;vezice
+4355;izolacione trake
+3931;tablice
+3932;epruvete
+821;kancelarijski materijal
+822; razni potrosni materijal
+5121;agregati
+52353;automat.osiguraci
+52354;vicman
+5312;izolacioni nosaci-bakelitni
+5311;izolatori klasicni
+5636;pribor- grec ispravljaci
+5216;uzad,pletenice...
+5631;diode
+5632;tiristori
+5634;triaci
+5635;diaci
+567;integralna kola ,memorije..
+5641;potenciometri
+5642;otpornici
+566;magnetske kompnente
+5671;integralna kola
+5672;mikroprocesori
+5673;memorije
+5674;delovi za IC (podnozja,kucistya.. )
+5621;kodezatori keramicki i ostali
+5622;kodezatori elektrolitski
+3338;razni delovi za hidrauliku,SKLOPOVI...
+5651;el. mag. kartice
+5652;stampane ploce(prazne)
+5261;kutije razvodne
+5262;ormari razvodni
+3633;viljuske
+3622;caure
+5811;altenatori,alnaseri,regl.,osig.,pribor...
+5271;utikaci
+5272;uticnice-prikljucnice
+57;elektricni merni istrumenti
+571;elektricni mer. istr. za merenje napona.struje..
+5711;voltmetri
+5722;ampermetri
+1526;nosac Z
+5553;irc
+5831;ampule ulja
+5841;releji
+5842;pribor za rel.
+3634;poluge,klackalice...
+3621;zupcanici
+3914;sarke
+5554;nosac napona, drzac kosog polozaja,regulatori...
+5675;tastature rac., zvucnici,racunari...
+5712;ampermetri
+3513;lanci u sklopu sa drugim delovima
+52355;topljivi osiguraci
+3915;okov-ostalo
+399;gotova roba-nerazjasnjenja
+7529;smese za zaptivanje ostalo
+499;nemetali ostalo-nerazjasnjeno
+5523;pribor za merace,pret.uredj.iuredj.za napajanje
+18823;ESAB SPREJ
+5679;softveri
+5676;operatvni paneli i sl..
+595;razni mas. delovi za ELEKTRO uredjaje
+5951;delovi za IPSEN pec
+4357;proizvodi od sundjera
+5952;merne letve,ploce ... za ELEKTRO
+5291;stubovi,konzole,ucvrsci,energ.lanci...
+5689;RAZNI ELEKTRONSKI DELOVI ZA APARATE
+3729;razni got.delovi i sklopovi za ugradnju
+4271;kape plasticne za vijke
+4272;umetci plasticni
+4273;tipli plasticni
+4279;komponente plasticne ostalo(oznake,         )
+352;navrtka zatezna
+6322;sapuni
+4913;cement,pesak...
+3228;plocica-podlozni prsten
+7911;ostali hem. proizvodi
+4531;drvena lamperija
+4642;staklena tkanina
+5242;DVOPOLNE PRIKLJUCNICE
+5269;kutije instal.-ostalo
+4232;PLASTICNA PLATNA
+4233;VRECE PLASTICNE
+5491;UREDAJI ZA BATERIJE...
+454;PROIZV.OD PRERADENOG DRVETA
+4541;IVERICA
+3144;blok zakovice,suplje...
+3145;zakovice po skici
+4591;drveni modeli
+4343;PAPIRNE TRAKE I ROLNE
+8113;UREDAJI ZA ZAV.(dodavac zice-miroks
+1891;APARATI ZA ZAVARIVANJE
+3427;hidranti ipribor za hidrante
+622;pribor za protivpozar.aparate
+3439;ostali vodoinstal.mater.
+5719;rez.delovi za mer.inst.za mer.napona struje
+83;netipicna prateca oprema koja ide uz proizvod
+831;prateca dokumentacija(crtezi,standardi,diskete.)
+3339;hidraul.mat.za posebne porudz.
+5681;radio komande
+5684;antene
+5132;GENERATORI
+64;zdravstvena zast.sredstva
+641;apoteke,lekovi...
+3728;MASINE-KOMPLET
+4176;GUMENI UMETCI
+5643;delovi otpornika.potenciometra
+1892;materijali za lemljenje
+3433;VODOMERI
+3213;zglobne glave
+34133;PRIBOR ZA VENTILE I REDUCIRE
+4643;stakla za prevozna sred,-sofersajbne...
+5991;dokumentacija i standardi
+3939;razna metalna gotova roba
+5133;pribor za tranformatore i generatore
+5391;EL.IZOLAC.PROSTIRKE
+4911;SILICA GEL
+4912;MODELI OD VOSKA
+4914;KERAMIKA
+491;CEMENT,VOSAC,KREC,KERAMIKA...
+8114;REZ.DELOVI ZA APAR.ZA UPUCAVANJE BOLCNOVA
+3328;napajaci
+3329;razvodnici
+34134;NAVIJCI
+5592;VIBRATORI
+6323;DETERDZENTI
+583;KLEME, AMPULE
+5832;KLEME
+587;ELEKTRICNI PREK.
+5871;PREKIDACI
+3935;NOSACI,PRODUZETCI,POLUTKE CEVI...
+5713;UNIVERZALNI MERNI INSTRUMENTI
+1191;LIMOVI-RF
+4542;LAMPERIJA
+3613;OPRUZNI PRSTEN
+5693;MONITORI,KAMERE -sa pratecom opremom
+5699;RAZNI ELEM.ZA ELEKTRONIKU I TELEKOMUN.
+3319;OSTALI DELOVI(mlaznice...
+5292;RAZNI ELEMENTI ZA MONTAZU
+642;ostala prema za apoteke i zdras. zastitu
+1529;nosaci -ostalo
+4335;konac za sivenje
+5812;KABLOVI
+3734;REZERVNI DELOVI ZA TERM.OBRADU
+4712;ostali mater.za peskarenje-GRIT,...
+3149;zakovice ostale
+4358;pluta
+4164;gume za transportna sred.-kompleti
+4515;FOSNE
+37153;stepeniste
+629;vatrogasna zastitna sred.-ostalo
+4644;CREVA OD FIBER-GLASA
+4251;plasticni elementi po crtezu
+3214;specificni lezajevi-po crtezu
+4543;LESONIT
+3623;DOBOSI
+2;ALAT I PRIBOR
+21;rezni alat i pribor za rez. alat
+218;izmenljive plocice,nosaci plocica i rez. delovi
+2181;izmenljive plocice
+21811;izm.ploc. od tm za strug. i univerzalne
+21812;izm ploc. od tm za glodanje
+21813;izm.ploc. od tm za busenje
+21815;izm.ploc. od keramike
+21819;izm.ploc. od tm za strug. ostalo
+2182;nosaci plocica
+21821;nosaci plocica(sistem pritezanja polugom*i vijko
+21829;nosaci plocica ostalo
+2185;...
+2186;...
+2189;izm.ploc. ostalo
+211;rezni alat za glodanje
+2111;glodala nasadna
+21111;"glodala nas. testerasta(JUS K.D2.150,151,160;DIN"
+21112;"glodala nas. valjkasta(JUS K.D2.020,025;DIN 884,"
+21113;glodala nas. ceona(JUS K.D2.021,022,023,024,030.
+21114;glodala nas.kotur.(JUS K.D2.040,041,042,043,045,
+21115;glodala nasadna za zljebove(JUS K.D2.049)
+21116;glodala nas.ugaona (JUS K.D2.070.071,072,073,074
+21117;"glodala nas. polukr.,..(JUS K.D2.080,081,084;DIN"
+21118;glodala nasadna u garnituri
+21119;glodala nasadna ostalo
+2112;glodala sa drskom
+21121;"glodala vreten. sa VD drskom(JUS K.D2.090,095;DI"
+21122;"glodala vreten. sa MK drs.(JUS K.D2.092,096,097;"
+21123;glodala vret.za tesku obr.sa um.,iz pl.(G.425,43
+21124;glodala sa drs. za zljeb.(JUS K.D2.110,111,112,1
+21125;glodala sa drs.za t-zljeb.(JUS K.D2.138,140,141)
+21126;glodala sa drskom ugaona(JUS K.D2.145 * DIN 1833
+21128;glodala sa drskom u garnituri
+21129;ostalo
+2113;glodacke glave
+21131;glodacke glave sa promenljivim plocicama(FRESKOP
+21134;glodacke glave sa nozevima(za istrugivanje,VHU,V
+2114;glodala rotaciona (BIAX)
+21141;rotaciona glodala  od hss
+21142;glodala rotaciona od tm
+2115;odvalna glodala za ozljebljenje   ?
+21151;odvalna glodala za ozljebljenje standardna
+21152;odvalna glodala za ozljebljenje specijalna
+2116;nastavci - poceci glodala
+2117;nozevi za glodacke glave i busne motke
+21171;nozevi za za glodacke glave
+21172;nozevi za busne motke
+21173;nozevi za glave za razbusivanje
+21174;nozevi za glave za istrugivanje
+2119;rezni alat za glodanje ostalo
+212;rezni alat za busenje i obradu otvora
+2121;burgije
+21211;burgije sa valjkastom drskom minjaturne
+21212;burgije sa VD normalne (kratke)JUS K.D3.020*DIN
+21213;burgije sa VD duge+vrlo duge(J-K.D3.021,045*D-34
+21214;burgije sa MK drskom normalne(JUS K.D3.022*DIN 3
+21215;burgije sa MK d.duge+v.duge(J-K.D3.024,046*D-341
+21216;burgije sa plocicama od TM materijala
+21218;burgije stepenaste i za konicna busenja
+2125;prosirivaci
+21251;prosirivaci od hss
+21252;prosirivaci od tm
+21253;prosirivaci sa plocicama od tm
+2123;razvrtaci
+21231;razvrtaci rucni( JUS K.D3.121)
+21232;razvrtaci mas. sa valj. drskom (JUS K.D3.130,131
+21233;razvrtaci mas.SA MK drskom (JUS K.D3.132)
+21234;razvrtaci mas.  ceoni za kor. bus.(JUS .D3.135)
+21235;razvrtaci masinski nasaadni (JUS K.D3.170)
+21236;razvrtaci mas sa MK za rupe zako. (JUS K.D3.201)
+21237;razvrtaci KONICNI
+21238;razvrtaci masinski razni,po crt. i sl.
+2124;upustaci
+21241;"upustaci spiralni(J-300,302,303*DIN 344,3;1863,4"
+21242;upustaci ceoni ( JUS 310,311* DIN 373,375)
+21244;"upustaci konicni(JUS 321,3,6 * DIN 334,5;347)"
+21245;upustaci nasadni(J-340,1* DIN 222)+Drzaci,vodjic
+2122;zabusivaci
+21221;zabusivaci od 60 stepeni
+21222;zabusivaci od 60/120 stepeni
+21223;zabusivaci..
+2126;krune za dubinsko busenje
+2127;r. alat za busenje i obradu otvora specijalni
+21271;r. alat za busenje i obradu otvora standardni
+21272;r. alat za busenje i obradu otvora nestandardni
+213;rezni alat za rezanje navoja
+2131;ureznici
+21311;ureznici rucni za M-navoj (DIN 352,2181)
+21312;ureznici rucni za sve navoje osim M-navoja(DIN 3
+21313;ureznici masinski za M-navoj(DIN 376,371,374,352
+21314;ureznici mas. za sve navoje osim M-nav.(DIN 374,
+21315;ureznici masinski za navrtke(JUS K.D3.040)
+21319;rezni alat za unutrasnji navoj ostalo
+2132;nareznice
+21321;"nareznice okrugle za M-navoj(JUS K.D6.200;DIN 22"
+21322;"nareznice okrugle za M-navoj(fini)(JUS K D6.201;"
+21323;nareznice okrugle za sve navoje osim M-navoja
+21325;nareznice sestougaone
+21326;nareznice okrugle zvocaste za automate
+214;rezni alat za struganje
+2141;nozevi sa izmenljivim plocicama
+21411;nozevi sa izm.plocicama sa stezanjem kroz otvor
+21412;nozevi sa izm. plocicama i stezanjem odozgo
+21413;nozevi sa izm. plocicama  sa st. kroz otvor i od
+21414;nozevi sa izm. tangencijalnim plocicama
+21415;nozevi sa izm. plocicama za obradu zljebova
+21416;nozevi sa izm. plocicama sa modularnim prihvatom
+21417;nozevi sa izm. plocicama i okruglom drskom
+21419;nozevi sa izm. plocicama  ostalo
+2142;nozevi sa lemljenim plocicama
+21421;nozevi sa lemlj. plocicama pravi(JUS K.C1.051,05
+21422;nozevi sa lemlj. plocicama savijeni(JUS K.C1.052
+21425;nozevi sa lemlj. pl.za usecanje i ods.(JUS K.C1.
+21424;nozevi sa lemlj. plocicama za unut. obradu(JUS K
+21423;nozevi sa lemlj. plocicama za bocnu obradu(JUS K
+21426;nozevi sa lemlj. plocicama za navoj (JUS K.C1.06
+21427;nozevi sa lemljenim plocicama sa okruglom drskom
+21429;nozevi sa leljenim plocicama ostalo
+2143;nozevi od brzoreznog celika
+21431;nozevi od brzoreznog cel. sa kvadratnim presekom
+21432;nozevi od brzoreznog cel. sa pravougaonim presek
+21433;nozevi od brzoreznog cel. sa trouglastim preseko
+21434;nozevi od brzoreznog cel. sa trapeznim presekom
+21435;nozevi od brzoreznog cel. sa okruglim presekom
+21436;nozevi od brzoreznog cel. specijalnog oblika
+21438;nozevi od brzoreznog cel. obradjen na radni obli
+21439;nozevi od brzoreznog celika ostalo
+2146;nozevi dijamantski
+2149;ostalo
+215;rezni alat za testerisanje i provlacenje
+2151;testere masinske
+21511;testere masinske kruzne jednodelne
+21512;testere masinske kruzne sa izmenljiim zub. i seg
+21513;testere masinske lisnate
+21519;testere masinske ostalo
+21521;testere rucne lisnate - jednostrano ozubljene
+21522;testere rucne lisnate - dvostrano ozubljene
+21529;testere rucne ostalo
+2155;provlakaci
+21551;provlakaci standardni
+21552;provlakaci specijalni
+21559;provlakaci ostalo
+2159;rezni alat za testerisanje i provlacenje ostalo
+216;rezni alat za brusenje,glacanje i poliranje
+2161;brusne ploce(FLEX)
+21611;brusne ploce za brusenje i ostrenje
+21618;brusne ploce za secenje metala
+21617;brusne ploce za ostrenje spec. alata (glodala za
+21612;brusne ploce za sec. metala
+21614;brusne ploce dijamantske
+21619;ostalo
+2162;brusevi,tocila , obruci i lonci
+21613;brusne gumirane ploce(Fiber diskovi)
+21622;brusevi za unutrasnje brusenje
+21629;brusevi dijamantski,tocila
+21651;papir brusni u tabacima
+21652;papir brusni u rolnama
+21653;platno brusno u tabacima
+21639;rezni alat za brusenje ostalo
+2165;alat za brusenje od papira
+21661;ploce od filca
+21662;ploce od krpa
+21663;ploce od vune
+21666;filcani cepovi sa drskom
+21669;alat za brus.i poliranje(prah za brus. ,paste...
+2168;poravnjivaci brusnih ploca
+21681;poravnjaci brusnih ploca sa ugradjenim dijamant.
+21682;poravnjaci brusnih ploca sa tockicima
+21683;poravnjaci brusnih ploca od brusnog materijala
+21684;poravnjaci brusnih ploca od impregniranog dijam.
+21689;poravnjaci brusnih ploca ostalo
+2169;alat za brusenje (drzaci br. ploca ...)
+217;rezni alat za ozubljenje
+2171;rezni alat za ozubljenje glodanjem
+21711;glodala modulna odvalna
+21712;glodala modulna plocasta
+2172;rezni alat za ozubljenje rendisanjem
+21721;kruzni zupcasti nozevi, plocasti
+21722;kruzni zupcasti nozevi zvonasti
+21729;alat za ozubljenje rendisanjem ostalo
+2175;specijalni alat za ozubljenje i pribor
+21751;nozevi za konicno ozubljenje sa pravim zubima
+21752;nozevi za ciklopaloidno ozubljenje
+21753;glave za ciklopaloidno ozubljenje sa ume
+21759;specijalni alat za ozubljenje ostalo
+219;pribor za stezanje reznog alat
+2191;stezne glave,podeone glave i podeoni stolovi
+2192;umeci i caure za stezne glave
+2193;trnovi ..
+21931;trnovi kratki
+21932;trnovi dugi
+21934;trnovi osnovni
+21935;trnovi....
+21936;trnovi za specijalne namene
+2194;reduciri i nastavci
+2195;busne motke i specijalne glave
+2196;nosaci alata
+2197;elementi za stezanje
+21922;elasticne caure za sigurnosne stezne glave
+2198;siljci i vrhovi za siljke
+22;merni,konrolni alat ,istrumenti i merila
+221;merni i kontrolni alat
+2211;pomicna merila
+22111;pomicna merila univererzalna(subleri)
+22114;pomicna merila digitalna i pom. merila sa satom
+22116;pomicna merila za zupcanike(zubomeri)
+22119;pomicna merila ostalo
+2212;mikrometri
+2215;kontrolni cepovi
+22151;kontrolni cepovi glatki
+22152;kontrolni cepovi navojni(mm -navoj)
+22159;mikrometri ostalo
+2218;paralelne krajnje mere,sabloni,etaloni...
+2219;merni stolovi,drzaci i ostali pribor za merenje
+222;...
+2221;kontrolni cepovi
+22211;kontrolni cepovi glatki
+22212;kontrolni cepovi navojni
+22213;kontrolni cepovi konusni
+22214;kontrolni cepovi podesavajuci
+22215;kontrolni cepovi za ozljeb.,po crtezu i sl. ...
+22216;kontrolni cepovi za ozubljenje
+22219;kontrolni cepovi ostalo
+2222;kontrolne racve
+2224;kontrolni stapovi
+2225;kontrolne kuglice
+22181;etaloni(paralelne krajnje mere)
+22182;sabloni
+22184;kontrolne sipke
+22189;etaloni ostalo
+223;merila za uglove,duzinu,obelezavanje i polozaj
+2231;uglomeri i ugaonici
+22311;uglomeri
+22312;ugaonici
+2232;lupe,prizme,libele
+2239;merila ostalo
+224;istrumenti za merenje vremena,br. obrtaja,buke..
+2241;hronometri
+2242;stoperice
+2243;meraci broja obrtaja
+2244;brojaci impulsa
+2249;istrumenti za merenje vremena i broja obr. ostal
+225;istrumenti za merenje pritiska i temperature
+2251;reducir ventili,manometri...,razni meraci
+2252;barometri
+2253;pirometri
+2254;termometri
+2259;istrumenti za merenje pritiska i temperature ost
+226;istrumenti za merenje elktricnih velicina
+2261;ommetri
+2262;ampermetri
+2263;voltmetri
+2266;univerzalni pribor za merenje el. velicina
+2269;istrumenti za merenje el. velicina ostalo
+227;istrumenti za merenje mase i sile
+2271;terazije
+2272;vage
+2273;dinamometi
+2278;tegovi
+2279;istrumenti za merenje mase i sile ostalo
+229;merni istrumenti ostalo
+23;stezni alat i pomocni pribor
+21981;siljci monolitni(iz jednog dela)
+21982;siljci okretni
+21983;siljci hidraulicni-stezni
+21984;siljci zupcasti hidraulicni-vucni
+21987;vrhovi za siljke
+21971;sape
+21972;vijci za stezanje
+21973;stezni ulosci za t-zljebove
+21974;stezaci kompletni
+21975;podmetaci i podupiraci
+21976;stezne celjusti
+21977;cepovi za centriranje okrugli
+21979;elementi za stezanje ostalo
+24;alati za obradu metala deformisanjem
+241;alati za obradu lima
+2411;alati za obradu lima odvajanjem materijala
+2412;alati za obradu lima savijanjem
+2413;alati za obradu lima izvlacenjem
+2414;alati za obradu lima oblikovanjem
+2415;alati za obradu lima kombinovanim operacijama
+2416;alati za obradu lima sklapanje delova hlad. obr.
+2418;alati za obradu lima - elementi alata
+24181;delovi konstrukcijskog karaktera
+24182;delovi tehnoloskog karaktera
+24183;pomocni elementi
+242;alati za kovanje
+2421;na cekicima
+2422;krivajnim presama
+2423;na frikcionim presama
+2425;alati za odsecanje (krzanje) venca
+2426;alati za probojanje danca na otkivcima
+2428;elementi alata
+2429;alati za kovanje ostalo
+243;alati za valjanje
+249;alati za valjanje ostalo
+25;alati za livenje i sinterovanje
+251;kalupi za livenje
+255;kalupi za livenje
+258;modeli za livenje
+2581;modeli za livenje za celicni liv
+2582;modeli za livenje za sivi liv
+2585;modeli za livenje za aluminijum i legure
+2586;modeli za livenje za bakar i legure
+2589;modeli za livenje ostalo
+259;alati za livenje i sinterovanje ostalo
+27;alati za rucnu obradu
+271;rucni alat za hvatanje,stezanje,odvijanje....
+2711;klesta
+2713;odvijaci(srafcigeri)
+27131;odvijaci pljosnati
+27132;odvijaci krstasti
+27139;odvijaci ...
+2714;izvlakaci(radapcigeri)
+27141;izvlakaci dokraki
+27142;izvlakaci trokraki
+27143;izvlakaci..
+27151;stege rucne
+27152;stege masinske
+27153;....
+27154;..
+27155;strugarska srca
+27156;....
+27157;.
+27114;klesta kovacka
+27117;klesta za zicu
+27113;klesta za cevi univerz.(ROCANGLE)
+27116;klesta za uskocnike
+27115;klesta za mehanicarska,elrktricarska,stolarska..
+27112;klesta univrzalna(PAPAGJKE)
+27111;klesta kombinovana(MOTORCANGLE)
+27119;klesta za nitovanje,sl...
+27121;kljucevi otvoreni(viljuskasti)
+27122;kljucevi okasti
+27125;klucevi nasadni
+27175;kljucevi podesavajuci
+27123;kljucevi cevasti
+27127;klucevi kombinovani
+27124;kljucevi imbus
+27126;kljucevi moment
+27311;turpije pljosnate
+27312;turpije poluokrugle
+27183;turpije okrugle
+27314;turpije trouglaste
+27315;turpije cetvrtaste
+27316;turpije specificnog oblika
+27317;turpije za testere
+27318;turpije u garnituri
+27319;Drske za turpije...
+272;rucni alat za udaranje,probijanje...
+2721;cekici
+2722;nakovanji
+2723;sekaci
+2724;probijaci
+2725;oblikaci
+2726;izbijaci
+2727;drzalice za alat
+2729;r...
+273;rucni alat za turpijanje,rezanje i sl.
+2731;turpije
+2732;makaze
+2733;testere rucne
+2734;razni rucni alat za rez. i sec
+2735;striper za blankiranje(noz)
+2737;sekire,krampovi...
+2738;r...
+2739;r..
+274;rucni alat za zavarivanje ,lemljenje,kaljenje i
+275;rucni alat (razne garniture)
+276;rucni alat za ciscenje i farbanje
+277;rucni alat za ambalaziranje i oznacavanje
+278;rucni alat za elekricarske radove
+279;elktricne rucne masine i druge naprave
+29;alat i pribor ostalo
+2234;merne trake,metri,lenjiri,..
+2236;sestari,obelezivzci,..
+2223;kontrolni prstenovi
+2217;...
+22113;dubinometri
+22121;mikrometri za unutrasnje merenje -stapasti
+22122;mikrometri za unurasnje merenje-dvokraki
+22123;mikrometri za unutranje merenje -trokraki
+22231;kontrolni navojni prstenovi
+22232;kontrolni prstenovi glatki, ...
+22341;merne trake,metri...
+22342;lenjiri
+22361;...
+22362;sestari
+22363;obelezivaci
+22321;lupe
+22322;libele
+22323;prizme
+22343;ploce za tusiranje
+22344;regleri za tusiranje
+22191;merni stolovi
+22192;merni stalci
+22185;mere za popunj.(merni listici,merac pukotina)
+22541;termometri ...
+22542;termometri digitalni
+22431;brojaci obrtaja...
+2245;fonometri
+22451;fonometri...
+21217;burgije za nemetale(beton,kamen,drvo...)
+2133;navojna glodala,navojne glave
+2134;navojni nozevi
+2135;pribor za rezni navojni alat
+21351;okretaci nareznica
+21352;okretaci ureznika
+21331;glodala valjkasta za metricki navoj
+21332;glodala koturata za trapezni navoj(JUS K.D2.135*
+21714;glodala plocasta za lancanike
+21715;glodala plocasta za ozljebljenje
+21717;glodala konusna odvalna za paloidno ozubljenje
+21716;glodala za ozljebljenje(modulna i odvalna)
+21718;glodala prstasta za cilindricne zupcanike
+2712;kljucevi
+2761;cetke
+2771;celicna slova i brojevi
+2772;zumbe
+2773;strugaci za sanduke
+2164;turpije brusne i belegije
+2166;alat za poliranje
+2147;nosaci(drzaci) strugarskih nozeva
+21713;glodala odvalna za lancanike
+21719;glodala puzna za puzne zupcanike
+27211;cekici bravarski,rucni
+27212;cekici drveni,plasticni,gumeni i sl.
+2715;stege(mengele)
+27331;listovi za testere rucne
+27332;ramovi za testre rucne
+27333;testere rucne komlet
+27321;makaze za lim rucne
+27322;makaze...
+27231;sekaci pljosnati
+2728;rucni alat za obelezavanje
+27281;igle za obelezavanje
+27282;kirneri i paralelni obeleziv.
+27711;celicna slova
+27712;celicni brojevi
+27721;zumbe...
+27731;strugaci za sanduke kasikasti(trouglasti)
+2741;rucni alat za ...
+2742;rucni alat za lemljenje
+27421;el. lemila
+2743;rucni alat za zavarivanje gas. secenje,kaljenje
+27431;plamenici(breneri) za zavarivanje,grejanje...
+2791;busilice
+2792;brusilice
+27911;busilice elektricne
+27912;busilice pneumatske
+27921;brusilice elektricne
+27922;brusilice pneumatske
+2799;razne naprave za podmazivanje,podizanje...
+27991;mazalice
+21723;kruzni zupcasti nozevi sa drskom
+2775;aparati za amalaziranje i rezevni delovi za amal
+27751;aparati za ambalaziranje
+27714;elektropisaljke i pneum. pisaljke
+27611;cetke celicne
+27612;cetke...
+2763;pistolji za farbanje,silikon...,aparati
+27631;pistolji za farb., i razzni aparate za boj. i su
+27632;pistolji za silikon
+2793;testere
+27931;testere elektricne
+2794;uvrtaci pneumatski,odvijaci...
+27941;uvrtaci pnematski
+2798;razne rucne masine
+27981;aparati za savijanje cevi
+27982;masine za rezanje navoja
+22186;etaloni za kontrolu aparata za merenje tvrdoce
+21941;reducir caure sa MK prihvatom
+27983;makaze za lim(elktricne...)
+27992;hidraulicni agregat i hidr. cilindri
+21514;segmenti za testere
+21921;elasticne caure za stezne glave
+21923;umeci za brzostezuce glave
+21924;donosne caure
+27919;busilice ostalo(stalak za busilice...)
+27993;mlaznice
+2199;pribor kruna za dubinsko busenje
+21961;osnovni nosaci
+21963;nosaci alata za glodanje(cilindricni prihvat...)
+21943;nastavci promenljivi
+22193;merne kontrone ploce
+2246;uredjaji za merenje tvrdoce,naprslina...
+22461;uredjaji za merenje tvrdoce
+22462;uredjaji za nerenje naprslina
+22313;uredjaji za kontrolu geom. uglova
+2797;dizalice i naprave za hvatanje tereta
+27971;dizalice
+27972;lanci za dizalice
+27973;hvataljke za limove
+21621;brusevi profilni(na osovinici)
+21654;platno brusno u rolnama
+21911;stezne glave za busenje
+21913;stezne glave za struganje
+21915;stezne glave za istrugivanje
+21917;podeone glave i podeoni aparati
+21918;podeoni stolovi
+21641;turpije brusne
+21642;belegije
+21624;brusevi segmentni
+21625;brusni obruci i lonci
+21691;drzaci brusnih ploca
+21914;stezne glave za rezanje navoja
+2183;rezervni delovi za nosace i plocice
+21831;podloske
+21832;vijci
+21825;nosaci plocica specijalno izredjeni(po crtezu)
+27942;odvijaci pneumatski
+27943;cekici pnumatski
+21219;burgije u garnituri
+2213;uredjaji za un. merenje(subitori) i satovi
+2216;kontrolni prstenovi
+22112;visinometri
+22115;varomtri
+22117;pomicna merila(sestari sipkasti)
+22125;mikrometri za spoljasnje merenje-sa satom
+22126;mikrometri za spoljasnje merenje - za navoj
+22127;mikrometri za spoljasnje merenje - za zupcanike
+22128;mikrometri za sp. merenje(i unutr.)posebnih obli
+22131;ueedji za un. merenje(subitori)
+22132;merni satovi,komparateri...
+22124;mikrometri za spoljasnje merenje - standardni
+22129;mikrometri......
+22153;kontrolni cepovi navojni ( colovni navoj )
+22161;kontrolni navojni prstenovi (mm - navoj)
+22162;kontrolni navojni prstenovi (colovni navoj)
+22163;kontrolni prstenovi glatki
+231;stezne glave,podeone glave,podeoni stolovi,apara
+2311;stezne glave
+23111;stezne glave za busenje
+23112;stezne glave za struganje
+23113;stezne glave ...
+23114;stezne glave za rezanje navoja
+23115;stezne glave ...............
+2312;podeone glave,stolovi,aparati...
+23121;podeone glave
+23122;podeoni stolovi
+23123;podeoni aparati
+23124;podeoni diskovi
+232;caure za st.glave,trnovi,nosaci alata reduciri,n
+2321;caure za st. glave i umetci
+23211;caure za stez. glave
+23212;umetci za st. glave
+2322;reduciri i nastavci
+23221;reduciri,borstangle
+23222;nastavci
+2323;trnovi,nosaci alata..
+23231;trnovi
+23232;nosaci alata
+233;elenenti za stezanje i siljci
+2331;elementi za stezanje
+2332;siljci i vrhovi za siljke
+23311;sape
+23312;vijci za stezanje
+23313;stezni ulosci za T-zljebove
+23314;stezaci kompletni
+23315;stezne celjusti
+23316;podmetaci i podupiraci
+23317;cepovi za centriranje
+23321;siljci
+23322;vrhovi za siljke
+27713;pecati za ukucavanje
+27752;rezervni delovi za amalaziranje
+22187;etaloni za hrapavost...(rigotest),kontrolu vara
+27261;izbijaci..
+21833;ostali rezer.delovi za plocice..
+2719;ostali alat za hvatanje i stezanje
+27191;radle za stezanje stakla
+27192;set alalta za vadjenje vijaka
+27128;kljucevi kukasti
+27732;strugac za sanduke pljosnati i ost.
+27733;strugac za sanduke pneumatski
+27341;busilice rucne
+27283;sestari bravarski
+21710;modulna profilna glodala
+27984;rezac cevi
+2764;sudovi za boju,kadice..,
+27985;masina za brusenje parketa
+2765;lopatice(spaklne)
+27994;kantice za podmazivanje
+21246;upustaci spec(po crtezu)
+22324;VISAK
+27271;drzalice za cekice
+27432;gorionici (breneri) za gas. secenje
+27435;aparati za zavarivanje
+27433;plemenici i gorionici u garnituri
+27437;rezervni delovi za zavarivanje..
+22511;reducir ventili
+22512;manometar
+27232;sekac spicasti
+22661;unimetri
+27233;sekaci rucni
+27213;cekici(ravnjaci)
+27234;sekaci revolver
+27753;klesta za amalaziranje(za signodu)
+25436;goronik za vadjenje korena vara
+27436;gorinik za vadjenje korena vara
+27438;klesta varilacka,cekici
+27313;turpije okrugle
+27986;elktricni frezer za ob. ivica i rez.delovi
+27129;kljucevi neiskreci i razni specijalni kljucevi
+2291;uredjaj za merenje vibracija
+21132;glodacke glave sa promenljivim plocicama(MEDISON
+21335;glave za rezanje navoja
+21261;krune za dubinsko busenje
+27241;probijaci
+2751;garniture alata(odvijaci,kljucevi,klesta....)
+2752;torbe za alat,kasete za alat
+28;razni pribor i prirucni alat
+281;alat-elektro
+27439;maske za zavarivanje,stakla...
+27987;SEKATOR
+27251;oblikaci za nitovanje
+27284;dornovi za natezanje
+27371;sekire
+2767;maske za farbanje
+27521;torbe za alat
+27522;kasete za alat
+27999;razni delovi za hidrauliku......
+289;razni alat
+22513;merac protoka gasa
+27998;razni delovi za alat...(reduktori..)
+27552;kasete za alat
+27133;odvijaci nasadni
+27134;odvijaci(garniture raznih odvijaca)
+21626;brusevi lepezasti(na osovinici)
+21627;brusevi lamelni-diskovi(LBD)
+21623;brusevi za spoljasnje brusenje
+27422;vakum pumpice
+282;gradjevinski,zidarski,molerski alat
+2167;alat za ciscenje i brusenje /zicani,policlean,..
+21671;alat za ciscenje i brusenje zicani
+21672;alat za ciscenje i brusenje policlean
+27974;trake zapodizanje i prenos tereta
+27975;magneti za podizanje tereta
+27932;rez.del.za el.testere
+3127;navrke po crtezu
+3137;podloske po crtezu
+52171;buzir creva,sapa creva,cevi..
+52172;krajnji zavrsci kabla(papucice,hilzne,...)
+52174;veziv. materijal za kablove(vezice,obujmice,seln
+52175;oznake( oznake,markeri,natpisne ploce...)
+52173;delovi za uvod kabla(uvodnici,reduciri,adapteri,
+52176;konekcije(konektori,stipaljke,prikljucni element
+52177;kabl.razvod(kleme,krajnje i pregr.ploc,separator
+52178;nosaci,drzaci kabla,slep kabal,kabal kolica i de
+52179;kabl. glave,dobosi i ostali elektromontzni mater
+3428;Hidromehanicka opr. (sonde,pretvaraci,meraci...)
+4544;sper
+22188;digitalni uredj. za merenje debljine...
+22544;termo-hidro barometri...
+2292;uredji za merenje odstupanja(balansiranje)
+21515;testere za otvore u limu
+27929;rezervni delovi za brusilice(pn/el)
+2293;Uredjai za kontrolu kvaliteta premaza
+74134;Razredjivaci za protivpozarne boje
+22391;Geodetski instrumenti
+2776;Aparati i delovi za spajanje plast. folija
+27761;Aparati za spajanje plast. folija
+27762;Delovi za aparate za spaj. plast. folia
+3154;bolcni
+22545;razni uredjaji za merenje temperature
+4179;Razne gumene komponente
+27144;Navlakaci
+2294;uredjai za snimaje (kamere...)
+2295;uredji za merenje vibracija
+11614;cevi pocinkovane
+88888;NEDEFINISANIMATERIJALI

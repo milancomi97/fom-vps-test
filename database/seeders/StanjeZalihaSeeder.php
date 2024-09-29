@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use League\Csv\Reader;
 use Exception;
+use Illuminate\Support\Facades\Log;
 
 class StanjeZalihaSeeder extends Seeder
 {
@@ -22,28 +23,47 @@ class StanjeZalihaSeeder extends Seeder
 
         foreach ($datas as $data) {
             try {
-                DB::table('stanje_zalihas')->insert([
-                    'magacin_id'=>(int)$data['SM'],
-                    'sifra_materijala'=>(int)$data['SIFRA_Materijala'],
-                    'naziv_materijala'=>$data['NAZIV'],
-                    'dimenzija'=>$data['DIMENZIJA'],
-                    'kvalitet'=>$data['KVALITET'],
-                    'jedinica_mere'=>$data['JM'],
-                    'konto'=>$data['KONTO'],
-                    'pocst_kolicina'=>(int)$data['POCST_Kolicina'],
-                    'pocst_vrednost'=>(int)$data['POCST_Vrednost'],
-                    'ulaz_kolicina'=>(int)$data['ULAZKolicina'],
-                    'ulaz_vrednost'=>(int)$data['ULAZ_Vrednost'],
-                    'izlaz_kolicina'=>(int)$data['IZLAZKolicina'],
-                    'izlaz_vrednost'=>(int)$data['IZLAZ_Vrednost'],
-                    'stanje_kolicina'=>(int)$data['STANJE_Kolicina'],
-                    'stanje_vrednost'=>(int)$data['STANJE_Vrednost'],
-                    'cena'=>(int)$data['CENA'],
 
+                $existingMaterijal = \App\Models\Materijal::where('sifra_materijala', (int)$data['SIFRA_M'])->first();
+
+                // Ako materijal ne postoji, kreiraj ga sa minimalnim informacijama
+                if (!$existingMaterijal) {
+                    $existingMaterijal = \App\Models\Materijal::create([
+                        'sifra_materijala' => (int)$data['SIFRA_M'],
+                        // Ostali detalji nisu dostupni u CSV, postavljamo podrazumevane vrednosti
+                        'naziv_materijala' => 'Neodređen materijal',
+                        'category_id' => 88888, // Možeš staviti neki default ID kategorije, ako imaš definisano
+                        'standard' => null,
+                        'dimenzija' => null,
+                        'kvalitet' => null,
+                        'jedinica_mere' => null,
+                        'tezina' => 0,
+                        'dimenzije' => null,
+                        'sifra_standarda' => null,
+                        'napomena' => null,
+                    ]);
+                }
+
+
+                DB::table('stanje_zalihas')->insert([
+                    'magacin_id' => (int)$data['SM'], // Šifra magacina
+                    'sifra_materijala' => (int)$data['SIFRA_M'], // Šifra materijala
+                    'konto' => $data['KONTO'], // Konto
+                    'cena' => (float)$data['CENA'], // Cena
+                    'kolicina' => (float)$data['KOLICINA'], // Trenutna količina
+                    'vrednost' => (float)$data['VREDNOST'], // Trenutna vrednost
+                    'pocst_kolicina' => (float)$data['POCST_K'], // Početna količina
+                    'pocst_vrednost' => (float)$data['POCST_V'], // Početna vrednost
+                    'ulaz_kolicina' => (float)$data['ULAZK'], // Količina ulaza
+                    'ulaz_vrednost' => (float)$data['ULAZ_V'], // Vrednost ulaza
+                    'izlaz_kolicina' => (float)$data['IZLAZK'], // Količina izlaza
+                    'izlaz_vrednost' => (float)$data['IZLAZ_V'], // Vrednost izlaza
+                    'stanje_kolicina' => (float)$data['STANJE_K'], // Trenutna količina stanja
+                    'stanje_vrednost' => (float)$data['STANJE_V'], // Trenutna vrednost stanja
+                    'st_mag' => (float)$data['ST_MAG'], // Specifična vrednost u magacinu
                 ]);
 
-//            } catch (QueryException $exception ){ Ovako ovo radi
-            } catch (Exception $exception ){
+            } catch (Exception $exception) {
 
             }
 
@@ -52,7 +72,7 @@ class StanjeZalihaSeeder extends Seeder
     }
 
     public function getPartnerArray2(){
-        $filePath = storage_path('app/backup/StanjeZaliha.csv');
+        $filePath = storage_path('app/backup/materijalno_25_09_2024/STM.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

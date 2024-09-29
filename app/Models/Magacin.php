@@ -8,6 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Magacin extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'location'];
+    protected $fillable = ['sm','name', 'location'];
 
+    public function stanjeZaliha()
+    {
+        return $this->hasMany(StanjeZaliha::class, 'magacin_id');
+    }
 }

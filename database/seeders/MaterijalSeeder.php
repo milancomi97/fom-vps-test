@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use League\Csv\Reader;
@@ -19,23 +20,36 @@ class MaterijalSeeder extends Seeder
     public function run(): void
     {
         $materijals = $this->getPartnerArray2();
+        $errors=[];
 
         foreach ($materijals as $materijal) {
             try {
+                $category = \App\Models\Category::where('gru', (int)$materijal['GRU'])->first();
+
+                // Ako kategorija ne postoji, kreiraj novu sa nazivom UNDEFINED.SIFRA KATEGORIJE
+                if (!$category) {
+                    $category = \App\Models\Category::create([
+                        'id' => (int)$materijal['GRU'],
+                        'gru' => (int)$materijal['GRU'],
+                        'name' => 'Neopredeljena, dogovor, ' . (int)$materijal['GRU'],
+                    ]);
+                }
+
                 DB::table('materijals')->insert([
-                    'category_id'=>(int)$materijal['GRUPA'],
-                    'sifra_materijala'=>(int)$materijal['SIFRA_Materijala'],
-                    'naziv_materijala'=>$materijal['NAZIV_Materijala'],
+                    'category_id'=>(int)$materijal['GRU'],
+                    'sifra_materijala'=>(int)$materijal['SIFRA_M'],
+                    'naziv_materijala'=>$materijal['NAZIV_M'],
                     'standard'=>$materijal['STANDARD'],
                     'dimenzija'=>$materijal['DIMENZIJA'],
                     'kvalitet'=>$materijal['KVALITET'],
                     'jedinica_mere'=>$materijal['JM'],
-                    'tezina'=>(int)$materijal['TEZINA'],
-                    'dimenzije'=>$materijal['DIMENZIJE'],
+                    'tezina'=>(float)$materijal['TEZINA'],
+                    'dimenzije'=>$materijal['DIMENZIJA'],
+                    'dimenzija_1_value'=>$materijal['DIMEN1'],
                     'dimenzija_1'=>$materijal['DIM1'],
-                    'dimenzija_2'=>$materijal['DIMEN2'],
-                    'dimenzija_3'=>$materijal['DIM3'],
-                    'dimenzija_4'=>$materijal['DIMEN3'],
+                    'dimenzija_2_value'=>$materijal['DIMEN2'],
+                    'dimenzija_2'=>$materijal['DIM2'],
+                    'dimenzija_3_value'=>$materijal['DIMEN3'],
                     'sifra_standarda'=>$materijal['SIFRA_S'],
                     'napomena'=>$materijal['NAPOMENA']
                 ]);
@@ -43,15 +57,18 @@ class MaterijalSeeder extends Seeder
 //            } catch (QueryException $exception ){ Ovako ovo radi
             } catch (Exception $exception ){
 
-                $testt='test';
+                $errors[]= $exception->getMessage();
+
+
             }
 
         }
 
+
     }
 
     public function getPartnerArray2(){
-        $filePath = storage_path('app/backup/Materijali.csv');
+        $filePath = storage_path('app/backup/materijalno_25_09_2024/MAT.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

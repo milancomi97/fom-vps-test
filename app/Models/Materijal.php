@@ -36,4 +36,5 @@ class Materijal extends Model
         return $this->hasMany(StanjeZaliha::class, 'sifra_materijala');
     }
 
+
 }

@@ -17,19 +17,19 @@ class CategorySeeder extends Seeder
 
         foreach ($datas as $data) {
             DB::table('categories')->insert([
-                'id' => $data['GRUPA_ID'],
+                'id' => $data['GRU'],
+                'gru' => $data['GRU'],
                 'name'=>$data['NAZIV']
-
             ]);
         }
 
     }
 
     public function getDataFromCsv(){
-        $filePath = storage_path('app/backup/GRU.csv');
+        $filePath = storage_path('app/backup/materijalno_25_09_2024/GRU.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
-        return $csv;
+        return $csv->getRecords();
     }
 }

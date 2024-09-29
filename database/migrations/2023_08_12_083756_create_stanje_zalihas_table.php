@@ -10,28 +10,30 @@ return new class extends Migration {
      */
     public function up(): void
     {
+
         Schema::create('stanje_zalihas', function (Blueprint $table) {
             $table->id();
-            $table->string('naziv_materijala');
-            $table->unsignedBigInteger('sifra_materijala')->nullable();
-            $table->unsignedBigInteger('magacin_id')->nullable();
-            $table->string('standard')->nullable();
-            $table->string('dimenzija')->nullable();
-            $table->string('kvalitet')->nullable();
-            $table->string('jedinica_mere')->nullable();
-            $table->string('konto')->nullable();
-            $table->integer('pocst_kolicina')->nullable();
-            $table->integer('pocst_vrednost')->nullable();
-            $table->integer('ulaz_kolicina')->nullable();
-            $table->integer('ulaz_vrednost')->nullable();
-            $table->integer('izlaz_kolicina')->nullable();
-            $table->integer('izlaz_vrednost')->nullable();
-            $table->integer('stanje_kolicina')->nullable();
-            $table->integer('stanje_vrednost')->nullable();
-            $table->integer('cena')->nullable();
-//            $table->foreign('sifra_materijala')->references('sifra_materijala')->on('materijals')->onDelete('cascade');
-
+            $table->unsignedBigInteger('magacin_id')->nullable(); // SM
+            $table->unsignedBigInteger('sifra_materijala')->nullable(); // Sifra materijala
+            $table->string('konto', 6)->nullable(); // Konto
+            $table->decimal('cena', 18, 2)->nullable(); // Cena
+            $table->decimal('kolicina', 12, 3)->nullable(); // Trenutna kolicina
+            $table->decimal('vrednost', 12, 2)->nullable(); // Trenutna vrednost
+            $table->decimal('pocst_kolicina', 12, 3)->nullable(); // Početna količina
+            $table->decimal('pocst_vrednost', 12, 2)->nullable(); // Početna vrednost
+            $table->decimal('ulaz_kolicina', 12, 3)->nullable(); // Količina ulaza
+            $table->decimal('ulaz_vrednost', 12, 2)->nullable(); // Vrednost ulaza
+            $table->decimal('izlaz_kolicina', 12, 3)->nullable(); // Količina izlaza
+            $table->decimal('izlaz_vrednost', 12, 2)->nullable(); // Vrednost izlaza
+            $table->decimal('stanje_kolicina', 12, 3)->nullable(); // Trenutna količina
+            $table->decimal('stanje_vrednost', 12, 2)->nullable(); // Trenutna vrednost
+            $table->decimal('st_mag', 12, 2)->nullable(); // Specifična vrednost u magacinu
             $table->timestamps();
+
+            // Strani ključ za magacin
+            $table->foreign('magacin_id')->references('id')->on('magacins')->onDelete('cascade');
+            // Strani ključ za šifru materijala
+            $table->foreign('sifra_materijala')->references('sifra_materijala')->on('materijals')->onDelete('cascade');
         });
     }
 

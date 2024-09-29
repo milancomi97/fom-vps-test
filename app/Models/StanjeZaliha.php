@@ -9,35 +9,22 @@ class StanjeZaliha extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
-        'naziv_materijala',
-        'sifra_materijala',
-        'magacin_id',
-        'standard',
-        'dimenzija',
-        'kvalitet',
-        'jedinica_mere',
-        'konto',
-        'pocst_kolicina',
-        'pocst_vrednost',
-        'ulaz_kolicina',
-        'ulaz_vrednost',
-        'izlaz_kolicina',
-        'izlaz_vrednost',
-        'stanje_kolicina',
-        'stanje_vrednost',
-        'cena'
+        'magacin_id', 'sifra_materijala', 'konto', 'cena', 'kolicina', 'vrednost',
+        'pocst_kolicina', 'pocst_vrednost', 'ulaz_kolicina', 'ulaz_vrednost',
+        'izlaz_kolicina', 'izlaz_vrednost', 'stanje_kolicina', 'stanje_vrednost', 'st_mag'
     ];
 
-
-    public function material()
+    // Relacija prema Materijal modelu
+    public function materijal()
     {
         return $this->belongsTo(Materijal::class, 'sifra_materijala', 'sifra_materijala');
     }
 
-    public function warehouse()
+    // Relacija prema Magacin modelu
+    public function magacin()
     {
         return $this->belongsTo(Magacin::class, 'magacin_id');
     }
-
 }
