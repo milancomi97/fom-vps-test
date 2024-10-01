@@ -21,7 +21,11 @@ class MaterijalSeeder extends Seeder
     {
         $materijals = $this->getPartnerArray2();
         $errors=[];
-
+        $category = \App\Models\Category::create([
+            'id' => 9999998,
+            'gru' => 9999998,
+            'name' => 'Pomocna kategorija nedefinisana'
+        ]);
         foreach ($materijals as $materijal) {
             try {
                 $category = \App\Models\Category::where('gru', (int)$materijal['GRU'])->first();
@@ -58,6 +62,11 @@ class MaterijalSeeder extends Seeder
             } catch (Exception $exception ){
 
                 $errors[]= $exception->getMessage();
+//                if(!str_starts_with($exception->getMessage(),'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry')){
+               $test='test';
+                    Log::channel('check_materijal_import_errors')->debug('Materijal, ne postoji materijal: Sifra: '. $exception->getMessage());
+
+//                }
 
 
             }
@@ -68,7 +77,7 @@ class MaterijalSeeder extends Seeder
     }
 
     public function getPartnerArray2(){
-        $filePath = storage_path('app/backup/materijalno_25_09_2024/MAT.csv');
+        $filePath = storage_path('app/backup/materijalno_25_09_2024/MAT_2.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
