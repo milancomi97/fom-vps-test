@@ -77,11 +77,9 @@
                 <table id="karticeTable" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                     <tr>
-                        <th>Šifra Dokumenta</th>
-                        <th>ID Broj</th>
-                        <th>Datum Knjiženja</th>
-                        <th>Količina</th>
-                        <th>Vrednost</th>
+                        <th>Šifra dokumenta</th>
+                        <th>Ukupna vrednost</th>
+                        <th>Pregled dokumenta</th>
                     </tr>
                     </thead>
                 </table>
@@ -146,10 +144,15 @@
     ajax: '{{ route('kartice.data') }}',
     columns: [
     { data: 'sd' },
-    { data: 'idbr' },
-    { data: 'datum_k' },
-    { data: 'kolicina' },
-    { data: 'vrednost' },
+    { data: 'sum_total_vrednost' },
+        {
+            data: 'sd',
+            title: 'Ukupna Količina',
+            render: function (data, type, row) {
+                // Prikaz linka koji vodi na stranicu sa detaljima kartice
+                return `<a href="/materijalno/kartica/${row.sd}/pregled" class="btn btn-link">${data}</a>`;
+            }
+        },
     ]
     });
 

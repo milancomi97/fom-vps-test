@@ -433,6 +433,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('stanjeMaterijala/data', [SviPodaciController::class, 'getDataStanjeMaterijala'])->name('stanjeMaterijala.data');
     Route::get('kartice/data', [SviPodaciController::class, 'getDataKartice'])->name('kartice.data');
     Route::get('porudzbine/data', [SviPodaciController::class, 'getDataPorudzbine'])->name('porudzbine.data');
+    Route::get('/materijalno/kartica/{sd}/pregled', [SviPodaciController::class, 'pregledKartice'])->name('kartica.pregled');
+
+
 
 //    Route::post('materijalno/matrijal/updatePost', [MaterijalController::class, 'updatePost'])->name('materijal.update_post');
 
