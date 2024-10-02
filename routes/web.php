@@ -433,8 +433,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('stanjeMaterijala/data', [SviPodaciController::class, 'getDataStanjeMaterijala'])->name('stanjeMaterijala.data');
     Route::get('kartice/data', [SviPodaciController::class, 'getDataKartice'])->name('kartice.data');
     Route::get('porudzbine/data', [SviPodaciController::class, 'getDataPorudzbine'])->name('porudzbine.data');
-    Route::get('/materijalno/kartica/{sd}/pregled', [SviPodaciController::class, 'pregledKartice'])->name('kartica.pregled');
+    Route::get('/materijalno/kartica/{idbr}/pregled', [SviPodaciController::class, 'pregledKartice'])->name('kartica.pregled');
 
+    Route::get('/materijalno/prikaz/materijaliPrikaz', [SviPodaciController::class, 'materijaliPrikaz'])->name('materijalno.materijali.index');
+    Route::get('/materijalno/prikaz/stanjeMaterijalaPrikaz', [SviPodaciController::class, 'stanjeMaterijalaPrikaz'])->name('materijalno.stanje-materijala.index');
+    Route::get('/materijalno/prikaz/karticePrikaz', [SviPodaciController::class, 'karticePrikaz'])->name('materijalno.kartice.index');
+    Route::get('/materijalno/prikaz/porudzbinePrikaz', [SviPodaciController::class, 'porudzbinePrikaz'])->name('materijalno.porudzbine.index');
 
 
 //    Route::post('materijalno/matrijal/updatePost', [MaterijalController::class, 'updatePost'])->name('materijal.update_post');

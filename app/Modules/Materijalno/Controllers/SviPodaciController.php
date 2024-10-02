@@ -58,9 +58,9 @@ class SviPodaciController extends Controller
 //            ->with('materijal', 'magacin', 'dokument')
 //            ->get();
 
-        $karticeQuery = Kartice::select('sd')
+        $karticeQuery = Kartice::select('idbr')
             ->selectRaw('SUM(vrednost) as sum_total_vrednost')
-            ->groupBy('sd')->get();
+            ->groupBy('idbr')->get();
 
         return response()->json(['data' => $karticeQuery]);
     }
@@ -71,11 +71,30 @@ class SviPodaciController extends Controller
     }
 
 
-    public function pregledKartice($sd){
-        $kartice = Kartice::where('sd', $sd)->with('materijal', 'magacin', 'dokument')->get();
+    public function pregledKartice($idbr){
+        $kartice = Kartice::where('idbr', $idbr)->with('materijal', 'magacin', 'dokument')->get();
 
         // Vrati prikaz sa podacima o karticama
-        return view('materijalno::test.pregled_kartice',compact('kartice', 'sd'));
+        return view('materijalno::test.pregled_kartice',compact('kartice', 'idbr'));
     }
+
+
+
+public function materijaliPrikaz(){
+        $activeTab = 'materijal';
+        return view('materijalno::test.materijali',compact('activeTab'));
+}
+public function stanjeMaterijalaPrikaz(){
+        $activeTab = 'stanje-materijala';
+        return view('materijalno::test.stanje-materijala',compact('activeTab'));
+}
+public function karticePrikaz(){
+        $activeTab = 'kartice';
+        return view('materijalno::test.kartice',compact('activeTab'));
+}
+public function porudzbinePrikaz(){
+        $activeTab = 'porudzbine';
+        return view('materijalno::test.porudzbine',compact('activeTab'));
+}
 
 }

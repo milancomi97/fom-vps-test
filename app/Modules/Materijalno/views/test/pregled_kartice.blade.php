@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="container">
-        <h2>Pregled Kartice - Dokument: {{ $sd }}</h2>
+        <h2>Pregled Kartice - Dokument: {{ $idbr }}</h2>
 
         <table class="table table-bordered">
             <thead>
