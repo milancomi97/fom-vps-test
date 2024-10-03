@@ -19,24 +19,9 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-center">Pregled podataka</h1>
 
         <!-- Tabovi za različite entitete -->
-        <ul class="nav nav-tabs justify-content-center">
-            <li class="nav-item">
-                {{dd($activeTab)}}
-                <a class="nav-link {{ $activeTab=='materijal' ? 'active' : '' }}" href="{{ route('materijalno.materijali.index') }}">Materijali</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ $activeTab=='stanje-materijala' ? 'active' : '' }}" href="{{ route('materijalno.stanje-materijala.index') }}">Stanje Materijala</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ $activeTab=='kartice' ? 'active' : '' }}" href="{{ route('materijalno.kartice.index') }}">Kartice</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ $activeTab=='porudzbine' ? 'active' : '' }}" href="{{ route('materijalno.porudzbine.index') }}">Porudžbine</a>
-            </li>
-        </ul>
+        @include('materijalno::vertical_nav_magacin')
 
         <!-- Dinamičko učitavanje sadržaja taba -->
         <div class="tab-content" id="myTabContent">

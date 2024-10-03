@@ -60,7 +60,9 @@ class SviPodaciController extends Controller
 
         $karticeQuery = Kartice::select('idbr')
             ->selectRaw('SUM(vrednost) as sum_total_vrednost')
-            ->groupBy('idbr')->get();
+            ->groupBy('idbr')
+            ->get();
+
 
         return response()->json(['data' => $karticeQuery]);
     }
@@ -71,13 +73,26 @@ class SviPodaciController extends Controller
     }
 
 
-    public function pregledKartice($idbr){
-        $kartice = Kartice::where('idbr', $idbr)->with('materijal', 'magacin', 'dokument')->get();
+    public function pregledKartice($id){
 
+
+        $karticeData = Kartice::where('id', $id)->with('materijal', 'magacin', 'dokument')->get();
+
+        $kartice = Kartice::where('idbr', $karticeData->first()->idbr)->with('materijal', 'magacin', 'dokument')->get();
+
+        $idbr=$karticeData->first()->idbr;
         // Vrati prikaz sa podacima o karticama
-        return view('materijalno::test.pregled_kartice',compact('kartice', 'idbr'));
+        return view('materijalno::test.pregled_kartice',compact('kartice','idbr'));
     }
 
+
+    public function getKarticaId(Request $request){
+        $kartice = Kartice::where('idbr', $request->idbr)->with('materijal', 'magacin', 'dokument')->first();
+
+        $id=$kartice->id;
+        // Vrati prikaz sa podacima o karticama
+        return response()->json(['id' => $id]);
+    }
 
 
 public function materijaliPrikaz(){
@@ -97,4 +112,54 @@ public function porudzbinePrikaz(){
         return view('materijalno::test.porudzbine',compact('activeTab'));
 }
 
+
+public function pregledMaterijala($sifraMaterijala){
+        $test='testt';
+    $selectedSifraMaterijala = $sifraMaterijala;
+    $selectedChartType = 'bar';
+
+    // Query the StanjeZaliha table based on sifra_materijala
+    $stanjeZaliha = StanjeZaliha::where('sifra_materijala', $selectedSifraMaterijala)
+        ->with('magacin')  // Load magacin relationship
+        ->get();
+
+    // Prepare data for charting (group by magacin)
+    $chartData = $stanjeZaliha->groupBy('magacin_id')->map(function ($items, $key) {
+        return [
+            'magacin' => $key,
+            'kolicina' => $items->sum('kolicina'),
+            'vrednost' => $items->sum('vrednost'),
+        ];
+    });
+
+    // Fetch all materials with the same sifra_materijala
+    $materijali = StanjeZaliha::where('sifra_materijala', $selectedSifraMaterijala)
+        ->with(['materijal', 'magacin'])  // Eager load the relationships
+        ->get();
+    return view('materijalno::testprikaz.materijal_magacin', compact('chartData', 'materijali', 'selectedChartType', 'selectedSifraMaterijala'));
+}
+    public function pregledMaterijalaDiagram(Request $request){
+        $test='';
+        $selectedSifraMaterijala = $request->input('sifra_materijala', null);
+        $selectedChartType = $request->input('chartType', 'bar');
+
+
+        // Query the StanjeZaliha table based on sifra_materijala
+        $stanjeZaliha = StanjeZaliha::where('sifra_materijala', $selectedSifraMaterijala)
+            ->get();
+
+        // Prepare data for charting (group by magacin)
+        $chartData = $stanjeZaliha->groupBy('magacin_id')->map(function ($items, $key) {
+            return [
+                'magacin' => $key,
+                'kolicina' => $items->sum('kolicina'),
+                'vrednost' => $items->sum('vrednost'),
+            ];
+        });
+
+        // Fetch all materials with the same sifra_materijala
+        $materijali = Materijal::where('sifra_materijala', $selectedSifraMaterijala)->get();
+
+        return view('materijalno::testprikaz.materijal_magacin', compact('chartData', 'materijali', 'selectedChartType', 'selectedSifraMaterijala'));
+    }
 }

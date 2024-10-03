@@ -19,24 +19,12 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-center">Pregled podataka</h1>
+        <form>
+            @csrf
+        </form>
 
-        <!-- Tabovi za različite entitete -->
-        <ul class="nav nav-tabs justify-content-center">
-            <li class="nav-item">
-                {{dd($activeTab)}}
-                <a class="nav-link {{ $activeTab=='materijal' ? 'active' : '' }}" href="{{ route('materijalno.materijali.index') }}">Materijali</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ $activeTab=='stanje-materijala' ? 'active' : '' }}" href="{{ route('materijalno.stanje-materijala.index') }}">Stanje Materijala</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ $activeTab=='kartice' ? 'active' : '' }}" href="{{ route('materijalno.kartice.index') }}">Kartice</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ $activeTab=='porudzbine' ? 'active' : '' }}" href="{{ route('materijalno.porudzbine.index') }}">Porudžbine</a>
-            </li>
-        </ul>
+
+        @include('materijalno::vertical_nav_magacin')
 
         <!-- Dinamičko učitavanje sadržaja taba -->
         <div class="tab-content" id="myTabContent">
@@ -64,6 +52,27 @@
     <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap4.min.js"></script>
 
     <script>
+        function postMaterijalno(idbr) {
+            // Example data to send in POST request
+            const data = { idbr: idbr };
+
+            var _token = $('input[name="_token"]').val();
+
+
+            $.ajax({
+                url: '/materijalno/kartica/id', // Replace with your server URL
+                type: 'POST', // Use POST method to send data
+                data:{
+                    idbr: idbr,
+                    _token: _token
+                },
+                success: function (response) {
+                    window.location.href = `/materijalno/kartica/${response.id}/pregled`; // Navigate after success
+
+                },
+            });
+        }
+
         $(document).ready(function () {
 
             $('#karticeTable').DataTable({
@@ -73,10 +82,12 @@
                     { data: 'sum_total_vrednost' },
                     {
                         data: 'idbr',
-                        title: 'Ukupna Količina',
+                        title: 'Link',
                         render: function (data, type, row) {
                             // Prikaz linka koji vodi na stranicu sa detaljima kartice
-                            return `<a href="/materijalno/kartica/${row.idbr}/pregled" class="btn btn-link">${data}</a>`;
+
+
+                            return `<button class="btn btn-link" onclick="postMaterijalno('${row.idbr}')">${data}</button>`;
                         }
                     },
                 ]

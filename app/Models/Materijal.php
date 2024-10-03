@@ -23,7 +23,8 @@ class Materijal extends Model
         'dimenzija_2',
         'dimenzija_3',
         'sifra_standarda',
-        'napomena'
+        'napomena',
+        'konto'
     ];
 
     public function category()

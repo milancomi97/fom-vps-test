@@ -22,21 +22,21 @@ class PartnerSeeder extends Seeder
             try {
 
                 DB::table('partners')->insert([
-                'name' => $data['name'],
-                'email' => $data['email'],
-                'short_name' => $data['short_name'],
-                'contact_employee' => $data['contact_employee'],
-                'pib' => $data['pib'],
-                'phone' => $data['phone'],
-                'web_site' =>$data['web_site'],
-                'sifra_delatnosti' => $data['sifra_delatnosti'],
-                'odgovorno_lice' => $data['odgovorno_lice'],
-                'maticni_broj' => $data['maticni_broj'],
-                'mesto' => $data['mesto'],
-                'pripada_pdvu' => $data['pripada_pdvu'] =="1",
-                'active' =>$data['active'] =="1",
-                'address' => $data['address'],
-                'internal_sifra' =>$data['internal_sifra']
+                'name' => $data['NAKOM'],
+                'address' => $data['ADKOM'],
+                'internal_sifra' =>$data['MBKOM'],
+                'short_name' => $data['SNKOM'],
+//                'contact_employee' => $data['contact_employee'],
+//                'pib' => $data['pib'],
+//                'phone' => $data['phone'],
+//                'web_site' =>$data['web_site'],
+//                'sifra_delatnosti' => $data['sifra_delatnosti'],
+//                'odgovorno_lice' => $data['odgovorno_lice'],
+//                'maticni_broj' => $data['maticni_broj'],
+//                'mesto' => $data['mesto'],
+//                'pripada_pdvu' => $data['pripada_pdvu'] =="1",
+//                'active' =>$data['active'] =="1",
+
 
             ]);
             } catch (Exception $exception ){
@@ -49,7 +49,7 @@ class PartnerSeeder extends Seeder
 
     public function getPartnerArray()
     {
-        $file = Storage::disk('local')->readStream('backup/PoslovniPartneri.csv');
+        $file = Storage::disk('local')->readStream('backup/materijalno_25_09_2024/KOM1.csv');
         if ($file !== false) {
             $datas = [];
             while (($row = fgetcsv($file)) !== false) {
@@ -91,7 +91,7 @@ class PartnerSeeder extends Seeder
 
 
     public function getPartnerArray2(){
-        $filePath = storage_path('app/backup/PoslovniPartneri.csv');
+        $filePath = storage_path('app/backup/materijalno_25_09_2024/KOM1.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

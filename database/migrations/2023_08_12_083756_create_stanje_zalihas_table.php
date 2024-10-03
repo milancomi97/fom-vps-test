@@ -16,18 +16,18 @@ return new class extends Migration {
             $table->unsignedBigInteger('magacin_id')->nullable(); // SM
             $table->unsignedBigInteger('sifra_materijala')->nullable(); // Sifra materijala
             $table->string('konto', 6)->nullable(); // Konto
-            $table->decimal('cena', 18, 2)->nullable(); // Cena
-            $table->decimal('kolicina', 12, 3)->nullable(); // Trenutna kolicina
-            $table->decimal('vrednost', 12, 2)->nullable(); // Trenutna vrednost
-            $table->decimal('pocst_kolicina', 12, 3)->nullable(); // Početna količina
-            $table->decimal('pocst_vrednost', 12, 2)->nullable(); // Početna vrednost
-            $table->decimal('ulaz_kolicina', 12, 3)->nullable(); // Količina ulaza
-            $table->decimal('ulaz_vrednost', 12, 2)->nullable(); // Vrednost ulaza
-            $table->decimal('izlaz_kolicina', 12, 3)->nullable(); // Količina izlaza
-            $table->decimal('izlaz_vrednost', 12, 2)->nullable(); // Vrednost izlaza
-            $table->decimal('stanje_kolicina', 12, 3)->nullable(); // Trenutna količina
-            $table->decimal('stanje_vrednost', 12, 2)->nullable(); // Trenutna vrednost
-            $table->decimal('st_mag', 12, 2)->nullable(); // Specifična vrednost u magacinu
+            $table->float('cena', 18, 2)->nullable(); // Cena
+            $table->integer('kolicina')->nullable(); // Trenutna kolicina
+            $table->float('vrednost', 12, 2)->nullable(); // Trenutna vrednost
+            $table->float('pocst_kolicina', 12, 3)->nullable(); // Početna količina
+            $table->float('pocst_vrednost', 12, 2)->nullable(); // Početna vrednost
+            $table->float('ulaz_kolicina', 12, 3)->nullable(); // Količina ulaza
+            $table->float('ulaz_vrednost', 12, 2)->nullable(); // Vrednost ulaza
+            $table->float('izlaz_kolicina', 12, 3)->nullable(); // Količina izlaza
+            $table->float('izlaz_vrednost', 12, 2)->nullable(); // Vrednost izlaza
+            $table->float('stanje_kolicina', 12, 3)->nullable(); // Trenutna količina
+            $table->float('stanje_vrednost', 12, 2)->nullable(); // Trenutna vrednost
+            $table->float('st_mag', 12, 2)->nullable(); // Specifična vrednost u magacinu
             $table->timestamps();
 
             // Strani ključ za magacin

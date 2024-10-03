@@ -10,6 +10,8 @@
 
 @section('content')
     <div class="container">
+        @include('materijalno::vertical_nav_magacin')
+
         <h2>Pregled Kartice - Dokument: {{ $idbr }}</h2>
 
         <table class="table table-bordered">

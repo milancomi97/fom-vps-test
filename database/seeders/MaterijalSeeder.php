@@ -55,7 +55,8 @@ class MaterijalSeeder extends Seeder
                     'dimenzija_2'=>$materijal['DIM2'],
                     'dimenzija_3_value'=>$materijal['DIMEN3'],
                     'sifra_standarda'=>$materijal['SIFRA_S'],
-                    'napomena'=>$materijal['NAPOMENA']
+                    'napomena'=>$materijal['NAPOMENA'],
+                    'konto'=>$materijal['KONTO']
                 ]);
 
 //            } catch (QueryException $exception ){ Ovako ovo radi
@@ -77,7 +78,7 @@ class MaterijalSeeder extends Seeder
     }
 
     public function getPartnerArray2(){
-        $filePath = storage_path('app/backup/materijalno_25_09_2024/MAT_2.csv');
+        $filePath = storage_path('app/backup/materijalno_25_09_2024/MAT_3.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
 //            AvgustPravaPlataSeeder::class,
 
         // Materijalno start
-//            PartnerSeeder::class,
+            PartnerSeeder::class,
 //
             CategorySeeder::class,
             MagacinSeeder::class,

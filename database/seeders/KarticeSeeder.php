@@ -79,7 +79,7 @@ class KarticeSeeder extends Seeder
     }
 
     public function getPartnerArray2(){
-        $filePath = storage_path('app/backup/materijalno_25_09_2024/PIP.csv');
+        $filePath = storage_path('app/backup/materijalno_03_10_2024/PIP.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

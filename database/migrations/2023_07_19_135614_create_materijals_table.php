@@ -38,6 +38,7 @@ return new class extends Migration {
             $table->string('dimenzija_2_value')->nullable();
             $table->string('dimenzija_2')->nullable();
             $table->string('dimenzija_3_value')->nullable();
+            $table->string('konto')->nullable();
 
             $table->unique(['sifra_materijala', 'dimenzija']);
 
