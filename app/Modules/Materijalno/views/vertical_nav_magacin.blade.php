@@ -42,10 +42,10 @@
                 <li class="nav-item">
                     <a class="nav-link " href="{{ route('materijalno.stanje-materijala.index') }}">
                         <i class="text-info fas fa-tools"></i>
-                        <p class="nav-title-pp">Stanje Materijala</p></a>
+                        <p class="nav-title-pp">Stanje Zaliha</p></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{{ route('materijalno.stanje-materijala.index') }}">
+                    <a class="nav-link " href="{{ route('materijalno.stanje-magacina.index') }}">
                         <i class="text-secondary fas fa-warehouse"></i>
                         <p class="nav-title-pp">Magacin</p></a>
                 </li>
@@ -61,7 +61,7 @@
                 </li>
 
                 <li class="nav-item d-flex align-items-center justify-content-center">
-                    <a class="nav-link" href="{{ route('materijalno.porudzbine.index') }}">
+                    <a class="nav-link" href="{{ route('materijalno.partneri.index') }}">
                         <i class="text-secondary fas fa-user-friends"></i>
                         <p class="nav-title-pp">Partneri/Komitenti</p>
                     </a>
@@ -69,7 +69,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link " href="{{ route('materijalno.porudzbine.index') }}">
+                    <a class="nav-link " href="{{ route('materijalno.konta.index') }}">
                         <i class="text-secondary fas fa-file-invoice-dollar"></i>
                         <p class="nav-title-pp">Konta</p></a>
                 </li>

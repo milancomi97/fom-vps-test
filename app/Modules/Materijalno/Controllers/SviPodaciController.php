@@ -5,10 +5,12 @@ namespace App\Modules\Materijalno\Controllers;
 use App\Models\Kartice;
 use App\Models\Magacin;
 use App\Models\Materijal;
+use App\Models\Partner;
 use App\Models\Porudzbine;
 use App\Models\StanjeZaliha;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class SviPodaciController extends Controller
 {
@@ -25,6 +27,21 @@ class SviPodaciController extends Controller
         return response()->json(['data' => $materijali]);
     }
 
+    public function getStanjeMagacinaData()
+    {
+        $stanjeMaterijala = StanjeZaliha::select(
+            'magacin_id',
+            DB::raw('SUM(kolicina) as total_kolicina'),
+            DB::raw('SUM(vrednost) as total_vrednost')
+        )->groupBy('magacin_id')
+            ->get()->map(function ($item) {
+                $item->total_kolicina = number_format($item->total_kolicina, 3);
+                $item->total_vrednost = number_format($item->total_vrednost, 3);
+                return $item;
+            });
+        return response()->json(['data' => $stanjeMaterijala]);
+
+    }
     public function getDataStanjeMaterijala(Request $request){
 
         $limit = $request->input('length');
@@ -73,6 +90,33 @@ class SviPodaciController extends Controller
     }
 
 
+
+    public function getDataPartner()
+    {
+        $partneri = Partner::select(
+            'id',
+            'name',
+            'short_name',
+            'pib',
+            'phone',
+            'email'
+        )->get();
+
+        // Vraćanje podataka u JSON formatu
+        return response()->json(['data' => $partneri]);
+    }
+
+    public function getDataKonta()
+    {
+        $konta = StanjeZaliha::select('magacin_id', 'konto', DB::raw('SUM(vrednost) as ukupna_vrednost'))
+            ->groupBy('magacin_id', 'konto')->get()->map(function ($item) {
+                $item->ukupna_vrednost = number_format($item->ukupna_vrednost, 3);
+                return $item;
+            });
+
+
+        return response()->json(['data' => $konta]);
+    }
     public function pregledKartice($id){
 
 
@@ -112,6 +156,22 @@ public function porudzbinePrikaz(){
         return view('materijalno::test.porudzbine',compact('activeTab'));
 }
 
+    public function partneriPrikaz(){
+        $activeTab = 'partneri';
+        return view('materijalno::test.partneri',compact('activeTab'));
+    }
+
+    public function kontaPrikaz(){
+        $activeTab = 'konta';
+        return view('materijalno::test.konta',compact('activeTab'));
+    }
+
+
+public function stanjeMagacinaPrikaz(){
+    $activeTab = 'materijal_magacin';
+
+    return view('materijalno::test.stanje-magacina',compact('activeTab'));
+}
 
 public function pregledMaterijala($sifraMaterijala){
         $test='testt';
@@ -161,5 +221,16 @@ public function pregledMaterijala($sifraMaterijala){
         $materijali = Materijal::where('sifra_materijala', $selectedSifraMaterijala)->get();
 
         return view('materijalno::testprikaz.materijal_magacin', compact('chartData', 'materijali', 'selectedChartType', 'selectedSifraMaterijala'));
+    }
+
+
+    public function pregledMagacina($magacinId){
+
+            // Dohvatanje svih materijala iz odabranog magacina
+            $materijali = StanjeZaliha::where('magacin_id', $magacinId)->with('materijal')->get();
+
+            // Vraćanje prikaza sa materijalima
+            return view('materijalno::testprikaz.magacin_materijal', compact('materijali', 'magacinId'));
+
     }
 }

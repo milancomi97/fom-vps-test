@@ -431,6 +431,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/materijalno/svi-podaci', [SviPodaciController::class, 'allDataTestt'])->name('materijalno.svi_podaci');
     Route::get('materijali/data', [SviPodaciController::class, 'getDataMaterijal'])->name('materijali.data');
     Route::get('stanjeMaterijala/data', [SviPodaciController::class, 'getDataStanjeMaterijala'])->name('stanjeMaterijala.data');
+    Route::get('stanjeMagacina/data', [SviPodaciController::class, 'getStanjeMagacinaData'])->name('stanjeMagacina.data');
+
+
+
     Route::get('kartice/data', [SviPodaciController::class, 'getDataKartice'])->name('kartice.data');
     Route::get('porudzbine/data', [SviPodaciController::class, 'getDataPorudzbine'])->name('porudzbine.data');
     Route::get('/materijalno/kartica/{id}/pregled', [SviPodaciController::class, 'pregledKartice'])->name('kartica.pregled');
@@ -440,14 +444,29 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/materijalno/prikaz/materijaliPrikaz', [SviPodaciController::class, 'materijaliPrikaz'])->name('materijalno.materijali.index');
     Route::get('/materijalno/prikaz/stanjeMaterijalaPrikaz', [SviPodaciController::class, 'stanjeMaterijalaPrikaz'])->name('materijalno.stanje-materijala.index');
+    Route::get('/materijalno/prikaz/stanjeMagacinaPrikaz', [SviPodaciController::class, 'stanjeMagacinaPrikaz'])->name('materijalno.stanje-magacina.index');
+
     Route::get('/materijalno/prikaz/karticePrikaz', [SviPodaciController::class, 'karticePrikaz'])->name('materijalno.kartice.index');
     Route::get('/materijalno/prikaz/porudzbinePrikaz', [SviPodaciController::class, 'porudzbinePrikaz'])->name('materijalno.porudzbine.index');
+    Route::get('/materijalno/prikaz/partneriPrikaz', [SviPodaciController::class, 'partneriPrikaz'])->name('materijalno.partneri.index');
 
-//
+    Route::get('/materijalno/prikaz/getDataPartner', [SviPodaciController::class, 'getDataPartner'])->name('materijalno.getDataPartner.data');
+
+
+    Route::get('/materijalno/prikaz/kontaPrikaz', [SviPodaciController::class, 'kontaPrikaz'])->name('materijalno.konta.index');
+
+    Route::get('/materijalno/prikaz/getDataKonta', [SviPodaciController::class, 'getDataKonta'])->name('materijalno.getDataKonta.data');
+
+
+
+
 //    prikaz
 
     Route::get('/materijalno/materijal/{sifra_materijala}/pregled', [SviPodaciController::class, 'pregledMaterijala'])->name('materijal.pregled');
     Route::post('/materijalno/materijal/pregled_diagram', [SviPodaciController::class, 'pregledMaterijalaDiagram'])->name('materijal.pregled_diagram');
+
+
+    Route::get('/materijalno/magacin/{id}/pregled', [SviPodaciController::class, 'pregledMagacina'])->name('magacin.pregled');
 
 //    Route::post('materijalno/matrijal/updatePost', [MaterijalController::class, 'updatePost'])->name('materijal.update_post');
 

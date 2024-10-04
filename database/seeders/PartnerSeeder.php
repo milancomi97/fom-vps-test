@@ -27,15 +27,15 @@ class PartnerSeeder extends Seeder
                 'internal_sifra' =>$data['MBKOM'],
                 'short_name' => $data['SNKOM'],
 //                'contact_employee' => $data['contact_employee'],
-//                'pib' => $data['pib'],
+                'pib' => random_int(1,1000000000),
 //                'phone' => $data['phone'],
 //                'web_site' =>$data['web_site'],
 //                'sifra_delatnosti' => $data['sifra_delatnosti'],
 //                'odgovorno_lice' => $data['odgovorno_lice'],
 //                'maticni_broj' => $data['maticni_broj'],
 //                'mesto' => $data['mesto'],
-//                'pripada_pdvu' => $data['pripada_pdvu'] =="1",
-//                'active' =>$data['active'] =="1",
+                'pripada_pdvu' => true,
+                'active' =>true,
 
 
             ]);

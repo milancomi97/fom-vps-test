@@ -60,10 +60,11 @@ class StanjeZalihaSeeder extends Seeder
                     'izlaz_vrednost' => (float)$data['IZLAZ_V'], // Vrednost izlaza
                     'stanje_kolicina' => (float)$data['STANJE_K'], // Trenutna količina stanja
                     'stanje_vrednost' => (float)$data['STANJE_V'], // Trenutna vrednost stanja
-                    'st_mag' => (float)$data['ST_MAG'], // Specifična vrednost u magacinu
+//                    'st_mag' => (float)$data['ST_MAG'], // Specifična vrednost u magacinu
                 ]);
 
             } catch (Exception $exception) {
+
                 Log::channel('check_materijal_import_errors')->debug('Stanje zaliha, ne postoji materijal: Sifra: '.$data['SIFRA_M']);
 
             }
