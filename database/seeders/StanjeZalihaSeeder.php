@@ -65,7 +65,7 @@ class StanjeZalihaSeeder extends Seeder
 
             } catch (Exception $exception) {
 
-                Log::channel('check_materijal_import_errors')->debug('Stanje zaliha, ne postoji materijal: Sifra: '.$data['SIFRA_M']);
+                Log::channel('check_materijal_import_errors')->debug('Stanje zaliha :'. $exception->getMessage());
 
             }
 

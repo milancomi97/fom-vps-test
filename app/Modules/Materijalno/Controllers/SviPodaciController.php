@@ -23,7 +23,19 @@ class SviPodaciController extends Controller
 
     public function getDataMaterijal()
     {
-        $materijali = Materijal::select('sifra_materijala', 'naziv_materijala', 'standard', 'dimenzija', 'jedinica_mere')->get();
+        $materijali = Materijal::select(
+            'sifra_materijala',
+            'naziv_materijala',
+            'standard',
+            'dimenzija',
+            'kvalitet',
+            'jedinica_mere',
+            'tezina',
+            'dimenzije',
+            'konto',
+            'sifra_standarda',
+        )->get();
+
         return response()->json(['data' => $materijali]);
     }
 
@@ -44,28 +56,14 @@ class SviPodaciController extends Controller
     }
     public function getDataStanjeMaterijala(Request $request){
 
-        $limit = $request->input('length');
-        $start = $request->input('start');
-        $search = $request->input('search.value');
+//        $limit = $request->input('length');
+//        $start = $request->input('start');
+//        $search = $request->input('search.value');
 
-        $query = StanjeZaliha::with('magacin', 'materijal')
-            ->when($search, function($query, $search) {
-                return $query->where('sifra_materijala', 'LIKE', "%$search%");
-            });
+        $stanjeMaterijala = StanjeZaliha::select('magacin_id', 'sifra_materijala', 'konto', 'cena', 'kolicina', 'vrednost',
+            'pocst_kolicina', 'pocst_vrednost', 'ulaz_kolicina', 'ulaz_vrednost',
+            'izlaz_kolicina', 'izlaz_vrednost', 'stanje_kolicina', 'stanje_vrednost')->get();
 
-        $totalRecords = $query->count();
-
-        $stanjeMaterijala = $query
-            ->offset($start)
-            ->limit($limit)
-            ->get();
-
-        $json_data = [
-            "draw" => intval($request->input('draw')),
-            "recordsTotal" => intval($totalRecords),
-            "recordsFiltered" => intval($totalRecords),
-            "data" => $stanjeMaterijala
-        ];
         return response()->json(['data' => $stanjeMaterijala]);
 
     }

@@ -65,7 +65,7 @@ class MaterijalSeeder extends Seeder
                 $errors[]= $exception->getMessage();
 //                if(!str_starts_with($exception->getMessage(),'SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry')){
                $test='test';
-                    Log::channel('check_materijal_import_errors')->debug('Materijal, ne postoji materijal: Sifra: '. $exception->getMessage());
+                    Log::channel('check_materijal_import_errors')->debug('Materijal greska, '. $exception->getMessage());
 
 //                }
 

@@ -10,6 +10,7 @@ class Materijal extends Model
     use HasFactory;
 
     protected $fillable = [
+        'sifra_materijala',
         'category_id',
         'sifra_materijala',
         'naziv_materijala',
@@ -19,12 +20,14 @@ class Materijal extends Model
         'jedinica_mere',
         'tezina',
         'dimenzije',
+        'dimenzija_1_value',
         'dimenzija_1',
+        'dimenzija_2_value',
         'dimenzija_2',
-        'dimenzija_3',
+        'dimenzija_3_value',
+        'konto',
         'sifra_standarda',
-        'napomena',
-        'konto'
+        'napomena'
     ];
 
     public function category()

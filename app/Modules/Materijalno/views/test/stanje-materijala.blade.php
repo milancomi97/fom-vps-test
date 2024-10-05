@@ -32,9 +32,18 @@
                     <tr>
                         <th>Šifra Magacina</th>
                         <th>Šifra Materijala</th>
-                        <th>Količina</th>
-                        <th>Vrednost</th>
-                        <th>Cena</th>
+                        <th>konto</th>
+                        <th>cena</th>
+                        <th>kolicina</th>
+                        <th>vrednost</th>
+                        <th>pocst_kolicina</th>
+                        <th>pocst_vrednost</th>
+                        <th>ulaz_kolicina</th>
+                        <th>ulaz_vrednost</th>
+                        <th>izlaz_kolicina</th>
+                        <th>izlaz_vrednost</th>
+                        <th>stanje_kolicina</th>
+                        <th>stanje_vrednost</th>
                     </tr>
                     </thead>
                 </table>
@@ -55,8 +64,7 @@
         $(document).ready(function () {
             // Stanje Materijala DataTable
             $('#stanjeMaterijalaTable').DataTable({
-                processing: true,
-                serverSide: true,
+
                 ajax: '{{ route('stanjeMaterijala.data') }}',
                 columns: [
                     { data: 'magacin_id' },
@@ -68,12 +76,49 @@
                             return `<a href="/materijalno/materijal/${row.sifra_materijala}/pregled" class="btn btn-link">${data}</a>`;
                         }
                     },
-                    { data: 'kolicina' },
-                    { data: 'vrednost' },
-                    { data: 'cena' }
+                    { data: 'konto'},
+                    { data: 'cena'},
+                    { data: 'kolicina'},
+                    { data: 'vrednost'},
+                    { data: 'pocst_kolicina'},
+                    { data: 'pocst_vrednost'},
+                    { data: 'ulaz_kolicina'},
+                    { data: 'ulaz_vrednost'},
+                    { data: 'izlaz_kolicina'},
+                    { data: 'izlaz_vrednost'},
+                    { data: 'stanje_kolicina'},
+                    { data: 'stanje_vrednost'},
                 ],
-                pageLength: 10, // Broj redova po stranici
-                lengthMenu: [10, 25, 50, 100], // Opcije paginacije
+                initComplete: function () {
+                    // Dodajte input polja za pretragu za svaku kolonu
+                    var api = this.api();
+
+                    // Dodajte input za pretragu u svaku od kolona
+                    api.columns().every(function (index) {
+                        var column = this;
+
+                        if (index < 3) { // Ako je indeks kolone manji od 4 (samo za 'sifra_materijala', 'naziv_materijala', 'konto', 'dimenzija')
+                            var title = $(column.header()).text();
+                            var input = $('<input type="text" placeholder="Pretraži ' + title + '" />')
+                                .appendTo($(column.header()))
+                                .on('keyup change', function () {
+
+                                    var searchValue = this.value;
+
+                                    if (index === 1) { // Assuming 'sifra_materijala' is the first column (index 0)
+                                        // Use regex to match values that start with the input
+                                        column.search('^' + searchValue, true, false).draw();
+                                    } else {
+                                        // Default search for other columns
+                                        if (column.search() !== searchValue) {
+                                            column.search(searchValue).draw();
+                                        }
+                                    }
+
+                                });
+                        }
+                    });
+                },
             });
 
         });
