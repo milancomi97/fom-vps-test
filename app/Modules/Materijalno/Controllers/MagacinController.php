@@ -56,4 +56,11 @@ class MagacinController extends Controller
 
         return redirect()->route('magacin.index')->with('message', 'Warehouse deleted successfully.');
     }
+
+    public function show($id)
+    {
+
+        $testt='test';
+
+    }
 }

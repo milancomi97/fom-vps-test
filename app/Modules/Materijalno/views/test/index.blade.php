@@ -41,7 +41,11 @@
 @endsection
 
 @section('content')
+
+
     <div class="container-fluid">
+        @include('materijalno::vertical_nav_prosiren')
+
         <h1 class="text-center">Pregled podataka</h1>
 
         <!-- Tabovi za različite entitete -->

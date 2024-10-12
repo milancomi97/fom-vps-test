@@ -50,9 +50,13 @@ return new class extends Migration
             $table->unsignedBigInteger('user_mdr_id')->nullable();
             $table->unsignedBigInteger('kredit_glavna_tabela_id')->nullable();
 
-            $table->foreign('user_dpsm_id')->references('id')->on('mesecnatabelapoentazas')->onDelete('cascade');
-            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
-            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
+//            $table->foreign('user_dpsm_id')->references('id')->on('mesecnatabelapoentazas')->onDelete('cascade');
+//            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
+//            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
+
+            $table->foreign('user_dpsm_id')->references('id')->on('mesecnatabelapoentazas');
+            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas');
+            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas');
             $table->string('tip_unosa')->nullable();
 
             $table->id();

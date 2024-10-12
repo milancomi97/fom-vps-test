@@ -65,27 +65,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
 
 
-
-//DECIMALE
-//            IZNETO1
-//SIP1
-//PIOR1
-//PIOP1
-//ZDRR1
-//ZDRP1
-//ONEZR1
-//PIOR
-//ZDRR
-//ONEZR
-//PIOP
-//ZDRP
-//ONEZP
-//BROSN
-//POROSL
-//SIP
-//IZNETO
             $table->unsignedBigInteger('troskovno_mesto_id'); // novo
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+//            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

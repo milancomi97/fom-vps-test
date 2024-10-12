@@ -73,9 +73,9 @@ class SviPodaciController extends Controller
 //            ->with('materijal', 'magacin', 'dokument')
 //            ->get();
 
-        $karticeQuery = Kartice::select('idbr')
+        $karticeQuery = Kartice::select('sd','idbr')
             ->selectRaw('SUM(vrednost) as sum_total_vrednost')
-            ->groupBy('idbr')
+            ->groupBy('sd','idbr')
             ->get();
 
 
@@ -229,6 +229,85 @@ public function pregledMaterijala($sifraMaterijala){
 
             // Vraćanje prikaza sa materijalima
             return view('materijalno::testprikaz.magacin_materijal', compact('materijali', 'magacinId'));
+
+    }
+
+
+    public function pregledMagacinaMarko(){
+
+        $test='test';
+
+        $magacinData = DB::select("SELECT sifra_materijala, magacin_id, SUM(kolicina) as total_kolicina, SUM(vrednost) AS total_vrednost
+FROM stanje_zalihas
+WHERE sifra_materijala IN (
+    SELECT sifra_materijala
+    FROM stanje_zalihas
+    GROUP BY sifra_materijala
+    HAVING COUNT(*) > 1
+)
+GROUP BY sifra_materijala, magacin_id;");
+
+        $newData=[];
+        foreach ($magacinData as $materijal){
+            $newData[$materijal->sifra_materijala][$materijal->magacin_id]=[
+                'total_kolicina'=>$materijal->total_kolicina,
+                'total_vrednost'=>$materijal->total_vrednost,
+            ];
+        }
+
+        $newDataSubGroupMagacin=[];
+        $sifarnikMagacinaSkraceni=[41,52,53,56,58,64,71,78,81,84,88,91,94,98];
+        $sifarnikMagacina=[41,44,45,46,47,48,50,51,52,53,54,55,56,57,58,59,60,64,70,71,72,73,74,76,77,78,79,81,84,88,91,94];
+
+
+        foreach ($newData as $sifraMat =>$newMaterijal){
+            foreach ($sifarnikMagacina as $magacinId){
+                if(isset($newMaterijal[$magacinId])){
+                    $newDataSubGroupMagacin[$sifraMat][$magacinId]=$newMaterijal[$magacinId];
+                }else{
+                    $newDataSubGroupMagacin[$sifraMat][$magacinId]=[
+                        'total_kolicina'=>0,
+                        'total_vrednost'=>0
+                    ];
+                }
+            }
+        }
+        $csvFile = 'materijal_vert_magacin_horizontalno_produzena_07_10_2024.csv';
+
+// Open the file for writing
+        $file = fopen($csvFile, 'w');
+
+// Write the header row
+
+        $zaglavlje=['Sifra materijala'];
+        foreach ($sifarnikMagacina as $magacin){
+            $zaglavlje[]=$magacin.'_kolicina';
+            $zaglavlje[]=$magacin.'_vrednost';
+        }
+        fputcsv($file, $zaglavlje);
+        foreach ($newDataSubGroupMagacin as $sifraMat =>$podaciMaterijal){
+            $test='test';
+            $csvLine=[];
+            $csvLine[]=$sifraMat;
+            foreach ($podaciMaterijal as $podatak){
+                $csvLine[]=(float)$podatak['total_kolicina'];
+                $csvLine[]=(float)$podatak['total_vrednost'];
+
+            }
+
+            fputcsv($file, $csvLine);
+
+        }
+
+        fclose($file);
+
+        $testt='test';
+        $test='testt';
+        // Dohvatanje svih materijala iz odabranog magacina
+//        $materijali = StanjeZaliha::where('magacin_id', $magacinId)->with('materijal')->get();
+
+        // Vraćanje prikaza sa materijalima
+//        return view('materijalno::testprikaz.magacin_materijal', compact('materijali', 'magacinId'));
 
     }
 }

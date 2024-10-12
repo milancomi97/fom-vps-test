@@ -31,9 +31,9 @@ return new class extends Migration {
             $table->timestamps();
 
             // Strani ključ za magacin
-            $table->foreign('magacin_id')->references('id')->on('magacins')->onDelete('cascade');
-            // Strani ključ za šifru materijala
-            $table->foreign('sifra_materijala')->references('sifra_materijala')->on('materijals')->onDelete('cascade');
+//            $table->foreign('magacin_id')->references('id')->on('magacins')->onDelete('cascade');
+//            // Strani ključ za šifru materijala
+//            $table->foreign('sifra_materijala')->references('sifra_materijala')->on('materijals')->onDelete('cascade');
         });
     }
 

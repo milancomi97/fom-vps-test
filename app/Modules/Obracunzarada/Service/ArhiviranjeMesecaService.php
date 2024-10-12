@@ -106,6 +106,7 @@ class ArhiviranjeMesecaService
             unset($dkop->user_mdr_id);
             unset($dkop->updated_at);
             unset($dkop->created_at);
+            unset($dkop->kredit_glavna_tabela_id);
 
             $dkop['M_G_mesec_godina']=$datum->format('my');
             $dkop['M_G_date']=$datum;
@@ -140,6 +141,9 @@ class ArhiviranjeMesecaService
             unset($zara->id);
             unset($zara->updated_at);
             unset($zara->created_at);
+            unset($zara->user_dpsm_id);
+            unset($zara->obracunski_koef_id);
+            unset($zara->user_mdr_id);
 
             $zara['M_G_mesec_godina']=$datum->format('my');
             $zara['M_G_date']=$datum;

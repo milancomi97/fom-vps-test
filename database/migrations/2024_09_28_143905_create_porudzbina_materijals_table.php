@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('porudzbina_materijals', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('porudzbina_id');
-            $table->unsignedBigInteger('materijal_id');
-            $table->foreign('porudzbina_id')->references('id')->on('porudzbines')->onDelete('cascade');
-            $table->foreign('materijal_id')->references('sifra_materijala')->on('materijals')->onDelete('cascade');
-            $table->timestamps();
-        });
+//        Schema::create('porudzbina_materijals', function (Blueprint $table) {
+//            $table->id();
+//            $table->unsignedBigInteger('porudzbina_id');
+//            $table->unsignedBigInteger('materijal_id');
+//            $table->foreign('porudzbina_id')->references('id')->on('porudzbines')->onDelete('cascade');
+//            $table->foreign('materijal_id')->references('sifra_materijala')->on('materijals')->onDelete('cascade');
+//            $table->timestamps();
+//        });
     }
 
     /**

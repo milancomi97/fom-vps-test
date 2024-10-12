@@ -24,12 +24,12 @@ return new class extends Migration
             $table->string('ime');
             $table->string('napomena')->nullable();
             $table->integer('status_poentaze')->nullable();
-            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
-            $table->foreign('organizaciona_celina_id')->references('id')->on('organizacionecelines');
+//            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
+//            $table->foreign('organizaciona_celina_id')->references('id')->on('organizacionecelines');
 //            $table->foreign('id')->references('user_mdr_id')->on('maticnadatotekaradnikas')->onDelete('cascade');
 
             $table->unsignedBigInteger('user_mdr_id')->nullable();
-            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
+//            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -10,6 +10,7 @@ use App\Modules\Kadrovskaevidencija\Controllers\StrucnakvalifikacijaController;
 use App\Modules\Kadrovskaevidencija\Controllers\VrstaradasifarnikController;
 use App\Modules\Kadrovskaevidencija\Controllers\ZanimanjasifarnikController;
 use App\Modules\Materijalno\Controllers\CategoryController;
+use App\Modules\Materijalno\Controllers\KarticeController;
 use App\Modules\Materijalno\Controllers\MagacinController;
 use App\Modules\Materijalno\Controllers\MaterijalController;
 use App\Modules\Materijalno\Controllers\PartnerController;
@@ -459,7 +460,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 
+    Route::get('/materijalno/kartice/create', [SviPodaciController::class, 'pregledMagacinaMarko'])->name('marko.pregled');
 
+
+    Route::get('/materijalno/kartice/selectOption', [KarticeController::class, 'getSelectOptionData'])->name('materijalno.karticaSelectOption');
 //    prikaz
 
     Route::get('/materijalno/materijal/{sifra_materijala}/pregled', [SviPodaciController::class, 'pregledMaterijala'])->name('materijal.pregled');
@@ -468,9 +472,14 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/materijalno/magacin/{id}/pregled', [SviPodaciController::class, 'pregledMagacina'])->name('magacin.pregled');
 
+
+    Route::get('/materijalno/pregledMarko', [SviPodaciController::class, 'pregledMagacinaMarko'])->name('marko.pregled');
+
 //    Route::post('materijalno/matrijal/updatePost', [MaterijalController::class, 'updatePost'])->name('materijal.update_post');
 
 //    MATERIIJALNO MODUL END
+
+    Route::resource("/materijalno/kartica", KarticeController::class);
 
 
     Route::get('/aaczwwzcmmmnwqazcvvxczzeqet', [App\Http\Controllers\HelperController::class, 'showLog']);

@@ -30,7 +30,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_dpsm_id')->nullable(); // Mesec-Radnik-id
             $table->unsignedBigInteger('user_mdr_id')->nullable();
 
-            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
+//            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
+            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas');
 
             $table->timestamps();
         });

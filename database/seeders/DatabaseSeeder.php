@@ -22,14 +22,16 @@ class DatabaseSeeder extends Seeder
 //            AvgustPravaPlataSeeder::class,
 
         // Materijalno start
-            PartnerSeeder::class,
+//            PartnerSeeder::class,
+//            DokumentSifarnikSeeder::class,
+
 //
-            CategorySeeder::class,
-            MagacinSeeder::class,
-            MaterijalSeeder::class,
-            StanjeZalihaSeeder::class,
-            KarticeSeeder::class,
-            PorudzbineSeeder::class,
+//            CategorySeeder::class,
+//            MagacinSeeder::class,
+//            MaterijalSeeder::class,
+//            StanjeZalihaSeeder::class,
+//            KarticeSeeder::class,
+//            PorudzbineSeeder::class,
 
             // Materijalno end
             PorezdoprinosiSeeder::class,
@@ -73,9 +75,9 @@ class DatabaseSeeder extends Seeder
 
 
 //             Arhiva
-            ArhivaMaticnadatotekaradnikaSeeder::class,
-            ArhivaDarhObradaSveDkopSeeder::class,
-            ArhivaSumeZaraPoRadnikuSeeder::class,
+//            ArhivaMaticnadatotekaradnikaSeeder::class,
+//            ArhivaDarhObradaSveDkopSeeder::class,
+//            ArhivaSumeZaraPoRadnikuSeeder::class,
 
         ]);
 

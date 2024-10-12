@@ -37,7 +37,7 @@ class Materijal extends Model
 
     public function stanjematerijala()
     {
-        return $this->hasMany(StanjeZaliha::class, 'sifra_materijala');
+        return $this->hasMany(StanjeZaliha::class, 'sifra_materijala','sifra_materijala');
     }
 
 

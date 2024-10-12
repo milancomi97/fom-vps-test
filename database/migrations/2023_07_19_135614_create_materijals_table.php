@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('gru')->unique(); // Polje GRU iz CSV-a, verovatno šifra kategorije
             $table->string('name');
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');
+//            $table->foreign('parent_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -44,7 +44,7 @@ return new class extends Migration {
 
             $table->string('sifra_standarda')->nullable();
             $table->string('napomena')->nullable();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+//            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 
             $table->timestamps();
         });

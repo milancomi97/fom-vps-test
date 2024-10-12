@@ -40,7 +40,10 @@ return new class extends Migration
 
 //            $table->foreign('user_dpsm_id')->references('id')->on('mesecnatabelapoentazas')->onDelete('cascade');
 //            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
-            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
+//            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas')->onDelete('cascade');
+            $table->foreign('user_dpsm_id')->references('id')->on('mesecnatabelapoentazas');
+            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas');
+            $table->foreign('user_mdr_id')->references('id')->on('maticnadatotekaradnikas');
 
             $table->timestamps();
         });

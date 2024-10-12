@@ -8,4 +8,58 @@ php artisan backup:update-data
 
 
 KOMANDA ZA WINDOWS LOKAL IMPORT:
-php artisan migrate:fresh ; echo freshDONE; cmd.exe /c "C:/laragon/bin/mysql/mysql-8.0.30-winx64/bin/mysql.exe --database=adminlte --user=root --host=127.0.0.1 --port=3306 < C:\laragon\www\fom-vps-test\storage\app\dbfullimport\backup_22_09_2024_12_01.sql" ; echo importDONE
+php artisan migrate:rollback ; echo freshDONE; cmd.exe /c "C:/laragon/bin/mysql/mysql-8.0.30-winx64/bin/mysql.exe --database=adminlte --user=root --host=127.0.0.1 --port=3306 < C:\laragon\www\fom-vps-test\storage\app\dbfullimport\backup_10_10_2024_10_00.sql" ; echo importDONE
+
+
+
+3._kaskadna_sklonjena_10_11_za_azuriranje_glavne.sql - Poenteri su unosili i ceka se azuriranje MDR KADR i zatvaranje
+
+kadr_tabela_10_12_za_azuriranje_glavne
+mdr_tabela_10_12_za_azuriranje_glavne
+lokal_u_server_bazu
+
+
+
+
+
+////////////////////////////////
+lokalna_baza_mdr_kadr_fali_dpsm_12_10_2024 - Lokalna baza gde se treba importati posao koji su odradili poenteri
+
+dpsm_fiksna_placanjas_za_lokalnu
+dpsm_poentazaslogs_za_lokalnu
+
+server_baza_u_lokal
+
+
+
+
+
+
+1./////////////////////////////////
+
+
+ php artisan migrate:fresh ; echo freshDONE; cmd.exe /c "C:/laragon/bin/mysql/mysql-8.0.30-winx64/bin/mysql.exe --database=adminlte --user=root --host=127.0.0.1 --port=3306 < C:\laragon\www\fom-vps-test\storage\app\dbfullimport\lokal_u_server_bazu\3._kaskadna_sklonjena_10_11_za_azuriranje_glavne.sql" ; echo importDONE
+
+
+
+echo freshWITHOUT; cmd.exe /c "C:/laragon/bin/mysql/mysql-8.0.30-winx64/bin/mysql.exe --database=adminlte --user=root --host=127.0.0.1 --port=3306 < C:\laragon\www\fom-vps-test\storage\app\dbfullimport\lokal_u_server_bazu\kadr_tabela_10_12_za_azuriranje_glavne.sql" ; echo importDONE
+
+
+
+echo freshWITHOUT; cmd.exe /c "C:/laragon/bin/mysql/mysql-8.0.30-winx64/bin/mysql.exe --database=adminlte --user=root --host=127.0.0.1 --port=3306 < C:\laragon\www\fom-vps-test\storage\app\dbfullimport\lokal_u_server_bazu\mdr_tabela_10_12_za_azuriranje_glavne.sql" ; echo importDONE
+
+
+
+echo freshWITHOUT; cmd.exe /c "C:/laragon/bin/mysql/mysql-8.0.30-winx64/bin/mysql.exe --database=adminlte --user=root --host=127.0.0.1 --port=3306 < C:\laragon\www\fom-vps-test\storage\app\dbfullimport\lokal_u_server_bazu\user_perm_tabela_10_12_za_azuriranje_glavne.sql" ; echo importDONE
+
+2./////////////////////////////////////////////////
+
+
+
+
+   16  mysqldump -u root -p adminlte dpsm_poentazaslogs > C:\laragon\www\fom-vps-test\storage\app\dbfullimport\dpsm_poentazaslogs_za_lokalnu.sql
+   17  mysqldump -u root -p adminlte dpsm_fiksna_placanjas > C:\laragon\www\fom-vps-test\storage\app\dbfullimport\dpsm_fiksna_placanjas_za_lokalnu.sql
+   18  mysqldump -u root -p adminlte > C:\laragon\www\fom-vps-test\storage\app\dbfullimport\zatvorena_ceka_import.sql
+   19  mysqldump -u root -p adminlte maticnadatotekaradnikas > C:\laragon\www\fom-vps-test\storage\app\dbfullimport\mdr_tabela_10_12_za_azuriranje_glavne.sql
+   20  mysqldump -u root -p adminlte users > C:\laragon\www\fom-vps-test\storage\app\dbfullimport\kadr_tabela_10_12_za_azuriranje_glavne.sql
+   21  mysqldump -u root -p adminlte user_permissions > C:\laragon\www\fom-vps-test\storage\app\dbfullimport\user_perm_tabela_10_12_za_azuriranje_glavne.sql

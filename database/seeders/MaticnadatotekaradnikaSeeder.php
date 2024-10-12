@@ -12,10 +12,10 @@ class MaticnadatotekaradnikaSeeder extends Seeder
     public function run(): void
     {
         $datas = $this->getDataFromCsv();
-
-        foreach ($datas as $data) {
+$iterator =0;
+        foreach ($datas as $key => $data) {
             try {
-
+$iterator++;
 
                 DB::table('maticnadatotekaradnikas')->insert(
                     $this->userExists([
@@ -30,8 +30,8 @@ class MaticnadatotekaradnikaSeeder extends Seeder
 //                    'BR_vrsta_rada' => $data['BR'],
                         'BR_vrsta_rada' => '1',
                         'P_R_oblik_rada' => $data['P_R'],
-                        'RJ_radna_jedinica' => $data['RJ'],
-                        'BRIG_brigada' => $data['BRIG'],
+//                        'RJ_radna_jedinica' => $data['RJ'],
+//                        'BRIG_brigada' => $data['BRIG'],
                         'GGST_godine_staza' => $data['GGST'],
                         'MMST_meseci_staza' => $data['MMST'],
                         'MRAD_minuli_rad_aktivan' => $data['MRAD'] == "D",
@@ -70,7 +70,7 @@ class MaticnadatotekaradnikaSeeder extends Seeder
                         'adresa_mesto' => $data['MESTO']
 
                     ]));
-            } catch (\Exception){
+            } catch (\Exception $exception){
                 $test='ttest';
                 var_dump($data['MBRD']);
             }
@@ -113,10 +113,10 @@ class MaticnadatotekaradnikaSeeder extends Seeder
 
     public function getDataFromCsv()
     {
-        $filePath = storage_path('app/backup/poenterfinalno/MDR_1.csv');
+        $filePath = storage_path('app/backup/plata_11_10_2024/MDR_2.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
-        $csv->setDelimiter(',');
-        return $csv;
+        $csv->setDelimiter(';');
+        return $csv->getRecords();
     }
 }

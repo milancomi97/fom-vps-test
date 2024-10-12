@@ -23,8 +23,8 @@ return new class extends Migration
             $table->json('odgovorna_lica_status')->nullable();
             $table->date('datum')->nullable();
 
-            $table->foreign('organizaciona_celina_id')->references('id')->on('organizacionecelines');
-            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
+//            $table->foreign('organizaciona_celina_id')->references('id')->on('organizacionecelines');
+//            $table->foreign('obracunski_koef_id')->references('id')->on('datotekaobracunskihkoeficijenatas')->onDelete('cascade');
             $table->timestamps();
         });
     }

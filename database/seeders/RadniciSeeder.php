@@ -27,10 +27,10 @@ class RadniciSeeder extends Seeder
         foreach ($radnici as $radnik) {
 
             DB::table('users')->insert([
-                'active' => (bool)$radnik['ACTIVE'],
+                'active' => $radnik['ACTIVE'] =='TRUE',
                 'ime' => $radnik['IME'],
                 'prezime' => $radnik['PREZIME'],
-                'ime_oca' => $radnik['IMEOCA'],
+                'ime_oca' => $radnik['SREDIME'],
                 'srednje_ime' => $radnik['SREDIME'],
                 'datum_prestanka_radnog_odnosa' => $this->resolvedate($radnik['DAT_KRA']),
                 'datum_zasnivanja_radnog_odnosa' => $this->resolvedate($radnik['DAT_POC']),
@@ -1092,11 +1092,11 @@ class RadniciSeeder extends Seeder
 
     public function getPartnerArray2()
     {
-        $filePath = storage_path('app/backup/novo/KADR.csv');
+        $filePath = storage_path('app/backup/plata_11_10_2024/KADR.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
-        $csv->setDelimiter(',');
-        return $csv;
+        $csv->setDelimiter(';');
+        return $csv->getRecords();
     }
 
     public function poenterPermissionsTest()

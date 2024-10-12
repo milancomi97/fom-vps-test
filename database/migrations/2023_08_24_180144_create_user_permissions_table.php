@@ -27,7 +27,8 @@ return new class extends Migration
             $table->json('troskovna_mesta_poenter')->nullable();
             $table->integer('role_id')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+//            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

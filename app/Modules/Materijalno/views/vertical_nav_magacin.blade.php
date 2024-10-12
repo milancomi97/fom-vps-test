@@ -74,7 +74,7 @@
                         <p class="nav-title-pp">Konta</p></a>
                 </li>
                 <li class="nav-item my-nav-item">
-                    <a class="nav-link my-nav-link " href="{{ route('materijalno.porudzbine.index') }}">
+                    <a class="nav-link my-nav-link " href="{{ route('marko.pregled') }}">
                         <i class="text-secondary fas my-fas fa-book"></i>
                         <p class="nav-title-pp">Izveštaji</p></a>
                 </li>

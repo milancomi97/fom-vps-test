@@ -32,8 +32,13 @@ return new class extends Migration
             $table->string('nal1', 2)->nullable(); // Nalog 1
             $table->string('nal2', 3)->nullable(); // Podbroj naloga 1
             $table->string('gru', 5)->nullable(); // Grupa
-            $table->foreign('magacin_id')->references('id')->on('magacins')->onDelete('cascade');
-            $table->foreign('materijal_id')->references('sifra_materijala')->on('materijals')->onDelete('cascade');
+//            $table->foreign('magacin_id')->references('id')->on('magacins')->onDelete('cascade');
+//            $table->foreign('materijal_id')->references('sifra_materijala')->on('materijals')->onDelete('cascade');
+
+
+            $table->foreign('magacin_id')->references('id')->on('magacins');
+            $table->foreign('materijal_id')->references('sifra_materijala')->on('materijals');
+
             $table->timestamps();
         });
     }
