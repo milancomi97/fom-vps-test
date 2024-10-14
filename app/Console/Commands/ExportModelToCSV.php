@@ -31,7 +31,7 @@ class ExportModelToCSV extends Command
 
         $model = $this->argument('maticni_broj');
 
-        $zaglavlje=['1'];
+        $zaglavlje=['maticni_broj'];
 
         $podaci=[[$model]];
 
@@ -55,7 +55,7 @@ class ExportModelToCSV extends Command
         $csv = Writer::createFromPath($filepath, 'w+');
 
         // Get column names from the model
-        $columns = array_keys($data['zaglavlje']);
+        $columns = $data['zaglavlje'];
 
         // Insert header row
         $csv->insertOne($columns);
