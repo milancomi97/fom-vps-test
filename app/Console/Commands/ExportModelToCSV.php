@@ -45,20 +45,19 @@ class ExportModelToCSV extends Command
 
     public function handle()
     {
-        $filepath = storage_path('csv_files/model_export.csv');
-
+//        $filepath = storage_path('csv_files/model_export.csv');
+//
         $data = $this->podaciZaIspis();
-
-
-
-        // Create CSV writer instance
-        $csv = Writer::createFromPath($filepath, 'w+');
-
-        // Get column names from the model
+//
+//
+//        // Create CSV writer instance
+//        $csv = Writer::createFromPath($filepath, 'w+');
+//
+//        // Get column names from the model
         $columns = $data['zaglavlje'];
-
-        // Insert header row
-        $csv->insertOne($columns);
+//
+//        // Insert header row
+//        $csv->insertOne($columns);
 
         // Insert data rows
         $this->warn(json_encode($columns));
