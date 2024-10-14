@@ -61,11 +61,12 @@ class ExportModelToCSV extends Command
         $csv->insertOne($columns);
 
         // Insert data rows
+        $this->warn(json_encode($columns));
+
         foreach ($data['podaci'] as $row) {
-            $csv->insertOne($row);
+            $this->info(json_encode($row));
         }
 
-        $csv->output(); // This will print CSV content directly to the console
 
     }
 }
