@@ -22,8 +22,10 @@ class DatabaseSeeder extends Seeder
 //            AvgustPravaPlataSeeder::class,
 
         // Materijalno start
-//            PartnerSeeder::class,
-//            DokumentSifarnikSeeder::class,
+            PartnerSeeder::class,
+            DokumentSifarnikSeeder::class,
+
+//            php artisan migrate --path=/database/migrations/2023_07_19_135614_create_materijals_table.php
 
 //
             CategorySeeder::class,
@@ -34,31 +36,31 @@ class DatabaseSeeder extends Seeder
             PorudzbineSeeder::class,
 
             // Materijalno end
-            PorezdoprinosiSeeder::class,
-            KreditoriSeeder::class,
-            VrsteplacanjaSeeder::class,
-            RadniciSeeder::class,
+//            PorezdoprinosiSeeder::class,
+//            KreditoriSeeder::class,
+//            VrsteplacanjaSeeder::class,
+//            RadniciSeeder::class,
             // Verzija stara
 //            MaticnadatotekaradnikaSeeder::class,
         // 1.1
-            MaticnadatotekaradnikaSeeder::class,
+//            MaticnadatotekaradnikaSeeder::class,
 
 
-            OrganizacionecelineSeeder::class,
-            OpstineSeeder::class,
-            OblikradaSeeder::class,
-            VrstaradasifarnikSeeder::class,
-            StrucnakvalifikacijaSeeder::class,
-            RadnamestaSeeder::class,
-            ZanimanjasifarnikSeeder::class,
-            PodaciofirmiSeeder::class,
+//            OrganizacionecelineSeeder::class,
+//            OpstineSeeder::class,
+//            OblikradaSeeder::class,
+//            VrstaradasifarnikSeeder::class,
+//            StrucnakvalifikacijaSeeder::class,
+//            RadnamestaSeeder::class,
+//            ZanimanjasifarnikSeeder::class,
+//            PodaciofirmiSeeder::class,
 //            IsplatnamestaSeeder::class,
 //            MinimalnebrutoosnoviceSeeder::class,
 
 
             // Avgust razliika
-            IsplatnamestaAvgustSeeder::class,
-            MinimalnebrutoosnoviceAvgustSeeder::class,
+//            IsplatnamestaAvgustSeeder::class,
+//            MinimalnebrutoosnoviceAvgustSeeder::class,
 
         // Nove Stvari za jul platu
 //            JulDPSMPlataSeeder::class,
@@ -70,9 +72,11 @@ class DatabaseSeeder extends Seeder
 
 //            MartPlataSeeder::class,
 //            AvgustPlataSeeder::class,
-            DatotekaobracunskihKoefMesecDataSeeder::class,
+//            DatotekaobracunskihKoefMesecDataSeeder::class,
 
 
+
+            SeptembarFullUpdateSeeder::class,
 
 //             Arhiva
             ArhivaMaticnadatotekaradnikaSeeder::class,

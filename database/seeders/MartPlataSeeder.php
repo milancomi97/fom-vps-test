@@ -32,7 +32,7 @@ class MartPlataSeeder extends Seeder
         private readonly DpsmFiksnaPlacanjaRepositoryInterface               $dpsmFiksnaPlacanjaInterface,
         private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
         private readonly VrsteplacanjaRepositoryInterface          $vrsteplacanjaInterface,
-        private readonly DpsmKreditiRepositoryInterface $dpsmKreditiInterface
+        private readonly DpsmKreditiRepositoryInterface             $dpsmKreditiInterface
 
     ){
     }

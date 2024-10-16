@@ -26,6 +26,8 @@ class ArhivaSumeZaraPoRadnikuSeeder extends Seeder
         foreach ($datas as $data) {
             $date = Carbon::createFromFormat('my', $data['M_G'])->startOfMonth()->setDay(1);
 
+            try {
+
 
             DB::table('arhiva_sume_zara_po_radnikus')->insert([
                 'M_G_mesec_godina' =>$data['M_G'],
@@ -87,6 +89,10 @@ class ArhivaSumeZaraPoRadnikuSeeder extends Seeder
 //                'varijab' =>$data['DATAAA'],
                 'BMIN_prekovremeni_iznos' =>$data['BMIN'] !== '' ? $data['BMIN'] : 0,
                 ]);
+
+            } catch (\Exception $e) {
+                var_dump("Failed to create payment record for MBRD: ".json_encode($data).", Error: " . $e->getMessage());
+            }
         }
 
     }
@@ -95,10 +101,10 @@ class ArhivaSumeZaraPoRadnikuSeeder extends Seeder
 
     public function getDataFromCsv()
     {
-        $filePath = storage_path('app/backup/arhiva2/SUME.csv');
+        $filePath = storage_path('app/backup/mts_server_priprema_14_10_2024/SUME.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
-        $csv->setDelimiter(',');
+        $csv->setDelimiter(';');
         return $csv;
     }
 }

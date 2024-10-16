@@ -26,6 +26,9 @@ class ArhivaMaticnadatotekaradnikaSeeder extends Seeder
         foreach ($datas as $data) {
             $date = Carbon::createFromFormat('my', $data['M_G'])->startOfMonth()->setDay(1);
 
+            try{
+
+
             DB::table('arhiva_maticnadatotekaradnikas')->insert(
                 $this->userExists([
                     'M_G_mesec_godina' =>$data['M_G'],
@@ -34,7 +37,7 @@ class ArhivaMaticnadatotekaradnikaSeeder extends Seeder
 //                    'PREZIME_prezime' => $data['PREZIME'],
 //                    'IME_ime' => $data['IME'],
 //                    'srednje_ime' => '',
-                    'RBRM_radno_mesto' => $data['RBRM'],
+                    'RBRM_radno_mesto' => $data['RBRM'] !== '' ? (int)$data['RBRM'] : 0,
                     'RBIM_isplatno_mesto_id' => $data['RBIM'] !== '' ? $data['RBIM'] : 0,
                     'ZRAC_tekuci_racun' => $data['ZRAC'],
                     'BRCL_redosled_poentazi' => $data['BRCL'] !== '' ? $data['BRCL'] : 9999,
@@ -81,6 +84,10 @@ class ArhivaMaticnadatotekaradnikaSeeder extends Seeder
                     'adresa_mesto' => $data['MESTO']
 
                 ]));
+
+            } catch (\Exception $e) {
+                var_dump("Failed to create payment record for MBRD: ".json_encode($data).", Error: " . $e->getMessage());
+            }
         }
 
     }
@@ -120,10 +127,11 @@ class ArhivaMaticnadatotekaradnikaSeeder extends Seeder
 
     public function getDataFromCsv()
     {
-        $filePath = storage_path('app/backup/arhiva2/ARMD.csv');
+        $filePath = storage_path('app/backup/mts_server_priprema_14_10_2024/ARMD.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
-        $csv->setDelimiter(',');
-        return $csv;
+        $csv->setDelimiter(';');
+        return $csv->getRecords();
+;
     }
 }

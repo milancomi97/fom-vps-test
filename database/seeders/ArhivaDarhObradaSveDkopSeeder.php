@@ -25,6 +25,7 @@ class ArhivaDarhObradaSveDkopSeeder extends Seeder
         foreach ($datas as $data) {
             $date = Carbon::createFromFormat('my', $data['M_G'])->startOfMonth()->setDay(1);
 
+            try{
             DB::table('arhiva_darh_obrada_sve_dkops')->insert([
                 'M_G_mesec_godina' =>$data['M_G'],
                 'M_G_date' =>$date->format('Y-m-d'),
@@ -46,6 +47,10 @@ class ArhivaDarhObradaSveDkopSeeder extends Seeder
                 'PART_partija_kredita'=>$data['PART'],
 
                 ]);
+
+        } catch (\Exception $e) {
+        var_dump("Failed to create payment record for MBRD: ".json_encode($data).", Error: " . $e->getMessage());
+    }
         }
 
     }
@@ -54,10 +59,10 @@ class ArhivaDarhObradaSveDkopSeeder extends Seeder
 
     public function getDataFromCsv()
     {
-        $filePath = storage_path('app/backup/arhiva/DARH.csv');
+        $filePath = storage_path('app/backup/mts_server_priprema_14_10_2024/DARH.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
-        return $csv;
+        return $csv->getRecords();
     }
 }
