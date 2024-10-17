@@ -391,13 +391,13 @@
                                 <td class="ime_prezime">{{ $value['ime'] }}</td>
                                 @foreach( $value['vrste_placanja'] as $vrstaPlacanja)
 
-                                    <td class="vrsta_placanja_td"><input type="number" data-record-id="{{$value['id']}}"
+                                    <td class="vrsta_placanja_td"><input type="number" data-record-id="{!! $value['id'] !!}"
                                                                          min="0"
                                                                          disabled="disabled"
                                                                          class="vrsta_placanja_input"
                                                                          data-toggle="tooltip"
                                                                          data-placement="top"
-                                                                         title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{($vrstaPlacanja['sati'] > 0) ? $vrstaPlacanja['sati'] : null}}>
+                                                                         title="{!! $vrstaPlacanja['name']!!}" data-vrsta-placanja-key="{!!$vrstaPlacanja['key']!!}" value="{!! ($vrstaPlacanja['sati'] > 0) ? $vrstaPlacanja['sati'] : null !!}">
                                     </td>
                                 @endforeach
                                 <td class="napomena_td" data-napomena-value="{{$value['napomena']}}"

@@ -188,7 +188,7 @@
                                                                                  class="vrsta_placanja_input"
                                                                                  data-toggle="tooltip"
                                                                                  data-placement="top"
-                                                                                 title={{ $vrstaPlacanja['name']}} data-vrsta-placanja-key={{$vrstaPlacanja['key']}} value={{($vrstaPlacanja['sati'] > 0) ? $vrstaPlacanja['sati'] : null}}>
+                                                                                 title="{!!$vrstaPlacanja['name']!!}" data-vrsta-placanja-key="{!!$vrstaPlacanja['key']!!}" value="{!! ($vrstaPlacanja['sati'] > 0) ? $vrstaPlacanja['sati'] : null !!}">
                                             </td>
                                         @elseif($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]['status']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
                                             <td class="vrsta_placanja_td">{{ $vrstaPlacanja['sati']}}</td>
