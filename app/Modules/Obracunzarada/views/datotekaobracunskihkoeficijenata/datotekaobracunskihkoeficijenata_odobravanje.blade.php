@@ -314,13 +314,13 @@
 
             </div>
             <div class="col-md-1">
-                <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_sati',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola sati</a>
+                <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_sati',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola unetih sati</a>
             </div>
             <div class="col-md-1">
-                <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_poenteri',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola statusa</a>
+                <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_poenteri',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola statusa poentaže</a>
             </div>
             <div class="col-md-1">
-                <a  href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="btn btn-secondary btn-lg">Poentaža</a>
+                <a  href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="btn btn-secondary btn-lg">Povratak u aktivan mesec</a>
 
             </div>
         </div>
@@ -360,14 +360,14 @@
                         ?>
                     <h3 class="text-center"> Organizaciona celina: <b>{{$key}} </b> -
                         &nbsp{{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}.</h3>
-                    <button id='osvezi_stranicu' onClick="window.location.reload()" class="btn btn-secondary  calcBtn">Osveži proveru</button>
-                    <form target="hiddenIframe2" class="loaderEvent" method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
+                    <button id='osvezi_stranicu' onClick="window.location.reload()" class="btn btn-secondary  calcBtn">Osvežiti proveru</button>
+                    <form  method="POST" action="{{route('datotekaobracunskihkoeficijenata.odobravanje_export_pdf_org_celine')}}">
                         @csrf
                         <input type="hidden" name="approved_org_celine" value="{{json_encode($key)}}">
                         <input type="hidden" name="month_id" value="{{$monthData->id}}">
-                        <button id='export-pdf-celina' class="btn btn-secondary  calcBtn">Štampaj PDF</button>
+                        <button id='export-pdf-celina' class="btn btn-secondary  calcBtn">PDF Štampa</button>
                     </form>
-                    <iframe id="hiddenIframe2" name="hiddenIframe2" style="display:none;"></iframe>
+{{--                    <iframe id="hiddenIframe2" name="hiddenIframe2" style="display:none;"></iframe>--}}
 
                     <div class="divider"></div>
 

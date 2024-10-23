@@ -337,6 +337,7 @@ $(document).ready(function () {
                 _token: _token
             },
             success: function (response) {
+                debugger;
                 $('#myModal').modal('show');
                 $('.modal-backdrop').hide();
                 $('#submitFormBtn').prop('id', 'updateFormBtn');
@@ -344,14 +345,17 @@ $(document).ready(function () {
                 $('#exampleModalLabel').text('Izmena');
                 $("#kalendarski_broj_dana_modal").val(response.kalendarski_broj_dana)
                 $("#mesecni_fond_sati_modal").val(response.mesecni_fond_sati)
-                $("#month_modal").val(parseInt(response.mesec)+1)
+                $("#month_modal").val(parseInt(response.mesec))
                 $("#year_modal").val(response.godina)
                 $('#prosecni_godisnji_fond_sati_modal').val(response.prosecni_godisnji_fond_sati)
                 $('#cena_rada_tekuci_modal').val(response.cena_rada_tekuci)
                 $('#cena_rada_prethodni_modal').val(response.cena_rada_prethodni)
                 $('#vrednost_akontacije_modal').val(response.vrednost_akontacije)
-                $('#month_id').val(response.id)
+                $('#month_id').val(response.id);
 
+                $('#period_isplate_od_modal').val(response.period_isplate_od)
+
+                $('#period_isplate_do_modal').val(response.period_isplate_do)
             },
             error: function (response) {
             }

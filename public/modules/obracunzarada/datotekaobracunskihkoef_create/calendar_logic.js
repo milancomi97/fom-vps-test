@@ -110,7 +110,7 @@ function updateMonthContainer(activeMonth) {
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Priprema poentaže').appendTo(monthCard);
+                }).text('Unos poentaže').appendTo(monthCard);
 
 
                 $('<button>').attr({

@@ -161,6 +161,25 @@ class DatotekaobracunskihExportController extends Controller
 //        );
 
 
+
+        $podaciMesec = $this->datotekaobracunskihkoeficijenataInterface->getById($monthId);
+
+        $podaciMesec->datum=date('m.Y', strtotime($podaciMesec->datum));
+
+
+        return view('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
+            [
+                'rows'=>$rows,
+                'data'=>$troskovniCentarCalculated,
+                'tableHeaders'=>$tableHeaders,
+                'vrstePlacanjaDescription'=>$vrstePlacanjaDescription,
+                'organizacioneCelineSifarnik'=>$organizacioneCelineSifarnik,
+                'podaciFirme' => $podaciFirme,
+                'podaciMesec'=>$podaciMesec
+
+            ]
+        );
+
         $pdf = PDF::loadView('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
             [
                 'rows'=>$rows,
@@ -169,6 +188,7 @@ class DatotekaobracunskihExportController extends Controller
                 'vrstePlacanjaDescription'=>$vrstePlacanjaDescription,
                 'organizacioneCelineSifarnik'=>$organizacioneCelineSifarnik,
                 'podaciFirme' => $podaciFirme,
+                'podaciMesec'=>$podaciMesec
             ]
         )->setPaper('a4', 'portrait');
         // TODO Test
