@@ -37,7 +37,7 @@ class MesecnatabelapoentazaRepository extends BaseRepository implements Mesecnat
             });
 
             $mesecnaTabelaPoentaza['vrste_placanja'] = $unsorted;
-            $mesecnaTabelaPoentaza['ime'] =  $mesecnaTabelaPoentaza['prezime'] .' ' . $mesecnaTabelaPoentaza['srednje_ime']  .' ' . $mesecnaTabelaPoentaza['ime'];
+            $mesecnaTabelaPoentaza['ime'] =  $mesecnaTabelaPoentaza['prezime'] .' ' . $mesecnaTabelaPoentaza['srednje_ime']  .'. ' . $mesecnaTabelaPoentaza['ime'];
             $mesecnaTabelaPoentaza['BRCL_REDOSLED'] = (int)$mesecnaTabelaPoentaza->maticnadatotekaradnika->BRCL_redosled_poentazi;
             return $mesecnaTabelaPoentaza;
         });

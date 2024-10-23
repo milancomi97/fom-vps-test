@@ -69,7 +69,9 @@
         .footer-opis-code{
             font-size: 2mm;
         }
-
+.naziv_firme{
+    font-size:4mm;
+}
         .celina-data{
             display:inline-block;
             font-size: 2mm;
@@ -86,7 +88,7 @@
         ?>
     <div class="document-header">
         <div class="celina-details-div" style="width: 30%;">
-            <span class="strong">{{$podaciFirme['skraceni_naziv_firme']}}</span><br>
+            <span class="strong naziv_firme">{{$podaciFirme['skraceni_naziv_firme']}}</span><br>
             <h5 class="celina-details">Mesec obrade: {{$podaciMesec->datum}}</h5>
         </div>
         <div class="celina-data">
@@ -123,19 +125,23 @@
                     <td style="font-weight: 600;">{{ $radnik['rowSum'] }}
                 </tr>
             @endif
-            <tr style="background-color: #ADD8E6;">
 
-                <td></td>
-                <td class="rowSum ime_prezime">Ukupno:</td>
-                @foreach($organizacionacelina['columnSum'] as $sumKey =>$sumValue)
-                    <td class="vrsta_placanja_td text-center">{{$sumValue}}</td>
-                @endforeach
-            </tr>
-            @if($rowCounter ==15)
+            @if($loop->last)
+                <tr style="background-color: #ADD8E6;">
+
+                    <td></td>
+                    <td class="rowSum ime_prezime">Ukupno:</td>
+                    @foreach($radnici['columnSum'] as $sumKey =>$sumValue)
+                        <td class="vrsta_placanja_td text-center">{{$sumValue}}</td>
+                    @endforeach
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                </tr>
+            @endif
+            @if($rowCounter==20)
                     <?php $pageCounter++ ?>
-
-
-
 
         </tbody>
     </table>
@@ -148,26 +154,29 @@
                 <div style="font-size: 2.5mm;"><p> {{$potpis}}</p>
                     @endforeach
                 </div>
+                <div style="margin-top: 15mm">
+                    <h3 style="text-align: left">Napomena:</h3>
+                    <div style="border-bottom: 1px solid black; height: 15px; margin-bottom: 5mm;"></div>
+                    <div style="border-bottom: 1px solid black; height: 15px; margin-bottom: 5mm;"></div>
+                    <div style="border-bottom: 1px solid black; height: 15px;"></div>
+                </div>
+
                 <div class="page-break"></div>
 
                 <div class="document-header">
                     <div class="celina-details-div" style="width: 30%;">
-                        <span class="strong">{{$podaciFirme['skraceni_naziv_firme']}}</span><br>
-                        <h5 class="celina-details">Mesec: {{date('m')}}</h5>
-                        <h5 class="celina-details">Datum štampe: {{date('m')}}</h5>
-                        <span class="page-number">Stranica </span>
-                        <h5 class="celina-details"> <span class="page-number">Stranica </span></h5>
+                        <span class="strong naziv_firme">{{$podaciFirme['skraceni_naziv_firme']}}</span><br>
+                        <h5 class="celina-details">Mesec obrade: {{$podaciMesec->datum}}</h5>
                     </div>
                     <div class="celina-data">
-                        <h1 style="text-align: left">Organizaciona celina: {{$key}}</h1>
+                        <h1 style="text-align: left">{{$key}}</h1>
+                        <h1 style="text-align: left">{{$organizacioneCelineSifarnik[$key]->naziv_troskovnog_mesta}}</h1>
                     </div>
                     <div class="celina-details-div" style="width: 10%;">
-                        <span class="strong">{{$podaciFirme['skraceni_naziv_firme']}}</span><br>
-                        <h5 class="celina-details">Mesec: {{date('m')}}</h5>
-                        <h5 class="celina-details">Datum štampe: {{date('m')}}</h5>
+
+                        <h5 class="celina-details">Datum štampe: {{date('d')}}.{{date('m')}}.{{date('Y')}}</h5>
                         <span class="page-number">Stranica </span>
-                        <h5 class="celina-details"> <span class="page-number">Stranica </span></h5>
-                    </div>
+                                         </div>
                 </div>
                 <table class="custom-table">
                     <thead style="display: table-header-group;">
@@ -181,6 +190,7 @@
                         $rowCounter = 0;
                         $pageCounter++;
                         ?>
+
                     @endif
                     @endforeach
                     </thead>
@@ -197,6 +207,12 @@
                             @if(!$loop->last)
                                 <div class="page-break"></div>
     @endif
+                            <div style="margin-top: 20mm;">
+                                <h3 style="text-align: left">Napomena:</h3>
+                                <div style="border-bottom: 1px solid black; height: 15px; margin-bottom: 5mm;"></div>
+                                <div style="border-bottom: 1px solid black; height: 15px; margin-bottom: 5mm;"></div>
+                                <div style="border-bottom: 1px solid black; height: 15px;"></div>
+                            </div>
 @endforeach
 </body>
 </html>

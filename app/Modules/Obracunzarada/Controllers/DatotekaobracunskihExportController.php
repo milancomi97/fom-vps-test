@@ -167,18 +167,18 @@ class DatotekaobracunskihExportController extends Controller
         $podaciMesec->datum=date('m.Y', strtotime($podaciMesec->datum));
 
 
-        return view('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
-            [
-                'rows'=>$rows,
-                'data'=>$troskovniCentarCalculated,
-                'tableHeaders'=>$tableHeaders,
-                'vrstePlacanjaDescription'=>$vrstePlacanjaDescription,
-                'organizacioneCelineSifarnik'=>$organizacioneCelineSifarnik,
-                'podaciFirme' => $podaciFirme,
-                'podaciMesec'=>$podaciMesec
-
-            ]
-        );
+//        return view('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
+//            [
+//                'rows'=>$rows,
+//                'data'=>$troskovniCentarCalculated,
+//                'tableHeaders'=>$tableHeaders,
+//                'vrstePlacanjaDescription'=>$vrstePlacanjaDescription,
+//                'organizacioneCelineSifarnik'=>$organizacioneCelineSifarnik,
+//                'podaciFirme' => $podaciFirme,
+//                'podaciMesec'=>$podaciMesec
+//
+//            ]
+//        );
 
         $pdf = PDF::loadView('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
             [
