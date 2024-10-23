@@ -2,10 +2,6 @@
 @extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
-<?php
-    phpinfo();
-    ?>
-
     <link rel="stylesheet" href="{{asset('admin_assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
 
     <style>

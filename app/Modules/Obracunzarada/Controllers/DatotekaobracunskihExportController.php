@@ -165,6 +165,8 @@ class DatotekaobracunskihExportController extends Controller
         $podaciMesec = $this->datotekaobracunskihkoeficijenataInterface->getById($monthId);
 
         $podaciMesec->datum=date('m.Y', strtotime($podaciMesec->datum));
+        ini_set('memory_limit', '2048M');
+        set_time_limit(0);
 
 
 //        return view('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
