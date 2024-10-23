@@ -154,13 +154,6 @@
                 <div style="font-size: 2.5mm;"><p> {{$potpis}}</p>
                     @endforeach
                 </div>
-                <div style="margin-top: 15mm">
-                    <h3 style="text-align: left">Napomena:</h3>
-                    <div style="border-bottom: 1px solid black; height: 15px; margin-bottom: 5mm;"></div>
-                    <div style="border-bottom: 1px solid black; height: 15px; margin-bottom: 5mm;"></div>
-                    <div style="border-bottom: 1px solid black; height: 15px;"></div>
-                </div>
-
                 <div class="page-break"></div>
 
                 <div class="document-header">
@@ -207,12 +200,6 @@
                             @if(!$loop->last)
                                 <div class="page-break"></div>
     @endif
-                            <div style="margin-top: 20mm;">
-                                <h3 style="text-align: left">Napomena:</h3>
-                                <div style="border-bottom: 1px solid black; height: 15px; margin-bottom: 5mm;"></div>
-                                <div style="border-bottom: 1px solid black; height: 15px; margin-bottom: 5mm;"></div>
-                                <div style="border-bottom: 1px solid black; height: 15px;"></div>
-                            </div>
 @endforeach
 </body>
 </html>
