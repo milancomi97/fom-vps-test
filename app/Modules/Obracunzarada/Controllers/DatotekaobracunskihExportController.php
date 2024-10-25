@@ -486,7 +486,7 @@ class DatotekaobracunskihExportController extends Controller
         $obracunskiKoeficijentId = $request->month_id;
 
         $dkopData =$this->obradaDkopSveVrstePlacanjaInterface->where('obracunski_koef_id',$obracunskiKoeficijentId)->get();
-        $zaraData =  $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$obracunskiKoeficijentId)->get();
+        $zaraData =  $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$obracunskiKoeficijentId)->orderBy('UKUPNO','desc')->get();
 
         $orgCelineData = $this->organizacionecelineInterface->getAll()->mapWithKeys(function($orgCelina){
             return [

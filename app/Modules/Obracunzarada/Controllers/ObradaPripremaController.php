@@ -32,6 +32,7 @@ use App\Modules\Osnovnipodaci\Repository\RadniciRepositoryInterface;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 
 class ObradaPripremaController extends Controller
@@ -78,9 +79,13 @@ class ObradaPripremaController extends Controller
             $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
             $id = $request->month_id;
 
-            $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $id)->delete();
-            $this->obradaKreditiInterface->where('obracunski_koef_id', $id)->delete();
-            $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $id)->delete();
+//            $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', '>', 0)->delete();
+//            $this->obradaKreditiInterface->where('obracunski_koef_id', '>', 0)->delete();
+//            $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', '>', 0)->delete();
+            DB::delete('DELETE FROM obrada_dkop_sve_vrste_placanjas WHERE obracunski_koef_id > ?', [1]);
+            DB::delete('DELETE FROM obrada_zara_po_radnikus WHERE obracunski_koef_id > ?', [1]);
+            DB::delete('DELETE FROM obrada_kreditis WHERE obracunski_koef_id > ?', [1]);
+
 
 //        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->select('vrste_placanja','user_id','maticni_broj','obracunski_koef_id')->get();
             $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
@@ -95,7 +100,7 @@ class ObradaPripremaController extends Controller
 //
 
 
-            $allFiksnaPlacanjaData = $this->dpsmFiksnaPlacanjaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id', $id)->get();
+            $allFiksnaPlacanjaData = $this->dpsmFiksnaPlacanjaInterface->with('maticnadatotekaradnika')->get();
             if ($allFiksnaPlacanjaData->count()) {
                 $allFiksnaPlacanjaPrepared = $this->obradaPripremaService->pripremiFiksnaPlacanja($allFiksnaPlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik);
                 $status = $this->dkopSveVrstePlacanjaInterface->createMany($allFiksnaPlacanjaPrepared);

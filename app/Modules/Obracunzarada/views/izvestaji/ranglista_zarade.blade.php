@@ -171,7 +171,7 @@
                             @endforeach
                             </tbody>
                             <tfoot>
-                            <tr>
+                            <tr style="font-weight: 700;">
                                 <td colspan="4"> UKUPNO ZA TROSKOVNI CENTAR:   </td>
                                 <td>{{number_format($sum_KOEF_osnovna_zarada,2,'.',',')}}</td>
                                 <td>{{number_format($sum_UKSA_ukupni_sati_za_isplatu,2,'.',',')}}</td>
