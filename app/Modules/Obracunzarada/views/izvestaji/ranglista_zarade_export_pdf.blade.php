@@ -16,13 +16,16 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            /*margin-top: 15mm;*/
             /*table-layout: fixed;*/
         }
 
         th, td {
             border: 1px solid #000;
-            padding: 2px 1px;
-            text-align: center
+            padding: 0px 1px;
+            text-align: center;
+            font-size: 2.5mm;
+
         }
 
         th {
@@ -47,35 +50,72 @@
         .header_right{
             text-align: right;
         }
-        .table-header{
-            background-color: red;
+
+
+        .page-break {
+            page-break-before: always;
         }
+
+        .page-number:after { content: counter(page); }
 
         .half_width{
             width: 50%;
-            background-color: silver;
         }
 
         .half_half_width{
             width: 25%;
-            background-color: #00c4ff;
         }
+
+        .full_width{
+            width: 100%;
+        }
+        header {
+            position: fixed;
+            top: 5px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+
+
+        }
+        .no_borders{
+            border-width: 0 !important;
+        }
+        .full_width {
+            text-align: left; /* Or center, if you prefer */
+            padding: 0;
+            margin: 0;
+        }
+
+
+
+        footer {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            height: 50px;
+        }
+
         </style>
 
 
 </head>
 <body>
+<div class="container">
+</div>
+<header>
+    <table class="table table-header no_borders border_bottom">
+        <thead><tr><th class="no_borders header_left half_half_width"></th><th class="no_borders half_width">RANG LISTA BRUTO ZARADA po TC-ima</th><th class="no_borders header_right half_half_width"></th></tr></thead>
+        <thead><tr><th class="no_borders header_left half_half_width">{{$podaciFirme['skraceni_naziv_firme']}}</th><th class="no_borders half_width"></th><th class="no_borders header_right half_half_width">Datum štampe: {{date('d')}}.{{date('m')}}.{{date('Y')}}</th></tr></thead>
+        <thead><tr><th class="no_borders header_left half_half_width">ZA MESEC:  {{$podaciMesec->datum}}</th><th class="no_borders half_width"></th><th class="no_borders header_right half_half_width"><span class="page-number">Stranica </span></th></tr></thead>
+    </table>
+</header>
             <div class="table-container">
-
-                <table class="table table-header">
-                    <thead><tr><th class="header_left half_half_width"></th><th class="half_width">RANG LISTA BRUTO ZARADA po TC-ima</th><th class="header_right half_half_width"></th></tr></thead>
-                    <thead><tr><th class="header_left half_half_width">Gosa (izvuci zaglavlje iz baze)</th><th class="half_width"></th><th class="header_right half_half_width">Test4</th></tr></thead>
-                    <thead><tr><th class="header_left half_half_width">ZA MESEC: 0324</th><th class="half_width"></th><th class="header_right half_half_width">Test4</th></tr></thead>
-
-                </table>
-
+                <main>
+                    <?php $breakCounter=0; ?>
                 @foreach($groupedZara as $troskovniCentar)
-                    <h4 style="text-align: center;margin-top: 20px">TROSKOVNI CENTAR:{{$troskovniCentar[0]['org_celina_data']['id']}} {{$troskovniCentar[0]['org_celina_data']['naziv_troskovnog_mesta']}} </h4>
+                    <h4 style="text-align: center;margin-top: 15mm">TROSKOVNI CENTAR:{{$troskovniCentar[0]['org_celina_data']['id']}} {{$troskovniCentar[0]['org_celina_data']['naziv_troskovnog_mesta']}} </h4>
                         <table class="table table-striped mt-3">
                             <thead>
                             <tr>
@@ -113,7 +153,7 @@
                                 <td>{{number_format($radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade,2,'.',',')}}</td>
                                 <td>{{number_format($radnik->NETO_neto_zarada,2,'.',',')}}</td>
                                 <td>{{number_format($radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,'.',',')}}</td>
-                                <td>{{$radnik->PREK_prekovremeni}}</td>
+                                <td>{{number_format($radnik->BMIN_prekovremeni_iznos,2,'.',',')}}</td>
                                 <td>{{number_format($radnik->varijab,2,'.',',')}}</td>
                                 <td>{{number_format($radnik->TOPLI_obrok_iznos/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,'.',',')}}</td>
                                 <td>{{number_format($radnik->NETO_neto_zarada-$radnik->SIOB_ukupni_iznos_obustava-$radnik->ZARKR_ukupni_zbir_kredita,2,'.',',')}}</td>
@@ -160,6 +200,7 @@
                                             ?>
                                     </tr>
                                 @endif
+                                <?php $breakCounter++; ?>
                             @endforeach
                             </tbody>
                             <tfoot>
@@ -177,7 +218,19 @@
                             </tr>
                             </tfoot>
                         </table>
-                @endforeach
+{{--                        <div class="page-break"></div>--}}
+                            <?php if ($breakCounter > 20): ?>
+                        <div class="page-break"></div>
+                            <?php $breakCounter = 0; ?>
+                        <?php endif; ?>
+
+                    @endforeach
+                </main>
+
             </div>
+<footer class="text-center">
+    Footer prostor
+    <span class="page-number">Stranica </span>
+</footer>
 </body>
 </html>

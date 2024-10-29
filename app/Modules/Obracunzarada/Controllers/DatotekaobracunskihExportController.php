@@ -506,17 +506,25 @@ class DatotekaobracunskihExportController extends Controller
 //            ['groupedZara'=>$groupedZara,'strucneKvalifikacijeSifarnik'=>$strucneKvalifikacijeSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
 
         set_time_limit(0);
+        $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
+        $podaciMesec = $this->datotekaobracunskihkoeficijenataInterface->getById($obracunskiKoeficijentId);
 
-
+        $podaciMesec->datum=date('m.Y', strtotime($podaciMesec->datum));
+//
 //        return view('obracunzarada::izvestaji.ranglista_zarade_export_pdf',
 //            [
+//                'podaciFirme'=>$podaciFirme,
+//                'podaciMesec'=>$podaciMesec,
 //                'groupedZara'=>$groupedZara,
 //                'strucneKvalifikacijeSifarnik'=>$strucneKvalifikacijeSifarnik,
 //                'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]
 //        );
 
+
         $pdf = PDF::loadView('obracunzarada::izvestaji.ranglista_zarade_export_pdf',
             [
+                'podaciFirme'=>$podaciFirme,
+                'podaciMesec'=>$podaciMesec,
                 'groupedZara'=>$groupedZara,
                 'strucneKvalifikacijeSifarnik'=>$strucneKvalifikacijeSifarnik,
                 'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]
