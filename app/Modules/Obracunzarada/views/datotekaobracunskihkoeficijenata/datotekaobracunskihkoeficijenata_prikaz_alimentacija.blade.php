@@ -212,44 +212,78 @@
 
 @section('content')
 
-        <div class="container mt-5">
-            <h1 class="text-center">Prikaz po vrsti plaćanja</h1>
+     <h1 class="text-center mt-5">Prikaz Alimentacija:</h1>
+     <h1 class="text-center mt-5">{{$datum}}</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col d-flex justify-content-end">
+                    <a href='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/form_po_vrsti_placanja?month_id=') . $month_id !!}' class="btn mt-5 mr-5 btn-primary btn-lg">
+                        Nazad na pretragu
+                    </a>
+                    <form method="POST"  action="{{ route('izvestaji.stampa_po_vrsti_placanja') }}">
+                        @csrf
+                        <input type="hidden" name="month_id" value="{{ $month_id }}">
+                        <input type="hidden" name="vrsta_placanja" value="{{ $vrsta_placanja }}">
 
-            <div class="container mt-5">
+                        <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">
+                            PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl" aria-hidden="true"></i>
+                        </button>
+                    </form>
 
-                <form action="{{ route('datotekaobracunskihkoeficijenata.prikaz_po_vrsti_placanja') }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <select class="form-control" id="vrsta_placanja" name="vrsta_placanja">
-                            <!-- Assume $options is an array of dynamic data -->
-                            @foreach($selectOptionData as $key =>$value)
-                                <option value="{{ $value['sifra_vrste_placanja']}}">{{$value['sifra_vrste_placanja']}} - {{$value['naziv_vrste_placanja'] }}</option>
-                            @endforeach
-                        </select>
-
-                        <input type="hidden" name="month_id" value="{{$month_id}}">
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Prikaži</button>
-                    </div>
-                </form>
-
-                    <div class="form-group mt-5">
-                        <h3 class="text-center">Ostali izveštaji:</h3>
-                        <form action="{{ route('datotekaobracunskihkoeficijenata.prikaz_kredita') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-secondary mt-3 btn-block mb-2">Krediti</button>
-                            <input type="hidden" name="vrsta_placanja" value="093">
-                            <input type="hidden" name="month_id" value="{{$month_id}}">
-                        </form>
-                        <form action="{{ route('datotekaobracunskihkoeficijenata.prikaz_alimentacija') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-secondary mt-3 btn-block mb-2">Alimentacije</button>
-                            <input type="hidden" name="month_id" value="{{$month_id}}">
-                        </form>
-                    </div>
-
+                </div>
             </div>
+            <table class="table table-bordered mt-5">
+                <thead>
+                <tr>
+                    <th>Radnik</th>
+                    <th>Organizaciona celina</th>
+                    <th>Sati</th>
+                    <th>Iznos</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                $satiBrojac=0;
+                $iznosBrojac=0;
+                    ?>
+                @foreach($dkopData as $vrstaPlacanja)
+                                    <tr>
+                                        <td>{{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
+                                        <td>{{$vrstaPlacanja['troskovno_mesto_id']}}</td>
+                                        <td class="text-right">{{   $vrstaPlacanja['sati']}}</td>
+                                        <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,'.',',') }}</td>
+                                    </tr>
+                    <?php
+                    $satiBrojac+= $vrstaPlacanja['sati'];
+                    $iznosBrojac+=$vrstaPlacanja['iznos'];
+                        ?>
+
+
+                @endforeach
+{{--                @foreach($sumResult as $item)--}}
+{{--                    <tr class=" {{$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'] == 0 ? 'bg-warning':'' }}--}}
+{{--                    ">--}}
+{{--                        <td>{{ $item['MBRD_maticni_broj'] }}</td>--}}
+{{--                        <td>{{ $item['PREZIME_prezime'] }} {{ $item['srednje_ime'] }} {{ $item['IME_ime'] }}</td>--}}
+{{--                        <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos'],2,'.',',')}}</td>--}}
+{{--                        <td>{{$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost']}}</td>--}}
+{{--                        @if($item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost']>0)--}}
+{{--                        <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos']/$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'],2,'.',',')}}</td>--}}
+{{--                        @else--}}
+{{--                            <td>0</td>--}}
+{{--                        @endif--}}
+{{--                        <td>{{ $item['BROJ_broj_meseci_za_obracun'] }}</td>--}}
+{{--                    </tr>--}}
+{{--                @endforeach--}}
+                <tr>
+                    <td colspan="2">
+                        Ukupno:
+                    </td>
+                    <td class="text-right">{{$satiBrojac}}</td>
+                    <td class="text-right">{{number_format($iznosBrojac,2,'.',',')}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
 
     <!-- Modal -->
@@ -259,6 +293,22 @@
 
 
 @section('custom-scripts')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tempusdominus-bootstrap-4@5.39.0/build/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <script>
+    $(document).ready(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'MM.YYYY'
+        });
+
+        $('#datetimepicker2').datetimepicker({
+            format: 'MM.YYYY'
+        });
+    });
+</script>
+
 
 @endsection
 

@@ -217,7 +217,23 @@
 
      <h1 class="text-center mt-5">{{$datum}}</h1>
         <div class="container">
+<div class="row">
+    <div class="container">
+    <form id="paymentForm" action="{{ route('datotekaobracunskihkoeficijenata.prikaz_po_vrsti_placanja') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <select class="form-control" id="vrsta_placanja" name="vrsta_placanja" onchange="document.getElementById('paymentForm').submit();">
+                <!-- Assume $options is an array of dynamic data -->
+                @foreach($selectOptionData as $key =>$value)
+                    <option value="{{ $value['sifra_vrste_placanja']}}">{{$value['sifra_vrste_placanja']}} - {{$value['naziv_vrste_placanja'] }}</option>
+                @endforeach
+            </select>
 
+            <input type="hidden" name="month_id" value="{{$month_id}}">
+        </div>
+    </form>
+    </div>
+</div>
             <div class="row">
                 <div class="col d-flex justify-content-end">
                     <a href='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/form_po_vrsti_placanja?month_id=') . $month_id !!}' class="btn mt-5 mr-5 btn-primary btn-lg">
