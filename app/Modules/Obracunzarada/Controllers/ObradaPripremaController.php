@@ -500,6 +500,59 @@ class ObradaPripremaController extends Controller
             'vrsta_placanja'=>$sifraVrstePlacanja
         ]);
     }
+
+    public function prikazKreditaPoKreditoru(Request $request){
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+        $sifraVrstePlacanja = $request->vrsta_placanja;
+
+        $kreditorId = $request->kreditor_id;
+        $dkopData = $this->dkopSveVrstePlacanjaInterface->where('sifra_vrste_placanja','093')->where('obracunski_koef_id',$request->month_id)->orderBy('maticni_broj', 'asc')->get();
+        $kreditoriData = $this->kreditoriInterface->getAll()->keyBy('sifk_sifra_kreditora')->toArray();
+        $updatedDkopData =  $dkopData->map(function ($dkop)use ($kreditoriData){
+            if($dkop->kredit_glavna_tabela_id !==null){
+                $kredit=$this->dpsmKreditiInterface->getById($dkop->kredit_glavna_tabela_id);
+                $kreditor= $kreditoriData[$kredit->SIFK_sifra_kreditora];
+                $dkop['mdrData']=$this->maticnadatotekaradnikaInterface->getById($dkop->user_mdr_id);
+                $dkop['naziv_kreditora']=$kreditor['sifk_sifra_kreditora'].' - '. $kreditor['imek_naziv_kreditora'];
+                $dkop['sifra_kreditora_only']=$kreditor['sifk_sifra_kreditora'];
+            }
+
+            return $dkop;
+        });
+        $kreditorData = [];
+        if($kreditorId=='000'){
+            $kreditorData=$updatedDkopData->sortBy('naziv_kreditora')->groupBy('naziv_kreditora');
+        }else{
+            $kreditorData= $updatedDkopData->sortBy('naziv_kreditora')->where('sifra_kreditora_only',$kreditorId)->groupBy('naziv_kreditora');
+
+        }
+
+
+
+
+        $date = new \DateTime($monthData->datum);
+        $datum = $date->format('m.Y');
+        $selectOptionData =$updatedDkopData->unique('sifra_kreditora_only')->pluck('naziv_kreditora','sifra_kreditora_only')->toArray();
+
+        ksort($selectOptionData);
+
+//        $kreditoriSelectOption = array_map(function($kreditor) use ($kreditoriData) {
+//
+//            $test='test';
+//            return [
+//                'id' => $kreditoriData[$kreditor]['sifk_sifra_kreditora'],
+//                'text' =>$kreditoriData[$kreditor]['sifk_sifra_kreditora'].' - '. $kreditoriData[$kreditor]['imek_naziv_kreditora']
+//            ];
+//        }, $kreditoriKrediti);
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_prikaz_kredita_po_kreditorima',[
+            'month_id'=>$request->month_id,
+            'selectOptionData'=>$selectOptionData,
+            'sifraVrstePlacanja'=>$sifraVrstePlacanja,
+            'dkopData'=>$kreditorData,
+            'datum'=>$datum,
+            'vrsta_placanja'=>$sifraVrstePlacanja
+        ]);
+    }
     public function podesavanjePristupa(Request $request){
 
        $organizacioneCelineData = $this->permesecnatabelapoentInterface->where('obracunski_koef_id',$request->month_id)->get();

@@ -267,7 +267,8 @@
                     ?>
                 @foreach($dkopData as $vrstaPlacanja)
                                     <tr>
-                                        <td>{{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
+                                        <td><a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_plate?radnik_maticni=').$vrstaPlacanja['maticni_broj'].'&month_id='.$month_id!!}">
+                                                {{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</a></td>
                                         <td>{{$vrstaPlacanja['troskovno_mesto_id']}}</td>
                                         <td class="text-right">{{   $vrstaPlacanja['sati']}}</td>
                                         <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,'.',',') }}</td>

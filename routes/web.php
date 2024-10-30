@@ -341,6 +341,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/prikaz_alimentacija', [ObradaPripremaController::class, 'prikazAlimentacija'])->name('datotekaobracunskihkoeficijenata.prikaz_alimentacija');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/prikaz_kreita', [ObradaPripremaController::class, 'prikazKredita'])->name('datotekaobracunskihkoeficijenata.prikaz_kredita');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/prikaz_kredita_po_kreditoru', [ObradaPripremaController::class, 'prikazKreditaPoKreditoru'])->name('datotekaobracunskihkoeficijenata.prikaz_kredita_po_kreditoru');
 
 
 

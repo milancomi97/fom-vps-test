@@ -76,6 +76,10 @@
         .sub-table th {
             background-color: #f2f2f2;
         }
+
+        .bolder{
+            font-weight: 700;
+        }
     </style>
 
 </head>
@@ -274,7 +278,7 @@
                 <div class="container-below">
                     <table class="table table-bordered">
                         <tbody>
-                        <tr>
+                        <tr class="bolder">
                             <td class="text-left">1. BRUTO ZARADA</td>
                             <td></td>
                             <td  class="text-right">{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade, 2, '.', ',')}}</td>
@@ -289,7 +293,7 @@
                             <td></td>
                             <td  class="text-right">{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade -$zaraData->POROSL_poresko_oslobodjenje, 2, '.', ',')}}</td>
                         </tr>
-                        <tr>
+                        <tr class="bolder">
                             <td class="text-left">2. NETO ZARADA (1-5)</td>
                             <td></td>
                             <td  class="text-right">{{number_format($zaraData->NETO_neto_zarada , 2, '.', ',')}}</td>
@@ -299,7 +303,7 @@
                             <td></td>
                             <td  class="text-right">{{number_format($zaraData->SIOB_ukupni_iznos_obustava +  $zaraData->ZARKR_ukupni_zbir_kredita, 2, '.', ',')}}</td>
                         </tr>
-                        <tr>
+                        <tr class="bolder">
                             <td class="text-left">4. ZA ISPLATU (1-5-3)</td>
                             <td></td>
                             <td  class="text-right">{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade -  $zaraData->SIP_ukupni_iznos_poreza - $zaraData->SID_ukupni_iznos_doprinosa - $zaraData->SIOB_ukupni_iznos_obustava - $zaraData->ZARKR_ukupni_zbir_kredita, 2, '.', ',')}}</td>
@@ -341,7 +345,7 @@
                             <td></td>
                             <td  class="text-right">{{number_format($zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>
                         </tr>
-                        <tr>
+                        <tr class="bolder">
                             <td class="text-left">7. Potrebna sredstva (BRUTO II):</td>
                             <td></td>
                             <td  class="text-right">{{number_format($zaraData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade +$zaraData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zaraData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</td>

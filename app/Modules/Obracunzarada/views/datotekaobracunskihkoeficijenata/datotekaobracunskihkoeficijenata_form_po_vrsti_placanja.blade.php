@@ -236,9 +236,15 @@
 
                     <div class="form-group mt-5">
                         <h3 class="text-center">Ostali izveštaji:</h3>
+                        <form action="{{ route('datotekaobracunskihkoeficijenata.prikaz_kredita_po_kreditoru') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-secondary mt-3 btn-block mb-2">Krediti po kreditorima</button>
+                            <input type="hidden" name="kreditor_id" value="000">
+                            <input type="hidden" name="month_id" value="{{$month_id}}">
+                        </form>
                         <form action="{{ route('datotekaobracunskihkoeficijenata.prikaz_kredita') }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-secondary mt-3 btn-block mb-2">Krediti</button>
+                            <button type="submit" class="btn btn-secondary mt-3 btn-block mb-2">Krediti po matičnom broju</button>
                             <input type="hidden" name="vrsta_placanja" value="093">
                             <input type="hidden" name="month_id" value="{{$month_id}}">
                         </form>
@@ -247,6 +253,7 @@
                             <button type="submit" class="btn btn-secondary mt-3 btn-block mb-2">Alimentacije</button>
                             <input type="hidden" name="month_id" value="{{$month_id}}">
                         </form>
+
                     </div>
 
             </div>

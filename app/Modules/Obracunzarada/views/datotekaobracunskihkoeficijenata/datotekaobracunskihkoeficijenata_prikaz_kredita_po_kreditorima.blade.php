@@ -207,16 +207,37 @@
             padding: 0;
             margin: 0;
         }
+
+        .bolder{
+            font-weight: 700;
+        }
     </style>
 @endsection
 
 @section('content')
 
-     <h1 class="text-center mt-5">Prikaz kredita po matičnom broju:</h1>
-
+     <h1 class="text-center mt-5">Prikaz kredita po kreditorima:</h1>
 
      <h1 class="text-center mt-5">{{$datum}}</h1>
-        <div class="container">
+     <div class="row">
+         <div class="container">
+             <form id="paymentForm" action="{{ route('datotekaobracunskihkoeficijenata.prikaz_kredita_po_kreditoru') }}" method="POST">
+                 @csrf
+                 <div class="form-group">
+                     <select class="form-control" id="kreditor_id" name="kreditor_id" onchange="document.getElementById('paymentForm').submit();">
+                         <!-- Assume $options is an array of dynamic data -->
+                         @foreach($selectOptionData as $key =>$value)
+                             <option value="{{ $key}}">{{$value}}</option>
+                         @endforeach
+                     </select>
+
+                     <input type="hidden" name="month_id" value="{{$month_id}}">
+                 </div>
+             </form>
+         </div>
+     </div>
+
+     <div class="container">
             <div class="row">
                 <div class="col d-flex justify-content-end">
                     <a href='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/form_po_vrsti_placanja?month_id=') . $month_id !!}' class="btn mt-5 mr-5 btn-primary btn-lg">
@@ -249,7 +270,9 @@
                 $iznosBrojac=0;
                     ?>
 
-                @foreach($dkopData as $vrstaPlacanja)
+                @foreach ($dkopData as $nazivKreditora =>$krediti)
+                    <tr class="text-center bolder"><td colspan="4">{{$nazivKreditora}}</td></tr>
+                    @foreach($krediti as $vrstaPlacanja)
                                     <tr>
                                         <td>{{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
                                         <td>{{$vrstaPlacanja['troskovno_mesto_id']}}</td>
@@ -261,6 +284,9 @@
                     $iznosBrojac+=$vrstaPlacanja['iznos'];
                         ?>
 
+
+                @endforeach
+                    <tr class="text-center bolder"><td colspan="4"></td></tr>
 
                 @endforeach
 {{--                @foreach($sumResult as $item)--}}

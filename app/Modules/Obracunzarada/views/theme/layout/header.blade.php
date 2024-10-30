@@ -10,8 +10,23 @@
 {{--        <li class="nav-item d-none d-sm-inline-block">--}}
 {{--            <a href="#" class="nav-link">Contact</a>--}}
 {{--        </li>--}}
-    </ul>
 
+
+    </ul>
+    <ul class="navbar-nav mr-auto ml-auto">
+        <li class="nav-item">
+            <a href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="ml-3 nav-link">
+                <i class="fas fa-circle  nav-icon text-success" style="font-size: 30px"></i>
+                <h4 class="ml-3 d-inline-block">Aktivan mesec</h4>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{route('oblikrada.index')}}" class="ml-3 nav-link">
+                <i class="fas fa-circle  nav-icon text-primary" style="font-size: 30px"></i>
+                <h4 class="ml-3 d-inline-block">Materijalno</h4>
+            </a>
+        </li>
+    </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
