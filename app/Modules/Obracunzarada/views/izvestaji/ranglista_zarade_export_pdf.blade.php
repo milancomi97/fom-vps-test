@@ -219,7 +219,7 @@
                             </tfoot>
                         </table>
 {{--                        <div class="page-break"></div>--}}
-                            <?php if ($breakCounter > 20): ?>
+                            <?php if ($breakCounter > 40): ?>
                         <div class="page-break"></div>
                             <?php $breakCounter = 0; ?>
                         <?php endif; ?>
