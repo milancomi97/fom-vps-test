@@ -515,6 +515,7 @@ class ObradaPripremaController extends Controller
                 $dkop['mdrData']=$this->maticnadatotekaradnikaInterface->getById($dkop->user_mdr_id);
                 $dkop['naziv_kreditora']=$kreditor['sifk_sifra_kreditora'].' - '. $kreditor['imek_naziv_kreditora'];
                 $dkop['sifra_kreditora_only']=$kreditor['sifk_sifra_kreditora'];
+                $dkop['kreditData']=$kredit;
             }
 
             return $dkop;
