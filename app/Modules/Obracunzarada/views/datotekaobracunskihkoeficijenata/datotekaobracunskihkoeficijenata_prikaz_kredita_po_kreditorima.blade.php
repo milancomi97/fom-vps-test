@@ -228,7 +228,7 @@
              <form id="paymentForm" action="{{ route('datotekaobracunskihkoeficijenata.prikaz_kredita_po_kreditoru') }}" method="POST">
                  @csrf
                  <div class="form-group">
-                     <select class="form-control" id="kreditor_id" name="kreditor_id" onchange="document.getElementById('paymentForm').submit();">
+                     <select class="form-control" id="kreditor_id" name="kreditor_id" onchange="updateKreditorIdExport(); document.getElementById('paymentForm').submit();">
                          <!-- Assume $options is an array of dynamic data -->
                          @foreach($selectOptionData as $key =>$value)
                              <option value="{{ $key}}">{{$value}}</option>
@@ -247,10 +247,12 @@
                     <a href='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/form_po_vrsti_placanja?month_id=') . $month_id !!}' class="btn mt-5 mr-5 btn-primary btn-lg">
                         Nazad na pretragu
                     </a>
-                    <form method="POST"  action="{{ route('izvestaji.stampa_po_vrsti_placanja') }}">
+                    <form method="POST"  action="{{ route('izvestaji.stampa_po_vrsti_placanja_krediti_kreditori') }}">
                         @csrf
                         <input type="hidden" name="month_id" value="{{ $month_id }}">
                         <input type="hidden" name="vrsta_placanja" value="{{ $vrsta_placanja }}">
+
+                        <input type="hidden" name="kreditor_id_export" id="kreditor_id_export" value="{{$selectedKreditorId}}">
 
                         <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">
                             PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl" aria-hidden="true"></i>
@@ -264,6 +266,7 @@
             <table class="table table-bordered mt-2">
                 <thead>
                 <tr>
+                    <th>Broj</th>
                     <th>Radnik</th>
                     <th>Glavnica</th>
                     <th>Saldo</th>
@@ -275,13 +278,15 @@
                 <?php
                 $satiBrojac=0;
                 $iznosBrojac=0;
+                $brojac=1;
                     ?>
-
 
 
                     @foreach($krediti as $vrstaPlacanja)
                                     <tr>
-                                        <td>{{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
+                                        <td>{{$brojac++}}.</td>
+                                        <td><a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_plate?radnik_maticni=').$vrstaPlacanja['maticni_broj'].'&month_id='.$month_id!!}">
+                                                {{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</a></td>
                                         <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['GLAVN_glavnica'],2,'.',',') }}</td>
                                         <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['SALD_saldo'],2,'.',',') }}</td>
                                         <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['RATA_rata'],2,'.',',') }}</td>
@@ -292,25 +297,8 @@
                     $satiBrojac+= $vrstaPlacanja['sati'];
                     $iznosBrojac+=$vrstaPlacanja['iznos'];
                         ?>
-
-
                 @endforeach
 
-{{--                @foreach($sumResult as $item)--}}
-{{--                    <tr class=" {{$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'] == 0 ? 'bg-warning':'' }}--}}
-{{--                    ">--}}
-{{--                        <td>{{ $item['MBRD_maticni_broj'] }}</td>--}}
-{{--                        <td>{{ $item['PREZIME_prezime'] }} {{ $item['srednje_ime'] }} {{ $item['IME_ime'] }}</td>--}}
-{{--                        <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos'],2,'.',',')}}</td>--}}
-{{--                        <td>{{$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost']}}</td>--}}
-{{--                        @if($item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost']>0)--}}
-{{--                        <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos']/$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'],2,'.',',')}}</td>--}}
-{{--                        @else--}}
-{{--                            <td>0</td>--}}
-{{--                        @endif--}}
-{{--                        <td>{{ $item['BROJ_broj_meseci_za_obracun'] }}</td>--}}
-{{--                    </tr>--}}
-{{--                @endforeach--}}
                 <tr class="bolder">
                     <td colspan="4">
                         Ukupno:
@@ -346,6 +334,11 @@
     });
 </script>
 
+    <script>
+        function updateKreditorIdExport() {
+            document.getElementById('kreditor_id_export').value = document.getElementById('kreditor_id').value;
+        }
+    </script>
 
 @endsection
 

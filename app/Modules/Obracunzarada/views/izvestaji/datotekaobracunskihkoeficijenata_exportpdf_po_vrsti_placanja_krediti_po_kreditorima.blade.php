@@ -112,45 +112,54 @@
 
 <div class="container">
     <table class="table table-header no_borders border_bottom">
-        <thead><tr><th class="no_borders header_left half_half_width"></th><th class="no_borders half_width">Prikaz vrste placanja: {{ $dkopData[0]['sifra_vrste_placanja'] }} - {{ $dkopData[0]['naziv_vrste_placanja'] }}</th><th class="no_borders header_right half_half_width"></th></tr></thead>
+        <thead><tr><th class="no_borders header_left half_width"></th><th class="text-center no_borders half_width">Izveštaj kredita po bankama</th><th class="no_borders header_right half_half_width"></th></tr></thead>
         <thead><tr><th class="no_borders header_left half_half_width">{{$podaciFirme['skraceni_naziv_firme']}}</th><th class="no_borders half_width"></th><th class="no_borders header_right half_half_width">Datum štampe: {{date('d')}}.{{date('m')}}.{{date('Y')}}</th></tr></thead>
         <thead><tr><th class="no_borders header_left half_half_width">ZA MESEC:  {{$podaciMesec->datum}}</th><th class="no_borders half_width"></th><th class="no_borders header_right half_half_width"><span class="page-number">Stranica </span></th></tr></thead>
     </table>
-    <table class="table table-bordered mt-5">
-        <thead>
-        <tr>
-            <th>Radnik</th>
-            <th>Organizaciona celina</th>
-            <th>Sati</th>
-            <th>Iznos</th>
-        </tr>
-        </thead>
-        <tbody>
-        @php
-            $satiBrojac = 0;
-            $iznosBrojac = 0;
-        @endphp
-        @foreach($dkopData as $vrstaPlacanja)
+    @foreach ($dkopData as $nazivKreditora =>$krediti)
+        <h3 class="text-center text-secondary mt-5 custom_border">{{$nazivKreditora}}</h3>
+        <table class="table table-bordered mt-2">
+            <thead>
             <tr>
-                <td>{{ $vrstaPlacanja['maticni_broj'] }} {{ $vrstaPlacanja['mdrData']['PREZIME_prezime'] }} {{ $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{ $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
-                <td>{{ $vrstaPlacanja['troskovno_mesto_id'] }}</td>
-                <td class="text-right">{{ $vrstaPlacanja['sati'] }}</td>
-                <td class="text-right">{{ number_format($vrstaPlacanja['iznos'], 2, '.', ',') }}</td>
+                <th>Radnik</th>
+                <th>Glavnica</th>
+                <th>Saldo</th>
+                <th>Rata</th>
+                <th>Iznos</th>
             </tr>
-            @php
-                $satiBrojac += $vrstaPlacanja['sati'];
-                $iznosBrojac += $vrstaPlacanja['iznos'];
-            @endphp
-        @endforeach
-        <tr>
-            <td colspan="2">Ukupno:</td>
-            <td class="text-right"><b>{{ $satiBrojac }}</b></td>
-            <td class="text-right"><b>{{ number_format($iznosBrojac, 2, '.', ',') }}</b></td>
-            <td colspan="2">
-            </td>
-        </tr>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php
+                $satiBrojac=0;
+                $iznosBrojac=0;
+                ?>
+
+
+            @foreach($krediti as $vrstaPlacanja)
+                <tr>
+                    <td>{{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
+                    <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['GLAVN_glavnica'],2,'.',',') }}</td>
+                    <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['SALD_saldo'],2,'.',',') }}</td>
+                    <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['RATA_rata'],2,'.',',') }}</td>
+                    <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,'.',',') }}</td>
+
+                </tr>
+                    <?php
+                    $satiBrojac+= $vrstaPlacanja['sati'];
+                    $iznosBrojac+=$vrstaPlacanja['iznos'];
+                    ?>
+            @endforeach
+
+            <tr class="bolder">
+                <td colspan="4">
+                    Ukupno:
+                </td>
+                <td class="text-right text-danger">{{number_format($iznosBrojac,2,'.',',')}}</td>
+            </tr>
+            </tbody>
+        </table>
+    @endforeach
+
 </div>
 </body>
 </html>

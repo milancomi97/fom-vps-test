@@ -346,6 +346,9 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::post('obracunzarada/izvestaji/stampa_po_vrsti_placanja', [DatotekaobracunskihExportController::class, 'stampaPoVrstiPlacanja'])->name('izvestaji.stampa_po_vrsti_placanja');
+    Route::post('obracunzarada/izvestaji/stampa_po_vrsti_placanja_alimentacija', [DatotekaobracunskihExportController::class, 'stampaPoVrstiPlacanjaAlimentacija'])->name('izvestaji.stampa_po_vrsti_placanja_alimentacija');
+    Route::post('obracunzarada/izvestaji/stampa_po_vrsti_placanja_krediti_maticni', [DatotekaobracunskihExportController::class, 'stampaPoVrstiPlacanjaKreditiMaticni'])->name('izvestaji.stampa_po_vrsti_placanja_krediti_maticni');
+    Route::post('obracunzarada/izvestaji/stampa_po_vrsti_placanja_krediti_kreditori', [DatotekaobracunskihExportController::class, 'stampaPoVrstiPlacanjaKreditiKreditori'])->name('izvestaji.stampa_po_vrsti_placanja_krediti_kreditori');
 
 
 

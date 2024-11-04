@@ -112,30 +112,35 @@
 
 <div class="container">
     <table class="table table-header no_borders border_bottom">
-        <thead><tr><th class="no_borders header_left half_half_width"></th><th class="no_borders half_width">Prikaz vrste placanja: {{ $dkopData[0]['sifra_vrste_placanja'] }} - {{ $dkopData[0]['naziv_vrste_placanja'] }}</th><th class="no_borders header_right half_half_width"></th></tr></thead>
+        <thead><tr><th class="no_borders header_left half_width"></th><th class="text-center no_borders half_width">Izveštaj alimentacija</th><th class="no_borders header_right half_half_width"></th></tr></thead>
         <thead><tr><th class="no_borders header_left half_half_width">{{$podaciFirme['skraceni_naziv_firme']}}</th><th class="no_borders half_width"></th><th class="no_borders header_right half_half_width">Datum štampe: {{date('d')}}.{{date('m')}}.{{date('Y')}}</th></tr></thead>
         <thead><tr><th class="no_borders header_left half_half_width">ZA MESEC:  {{$podaciMesec->datum}}</th><th class="no_borders half_width"></th><th class="no_borders header_right half_half_width"><span class="page-number">Stranica </span></th></tr></thead>
     </table>
     <table class="table table-bordered mt-5">
         <thead>
         <tr>
+            <th>Broj</th>
             <th>Radnik</th>
-            <th>Organizaciona celina</th>
-            <th>Sati</th>
             <th>Iznos</th>
+            <th>Procenat</th>
+            <th>Naziv alimentacije</th>
         </tr>
         </thead>
         <tbody>
-        @php
-            $satiBrojac = 0;
-            $iznosBrojac = 0;
-        @endphp
+        <?php
+        $satiBrojac=0;
+        $iznosBrojac=0;
+        $brojac=1;
+        ?>
         @foreach($dkopData as $vrstaPlacanja)
             <tr>
-                <td>{{ $vrstaPlacanja['maticni_broj'] }} {{ $vrstaPlacanja['mdrData']['PREZIME_prezime'] }} {{ $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{ $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
-                <td>{{ $vrstaPlacanja['troskovno_mesto_id'] }}</td>
-                <td class="text-right">{{ $vrstaPlacanja['sati'] }}</td>
-                <td class="text-right">{{ number_format($vrstaPlacanja['iznos'], 2, '.', ',') }}</td>
+                <td>{{$brojac++}}.</td>
+                <td>{{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
+                <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,'.',',') }}</td>
+                <td class="text-center">{{   $vrstaPlacanja['procenat'] !=0 ? $vrstaPlacanja['procenat'] . ' %': 'fiksna'}}</td>
+                <td class="text-left">{{   $vrstaPlacanja['naziv_vrste_placanja']}}</td>
+
+
             </tr>
             @php
                 $satiBrojac += $vrstaPlacanja['sati'];
@@ -143,11 +148,11 @@
             @endphp
         @endforeach
         <tr>
-            <td colspan="2">Ukupno:</td>
-            <td class="text-right"><b>{{ $satiBrojac }}</b></td>
-            <td class="text-right"><b>{{ number_format($iznosBrojac, 2, '.', ',') }}</b></td>
             <td colspan="2">
+                Ukupno:
             </td>
+            <td class="text-right"><b>{{number_format($iznosBrojac,2,'.',',')}}</b></td>
+
         </tr>
         </tbody>
     </table>

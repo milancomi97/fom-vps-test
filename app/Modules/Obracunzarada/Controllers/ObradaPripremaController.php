@@ -472,6 +472,8 @@ class ObradaPripremaController extends Controller
                 $kreditor= $kreditoriData[$kredit->SIFK_sifra_kreditora];
                 $dkop['mdrData']=$this->maticnadatotekaradnikaInterface->getById($dkop->user_mdr_id);
                 $dkop['naziv_kreditora']=$kreditor['sifk_sifra_kreditora'].' - '. $kreditor['imek_naziv_kreditora'];
+                $dkop['kreditData']=$kredit;
+
             }
 
             return $dkop;
@@ -551,7 +553,8 @@ class ObradaPripremaController extends Controller
             'sifraVrstePlacanja'=>$sifraVrstePlacanja,
             'dkopData'=>$kreditorData,
             'datum'=>$datum,
-            'vrsta_placanja'=>$sifraVrstePlacanja
+            'vrsta_placanja'=>$sifraVrstePlacanja,
+            'selectedKreditorId'=>$kreditorId
         ]);
     }
     public function podesavanjePristupa(Request $request){

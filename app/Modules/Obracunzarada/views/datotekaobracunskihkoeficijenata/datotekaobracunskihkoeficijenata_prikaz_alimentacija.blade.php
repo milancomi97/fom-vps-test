@@ -220,7 +220,7 @@
                     <a href='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/form_po_vrsti_placanja?month_id=') . $month_id !!}' class="btn mt-5 mr-5 btn-primary btn-lg">
                         Nazad na pretragu
                     </a>
-                    <form method="POST"  action="{{ route('izvestaji.stampa_po_vrsti_placanja') }}">
+                    <form method="POST"  action="{{ route('izvestaji.stampa_po_vrsti_placanja_alimentacija') }}">
                         @csrf
                         <input type="hidden" name="month_id" value="{{ $month_id }}">
                         <input type="hidden" name="vrsta_placanja" value="{{ $vrsta_placanja }}">
@@ -235,23 +235,29 @@
             <table class="table table-bordered mt-5">
                 <thead>
                 <tr>
+                    <th>Broj</th>
                     <th>Radnik</th>
-                    <th>Organizaciona celina</th>
-                    <th>Sati</th>
                     <th>Iznos</th>
+                    <th>Procenat</th>
+                    <th>Naziv alimentacije</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
                 $satiBrojac=0;
                 $iznosBrojac=0;
+                $brojac=1;
                     ?>
                 @foreach($dkopData as $vrstaPlacanja)
                                     <tr>
-                                        <td>{{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
-                                        <td>{{$vrstaPlacanja['troskovno_mesto_id']}}</td>
-                                        <td class="text-right">{{   $vrstaPlacanja['sati']}}</td>
+                                        <td>{{$brojac++}}.</td>
+                                        <td><a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_plate?radnik_maticni=').$vrstaPlacanja['maticni_broj'].'&month_id='.$month_id!!}">
+                                                {{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</a></td>
                                         <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,'.',',') }}</td>
+                                        <td class="text-center">{{   $vrstaPlacanja['procenat'] !=0 ? $vrstaPlacanja['procenat'] . ' %': 'fiksna'}}</td>
+                                        <td class="text-left">{{   $vrstaPlacanja['naziv_vrste_placanja']}}</td>
+
+
                                     </tr>
                     <?php
                     $satiBrojac+= $vrstaPlacanja['sati'];
@@ -279,8 +285,7 @@
                     <td colspan="2">
                         Ukupno:
                     </td>
-                    <td class="text-right">{{$satiBrojac}}</td>
-                    <td class="text-right">{{number_format($iznosBrojac,2,'.',',')}}</td>
+                    <td class="text-right"><b>{{number_format($iznosBrojac,2,'.',',')}}</b></td>
                 </tr>
                 </tbody>
             </table>

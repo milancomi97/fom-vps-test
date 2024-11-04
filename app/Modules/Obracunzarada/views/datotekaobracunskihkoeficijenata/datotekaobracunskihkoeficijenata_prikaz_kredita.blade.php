@@ -237,9 +237,11 @@
             <table class="table table-bordered mt-5">
                 <thead>
                 <tr>
+                    <th>Broj</th>
                     <th>Radnik</th>
-                    <th>Organizaciona celina</th>
-                    <th>Naziv Kreditora</th>
+                    <th>Glavnica</th>
+                    <th>Saldo</th>
+                    <th>Rata</th>
                     <th>Iznos</th>
                 </tr>
                 </thead>
@@ -247,15 +249,21 @@
                 <?php
                 $satiBrojac=0;
                 $iznosBrojac=0;
+                $brojac=1;
                     ?>
 
                 @foreach($dkopData as $vrstaPlacanja)
-                                    <tr>
-                                        <td>{{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
-                                        <td>{{$vrstaPlacanja['troskovno_mesto_id']}}</td>
-                                        <td class="text-right">{{   $vrstaPlacanja['naziv_kreditora']}}</td>
-                                        <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,'.',',') }}</td>
-                                    </tr>
+
+                    <tr>
+                        <td>{{$brojac++}}.</td>
+                        <td><a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_plate?radnik_maticni=').$vrstaPlacanja['maticni_broj'].'&month_id='.$month_id!!}">
+                                {{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</a></td>
+                        <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['GLAVN_glavnica'],2,'.',',') }}</td>
+                        <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['SALD_saldo'],2,'.',',') }}</td>
+                        <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['RATA_rata'],2,'.',',') }}</td>
+                        <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,'.',',') }}</td>
+
+                    </tr>
                     <?php
                     $satiBrojac+= $vrstaPlacanja['sati'];
                     $iznosBrojac+=$vrstaPlacanja['iznos'];

@@ -8,6 +8,8 @@ use App\Mail\DemoMail;
 use App\Models\UserPermission;
 use App\Modules\Kadrovskaevidencija\Repository\StrucnakvalifikacijaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\KreditoriRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
@@ -44,6 +46,11 @@ class DatotekaobracunskihExportController extends Controller
         private readonly PodaciofirmiRepositoryInterface                     $podaciofirmiInterface,
         private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
         private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface,
+        private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface       $dkopSveVrstePlacanjaInterface,
+        private readonly KreditoriRepositoryInterface $kreditoriInterface,
+        private readonly DpsmKreditiRepositoryInterface                      $dpsmKreditiInterface,
+
+
 
 
 
@@ -603,6 +610,7 @@ class DatotekaobracunskihExportController extends Controller
     }
 
 
+
     public function stampaPoVrstiPlacanja(Request $request)
     {
 
@@ -619,17 +627,161 @@ class DatotekaobracunskihExportController extends Controller
         $date = new \DateTime($monthData->datum);
         $datum = $date->format('m.Y');
         set_time_limit(0);
+
+        $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
+        $podaciMesec = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+
+
+//        return view('obracunzarada::izvestaji.datotekaobracunskihkoeficijenata_exportpdf_po_vrsti_placanja',[
+//            'month_id'=>$request->month_id,
+//            'sifraVrstePlacanja'=>$sifraVrstePlacanja,
+//            'dkopData'=>$updatedDkopData,
+//            'datum'=>$datum,
+//            'podaciFirme'=>$podaciFirme,
+//            'podaciMesec'=>$podaciMesec
+//        ]);
+        $podaciMesec->datum=date('m.Y', strtotime($podaciMesec->datum));
         $pdf = PDF::loadView('obracunzarada::izvestaji.datotekaobracunskihkoeficijenata_exportpdf_po_vrsti_placanja',[
             'month_id'=>$request->month_id,
             'sifraVrstePlacanja'=>$sifraVrstePlacanja,
             'dkopData'=>$updatedDkopData,
-            'datum'=>$datum
+            'datum'=>$datum,
+            'podaciFirme'=>$podaciFirme,
+            'podaciMesec'=>$podaciMesec
         ])->setPaper('a4', 'portrait');
 
         set_time_limit(0);
 
 
         return $pdf->download('pdf_'.$sifraVrstePlacanja.'_'.date("d.m.y").'.pdf');
+    }
+
+
+public function stampaPoVrstiPlacanjaAlimentacija(Request $request)
+{
+
+    $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+    $sifraVrstePlacanja = $request->vrsta_placanja;
+    $dkopData = $this->obradaDkopSveVrstePlacanjaInterface
+        ->whereIn('sifra_vrste_placanja', ['502', '503','504'])
+        ->where('obracunski_koef_id', $request->month_id)
+        ->orderBy('maticni_broj', 'asc')
+        ->get();
+
+
+    $updatedDkopData =  $dkopData->map(function ($dkop){
+        $dkop['mdrData']=$this->maticnadatotekaradnikaInterface->getById($dkop->user_mdr_id);
+        return $dkop;
+    });
+    $date = new \DateTime($monthData->datum);
+    $datum = $date->format('m.Y');
+    $selectOptionData =$this->obradaDkopSveVrstePlacanjaInterface->getAll()
+        ->unique('sifra_vrste_placanja')->sortBy('sifra_vrste_placanja')->toArray();
+
+
+    set_time_limit(0);
+
+    $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
+    $podaciMesec = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+
+
+//        return view('obracunzarada::izvestaji.datotekaobracunskihkoeficijenata_exportpdf_po_vrsti_placanja',[
+//            'month_id'=>$request->month_id,
+//            'sifraVrstePlacanja'=>$sifraVrstePlacanja,
+//            'dkopData'=>$updatedDkopData,
+//            'datum'=>$datum,
+//            'podaciFirme'=>$podaciFirme,
+//            'podaciMesec'=>$podaciMesec
+//        ]);
+    $podaciMesec->datum = date('m.Y', strtotime($podaciMesec->datum));
+    $pdf = PDF::loadView('obracunzarada::izvestaji.datotekaobracunskihkoeficijenata_exportpdf_po_vrsti_placanja_alimentacija', [
+        'month_id'=>$request->month_id,
+        'selectOptionData'=>$selectOptionData,
+        'sifraVrstePlacanja'=>$sifraVrstePlacanja,
+        'dkopData'=>$updatedDkopData,
+        'datum'=>$datum,
+        'vrsta_placanja'=>$sifraVrstePlacanja,
+        'podaciFirme'=>$podaciFirme,
+        'podaciMesec'=>$podaciMesec
+    ])->setPaper('a4', 'portrait');
+
+    set_time_limit(0);
+
+
+    return $pdf->download('pdf_' . $sifraVrstePlacanja . '_' . date("d.m.y") . '.pdf');
+
+}
+
+
+    public function stampaPoVrstiPlacanjaKreditiMaticni(Request $request)
+    {}
+    public function stampaPoVrstiPlacanjaKreditiKreditori(Request $request)
+    {
+
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+        $sifraVrstePlacanja = $request->vrsta_placanja;
+
+        $kreditorId = $request->kreditor_id_export;
+        $dkopData = $this->dkopSveVrstePlacanjaInterface->where('sifra_vrste_placanja','093')->where('obracunski_koef_id',$request->month_id)->orderBy('maticni_broj', 'asc')->get();
+        $kreditoriData = $this->kreditoriInterface->getAll()->keyBy('sifk_sifra_kreditora')->toArray();
+        $updatedDkopData =  $dkopData->map(function ($dkop)use ($kreditoriData){
+            if($dkop->kredit_glavna_tabela_id !==null){
+                $kredit=$this->dpsmKreditiInterface->getById($dkop->kredit_glavna_tabela_id);
+                $kreditor= $kreditoriData[$kredit->SIFK_sifra_kreditora];
+                $dkop['mdrData']=$this->maticnadatotekaradnikaInterface->getById($dkop->user_mdr_id);
+                $dkop['naziv_kreditora']=$kreditor['sifk_sifra_kreditora'].' - '. $kreditor['imek_naziv_kreditora'];
+                $dkop['sifra_kreditora_only']=$kreditor['sifk_sifra_kreditora'];
+                $dkop['kreditData']=$kredit;
+            }
+
+            return $dkop;
+        });
+        $kreditorData = [];
+        if($kreditorId=='000'){
+            $kreditorData=$updatedDkopData->sortBy('naziv_kreditora')->groupBy('naziv_kreditora');
+        }else{
+            $kreditorData= $updatedDkopData->sortBy('naziv_kreditora')->where('sifra_kreditora_only',$kreditorId)->groupBy('naziv_kreditora');
+
+        }
+
+
+
+
+        $date = new \DateTime($monthData->datum);
+        $datum = $date->format('m.Y');
+        $selectOptionData =$updatedDkopData->unique('sifra_kreditora_only')->pluck('naziv_kreditora','sifra_kreditora_only')->toArray();
+
+        ksort($selectOptionData);
+        set_time_limit(0);
+
+        $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
+        $podaciMesec = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+
+
+//        return view('obracunzarada::izvestaji.datotekaobracunskihkoeficijenata_exportpdf_po_vrsti_placanja',[
+//            'month_id'=>$request->month_id,
+//            'sifraVrstePlacanja'=>$sifraVrstePlacanja,
+//            'dkopData'=>$updatedDkopData,
+//            'datum'=>$datum,
+//            'podaciFirme'=>$podaciFirme,
+//            'podaciMesec'=>$podaciMesec
+//        ]);
+        $podaciMesec->datum = date('m.Y', strtotime($podaciMesec->datum));
+        $pdf = PDF::loadView('obracunzarada::izvestaji.datotekaobracunskihkoeficijenata_exportpdf_po_vrsti_placanja_krediti_po_kreditorima', [
+            'month_id'=>$request->month_id,
+            'selectOptionData'=>$selectOptionData,
+            'sifraVrstePlacanja'=>$sifraVrstePlacanja,
+            'dkopData'=>$kreditorData,
+            'datum'=>$datum,
+            'vrsta_placanja'=>$sifraVrstePlacanja,
+            'podaciFirme'=>$podaciFirme,
+            'podaciMesec'=>$podaciMesec
+        ])->setPaper('a4', 'portrait');
+
+        set_time_limit(0);
+
+
+        return $pdf->download('pdf_' . $sifraVrstePlacanja . '_' . date("d.m.y") . '.pdf');
     }
 
 
