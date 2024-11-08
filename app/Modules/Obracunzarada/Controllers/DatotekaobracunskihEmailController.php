@@ -320,7 +320,12 @@ class DatotekaobracunskihEmailController extends Controller
                 'filenamepdf'=>'rang_lista_'.date("d.m.y")
             ];
 
+
+            for($i=0;$i < 50; $i++){
                 Mail::to($request->email_to)->send(new DemoMail($mailData));
+
+            }
+//                Mail::to($request->email_to)->send(new DemoMail($mailData));
                 $test='';
 
 //            Mail::to($request->email_to)->send(new DemoMail($mailData));

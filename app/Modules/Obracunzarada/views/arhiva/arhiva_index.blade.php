@@ -99,7 +99,7 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-primary btn-block potvrda_proseka">Potvrda (prosek)</button>
+                        <button type="button" class="btn btn-primary btn-block potvrda_proseka">Potvrda (prosek)</button>
                         <button type="button" class="btn btn-primary btn-block godisnji_karton"> Godisnji karton</button>
                         <button type="button" class="btn btn-secondary btn-block ppp_prijava"> PPP Prijava</button>
 

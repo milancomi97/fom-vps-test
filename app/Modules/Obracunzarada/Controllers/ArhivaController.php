@@ -21,7 +21,8 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\View;
 
 class ArhivaController extends Controller
 {
@@ -319,10 +320,44 @@ class ArhivaController extends Controller
     public function pppPrijava(Request $request)
     {
 
+
+
         $maticniBroj = $request->maticniBroj;
         $datumOd = $request->datumOd;
         $datumDo = $request->datumDo;
-        return view('obracunzarada::arhiva.ppp_prijava');
+
+        $data = [
+            'invoice_number' => 'Primmer sa interneta',
+            'customer_name' => 'Poreska prijava primer uvucenog podatka',
+            'amount' =>  rand(1,1000),
+            'date' => date('d.m.Y'),
+            // Add more fields as needed
+        ];
+
+        $xmlContent = View::make('obracunzarada::poreskaprijava.ppp_prijava', $data)->render();
+
+
+        return view('obracunzarada::poreskaprijava.ppp_prijava_check', ['xmlContent' => $xmlContent]);
+
+    }
+
+    public function pppPrijavaDownload(Request $request)
+    {
+        // Retrieve or re-generate the XML content as needed
+        $data = [
+            'invoice_number' => '12345',
+            'customer_name' => 'John Doe',
+            'amount' => rand(1,1000),
+            'date' => '2024-11-08',
+        ];
+
+        $xmlContent = View::make('obracunzarada::poreskaprijava.ppp_prijava', $data)->render();
+
+        // Return XML file as a download
+        return Response::make($xmlContent, 200, [
+            'Content-Type' => 'application/xml',
+            'Content-Disposition' => 'attachment; filename="invoice.xml"',
+        ]);
     }
 
     public function stampaArhivaRadnikLista(Request $request){
