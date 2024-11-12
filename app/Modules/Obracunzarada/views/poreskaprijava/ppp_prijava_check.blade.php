@@ -18,7 +18,7 @@
             <!-- Left column for additional data -->
             <div class="col-lg-3 custom_border">
                 <h3>Dodatni podaci</h3>
-                <p>Human readable (podaci ocisceni od vece manje i XML node/cvorova).</p>
+                <p></p>
                 <!-- Additional data fields can be added here as needed -->
             </div>
 

@@ -347,6 +347,9 @@
         let showFiksnapRoute ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_all_fiksnap?month_id=') !!}'
         let showKreditiRoute ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_all_krediti?month_id=') !!}'
 
+
+
+
         let storeUpdateRoute ='{!! route('datotekaobracunskihkoeficijenata.store_update') !!}'
 
         let odobravanjeRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje?month_id=')!!}'
@@ -373,6 +376,9 @@
         let prikazPoVrstiPlacanjaRoute = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/form_po_vrsti_placanja?month_id=')!!}'
 
         let showPodesavanjePristupa = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/podesavanje_pristupa?month_id=')!!}'
+
+        let showPoreskaPrijava ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/poreska_prijava_form?month_id=') !!}'
+
 
 
 

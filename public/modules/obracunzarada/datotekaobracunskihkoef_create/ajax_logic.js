@@ -209,6 +209,13 @@ $(document).ready(function () {
     $(document).on('click', 'body .index-krediti-mesecna-poentaza', function (e) {
         var id = $(this).data('month_id');
         window.location.href = showKreditiRoute + id;
+
+
+    });
+
+    $(document).on('click', 'body .poreska-prijava', function (e) {
+        var id = $(this).data('month_id');
+        window.location.href = showPoreskaPrijava + id;
     });
 
 

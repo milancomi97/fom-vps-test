@@ -4,6 +4,18 @@
 @section('custom-styles')
     <style>
 
+        .disable_top_border td{
+            border-top: 0 !important;
+            padding: 5px 0px 0px 0px;
+        }
+
+        table{
+            border-bottom: 5px solid lightblue !important;
+
+        }
+        .custom_shadow{
+            box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+        }
     </style>
 
 
@@ -11,9 +23,9 @@
 
 @section('content')
     <!-- Header with Action Buttons -->
-    <div class="container" style="width: 30%!important;">
+    <div class="container custom_shadow mt-5" style="width: 50%!important;">
 
-        <table class="table mb-5">
+        <table class="table">
             <tr>
                 <td class="text-left">
                     <a href="{{ route('datotekaobracunskihkoeficijenata.show_all_plate', ['month_id' => $zarData->obracunski_koef_id]) }}"
@@ -36,40 +48,108 @@
         </table>
 
         <!-- Company Info Section -->
-        <table class="table mt-5">
+        <table class="table disable_top_border">
             <tr>
-                <td><strong>{{ $podaciFirme['skraceni_naziv_firme'] }}</strong></td>
+                <td  class="pl-4"  ><strong>{{ $podaciFirme['skraceni_naziv_firme'] }}</strong></td>
                 <td class="text-right">Datum štampe: {{ $datumStampe }}</td>
             </tr>
             <tr>
+
                 <td>{{ $podaciFirme['adresa_za_prijem_poste'] }}</td>
                 <td></td>
             </tr>
             <tr>
+
                 <td>PIB: {{ $podaciFirme['pib'] }}</td>
-                <td>Banke: {{ $podaciFirme['racuni_u_bankama'] }}</td>
+                <td></td>
             </tr>
+            <tr>
+                <td>
+                    Maticni broj: {{$podaciFirme['maticni_broj']}}
+                </td>
+            </tr>
+            <tr>
+
+                <td>Banka: {{ $podaciFirme['racuni_u_bankama'] }}</td>
+                <td></td>
+            </tr>
+
         </table>
 
         <!-- Payroll Summary -->
-        <table class="table mt-5">
+        <table class="table mt-2 disable_top_border">
             <tr>
-                <td><strong>OBRAČUN ZARADE I NAKNADA ZARADE</strong></td>
+                <td class="pl-4" ><strong>OBRAČUN ZARADE I NAKNADA ZARADE</strong></td>
+                <td></td>
+            </tr>
+            <tr>
                 <td>ZA MESEC: {{ $datum }}</td>
             </tr>
             <tr>
                 <td>Troškovi Centar: {{ $troskovnoMesto['sifra_troskovnog_mesta'] }} {{ $troskovnoMesto['naziv_troskovnog_mesta'] }}</td>
-                <td>Matični broj: {{ $mdrData['MBRD_maticni_broj'] }}</td>
+            </tr>
+
+
+            <tr>
+                <td>
+                   {{$mdrData['MBRD_maticni_broj']}} -<b> {{$userData['prezime']}}  {{$userData['srednje_ime']}}
+                    . {{$userData['ime']}}</b>
+                </td>
+                <td class="text-right">
+                    JMBG: {{$mdrPreparedData['LBG_jmbg']}}<br>
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td><b>{{$mdrData['RBIM_isplatno_mesto_id']}} </b>  {{$mdrPreparedData['RBIM_isplatno_mesto_id']}} </td>
+                <td class="text-right"> tekuci racun: {{$mdrData['ZRAC_tekuci_racun']}} </td>
+            </tr>
+            <tr>
+                <td>
+                    Datum dospelosti: <b> {{\Carbon\Carbon::createFromFormat('Y-m-d', $podaciMesec['period_isplate_do'])->format('d.m.Y')}}</b>
+                </td>
+            </tr>
+        </table>
+
+        <table class="table disable_top_border">
+            <tr>
+                <td>
+                    Strucna sprema: {{$mdrPreparedData['RBPS_priznata_strucna_sprema']}}
+                </td>
+                <td>
+                   Staz kod poslodavca {{$mdrData['GGST_godine_staza']}} god {{$mdrData['MMST_meseci_staza']}} m
+                </td>
+            </tr>
+            <tr>
+             <td>   Radno mesto: {{$mdrPreparedData['RBRM_radno_mesto']}}
+             </td>
+            </tr>
+            <tr>
+                <td>Osnovna bruto zarada:  {{$mdrData['KOEF_osnovna_zarada']}}</td>
+            </tr>
+            <tr>
+                <td>
+                    Prosecna bruto zarada/cas: {{  number_format($mdrData['PRIZ_ukupan_bruto_iznos']/$mdrData['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'], 2, '.', ',')}}
+                </td>
+                <td>
+                    Učinak: {{  number_format($mdrData['PREB_prebacaj'], 2, '.', ',')}}
+                </td>
+                <td>
+                    Korektivni faktor: {{  number_format($mdrData['KFAK_korektivni_faktor'], 2, '.', ',')}}
+                </td>
             </tr>
         </table>
 
         <!-- Income and Deductions Table with Foreach Loop for Radnik Data -->
-        <table class="table table-bordered mt-5">
+        <table class="table table-bordered ">
             <thead>
             <tr>
-                <th>Vrsta Plaćanja</th>
-                <th>Sati / Procenat</th>
-                <th>Iznos</th>
+{{--                <th>Vrsta Plaćanja</th>--}}
+{{--                <th>Procenat</th>--}}
+{{--                <th>Sati</th>--}}
+{{--                <th>Iznos</th>--}}
             </tr>
             </thead>
             <tbody>
@@ -78,9 +158,9 @@
                     <tr>
                         <td>{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
                         <td class="text-center">
-                            {{ $radnik['sati'] !== null && $radnik['procenat'] == null ? $radnik['sati'] : '' }}
                             {{ $radnik['procenat'] !== null ? $radnik['procenat'] . '%' : '' }}
                         </td>
+                        <td>{{ $radnik['sati'] !== null && $radnik['procenat'] == null ? $radnik['sati'] : '' }}</td>
                         <td class="text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
                     </tr>
                 @endif
@@ -89,14 +169,14 @@
         </table>
 
         <!-- Deductions Table for 'R' Type Entries -->
-        <table class="table table-bordered mt-5">
+        <table class="table table-bordered">
             <thead>
             <tr>
-                <th>Vrsta Plaćanja</th>
-                <th>Kreditor</th>
-                <th>Saldo</th>
-                <th>Partija / Poziv</th>
-                <th>Iznos</th>
+{{--                <th>Vrsta Plaćanja</th>--}}
+{{--                <th>Kreditor</th>--}}
+{{--                <th>Saldo</th>--}}
+{{--                <th>Partija / Poziv</th>--}}
+{{--                <th>Iznos</th>--}}
             </tr>
             </thead>
             <tbody>
@@ -106,7 +186,7 @@
                         <tr>
                             <td>{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
                             <td>{{ $radnik['kreditorAdditionalData']['imek_naziv_kreditora'] ?? '' }}</td>
-                            <td>saldo: {{ $radnik['kreditAdditionalData']['SALD_saldo'] ?? '' }}</td>
+                            <td>{{ $radnik['kreditAdditionalData']['SALD_saldo'] ?? '' }}</td>
                             <td class="text-right">{{ $radnik['kreditAdditionalData']['PART_partija_poziv_na_broj'] ?? '' }}</td>
                             <td class="text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
                         </tr>
@@ -125,7 +205,7 @@
         </table>
 
         <!-- Bruto and Neto Summary -->
-        <table class="table table-bordered mt-5">
+        <table class="table table-bordered ">
             <tr>
                 <td><strong>Bruto Zarada</strong></td>
                 <td class="text-right">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade, 2, '.', ',') }}</td>
@@ -141,7 +221,7 @@
         </table>
 
         <!-- Net Salary and Deductions -->
-        <table class="table table-bordered mt-5">
+        <table class="table table-bordered ">
             <tr>
                 <td><strong>Neto Zarada (1 - 5)</strong></td>
                 <td class="text-right">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade - $zarData->SIP_ukupni_iznos_poreza - $zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',') }}</td>
@@ -157,15 +237,15 @@
         </table>
 
         <!-- Contributions Summary -->
-        <table class="table table-bordered mt-5">
+        <table class="table table-bordered">
             <tr>
                 <td><strong>Ukupni Doprinosi</strong></td>
                 <td class="text-right">{{ number_format($zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',') }}</td>
             </tr>
-            <tr>
-                <td><strong>Porez (10%)</strong></td>
-                <td class="text-right">{{ number_format($zarData->SIP_ukupni_iznos_poreza, 2, '.', ',') }}</td>
-            </tr>
+{{--            <tr>--}}
+{{--                <td><strong>Porez (10%)</strong></td>--}}
+{{--                <td class="text-right">{{ number_format($zarData->SIP_ukupni_iznos_poreza, 2, '.', ',') }}</td>--}}
+{{--            </tr>--}}
             <tr>
                 <td><strong>Ukupni Porezi i Doprinosi</strong></td>
                 <td class="text-right">{{ number_format($zarData->SIP_ukupni_iznos_poreza + $zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',') }}</td>
@@ -173,7 +253,7 @@
         </table>
 
         <!-- Employer’s Obligations Section -->
-        <table class="table table-bordered mt-5">
+        <table class="table table-bordered">
             <tr>
                 <td>Zdravstveno Osiguranje (p)</td>
                 <td class="text-right">5.15%</td>
@@ -184,13 +264,13 @@
                 <td class="text-right">10.00%</td>
                 <td class="text-right">{{ number_format($zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>
             </tr>
-            <tr>
+         {{--   <tr>
                 <td><strong>Ukupni Doprinosi</strong></td>
                 <td></td>
                 <td class="text-right">{{ number_format($zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>
-            </tr>
+            </tr>--}}
             <tr>
-                <td><strong>Ukupna Bruto Zarada</strong></td>
+                <td><strong>Ukupno potrebna sredstva</strong></td>
                 <td></td>
                 <td class="text-right">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade + $zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>
             </tr>

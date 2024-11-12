@@ -12,6 +12,7 @@ use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataReposit
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\ArhivaObracunavanjeService;
 use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
@@ -39,7 +40,8 @@ class ArhivaController extends Controller
         private readonly ObradaDkopSveVrstePlacanjaRepositoryInterface       $obradaDkopSveVrstePlacanjaInterface,
         private readonly MinimalnebrutoosnoviceRepositoryInterface           $minimalnebrutoosnoviceInterface,
         private readonly VrsteplacanjaRepositoryInterface                    $vrsteplacanjaInterface,
-        private readonly ObradaObracunavanjeService $obradaObracunavanjeService
+        private readonly ObradaObracunavanjeService $obradaObracunavanjeService,
+        private readonly ObradaZaraPoRadnikuRepositoryInterface $obradaZaraPoRadnikuInterface,
     )
     {
     }
@@ -317,7 +319,11 @@ class ArhivaController extends Controller
         return view('obracunzarada::arhiva.godisnji_karton');
     }
 
-    public function pppPrijava(Request $request)
+
+
+
+
+    public function pppPrijavaForm(Request $request)
     {
 
 
@@ -326,32 +332,105 @@ class ArhivaController extends Controller
         $datumOd = $request->datumOd;
         $datumDo = $request->datumDo;
 
-        $data = [
-            'invoice_number' => 'Primmer sa interneta',
-            'customer_name' => 'Poreska prijava primer uvucenog podatka',
-            'amount' =>  rand(1,1000),
-            'date' => date('d.m.Y'),
-            // Add more fields as needed
-        ];
+        if(isset($request->maticniBroj)){
+            $zaraData = $this->obradaZaraPoRadnikuInterface->getAll();
 
-        $xmlContent = View::make('obracunzarada::poreskaprijava.ppp_prijava', $data)->render();
+
+        }else{
+            $zaraData = $this->obradaZaraPoRadnikuInterface->getAll();
+
+        }
+//        Ukupna zarada   Uplaceni deo zarade               Razlika
+//    **********************************************************************************************************
+//                           Bruto zarada:             143021.35                  0.00             143021.35
+//                     Osnovica za poreze:             143021.35                  0.00             143021.35
+//                                  Porez:              11802.14                  0.00              11802.14
+//                   Poresko oslobodjenje:              25000.00                  0.00              25000.00
+//                   Pio na teret radnika:              20022.99                  0.00              20022.99
+//                Pio na teret poslodavca:              14302.14                  0.00              14302.14
+//             Zdravstvo na teret radnika:               7365.60                  0.00               7365.60
+//          Zdravstvo na teret poslodavca:               7365.60                  0.00               7365.60
+//            Nezaposlenost na teret rad.:               1072.66                  0.00               1072.66
+//            Nezaposlenost na teret pos.:                  0.00                  0.00                  0.00
+
+//        $xmlContent = View::make('obracunzarada::poreskaprijava.ppp_prijava', [
+//            'radnikData'=>$zaraData
+//        ])->render();
+
+        $xmlContent='';
+        return view('obracunzarada::poreskaprijava.ppp_prijava_form', ['xmlContent' => $xmlContent]);
+
+    }
+
+
+    public function pppPrijava(Request $request)
+    {
+
+
+        $datum_nastanka= Carbon::parse($request->datum_nastanka)->format('Y-m-d');
+        $datum_placanja= Carbon::parse($request->datum_placanja)->format('Y-m-d');
+        $preduzece_budzet=$request->preduzece_budzet;
+        $obracunski_period_month= $request->obracunski_period_month;
+        $obracunski_period_year= $request->obracunski_period_year;
+        $konacno=$request->konacno;
+//        $podaciMesec = $this->datotekaobracunskihkoeficijenataInterface->getById($monthId);
+
+//        $podaciMesec->datum=date('m.Y', strtotime($podaciMesec->datum));
+
+        $maticniBroj = $request->maticniBroj;
+        $datumOd = $request->datumOd;
+        $datumDo = $request->datumDo;
+        if(isset($request->maticniBroj)){
+            $zaraData = $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->getAll();
+
+
+    }else{
+            $zaraData = $this->obradaZaraPoRadnikuInterface->getAll();
+
+        }
+//        Ukupna zarada   Uplaceni deo zarade               Razlika
+//    **********************************************************************************************************
+//                           Bruto zarada:             143021.35                  0.00             143021.35
+//                     Osnovica za poreze:             143021.35                  0.00             143021.35
+//                                  Porez:              11802.14                  0.00              11802.14
+//                   Poresko oslobodjenje:              25000.00                  0.00              25000.00
+//                   Pio na teret radnika:              20022.99                  0.00              20022.99
+//                Pio na teret poslodavca:              14302.14                  0.00              14302.14
+//             Zdravstvo na teret radnika:               7365.60                  0.00               7365.60
+//          Zdravstvo na teret poslodavca:               7365.60                  0.00               7365.60
+//            Nezaposlenost na teret rad.:               1072.66                  0.00               1072.66
+//            Nezaposlenost na teret pos.:                  0.00                  0.00                  0.00
+
+        $podaciOFirmi=$this->podaciofirmiInterface->getAll()->first();
+        $podaciMesec = $this->datotekaobracunskihkoeficijenataInterface->where('datum', $obracunski_period_year.'-'.$obracunski_period_month.'-01')->get()->first();
+
+
+        $xmlContent = View::make('obracunzarada::poreskaprijava.ppp_prijava', [
+            'radnikData'=>$zaraData,
+            'podaciOFirmi'=>$podaciOFirmi,
+            'datum_nastanka'=>$datum_nastanka,
+            'datum_placanja'=>$datum_placanja,
+            'preduzece_budzet'=>$preduzece_budzet,
+            'obracunski_period_month'=>$obracunski_period_month,
+            'obracunski_period_year'=>$obracunski_period_year,
+            'konacno'=>$konacno,
+            'podaciMesec'=>$podaciMesec
+        ])->render();
 
 
         return view('obracunzarada::poreskaprijava.ppp_prijava_check', ['xmlContent' => $xmlContent]);
 
     }
 
+
     public function pppPrijavaDownload(Request $request)
     {
         // Retrieve or re-generate the XML content as needed
-        $data = [
-            'invoice_number' => '12345',
-            'customer_name' => 'John Doe',
-            'amount' => rand(1,1000),
-            'date' => '2024-11-08',
-        ];
 
-        $xmlContent = View::make('obracunzarada::poreskaprijava.ppp_prijava', $data)->render();
+
+        $xmlContent = View::make('obracunzarada::poreskaprijava.ppp_prijava', [
+
+        ])->render();
 
         // Return XML file as a download
         return Response::make($xmlContent, 200, [

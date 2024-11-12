@@ -6,8 +6,8 @@
     <title>{{ config('app.name', 'Fom app') }} </title>
 </head>
 <body>
-<h1>Testiranje Email-a sa attachment.</h1>
-<h2>Ovde je telo email-a.</h2>
-
+<h1>Naslov Email</h1>
+<h2>Telo email-a.</h2>
+<p>Proba petlje slanje email-a sa novim nalogom</p>
 </body>
 </html>
