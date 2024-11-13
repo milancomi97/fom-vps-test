@@ -6,8 +6,7 @@
     <title>{{ config('app.name', 'Fom app') }} </title>
 </head>
 <body>
-<h1>Naslov Email</h1>
-<h2>Telo email-a.</h2>
-<p>Proba petlje slanje email-a sa novim nalogom</p>
+<h1>Goša Fom ad</h1>
+<img src="{{url(asset('images/company/100_godina_postojanja.jpg'))}}" alt="Descriptive text" width="auto" height="auto">
 </body>
 </html>
