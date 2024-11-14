@@ -43,6 +43,8 @@ class AppCheckAll extends Command
 
         $kadrNotExist=[];
         $mdrNotExist=[];
+        $kadrDeActivated=[];
+        $mdrDeActivated=[];
         // 1. Logika za azuriranje KADR
         foreach ($kadrData as $kadr){
             $maticniBroj = $kadr['MBRD'];
@@ -56,6 +58,19 @@ class AppCheckAll extends Command
                 // create logika
             }else{
                 // update logika
+
+                if($userData->active==1 && $kadr['ACTIVE']=='FALSE'){
+                    $kadrDeActivated['one'][]=$maticniBroj;
+
+                }
+
+                if($userData->active==0 && $kadr['ACTIVE']=='TRUE'){
+                    $kadrDeActivated['two'][]=$maticniBroj;
+
+                }
+
+                $test='test';
+                // check deactivated
             }
         }
 
@@ -70,7 +85,20 @@ class AppCheckAll extends Command
                 $mdrNotExist[]=$maticniBroj;
                 // create logika
             }else{
+
                 // update logika
+                $test='test';
+                $mdrDeActivated[]=$maticniBroj;
+                if($mdrData->ACTIVE_aktivan==1 && $mdr['ACTIVE']=='FALSE'){
+                    $mdrDeActivated['one'][]=$maticniBroj;
+
+                }
+
+                if($mdrData->ACTIVE_aktivan==0 && $mdr['ACTIVE']=='TRUE'){
+                    $mdrDeActivated['two'][]=$maticniBroj;
+
+                }
+                // check deactivated
             }
 
 
@@ -78,13 +106,13 @@ class AppCheckAll extends Command
         }
 
         // 3. Logika za proveravanje User Permision
-        if (!Schema::hasColumn('user_permissions', 'maticni_broj')) {
-
-           $testes='testt';
-            Schema::table('user_permissions', function (Blueprint $table) {
-                $table->string('maticni_broj')->unique();
-            });
-        }
+//        if (!Schema::hasColumn('user_permissions', 'maticni_broj')) {
+//
+//           $testes='testt';
+//            Schema::table('user_permissions', function (Blueprint $table) {
+//                $table->string('maticni_broj')->unique();
+//            });
+//        }
 
         // 4. Logika za proveravanje Radnik - Troskovni centar - rasporedi radnike
 
@@ -106,6 +134,10 @@ class AppCheckAll extends Command
 
         // 7. Logika za proveru AKTIVAN MESEC ID _
 
+
+        $this->info('KADR ACTIVE neslaganja.'.json_encode($kadrDeActivated));
+
+        $this->info('MDR ACTIVE neslaganja.'.json_encode($mdrDeActivated));
 
         $this->info('KADR ne postoje.'.json_encode($kadrNotExist));
 
