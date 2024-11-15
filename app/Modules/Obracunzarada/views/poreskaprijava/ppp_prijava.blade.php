@@ -25,7 +25,7 @@
 <IdentifikatorPrimaoca>{!! $radnik->LBG_jmbg !!}</IdentifikatorPrimaoca>
 <Prezime>{!! $radnik->prezime !!}</Prezime>
 <Ime>{!! $radnik->ime !!}</Ime>
-<OznakaPrebivalista>{!! $radnik->RBOP_sifra_opstine !!}</OznakaPrebivalista>
+<OznakaPrebivalista>{!! (strlen($radnik->maticnadatotekaradnika->opstina_id) === 4) ? substr($radnik->maticnadatotekaradnika->opstina_id, 1) : $radnik->maticnadatotekaradnika->opstina_id  !!}</OznakaPrebivalista>
 <SVP>101101000</SVP>
 <BrojKalendarskihDana>{!! $radnik->maticnadatotekaradnika->DANI_kalendarski_dani !!}</BrojKalendarskihDana>
 <BrojEfektivnihSati>{!! $radnik->SSZNE_suma_sati_zarade !!}</BrojEfektivnihSati>

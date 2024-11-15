@@ -36,7 +36,7 @@ function updateMonthContainer(activeMonth) {
                 {'label': 'Status meseca', 'val': `${monthStatusString}`},
                 // {'label': 'Cena rada prethodni', 'val': `${monthData.cena_rada_prethodni}`},
             ], function(key, value) {
-                debugger;
+
 
                 if(value.label==='Status meseca') {
                     list.append($('<li class="list-group-item">' + value.label + ': <b>' + value.val + '</b></li>'));

@@ -130,9 +130,9 @@ class ObradaPripremaController extends Controller
 //            $sveVrstePlacanjaDataFormule = $this->obradaFormuleService->obradiFormule($sveVrstePlacanjaData); // G i EVAL odradi
 
 
-        $kreditiData = $this->dpsmKreditiInterface->getAll();
-        $kreditiPrepared =  $this->obradaPripremaService->pripremaKredita($kreditiData,$id,$vrstePlacanjaSifarnik);
-        $this->obradaKreditiInterface->createMany($kreditiPrepared);
+//        $kreditiData = $this->dpsmKreditiInterface->getAll();
+//        $kreditiPrepared =  $this->obradaPripremaService->pripremaKredita($kreditiData,$id,$vrstePlacanjaSifarnik);
+//        $this->obradaKreditiInterface->createMany($kreditiPrepared);
 
 
             $message = $this->obradaPripremaValidacijaService->checkMinimalneBrutoOsnovice($minimalneBrutoOsnoviceSifarnik);

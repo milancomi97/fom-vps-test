@@ -58,6 +58,8 @@ class KreirajObracunskeKoeficiente
                     ];
                 }
 
+            }else{
+                $test='test';
             }
         }
 

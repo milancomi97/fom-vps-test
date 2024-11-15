@@ -286,7 +286,6 @@ $(document).ready(function () {
 
     $(document).on('click', 'body .obrada', function (e) {
 
-        debugger;
         var redirectUrl = $(this).data('url-redirect');
 
         // var buttons = document.querySelectorAll('button');
