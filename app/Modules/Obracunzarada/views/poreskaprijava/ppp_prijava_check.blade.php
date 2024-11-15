@@ -25,7 +25,15 @@
             <!-- Right column for XML preview and download -->
             <div class="col-lg-9 mx-auto ">
                 <div class="text-center">
-                    <form action="{{ route('arhiva.pppPrijavaDownload') }}" method="GET" class="d-flex justify-content-center">
+                    <form action="{{ route('arhiva.pppPrijavaDownload') }}" method="POST" class="d-flex justify-content-center">
+                      @csrf
+                        <input type="hidden" name="datum_nastanka" value="{{$fileInputs['datum_nastanka']}}">
+                        <input type="hidden" name="datum_placanja" value="{{$fileInputs['datum_placanja']}}">
+                        <input type="hidden" name="preduzece_budzet" value="{{$fileInputs['preduzece_budzet']}}">
+                        <input type="hidden" name="obracunski_period_month" value="{{$fileInputs['obracunski_period_month']}}">
+                        <input type="hidden" name="obracunski_period_year" value="{{$fileInputs['obracunski_period_year']}}">
+                        <input type="hidden" name="konacno" value="{{$fileInputs['konacno']}}">
+                        <input type="hidden" name="maticniBroj" value="{{$fileInputs['maticniBroj']}}">
                         <button type="submit" class="btn btn-success mt-3">Preuzmi fajl</button>
                     </form>
                 </div>

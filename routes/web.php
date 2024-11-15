@@ -404,7 +404,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::get('obracunzarada/arhiva/godisnjiKarton', [ArhivaController::class, 'godisnjiKarton'])->name('arhiva.godisnjiKarton');
-    Route::get('obracunzarada/arhiva/pppPrijavaDownload', [ArhivaController::class, 'pppPrijavaDownload'])->name('arhiva.pppPrijavaDownload');
+    Route::post('obracunzarada/arhiva/pppPrijavaDownload', [ArhivaController::class, 'pppPrijavaDownload'])->name('arhiva.pppPrijavaDownload');
 
 
     Route::post('obracunzarada/arhiva/pppPrijava', [ArhivaController::class, 'pppPrijava'])->name('arhiva.pppPrijava');

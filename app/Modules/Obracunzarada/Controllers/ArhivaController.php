@@ -418,7 +418,16 @@ class ArhivaController extends Controller
         ])->render();
 
 
-        return view('obracunzarada::poreskaprijava.ppp_prijava_check', ['xmlContent' => $xmlContent]);
+        $dataInput=[
+            'datum_nastanka'=> $request->datum_nastanka,
+         'datum_placanja'=>   $request->datum_placanja,
+          'preduzece_budzet'=>  $request->preduzece_budzet,
+          'obracunski_period_month'=>  $request->obracunski_period_month,
+          'obracunski_period_year'=>  $request->obracunski_period_year,
+          'konacno'=>  $request->konacno,
+          'maticniBroj'=>  $request->maticniBroj,
+        ];
+        return view('obracunzarada::poreskaprijava.ppp_prijava_check', ['xmlContent' => $xmlContent,'fileInputs'=>$dataInput]);
 
     }
 
@@ -426,16 +435,47 @@ class ArhivaController extends Controller
     public function pppPrijavaDownload(Request $request)
     {
         // Retrieve or re-generate the XML content as needed
+        $datum_nastanka= Carbon::parse($request->datum_nastanka)->format('Y-m-d');
+        $datum_placanja= Carbon::parse($request->datum_placanja)->format('Y-m-d');
+        $preduzece_budzet=$request->preduzece_budzet;
+        $obracunski_period_month= $request->obracunski_period_month;
+        $obracunski_period_year= $request->obracunski_period_year;
+        $konacno=$request->konacno;
+//        $podaciMesec = $this->datotekaobracunskihkoeficijenataInterface->getById($monthId);
 
+//        $podaciMesec->datum=date('m.Y', strtotime($podaciMesec->datum));
+
+        $maticniBroj = $request->maticniBroj;
+        $datumOd = $request->datumOd;
+        $datumDo = $request->datumDo;
+        if(isset($request->maticniBroj)){
+            $zaraData = $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->getAll();
+
+
+        }else{
+            $zaraData = $this->obradaZaraPoRadnikuInterface->getAll();
+
+        }
+
+        $podaciOFirmi=$this->podaciofirmiInterface->getAll()->first();
+        $podaciMesec = $this->datotekaobracunskihkoeficijenataInterface->where('datum', $obracunski_period_year.'-'.$obracunski_period_month.'-01')->get()->first();
 
         $xmlContent = View::make('obracunzarada::poreskaprijava.ppp_prijava', [
-
+            'radnikData'=>$zaraData,
+            'podaciOFirmi'=>$podaciOFirmi,
+            'datum_nastanka'=>$datum_nastanka,
+            'datum_placanja'=>$datum_placanja,
+            'preduzece_budzet'=>$preduzece_budzet,
+            'obracunski_period_month'=>$obracunski_period_month,
+            'obracunski_period_year'=>$obracunski_period_year,
+            'konacno'=>$konacno,
+            'podaciMesec'=>$podaciMesec
         ])->render();
 
         // Return XML file as a download
         return Response::make($xmlContent, 200, [
             'Content-Type' => 'application/xml',
-            'Content-Disposition' => 'attachment; filename="invoice.xml"',
+            'Content-Disposition' => 'attachment; filename="prijava_za_'.$obracunski_period_month.'.'.$obracunski_period_year.'.xml"',
         ]);
     }
 
