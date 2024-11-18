@@ -282,27 +282,36 @@ class ArhivaController extends Controller
         $resultData = [];
         $resultData['izneto'] = 0;
         $resultData['neto'] = 0;
+        $counter=0;
         foreach ($sumeZaraPeriod as $mesecData) {
             $resultData[] = [
                 'IZNETO' => $mesecData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade,
                 'NETO' => $mesecData->NETO_neto_zarada,
                 'datum' => $mesecData->M_G_date
             ];
+            $counter++;
 
             $resultData['izneto']+= $mesecData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade;
             $resultData['neto'] +=$mesecData->NETO_neto_zarada;
 
         }
+
+        $resultData['brojMeseci']=$counter;
         $radnikData =User::where('maticni_broj',$maticniBroj)->get()->first();
 
 
         set_time_limit(0);
+        $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
+        $datumStampe = \Carbon\Carbon::now()->format('d.m.Y');
 
         $pdf = PDF::loadView('obracunzarada::arhiva.potvrda_proseka_export_pdf',[
             'resultData'=>$resultData,
             'radnikData'=>$radnikData,
             'datumOd'=>$datumOd,
-            'datumDo'=>$datumDo
+            'datumDo'=>$datumDo,
+            'opis'=>$request->opis,
+            'podaciFirme'=>$podaciFirme,
+            'datumStampe'=>$datumStampe
         ])->setPaper('a4', 'portrait');
 
 

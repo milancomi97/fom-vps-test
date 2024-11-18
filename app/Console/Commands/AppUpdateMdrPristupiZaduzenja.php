@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Schema;
 use League\Csv\Reader;
 use Illuminate\Support\Facades\DB;
 
-class AppUpdateMaticnaDatoteka extends Command
+class AppUpdateMdrPristupiZaduzenja extends Command
 {
     /**
      * The name and signature of the console command.
