@@ -16,4 +16,9 @@ class Isplatnamesta extends Model
         'pb_poziv_na_broj',
         'partija_racuna'
     ];
+
+    // SIFRA FIRME_u_banci
+    // OPIS Priliva
+    // sifra_banke
+    // poziv_na_broj
 }

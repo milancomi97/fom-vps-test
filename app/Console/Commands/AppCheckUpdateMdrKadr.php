@@ -117,8 +117,8 @@ class AppCheckUpdateMdrKadr extends Command
 
                 DB::table('maticnadatotekaradnikas')->insert([
                         'MBRD_maticni_broj' => $data['MBRD'],
-                        'PREZIME_prezime' => $data['PREZIME'],
-                        'IME_ime' => $data['IME'],
+                        'PREZIME_prezime' => $userData->prezime,
+                        'IME_ime' => $userData->ime,
                         'user_id'=>$userData->id,
                         'srednje_ime' =>$userData->srednje_ime,
                         'RBRM_radno_mesto' => $data['RBRM'],
@@ -173,8 +173,8 @@ class AppCheckUpdateMdrKadr extends Command
 
                 $mdrData->update([
                     'MBRD_maticni_broj' => $data['MBRD'],
-                    'PREZIME_prezime' => $data['PREZIME'],
-                    'IME_ime' => $data['IME'],
+                    'PREZIME_prezime' => $userData->prezime,
+                    'IME_ime' => $userData->ime,
                     'srednje_ime' =>$userData->srednje_ime,
                     'user_id'=>$userData->id,
                     'RBRM_radno_mesto' => $data['RBRM'],

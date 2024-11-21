@@ -17,15 +17,14 @@ class VrstaradasifarnikRepository extends BaseRepository implements Vrstaradasif
         parent::__construct($model);
     }
 
-    public function getSelectOptionData(): array
+    public function getSelectOptionData()
     {
-        $data= $this->getAll();
-        $resultCollection = $data->sortBy('sifra_statusa')->map(function ($item) {
-            $newValue = $item['sifra_statusa'] . ' ' . $item['naziv_statusa'];
+        $data= $this->getAll()->sortBy('sifra_statusa');
+        $newArray=[];
+        foreach ($data as $item){
+            $newArray[$item['sifra_statusa']]=$item['naziv_statusa'];
+        }
 
-            return $item['id'] = $newValue;
-        });
-
-        return $resultCollection->toArray();
+        return $newArray;
     }
 }

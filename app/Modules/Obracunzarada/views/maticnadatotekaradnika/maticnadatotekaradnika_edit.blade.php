@@ -393,14 +393,11 @@
                                     <select class="custom-select" id="POL_pol"
                                             name="POL_pol">
                                     @if($radnikData->Pol_pol=='Z')
-                                            <option  selected value="Z">Z</option>
-                                        @elseif($radnikData->Pol_pol=='M')
-                                            <option selected value="M">M</option>
+                                            <option selected value="Z">Z</option>
+                                            <option   value="Z">Z</option>
                                         @else
-                                            <option selected value="">- Izaberite pol - </option>
-                                            <option  value="M">M</option>
+                                            <option selected value="M">M</option>
                                             <option value="Z">Z</option>
-
                                         @endif
                                     </select>
                                 </div>
@@ -577,56 +574,16 @@
                 dataType: 'json',
                 data: postData,
                 success: function (response) {
-
                     $('#ime').val(response.ime)
                     $('#adresa_ulica_broj').val(response.adresa_ulica_broj)
                     $("#opstina_id").val(response.opstina_id)
                     $("#sifra_mesta_troska_id").val(response.sifra_mesta_troska_id)
                     $("#jmbg").val(response.jmbg)
                     $('#user_id').val(response.id);
-
-
                     var prezimeOption = new Option(response.prezime, response.prezime, true, true);
                     $('#prezime').append(prezimeOption).trigger('change');
                     var maticniOption = new Option(response.maticni_broj, response.maticni_broj, true, true);
                     $('#maticni_broj').append(maticniOption).trigger('change');
-                    // maticni_broj
-                    // maticni_broj_value
-                    // prezime
-                    // prezime_value
-                    // response.opstina_id
-                    //
-                    // opstina_id
-                    // sifra_mesta_troska_id
-                    // status_ugovor_id
-                    // $('#mySelect2').val('1'); // Select the option with a value of '1'
-                    // $('#mySelect2').trigger('change');
-                    // {
-                    //     "id": 6,
-                    //     "interni_maticni_broj": null,
-                    //     "ime": "MILADIN",
-                    //     "prezime": "JANJIC",
-                    //     "srednje_ime": null,
-                    //     "slika_zaposlenog": null,
-                    //     "maticni_broj": "0003123",
-                    //     "troskovno_mesto": "90000000",
-                    //     "active": 0,
-                    //     "email": "0003123MILADIN@fom.com",
-                    //     "jmbg": null,
-                    //     "email_verified_at": null,
-                    //     "telefon_poslovni": null,
-                    //     "licna_karta_broj_mesto_rodjenja": null,
-                    //     "adresa_ulica_broj": null,
-                    //     "opstina_id": null,
-                    //     "drzava_id": null,
-                    //     "sifra_mesta_troska_id": null,
-                    //     "status_ugovor_id": null,
-                    //     "datum_zasnivanja_radnog_odnosa": null,
-                    //     "datum_prestanka_radnog_odnosa": "1909-07-01",
-                    //     "created_at": null,
-                    //     "updated_at": null
-                    // }
-
 
                     // Handle the successful response here
                     $('#result').html('Data from the server: ' + JSON.stringify(response));
@@ -639,49 +596,6 @@
 
         }
 
-
-        $('#maticnadatotekaradnika').submit(function (event) {
-            var isValid = true;
-
-            // Loop through each input field
-            $(this).find(':input').each(function () {
-                // $(this).find(':input[required]').each(function () {
-
-                if ($(this)[0].id === 'radna_jedinica' || $(this)[0].id === 'submit_btn' || $(this)[0].id === 'brigada') {
-                    return;
-                }
-
-                if ($(this).val().trim() === '') {
-                    isValid = false;
-                    $(this).addClass('error');
-                } else {
-                    $(this).removeClass('error');
-                }
-            });
-
-            $(this).find('select').each(function () {
-                if ($(this).val() === '0') {
-                    isValid = false;
-                    $(this).addClass('error');
-                } else {
-                    $(this).removeClass('error');
-                }
-            });
-            $(window).scroll(function () {
-                if ($(this).scrollTop() > 100) {
-                    $('#scrollToTopBtn').fadeIn();
-                } else {
-                    $('#scrollToTopBtn').fadeOut();
-                }
-            });
-            if (!isValid) {
-                // Prevent form submission if validation fails
-                $('#error-validator-text').removeClass('d-none');
-                $('html, body').animate({scrollTop: 0}, 800);
-
-                event.preventDefault();
-            }
-        });
 
     </script>
 
