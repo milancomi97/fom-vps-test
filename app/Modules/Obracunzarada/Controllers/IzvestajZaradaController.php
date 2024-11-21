@@ -210,7 +210,7 @@ class IzvestajZaradaController extends Controller
 //                'isplatnaMestaSifarnika' => $isplatnaMestaSifarnika
 //            ]);
         $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
-        $datumStampe = \Carbon\Carbon::now()->format('d.m.Y');
+        $datumStampe = \Carbon\Carbon::now()->format('d. m. Y.');
 
                 $pdf = PDF::loadView('obracunzarada::izvestaji.banke_banke_radnik_pdf',
                     [
@@ -310,7 +310,7 @@ class IzvestajZaradaController extends Controller
 //                'isplatnaMestaSifarnika' => $isplatnaMestaSifarnika
 //            ]);
         $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
-        $datumStampe = \Carbon\Carbon::now()->format('d.m.Y');
+        $datumStampe = \Carbon\Carbon::now()->format('d. m. Y.');
 
 
 
@@ -362,7 +362,7 @@ class IzvestajZaradaController extends Controller
 //                'isplatnaMestaSifarnika' => $isplatnaMestaSifarnika
 //            ]);
         $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
-        $datumStampe = \Carbon\Carbon::now()->format('d.m.Y');
+        $datumStampe = \Carbon\Carbon::now()->format('d. m. Y.');
         $downloadRawData =[];
         foreach ($groupedData as $groupKey => $groupItems) {
             if(isset(ExportFajlovaBankeService::BANKEIDS[$groupKey])){

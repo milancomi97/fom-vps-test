@@ -378,6 +378,7 @@
         let showPodesavanjePristupa = '{!! url('obracunzarada/datotekaobracunskihkoeficijenata/podesavanje_pristupa?month_id=')!!}'
 
         let showPoreskaPrijava ='{!! url('obracunzarada/datotekaobracunskihkoeficijenata/poreska_prijava_form?month_id=') !!}'
+        let showArhivaRoute ='{!! url('obracunzarada/arhiva/index') !!}'
 
 
 

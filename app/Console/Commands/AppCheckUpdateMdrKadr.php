@@ -14,14 +14,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AppCheckAll extends Command
+class AppCheckUpdateMdrKadr extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'appp:checkAll';
+    protected $signature = 'appp:checkUpdateMdrKadr';
 
     /**
      * The console command description.

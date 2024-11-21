@@ -27,9 +27,7 @@
                         <div class="form-group">
 
                             <label for="exampleFormControlSelect2">Svrha potvrde:</label>
-                            <textarea class=" form-control" name="opis" id="exampleFormControlSelect2">
-                        </textarea>
-
+                            <textarea class=" form-control" name="opis" id="exampleFormControlSelect2"></textarea>
                         </div>
                         <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">
                             PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl" aria-hidden="true"></i>

@@ -172,6 +172,10 @@ $(document).ready(function () {
         window.location.href = showRoute + id;
     });
 
+
+    $(document).on('click', 'body .arhiva-menu', function (e) {
+        window.location.href = showArhivaRoute;
+    });
     $(document).on('click', 'body .obradaproseka', function (e) {
         var id = $(this).data('month_id');
         window.location.href = obradaProsekaRoute + id;

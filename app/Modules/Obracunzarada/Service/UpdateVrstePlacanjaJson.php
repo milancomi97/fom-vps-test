@@ -11,7 +11,7 @@ class UpdateVrstePlacanjaJson
 {
     const UPDATEACTION =[
         0=>'bezpravila',
-        1=>'umanjiradobrok',
+        1=>'umanjirad_i_obrok',
         5=>'uvecajobrok',
         2=>'umanjirad'
     ];
@@ -56,7 +56,7 @@ class UpdateVrstePlacanjaJson
 
                 $calculatedVrstePlacanja = array_map(function ($placanje) use ($anomAction,&$negativniBrojac) {
 
-                    if($anomAction=='umanjiradobrok' &&('001'==$placanje['key'] || '019'== $placanje['key'])){
+                    if($anomAction=='umanjirad_i_obrok' &&('001'==$placanje['key'] || '019'== $placanje['key'])){
                     $placanje['sati'] =  $placanje['sati']-$negativniBrojac;
                     }
 

@@ -3,6 +3,7 @@
 namespace App\Modules\Obracunzarada\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ObradaPlate;
 use App\Models\Datotekaobracunskihkoeficijenata;
 use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
@@ -73,7 +74,7 @@ class ObradaPripremaController extends Controller
 
         if ($request->redirect_url == 'obrada_plate') {
 
-
+            ObradaPlate::dispatch();
             $user_id = auth()->user()->id;
             $userPermission = UserPermission::where('user_id', $user_id)->first();
             $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);

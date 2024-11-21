@@ -310,7 +310,7 @@ class DatotekaobracunskihExportController extends Controller
 
 
         $zarData = $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get()->first();
-        $datumStampe = Carbon::now()->format('d.m.Y');
+        $datumStampe = Carbon::now()->format('d. m. Y.');
         $kreditiData = $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get();
         $userData= User::where('maticni_broj',$radnikMaticniId)->first();
 
@@ -585,7 +585,7 @@ class DatotekaobracunskihExportController extends Controller
 
         $radnikaSaZaradom=$this->obradaZaraPoRadnikuInterface->whereCondition('IZNETO_zbir_ukupni_iznos_naknade_i_naknade','>',0)->get();
         $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
-        $datumStampe = Carbon::now()->format('d.m.Y');
+        $datumStampe = Carbon::now()->format('d. m. Y.');
 
         $pdf = PDF::loadView('obracunzarada::izvestaji.rekapitulacija_zarade_export_pdf',
             [

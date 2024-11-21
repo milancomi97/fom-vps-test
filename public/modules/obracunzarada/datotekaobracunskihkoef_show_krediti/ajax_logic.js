@@ -79,8 +79,6 @@ $(document).ready(function () {
 
         }
 
-
-
     }
 
     // Call the function to populate the table

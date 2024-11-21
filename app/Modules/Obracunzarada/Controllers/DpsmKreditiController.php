@@ -172,7 +172,7 @@ class DpsmKreditiController extends Controller
                             'PART_partija_poziv_na_broj'=>$vrstaPlacanja['partija'] ?? '',
                             'maticni_broj'=>$mesecnaTabelaPoentaza['maticni_broj'],
                             'user_mdr_id'=>$mesecnaTabelaPoentaza->id,
-                            'POCE_pocetak_zaduzenja'=>true,
+                            'POCE_pocetak_zaduzenja'=>1,
 //                            'DATUM_zaduzenja'=>$vrstaPlacanja['datum_zaduzenja'] ?? 0,
                         ];
                         $this->dpsmKreditiInterface->create($data);

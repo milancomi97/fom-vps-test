@@ -221,9 +221,13 @@ function updateMonthContainer(activeMonth) {
                 }).text('Arhiviraj - Zatvori mesec').appendTo(monthCard);
 
 
-                $("<h1></h1>").attr({
-                    'class': 'offset-1 col col-sm-3 mt-3 btn font-weight-bold EMPTY',
-                }).text('').css('cursor','default').appendTo(monthCard);
+                $('<button>').attr({
+                    'type': 'button',
+                    'class': 'btn btn-warning arhiva-menu offset-1 col-sm-3 mt-3 border',
+                    'data-month_id': monthData.month_id,
+                    'data-month': monthData.currMonth,
+                    'data-year': monthData.currYear
+                }).text('Arhiva').appendTo(monthCard);
 
                 $('<button>').attr({
                     'type': 'button',

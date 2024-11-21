@@ -47,7 +47,7 @@ class ObradaObracunavanjeService
             if($radnik['sifra_vrste_placanja']=='093'){
 //                ;
                 $kreditData = $this->dpsmKreditiInterface->getById($radnik['kredit_glavna_tabela_id']);
-                $kreditorData = $this->kreditoriInterface->getById($kreditData->SIFK_sifra_kreditora);
+                $kreditorData = $this->kreditoriInterface->where('sifk_sifra_kreditora',$kreditData->SIFK_sifra_kreditora)->get()->first();
 
                 $radnik['kreditAdditionalData']=$kreditData->toArray();
                 $radnik['kreditorAdditionalData']=$kreditorData->toArray();

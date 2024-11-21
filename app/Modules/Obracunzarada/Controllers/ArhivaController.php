@@ -124,7 +124,7 @@ class ArhivaController extends Controller
 
         $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
 
-        $datumStampe = \Carbon\Carbon::now()->format('d.m.Y');
+        $datumStampe = \Carbon\Carbon::now()->format('d. m. Y.');
 
 
 //        $mdrData = $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj',$startDate)->get()->first();
@@ -299,10 +299,11 @@ class ArhivaController extends Controller
         $resultData['brojMeseci']=$counter;
         $radnikData =User::where('maticni_broj',$maticniBroj)->get()->first();
 
+        $mdrData = $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj',$maticniBroj)->get()->first();
 
         set_time_limit(0);
         $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
-        $datumStampe = \Carbon\Carbon::now()->format('d.m.Y');
+        $datumStampe = \Carbon\Carbon::now()->format('d. m. Y.');
 
         $pdf = PDF::loadView('obracunzarada::arhiva.potvrda_proseka_export_pdf',[
             'resultData'=>$resultData,
@@ -311,7 +312,8 @@ class ArhivaController extends Controller
             'datumDo'=>$datumDo,
             'opis'=>$request->opis,
             'podaciFirme'=>$podaciFirme,
-            'datumStampe'=>$datumStampe
+            'datumStampe'=>$datumStampe,
+            'mdrData'=>$mdrData
         ])->setPaper('a4', 'portrait');
 
 
@@ -516,7 +518,7 @@ class ArhivaController extends Controller
         $radnikData = $this->arhivaObracunavanjeService->pripremaPodatakaRadnik($startDate, $radnikMaticniId);
 
         $sifarnikVrstePlacanja = $this->vrsteplacanjaInterface->getAllKeySifra();
-        $datumStampe = \Carbon\Carbon::now()->format('d.m.Y');
+        $datumStampe = \Carbon\Carbon::now()->format('d. m. Y.');
 
         set_time_limit(0);
 
@@ -580,7 +582,7 @@ class ArhivaController extends Controller
 
         $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
         $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
-        $datumStampe = \Carbon\Carbon::now()->format('d.m.Y');
+        $datumStampe = \Carbon\Carbon::now()->format('d. m. Y.');
 
 
         $pdf = PDF::loadView('obracunzarada::arhiva.rekapitulacija_zarade_export_pdf',

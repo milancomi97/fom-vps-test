@@ -64,15 +64,15 @@
             </tr>
         </table>
 
-        <div style="text-align: center !important;">
-          <img src="{{URL::asset('/images/company/logo2.jpg')}}" alt="Logo" style="height: 100px;">
-
-        </div>
         <!-- Company Info Section -->
         <table class="table disable_top_border">
-
+<tr>
+    <td>
+        <img src="{{URL::asset('/images/company/logo2.jpg')}}" alt="Logo" height="100" width="auto">
+    </td>
+</tr>
             <tr>
-                <td  class="pl-4"  ><strong>{{ $podaciFirme['skraceni_naziv_firme'] }} </strong>  </td>
+                <td   ><strong>{{ $podaciFirme['skraceni_naziv_firme'] }} </strong>  </td>
 
                 <td class="text-right">Datum štampe: {{ $datumStampe }}</td>
             </tr>
@@ -207,10 +207,10 @@
                 @if($radnik['KESC_prihod_rashod_tip'] == 'R')
                     @if($radnik['sifra_vrste_placanja'] == '093')
                         <tr>
-                            <td>{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
-                            <td>{{ $radnik['kreditorAdditionalData']['imek_naziv_kreditora'] ?? '' }}</td>
-                            <td>{{ $radnik['kreditAdditionalData']['SALD_saldo'] ?? '' }}</td>
-                            <td class="text-right">{{ $radnik['kreditAdditionalData']['PART_partija_poziv_na_broj'] ?? '' }}</td>
+                            <td >{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
+                            <td>kreditor={{ $radnik['kreditorAdditionalData']['imek_naziv_kreditora'] ?? '' }}</td>
+                            <td class="small_font">saldo={{ $radnik['kreditAdditionalData']['SALD_saldo'] - $radnik['kreditAdditionalData']['RATA_rata']}}</td>
+                            <td class="text-right">part={{ $radnik['kreditAdditionalData']['PART_partija_poziv_na_broj'] ?? '' }}</td>
                             <td class="text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
                         </tr>
                     @else
@@ -218,7 +218,7 @@
                             <td>{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
                             <td></td>
                             <td></td>
-                            <td class="text-center">{{ $radnik['sati'] !== null ? $radnik['sati'] : '0' }}</td>
+                            <td ></td>
                             <td class="text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
                         </tr>
                     @endif

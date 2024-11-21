@@ -12,14 +12,14 @@ use Illuminate\Support\Facades\Schema;
 use League\Csv\Reader;
 use Illuminate\Support\Facades\DB;
 
-class AppUpdateAll extends Command
+class AppUpdateKljucevi extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'appp:updateAll';
+    protected $signature = 'appp:updateKljucevi';
 
     /**
      * The console command description.
