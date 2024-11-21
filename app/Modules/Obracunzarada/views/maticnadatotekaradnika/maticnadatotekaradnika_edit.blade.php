@@ -184,7 +184,7 @@
                                           id="span_tekuci_racun">Tekuci racun:</span>
                             </div>
                             <input type="text" class="form-control" id="ZRAC_tekuci_racun" name="ZRAC_tekuci_racun"
-                                   {{$radnikData->ZRAC_tekuci_racun}}    aria-describedby="span_tekuci_racun">
+                                   value="{{$radnikData->ZRAC_tekuci_racun}}"    aria-describedby="span_tekuci_racun">
                         </div>
 
                         <!-- 7. Redosled u poentazi, text field -->

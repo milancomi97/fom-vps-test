@@ -210,7 +210,7 @@
                             <td >{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
                             <td>kreditor={{ $radnik['kreditorAdditionalData']['imek_naziv_kreditora'] ?? '' }}</td>
                             <td class="small_font">saldo={{ $radnik['kreditAdditionalData']['SALD_saldo'] - $radnik['kreditAdditionalData']['RATA_rata']}}</td>
-                            <td class="text-right">part={{ $radnik['kreditAdditionalData']['PART_partija_poziv_na_broj'] ?? '' }}</td>
+                            <td >part={{ $radnik['kreditAdditionalData']['PART_partija_poziv_na_broj'] ?? '' }}</td>
                             <td class="text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
                         </tr>
                     @else
