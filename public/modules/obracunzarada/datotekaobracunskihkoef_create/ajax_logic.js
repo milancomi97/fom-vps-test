@@ -288,6 +288,11 @@ $(document).ready(function () {
     });
 
 
+    $(document).on('click', 'body .pregled-radnika-index', function (e) {
+        window.location.href = showPregledRadnika;
+    });
+
+
     $(document).on('click', 'body .obrada', function (e) {
 
         var redirectUrl = $(this).data('url-redirect');

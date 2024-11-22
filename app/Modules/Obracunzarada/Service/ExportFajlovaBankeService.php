@@ -34,22 +34,17 @@ class ExportFajlovaBankeService
     {
         $txtContent = '';
         foreach ($groupItems as $item) {
-            $formattedLine = str_pad('0000000000000000', 16);  // 16 mesta sve nule
-            $formattedLine .= str_pad('941', 3);               // 3 mesta šifra valute
+            $tekuciRacun=$item->maticnadatotekaradnika->ZRAC_tekuci_racun;
 
-            $amount = number_format($item->UKIS_ukupan_iznos_za_izplatu, 2, '.', '');
-            $formattedLine .= str_pad($amount, 16, ' ', STR_PAD_LEFT);  // 16 mesta iznos
+            $tekuciRacunFormated= str_replace("-", "",$tekuciRacun);
+            $jmbg=$item->LBG_jmbg;
+            $amount= $item->UKIS_ukupan_iznos_za_izplatu;
+            $salary = number_format($item->UKIS_ukupan_iznos_za_izplatu, 2, '', ''); // Salary with 2 decimals
 
-            $date = now()->format('dmy');                     // 6 mesta datum valute (ddmmyy)
-            $formattedLine .= str_pad($date, 6);
+            $formattedAmount = str_pad($salary, 19, "0", STR_PAD_LEFT); // Pad to 19 characters with leading zeros
 
-            $fullName = $item->ime . ' ' . $item->prezime;
-            $formattedLine .= str_pad(substr($fullName, 0, 30), 30);  // 30 mesta ime i prezime
-
-            $accountNumber = substr($item->ZRAC_tekuci_racun, 4, 13); // 13 mesta broj partije
-            $formattedLine .= str_pad($accountNumber, 13);
-
-            $txtContent .= $formattedLine . "\n";
+            $line =$tekuciRacunFormated.'  '.$jmbg.$formattedAmount;
+            $txtContent.=$line. "\n";
         }
 
         return ['data'=>$txtContent,'fileName'=>$bankName];
@@ -90,55 +85,24 @@ class ExportFajlovaBankeService
         $txtContent = '';
         $companyId = '0042613019';
         $transactionDate = now()->format('d.m.Y');  // Datum u formatu dd.mm.yyyy
+        $fixedText = "PLATA"; // Fixed text
 
         foreach ($groupItems as $item) {
-            $accountNumber =$item->ZRAC_tekuci_racun;
 
-            $newAccountNumber = '';
-            $accountParts = explode("-", $accountNumber);
-            if(count($accountParts)==3){
-                foreach ($accountParts as $key=> $part){
-                    if($key==2){
-                        $newPart= str_replace('/', '',$part);
-                        if(strlen($part)<8){
-                            $newPart=str_pad($newPart, 8, '0', STR_PAD_LEFT);
-                        }
-                        $newAccountNumber.=$newPart;
-                    }else{
-                        $newAccountNumber.=$part;
-                    }
-                }
-            }elseif(count($accountParts)==4){
-                $newAccountNumber.=implode('',$accountParts);
-            }else{
-                $greska='greska';
-            }
+            $tekuciRacun=$item->maticnadatotekaradnika->ZRAC_tekuci_racun;
+            $tekuciRacunFormated= str_replace("-", "",$tekuciRacun);
+            $account = str_pad($tekuciRacunFormated, 30, " ", STR_PAD_RIGHT); // Account padded to 30 characters
 
+            $salary = number_format($item->UKIS_ukupan_iznos_za_izplatu, 2, '', ''); // Salary with 2 decimals
 
-            // Iznos priliva, formatiran bez decimalnih separatora
-            $amount = number_format($item->UKIS_ukupan_iznos_za_izplatu * 100, 0, '', '');  // Pomnoženo sa 100 da se uklone decimale
+            $salary = str_pad($salary, 15, " ", STR_PAD_LEFT); // Salary padded to 15 characters
+            $fixedTextPadded = str_pad($fixedText, 50, " ", STR_PAD_RIGHT); // Fixed text padded to 50 characters
 
-            if($amount==0){
-                $amount='000';
-            }
-            $amount = str_pad($amount, 25, ' ', STR_PAD_LEFT);  // Iznos priliva poravnat desno
-
-            // Opis priliva
-//            $description = str_pad('Zarada za ' . $transactionDate, 44);
-            $description = str_pad('PLATA', 44);
-
-            // Kreiranje jednog sloga
-            $formattedLine = $companyId . $transactionDate . $newAccountNumber . $amount . $description;
-
-            $txtContent .= $formattedLine . "\n";
+            // Combine all parts to form the line
+            $line = $companyId . $transactionDate . $account . $salary . $fixedTextPadded;
+            $txtContent .= $line . PHP_EOL;
         }
 
-//// Ukupan slog (sumarni slog na kraju)
-//        $totalAmount = $groupItems->sum(function ($item) {
-//            return (int)($item->UKIS_ukupan_iznos_za_izplatu * 100);
-//        });
-//        $summaryLine = $companyId . $transactionDate . str_repeat(' ', 13) . str_pad($totalAmount, 25, ' ', STR_PAD_LEFT) . str_repeat(' ', 44);
-//        $txtContent .= $summaryLine . "\n";
 
         $prefix = 'PL';
         $companyName = 'YOURCOMPANY';
@@ -155,32 +119,48 @@ class ExportFajlovaBankeService
 
     public function exportOtp($groupItems,$bankKey,$bankName)
     {
-        $txtContent = '';
-
+        $outputContent = '';
         foreach ($groupItems as $item) {
-            // 3 prazna mesta
-            $formattedLine = str_pad('', 3);
+            $line = str_pad('', 3);
 
-            // Partija (broj računa) - 18 mesta
-            $accountNumber = str_pad($item->ZRAC_tekuci_racun, 18, ' ', STR_PAD_RIGHT);
-            $formattedLine .= $accountNumber;
+            $accountFormatted= str_replace("-", "",$item->maticnadatotekaradnika->ZRAC_tekuci_racun);
+            $account = str_pad($accountFormatted, 20, " ", STR_PAD_RIGHT); // Account padded to 20 characters
 
-            // Neto iznos - 15 mesta, poravnat desno
-            $amount = number_format($item->UKIS_ukupan_iznos_za_izplatu, 2, '.', '');  // Format sa 2 decimalna mesta
-            $formattedLine .= str_pad($amount, 15, ' ', STR_PAD_LEFT);
+            $amount = number_format($item->UKIS_ukupan_iznos_za_izplatu, 2, '.', ''); // Salary with 2 decimals
+            $amount = str_pad($amount, 15, " ", STR_PAD_LEFT); // Amount padded to 15 characters (left-aligned for numbers)
+            $name = str_pad($item->ime.'  '.$item->prezime, 50, " ", STR_PAD_RIGHT); // Name padded to 50 characters
+            $fixedChar = "C"; // Fixed character
 
-            // Ime i prezime - 56 mesta
-            $fullName = strtoupper($item->ime . ' ' . $item->prezime);  // Velika slova za ime i prezime
-            $formattedLine .= str_pad(substr($fullName, 0, 56), 56, ' ', STR_PAD_RIGHT);
+            // Combine all parts to form the line
+            $line .= $account . $amount . $name . $fixedChar;
 
-            // Indikator banke - 1 mesto
-            $formattedLine .= 'C';
-
-            // Dodaj red u fajl
-            $txtContent .= $formattedLine . "\n";
+            // Append the line to the output content with a line break
+            $outputContent .= $line . PHP_EOL;
         }
+//        foreach ($groupItems as $item) {
+//            // 3 prazna mesta
+//            $formattedLine = str_pad('', 3);
+//
+//            // Partija (broj računa) - 18 mesta
+//            $accountNumber = str_pad($item->ZRAC_tekuci_racun, 18, ' ', STR_PAD_RIGHT);
+//            $formattedLine .= $accountNumber;
+//
+//            // Neto iznos - 15 mesta, poravnat desno
+//            $amount = number_format($item->UKIS_ukupan_iznos_za_izplatu, 2, '.', '');  // Format sa 2 decimalna mesta
+//            $formattedLine .= str_pad($amount, 15, ' ', STR_PAD_LEFT);
+//
+//            // Ime i prezime - 56 mesta
+//            $fullName = strtoupper($item->ime . ' ' . $item->prezime);  // Velika slova za ime i prezime
+//            $formattedLine .= str_pad(substr($fullName, 0, 56), 56, ' ', STR_PAD_RIGHT);
+//
+//            // Indikator banke - 1 mesto
+//            $formattedLine .= 'C';
+//
+//            // Dodaj red u fajl
+//            $txtContent .= $formattedLine . "\n";
+//        }
 
-        return ['data'=>$txtContent,'fileName'=>$bankName];
+        return ['data'=>$outputContent,'fileName'=>$bankName];
     }
 
     public function exportPostanskaStedionica($groupItems,$bankKey,$bankName)
@@ -219,7 +199,7 @@ class ExportFajlovaBankeService
 //        $formattedLine .= $ownerId;
 
             // Iznos - 24 karaktera, desno poravnat, 2 decimalna mesta
-        $amount = str_replace('.', '', $item->UKIS_ukupan_iznos_za_izplatu);
+        $amount = number_format($item->UKIS_ukupan_iznos_za_izplatu,2,'','');
         $formattedLine .= str_pad($amount, 17, '0', STR_PAD_LEFT);
 
             // Opis (opciono) - 80 karaktera
@@ -230,26 +210,26 @@ class ExportFajlovaBankeService
         $txtContent .= $formattedLine . "\n";
         }
 
-        // Generisanje kontrolnog zapisa
-        $totalAmount = number_format($groupItems->sum(function ($item) {
-            return $item->UKIS_ukupan_iznos_za_izplatu;
-        }), 2, '.', '');
-
-        $controlLine = '1';  // Kontrola
-        $companyAccount = str_pad('123456789012345678', 18, ' ', STR_PAD_RIGHT);  // Broj računa preduzeća (primer)
-        $companyId = str_pad('1234567890123', 13, ' ', STR_PAD_RIGHT);  // Matični broj preduzeća (primer)
-        $totalRecords = str_pad(count($groupItems), 6, '0', STR_PAD_LEFT);  // Broj zapisa
-        $controlLine .= $companyAccount . $companyId . $totalRecords;
-        $controlLine .= str_pad($totalAmount, 24, '0', STR_PAD_LEFT);
-
-        // Datum formiranja - 8 karaktera
-        $controlLine .= now()->format('dmY');
-
-        // Vreme formiranja - 6 karaktera
-        $controlLine .= now()->format('His');
-
-        // Dodaj kontrolni slog u fajl
-        $txtContent .= $controlLine . "\n";
+//        // Generisanje kontrolnog zapisa
+//        $totalAmount = number_format($groupItems->sum(function ($item) {
+//            return $item->UKIS_ukupan_iznos_za_izplatu;
+//        }), 2, '.', '');
+//
+//        $controlLine = '1';  // Kontrola
+//        $companyAccount = str_pad('123456789012345678', 18, ' ', STR_PAD_RIGHT);  // Broj računa preduzeća (primer)
+//        $companyId = str_pad('1234567890123', 13, ' ', STR_PAD_RIGHT);  // Matični broj preduzeća (primer)
+//        $totalRecords = str_pad(count($groupItems), 6, '0', STR_PAD_LEFT);  // Broj zapisa
+//        $controlLine .= $companyAccount . $companyId . $totalRecords;
+//        $controlLine .= str_pad($totalAmount, 24, '0', STR_PAD_LEFT);
+//
+//        // Datum formiranja - 8 karaktera
+//        $controlLine .= now()->format('dmY');
+//
+//        // Vreme formiranja - 6 karaktera
+//        $controlLine .= now()->format('His');
+//
+//        // Dodaj kontrolni slog u fajl
+//        $txtContent .= $controlLine . "\n";
 
         return ['data'=>$txtContent,'fileName'=>$bankName];
     }
@@ -258,26 +238,31 @@ class ExportFajlovaBankeService
         $txtContent = '';
 
         foreach ($groupItems as $item) {
-            // Broj računa - 20 karaktera
-            $accountNumber = str_pad($item->ZRAC_tekuci_racun, 20, ' ', STR_PAD_RIGHT);
 
-            // Iznos - 15 karaktera, desno poravnat sa dve decimale
-            $amount = number_format($item->UKIS_ukupan_iznos_za_izplatu, 2, '.', '');
-            $formattedAmount = str_pad($amount, 15, ' ', STR_PAD_LEFT);
+            // Broj računa - 21 karaktera
+            $accountFormatted= str_replace("-", "",$item->maticnadatotekaradnika->ZRAC_tekuci_racun);
 
-            // Ime - 20 karaktera, levo poravnat
-            $firstName = str_pad($item->ime, 20, ' ', STR_PAD_RIGHT);
+            $account = str_pad($accountFormatted, 21, " ", STR_PAD_RIGHT); // Account padded to 21 characters
 
-            // Prezime - 20 karaktera, levo poravnat
-            $lastName = str_pad($item->prezime, 20, ' ', STR_PAD_RIGHT);
+            // 10 spaces after account
+//            $account .= str_repeat(" ", 10);
 
-            // Kombinovanje linije
-            $formattedLine = $accountNumber . $formattedAmount . $firstName . $lastName;
+            // Iznos - 12 karaktera
+            $amount = number_format($item->UKIS_ukupan_iznos_za_izplatu, 2, '.', ''); // Format amount with 2 decimals
+            $amount = str_pad($amount, 12, " ", STR_PAD_LEFT); // Amount padded to 12 characters
 
-            // Dodaj red u fajl
-            $txtContent .= $formattedLine . "\n";
+            // Ime - 20 karaktera
+            $firstName = str_pad($item->ime, 20, " ", STR_PAD_RIGHT); // First name padded to 20 characters
+
+            // Prezime - 20 karaktera
+//            $lastName = str_pad($item->prezime, 20, " ", STR_PAD_RIGHT); // Last name padded to 20 characters
+
+            // Combine all parts to form the line (NO space between amount and firstName)
+            $line = $account . $amount .'    '. $firstName . $item->prezime;
+
+            // Append to txt content with a newline
+            $txtContent .= $line . PHP_EOL;
         }
-
         return ['data'=>$txtContent,'fileName'=>$bankName];
     }
 
@@ -286,133 +271,38 @@ class ExportFajlovaBankeService
         $txtContent = '';
 
         foreach ($groupItems as $item) {
-            // Broj računa (sa prefiksom) - 19 karaktera
-            $accountNumber =$item->ZRAC_tekuci_racun;
+            // Broj računa - 20 karaktera
 
-            $newAccountNumber = '';
-            $accountParts = explode("-", $accountNumber);
-            if(count($accountParts)==3){
+            $accountFormatted=str_replace("205-", "000",$item->ZRAC_tekuci_racun);
 
-                $test='test';
-                foreach ($accountParts as $key => $part) {
-                    $newPart='';
-                    if ($key == 0) {
-                        $test = 'test';
-                        if ($part == '205') {
-                            $newPart = '000';
-                        }
-                    }
-                    if ($key == 1) {
-
-                        $pattern = "/^100/";
-
-                        if (preg_match($pattern, $part)) {
-
-                            $newPart=preg_replace($pattern, "000", $part);
-
-                        }else{
-                            $newPart=$part;
-
-                        }
-                    }
-                    if ($key == 2) {
-
-                        $test='test';
-                    }
-
-                    $newAccountNumber.=$newPart;
-
-
-
-                }
-//                        $newPart= str_replace('/', '',$part);
-//                        if(strlen($part)<8){
-//                            $newPart=str_pad($newPart, 8, '0', STR_PAD_LEFT);
-//                        }
-//                        $newAccountNumber.=$newPart;
-//                    }else{
-//                        $newAccountNumber.=$part;
-//                    }
-//                }
-            }elseif(count($accountParts)==1) {
-
-                $partOne = $accountParts[0];
-                if(str_starts_with($partOne, "205")){
-                    $partOne = substr_replace($partOne, "000", 0, 3);
-                }
-
-                if(substr($partOne, 3, 3) === "100"){
-                    $partOne = substr_replace($partOne, "000", 3, 3);
-                }
-
-                $newAccountNumber = str_pad($partOne, 13, '0', STR_PAD_LEFT) .'941';
-
-                $test='test';
-
-            }elseif(count($accountParts)==2) {
-
-                if($accountParts[0]=='205'){
-                    $partOne = '000';
-                }else{
-                    $partOne = $accountParts[0];
-
-                }
-
-
-                $pattern = "/^100/";
-
-                if (preg_match($pattern, $accountParts[1])) {
-
-                    $partTwo=preg_replace($pattern, "000", $accountParts[1]);
-
-
-                }else{
-                    $partTwo=$accountParts[1];
-
-                }
-                if (strlen($partTwo) > 2) {
-                    // Remove the last two characters
-                    $partTwo = substr($partTwo, 0, -2);
-                }
-
-                $newPart = $partOne.$partTwo.'941';
-
-                $newAccountNumber = str_pad($newPart, 19, '0', STR_PAD_LEFT);
-
-                $test='test';
-            }elseif(count($accountParts)==4){
-                $newAccountNumber.=implode('',$accountParts);
+            if (substr($accountFormatted, 3, 3) === '100') {
+                // Replace '100' with '000'
+                $account = substr_replace($accountFormatted, '000', 3, 3);
             }else{
-                $greska='greska';
+                $account=$accountFormatted;
             }
+            $account = substr_replace($account, '941', -3);
 
+            $account = str_pad($account, 20, " ", STR_PAD_RIGHT); // Account padded to 20 characters
 
-            if(strlen($newAccountNumber) <19){
-                $newAccountNumber = str_pad($newAccountNumber, 19, '0', STR_PAD_LEFT);
+            // 8 spaces after account
+            $account .= str_repeat(" ", 8);
 
-            }
-            // Šifra valute - 3 karaktera
-            $currencyCode = '941';
+            // Iznos - 10 karaktera
+            $amount = number_format($item->UKIS_ukupan_iznos_za_izplatu, 2, '.', ''); // Format amount with 2 decimals
+            $amount = str_pad($amount, 10, " ", STR_PAD_LEFT); // Amount padded to 10 characters
+            // Datum or code
+            $dateCode = date("dmy"); // Dynamic date in `ddmmyy` format
+            // Ime i prezime - 40 karaktera
+            $fullName = $item->prezime . " " . $item->ime; // Combine last name and first name
+            $fullName = str_pad($fullName, 40, " ", STR_PAD_RIGHT); // Full name padded to 40 characters
 
-            // Iznos - 16 karaktera, desno poravnat sa dve decimale
-            $amount = number_format($item->UKIS_ukupan_iznos_za_izplatu, 2, '.', '');
-            $formattedAmount = str_pad($amount, 16, ' ', STR_PAD_LEFT);
-
-            // Datum valute - 6 karaktera (ddmmyy format)
-            $valueDate = now()->format('dmy');
-
-            // Ime i prezime - 40 karaktera, poravnat levo
-            $fullName = strtoupper($item->prezime . ' ' . $item->ime);
-            $formattedName = str_pad(substr($fullName, 0, 40), 40, ' ', STR_PAD_RIGHT);
-
-            // Opis transakcije - 10 karaktera, poravnat levo
-            $description = str_pad('Plata', 10, ' ', STR_PAD_RIGHT);
-
-            // Kombinovanje linije
-            $formattedLine = $newAccountNumber.' ORIG:'.$item->ZRAC_tekuci_racun . $currencyCode . $formattedAmount . $valueDate . $formattedName . $description;
-
-            // Dodaj red u fajl
-            $txtContent .= $formattedLine . "\n";
+            // Fixed string 'Plata' - 6 characters
+            $fixedText = str_pad("Plata", 5, " ", STR_PAD_RIGHT); // Fixed text padded to 6 characters
+            // Combine all parts to form the line
+            $line = $account . $amount . $dateCode . $fullName . $fixedText;
+            // Append to txt content with a newline
+            $txtContent .= $line . PHP_EOL;
         }
 
         return ['data'=>$txtContent,'fileName'=>$bankName];

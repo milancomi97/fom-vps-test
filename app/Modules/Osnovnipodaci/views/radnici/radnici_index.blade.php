@@ -111,18 +111,15 @@
                                 <a href="${userUrl}">
                                     <button type="button" class="btn btn-outline-light mb-2">
                                         <i class="fas fa-lock edit" data-id="' + data + '" style="font-size: 1em; color: #007BFF;" aria-hidden="true"></i>
-                                    </button>
-                                </a>
+                                    </button>PRIS</a>
                                 <a href="${editUrl}">
                                     <button type="button" class="btn btn-outline-light mb-2">
                                         <i class="fas fa-edit edit" data-id="' + data + '" style="font-size: 1em; color: #007BFF;" aria-hidden="true"></i>
-                                    </button>
-                                </a>
+                                    </button>KADR</a>
                                 <a href="${editMdrUrl}">
-                                    <button type="button" class="btn btn-outline-light">
+                                    <button type="button" class="btn btn-outline-light mb-2">
                                         <i class="fas fa-edit edit" data-id="' + data + '" style="font-size: 1em; color: #ff0000;" aria-hidden="true"></i>
-                                    </button>
-                                </a>
+                                    </button>MDR</a>
                             </div>`
                             {{--''{{ route('radnamesta.edit', ['id' => $item->id]) }}--}}
                         }
