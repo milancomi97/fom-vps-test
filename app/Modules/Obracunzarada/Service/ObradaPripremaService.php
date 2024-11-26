@@ -331,7 +331,8 @@ class ObradaPripremaService
             $zaraUpdated=[];
 
             foreach ($radnik as $vrstaPlacanjaSlog) {
-//                array_map(function($subArray) {     return isset($subArray['SLOV_grupa_vrste_placanja']) ? $subArray['SLOV_grupa_vrste_placanja'] : null; }, $radnik->toArray());
+
+                $maticniBroj= $vrstaPlacanjaSlog->maticni_broj;
 
                 $pok1 = $vrstePlacanjaSifarnik[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['POK1_grupisanje_sati_novca'];
                 $pok3 = $vrstePlacanjaSifarnik[$vrstaPlacanjaSlog['sifra_vrste_placanja']]['POK3_prikaz_kroz_unos'];
@@ -577,7 +578,7 @@ $test='TEST';
 
                     // FIKSNA P
                     $newIznos = $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K',$zaraUpdated);
-                    $vrstaPlacanjaSlog['iznos'] = $newIznos;
+//                    $vrstaPlacanjaSlog['iznos'] = $newIznos;
 
 
                     if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'G') {
@@ -691,7 +692,7 @@ $test='TEST';
                     $zaraUpdated['SIZNE'] = $oSumiranjeZaradeIznosSIZNE;
                     $zaraUpdated['SSNNE'] = $oSumiranjeBolovanjaSatiSSNNE;
                     $zaraUpdated['SINNE'] = $oSumiranjeBolovanjaIznosSINNE;
-                    $zaraUpdated['IZNETO'] = $oSumiranjeZaradeIznosSIZNE + $oSumiranjeBolovanjaIznosSINNE;
+                    $zaraUpdated['IZNETO'] = $oSumiranjeZaradeIznosSIZNE + $oSumiranjeBolovanjaIznosSINNE; // TODO Proveriti da li bolovanje povecava u izneto i u SIZNE
                     $zaraUpdated['UKNETO'] = $radnik['ZAR']['UKNETO'];
                     $zaraUpdated['PERC'] = $radnik['ZAR']['PERC'];
                     $zaraUpdated['P_R'] = $radnik['ZAR']['P_R'];
@@ -712,8 +713,6 @@ $test='TEST';
                     $zaraUpdated['SS'] = $ss;
                     $zaraUpdated['VARIJAB'] = $varijaIznos;
                     $zaraUpdated['BMIN_prekovremeni_iznos'] =$BMIN_prekovremeni_iznos;
-
-
 
                 }
 

@@ -141,7 +141,7 @@ class ObradaPripremaController extends Controller
             if ($message) {
                 return response()->json(['status' => false, 'message' => 'Greska u obradi: ' . $message]);
             }
-
+//            0006227
             try {
                 $sveVrstePlacanjaDataSummarize = $this->obradaPripremaService->pripremaZaraPodatkePoRadnikuBezMinulogRada($sveVrstePlacanjaData, $vrstePlacanjaSifarnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik);
             } catch (\Throwable $exception) {
