@@ -83,7 +83,7 @@ class ExportFajlovaBankeService
     public function exportIntesa($groupItems,$bankKey,$bankName)
     {
         $txtContent = '';
-        $companyId = '0042613019';
+        $companyId = '00426130';
         $transactionDate = now()->format('d.m.Y');  // Datum u formatu dd.mm.yyyy
         $fixedText = "PLATA"; // Fixed text
 
@@ -91,15 +91,16 @@ class ExportFajlovaBankeService
 
             $tekuciRacun=$item->maticnadatotekaradnika->ZRAC_tekuci_racun;
             $tekuciRacunFormated= str_replace("-", "",$tekuciRacun);
-            $account = str_pad($tekuciRacunFormated, 30, " ", STR_PAD_RIGHT); // Account padded to 30 characters
+//            $account = str_pad($tekuciRacunFormated, 23, " ", STR_PAD_RIGHT); // Account padded to 30 characters
 
+            // 7 razlike
             $salary = number_format($item->UKIS_ukupan_iznos_za_izplatu, 2, '', ''); // Salary with 2 decimals
 
-            $salary = str_pad($salary, 15, " ", STR_PAD_LEFT); // Salary padded to 15 characters
-            $fixedTextPadded = str_pad($fixedText, 50, " ", STR_PAD_RIGHT); // Fixed text padded to 50 characters
+            $salary = str_pad($salary, 25, " ", STR_PAD_LEFT); // Salary padded to 15 characters
+            $fixedTextPadded = str_pad($fixedText, 45, " ", STR_PAD_RIGHT); // Fixed text padded to 50 characters
 
             // Combine all parts to form the line
-            $line = $companyId . $transactionDate . $account . $salary . $fixedTextPadded;
+            $line = $companyId . $transactionDate . $tekuciRacunFormated . $salary . $fixedTextPadded;
             $txtContent .= $line . PHP_EOL;
         }
 
@@ -283,19 +284,20 @@ class ExportFajlovaBankeService
             }
             $account = substr_replace($account, '941', -3);
 
-            $account = str_pad($account, 20, " ", STR_PAD_RIGHT); // Account padded to 20 characters
+            $account = str_pad($account, 0, " ", STR_PAD_RIGHT); // Account padded to 20 characters
 
+            // 3 razlika
             // 8 spaces after account
-            $account .= str_repeat(" ", 8);
+//            $account .= str_repeat(" ", 8);
 
             // Iznos - 10 karaktera
             $amount = number_format($item->UKIS_ukupan_iznos_za_izplatu, 2, '.', ''); // Format amount with 2 decimals
-            $amount = str_pad($amount, 10, " ", STR_PAD_LEFT); // Amount padded to 10 characters
+            $amount = str_pad($amount, 16, " ", STR_PAD_LEFT); // Amount padded to 10 characters
             // Datum or code
             $dateCode = date("dmy"); // Dynamic date in `ddmmyy` format
             // Ime i prezime - 40 karaktera
             $fullName = $item->prezime . " " . $item->ime; // Combine last name and first name
-            $fullName = str_pad($fullName, 40, " ", STR_PAD_RIGHT); // Full name padded to 40 characters
+            $fullName = str_pad($fullName, 38, " ", STR_PAD_RIGHT); // Full name padded to 40 characters
 
             // Fixed string 'Plata' - 6 characters
             $fixedText = str_pad("Plata", 5, " ", STR_PAD_RIGHT); // Fixed text padded to 6 characters

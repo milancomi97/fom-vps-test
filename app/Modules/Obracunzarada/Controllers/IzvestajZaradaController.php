@@ -220,7 +220,7 @@ class IzvestajZaradaController extends Controller
                         'datumStampe'=>$datumStampe
                         ])->setPaper('a4', 'portrait');
 
-        return $pdf->stream('pdf_isplate_po_tc_'.date("d.m.y").'.pdf');
+        return $pdf->stream('pdf_isplate_po_bankama_'.date("d.m.y").'.pdf');
 
         return $pdf->download('pdf_isplate_po_tc_'.date("d.m.y").'.pdf');
 

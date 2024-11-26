@@ -1569,6 +1569,7 @@ $test='TEST';
             'RBPS_strucna_sprema' => $mdr['RBPS_priznata_strucna_sprema'],
             'ime' => $mdr['IME_ime'],
             'prezime' => $mdr['PREZIME_prezime'],
+            'srednje_ime' => $mdr['srednje_ime'],
             'ZRAC_tekuci_racun' => $mdr['ZRAC_tekuci_racun'],
             'LBG_jmbg' => $mdr['LBG_jmbg'],
             'GGST_godine_staza' => $mdr['GGST_godine_staza'],

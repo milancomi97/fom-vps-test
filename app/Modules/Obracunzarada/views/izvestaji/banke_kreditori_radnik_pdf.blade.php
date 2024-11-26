@@ -1,8 +1,9 @@
 <?php use App\Modules\Obracunzarada\Consts\UserRoles; ?>
     <!DOCTYPE html>
-<html>
+<html lang="sr">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         @page {
@@ -14,7 +15,7 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'DejaVu Sans', sans-serif;
             font-size: 10px;
         }
 
@@ -37,7 +38,6 @@
         .table-container {
             width: 100%;
             max-width: 200mm; /* A4 width in mm minus margins */
-            margin: 0 auto;
         }
 
         .radnik_name{
@@ -69,38 +69,53 @@
             background-color: hotpink;
             height: 20mm!important;
         }
+
+        .disable_top_border td{
+            border: 0 !important;
+            padding: 5px 5px 0px 0px;
+        }
+
+        .disable_top_border tr,th{
+            border: 0 !important;
+        }
     </style>
 
 </head>
 <body>
-<span class="page-number">Strana </span>
-
 <div class="table-container">
     @foreach($kreditiDataZara as $key=> $troskovnoMesto)
         {{--        <h4 style="text-align: center;margin-top: 20px">{{$key}} - {{$isplatnaMestaSifarnika[$key]['naim_naziv_isplatnog_mesta']}} </h4>--}}
         {{--        <script type="text/php">$PAGE_NUM</script>--}}
+        <table class="table disable_top_border ">
+            <tbody>
+            <tr>
+                <td colspan="2">
+                    <img src="{{asset('images/company/logo2.jpg')}}" width="50mm" style="margin-left: 5mm" height="auto">
+                </td>
+            </tr>
+            <tr>
+                <td  class="pl-4"  ><strong>{{ $podaciFirme['skraceni_naziv_firme'] }} </strong>  </td>
+
+                <td class="text-right">Datum: {{ $datumStampe }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-right"><span class="page-number">Strana: </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
         <table class="table table-striped mt-3">
             <thead>
-            <tr >
-                <th class="borderless" colspan="4"><span class="page-number">Stranica </span></th>
-            </tr>
-            <tr >
-                <th class="borderless text-left" colspan="2">Podaci o firmi da se ponavlja test</th>
-                <th class="borderless text-right" colspan="2">Podaci o firmi da se ponavlja test</th>
-            </tr>
-            <tr >
-                <th class="borderless text-top" colspan=""><span>layout sa 3 kolone</span></th>
-                <th class="borderless" colspan=""><span>layout sa 3 kolone</span></th>
-                <th class="borderless text-bottom" colspan="2"><span>layout sa 3 kolone</span></th>
-            </tr>
             <tr>
                 <th colspan="4">{{$key}} - {{$kreditoriSifarnik[$key]['imek_naziv_kreditora']}} </th>
             </tr>
             <tr>
                 <th>Matični broj</th>
                 <th>Prezime i ime</th>
-                <th>Iznos rate</th>
-                <th>Saldo duga</th>
+                <th>Partija</th>
+                <th>Odbijeno</th>
+                <th>Ostatak</th>
             </tr>
             </thead>
             <tbody id="table-body">
@@ -111,6 +126,7 @@
                 <tr>
                     <td class="text-left">{{ $radnik['maticni_broj']  }}</td>
                     <td class="text-left">{{ $mdrSifarnik[$radnik['maticni_broj']]['PREZIME_prezime']  }} {{$mdrSifarnik[$radnik['maticni_broj']]['srednje_ime']}}. {{ $mdrSifarnik[$radnik['maticni_broj']]['IME_ime']  }}</td>
+                    <td class="text-right">{{$radnik['PART_partija_kredita']  }}</td>
                     <td class="text-right">{{ number_format($radnik['iznos'], 2, '.', ',')  }}</td>
                     <td class="text-right">{{ number_format($radnik['SALD_saldo'], 2, '.', ',')  }}</td>
                     {{--                            <?php $iznosPoBanciCounter+=$radnik['UKIS_ukupan_iznos_za_izplatu']; ?>--}}
