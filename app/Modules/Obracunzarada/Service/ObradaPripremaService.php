@@ -578,7 +578,7 @@ $test='TEST';
 
                     // FIKSNA P
                     $newIznos = $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K',$zaraUpdated);
-//                    $vrstaPlacanjaSlog['iznos'] = $newIznos;
+                    $vrstaPlacanjaSlog['iznos'] = $newIznos;
 
 
                     if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'G') {
@@ -597,37 +597,38 @@ $test='TEST';
 
                     if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'O' && $pok1 !== 2) {
 
+                        // TODO KALKULACIJA 1
                         $oSumiranjeZaradeSatiSSZNE += $vrstaPlacanjaSlog['sati'];
 
                     } elseif ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'O') {
 
                         $oSumiranjeBolovanjaSatiSSNNE += $vrstaPlacanjaSlog['sati'];
-                        $oSumiranjeBolovanjaIznosSINNE += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K',$zaraUpdated);
+                        $oSumiranjeBolovanjaIznosSINNE += $newIznos;
                     }
 
 
                     if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] == 'L' && $vrstaPlacanjaSlog['KESC_prihod_rashod_tip'] == 'P') {
 
                         $topliObrokSati += $vrstaPlacanjaSlog['sati'];
-                        $topliObrokIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K',$zaraUpdated);
+                        $topliObrokIznos += $newIznos;
                         $vrstaPlacanjaSlog['iznos'] = $topliObrokIznos;
 
                     }
 
                     if ($vrstaPlacanjaSlog['sifra_vrste_placanja'] == '058') {
 
-                        $regresIznos += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K',$zaraUpdated);
+                        $regresIznos += $newIznos;
 
                     }
 
 
                     if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['OGRAN_ogranicenje_za_minimalac'] == '3') {
-                        $s += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K',$zaraUpdated);
+                        $s += $newIznos;
                         $ss += $vrstaPlacanjaSlog['sati'];
                     }
 
                     if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['OGRAN_ogranicenje_za_minimalac'] == '2') {
-                        $s += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K',$zaraUpdated);
+                        $s += $newIznos;
                     }
 
                     if ($vrstePlacanjaSifarnik[$vrstaPlacanjaSlog->sifra_vrste_placanja]['OGRAN_ogranicenje_za_minimalac'] == '1') {
@@ -636,16 +637,13 @@ $test='TEST';
 
 
                     if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'O') {
+                        // TODO KALKULACIJA 2
 
-                        $oSumiranjeZaradeIznosSIZNE += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K',$zaraUpdated);
+                        $oSumiranjeZaradeIznosSIZNE += $newIznos;
 
-//                        $praviloSkip = false;
-//                        if ($vrstaPlacanjaSlog['sifra_vrste_placanja'] == '005') {
-//                            $praviloSkip = true;
-//                        }
 
                     } elseif ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] > 'S') {
-                        $sumiranjeIznosaObustavaSIOB += $this->obradaFormuleService->kalkulacijaFormule($vrstaPlacanjaSlog, $vrstePlacanjaSifarnik, $radnik, $poresDoprinosiSifarnik, $monthData, $minimalneBrutoOsnoviceSifarnik,'K',$zaraUpdated);
+                        $sumiranjeIznosaObustavaSIOB += $newIznos;
                     }
 
 
