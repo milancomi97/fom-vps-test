@@ -300,7 +300,7 @@
         </table>
 
         <!-- Additional Sections for Admins -->
-        @if(\App\Models\User::with('permission')->find(Auth::id())->permission->role_id == UserRoles::PROGRAMER)
+        @if(\App\Models\User::with('permission')->find(Auth::id())->permission->role_id == UserRoles::PROGRAMER|| \App\Models\User::with('permission')->find(Auth::id())->permission->role_id == UserRoles::SUPERVIZOR)
             <h1 class="text-center font-weight-bold">Kontrola Tabele</h1>
 
             <!-- ZARA Table -->

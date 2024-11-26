@@ -129,14 +129,13 @@
                     <td class="text-right">{{$radnik['PART_partija_kredita']  }}</td>
                     <td class="text-right">{{ number_format($radnik['iznos'], 2, '.', ',')  }}</td>
                     <td class="text-right">{{ number_format($radnik['SALD_saldo'], 2, '.', ',')  }}</td>
-                    {{--                            <?php $iznosPoBanciCounter+=$radnik['UKIS_ukupan_iznos_za_izplatu']; ?>--}}
+{{--                                                <?php $iznosPoBanciCounter+=$radnik['UKIS_ukupan_iznos_za_izplatu']; ?>--}}
                 </tr>
             @endforeach
             </tbody>
             <tfoot>
             <tr>
-                <td> UKUPNO ZA TROSKOVNI CENTAR:   </td>
-                <td> UKUPNO ZA TROSKOVNI CENTAR:   </td>
+                <td> UKUPNO:   </td>
 
             </tr>
             </tfoot>

@@ -108,7 +108,7 @@
                 <th class="borderless" colspan="4"></th>
             </tr>
             <tr>
-                <th colspan="4">Isplatno mesto:{{$key}} - {{$isplatnaMestaSifarnika[$key]['naim_naziv_isplatnog_mesta']}} </th>
+                <th colspan="4" class="text-left">Isplatno mesto: {{$key}} - {{$isplatnaMestaSifarnika[$key]['naim_naziv_isplatnog_mesta']}} </th>
             </tr>
             <tr>
             <tr>
@@ -142,7 +142,7 @@
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="2"> UKUPNO ZA TROŠKOVNI CENTAR:   </td>
+                <td colspan="2"> UKUPNO ZA ISPLATNO MESTO:   </td>
                 <td  class="text-right"><b>{{ number_format($iznosPoBanciCounter, 2, '.', ',') }}</b></td>
                 <td></td>
             </tr>
