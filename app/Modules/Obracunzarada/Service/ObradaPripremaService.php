@@ -637,7 +637,6 @@ $test='TEST';
 
 
                     if ($vrstaPlacanjaSlog['SLOV_grupa_vrste_placanja'] < 'O') {
-                        // TODO KALKULACIJA 2
 
                         $oSumiranjeZaradeIznosSIZNE += $newIznos;
 
@@ -763,8 +762,12 @@ $test='TEST';
         $newRadnikData = [];
         foreach ($groupRadnikData as $radnik) {
 
+
             $radnik['ZAR2'] = $this->prepareZaraData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData);
             $radnik['DKOPADD'] = $this->prepareDKopData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik);
+
+
+
             $radnik['ZAR3'] = $radnik['DKOPADD']['ZAR3'];
             $radnik['ZAR4'] = $this->prepareBrutoData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik);
             $radnik['KREDADD'] = $this->prepareKrediti($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik);
@@ -816,8 +819,8 @@ $test='TEST';
 //                $zar['SOLID'] =  0 ;//( ZAR->OLAKSICA -ZAR->MINIM)*SS
 
                 $solid = ($olaksica - $zar['MINIM']) * $zar['SS'];
-                $minsol = $solid * (int)$radnik['MDR']['GGST_godine_staza'] * 0.4 / 100; // TODO UBACITI VREDNOST INFORMACIJE O FIRMI
-                $minsol = 0; // TODO TRENUTNA SITUACIJA ZAVISI OD PRAVILNIKA
+                $minsol = $solid * (int)$radnik['MDR']['GGST_godine_staza'] * 0.4 / 100;
+//                $minsol = 0;
             } else if ($tabelaKoristnikMinuliRadEnabled == 0) {
 //                replace ZAR->SOLID with (( ZAR->OLAKSICA -ZAR->MINIM)*SS)  //  NOVI OBracun za DRUMSKA i Solko i sve ostale
 //                $solid  =  ($olaksica -  $zar['MINIM']) * $zar['SS'];
