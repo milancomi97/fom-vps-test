@@ -798,6 +798,7 @@ $test='TEST';
         // ZAR->OLAKSICA = minimalac po radniku
 
         $olaksica = $nt2 / $monthData->mesecni_fond_sati;// NTO->NT2/KOE->BR_S
+//        3. ZAR->OLAKSICA = DNTO->NT2/KOE->BR_S*MDR->PREB - MZ PO ZAKONU
 
         $zar = $radnik['ZAR3'];
 
