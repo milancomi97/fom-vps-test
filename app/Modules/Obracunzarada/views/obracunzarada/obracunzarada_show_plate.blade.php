@@ -347,6 +347,26 @@
                 </tbody>
             </table>
 
+
+            <h2 class="text-center font-weight-bold mt-5">Minimalne bruto osnovice sifarnik</h2>
+            <table class="table table-striped table-bordered table-responsive">
+                <thead>
+                <tr>
+                    @foreach ($minimalneBrutoOsnoviceSifarnik->toArray() as $key => $value)
+                            <th>{{ ucfirst($key) }}</th>
+                    @endforeach
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    @foreach ($minimalneBrutoOsnoviceSifarnik->toArray() as $value)
+                        <td>{{ $value }}</td>
+                    @endforeach
+                </tr>
+                </tbody>
+            </table>
+
+
             <!-- Krediti Table -->
             @if(count($kreditiData))
                 <h2 class="text-center font-weight-bold mt-5">Krediti</h2>

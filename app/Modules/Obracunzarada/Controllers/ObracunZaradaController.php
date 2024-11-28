@@ -9,6 +9,7 @@ use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaDkopSveVrstePlacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ObradaZaraPoRadnikuRepositoryInterface;
@@ -39,6 +40,8 @@ class ObracunZaradaController extends Controller
         private readonly ObradaKreditiRepositoryInterface $obradaKreditiInterface,
         private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
         private readonly \App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface $isplatnamestaInterface,
+        private readonly MinimalnebrutoosnoviceRepositoryInterface           $minimalnebrutoosnoviceInterface,
+
     )
     {
     }
@@ -183,6 +186,8 @@ class ObracunZaradaController extends Controller
         $kreditiData = $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get();
         $userData= User::where('maticni_broj',$radnikMaticniId)->first();
 //        RBIM_isplatno_mesto_id
+        $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($podaciMesec->datum);
+
         return view('obracunzarada::obracunzarada.obracunzarada_show_plate',
             [
                 'radnikData' => $radnikData,
@@ -199,7 +204,8 @@ class ObracunZaradaController extends Controller
                 'troskovnoMesto'=> $troskovnoMesto,
                 'datumStampe'=>$datumStampe,
                 'month_id'=>$request->month_id,
-                'radnik_maticni'=>$radnikMaticniId
+                'radnik_maticni'=>$radnikMaticniId,
+                'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik
 //                'zaraData'=>$zaraData
             ]);
     }
