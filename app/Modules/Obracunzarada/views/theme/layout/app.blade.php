@@ -36,6 +36,7 @@
     @yield('content')
     @include('obracunzarada::theme.layout.footer')
 
+    @include('obracunzarada::theme.layout.alerts')
 
 </div>
 <script>

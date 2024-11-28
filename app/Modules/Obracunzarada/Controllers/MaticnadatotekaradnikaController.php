@@ -233,4 +233,21 @@ class MaticnadatotekaradnikaController extends Controller
         return redirect()->route('maticnadatotekaradnika.index');
     }
 
-}
+    public function update(Request $request)
+    {
+        $maticni_broj=$request->maticni_broj;
+        $attributes = $request->except(['_token','maticni_broj']); // Exclude _token if needed
+        $attributes['MRAD_minuli_rad_aktivan'] = ( $attributes['MRAD_minuli_rad_aktivan'] ?? "") =='on';
+        $attributes['POL_pol'] = ( $attributes['POL_pol'] ?? "") =='M';
+
+        $radnik=$this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj',$maticni_broj)->first();
+        $radnik->update($attributes);
+
+        session()->flash('success', 'Podaci su uspesno izmenjeni'); // Flash success message
+
+        return redirect()->route('maticnadatotekaradnika.editByUserId',[
+            'user_id'=>$radnik->user_id
+        ]);
+
+    }
+    }

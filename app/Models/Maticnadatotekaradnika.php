@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Maticnadatotekaradnika extends Model
 {
-    use HasFactory;
-
-
     protected $fillable = [
         'maticni_broj',
         'prezime',
@@ -23,12 +20,11 @@ class Maticnadatotekaradnika extends Model
         'BRIG_brigada',
         'godine',
         'meseci',
-        'minuli_rad_aktivan',
+        'MRAD_minuli_rad_aktivan',
         'stvarna_strucna_sprema',
         'priznata_strucna_sprema',
         'osnovna_zarada',
         'jmbg',
-        'pol_muski',
         'prosecni_sati',
         'prosecna_zarada',
         'adresa_ulica_broj',
@@ -48,7 +44,6 @@ class Maticnadatotekaradnika extends Model
         'BRIG_brigada',
         'GGST_godine_staza',
         'MMST_meseci_staza',
-        'MRAD_minuli_rad_aktivan',
         'PREB_prebacaj',
         'DANI_kalendarski_dani',
         'RBSS_stvarna_strucna_sprema',
@@ -80,6 +75,9 @@ class Maticnadatotekaradnika extends Model
         'KFAK_korektivni_faktor',
         'troskovno_mesto_id'
     ];
+
+
+    use HasFactory;
 
     public function mesecnatabelapoentaza()
     {

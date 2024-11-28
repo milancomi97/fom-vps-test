@@ -183,7 +183,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         }
 
 
-        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_create', ['datotekaobracunskihkoeficijenata' => json_encode($data),'activeMonth'=> $activeMonthValue,'activeYear'=>$activeYearValue,'activeMonthExist'=>$activeMonthExist]);
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_create', ['datotekaobracunskihkoeficijenata' => json_encode($data),'activeMonth'=> $activeMonthValue,'activeYear'=>$activeYearValue,'activeMonthExist'=>$activeMonthExist,'date'=>$date]);
     }
 
     public function store(Request $request)

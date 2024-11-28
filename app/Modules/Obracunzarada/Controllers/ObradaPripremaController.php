@@ -74,7 +74,7 @@ class ObradaPripremaController extends Controller
 
         if ($request->redirect_url == 'obrada_plate') {
 
-            ObradaPlate::dispatch();
+//            ObradaPlate::dispatch();
             $user_id = auth()->user()->id;
             $userPermission = UserPermission::where('user_id', $user_id)->first();
             $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);

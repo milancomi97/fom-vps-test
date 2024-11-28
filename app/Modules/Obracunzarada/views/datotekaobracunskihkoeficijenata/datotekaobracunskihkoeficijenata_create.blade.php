@@ -217,11 +217,13 @@
             <div></div>
         </div>
     </div>
-    <h1 class="obrada-title text-center text-primary mt-5 hidden">Obrada je u toku</h1>
+    <h1 class="obrada-title text-center text-primary mt-5 hidden">Obrada u toku...</h1>
+    <h1 class="obrada-title text-center text-primary mt-5 hidden">Za mesec: <b>{!! $date->format('m. Y.') !!}</b></h1>
+
 </div>
-    <div class="container mt-5 mb-5 main-container-calendar">
+    <div class="container-fluid mt-5 mb-5 main-container-calendar">
         <div id="statusMessage"></div>
-        <div class="container mb-5 ">
+        <div class="container-fluid mb-5 ">
             <div id="monthSlider" class="border mb-5  mt-5">
                 <div class="row">
                     <div class="col-1">
@@ -240,11 +242,25 @@
                 <div id="monthContainer" class="carousel slide mt-5 pb-5" data-ride="carousel">
 
                 </div>
+
             </div>
 
         </div>
+
         <div id="check_data">
 
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6  text-center border shadow">
+                <h3 class="text-center"><i>-(odeljak za pomocne linkove) dogovor-</i></h3>
+                <h3 class="text-center"><i>- PODSETNIK -logiku koja ce da proveri i ispise status da li je azurirano za novi mesec-</i></h3>
+                <a href="" style="width: 80%" class="btn btn-lg btn-secondary mt-5 mb-3">Aktivni porezi i doprinosi</a>
+                <a href="" style="width: 80%" class="btn btn-lg btn-secondary mb-3 mb-5">Aktivne minimalne bruto osnovice</a>
+
+            </div>
+            <div class="col-md-3"> </div>
         </div>
     </div>
 

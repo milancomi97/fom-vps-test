@@ -57,10 +57,10 @@
                     <h3 id="error-validator-text" class="text-danger d-none font-weight-bold"></h3>
 
                     <form id="maticnadatotekaradnika" method="post"
-                          action="{{ route('maticnadatotekaradnika.store')}}">
+                          action="{{ route('maticnadatotekaradnika.update')}}">
                         @csrf
                         <!-- 1. Maticni broj, Select option -->
-                        <input type="hidden" name="user_id" id="user_id">
+                        <input type="hidden" name="maticni_broj" id="maticni_broj" value="{{$radnikData->MBRD_maticni_broj}}" >
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                     <span class="input-group-text font-weight-bold"
@@ -356,6 +356,7 @@
                                 </div>
                                 <input type="number" class="form-control" id="KOEF_osnovna_zarada"
                                        name="KOEF_osnovna_zarada"
+                                       step="any"
                                        value="{{$radnikData->KOEF_osnovna_zarada}}"
                                        aria-describedby="span_osnovna_zarada">
                             </div>
@@ -366,7 +367,7 @@
                                     <span class="input-group-text font-weight-bold" id="span_osnovna_zarada">Osnovna zarada:</span>
                                 </div>
                                 <input type="number" class="form-control" id="KOEF_osnovna_zarada"
-                                       name="KOEF_osnovna_zarada"
+                                       name="KOEF_osnovna_zarada" step="any"
                                        value="{{$radnikData->KOEF_osnovna_zarada}}"
                                        aria-describedby="span_osnovna_zarada">
                             </div>

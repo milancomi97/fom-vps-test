@@ -795,23 +795,16 @@ $test='TEST';
 
         $solid = 0;
         $nt2 = (float)$minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada;
-        // ZAR->OLAKSICA = minimalac po radniku
 
-        $olaksica = $nt2 / $monthData->mesecni_fond_sati;// NTO->NT2/KOE->BR_S
-//        3. ZAR->OLAKSICA = DNTO->NT2/KOE->BR_S*MDR->PREB - MZ PO ZAKONU
+        $preb = $radnik['MDR']['PREB_prebacaj'] > 1 ? $radnik['MDR']['PREB_prebacaj'] : 1;
+        $olaksica = $nt2 / $monthData->mesecni_fond_sati*$preb;
+
+
+//        3. ZAR->OLAKSICA = DNTO->NT2/KOE->BR_S*MDR->PREB - MZ PO ZAKONU // TODO ovo je novo
 
         $zar = $radnik['ZAR3'];
 
-//        foreach ($radnik as $key => $vrstaPlacanjaSlog) {
-//
-//            if ($key == 'ZAR' || $key == 'MDR') {
-//                continue;
-//            }
-//
-//            $test='TEST';
-//
-//        }
-
+        $minsol=0;
         // 1092 linija MINIMALAC
         if ($olaksica > $zar['MINIM']) {  // Olaksica ne sme da bude manja od minimalne propisane zarade
 
@@ -821,10 +814,7 @@ $test='TEST';
 
                 $solid = ($olaksica - $zar['MINIM']) * $zar['SS'];
                 $minsol = $solid * (int)$radnik['MDR']['GGST_godine_staza'] * 0.4 / 100;
-//                $minsol = 0;
             } else if ($tabelaKoristnikMinuliRadEnabled == 0) {
-//                replace ZAR->SOLID with (( ZAR->OLAKSICA -ZAR->MINIM)*SS)  //  NOVI OBracun za DRUMSKA i Solko i sve ostale
-//                $solid  =  ($olaksica -  $zar['MINIM']) * $zar['SS'];
                 $solid = ($olaksica - $zar['MINIM']) * $zar['SS'];
 
             }
@@ -837,6 +827,7 @@ $test='TEST';
 
         $solid += $minsol ?? 0;
 
+        $zar['MINSOL']=$minsol;
         $zar['SOLID'] = $solid; //
 
         // NAKON SUMIRANJA
@@ -886,7 +877,10 @@ $test='TEST';
             'PERC' => $zar['PERC'],
             'PLACENO' => 0,
             'VARIJAB'=>$zar['VARIJAB'],
-            'BMIN_prekovremeni_iznos'=>$zar['BMIN_prekovremeni_iznos']
+            'BMIN_prekovremeni_iznos'=>$zar['BMIN_prekovremeni_iznos'],
+            'olaksica'=>$olaksica,
+            'MINIM'=>$zar['MINIM'],
+            'MINSOL'=>$zar['MINSOL']
         ];
 
         $izbr1 = $zar['IZNETO_zbir_ukupni_iznos_naknade_i_naknade'];
@@ -1588,6 +1582,9 @@ $test='TEST';
             'organizaciona_celina_id'=>$mdr['troskovno_mesto_id'],
             'troskovno_mesto_id'=>$mdr['troskovno_mesto_id'],
             'varijab'=>$zar['VARIJAB'],
+            'olaksica'=>$zar['olaksica'],
+            'ISPLATA'=>$zar['MINSOL'],
+            'MINIM_minimalna_zarada'=>$zar['MINIM'],
             'BMIN_prekovremeni_iznos'=>$zar['BMIN_prekovremeni_iznos'], // TODO PROVERI SA SNEZOM IMPORT
 //            '' =>$zar['SIPPR'] +
 

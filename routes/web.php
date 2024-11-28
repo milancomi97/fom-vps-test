@@ -247,6 +247,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('obracunzarada/maticnadatotekaradnika/edit_by_userId', [MaticnadatotekaradnikaController::class, 'editByUserId'])->name('maticnadatotekaradnika.editByUserId');
     Route::get('obracunzarada/maticnadatotekaradnika/create_from_user', [MaticnadatotekaradnikaController::class, 'createFromUser'])->name('maticnadatotekaradnika.createFromUser');
 
+    Route::post('obracunzarada/maticnadatotekaradnika/update', [MaticnadatotekaradnikaController::class, 'update'])->name('maticnadatotekaradnika.update');
 
     // Mesecna datotekaobracunskihkoeficijenata
     Route::get('obracunzarada/datotekaobracunskihkoeficijenata/create', [DatotekaobracunskihkoeficijenataController::class, 'create'])->name('datotekaobracunskihkoeficijenata.create');
