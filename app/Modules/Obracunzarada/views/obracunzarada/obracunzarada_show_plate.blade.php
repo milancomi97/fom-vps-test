@@ -309,7 +309,11 @@
                 <thead>
                 <tr>
                     @foreach ($zarData->toArray() as $key => $value)
+                       @if(ucfirst($key)=='ISPLATA')
+                           <th>MINSOL</th>
+                           @else
                         <th>{{ ucfirst($key) }}</th>
+                        @endif
                     @endforeach
                 </tr>
                 </thead>
