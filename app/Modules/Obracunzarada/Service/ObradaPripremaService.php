@@ -813,7 +813,9 @@ $test='TEST';
 //                $zar['SOLID'] =  0 ;//( ZAR->OLAKSICA -ZAR->MINIM)*SS
 
                 $solid = ($olaksica - $zar['MINIM']) * $zar['SS'];
-                $minsol = $solid * (int)$radnik['MDR']['GGST_godine_staza'] * 0.4 / 100;
+//                $minsol = $solid * (int)$radnik['MDR']['GGST_godine_staza'] * 0.4 / 100;
+
+                $minsol=0;
             } else if ($tabelaKoristnikMinuliRadEnabled == 0) {
                 $solid = ($olaksica - $zar['MINIM']) * $zar['SS'];
 
