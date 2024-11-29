@@ -91,7 +91,7 @@
 
         <td colspan="2">
             {!! $mdrData->POL_pol=='Z' ? 'Ostvarila':'Ostvario' !!}  bruto zaradu za period od {!! $datumOd !!} do {!! $datumDo !!}  godine u iznosu od
-            {!! number_format($resultData['izneto'],2,',','.') !!} dinara, što prosečno iznosi {!! number_format($resultData['izneto'] /$resultData['brojMeseci'],2,',','.') !!}dinara;
+            {!! number_format($resultData['izneto'],2,',','.') !!} dinara, što prosečno iznosi {!! number_format($resultData['izneto'] /$resultData['brojMeseci'],2,',','.') !!} dinara;
         </td>
     </tr>
     <tr>
@@ -103,7 +103,7 @@
     </tr>
     <tr>
         <td  colspan="2">Potvrda se izdaje na lični zahtev, radi regulisanja prava radnika
-           ZA KREDIT <i>{!! $opis !!}</i> i u druge svrhe se ne može upotrebiti.</td>
+           <i>{!! $opis !!}</i> i u druge svrhe se ne može upotrebiti.</td>
     </tr>
 
     </tbody>

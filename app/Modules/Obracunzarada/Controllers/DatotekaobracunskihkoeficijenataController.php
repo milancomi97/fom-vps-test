@@ -11,7 +11,9 @@ use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataReposit
 use App\Modules\Obracunzarada\Repository\DpsmAkontacijeRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmPoentazaslogRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MinimalnebrutoosnoviceRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\PorezdoprinosiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\VrsteplacanjaRepository;
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
 use App\Modules\Obracunzarada\Service\KreirajPermisijePoenteriOdobravanja;
@@ -41,7 +43,10 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         private readonly KreirajPermisijePoenteriOdobravanja                 $kreirajPermisijePoenteriOdobravanja,
         private readonly PripremiPermisijePoenteriOdobravanja                $pripremiPermisijePoenteriOdobravanja,
         private readonly VrsteplacanjaRepository                             $vrsteplacanjaInterface,
-        private readonly ProveraPoentazeService $proveraPoentazeService
+        private readonly ProveraPoentazeService $proveraPoentazeService,
+        private readonly MinimalnebrutoosnoviceRepositoryInterface $minimalnebrutoosnoviceInterface,
+        private readonly PorezdoprinosiRepositoryInterface                   $porezdoprinosiInterface,
+
     )
     {
     }
@@ -182,8 +187,20 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
         }
 
+        $minimalneBrutoOsnovice=$this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($activeMonth->datum);
+        $poresDoprinosi = $this->porezdoprinosiInterface->getAll()->first();
 
-        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_create', ['datotekaobracunskihkoeficijenata' => json_encode($data),'activeMonth'=> $activeMonthValue,'activeYear'=>$activeYearValue,'activeMonthExist'=>$activeMonthExist,'date'=>$date]);
+
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_create', [
+            'datotekaobracunskihkoeficijenata' => json_encode($data),
+            'activeMonth'=> $activeMonthValue,
+            'activeYear'=>$activeYearValue,
+            'activeMonthExist'=>$activeMonthExist,
+            'date'=>$date,
+            'minimalneBrutoOsnoviceId'=>$minimalneBrutoOsnovice->id,
+            'poresDoprinosiId'=>$poresDoprinosi->id
+
+        ]);
     }
 
     public function store(Request $request)

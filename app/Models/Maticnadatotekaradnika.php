@@ -73,7 +73,9 @@ class Maticnadatotekaradnika extends Model
         'ACTIVE_aktivan',
         'IZNETO_ukupna_bruto_zarada',
         'KFAK_korektivni_faktor',
-        'troskovno_mesto_id'
+        'troskovno_mesto_id',
+        'email_za_plate',
+        'email_za_plate_poslat'
     ];
 
 

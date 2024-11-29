@@ -1608,7 +1608,6 @@ $test='TEST';
         $this->obradaZaraPoRadnikuInterface->create($data);
 
     }
-
     function customSort($a, $b) {
         // Define priority for sorting
         $priority = [

@@ -49,7 +49,23 @@ class AppUpdateMaticnaEmailSlanje extends Command
 
         }
 
+
+        $emails = $this->getEmailData();
+
+        foreach ($emails as $emailData){
+            $mdrRadnik = Maticnadatotekaradnika::where('MBRD_maticni_broj',$emailData['MATICNI_BROJ'])->first();
+            $mdrRadnik->email_za_plate = $emailData['EMAIL'];
+            $mdrRadnik->save();
+            $test='testt';
+        }
     }
 
-
+    public function getEmailData()
+    {
+        $filePath = storage_path('app/backup/azuriranje_email_plate/finalni_email_excel_semincol.csv');
+        $csv = Reader::createFromPath($filePath, 'r');
+        $csv->setHeaderOffset(0);
+        $csv->setDelimiter(';');
+        return $csv->getRecords();
+    }
 }

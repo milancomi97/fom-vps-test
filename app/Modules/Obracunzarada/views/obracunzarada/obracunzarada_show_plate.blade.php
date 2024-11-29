@@ -218,7 +218,7 @@
                             <td>{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
                             <td></td>
                             <td></td>
-                            <td ></td>
+                            <td class="">{{ $radnik['procenat'] !== null ? $radnik['procenat'].'%' : '' }}</td>
                             <td class="text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
                         </tr>
                     @endif
@@ -295,7 +295,7 @@
             <tr>
                 <td><strong>Ukupno potrebna sredstva</strong></td>
                 <td></td>
-                <td class="text-right">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade + $zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>
+                <td class="text-right"><b>{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade + $zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</b></td>
             </tr>
         </table>
 

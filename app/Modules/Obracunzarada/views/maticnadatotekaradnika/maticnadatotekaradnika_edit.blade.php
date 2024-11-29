@@ -91,7 +91,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text font-weight-bold" id="span_prezime">Prezime:</span>
                             </div>
-                            <input type="text" class="form-control" id="PREZIME_prezime" aria-describedby="span_prezime"
+                            <input type="text" class="form-control" disabled id="PREZIME_prezime" aria-describedby="span_prezime"
                                    value="{{$radnikData->PREZIME_prezime}}"
                                    name="PREZIME_prezime"
                             >
@@ -102,7 +102,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text font-weight-bold" id="span_srednje_ime">Srednje Ime:</span>
                             </div>
-                            <input type="text" class="form-control" id="srednje_ime" aria-describedby="span_srednje_ime"
+                            <input type="text" class="form-control" disabled id="srednje_ime" aria-describedby="span_srednje_ime"
                                    value="{{$radnikData->srednje_ime}}"
                                    name="srednje_ime"
                             >
@@ -113,10 +113,16 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text font-weight-bold" id="span_ime">Ime:</span>
                             </div>
-                            <input type="text" class="form-control" id="IME_ime" aria-describedby="span_ime"
+                            <input type="text" class="form-control" disabled id="IME_ime" aria-describedby="span_ime"
                                    value="{{$radnikData->IME_ime}}" name="IME_ime">
                         </div>
-
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold" id="span_ime">Ime:</span>
+                            </div>
+                            <input type="text" class="form-control" disabled id="IME_ime" aria-describedby="span_ime"
+                                   value="{{$radnikData->IME_ime}}" name="IME_ime">
+                        </div>
                         <!-- 3. Troskovni centar, text field -->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">

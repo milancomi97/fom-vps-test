@@ -97,7 +97,7 @@ class ObradaFormuleService
         $tableAliases = [
             'KOE->BR_S' => "mesecni_fond_sati",
             'KOE->C_R' => "cena_rada_tekuci",
-            'KOP->IZNO' => "iznos", // Imam trenutno
+            'KOP->IZNO' => "iznos",
             'KOP->PERC' => "procenat",
             'KOP->SATI' => "sati",
             'MDR->KFAK' => "KFAK_korektivni_faktor",

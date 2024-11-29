@@ -252,15 +252,13 @@
         </div>
 
         <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6  text-center border shadow">
-                <h3 class="text-center"><i>-(odeljak za pomocne linkove) dogovor-</i></h3>
-                <h3 class="text-center"><i>- PODSETNIK -logiku koja ce da proveri i ispise status da li je azurirano za novi mesec-</i></h3>
-                <a href="" style="width: 80%" class="btn btn-lg btn-secondary mt-5 mb-3">Aktivni porezi i doprinosi</a>
-                <a href="" style="width: 80%" class="btn btn-lg btn-secondary mb-3 mb-5">Aktivne minimalne bruto osnovice</a>
+            <div class="col-md-4"></div>
+            <div class="col-md-4  text-center border shadow">
+                <a href="{{route('porezdoprinosi.edit',['id'=>$poresDoprinosiId])}}" style="width: 80%" class="btn btn-lg btn-secondary mt-5 mb-3">Aktivni porezi i doprinosi</a>
+                <a href="{{route('minimalnebrutoosnovice.edit',['id'=>$minimalneBrutoOsnoviceId])}}" style="width: 80%" class="btn btn-lg btn-secondary mb-3 mb-5">Aktivne minimalne bruto osnovice</a>
 
             </div>
-            <div class="col-md-3"> </div>
+            <div class="col-md-4"> </div>
         </div>
     </div>
 

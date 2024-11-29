@@ -65,14 +65,20 @@ class UserConfigController extends Controller
 
         $userData = [];
         foreach ($users as $user) {
-            $userData[] = [
-                $user->ime,
-                $user->prezime,
-                $permissionConstants[$user->permission->role_id],
-                $user->datum_odlaska,
-                $user->active,
-                $user->id
-            ];
+            if($user->permission !==null){
+            $roleId=$user->permission->role_id;
+            if($roleId){
+                $userData[] = [
+                    $user->ime,
+                    $user->prezime,
+                    $permissionConstants[$roleId],
+                    $user->datum_odlaska,
+                    $user->active,
+                    $user->id
+                ];
+            }
+            }
+
         }
 
         return view('users.user_show_all', ['users' => json_encode($userData)]);
