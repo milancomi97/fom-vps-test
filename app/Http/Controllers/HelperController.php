@@ -27,8 +27,9 @@ class HelperController extends Controller
             $logLines = explode("\n", $log);
 //            $logLines = array_slice($logLines, -1000); // Show only the last 100 lines
 
+            $reverseLogLines= array_reverse($logLines);
             // Format it for display in the browser (or just return as text)
-            return response()->view('poenter_log_review', ['log' => $logLines]);
+            return response()->view('poenter_log_review', ['log' => $reverseLogLines]);
         } else {
             return response('Log file does not exist.', 404);
         }
