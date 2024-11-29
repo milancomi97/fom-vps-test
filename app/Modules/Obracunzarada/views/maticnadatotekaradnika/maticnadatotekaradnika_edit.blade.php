@@ -118,10 +118,10 @@
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text font-weight-bold" id="span_ime">Ime:</span>
+                                <span class="input-group-text font-weight-bold" id="span_ime">Email obaveštavanje:</span>
                             </div>
-                            <input type="text" class="form-control" disabled id="IME_ime" aria-describedby="span_ime"
-                                   value="{{$radnikData->IME_ime}}" name="IME_ime">
+                            <input type="text" class="form-control" disabled id="email_za_plate" aria-describedby="email_za_plate"
+                                   value="{{$radnikData->email_za_plate}}" name="email_za_plate">
                         </div>
                         <!-- 3. Troskovni centar, text field -->
                         <div class="input-group mb-3">
