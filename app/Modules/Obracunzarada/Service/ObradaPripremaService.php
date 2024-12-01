@@ -456,7 +456,7 @@ class ObradaPripremaService
 
                 }
 
-            }
+            } //
 
             if ($mdr == '') {
                 if (isset($vrstaPlacanjaSlog->maticnadatotekaradnika)) {
@@ -466,22 +466,22 @@ class ObradaPripremaService
             //            $radnik['POR'] = ;
             $radnik['MDR'] = $mdr ?? [];
 //            $radnik['KOE'] = ;
-            // LOGIKA ZA PREPISIVANJE END
-            // PETLJA LOGIKE ZA SUMIRANJE END
 
+
+            // TODO izracunaj solid, dodaj na vrednost IZNETO AKO POSTOJI u suprotnom = 0
             $radnik['ZAR2'] = [
                 'SSZNE' => $oSumiranjeZaradeSatiSSZNE,
                 'SIZNE' => $oSumiranjeZaradeIznosSIZNE,
                 'SSNNE' => $oSumiranjeBolovanjaSatiSSNNE,
                 'SINNE' => $oSumiranjeBolovanjaIznosSINNE,
-                'IZNETO' => $oSumiranjeZaradeIznosSIZNE + $oSumiranjeBolovanjaIznosSINNE,
+                'IZNETO' => $oSumiranjeZaradeIznosSIZNE + $oSumiranjeBolovanjaIznosSINNE, // TODO DODAJ SOLID OVDE
                 'SIOB' => $sumiranjeIznosaObustavaSIOB,
                 'EFSATI' => $efektivniSati,
                 'EFIZNO' => $efektivniIznos,
                 'TOPSATI' => $topliObrokSati,
                 'TOPLI' => $topliObrokIznos,
                 'REGR' => $regresIznos,
-                'UKNETO' => $oSumiranjeZaradeIznosSIZNE + $oSumiranjeBolovanjaIznosSINNE,
+                'UKNETO' => $oSumiranjeZaradeIznosSIZNE + $oSumiranjeBolovanjaIznosSINNE, // TODO DODAJ SOLID OVDE
                 'REC' => 1,
                 'IPLAC' => 0,
                 'PRIZ' => $prosecniIznos,
@@ -491,7 +491,7 @@ class ObradaPripremaService
                 'BMIN_prekovremeni_iznos'=>$BMIN_prekovremeni_iznos,
                 'PREK' => $gSumiranjePrekovremeniPREK,
                 'P_R' => $mdr['P_R_oblik_rada'],
-//                    'MINIM' => $s / $ss,
+                'MINIM' => $s / $ss,
                 'RBPS' => $mdr['RBPS_priznata_strucna_sprema'],
                 'RBRM' => $mdr['RBRM_radno_mesto'],
                 'sati_zarade' => $satiZarade,
@@ -502,8 +502,22 @@ class ObradaPripremaService
 
 //                'OGRAN'=> $SumiranjeOgranicenja,
             ];
+            $solid = $this->izracunajSolid($minimalneBrutoOsnoviceSifarnik,$radnik,$monthData);
 
-            $testCheckZar = 'teest';
+            if($solid>0){
+
+                $test='test';
+//                $radnik['ZAR2']['IZNETO']+=$solid;
+//                 $radnik['ZAR2']['UKNETO']+=$solid;
+
+                $zar2 = $radnik['ZAR2'];
+                $zar2['IZNETO'] += $solid;
+                $zar2['UKNETO']+=$solid;
+
+                $radnik['ZAR2'] = $zar2;
+                $testCheckZar = 'teest';
+
+            }
         }
 
 
@@ -768,8 +782,13 @@ $test='TEST';
 
 
 
+
             $radnik['ZAR3'] = $radnik['DKOPADD']['ZAR3'];
             $radnik['ZAR4'] = $this->prepareBrutoData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik);
+
+
+
+
             $radnik['KREDADD'] = $this->prepareKrediti($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik);
 
             $radnik['ZAR5'] = $radnik['KREDADD']['KREDADD']['ZAR5'];
@@ -1517,13 +1536,7 @@ $test='TEST';
             if ($key == 'MDR' || $key == 'ZAR2' || $key == 'ZAR' || $key == 'ZAR3' || $key == 'DKOPADD' || $key == 'ZAR4' || $key == 'KREDADD' || $key == 'ZAR5') {
                 continue;
             }
-//            $test2='test2';
 
-//            try {
-//              $testt =$vrstaPlacnja['iznos'];
-//            }catch (\Exception $exception){
-//                $testt='w';
-//            }
             if ($vrstaPlacnja['iznos'] !== null) {
                 $this->dkopSveVrstePlacanjaInterface->where('id', $vrstaPlacnja['id'])->update(['iznos' => $vrstaPlacnja['iznos']]);
             }
@@ -1625,5 +1638,43 @@ $test='TEST';
             return 0;
         }
         return ($priorityA < $priorityB) ? -1 : 1;
+    }
+
+    public function izracunajSolid($minimalneBrutoOsnoviceSifarnik,$radnik,$monthData){
+        $solid = 0;
+        $nt2 = (float)$minimalneBrutoOsnoviceSifarnik->NT2_minimalna_bruto_zarada;
+
+        $preb = $radnik['MDR']['PREB_prebacaj'] > 1 ? $radnik['MDR']['PREB_prebacaj'] : 1;
+        $olaksica = $nt2 / $monthData->mesecni_fond_sati*$preb;
+
+
+//        3. ZAR->OLAKSICA = DNTO->NT2/KOE->BR_S*MDR->PREB - MZ PO ZAKONU // TODO ovo je novo
+
+        $zar = $radnik['ZAR2'];
+
+        $minsol=0;
+        // 1092 linija MINIMALAC
+        if ($olaksica > $zar['MINIM']) {  // Olaksica ne sme da bude manja od minimalne propisane zarade
+
+            $tabelaKoristnikMinuliRadEnabled = 1;
+            if ($tabelaKoristnikMinuliRadEnabled == 1) {
+//                $zar['SOLID'] =  0 ;//( ZAR->OLAKSICA -ZAR->MINIM)*SS
+
+                $solid = ($olaksica - $zar['MINIM']) * $zar['SS'];
+//                $minsol = $solid * (int)$radnik['MDR']['GGST_godine_staza'] * 0.4 / 100;
+
+                $minsol=0;
+            } else if ($tabelaKoristnikMinuliRadEnabled == 0) {
+                $solid = ($olaksica - $zar['MINIM']) * $zar['SS'];
+
+            }
+        } elseif ($olaksica <= $zar['MINIM']) {
+            $solid = 0;
+
+        }
+
+        // 1114
+
+        return $solid += $minsol ?? 0;
     }
 }

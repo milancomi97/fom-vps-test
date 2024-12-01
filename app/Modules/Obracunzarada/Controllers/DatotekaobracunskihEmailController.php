@@ -321,10 +321,10 @@ class DatotekaobracunskihEmailController extends Controller
             ];
 
 
-            for($i=0;$i < 50; $i++){
+//            for($i=0;$i < 50; $i++){
                 Mail::to($request->email_to)->send(new DemoMail($mailData));
 
-            }
+//            }
 //                Mail::to($request->email_to)->send(new DemoMail($mailData));
                 $test='';
 

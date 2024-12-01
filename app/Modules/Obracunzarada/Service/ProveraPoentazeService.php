@@ -45,7 +45,6 @@ class ProveraPoentazeService
 //                        $brojacRadnik-=$vrstaPlacanja['sati'];
 //                    }
 
-
                     if (isset($brojac[$vrstaPlacanja['key']])) {
                         $brojac[$vrstaPlacanja['key']] += $vrstaPlacanja['sati'];
                     } else {
@@ -55,8 +54,6 @@ class ProveraPoentazeService
 
                 }
                 $data['rowSum']=$brojacRadnik;
-
-
 
 
                 $test='test';
