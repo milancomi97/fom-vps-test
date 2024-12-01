@@ -29,10 +29,13 @@ class UpdateVrstePlacanjaJson
 
         $vrstePlacanje = json_decode($radnikEvidencija->vrste_placanja, true);
         $anomRule = $vrstePlacanjaSifarnik[$input_key]['ANOM_poentaza_provera'];
+
+        if($input_key=='020'){
+            $anomRule=2;
+        }
         $anomAction = self::UPDATEACTION[$anomRule];
 
-
-            $updatedVrstePlacanja = array_map(function ($placanje) use ($anomRule,$input_value,$input_key,&$negativniBrojac) {
+        $updatedVrstePlacanja = array_map(function ($placanje) use ($anomRule,$input_value,$input_key,&$negativniBrojac) {
 
                 if($input_key==$placanje['key']){
 
