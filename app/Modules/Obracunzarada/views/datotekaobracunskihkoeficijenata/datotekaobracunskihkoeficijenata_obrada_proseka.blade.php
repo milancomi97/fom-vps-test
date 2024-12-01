@@ -234,9 +234,9 @@
 
                 <div class="form-group">
                     <label for="datetimepicker2">Period do:</label>
-                    <div class="input-group date datetimepicker-icon" id="datetimepick" data-target-input="nearest">
+                    <div class="input-group date datetimepicker-icon" id="datetimepicker2" data-target-input="nearest">
                         <input type="text" value="{{$endDate}}" id="arhiva_datum_do" name="arhiva_datum" class="form-control datetimepicker-input" data-target="#datetimepicker2" />
-                        <div class="input-group-append" data-target="#datetimepick" data-toggle="datetimepicker">
+                        <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
                     </div>

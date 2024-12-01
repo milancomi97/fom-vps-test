@@ -296,41 +296,19 @@ class ObradaPripremaController extends Controller
         // SKINI 1 mesec
 
         $periodOd = $request->arhiva_datum_od;
+        $periodDo=$request->arhiva_datum;
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
-//        $datum = Carbon::createFromFormat('Y-m-d', $monthData->datum)->startOfMonth();
-//        $periodDo = $datum->format('m.Y');
-//        $startOfMonth = \Illuminate\Support\Carbon::createFromFormat('m.Y', $datum)->startOfMonth();
-
-        $zarData = $this->obradaZaraPoRadnikuInterface->getById($request->month_id);
-//        $zarSumeData = $this->arhivaSumeZaraPoRadnikuInterface->where('M_G_date')->get();
-        $test='test';
-
 
         $startPeriod = \Illuminate\Support\Carbon::createFromFormat('m.Y', $periodOd)->startOfMonth();
-//        $endPeriod = Carbon::createFromFormat('m.Y', $datumDo)->endOfMonth();
+        $endPeriod = \Illuminate\Support\Carbon::createFromFormat('m.Y', $periodDo)->startOfMonth();
+
         $startDate = $startPeriod->format('Y-m-d');
-
-// Izračunaj broj meseci
-        $monthsDifference = $startPeriod->diffInMonths($monthData->datum);
-
-// Kreiraj listu datuma između perioda
-        $period = CarbonPeriod::create($startDate, '1 month', $monthData->datum);
-
-        $listOfDates = [];
-        foreach ($period as $date) {
-            $listOfDates[] = $date->format('Y-m-d');
-        }
-
-//        $sumeZaraPeriod = $this->arhivaSumeZaraPoRadnikuInterface->whereIn('M_G_date', $listOfDates)->get();
+        $endDate = $endPeriod->format('Y-m-d');
 
 
-        $sumeZaraPeriodBetween = $this->arhivaSumeZaraPoRadnikuInterface->between('M_G_date', $startPeriod, $monthData->datum)->get();
-
-
-        $activeMDR = $this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',1)->pluck('ACTIVE_aktivan','MBRD_maticni_broj')->toArray();
 
         $zaraSummarize = $this->arhivaSumeZaraPoRadnikuInterface
-            ->between('M_G_date', $startPeriod, $monthData->datum)
+            ->between('M_G_date', $startPeriod, $endPeriod)
             ->get();
 
 
@@ -339,6 +317,7 @@ class ObradaPripremaController extends Controller
         $test='test';
 
         $sumResult=[];
+
         foreach ($zaraResult as $datum => $radnikData){
 
             foreach ($radnikData as $mesecData){
@@ -367,10 +346,24 @@ class ObradaPripremaController extends Controller
         $test='test';
 
 
+        $currentMonthDate = Carbon::parse($monthData->datum);
+        $currentMonthDateFormatted = $currentMonthDate->format('m.Y');
 
+
+        if($currentMonthDateFormatted ==$periodDo){
+            foreach ($sumResult as $maticniBroj =>$radnik){
+                $activeZara = $this->obradaZaraPoRadnikuInterface->where('maticni_broj',$maticniBroj)->first();
+                if($activeZara){
+                    $radnik['PRIZ_prosecni_iznos_godina']+=$activeZara->PRIZ_prosecni_iznos_godina;
+                    $radnik['PRCAS_prosecni_sati_godina']+=$activeZara->PRCAS_prosecni_sati_godina;
+                    $radnik['broj_meseci']+=1;
+                }
+
+            }
+        }
 
         foreach ($sumResult as $maticniBroj => $radnik){
-           $mdr=  $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj',$maticniBroj)->where('ACTIVE_aktivan',1)->first();
+           $mdr= $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj',$maticniBroj)->where('ACTIVE_aktivan',1)->first();
 
             if($mdr!==null){
                 $mdr->PRIZ_ukupan_bruto_iznos =$radnik['PRIZ_prosecni_iznos_godina'];
@@ -380,9 +373,8 @@ class ObradaPripremaController extends Controller
             }
         }
 
-        $updatedMdr = $this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',1)->get();
+        $updatedMdr = $this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',1)->orderBy('MBRD_maticni_broj')->get();
 
-        $test='test';
 
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_obrada_proseka_prikaz',['sumResult'=>$updatedMdr]);
     }
@@ -481,7 +473,7 @@ class ObradaPripremaController extends Controller
         });
 
 
-        $date = new \DateTime($monthData->datum);
+        $date = new \DateTime($periodDo);
         $datum = $date->format('m.Y');
         $selectOptionData =$this->dkopSveVrstePlacanjaInterface->getAll()->unique('sifra_vrste_placanja')->toArray();
 

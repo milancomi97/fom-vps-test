@@ -1329,27 +1329,34 @@ $test='TEST';
 
             foreach ($krediti as $kredit) {
 
-//                $kreditUpdate = $kredit->RATA_rata;
-                if (($neto2 - $siobkr - $kredit->RATA_rata -$kredit->RATB) > 0 && $kredit->SALD_saldo-$kredit->RATB > 0) {
+
+                if (($neto2 - $siobkr - $kredit->RATA_rata) > 0 && $kredit->SALD_saldo > 0) {
+
+                    if ($kredit->SALD_saldo > $kredit->RATA_rata) {
+
+                        $iznos = $kredit->RATA_rata;
+                    } else {
+                        $iznos = $kredit->SALD_saldo;
+                    }
 
                     $data = [
 //                        id=222
                         'maticni_broj' => $kredit->maticni_broj,
                         'sifra_vrste_placanja' => '093',
                         'naziv_vrste_placanja' => $vrstePlacanjaSifarnik['093']['naziv_naziv_vrste_placanja'],
-                        'SLOV_grupa_vrste_placanja'=>$vrstePlacanjaSifarnik['093']['SLOV_grupe_vrsta_placanja'],
+                        'SLOV_grupa_vrste_placanja' => $vrstePlacanjaSifarnik['093']['SLOV_grupe_vrsta_placanja'],
                         'SIFK_sifra_kreditora' => $kredit->SIFK_sifra_kreditora,
                         'PART_partija_kredita' => $kredit->PART_partija_poziv_na_broj,
                         'KESC_prihod_rashod_tip' => $vrstePlacanjaSifarnik['093']['KESC_prihod_rashod_tip'],
                         'GLAVN_glavnica' => $kredit->GLAVN_glavnica,
-                        'SALD_saldo' => $kredit->SALD_saldo-$kredit->RATA_rata,
-                        'RATA_rata' => $kredit->RATA_rata,
+                        'SALD_saldo' => $kredit->SALD_saldo - $kredit->RATA_rata,
+                        'RATA_rata' => $iznos,
                         'POCE_pocetak_zaduzenja' => $kredit->POCE_pocetak_zaduzenja,
                         'RATP_prethodna' => $kredit->RATA_rata,
                         'STSALD_Prethodni_saldo' => $kredit->SALD_saldo,
                         'DATUM_zaduzenja' => $kredit->DATUM_zaduzenja,
                         'obracunski_koef_id' => $monthData->id,
-                        'iznos'=> $kredit->RATA_rata,
+                        'iznos'=> $iznos,
                         'user_mdr_id' => $kredit->user_mdr_id,
                         'RBZA'=>$kredit->RBZA,
                         'RATB'=>$kredit->RATB,
@@ -1358,9 +1365,17 @@ $test='TEST';
 
 
 
-                    $siobkr += $kredit->RATA_rata;
-                } else if ($neto2 > 0 && $kredit->SALD_saldo > 0) {
+                    $siobkr += $iznos;
+                } else if (($neto2 - $siobkr - $kredit->RATA_rata)  < 0 && $kredit->SALD_saldo > 0) {
 
+                    $iznos=$neto2 - $siobkr;
+                    if($iznos>$kredit->SALD_saldo){
+                        $iznos=$kredit->SALD_saldo;
+                    }
+
+                    if($iznos>$kredit->RATA_rata && $iznos<$kredit->SALD_saldo){
+                        $iznos = $kredit->RATA_rata;
+                    }
                     // id = 582
                     $data = [
                         'maticni_broj' => $kredit->maticni_broj,
@@ -1371,22 +1386,23 @@ $test='TEST';
                         'PART_partija_kredita' => $kredit->PART_partija_poziv_na_broj,
                         'KESC_prihod_rashod_tip' => $vrstePlacanjaSifarnik['093']['KESC_prihod_rashod_tip'],
                         'GLAVN_glavnica' => $kredit->GLAVN_glavnica,
-                        'SALD_saldo' => $kredit->SALD_saldo - ($neto2- $siobkr),
-                        'RATA_rata' => $neto2- $siobkr,
+                        'SALD_saldo' => $kredit->SALD_saldo,
+                        'RATA_rata' => $iznos,
                         'POCE_pocetak_zaduzenja' => $kredit->POCE_pocetak_zaduzenja,
                         'RATP_prethodna' => $kredit->RATA_rata,
                         'STSALD_Prethodni_saldo' => $kredit->SALD_saldo,
                         'DATUM_zaduzenja' => $kredit->DATUM_zaduzenja,
                         'obracunski_koef_id' => $monthData->id,
-                        'iznos'=> $neto2- $siobkr,
+                        'iznos'=> $iznos,
                         'user_mdr_id' => $kredit->user_mdr_id,
                         'RBZA'=>$kredit->RBZA,
                         'RATB'=>$kredit->RATB,
                         'kredit_glavna_tabela_id'=>$kredit->id
                     ];
 
+                    $siobkr += $iznos;
 
-                    $siobkr += $neto2- $siobkr;
+
 
                 } else if ($neto2 - $siobkr <= 0 && $kredit->SALD_saldo > 0) {
                     $data = [
@@ -1395,7 +1411,7 @@ $test='TEST';
                         'sifra_vrste_placanja' => '093',
                         'naziv_vrste_placanja' => $vrstePlacanjaSifarnik['093']['naziv_naziv_vrste_placanja'],
                         'SIFK_sifra_kreditora' => $kredit->SIFK_sifra_kreditora,
-                        'SLOV_grupa_vrste_placanja'=>$vrstePlacanjaSifarnik['093']['SLOV_grupe_vrsta_placanja'],
+                        'SLOV_grupa_vrste_placanja' => $vrstePlacanjaSifarnik['093']['SLOV_grupe_vrsta_placanja'],
                         'PART_partija_kredita' => $kredit->PART_partija_poziv_na_broj,
                         'KESC_prihod_rashod_tip' => $vrstePlacanjaSifarnik['093']['KESC_prihod_rashod_tip'],
                         'GLAVN_glavnica' => $kredit->GLAVN_glavnica,
@@ -1406,17 +1422,16 @@ $test='TEST';
                         'STSALD_Prethodni_saldo' => $kredit->SALD_saldo,
                         'DATUM_zaduzenja' => $kredit->DATUM_zaduzenja,
                         'obracunski_koef_id' => $monthData->id,
-                        'iznos'=> 0,
+                        'iznos' => 0,
                         'user_mdr_id' => $kredit->user_mdr_id,
-                        'RBZA'=>$kredit->RBZA,
-                        'RATB'=>$kredit->RATB,
-                        'kredit_glavna_tabela_id'=>$kredit->id
+                        'RBZA' => $kredit->RBZA,
+                        'RATB' => $kredit->RATB,
+                        'kredit_glavna_tabela_id' => $kredit->id
                     ];
-
-
-
-
+                }else{
+                    $testtttt='testtt';
                 }
+
 // test
                 if(!empty($data)){
                     $kreditiData[] = $data;
