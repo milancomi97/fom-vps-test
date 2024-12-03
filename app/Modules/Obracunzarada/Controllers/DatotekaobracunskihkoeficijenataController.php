@@ -184,7 +184,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
             $currentDate = Carbon::now();
             $activeMonthValue = $currentDate->month -1;
             $activeYearValue = $currentDate->year;
-
+            $date = Carbon::parse(\Illuminate\Support\Carbon::createFromFormat('m.Y', $currentDate->month.'.'.$activeYearValue)->format('Y-m-d'));
         }
 
         $minimalneBrutoOsnovice=$this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth(\Illuminate\Support\Carbon::createFromFormat('m.Y', $activeMonthValue.'.'.$activeYearValue)->format('Y-m-d'));
