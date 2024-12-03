@@ -67,7 +67,7 @@ class AppUpdatePristupiMaticni extends Command
 
         }
 
-        $this->alert(PHP_EOL.'Fale krediti za ljude sa maticnim:'.json_encode($kreditiKojiFale));
+        $this->alert(PHP_EOL.'Fale krediti za ljude sa maticnim:');
     }
 
 
