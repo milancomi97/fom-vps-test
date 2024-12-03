@@ -187,7 +187,7 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
         }
 
-        $minimalneBrutoOsnovice=$this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($activeMonth->datum);
+        $minimalneBrutoOsnovice=$this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($activeMonthValue.'.'.$activeYearValue);
         $poresDoprinosi = $this->porezdoprinosiInterface->getAll()->first();
 
 
