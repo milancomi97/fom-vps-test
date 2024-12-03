@@ -46,6 +46,8 @@ class ArhiviranjeMesecaService
             unset($mdr->id);
             unset($mdr->updated_at);
             unset($mdr->created_at);
+            unset($mdr->email_za_plate);
+            unset($mdr->email_za_plate_poslat);
 
             $mdr['M_G_mesec_godina']=$datum->format('my');
             $mdr['M_G_date']=$datum;
@@ -144,8 +146,7 @@ class ArhiviranjeMesecaService
             unset($zara->user_dpsm_id);
             unset($zara->obracunski_koef_id);
             unset($zara->user_mdr_id);
-            unset($zara->email_za_plate);
-            unset($zara->email_za_plate_poslat);
+
 
 
             $zara['M_G_mesec_godina']=$datum->format('my');
