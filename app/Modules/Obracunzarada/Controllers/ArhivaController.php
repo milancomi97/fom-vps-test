@@ -5,6 +5,7 @@ namespace App\Modules\Obracunzarada\Controllers;
 use App\Http\Controllers\Controller;
 
 use App\Models\User;
+use App\Modules\Obracunzarada\Consts\UserRoles;
 use App\Modules\Obracunzarada\Repository\ArhivaDarhObradaSveDkopRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ArhivaMaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\ArhivaSumeZaraPoRadnikuRepositoryInterface;
@@ -22,6 +23,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View;
 
@@ -50,12 +52,26 @@ class ArhivaController extends Controller
 
     public function index(Request $request)
     {
+        $userData = Auth::user()->load(['permission']);
+        $permissions = $userData->permission;
+
+//        @if(auth()->user()->userPermission->role_id==UserRoles::SUPERVIZOR)
+
 
         $radniciSelectData = [];
         $data = $this->maticnadatotekaradnikaInterface->getAll();
 
+
         foreach ($data as $radnik) {
             $test = 'test';
+
+            if($radnik->BRCL_redosled_poentazi < 100 &&  $permissions->role_id!==UserRoles::SUPERVIZOR){
+
+                $ttest='test';
+                continue;
+
+
+            }
             $radniciSelectData[] = ['id' => $radnik->MBRD_maticni_broj, 'text' => $radnik->MBRD_maticni_broj . ' ' . $radnik->PREZIME_prezime . ' ' . $radnik->srednje_ime . ' ' . $radnik->IME_ime];
         }
 

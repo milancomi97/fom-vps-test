@@ -1,3 +1,4 @@
+@php use App\Modules\Obracunzarada\Consts\UserRoles; @endphp
 @extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
@@ -223,7 +224,6 @@
         @csrf
         <div class="form-group">
             <select class="form-control" id="vrsta_placanja" name="vrsta_placanja" onchange="document.getElementById('paymentForm').submit();">
-                <!-- Assume $options is an array of dynamic data -->
                 @foreach($selectOptionData as $key =>$value)
                     <option value="{{ $value['sifra_vrste_placanja']}}">{{$value['sifra_vrste_placanja']}} - {{$value['naziv_vrste_placanja'] }}</option>
                 @endforeach
@@ -266,6 +266,8 @@
                 $iznosBrojac=0;
                     ?>
                 @foreach($dkopData as $vrstaPlacanja)
+
+                    @if($vrstaPlacanja['mdrData']['BRCL_redosled_poentazi'] >100)
                                     <tr>
                                         <td><a  target="_blank"  href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_plate?radnik_maticni=').$vrstaPlacanja['maticni_broj'].'&month_id='.$month_id!!}">
                                                 {{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</a></td>
@@ -278,6 +280,19 @@
                     $iznosBrojac+=$vrstaPlacanja['iznos'];
                         ?>
 
+                                    @elseif(auth()->user()->permission->role_id==UserRoles::SUPERVIZOR && $vrstaPlacanja['mdrData']['BRCL_redosled_poentazi'] <100)
+                        <tr>
+                            <td><a  target="_blank"  href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_plate?radnik_maticni=').$vrstaPlacanja['maticni_broj'].'&month_id='.$month_id!!}">
+                                    {{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</a></td>
+                            <td>{{$vrstaPlacanja['troskovno_mesto_id']}}</td>
+                            <td class="text-right">{{   $vrstaPlacanja['sati']}}</td>
+                            <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,'.',',') }}</td>
+                        </tr>
+                            <?php
+                            $satiBrojac+= $vrstaPlacanja['sati'];
+                            $iznosBrojac+=$vrstaPlacanja['iznos'];
+                            ?>
+                    @endif
 
                 @endforeach
 {{--                @foreach($sumResult as $item)--}}

@@ -43,7 +43,7 @@ class DpsmFiksnaPlacanjaController extends Controller
         $troskovnaMestaPermission = json_decode($userPermission->troskovna_mesta_poenter, true);
         $id = $request->radnik_id;
         $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->getById($id);
-        $mesecnaTabelaPoentaza->load('dpsmakontacije');
+//        $mesecnaTabelaPoentaza->load('dpsmakontacije');
         $month_id = $mesecnaTabelaPoentaza->obracunski_koef_id;
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($month_id);
 
@@ -56,7 +56,7 @@ class DpsmFiksnaPlacanjaController extends Controller
 
 //        $vrednostAkontacije = $mesecnaTabelaPoentaza->dpsmakontacije->iznos;
 
-        $fiksnapData = $this->dpsmFiksnaPlacanjaInteface->where('user_dpsm_id',$id)->get();
+        $fiksnapData = $this->dpsmFiksnaPlacanjaInteface->where('maticni_broj',$mesecnaTabelaPoentaza->maticni_broj)->get();
 
 
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show_fiksnap',
@@ -117,7 +117,6 @@ class DpsmFiksnaPlacanjaController extends Controller
         $sifarnikVrstePlacanja = $this->vrsteplacanjaInterface->getAllKeySifra();
 
         $data = [];
-        $fiksnapData = $this->dpsmFiksnaPlacanjaInteface->where('user_dpsm_id', $userMonthId)->get();
 
         if ($vrstePlacanjaData) {
 

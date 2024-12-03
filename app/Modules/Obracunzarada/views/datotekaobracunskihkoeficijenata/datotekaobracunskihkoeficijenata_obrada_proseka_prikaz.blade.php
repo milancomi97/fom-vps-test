@@ -1,3 +1,4 @@
+@php use App\Modules\Obracunzarada\Consts\UserRoles; @endphp
 @extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
@@ -228,6 +229,8 @@
                 </thead>
                 <tbody>
                 @foreach($sumResult as $item)
+
+                    @if($item['BRCL_redosled_poentazi'] > 100)
                     <tr class=" {{$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'] == 0 ? 'bg-warning':'' }}
                     ">
                         <td>{{ $item['MBRD_maticni_broj'] }}</td>
@@ -241,6 +244,21 @@
                         @endif
                         <td>{{ $item['BROJ_broj_meseci_za_obracun'] }}</td>
                     </tr>
+                    @elseif($userPermission->role_id==UserRoles::SUPERVIZOR && $item['BRCL_redosled_poentazi'] < 100)
+                        <tr class=" {{$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'] == 0 ? 'bg-warning':'' }}
+                    ">
+                            <td>{{ $item['MBRD_maticni_broj'] }}</td>
+                            <td>{{ $item['PREZIME_prezime'] }} {{ $item['srednje_ime'] }} {{ $item['IME_ime'] }}</td>
+                            <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos'],2,'.',',')}}</td>
+                            <td>{{$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost']}}</td>
+                            @if($item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost']>0)
+                                <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos']/$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'],2,'.',',')}}</td>
+                            @else
+                                <td>0</td>
+                            @endif
+                            <td>{{ $item['BROJ_broj_meseci_za_obracun'] }}</td>
+                        </tr>
+                    @endif
                 @endforeach
                 </tbody>
             </table>

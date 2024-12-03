@@ -106,6 +106,7 @@ $(document).ready(function () {
                     },
                     error: function (response) {
                         $("#statusMessage").text("Greska: " + response.message).addClass("error");
+
                     }
                 });
             }else {
@@ -152,12 +153,19 @@ $(document).ready(function () {
                         if (response.status) {
                             location.reload()
                         } else {
-                            $("#statusModalMessage").text(response.message).addClass("text-danger");
+                            Swal.fire({
+                                title: response.message,
+                                text: response.razlog,
+                                icon: 'warning',
+                            });
                         }
                     },
                     error: function (response) {
-                        $("#statusModalMessage").text("Greska: " + response.message).addClass("error");
-                    }
+                        Swal.fire({
+                            title: response.message,
+                            text: response.razlog,
+                            icon: 'warning',
+                        });                    }
                 });
             }else {
                 $("#statusModalMessage").text("Popunite sva polja").addClass("error");
@@ -328,13 +336,21 @@ $(document).ready(function () {
                     }).then((result) => {
                         window.location.href = response.redirectUrl;
                 });
-                }
+                }else{
+                    Swal.fire({
+                        title: response.message,
+                        text: response.razlog,
+                        icon: 'warning',
+                    });                }
 
 
             },
             error: function (response) {
-                debugger;
-            }
+                Swal.fire({
+                    title: response.message,
+                    text: response.razlog,
+                    icon: 'warning',
+                });            }
         });
 
     });

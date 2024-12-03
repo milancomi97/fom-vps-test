@@ -491,7 +491,7 @@ class ObradaPripremaService
                 'BMIN_prekovremeni_iznos'=>$BMIN_prekovremeni_iznos,
                 'PREK' => $gSumiranjePrekovremeniPREK,
                 'P_R' => $mdr['P_R_oblik_rada'],
-                'MINIM' => $s / $ss,
+                'MINIM' => $ss > 0 ? $s / $ss : 0,
                 'RBPS' => $mdr['RBPS_priznata_strucna_sprema'],
                 'RBRM' => $mdr['RBRM_radno_mesto'],
                 'sati_zarade' => $satiZarade,

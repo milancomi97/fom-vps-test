@@ -132,6 +132,6 @@ class ArhivaMaticnadatotekaradnikaSeeder extends Seeder
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
         return $csv->getRecords();
-;
+
     }
 }

@@ -5,6 +5,9 @@ namespace App\Modules\Obracunzarada\Controllers;
 use App\Http\Controllers\Controller;
 use App\Jobs\ObradaPlate;
 use App\Models\Datotekaobracunskihkoeficijenata;
+use App\Models\ObradaDkopSveVrstePlacanja;
+use App\Models\ObradaKrediti;
+use App\Models\ObradaZaraPoRadniku;
 use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
 use App\Modules\Obracunzarada\Consts\UserRoles;
@@ -33,6 +36,7 @@ use App\Modules\Osnovnipodaci\Repository\RadniciRepositoryInterface;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
@@ -83,9 +87,16 @@ class ObradaPripremaController extends Controller
 //            $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', '>', 0)->delete();
 //            $this->obradaKreditiInterface->where('obracunski_koef_id', '>', 0)->delete();
 //            $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', '>', 0)->delete();
-            DB::delete('DELETE FROM obrada_dkop_sve_vrste_placanjas WHERE obracunski_koef_id > ?', [1]);
-            DB::delete('DELETE FROM obrada_zara_po_radnikus WHERE obracunski_koef_id > ?', [1]);
-            DB::delete('DELETE FROM obrada_kreditis WHERE obracunski_koef_id > ?', [1]);
+//            DB::delete('DELETE FROM obrada_dkop_sve_vrste_placanjas WHERE obracunski_koef_id > ?', [1]);
+//            DB::delete('DELETE FROM obrada_zara_po_radnikus WHERE obracunski_koef_id > ?', [1]);
+//            DB::delete('DELETE FROM obrada_kreditis WHERE obracunski_koef_id > ?', [1]);
+
+            ObradaDkopSveVrstePlacanja::truncate();
+            ObradaZaraPoRadniku::truncate();
+            ObradaKrediti::truncate();
+            DB::statement('ALTER TABLE obrada_dkop_sve_vrste_placanjas AUTO_INCREMENT = 1');
+            DB::statement('ALTER TABLE obrada_zara_po_radnikus AUTO_INCREMENT = 1');
+            DB::statement('ALTER TABLE obrada_kreditis AUTO_INCREMENT = 1');
 
 
 //        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->select('vrste_placanja','user_id','maticni_broj','obracunski_koef_id')->get();
@@ -147,7 +158,7 @@ class ObradaPripremaController extends Controller
             } catch (\Throwable $exception) {
                 report($exception);
                 $newMessage = "Greska u obradi:";
-                return response()->json(['status' => false, 'message' => 'Greska u obradi: ' . $exception->getMessage()]);
+                return response()->json(['status' => false, 'message' => 'Greska u obradi: ' . $exception->getMessage(),'razlog'=>$exception->getTraceAsString()]);
 
             }
         }
@@ -376,7 +387,12 @@ class ObradaPripremaController extends Controller
         $updatedMdr = $this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',1)->orderBy('MBRD_maticni_broj')->get();
 
 
-        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_obrada_proseka_prikaz',['sumResult'=>$updatedMdr]);
+        $userData = Auth::user()->load(['permission']);
+        $permissions = $userData->permission;
+
+//        @if(auth()->user()->userPermission->role_id==UserRoles::SUPERVIZOR)
+
+        return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_obrada_proseka_prikaz',['sumResult'=>$updatedMdr,'userPermission'=>$permissions]);
     }
 
 
