@@ -122,7 +122,7 @@
                                 <td>{{number_format($radnik->NETO_neto_zarada,2,'.',',')}}</td>
                                 <td>{{number_format($radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,'.',',')}}</td>
                                 <td>{{number_format($radnik->BMIN_prekovremeni_iznos,2,'.',',')}}</td>
-                                <td>{{number_format($radnik->varijab,2,'.',',')}}</td>
+                                <td>{{number_format($radnik->varijab/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,'.',',')}}</td>
                                 <td>{{number_format($radnik->TOPLI_obrok_iznos/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,'.',',')}}</td>
                                 <td>{{number_format($radnik->NETO_neto_zarada-$radnik->SIOB_ukupni_iznos_obustava-$radnik->ZARKR_ukupni_zbir_kredita,2,'.',',')}}</td>
                                <?php
