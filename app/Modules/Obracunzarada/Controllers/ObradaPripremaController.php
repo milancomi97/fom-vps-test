@@ -94,9 +94,9 @@ class ObradaPripremaController extends Controller
             ObradaDkopSveVrstePlacanja::truncate();
             ObradaZaraPoRadniku::truncate();
             ObradaKrediti::truncate();
-            DB::statement('ALTER TABLE obrada_dkop_sve_vrste_placanjas AUTO_INCREMENT = 1');
-            DB::statement('ALTER TABLE obrada_zara_po_radnikus AUTO_INCREMENT = 1');
-            DB::statement('ALTER TABLE obrada_kreditis AUTO_INCREMENT = 1');
+//            DB::statement('ALTER TABLE obrada_dkop_sve_vrste_placanjas AUTO_INCREMENT = 1');
+//            DB::statement('ALTER TABLE obrada_zara_po_radnikus AUTO_INCREMENT = 1');
+//            DB::statement('ALTER TABLE obrada_kreditis AUTO_INCREMENT = 1');
 
 
 //        $poenteriData = $this->mesecnatabelapoentazaInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$id)->select('vrste_placanja','user_id','maticni_broj','obracunski_koef_id')->get();
