@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Maticnadatotekaradnika;
 use App\Models\Mesecnatabelapoentaza;
 use App\Models\User;
+use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -63,8 +64,8 @@ class AppCheckUpdateMdrKadr extends Command
                     'active' => $kadr['ACTIVE'] =='TRUE',
                     'ime' => $kadr['IME'],
                     'prezime' => $kadr['PREZIME'],
-                    'ime_oca' => $kadr['SREDIME'],
-                    'srednje_ime' => $kadr['SREDIME'],
+//                    'ime_oca' => $kadr['SREDIME'],
+//                    'srednje_ime' => $kadr['SREDIME'],
                     'datum_prestanka_radnog_odnosa' => $this->resolvedate($kadr['DAT_KRA']),
                     'datum_zasnivanja_radnog_odnosa' => $this->resolvedate($kadr['DAT_POC']),
                     //   'broj_ugovora_o_radu'
@@ -75,12 +76,22 @@ class AppCheckUpdateMdrKadr extends Command
                 ]);
 
             }else{
+                $userPermission = UserPermission::where('user_id',$userData->id)->first();
+
+                if( $userPermission!==null){
+                    $userPermission->maticni_broj=$userData->maticni_broj;
+                    $userPermission->save();
+                }else{
+                    $test='testtt';
+                }
+
+
                 $userData->update([
                     'active' => $kadr['ACTIVE'] =='TRUE',
                     'ime' => $kadr['IME'],
                     'prezime' => $kadr['PREZIME'],
-                    'ime_oca' => $kadr['SREDIME'],
-                    'srednje_ime' => $kadr['SREDIME'],
+//                    'ime_oca' => $kadr['SREDIME'],
+//                    'srednje_ime' => $kadr['SREDIME'],
                     'datum_prestanka_radnog_odnosa' => $this->resolvedate($kadr['DAT_KRA']),
                     'datum_zasnivanja_radnog_odnosa' => $this->resolvedate($kadr['DAT_POC']),
                     //   'broj_ugovora_o_radu'
@@ -355,7 +366,7 @@ class AppCheckUpdateMdrKadr extends Command
 
     public function getKadrData()
     {
-        $filePath = storage_path('app/backup/plata_14_11_2024/KADR.csv');
+        $filePath = storage_path('app/backup/otvaranje_11_2024_datum_05_12_2024/KADR.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
@@ -364,7 +375,7 @@ class AppCheckUpdateMdrKadr extends Command
 
     public function getMdrData()
     {
-        $filePath = storage_path('app/backup/plata_14_11_2024/MDR.csv');
+        $filePath = storage_path('app/backup/otvaranje_11_2024_datum_05_12_2024/MDR.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

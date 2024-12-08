@@ -368,10 +368,23 @@ class DatotekaobracunskihEmailController extends Controller
 
 
         $vrstePlacanjaSifarnik = $this->vrsteplacanjaInterface->getAllKeySifra();
+        $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
+        $datumStampe = Carbon::now()->format('d. m. Y.');
+        $date = new \DateTime($monthData->datum);
+        $datum = $date->format('m.Y');
+        $zaraUkupno =$this->obradaZaraPoRadnikuInterface->getAll();
+        $radnikaSaZaradom=$this->obradaZaraPoRadnikuInterface->whereCondition('IZNETO_zbir_ukupni_iznos_naknade_i_naknade','>',0)->get();
 
         set_time_limit(0);
         $pdf = PDF::loadView('obracunzarada::izvestaji.rekapitulacija_zarade_export_pdf',
-            ['dkopData'=>$dkopData,'zaraData'=>$zaraData,'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik])->setPaper('a4', 'portrait');
+            ['dkopData'=>$dkopData,
+                'podaciFirme'=>$podaciFirme,
+                'zaraData'=>$zaraData,
+                'datum'=>$datum,
+                'aktivnihRadnika'=>$zaraUkupno->count(),
+                'radnikaSaZaradom'=>$radnikaSaZaradom->count(),
+                'datumStampe'=>$datumStampe,
+                'vrstePlacanjaSifarnik'=>$vrstePlacanjaSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik])->setPaper('a4', 'portrait');
 
 
         if($request->email_to !==null) {

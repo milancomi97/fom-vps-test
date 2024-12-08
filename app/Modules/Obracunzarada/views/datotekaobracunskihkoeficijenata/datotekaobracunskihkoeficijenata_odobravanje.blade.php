@@ -319,10 +319,9 @@
             <div class="col-md-1">
                 <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_poenteri',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola statusa poentaže</a>
             </div>
-            <div class="col-md-1">
-                <a  href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="btn btn-secondary btn-lg">Povratak u aktivan mesec</a>
-
-            </div>
+{{--            <div class="col-md-1">--}}
+{{--                <a  href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="btn btn-secondary btn-lg">Povratak u aktivan mesec</a>--}}
+{{--            </div>--}}
         </div>
     </div>
     <div class="container invisible maincontainer main-container mb-5">

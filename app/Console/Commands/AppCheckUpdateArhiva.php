@@ -248,7 +248,7 @@ class AppCheckUpdateArhiva extends Command
 
     public function getDataFromCsvSume()
     {
-        $filePath = storage_path('app/backup/plata_02_12_2024/SUME.csv');
+        $filePath = storage_path('app/backup/otvaranje_11_2024_datum_05_12_2024/SUME.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
@@ -258,7 +258,7 @@ class AppCheckUpdateArhiva extends Command
 
         public function getDataFromCsvMdr()
     {
-        $filePath = storage_path('app/backup/plata_02_12_2024/ARMD.csv');
+        $filePath = storage_path('app/backup/otvaranje_11_2024_datum_05_12_2024/ARMD.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
@@ -268,7 +268,7 @@ class AppCheckUpdateArhiva extends Command
 
     public function getDataFromCsvDarh()
     {
-        $filePath = storage_path('app/backup/plata_02_12_2024/DARH.csv');
+        $filePath = storage_path('app/backup/otvaranje_11_2024_datum_05_12_2024/DARH.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

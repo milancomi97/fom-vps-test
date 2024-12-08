@@ -57,10 +57,11 @@ class AppUpdateFiksnaPlacanja extends Command
         Schema::table('dpsm_fiksna_placanjas', function (Blueprint $table) {
         $table->unsignedBigInteger('obracunski_koef_id')->nullable()->change();
         });
-
+        $counter=0;
         foreach ($fiksnaPlacanja as $fpData) {
             $radnikMdrData = $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj', $fpData['MBRD'])->first()->toArray();
 
+            $counter++;
             $data = [
                 'user_dpsm_id' =>null,
                 'sifra_vrste_placanja' => $fpData['RBVP'],
@@ -76,12 +77,14 @@ class AppUpdateFiksnaPlacanja extends Command
             $this->dpsmFiksnaPlacanjaInterface->create($data);
         }
 
+        $this->alert('Komanda izvrsena, azurirano: '.$counter);
+
     }
 
 
     public function getFiksnaPlacanjaData()
     {
-        $filePath = storage_path('app/backup/plata_02_12_2024/DFVP.csv');
+        $filePath = storage_path('app/backup/otvaranje_11_2024_datum_05_12_2024/DFVP.csv');
 
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);

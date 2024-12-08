@@ -296,7 +296,7 @@ class AppCheckUpdateMdr extends Command
 
     public function getKadrData()
     {
-        $filePath = storage_path('app/backup/plata_14_11_2024/KADR.csv');
+        $filePath = storage_path('app/backup/otvaranje_11_2024_datum_05_12_2024/KADR.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
@@ -306,7 +306,7 @@ class AppCheckUpdateMdr extends Command
     public function getMdrData()
     {
 
-        $filePath = storage_path('app/backup/plata_02_12_2024/MDR.csv');
+        $filePath = storage_path('app/backup/otvaranje_11_2024_datum_05_12_2024/MDR.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
