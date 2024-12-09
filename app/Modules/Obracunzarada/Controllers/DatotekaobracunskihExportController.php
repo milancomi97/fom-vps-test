@@ -424,7 +424,7 @@ class DatotekaobracunskihExportController extends Controller
         foreach ($zarDataKeys as $zar) {
             $counter++;
 
-            if ($counter < 400) {
+            if ($counter < 700) {
                 $radnikMaticniId = $zar->maticni_broj;
                 $radnikData = $this->obradaObracunavanjeService->pripremaPodatakaRadnik($monthId, $radnikMaticniId);
                 $mdrData = $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj', $radnikMaticniId)->get()->first();
@@ -454,6 +454,7 @@ class DatotekaobracunskihExportController extends Controller
 
 
         set_time_limit(0);
+        ini_set('memory_limit', '2G');
 
 
         try {
