@@ -10,16 +10,14 @@
             font-size: 3mm;
         }
 
-{{--        @if(count($radnikData) > 15)--}}
-{{--        .small_font{--}}
-{{--            padding-top: 0 !important;--}}
-{{--            padding-bottom: 0 !important;--}}
-{{--            font-size: 2.5mm;--}}
-{{--            margin-top:0 !important;--}}
-{{--            margin-bottom: 0!important;--}}
+        .small_font{
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+            font-size: 2.5mm;
+            margin-top:0 !important;
+            margin-bottom: 0!important;
 
-{{--        }--}}
-{{--        @endif--}}
+        }
         body {
             font-family: 'DejaVu Sans', sans-serif;
         }
@@ -27,6 +25,11 @@
             border-top: 0 !important;
             padding: 5px 0px 0px 0px;
         }
+        .page-break {
+            page-break-before: always;
+        }
+
+        .page-number:after { content: counter(page); }
 
         table{
             width: 100%;
@@ -48,7 +51,12 @@
 </head>
 <body>
 @foreach( $allData as $radnikJedan)
+    @php
+        $small_font = count($radnikJedan['radnikData']) > 15 ? 'small_font' : '';
+    @endphp
+
 <div class="container mb-5">
+    <span class="page-number">Stranica </span>
     <!-- Company Info Section -->
     <table class="table disable_top_border">
 
@@ -168,12 +176,12 @@
         @foreach($radnikJedan['radnikData'] as $radnik)
             @if($radnik['KESC_prihod_rashod_tip'] == 'P')
                 <tr >
-                    <td class="small_font">{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
-                    <td class="small_font text-center">
+                    <td class="{!!$small_font!!}">{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
+                    <td class="{!!$small_font!!} text-center">
                         {{ $radnik['procenat'] !== null ? $radnik['procenat'] . '%' : '' }}
                     </td>
-                    <td class="small_font">{{ $radnik['sati'] !== null && $radnik['procenat'] == null ? $radnik['sati'] : '' }}</td>
-                    <td class="small_font text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
+                    <td class="{!!$small_font!!}">{{ $radnik['sati'] !== null && $radnik['procenat'] == null ? $radnik['sati'] : '' }}</td>
+                    <td class="{!!$small_font!!} text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
                 </tr>
             @endif
         @endforeach
@@ -196,19 +204,19 @@
             @if($radnik['KESC_prihod_rashod_tip'] == 'R')
                 @if($radnik['sifra_vrste_placanja'] == '093')
                     <tr>
-                        <td class="small_font">{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
-                        <td class="small_font">kreditor={{ $radnik['kreditorAdditionalData']['imek_naziv_kreditora'] ?? '' }}</td>
-                        <td class="small_font">saldo={{ $radnik['kreditAdditionalData']['SALD_saldo'] - $radnik['kreditAdditionalData']['RATA_rata']}}</td>
-                        <td class="small_font ">part={{ $radnik['kreditAdditionalData']['PART_partija_poziv_na_broj'] ?? '' }}</td>
-                        <td class="small_font text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
+                        <td class="{!!$small_font!!}">{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
+                        <td class="{!!$small_font!!}">kreditor={{ $radnik['kreditorAdditionalData']['imek_naziv_kreditora'] ?? '' }}</td>
+                        <td class="{!!$small_font!!}">saldo={{ $radnik['kreditAdditionalData']['SALD_saldo'] - $radnik['kreditAdditionalData']['RATA_rata']}}</td>
+                        <td class="{!!$small_font!!} ">part={{ $radnik['kreditAdditionalData']['PART_partija_poziv_na_broj'] ?? '' }}</td>
+                        <td class="{!!$small_font!!} text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
                     </tr>
                 @else
                     <tr>
-                        <td  class="small_font">{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
-                        <td  class="small_font"></td>
-                        <td  class="small_font"></td>
+                        <td  class="{!!$small_font!!}">{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
+                        <td  class="{!!$small_font!!}"></td>
+                        <td  class="{!!$small_font!!}"></td>
                         <td class="">{{ $radnik['procenat'] !== null ? $radnik['procenat'].'%' : '' }}</td>
-                        <td  class="small_font text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
+                        <td  class="{!!$small_font!!} text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
                     </tr>
                 @endif
             @endif
@@ -288,6 +296,7 @@
         </tr>
     </table>
 </div>
+    <div class="page-break"></div>
 @endforeach
 </body>
 </html>
