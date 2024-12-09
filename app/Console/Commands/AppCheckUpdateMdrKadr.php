@@ -121,17 +121,76 @@ class AppCheckUpdateMdrKadr extends Command
             $testt='test';
             $userData = User::where('maticni_broj',$maticniBroj)->first();
 
-            $mdrData = Maticnadatotekaradnika::where('MBRD_maticni_broj' ,$maticniBroj)->first();
-            if($mdrData==null){
-                $mdrNotExist[]=$maticniBroj;
-                // create logika
+            if($userData!==null) {
 
-                DB::table('maticnadatotekaradnikas')->insert([
+
+                $mdrData = Maticnadatotekaradnika::where('MBRD_maticni_broj', $maticniBroj)->first();
+                if ($mdrData == null) {
+                    $mdrNotExist[] = $maticniBroj;
+                    // create logika
+
+                    DB::table('maticnadatotekaradnikas')->insert([
+                            'MBRD_maticni_broj' => $data['MBRD'],
+                            'PREZIME_prezime' => $userData->prezime,
+                            'IME_ime' => $userData->ime,
+                            'user_id' => $userData->id,
+                            'srednje_ime' => $userData->srednje_ime,
+                            'RBRM_radno_mesto' => $data['RBRM'],
+                            'RBIM_isplatno_mesto_id' => $data['RBIM'],
+                            'ZRAC_tekuci_racun' => $data['ZRAC'],
+                            'BRCL_redosled_poentazi' => $data['BRCL'],
+//                    'BR_vrsta_rada' => $data['BR'],
+                            'BR_vrsta_rada' => '1',
+                            'P_R_oblik_rada' => $data['P_R'],
+                            'RJ_radna_jedinica' => $data['RJ'],
+                            'BRIG_brigada' => $data['BRIG'],
+                            'GGST_godine_staza' => $data['GGST'],
+                            'MMST_meseci_staza' => $data['MMST'],
+                            'MRAD_minuli_rad_aktivan' => $data['MRAD'] == "D",
+                            'PREB_prebacaj' => $data['PREB'],
+                            'RBSS_stvarna_strucna_sprema' => $data['RBSS'],
+                            'RBPS_priznata_strucna_sprema' => $data['RBPS'],
+                            'KOEF_osnovna_zarada' => $data['KOEF'] !== '' ? $data['KOEF'] : 0,
+                            'KOEF1_prethodna_osnovna_zarada' => $data['KOEF1'] !== '' ? $data['KOEF1'] : 0,
+                            'LBG_jmbg' => $data['LBG'],
+                            'POL_pol' => $data['POL'],
+                            'PRCAS_ukupni_sati_za_ukupan_bruto_iznost' => $data['PRCAS'],
+                            'PRIZ_ukupan_bruto_iznos' => $data['PRIZ'],
+                            'BROJ_broj_meseci_za_obracun' => $data['BROJ'],
+                            'DANI_kalendarski_dani' => $data['DANI'] !== '' ? $data['DANI'] : 0,
+                            'IZNETO1_bruto_zarada_za_akontaciju' => $data['IZNETO1'] !== '' ? $data['IZNETO1'] : 0,
+                            'POROSL1_poresko_oslobodjenje_za_akontaciju' => $data['POROSL1'] !== '' ? $data['POROSL1'] : 0,
+                            'SIP1_porez_za_akontaciju' => $data['SIP1'] !== '' ? $data['SIP1'] : 0,
+                            'BROSN1_minimalna_osnovica_za_obracun_doprinosa_za_akontaciju' => $data['BROSN1'] !== '' ? $data['BROSN1'] : 0,
+                            'ZDRR1_zdravstveno_osiguranje_na_teret_radnika_za_akontaciju' => $data['ZDRR1'] !== '' ? $data['ZDRR1'] : 0,
+                            'ZDRP1_zdravstveno_osiguranje_na_teret_poslodavca_za_akontaciju' => $data['ZDRP1'] !== '' ? $data['ZDRP1'] : 0,
+                            'ONEZR1_osig_nezaposlenosti_na_teret_radnika_za_akontaciju' => $data['ONEZR1'] !== '' ? $data['ONEZR1'] : 0,
+                            'PIOR_ukupni_pio_doprinos_na_teret_radnika' => $data['PIOR'] !== '' ? $data['PIOR'] : 0,
+                            'PIOP_ukupni_pio_doprinos_na_teret_poslodavca' => $data['PIOP'] !== '' ? $data['PIOP'] : 0,
+                            'ONEZR_ukupni_doprinos_za_nezaposlenost_na_teret_radnika' => $data['ONEZR'] !== '' ? $data['ONEZR'] : 0,
+                            'ZDRR_ukupni_doprinos_za_zdravstveno_osiguranje_na_teret_radnika' => $data['ZDRR'] !== '' ? $data['ZDRR'] : 0,
+                            'ZDRP_ukupni_doprinos_zdrav_osig_teret_poslodavca' => $data['ZDRP'] !== '' ? $data['ZDRP'] : 0,
+                            'BROSN_bruto_zarada_za_obracun_doprinosa' => $data['BROSN'] !== '' ? $data['BROSN'] : 0,
+                            'POROSL_ukupno_poresko_oslobodjenje' => $data['POROSL'] !== '' ? $data['POROSL'] : 0,
+                            'SIP_ukupni_porezi' => $data['SIP'] !== '' ? $data['SIP'] : 0,
+                            'ACTIVE_aktivan' => $data['ACTIVE'] == 'TRUE',
+                            'IZNETO_ukupna_bruto_zarada' => $data['IZNETO'] !== '' ? $data['IZNETO'] : 0,
+                            'KFAK_korektivni_faktor' => $data['KFAK'] !== '' ? $data['KFAK'] : 0,
+                            'troskovno_mesto_id' => $data['RBTC'] !== '' ? $data['RBTC'] : 0,
+                            'opstina_id' => $data['RBOP'] !== '' ? $data['RBOP'] : null,
+                            'adresa_ulica_broj' => $data['ULICA'],
+                            'adresa_mesto' => $data['MESTO']
+                        ]
+                    );
+
+                } else {
+
+                    $mdrData->update([
                         'MBRD_maticni_broj' => $data['MBRD'],
                         'PREZIME_prezime' => $userData->prezime,
                         'IME_ime' => $userData->ime,
-                        'user_id'=>$userData->id,
-                        'srednje_ime' =>$userData->srednje_ime,
+                        'srednje_ime' => $userData->srednje_ime,
+                        'user_id' => $userData->id,
                         'RBRM_radno_mesto' => $data['RBRM'],
                         'RBIM_isplatno_mesto_id' => $data['RBIM'],
                         'ZRAC_tekuci_racun' => $data['ZRAC'],
@@ -154,7 +213,7 @@ class AppCheckUpdateMdrKadr extends Command
                         'PRCAS_ukupni_sati_za_ukupan_bruto_iznost' => $data['PRCAS'],
                         'PRIZ_ukupan_bruto_iznos' => $data['PRIZ'],
                         'BROJ_broj_meseci_za_obracun' => $data['BROJ'],
-                        'DANI_kalendarski_dani' => $data['DANI'] !== '' ?  $data['DANI'] : 0,
+                        'DANI_kalendarski_dani' => $data['DANI'] !== '' ? $data['DANI'] : 0,
                         'IZNETO1_bruto_zarada_za_akontaciju' => $data['IZNETO1'] !== '' ? $data['IZNETO1'] : 0,
                         'POROSL1_poresko_oslobodjenje_za_akontaciju' => $data['POROSL1'] !== '' ? $data['POROSL1'] : 0,
                         'SIP1_porez_za_akontaciju' => $data['SIP1'] !== '' ? $data['SIP1'] : 0,
@@ -177,65 +236,9 @@ class AppCheckUpdateMdrKadr extends Command
                         'opstina_id' => $data['RBOP'] !== '' ? $data['RBOP'] : null,
                         'adresa_ulica_broj' => $data['ULICA'],
                         'adresa_mesto' => $data['MESTO']
-                        ]
-                    );
-
-            }else{
-
-                $mdrData->update([
-                    'MBRD_maticni_broj' => $data['MBRD'],
-                    'PREZIME_prezime' => $userData->prezime,
-                    'IME_ime' => $userData->ime,
-                    'srednje_ime' =>$userData->srednje_ime,
-                    'user_id'=>$userData->id,
-                    'RBRM_radno_mesto' => $data['RBRM'],
-                    'RBIM_isplatno_mesto_id' => $data['RBIM'],
-                    'ZRAC_tekuci_racun' => $data['ZRAC'],
-                    'BRCL_redosled_poentazi' => $data['BRCL'],
-//                    'BR_vrsta_rada' => $data['BR'],
-                    'BR_vrsta_rada' => '1',
-                    'P_R_oblik_rada' => $data['P_R'],
-                    'RJ_radna_jedinica' => $data['RJ'],
-                    'BRIG_brigada' => $data['BRIG'],
-                    'GGST_godine_staza' => $data['GGST'],
-                    'MMST_meseci_staza' => $data['MMST'],
-                    'MRAD_minuli_rad_aktivan' => $data['MRAD'] == "D",
-                    'PREB_prebacaj' => $data['PREB'],
-                    'RBSS_stvarna_strucna_sprema' => $data['RBSS'],
-                    'RBPS_priznata_strucna_sprema' => $data['RBPS'],
-                    'KOEF_osnovna_zarada' => $data['KOEF'] !== '' ? $data['KOEF'] : 0,
-                    'KOEF1_prethodna_osnovna_zarada' => $data['KOEF1'] !== '' ? $data['KOEF1'] : 0,
-                    'LBG_jmbg' => $data['LBG'],
-                    'POL_pol' => $data['POL'],
-                    'PRCAS_ukupni_sati_za_ukupan_bruto_iznost' => $data['PRCAS'],
-                    'PRIZ_ukupan_bruto_iznos' => $data['PRIZ'],
-                    'BROJ_broj_meseci_za_obracun' => $data['BROJ'],
-                    'DANI_kalendarski_dani' => $data['DANI'] !== '' ?  $data['DANI'] : 0,
-                    'IZNETO1_bruto_zarada_za_akontaciju' => $data['IZNETO1'] !== '' ? $data['IZNETO1'] : 0,
-                    'POROSL1_poresko_oslobodjenje_za_akontaciju' => $data['POROSL1'] !== '' ? $data['POROSL1'] : 0,
-                    'SIP1_porez_za_akontaciju' => $data['SIP1'] !== '' ? $data['SIP1'] : 0,
-                    'BROSN1_minimalna_osnovica_za_obracun_doprinosa_za_akontaciju' => $data['BROSN1'] !== '' ? $data['BROSN1'] : 0,
-                    'ZDRR1_zdravstveno_osiguranje_na_teret_radnika_za_akontaciju' => $data['ZDRR1'] !== '' ? $data['ZDRR1'] : 0,
-                    'ZDRP1_zdravstveno_osiguranje_na_teret_poslodavca_za_akontaciju' => $data['ZDRP1'] !== '' ? $data['ZDRP1'] : 0,
-                    'ONEZR1_osig_nezaposlenosti_na_teret_radnika_za_akontaciju' => $data['ONEZR1'] !== '' ? $data['ONEZR1'] : 0,
-                    'PIOR_ukupni_pio_doprinos_na_teret_radnika' => $data['PIOR'] !== '' ? $data['PIOR'] : 0,
-                    'PIOP_ukupni_pio_doprinos_na_teret_poslodavca' => $data['PIOP'] !== '' ? $data['PIOP'] : 0,
-                    'ONEZR_ukupni_doprinos_za_nezaposlenost_na_teret_radnika' => $data['ONEZR'] !== '' ? $data['ONEZR'] : 0,
-                    'ZDRR_ukupni_doprinos_za_zdravstveno_osiguranje_na_teret_radnika' => $data['ZDRR'] !== '' ? $data['ZDRR'] : 0,
-                    'ZDRP_ukupni_doprinos_zdrav_osig_teret_poslodavca' => $data['ZDRP'] !== '' ? $data['ZDRP'] : 0,
-                    'BROSN_bruto_zarada_za_obracun_doprinosa' => $data['BROSN'] !== '' ? $data['BROSN'] : 0,
-                    'POROSL_ukupno_poresko_oslobodjenje' => $data['POROSL'] !== '' ? $data['POROSL'] : 0,
-                    'SIP_ukupni_porezi' => $data['SIP'] !== '' ? $data['SIP'] : 0,
-                    'ACTIVE_aktivan' => $data['ACTIVE'] == 'TRUE',
-                    'IZNETO_ukupna_bruto_zarada' => $data['IZNETO'] !== '' ? $data['IZNETO'] : 0,
-                    'KFAK_korektivni_faktor' => $data['KFAK'] !== '' ? $data['KFAK'] : 0,
-                    'troskovno_mesto_id' => $data['RBTC'] !== '' ? $data['RBTC'] : 0,
-                    'opstina_id' => $data['RBOP'] !== '' ? $data['RBOP'] : null,
-                    'adresa_ulica_broj' => $data['ULICA'],
-                    'adresa_mesto' => $data['MESTO']
-                ]);
-                // update logika
-                $test='test';
+                    ]);
+                    // update logika
+                    $test = 'test';
 //                $mdrDeActivated[]=$maticniBroj;
 //                if($mdrData->ACTIVE_aktivan==1 && $mdr['ACTIVE']=='FALSE'){
 //                    $mdrDeActivated['one'][]=$maticniBroj;
@@ -246,7 +249,10 @@ class AppCheckUpdateMdrKadr extends Command
 //                    $mdrDeActivated['two'][]=$maticniBroj;
 //
 //                }
-                // check deactivated
+                    // check deactivated
+                }
+
+
             }
 
 

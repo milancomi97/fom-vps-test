@@ -278,6 +278,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_radnik_lista', [DatotekaobracunskihExportController::class, 'stampaRadnikLista'])->name('datotekaobracunskihkoeficijenata.stampa_radnik_lista');
 
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_radnik_lista_all', [DatotekaobracunskihExportController::class, 'stampaRadnikListaAll'])->name('datotekaobracunskihkoeficijenata.stampa_radnik_lista_all');
+
+
+
+
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_ostvarene_zarade', [DatotekaobracunskihExportController::class, 'stampaOstvareneZarade'])->name('datotekaobracunskihkoeficijenata.stampa_ostvarene_zarade');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_rang_liste', [DatotekaobracunskihExportController::class, 'stampaRangListe'])->name('datotekaobracunskihkoeficijenata.stampa_rang_liste');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_rang_liste_excel', [DatotekaobracunskihExportController::class, 'stampaRangListeExcel'])->name('datotekaobracunskihkoeficijenata.stampa_rang_liste_excel');

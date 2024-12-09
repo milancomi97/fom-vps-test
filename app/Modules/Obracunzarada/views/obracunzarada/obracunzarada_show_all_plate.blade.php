@@ -107,11 +107,23 @@
                 <li class="list-group-item">Prosečni godišnji fond
                     sati: {{$monthData->prosecni_godisnji_fond_sati}}</li>
                 <li class="list-group-item">Mesečni fond sati: {{$monthData->mesecni_fond_sati}}</li>
-                <li class="list-group-item">Cena rada tekući: {{$monthData->cena_rada_tekuci}}</li>
-                <li class="list-group-item">Cena rada prethodni:{{$monthData->cena_rada_prethodni}}</li>
             </ul>
         </div>
 
+            <div class="row mt-5">
+                <div class="offset-md-2 col-md-2">
+
+                    <form class="loaderEvent" method="POST" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik_lista_all')}}">
+                        @csrf
+                        <input type="hidden" name="month_id" value="{{$monthData->id}}">
+                        <button   type="submit" class="btn btn-secondary">Štampaj sve</button>
+
+                    </form>
+                </div>
+                <div class=" col-md-2">
+                    <button class="btn btn-secondary">Pošalji emailove</button>
+                </div>
+            </div>
         <div class="loader-container" style="text-align: center">
             <h3 id="statusMessage" class="text-success text-center"></h3>
         </div>
