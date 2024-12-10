@@ -121,8 +121,15 @@
                     </form>
                 </div>
                 <div class=" col-md-2">
+
+                <form class="loaderEvent" method="POST" action="{{route('datotekaobracunskihkoeficijenata.email_radnik_lista_all')}}">
+                    @csrf
+                    <input type="hidden" name="month_id" value="{{$monthData->id}}">
                     <button class="btn btn-secondary">Pošalji emailove</button>
+
+                </form>
                 </div>
+
             </div>
         <div class="loader-container" style="text-align: center">
             <h3 id="statusMessage" class="text-success text-center"></h3>
@@ -146,6 +153,7 @@
                             <th>Prezime ime</th>
                             <th>Napomena</th>
                             <th>STATUS</th>
+                            <th>Email status</th>
                             <th>Prikaz plate</th>
                         </tr>
                         </thead>
@@ -175,223 +183,249 @@
                                                 class=" far fa-times-circle"></i></span>
                                     @endif
                                 </td>
-                                <td class="izmena_akontacije_td text-center"
-                                    data-record-id="{{$value['id']}}">
-                                    <a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_plate?radnik_maticni=').$value['maticni_broj'].'&month_id='.$monthData->id!!}">
-                                    <span class="napomena text-warning">   <i class="fas fa-coins"></i></span>
-                                    </a>
-                                </td>
-                            @endif
-                                @if(auth()->user()->permission->role_id==UserRoles::SUPERVIZOR)
-                                <tr>
-                                    <td>{{ $value['maticni_broj'] }}</td>
-                                    <td class="ime_prezime">{{ $value['ime'] }}</td>
-                                    <td class="napomena_td" data-napomena-value="{{$value['napomena']}}"
-                                        data-radnik-name="{{$value['ime']}}" data-record-id="{{$value['id']}}">
-                                        @if($value['napomena'])
-                                            <span class="napomena text-danger">   <i class="fas fa-sticky-note"></i></span>
+                                <td>
+                @if($value->maticnadatotekaradnika->email_za_plate !==null)
+                                        @if($value->maticnadatotekaradnika->email_za_plate_poslat)
+                                            <span class="status_icon text-success">Poslat</span>
+
                                         @else
-                                            <span class="napomena text-primary">  <i class="fas fa-plus"
-                                                                                     aria-hidden="true"></i></span>
+                                        <span class="status_icon text-warning">Nije poslat</span>
                                         @endif
-                                    </td>
-                                    <td class="status_td" data-status-value="{{$value['status_poentaze']}}"
-                                        data-radnik-name="{{$value['ime']}}" data-record-id="{{$value['id']}}">
-                                        @if($value['status_poentaze']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
-                                            <span class="status_icon text-success">   <i class="fas fa-check"></i></span>
-                                        @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
-                                            <span class="status_icon text-warning">   <i class="far fa-bell"></i></span>
-                                        @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::ODOBREN)
-                                            <span class="status_icon text-danger">   <i
-                                                    class=" far fa-times-circle"></i></span>
-                                        @endif
-                                    </td>
-                                    <td class="izmena_akontacije_td text-center"
-                                        data-record-id="{{$value['id']}}">
-                                        <a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_plate?radnik_maticni=').$value['maticni_broj'].'&month_id='.$monthData->id!!}">
-                                            <span class="napomena text-warning">   <i class="fas fa-coins"></i></span>
-                                        </a>
-                                    </td>
-                                @endif
-                                @endforeach
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="container-fluid">
+                                    @else
+                                        <span class="status_icon">Adresa ne postoji</span>
+                                    @endif
 
-                    </div>
-                    @if(isset($mesecnaTabelaPoentazaPermissions[$key]))
-                        <div class="row mt-5 mb-5 border">
+</td>
+<td class="izmena_akontacije_td text-center"
+data-record-id="{{$value['id']}}">
+<a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_plate?radnik_maticni=').$value['maticni_broj'].'&month_id='.$monthData->id!!}">
+<span class="napomena text-warning">   <i class="fas fa-coins"></i></span>
+</a>
+</td>
+@endif
+@if(auth()->user()->permission->role_id==UserRoles::SUPERVIZOR && $value->maticnadatotekaradnika->BRCL_redosled_poentazi < 100)
+<tr>
+<td>{{ $value['maticni_broj'] }}</td>
+<td class="ime_prezime">{{ $value['ime'] }}</td>
+<td class="napomena_td" data-napomena-value="{{$value['napomena']}}"
+    data-radnik-name="{{$value['ime']}}" data-record-id="{{$value['id']}}">
+    @if($value['napomena'])
+        <span class="napomena text-danger">   <i class="fas fa-sticky-note"></i></span>
+    @else
+        <span class="napomena text-primary">  <i class="fas fa-plus"
+                                                 aria-hidden="true"></i></span>
+    @endif
+</td>
+<td class="status_td" data-status-value="{{$value['status_poentaze']}}"
+    data-radnik-name="{{$value['ime']}}" data-record-id="{{$value['id']}}">
+    @if($value['status_poentaze']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
+        <span class="status_icon text-success">   <i class="fas fa-check"></i></span>
+    @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
+        <span class="status_icon text-warning">   <i class="far fa-bell"></i></span>
+    @elseif($value['status_poentaze']==StatusRadnikaObracunskiKoef::ODOBREN)
+        <span class="status_icon text-danger">   <i
+                class=" far fa-times-circle"></i></span>
+    @endif
+</td>
+    <td>
+        @if($value->maticnadatotekaradnika->email_za_plate !==null)
+            @if($value->maticnadatotekaradnika->email_za_plate_poslat)
+                <span class="status_icon text-success">Poslat</span>
 
-                            <div class="col-4">
-                                <h2>Poenteri:</h2>
-                                <div class="d-flex flex-column align-items-start">
-                                    @foreach($mesecnaTabelaPoentazaPermissions[$key]['poenterData'] as $poenterId => $poenterStatusData)
-                                            <p>{{$poenterStatusData['name'] }} -
-                                                <b> {{StatusPoenteraObracunskiKoef::all()[$poenterStatusData['status']]}}</b>
-                                            </p>
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <h2>Odgovorna lica:</h2>
-                                <div class="d-flex flex-column align-items-start">
-                                    @foreach($mesecnaTabelaPoentazaPermissions[$key]['odgovornaLicaData'] as $odgovornoLiceId => $odgovornaLicaDataStatusData)
+            @else
+                <span class="status_icon text-warning">Nije poslat</span>
+            @endif
+        @else
+            <span class="status_icon">Adresa ne postoji</span>
+        @endif
 
-                                            <p>{{$odgovornaLicaDataStatusData['name'] }} -
-                                                <b> {{StatusOdgovornihLicaObracunskiKoef::all()[$odgovornaLicaDataStatusData['status']]}}</b>
-                                            </p>
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="col-3 text-right">
-                            </div>
-                        </div>
-                    @endif
-                    <div class="end_org_celina"></div>
+    </td>
+<td class="izmena_akontacije_td text-center"
+    data-record-id="{{$value['id']}}">
+    <a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_plate?radnik_maticni=').$value['maticni_broj'].'&month_id='.$monthData->id!!}">
+        <span class="napomena text-warning">   <i class="fas fa-coins"></i></span>
+    </a>
+</td>
+@endif
+@endforeach
+</tr>
+</tbody>
+</table>
+<div class="container-fluid">
 
-                    @endif
-                    @endforeach
+</div>
+@if(isset($mesecnaTabelaPoentazaPermissions[$key]))
+<div class="row mt-5 mb-5 border">
 
-                </div>
-    </div>
-    <!-- Modal -->
-    <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Unos Napomene:</h5>
+<div class="col-4">
+<h2>Poenteri:</h2>
+<div class="d-flex flex-column align-items-start">
+@foreach($mesecnaTabelaPoentazaPermissions[$key]['poenterData'] as $poenterId => $poenterStatusData)
+        <p>{{$poenterStatusData['name'] }} -
+            <b> {{StatusPoenteraObracunskiKoef::all()[$poenterStatusData['status']]}}</b>
+        </p>
+@endforeach
+</div>
+</div>
+<div class="col-4">
+<h2>Odgovorna lica:</h2>
+<div class="d-flex flex-column align-items-start">
+@foreach($mesecnaTabelaPoentazaPermissions[$key]['odgovornaLicaData'] as $odgovornoLiceId => $odgovornaLicaDataStatusData)
 
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Your form goes here -->
-                    <h3 class="" id="radnik_modal"></h3>
-                    <form id="myForm">
-                        <div class="form-group">
-                            <label for="napomena_text_old">Napomena</label>
-                            <div id="napomena_text_old">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="napomena_text">Unesi napomenu</label>
-                            <textarea class="form-control" id="napomena_text" rows="5"></textarea>
-                        </div>
+        <p>{{$odgovornaLicaDataStatusData['name'] }} -
+            <b> {{StatusOdgovornihLicaObracunskiKoef::all()[$odgovornaLicaDataStatusData['status']]}}</b>
+        </p>
+@endforeach
+</div>
+</div>
+<div class="col-3 text-right">
+</div>
+</div>
+@endif
+<div class="end_org_celina"></div>
 
-                        <input type="hidden" name="record_id_modal" id="record_id_modal">
-                        <!-- Add more form elements as needed -->
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-                    <button type="button" class="btn btn-primary" id="submitFormBtn">Sačuvaj</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    {{--    END NAPOMENA MODAL--}}
+@endif
+@endforeach
 
-    {{--    POENTER STATUS MODAL--}}
-    <div class="modal" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="statusModalLabel">Izmena statusa:</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Your form goes here -->
-                    <h3 class="" id="radnik_status_modal"></h3>
-                    <form id="statusForm">
-                        <div class="form-group mt-5">
-                            <label for="status_radnika">Status radnika:</label>
-                            <select id="status_radnika" class="custom-select form-control" name="status_radnika">
-                                @foreach($statusRadnikaOK as $value => $label)
-                                    <option value="{{ $value}}">{{ $label }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <input type="hidden" name="record_id_status_modal" id="record_id_status_modal">
-                        <!-- Add more form elements as needed -->
-                        {{--                        statusRadnikaOK--}}
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-                    <button type="button" class="btn btn-primary" id="submitFormBtnStatus">Sačuvaj</button>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
+</div>
+<!-- Modal -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="exampleModalLabel">Unos Napomene:</h5>
 
-    {{--    POENTER STATUS END MODAL--}}
-    {{--    ADMINISTRATOR STATUS MODAL--}}
-    <div class="modal" id="statusAdminModal" tabindex="-1" role="dialog" aria-labelledby="statusAdminModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="statusModalLabel">Administrator izmena statusa:</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <!-- Your form goes here -->
-                    <form id="statusAdminForm">
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<!-- Your form goes here -->
+<h3 class="" id="radnik_modal"></h3>
+<form id="myForm">
+<div class="form-group">
+<label for="napomena_text_old">Napomena</label>
+<div id="napomena_text_old">
+</div>
+</div>
+<div class="form-group">
+<label for="napomena_text">Unesi napomenu</label>
+<textarea class="form-control" id="napomena_text" rows="5"></textarea>
+</div>
 
-                        <div class="row">
-                            <div class="col-12">
-                                <div class='status_admin_div'>
-                                    <div class="form-group mt-5 status_admin_element">
-                                        <label for="status_admin">Status:</label>
-                                        <select id="status_admin" class="custom-select form-control"
-                                                name="status_admin">
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <input type="hidden" name="record_id_status_admin_modal" id="record_id_status_admin_modal">
-                        <input type="hidden" name="user_id_status_admin_modal" id="user_id_status_admin_modal">
-                        <input type="hidden" name="status_type_admin_modal" id="status_type_admin_modal">
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-                    <button type="button" class="btn btn-primary" id="submitFormBtnStatusAdmin">Izmeni</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<input type="hidden" name="record_id_modal" id="record_id_modal">
+<!-- Add more form elements as needed -->
+</form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+<button type="button" class="btn btn-primary" id="submitFormBtn">Sačuvaj</button>
+</div>
+</div>
+</div>
+</div>
+{{--    END NAPOMENA MODAL--}}
 
-    {{--    ADMINISTRATOR STATUS END MODAL--}}
+{{--    POENTER STATUS MODAL--}}
+<div class="modal" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="statusModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="statusModalLabel">Izmena statusa:</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<!-- Your form goes here -->
+<h3 class="" id="radnik_status_modal"></h3>
+<form id="statusForm">
+<div class="form-group mt-5">
+<label for="status_radnika">Status radnika:</label>
+<select id="status_radnika" class="custom-select form-control" name="status_radnika">
+@foreach($statusRadnikaOK as $value => $label)
+<option value="{{ $value}}">{{ $label }}</option>
+@endforeach
+</select>
+</div>
+<input type="hidden" name="record_id_status_modal" id="record_id_status_modal">
+<!-- Add more form elements as needed -->
+{{--                        statusRadnikaOK--}}
+</form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+<button type="button" class="btn btn-primary" id="submitFormBtnStatus">Sačuvaj</button>
+</div>
+</div>
+</div>
+</div>
+
+{{--    POENTER STATUS END MODAL--}}
+{{--    ADMINISTRATOR STATUS MODAL--}}
+<div class="modal" id="statusAdminModal" tabindex="-1" role="dialog" aria-labelledby="statusAdminModalLabel"
+aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="statusModalLabel">Administrator izmena statusa:</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<!-- Your form goes here -->
+<form id="statusAdminForm">
+
+<div class="row">
+<div class="col-12">
+<div class='status_admin_div'>
+<div class="form-group mt-5 status_admin_element">
+    <label for="status_admin">Status:</label>
+    <select id="status_admin" class="custom-select form-control"
+            name="status_admin">
+    </select>
+</div>
+</div>
+</div>
+</div>
+<input type="hidden" name="record_id_status_admin_modal" id="record_id_status_admin_modal">
+<input type="hidden" name="user_id_status_admin_modal" id="user_id_status_admin_modal">
+<input type="hidden" name="status_type_admin_modal" id="status_type_admin_modal">
+</form>
+</div>
+<div class="modal-footer">
+<button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+<button type="button" class="btn btn-primary" id="submitFormBtnStatusAdmin">Izmeni</button>
+</div>
+</div>
+</div>
+</div>
+
+{{--    ADMINISTRATOR STATUS END MODAL--}}
 @endsection
 
 @section('custom-scripts')
-    <script>
-        let storeRoute = '{!! route('datotekaobracunskihkoeficijenata.update') !!}'
-        let statusUpdateRoute = '{!! route('datotekaobracunskihkoeficijenata.updatePermissionStatus') !!}'
-        let updateStatusAdministratorRoute = '{!! route('datotekaobracunskihkoeficijenata.updatePermissionStatusAdministrator') !!}'
-        let getPermissionStatusAdministratorRoute = '{!! route('datotekaobracunskihkoeficijenata.getPermissionStatusAdministrator') !!}'
-    </script>
-    <script>
-        $(function () {
+<script>
+let storeRoute = '{!! route('datotekaobracunskihkoeficijenata.update') !!}'
+let statusUpdateRoute = '{!! route('datotekaobracunskihkoeficijenata.updatePermissionStatus') !!}'
+let updateStatusAdministratorRoute = '{!! route('datotekaobracunskihkoeficijenata.updatePermissionStatusAdministrator') !!}'
+let getPermissionStatusAdministratorRoute = '{!! route('datotekaobracunskihkoeficijenata.getPermissionStatusAdministrator') !!}'
+</script>
+<script>
+$(function () {
 
-            // change-status
-            setTimeout(function () {
-                $('input').prop('disabled', false);
-            }, 3000);
+// change-status
+setTimeout(function () {
+$('input').prop('disabled', false);
+}, 3000);
 
-            $('[data-toggle="tooltip"]').tooltip()
+$('[data-toggle="tooltip"]').tooltip()
 
-        });
-    </script>
-    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show_all/ajax_logic.js') }}"></script>
-    <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show_all/modal_logic.js') }}"></script>
+});
+</script>
+<script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show_all/ajax_logic.js') }}"></script>
+<script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_show_all/modal_logic.js') }}"></script>
 @endsection
