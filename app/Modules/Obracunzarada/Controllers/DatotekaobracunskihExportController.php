@@ -541,7 +541,7 @@ class DatotekaobracunskihExportController extends Controller
 
                 $counter++;
 
-                if ($zar->maticnadatotekaradnika->email_za_plate) {
+                if (!$zar->maticnadatotekaradnika->email_za_plate) {
 
 
                     $radnikMaticniId = $zar->maticni_broj;
