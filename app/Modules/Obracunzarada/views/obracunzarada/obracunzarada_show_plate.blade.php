@@ -30,39 +30,95 @@
     <!-- Header with Action Buttons -->
     <div class="container custom_shadow mt-5" style="width: 50%!important;">
 
-        <table class="table">
-            <tr>
-                <td class="text-left">
-                    <a href="{{ route('datotekaobracunskihkoeficijenata.show_all_plate', ['month_id' => $zarData->obracunski_koef_id]) }}"
-                       class="btn btn-primary btn-lg mt-5">Lista <i class="fa fa-list fa-2xl" aria-hidden="true"></i></a>
-                </td>
-                <td class="text-center">
-                    <form method="POST" class="" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik_lista')}}">
-                        @csrf
-                        <input type="hidden" name="radnik_maticni" value="{{$radnik_maticni}}">
-                        <input type="hidden" name="month_id" value="{{$month_id}}">
-                        <button type="submit" class="btn mt-5 btn-secondary btn-lg" id="print-page">PDF &nbsp;&nbsp;<i
-                                class="fa fa-print fa-2xl " aria-hidden="true"></i></button>
-                    </form>
-                </td>
-                <td class="text-right">
-                    <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.email_radnik_lista') }}">
-                        @csrf
-                        <div class="input-group">
-                            <button type="submit" class="btn mt-5 btn-secondary btn-lg" style="width: 200px"
-                                    id="print-page">Pošalji email &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl "
-                                                                                 aria-hidden="true"></i></button>
-                            <input type="hidden" name="radnik_maticni" value="{{$radnik_maticni}}">
-                            <input type="hidden" name="month_id" value="{{$month_id}}">
-                            <label>
-                                <input type="email" class="form-control mt-2" style="width: 200px" name="email_to"
-                                       placeholder="Email primaoca">
-                            </label>
-                        </div>
-                    </form>
-                </td>
-            </tr>
-        </table>
+        <div class="button-container" style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+            <!-- Left Button -->
+            <div>
+                <a href="{{ route('datotekaobracunskihkoeficijenata.show_all_plate', ['month_id' => $zarData->obracunski_koef_id]) }}"
+                   class="btn btn-primary btn-lg" >
+                    Lista <i class="fa fa-list fa-2xl" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <!-- Center Button/Form -->
+            <div style="text-align: left;">
+                <form method="POST" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik_lista')}}">
+                    @csrf
+                    <input type="hidden" name="radnik_maticni" value="{{$radnik_maticni}}">
+                    <input type="hidden" name="month_id" value="{{$month_id}}">
+                    <button type="submit" class="btn btn-secondary btn-lg" >
+                        PDF &nbsp;&nbsp;<i class="fa fa-print fa-2xl" aria-hidden="true"></i>
+                    </button>
+                </form>
+            </div>
+
+
+            <!-- Right Button/Form -->
+
+
+            <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end;">
+                <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.email_radnik_lista_radniku') }}" style="display: flex; flex-direction: column; align-items: flex-end;">
+                    @csrf
+                    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+
+
+                        @if($mdrData->email_za_plate !==null)
+                            @if($mdrData->email_za_plate_poslat)
+                                <button type="submit" disabled class="btn btn-secondary btn-lg" style="width: 200px; margin-bottom: 10px;">
+                                    Email radniku &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl" aria-hidden="true"></i>
+                                </button>
+
+                                <h4 class="text-center text-success">status: Poslat</h4>
+                            @else
+
+{{--                                radnik_maticni--}}
+{{--                                email_to--}}
+                                <input type="hidden" name="radnik_maticni" value="{{$radnik_maticni}}">
+                                <input type="hidden" name="email_to" value="{{$mdrData->email_za_plate}}">
+                                <input type="hidden" name="month_id" value="{{$month_id}}">
+
+                                <button type="submit" class="btn btn-secondary btn-lg" style="width: 200px; margin-bottom: 10px;">
+                                    Email radniku &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl" aria-hidden="true"></i>
+                                </button>
+
+                                <h4 class="text-center text-warning">status: Nije poslat</h4>
+                            @endif
+                        @else
+                            <button type="submit" disabled class="btn btn-secondary btn-lg" style="width: 200px; margin-bottom: 10px;">
+                                Email radniku &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl" aria-hidden="true"></i>
+                            </button>
+
+                            <h4 class="text-center text-warning">status: Email nije unet</h4>
+                        @endif
+
+
+
+
+
+
+
+
+
+                    </div>
+
+                </form>
+            </div>
+
+
+            <!-- Right Button/Form -->
+            <div style="text-align: right; display: flex; flex-direction: column; align-items: flex-end;">
+                <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.email_radnik_lista') }}" style="display: flex; flex-direction: column; align-items: flex-end;">
+                    @csrf
+                    <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                        <button type="submit" class="btn btn-secondary btn-lg" style="width: 200px; margin-bottom: 10px;">
+                            Pošalji email &nbsp;&nbsp;<i class="fa fa-envelope fa-2xl" aria-hidden="true"></i>
+                        </button>
+                        <input type="email" name="email_to" class="form-control" style="width: 200px;" placeholder="Email primaoca">
+                    </div>
+                    <input type="hidden" name="radnik_maticni" value="{{$radnik_maticni}}">
+                    <input type="hidden" name="month_id" value="{{$month_id}}">
+                </form>
+            </div>
+        </div>
 
         <!-- Company Info Section -->
         <table class="table disable_top_border">

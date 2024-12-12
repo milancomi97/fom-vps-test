@@ -123,6 +123,31 @@
                             <input type="text" class="form-control" disabled id="email_za_plate" aria-describedby="email_za_plate"
                                    value="{{$radnikData->email_za_plate}}" name="email_za_plate">
                         </div>
+
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold" id="span_email_za_plate_status">Status email:</span>
+                            </div>
+                            <select class="custom-select" id="email_za_plate_poslat" name="email_za_plate_poslat"
+                                    aria-describedby="span_email_za_plate_status">
+
+                             @if($radnikData->email_za_plate ==null)
+                                    <option value="0" selected>Nije uneta adresa</option>
+                                @else
+                                @if($radnikData->email_za_plate_poslat==0)
+                                        <option value="0" selected>Nije nije poslat</option>
+                                        <option value="1" >Poslat</option>
+                                    @else
+                                        <option value="1" selected>Poslat</option>
+                                        <option value="0" >Nije nije poslat</option>
+                                    @endif
+                                @endif
+
+                            </select>
+                        </div>
+
+
                         <!-- 3. Troskovni centar, text field -->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
