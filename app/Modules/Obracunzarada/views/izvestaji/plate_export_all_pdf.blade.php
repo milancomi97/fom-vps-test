@@ -131,7 +131,7 @@
                 Datum dospelosti: <b> {{\Carbon\Carbon::createFromFormat('Y-m-d', $podaciMesec['period_isplate_do'])->format('d.m.Y')}}</b>
             </td>
             <td>
-                E-pošta: {{$mdrData['email_za_plate']}}
+                E-pošta: {{$radnikJedan['mdrData']['email_za_plate']}}
             </td>
         </tr>
     </table>
