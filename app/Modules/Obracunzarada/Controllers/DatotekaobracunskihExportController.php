@@ -457,18 +457,9 @@ class DatotekaobracunskihExportController extends Controller
         ini_set('memory_limit', '2G');
 
 
-        try {
 
-            $pdf = PDF::loadView('obracunzarada::izvestaji.obracunzarada_show_plate_export_all_pdf',
+            $pdf = PDF::loadView('obracunzarada::izvestaji.plate_export_all_pdf',
                 [
-//                'mdrData' => $mdrData,
-//                'userData'=>$userData,
-//                'radnikData' => $radnikData,
-//                'mdrPreparedData' => $mdrPreparedData,
-//                'dkopData' => $dkopData,
-//                'zarData' => $zarData,
-//                'kreditiData'=>$kreditiData,
-//                'troskovnoMesto'=> $troskovnoMesto,
                     'vrstePlacanjaData' => $sifarnikVrstePlacanja,
                     'datum' => $formattedDate,
                     'podaciFirme' => $podaciFirme,
@@ -478,13 +469,12 @@ class DatotekaobracunskihExportController extends Controller
                     'allData' => $allData
                 ])->setPaper('a4', 'portrait');
 
-        } catch (\Exception $message) {
 
             $tes = 'test';
 
 
             $test = 'test';
-        }
+
         $test = 'test';
 
 //        Mail::to('snezat@gmail.com')->send(new DemoMail($mailData));
@@ -587,7 +577,7 @@ class DatotekaobracunskihExportController extends Controller
 
         try {
 
-            $pdf = PDF::loadView('obracunzarada::izvestaji.obracunzarada_show_plate_export_all_pdf',
+            $pdf = PDF::loadView('obracunzarada::izvestaji.plate_export_all_pdf',
                 [
 //                'mdrData' => $mdrData,
 //                'userData'=>$userData,

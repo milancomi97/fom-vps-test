@@ -150,7 +150,7 @@
             </td>
         </tr>
         <tr>
-            <td>Osnovna bruto zarada:  number_format({{$radnikJedan['mdrData']['KOEF_osnovna_zarada'], 2, '.', ',')}}}}</td>
+            <td>Osnovna bruto zarada:  {{number_format($radnikJedan['mdrData']['KOEF_osnovna_zarada'], 2, '.', ',')}}</td>
         </tr>
         <tr>
             <td>
