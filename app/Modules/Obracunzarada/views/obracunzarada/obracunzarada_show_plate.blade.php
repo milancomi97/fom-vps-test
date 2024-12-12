@@ -189,6 +189,9 @@
                 <td>
                     Datum dospelosti: <b> {{\Carbon\Carbon::createFromFormat('Y-m-d', $podaciMesec['period_isplate_do'])->format('d.m.Y')}}</b>
                 </td>
+                <td class="text-right">
+                    E-pošta: {{$mdrData['email_za_plate']}}
+                </td>
             </tr>
         </table>
 
@@ -265,7 +268,7 @@
                         <tr>
                             <td >{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
                             <td>kreditor={{ $radnik['kreditorAdditionalData']['imek_naziv_kreditora'] ?? '' }}</td>
-                            <td class="small_font">saldo={{ $radnik['kreditAdditionalData']['SALD_saldo'] - $radnik['kreditAdditionalData']['RATA_rata']}}</td>
+                            <td class="small_font">{{ $radnik['kreditAdditionalData']['SALD_saldo'] - $radnik['kreditAdditionalData']['RATA_rata']}}</td>
                             <td >part={{ $radnik['kreditAdditionalData']['PART_partija_poziv_na_broj'] ?? '' }}</td>
                             <td class="text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
                         </tr>

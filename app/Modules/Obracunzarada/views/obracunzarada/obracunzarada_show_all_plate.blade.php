@@ -111,25 +111,43 @@
         </div>
 
             <div class="row mt-5">
-                <div class="offset-md-2 col-md-2">
+                <div class="offset-md-1 col-md-2">
 
                     <form class="loaderEvent" method="POST" action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik_lista_all')}}">
                         @csrf
                         <input type="hidden" name="month_id" value="{{$monthData->id}}">
-                        <button   type="submit" class="btn btn-secondary">Štampaj sve</button>
+                        <button   type="submit" class="btn btn-primary">Štampanje svih obračunskih listi</button>
 
                     </form>
                 </div>
                 <div class=" col-md-2">
 
-                <form class="loaderEvent" method="POST" action="{{route('datotekaobracunskihkoeficijenata.email_radnik_lista_all')}}">
+                    <form class="loaderEvent" method="POST"
+                          action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik_lista_bez_email')}}"
+
+                    >
+                        @csrf
+                        <input type="hidden" name="month_id" value="{{$monthData->id}}">
+                        <button   type="submit" class="btn btn-primary">Štampanje O.L. bez adrese e-pošte</button>
+
+                    </form>
+                </div>
+                <div class=" col-md-2">
+                <form class="loaderEvent" method="POST"
+                      action="{{route('datotekaobracunskihkoeficijenata.stampa_radnik_lista_all')}}"
+                >
                     @csrf
                     <input type="hidden" name="month_id" value="{{$monthData->id}}">
-                    <button class="btn btn-secondary">Pošalji emailove</button>
-
+                    <button class="btn btn-primary">Slanje obračunske liste e-poštom</button>
                 </form>
                 </div>
-
+                <div class=" col-md-2">
+                    <form class="loaderEvent" method="POST" action="{{route('datotekaobracunskihkoeficijenata.email_radnik_lista_all')}}">
+                        @csrf
+                        <input type="hidden" name="month_id" value="{{$monthData->id}}">
+                        <button class="btn btn-warning">Provera obaveštenih radnika</button>
+                    </form>
+                </div>
             </div>
         <div class="loader-container" style="text-align: center">
             <h3 id="statusMessage" class="text-success text-center"></h3>
@@ -153,8 +171,8 @@
                             <th>Prezime ime</th>
                             <th>Napomena</th>
                             <th>STATUS</th>
-                            <th>Email status</th>
-                            <th>Prikaz plate</th>
+                            <th>E-pošta</th>
+                            <th>Obračunske liste</th>
                         </tr>
                         </thead>
                         <tbody>

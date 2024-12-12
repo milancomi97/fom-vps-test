@@ -242,7 +242,8 @@ class DatotekaobracunskihEmailController extends Controller
             ];
 
 
-            Mail::to($request->email_to)->send(new DemoMail($mailData));
+                Mail::to($request->email_to)->send(new DemoMail($mailData));
+
         }
 //
 //        return $pdf->output();

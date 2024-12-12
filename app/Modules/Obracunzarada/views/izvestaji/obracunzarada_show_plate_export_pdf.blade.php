@@ -44,6 +44,10 @@
         .text-right{
             text-align: right;
         }
+
+        .text-center{
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -120,6 +124,9 @@
             <td>
                 Datum dospelosti: <b> {{\Carbon\Carbon::createFromFormat('Y-m-d', $podaciMesec['period_isplate_do'])->format('d.m.Y')}}</b>
             </td>
+            <td class="text-right">
+                E-pošta: {{$mdrData['email_za_plate']}}
+            </td>
         </tr>
     </table>
 
@@ -192,8 +199,8 @@
                 @if($radnik['sifra_vrste_placanja'] == '093')
                     <tr>
                         <td class="small_font">{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
-                        <td class="small_font">kreditor={{ $radnik['kreditorAdditionalData']['imek_naziv_kreditora'] ?? '' }}</td>
-                        <td class="small_font">saldo={{ $radnik['kreditAdditionalData']['SALD_saldo'] - $radnik['kreditAdditionalData']['RATA_rata']}}</td>
+                        <td class="small_font">{{ $radnik['kreditorAdditionalData']['imek_naziv_kreditora'] ?? '' }}</td>
+                        <td class="small_font">{{ $radnik['kreditAdditionalData']['SALD_saldo'] - $radnik['kreditAdditionalData']['RATA_rata']}}</td>
                         <td class="small_font ">part={{ $radnik['kreditAdditionalData']['PART_partija_poziv_na_broj'] ?? '' }}</td>
                         <td class="small_font text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
                     </tr>
@@ -230,7 +237,7 @@
     <!-- Net Salary and Deductions -->
     <table class="table table-bordered ">
         <tr>
-            <td><strong>Neto zarada (1 - 5):</strong></td>
+            <td><strong>Neto zarada:</strong></td>
             <td class="text-right">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade - $zarData->SIP_ukupni_iznos_poreza - $zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',') }}</td>
         </tr>
         <tr>
@@ -238,50 +245,47 @@
             <td class="text-right">{{ number_format($zarData->SIOB_ukupni_iznos_obustava + $zarData->ZARKR_ukupni_zbir_kredita, 2, '.', ',') }}</td>
         </tr>
         <tr>
-            <td><strong>Za isplatu (1 - 5 - 3):</strong></td>
+            <td><strong>Za isplatu:</strong></td>
             <td class="text-right">{{ number_format($zarData->NETO_neto_zarada - $zarData->SIOB_ukupni_iznos_obustava - $zarData->ZARKR_ukupni_zbir_kredita, 2, '.', ',') }}</td>
         </tr>
     </table>
 
     <!-- Contributions Summary -->
-    <table class="table table-bordered">
-        <tr>
-            {{--                <td><strong>Ukupni Doprinosi</strong></td>--}}
-            {{--                <td class="text-right">{{ number_format($zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',') }}</td>--}}
-        </tr>
-        {{--            <tr>--}}
-        {{--                <td><strong>Porez (10%)</strong></td>--}}
-        {{--                <td class="text-right">{{ number_format($zarData->SIP_ukupni_iznos_poreza, 2, '.', ',') }}</td>--}}
-        {{--            </tr>--}}
-        <tr>
-            <td><strong>Ukupni porezi i doprinosi na teret radnika</strong></td>
-            <td class="text-right">{{ number_format($zarData->SIP_ukupni_iznos_poreza + $zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',') }}</td>
-        </tr>
-    </table>
+{{--    <table class="table table-bordered">--}}
+{{--        <tr>--}}
+{{--            --}}{{--                <td><strong>Ukupni Doprinosi</strong></td>--}}
+{{--            --}}{{--                <td class="text-right">{{ number_format($zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',') }}</td>--}}
+{{--        </tr>--}}
+{{--        --}}{{--            <tr>--}}
+{{--        --}}{{--                <td><strong>Porez (10%)</strong></td>--}}
+{{--        --}}{{--                <td class="text-right">{{ number_format($zarData->SIP_ukupni_iznos_poreza, 2, '.', ',') }}</td>--}}
+{{--        --}}{{--            </tr>--}}
+{{--        <tr>--}}
+{{--            <td><strong>Ukupni porezi i doprinosi na teret radnika</strong></td>--}}
+{{--            <td class="text-right">{{ number_format($zarData->SIP_ukupni_iznos_poreza + $zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',') }}</td>--}}
+{{--        </tr>--}}
+{{--    </table>--}}
 
     <!-- Employer’s Obligations Section -->
-    <table class="table table-bordered">
-        <tr>
-            <td>Zdravstveno osiguranje (p):</td>
-            <td class="text-right">5.15%</td>
-            <td class="text-right">{{ number_format($zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>
-        </tr>
-        <tr>
-            <td>Penzijsko-invalidsko osiguranje (p):</td>
-            <td class="text-right">10.00%</td>
-            <td class="text-right">{{ number_format($zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>
-        </tr>
-        {{--   <tr>
-               <td><strong>Ukupni Doprinosi</strong></td>
-               <td></td>
-               <td class="text-right">{{ number_format($zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>
-           </tr>--}}
-        <tr>
-            <td><strong>Ukupno potrebna sredstva:</strong></td>
-            <td></td>
-            <td class="text-right">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade + $zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>
-        </tr>
-    </table>
+{{--    <table class="table table-bordered">--}}
+{{--        <tr>--}}
+{{--            <td>Zdravstveno osiguranje (p):</td>--}}
+{{--            <td class="text-right">5.15%</td>--}}
+{{--            <td class="text-right">{{ number_format($zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>--}}
+{{--        </tr>--}}
+{{--        <tr>--}}
+{{--            <td>Penzijsko-invalidsko osiguranje (p):</td>--}}
+{{--            <td class="text-right">10.00%</td>--}}
+{{--            <td class="text-right">{{ number_format($zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>--}}
+{{--        </tr>--}}
+{{--        <tr>--}}
+{{--            <td><strong>Ukupno potrebna sredstva:</strong></td>--}}
+{{--            <td></td>--}}
+{{--            <td class="text-right">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade + $zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>--}}
+{{--        </tr>--}}
+{{--    </table>--}}
+
+    <p class="text-left"><i>Ovaj dokument je punovažan bez pečata i potpisa.</i></p>
 </div>
 </body>
 </html>

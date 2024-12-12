@@ -130,6 +130,9 @@
             <td>
                 Datum dospelosti: <b> {{\Carbon\Carbon::createFromFormat('Y-m-d', $podaciMesec['period_isplate_do'])->format('d.m.Y')}}</b>
             </td>
+            <td>
+                E-pošta: {{$mdrData['email_za_plate']}}
+            </td>
         </tr>
     </table>
 
@@ -205,8 +208,8 @@
                 @if($radnik['sifra_vrste_placanja'] == '093')
                     <tr>
                         <td class="{!!$small_font!!}">{{ $radnik['sifra_vrste_placanja'] }} {{ $radnik['naziv_vrste_placanja'] }}</td>
-                        <td class="{!!$small_font!!}">kreditor={{ $radnik['kreditorAdditionalData']['imek_naziv_kreditora'] ?? '' }}</td>
-                        <td class="{!!$small_font!!}">saldo={{ $radnik['kreditAdditionalData']['SALD_saldo'] - $radnik['kreditAdditionalData']['RATA_rata']}}</td>
+                        <td class="{!!$small_font!!}">{{ $radnik['kreditorAdditionalData']['imek_naziv_kreditora'] ?? '' }}</td>
+                        <td class="{!!$small_font!!}">{{ $radnik['kreditAdditionalData']['SALD_saldo'] - $radnik['kreditAdditionalData']['RATA_rata']}}</td>
                         <td class="{!!$small_font!!} ">part={{ $radnik['kreditAdditionalData']['PART_partija_poziv_na_broj'] ?? '' }}</td>
                         <td class="{!!$small_font!!} text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
                     </tr>
@@ -295,6 +298,7 @@
             <td class="text-right">{{ number_format($radnikJedan['zarData']->IZNETO_zbir_ukupni_iznos_naknade_i_naknade + $radnikJedan['zarData']->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $radnikJedan['zarData']->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>
         </tr>
     </table>
+
 </div>
     <div class="page-break"></div>
 @endforeach

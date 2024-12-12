@@ -380,7 +380,7 @@ class DatotekaobracunskihExportController extends Controller
 
 
 
-
+//stampaRadnikListaBezEmail
     public function stampaRadnikListaAll(Request $request)
     {
 
@@ -459,8 +459,8 @@ class DatotekaobracunskihExportController extends Controller
 
         try {
 
-        $pdf = PDF::loadView('obracunzarada::izvestaji.obracunzarada_show_plate_export_all_pdf',
-            [
+            $pdf = PDF::loadView('obracunzarada::izvestaji.obracunzarada_show_plate_export_all_pdf',
+                [
 //                'mdrData' => $mdrData,
 //                'userData'=>$userData,
 //                'radnikData' => $radnikData,
@@ -469,23 +469,23 @@ class DatotekaobracunskihExportController extends Controller
 //                'zarData' => $zarData,
 //                'kreditiData'=>$kreditiData,
 //                'troskovnoMesto'=> $troskovnoMesto,
-                'vrstePlacanjaData' => $sifarnikVrstePlacanja,
-                'datum' => $formattedDate,
-                'podaciFirme' => $podaciFirme,
-                'podaciMesec' => $podaciMesec,
-                'datumStampe' => $datumStampe,
-                'month_id' => $request->month_id,
-                'allData' => $allData
-            ])->setPaper('a4', 'portrait');
+                    'vrstePlacanjaData' => $sifarnikVrstePlacanja,
+                    'datum' => $formattedDate,
+                    'podaciFirme' => $podaciFirme,
+                    'podaciMesec' => $podaciMesec,
+                    'datumStampe' => $datumStampe,
+                    'month_id' => $request->month_id,
+                    'allData' => $allData
+                ])->setPaper('a4', 'portrait');
 
-        }catch(\Exception $message){
+        } catch (\Exception $message) {
 
-            $tes='test';
+            $tes = 'test';
 
 
-            $test='test';
-}
-        $test='test';
+            $test = 'test';
+        }
+        $test = 'test';
 
 //        Mail::to('snezat@gmail.com')->send(new DemoMail($mailData));
 //        $mailData = [
@@ -502,6 +502,133 @@ class DatotekaobracunskihExportController extends Controller
 //        return $pdf->output();
         return $pdf->stream('pdf_radnik_lista_svi_radnici_'.date("d.m.y").'.pdf');
 
+
+    }
+//
+        public function stampaRadnikListaBezEmail(Request $request)
+        {
+
+
+//          $pdf = PDF::loadView('pdftemplates.datotekaobracunskihkoeficijenata_odobravanje_pdf_test',
+//              [
+//                  'rows'=>$rows,
+//                  'data'=>$troskovniCentarCalculated,
+//                  'tableHeaders'=>$tableHeaders,
+//                  'vrstePlacanjaDescription'=>$vrstePlacanjaDescription,
+//                  'organizacioneCelineSifarnik'=>$organizacioneCelineSifarnik
+//              ]
+//          )->setPaper('a4', 'portrait');
+//
+//        return $pdf->download('pdf_poenteri_'.date("d.m.y").'.pdf');
+            $monthId = $request->month_id;
+
+            $radnikMaticniId = $request->radnik_maticni;
+
+//        (($podaci o firmi) ULICA OPSTINA PIB RACUN BANKE
+//        Za mesec: 03.2024.(($formatirajDatum))
+//        (($Ulica broj)) $((Grad)) //PREBACI LOGIKU U MDR da ne povlacis podatke
+//        (($Naziv banke (tabela isplatnamesta->rbim_sifra_isplatnog_mesta == $mdrData['RBIM_isplatno_mesto_id'])) 03-001-10113/4}
+//((Strucna sprema: $mdrData['RBPS_priznata_strucna_sprema'] treba logika da se izvuce))
+//Radno mesto $mdrData['RBRM_radno_mesto'] treba logika da se izvuce naziv))
+
+
+            $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
+
+            $podaciMesec = $this->datotekaobracunskihkoeficijenataInterface->getById($monthId);
+
+
+            $allData = [];
+            $zarDataKeys = $this->obradaZaraPoRadnikuInterface->getAll();
+
+            $date = new \DateTime($podaciMesec->datum);
+            $sifarnikVrstePlacanja = $this->vrsteplacanjaInterface->getAllKeySifra();
+            $formattedDate = $date->format('m.Y');
+            $datumStampe = Carbon::now()->format('d. m. Y.');
+
+            $counter = 0;
+            foreach ($zarDataKeys as $zar) {
+                $zar->load('maticnadatotekaradnika');
+
+                $counter++;
+
+                if ($zar->maticnadatotekaradnika->email_za_plate) {
+
+
+                    $radnikMaticniId = $zar->maticni_broj;
+                    $radnikData = $this->obradaObracunavanjeService->pripremaPodatakaRadnik($monthId, $radnikMaticniId);
+                    $mdrData = $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj', $radnikMaticniId)->get()->first();
+                    $mdrDataCollection = collect($mdrData);
+                    $mdrPreparedData = $this->obradaObracunavanjeService->pripremaMdrPodatakaRadnik($mdrDataCollection);
+                    $troskovnoMesto = $this->organizacionecelineInterface->getById($mdrDataCollection['troskovno_mesto_id']);
+                    $dkopData = $this->obradaDkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get();
+                    $zarData = $this->obradaZaraPoRadnikuInterface->where('maticni_broj', $mdrData->MBRD_maticni_broj)->get()->first();
+                    $kreditiData = $this->obradaKreditiInterface->where('maticni_broj', $mdrData->MBRD_maticni_broj)->get();
+                    $userData = User::where('maticni_broj', $radnikMaticniId)->first();
+
+                    $allData[] = [
+                        'radnikData' => $radnikData,
+                        'mdrData' => $mdrData,
+                        'mdrPreparedData' => $mdrPreparedData,
+                        'troskovnoMesto' => $troskovnoMesto,
+                        'dkopData' => $dkopData,
+                        'kreditiData' => $kreditiData,
+                        'userData' => $userData,
+                        'zarData' => $zarData
+                    ];
+                }
+            }
+
+
+
+
+        set_time_limit(0);
+        ini_set('memory_limit', '2G');
+
+
+        try {
+
+            $pdf = PDF::loadView('obracunzarada::izvestaji.obracunzarada_show_plate_export_all_pdf',
+                [
+//                'mdrData' => $mdrData,
+//                'userData'=>$userData,
+//                'radnikData' => $radnikData,
+//                'mdrPreparedData' => $mdrPreparedData,
+//                'dkopData' => $dkopData,
+//                'zarData' => $zarData,
+//                'kreditiData'=>$kreditiData,
+//                'troskovnoMesto'=> $troskovnoMesto,
+                    'vrstePlacanjaData' => $sifarnikVrstePlacanja,
+                    'datum' => $formattedDate,
+                    'podaciFirme' => $podaciFirme,
+                    'podaciMesec' => $podaciMesec,
+                    'datumStampe' => $datumStampe,
+                    'month_id' => $request->month_id,
+                    'allData' => $allData
+                ])->setPaper('a4', 'portrait');
+
+        }catch(\Exception $message){
+
+            $tes='test';
+
+
+            $test='test';
+        }
+        $test='test';
+
+//        Mail::to('snezat@gmail.com')->send(new DemoMail($mailData));
+//        $mailData = [
+//            'title' => 'Naslov',
+//            'body' => 'Sadrzaj',
+//            'subject'=>'Obračunski list: '.$radnikMaticniId,
+//            'pdf'=>$pdf->output()
+//        ];
+////        Mail::to('snezat@gmail.com')->send(new DemoMail($mailData));
+//
+//
+//        Mail::to('dimitrijevicm1997@gmail.com')->send(new DemoMail($mailData));
+//
+//        return $pdf->output();
+        return $pdf->stream('pdf_radnik_lista_bez_email_'.date("d.m.y").'.pdf');
 
         return view('obracunzarada::izvestaji.obracunzarada_all_show_plate_export_pdf',
             [

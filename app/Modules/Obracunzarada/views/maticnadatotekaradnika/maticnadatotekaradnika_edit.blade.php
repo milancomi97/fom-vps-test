@@ -118,16 +118,16 @@
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text font-weight-bold" id="span_ime">Email obaveštavanje:</span>
+                                <span class="input-group-text font-weight-bold" id="span_ime">E-pošta za platu:</span>
                             </div>
-                            <input type="text" class="form-control" disabled id="email_za_plate" aria-describedby="email_za_plate"
+                            <input type="text" class="form-control" id="email_za_plate" aria-describedby="email_za_plate"
                                    value="{{$radnikData->email_za_plate}}" name="email_za_plate">
                         </div>
 
 
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text font-weight-bold" id="span_email_za_plate_status">Status email:</span>
+                                <span class="input-group-text font-weight-bold" id="span_email_za_plate_status">Status E-pošte:</span>
                             </div>
                             <select class="custom-select" id="email_za_plate_poslat" name="email_za_plate_poslat"
                                     aria-describedby="span_email_za_plate_status">
