@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\DemoMail;
 use App\Models\UserPermission;
 use App\Modules\Kadrovskaevidencija\Repository\StrucnakvalifikacijaRepositoryInterface;
+use App\Modules\Obracunzarada\Consts\UserRoles;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\KreditoriRepositoryInterface;
@@ -657,6 +658,10 @@ class DatotekaobracunskihExportController extends Controller
         $dkopData =$this->obradaDkopSveVrstePlacanjaInterface->where('obracunski_koef_id',$obracunskiKoeficijentId)->get();
         $zaraData =  $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->where('obracunski_koef_id',$obracunskiKoeficijentId)->get()->sortByDesc('IZNETO_zbir_ukupni_iznos_naknade_i_naknade');
 
+
+
+
+
         $orgCelineData = $this->organizacionecelineInterface->getAll()->mapWithKeys(function($orgCelina){
             return [
                 $orgCelina->id=>$orgCelina->toArray()
@@ -664,9 +669,15 @@ class DatotekaobracunskihExportController extends Controller
         });
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
         $minimalneBrutoOsnoviceSifarnik = $this->minimalnebrutoosnoviceInterface->getDataForCurrentMonth($monthData->datum);
+
+
+
         $groupedZara = $zaraData->map(function($zaraRadnik) use($orgCelineData){
             $zaraRadnik['org_celina_data']= $orgCelineData[$zaraRadnik['organizaciona_celina_id']];
+
             return $zaraRadnik;
+
+
         })->sortBy('organizaciona_celina_id')->groupBy('organizaciona_celina_id');
 
         $strucneKvalifikacijeSifarnik =  $this->strucnakvalifikacijaInterface->getAllKeySifra();
@@ -704,6 +715,7 @@ class DatotekaobracunskihExportController extends Controller
         $radnikData[]=$header;
         foreach ($groupedZara as $key=>$celinaZara){
 
+
             $test='test';
                     $brojaCKOEF_osnovna_zarada=0;
                     $brojaCUKSA_ukupni_sati_za_isplatu=0;
@@ -717,6 +729,9 @@ class DatotekaobracunskihExportController extends Controller
             $radnikData[]=[$key.' - '.$orgCelineData[$key]['naziv_troskovnog_mesta'],'','','','','','',];
 
             foreach ($celinaZara as $radnik){
+                if($radnik->maticnadatotekaradnika->BRCL_redosled_poentazi<100 && $userPermission->role_id !==UserRoles::SUPERVIZOR){
+                continue;
+                }
                 $radnikData[] = [
                     $radnik->sifra_troskovnog_mesta,
                     $radnik->maticni_broj,
@@ -742,6 +757,9 @@ class DatotekaobracunskihExportController extends Controller
                     $brojaCvarijab+=$radnik->varijab;
                     $brojaCTOPLI_obrok_iznos+=$radnik->TOPLI_obrok_iznos / $minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto;
                     $brojacZaIsplatu+=$radnik->NETO_neto_zarada - $radnik->SIOB_ukupni_iznos_obustava - $radnik->ZARKR_ukupni_zbir_kredita;
+
+
+
             }
 
 

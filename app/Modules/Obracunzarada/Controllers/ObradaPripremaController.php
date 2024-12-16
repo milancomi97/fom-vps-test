@@ -400,6 +400,9 @@ class ObradaPripremaController extends Controller
         $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
         $sifraVrstePlacanja = $request->vrsta_placanja;
         $dkopData = $this->dkopSveVrstePlacanjaInterface->where('sifra_vrste_placanja',$sifraVrstePlacanja)->where('obracunski_koef_id',$request->month_id)->orderBy('maticni_broj', 'asc')->get();
+        $user_id = auth()->user()->id;
+
+        $userPermission = UserPermission::where('user_id', $user_id)->first();
 
 
         $updatedDkopData =  $dkopData->map(function ($dkop){
@@ -417,7 +420,8 @@ class ObradaPripremaController extends Controller
             'sifraVrstePlacanja'=>$sifraVrstePlacanja,
             'dkopData'=>$updatedDkopData,
             'datum'=>$datum,
-            'vrsta_placanja'=>$sifraVrstePlacanja
+            'vrsta_placanja'=>$sifraVrstePlacanja,
+            'userPermission'=>$userPermission
         ]);
     }
 
