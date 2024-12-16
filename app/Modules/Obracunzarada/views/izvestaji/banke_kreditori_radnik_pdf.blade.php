@@ -128,8 +128,8 @@
                     <td class="text-left">{{ $radnik['maticni_broj']  }}</td>
                     <td class="text-left">{{ $mdrSifarnik[$radnik['maticni_broj']]['PREZIME_prezime']  }} {{$mdrSifarnik[$radnik['maticni_broj']]['srednje_ime']}}. {{ $mdrSifarnik[$radnik['maticni_broj']]['IME_ime']  }}</td>
                     <td class="text-right">{{$radnik['PART_partija_kredita']  }}</td>
-                    <td class="text-right">{{ number_format($radnik['iznos'], 2, '.', ',')  }}</td>
-                    <td class="text-right">{{ number_format($radnik['SALD_saldo'], 2, '.', ',')  }}</td>
+                    <td class="text-right">{{ number_format($radnik['iznos'], 2, ',', '.')  }}</td>
+                    <td class="text-right">{{ number_format($radnik['SALD_saldo'], 2, ',', '.')  }}</td>
                                                 <?php $iznosPoBanciCounter+=$radnik['iznos']; ?>
                 </tr>
             @endforeach
@@ -137,7 +137,7 @@
             <tfoot>
             <tr>
                 <td colspan="2"></td>
-                <td colspan="2" class="text-right"> UKUPNO: <b>{!! number_format($iznosPoBanciCounter,2, '.', ',') !!} </b> </td>
+                <td colspan="2" class="text-right"> UKUPNO: <b>{!! number_format($iznosPoBanciCounter,2, ',', '.') !!} </b> </td>
                 <td></td>
             </tr>
             </tfoot>

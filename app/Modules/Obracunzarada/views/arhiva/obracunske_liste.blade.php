@@ -202,7 +202,7 @@
                     Staz kod poslodavca: {{$mdrData['GGST_godine_staza']}} god {{$mdrData['MMST_meseci_staza']}} m<br>
                     Osnovna bruto zarada: {{$mdrData['KOEF_osnovna_zarada']}}<br>
                     Prosecna bruto
-                    zarada/cas: {{  number_format($mdrData['PRIZ_ukupan_bruto_iznos']/$mdrData['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'], 2, '.', ',')}}
+                    zarada/cas: {{  number_format($mdrData['PRIZ_ukupan_bruto_iznos']/$mdrData['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'], 2, ',', '.')}}
                     <br>
                 </div>
             </div>
@@ -228,7 +228,7 @@
                         <h2 class="text-center header-custom">{{($radnik['sati'] !== null  && $radnik['procenat'] == null) ?  $radnik['sati'] : null}} {{($radnik['procenat'] !== null && $radnik['procenat'] >0 ) ?  $radnik['procenat'] .'%' : null}}</h2>
                     </div>
                     <div class="col-lg-2 p-2 ">
-                        <h2 class="text-right header-custom">{{ $radnik['iznos'] !== null  ? number_format($radnik['iznos'], 2, '.', ',') : 0}} </h2>
+                        <h2 class="text-right header-custom">{{ $radnik['iznos'] !== null  ? number_format($radnik['iznos'], 2, ',', '.') : 0}} </h2>
                     </div>
                 </div>
             @endif
@@ -243,7 +243,7 @@
 {{--                <h2 class="text-center header-custom">{{$zarData->UKSA_ukupni_sati_za_isplatu}}</h2>--}}
             </div>
             <div class="col-lg-2 p-3 border-bottom border-top border-top-custom border-bottom-custom">
-{{--                <h2 class="text-right header-custom">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade, 2, '.', ',')}}</h2>--}}
+{{--                <h2 class="text-right header-custom">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade, 2, ',', '.')}}</h2>--}}
             </div>
         </div>
 
@@ -254,7 +254,7 @@
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-{{--                <h2 class="text-right header-custom">{{ number_format($zarData->POROSL_poresko_oslobodjenje, 2, '.', ',')}}</h2>--}}
+{{--                <h2 class="text-right header-custom">{{ number_format($zarData->POROSL_poresko_oslobodjenje, 2, ',', '.')}}</h2>--}}
             </div>
         </div>
 
@@ -264,7 +264,7 @@
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-{{--                <h2 class="text-right header-custom">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade-$zarData->POROSL_poresko_oslobodjenje, 2, '.', ',')}}</h2>--}}
+{{--                <h2 class="text-right header-custom">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade-$zarData->POROSL_poresko_oslobodjenje, 2, ',', '.')}}</h2>--}}
             </div>
         </div>
 
@@ -277,7 +277,7 @@
                 <h2 class="text-right header-custom"></h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-{{--                <h2 class="text-right header-custom">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade - $zarData->SIP_ukupni_iznos_poreza - $zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',')}}</h2>--}}
+{{--                <h2 class="text-right header-custom">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade - $zarData->SIP_ukupni_iznos_poreza - $zarData->SID_ukupni_iznos_doprinosa, 2, ',', '.')}}</h2>--}}
             </div>
         </div>
 
@@ -301,7 +301,7 @@
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-{{--                <h2 class="text-right header-custom">{{ number_format($zarData->SIOB_ukupni_iznos_obustava +$zarData->ZARKR_ukupni_zbir_kredita, 2, '.', ',')}}</h2>--}}
+{{--                <h2 class="text-right header-custom">{{ number_format($zarData->SIOB_ukupni_iznos_obustava +$zarData->ZARKR_ukupni_zbir_kredita, 2, ',', '.')}}</h2>--}}
             </div>
         </div>
 
@@ -312,7 +312,7 @@
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
-{{--                <h2 class="text-right header-custom">{{ number_format($zarData->NETO_neto_zarada -$zarData->SIOB_ukupni_iznos_obustava - $zarData->ZARKR_ukupni_zbir_kredita, 2, '.', ',')}}</h2>--}}
+{{--                <h2 class="text-right header-custom">{{ number_format($zarData->NETO_neto_zarada -$zarData->SIOB_ukupni_iznos_obustava - $zarData->ZARKR_ukupni_zbir_kredita, 2, ',', '.')}}</h2>--}}
             </div>
         </div>
 
@@ -328,7 +328,7 @@
                         <h2 class="text-right header-custom">{{$radnik['sati']  !== null  ? $radnik['sati'] : 0}}</h2>
                     </div>
                     <div class="col-lg-2 p-2 ">
-                        <h2 class="text-right header-custom">{{ $radnik['iznos'] !== null  ? number_format($radnik['iznos'], 2, '.', ',') : 0}}  </h2>
+                        <h2 class="text-right header-custom">{{ $radnik['iznos'] !== null  ? number_format($radnik['iznos'], 2, ',', '.') : 0}}  </h2>
                     </div>
                 </div>
             @endif
@@ -342,7 +342,7 @@
                 <h2 class="text-right header-custom">0,00</h2>
             </div>
             <div class="col-lg-2 p-3  border-bottom border-top border-top-custom border-bottom-custom">
-                <h2 class="text-right header-custom">{{ number_format($zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',')}}</h2>
+                <h2 class="text-right header-custom">{{ number_format($zarData->SID_ukupni_iznos_doprinosa, 2, ',', '.')}}</h2>
             </div>
         </div>
 
@@ -354,7 +354,7 @@
                 <h2 class="text-right header-custom">0,00</h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom">{{ number_format($zarData->SIP_ukupni_iznos_poreza, 2, '.', ',')}}</h2>
+                <h2 class="text-right header-custom">{{ number_format($zarData->SIP_ukupni_iznos_poreza, 2, ',', '.')}}</h2>
             </div>
         </div>
 
@@ -366,7 +366,7 @@
                 <h2 class="text-right header-custom">0,00</h2>
             </div>
             <div class="col-lg-2 p-3 border-bottom border-bottom-custom">
-                <h2 class="text-right header-custom SIP_D">{{ number_format($zarData->SIP_ukupni_iznos_poreza + $zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',')}} </h2>
+                <h2 class="text-right header-custom SIP_D">{{ number_format($zarData->SIP_ukupni_iznos_poreza + $zarData->SID_ukupni_iznos_doprinosa, 2, ',', '.')}} </h2>
             </div>
         </div>
 
@@ -397,7 +397,7 @@
                 <h2 class="text-right header-custom">5.15%</h2>
             </div>
             <div class="col-lg-2 p-2 ">
-                <h2 class="text-right header-custom">{{ number_format($zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</h2>
+                <h2 class="text-right header-custom">{{ number_format($zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca, 2, ',', '.')}}</h2>
             </div>
         </div>
 
@@ -409,7 +409,7 @@
                 <h2 class="text-right header-custom">10.00%</h2>
             </div>
             <div class="col-lg-2 p-2 ">
-                <h2 class="text-right header-custom">{{ number_format($zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</h2>
+                <h2 class="text-right header-custom">{{ number_format($zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, ',', '.')}}</h2>
             </div>
         </div>
 
@@ -419,7 +419,7 @@
             </div>
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-top border-top-custom border-bottom-custom">
-                <h2 class="text-right header-custom">{{ number_format($zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca +$zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}</h2>
+                <h2 class="text-right header-custom">{{ number_format($zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca +$zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, ',', '.')}}</h2>
             </div>
         </div>
 
@@ -430,7 +430,7 @@
 
             <div class="col-lg-4 p-3 border-bottom border-bottom-custom">
                 <h2 class="text-right header-custom">
-                    {{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade +$zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca +$zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',')}}
+                    {{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade +$zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca +$zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, ',', '.')}}
                 </h2>
             </div>
         </div>

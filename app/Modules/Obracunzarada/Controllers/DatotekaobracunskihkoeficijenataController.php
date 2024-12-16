@@ -175,14 +175,14 @@ class DatotekaobracunskihkoeficijenataController extends Controller
         if($activeMonth !==null){
             $date = Carbon::parse($activeMonth->datum);
 
-            $activeMonthValue = $date->month -1 ; // JAVASCRIPT COUNT MONTHS
+            $activeMonthValue = $date->month-1; // JAVASCRIPT COUNT MONTHS
             $activeYearValue = $date->year;
             $activeMonthExist=true;
 
         }else{
             $activeMonthExist=false;
             $currentDate = Carbon::now();
-            $activeMonthValue = $currentDate->month -1;
+            $activeMonthValue = $currentDate->month-1;
             $activeYearValue = $currentDate->year;
             $date = Carbon::parse(\Illuminate\Support\Carbon::createFromFormat('m.Y', $currentDate->month.'.'.$activeYearValue)->format('Y-m-d'));
         }
@@ -272,17 +272,24 @@ class DatotekaobracunskihkoeficijenataController extends Controller
 
     public function getStoreData(Request $request)
     {
-        $month = $request['month'];
+        $month =(int)$request['month'];
         $year = $request['year'];
-        $startOfMonth = Carbon::create($year, $month, 1);
+        $realMonth=$month+1;
+        $startOfMonth = Carbon::create($year, $realMonth, 1);
+       $datumPravi= $startOfMonth;
+
+        $endOfMonthTwo = $startOfMonth->copy()->endOfMonth();
+
+        $dani=$endOfMonthTwo->format('d');
         $workingDays = $this->datotekaobracunskihkoeficijenataInterface->calculateWorkingHour($startOfMonth);
+       $test='test';
         $endOfMonth = $startOfMonth->copy()->endOfMonth();
         $workingHours = $workingDays * 8;
         $data = [
             'kalendarski_broj_radnih_dana' => (int)$workingDays,
             'mesecni_fond_sati' => $workingHours,
-            'datum' => $startOfMonth,
-            'kalendarski_broj_dana' => $endOfMonth->format('d'),
+            'datum' => $datumPravi,
+            'kalendarski_broj_dana' => $dani,
             'status' => 1
         ];
 

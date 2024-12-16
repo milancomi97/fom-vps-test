@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="container mt-4 mb-5">
-                <h4>ZA MESEC: 0324</h4>
+                <h4>ZA MESEC: {{$datum->format('m.Y.')}}</h4>
 
                 @foreach($groupedZara as $troskovniCentar)
                     <h4 class="mt-5 text-center">TROSKOVNI CENTAR:{{$troskovniCentar[0]['org_celina_data']['id']}} {{$troskovniCentar[0]['org_celina_data']['naziv_troskovnog_mesta']}} </h4>
@@ -113,18 +113,21 @@
                             <tr>
                                 <td>{{$i++}}</td>
                                 <td>{{$radnik->maticni_broj}}</td>
-                                <td>{{$radnik->prezime.' '. $radnik->srednje_ime. ' '. $radnik->ime}}</td>
+                                <td>{{$radnik->prezime. ' '. $radnik->ime}}</td>
                                 <td>{{$strucneKvalifikacijeSifarnik[$radnik->maticnadatotekaradnika->RBPS_priznata_strucna_sprema]['skraceni_naziv_kvalifikacije'] ?? ''}}</td>
 {{--                                <td>{{$MDR->KOEF}}</td>--}}
-                                 <td>{{number_format($radnik->maticnadatotekaradnika->KOEF_osnovna_zarada,2,'.',',')}}</td>
+                                 <td>{{number_format($radnik->maticnadatotekaradnika->KOEF_osnovna_zarada,2,',','.')}}</td>
                                 <td>{{$radnik->UKSA_ukupni_sati_za_isplatu}}</td>
                                 <td>{{number_format($radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade,2,'.',',')}}</td>
-                                <td>{{number_format($radnik->NETO_neto_zarada,2,'.',',')}}</td>
+                                <td>{{number_format($radnik->NETO_neto_zarada,2,',','.')}}</td>
                                 <td>{{number_format($radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,'.',',')}}</td>
-                                <td>{{number_format($radnik->BMIN_prekovremeni_iznos,2,'.',',')}}</td>
-                                <td>{{number_format($radnik->varijab/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,'.',',')}}</td>
-                                <td>{{number_format($radnik->TOPLI_obrok_iznos/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,'.',',')}}</td>
-                                <td>{{number_format($radnik->NETO_neto_zarada-$radnik->SIOB_ukupni_iznos_obustava-$radnik->ZARKR_ukupni_zbir_kredita,2,'.',',')}}</td>
+                                <td>{{number_format($radnik->BMIN_prekovremeni_iznos,2,',','.')}}</td>
+                                <td>{{number_format($radnik->varijab/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,',','.')}}</td>
+                                <td>{{number_format($radnik->TOPLI_obrok_iznos/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,',','.')}}</td>
+                                <?php
+                                   $zaIsplatu= $radnik->NETO_neto_zarada-$radnik->SIOB_ukupni_iznos_obustava-$radnik->ZARKR_ukupni_zbir_kredita
+                                    ?>
+                                <td>{{number_format($zaIsplatu,2,'.',',')}}</td>
                                <?php
                                 $sum_KOEF_osnovna_zarada+=$radnik->maticnadatotekaradnika->KOEF_osnovna_zarada;
                                 $sum_UKSA_ukupni_sati_za_isplatu+=$radnik->UKSA_ukupni_sati_za_isplatu;
@@ -143,18 +146,18 @@
                                     <tr>
                                         <td>{{$i++}}</td>
                                         <td>{{$radnik->maticni_broj}}</td>
-                                        <td>{{$radnik->prezime.' '. $radnik->srednje_ime. ' '. $radnik->ime}}</td>
+                                        <td>{{$radnik->prezime.' '. $radnik->ime}}</td>
                                         <td>{{$strucneKvalifikacijeSifarnik[$radnik->maticnadatotekaradnika->RBPS_priznata_strucna_sprema]['skraceni_naziv_kvalifikacije'] ?? ''}}</td>
                                         {{--                                <td>{{$MDR->KOEF}}</td>--}}
                                         <td>{{$radnik->maticnadatotekaradnika->KOEF_osnovna_zarada}}</td>
                                         <td>{{$radnik->UKSA_ukupni_sati_za_isplatu}}</td>
-                                        <td>{{number_format($radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade,2, '.', ',')}}</td>
-                                        <td>{{number_format($radnik->NETO_neto_zarada,2, '.', ',')}}</td>
-                                        <td>{{number_format($radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2, '.', ',')}}</td>
-                                        <td>{{number_format($radnik->BMIN_prekovremeni_iznos,2, '.', ',')}}</td>
-                                        <td>{{number_format($radnik->varijab/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,'.',',')}}</td>
-                                        <td>{{number_format($radnik->TOPLI_obrok_iznos/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2, '.', ',')}}</td>
-                                        <td>{{number_format($radnik->NETO_neto_zarada-$radnik->SIOB_ukupni_iznos_obustava-$radnik->ZARKR_ukupni_zbir_kredita,2, '.', ',')}}</td>
+                                        <td>{{number_format($radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade,2,',','.')}}</td>
+                                        <td>{{number_format($radnik->NETO_neto_zarada,2,',','.')}}</td>
+                                        <td>{{number_format($radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,',','.')}}</td>
+                                        <td>{{number_format($radnik->BMIN_prekovremeni_iznos,2,',','.')}}</td>
+                                        <td>{{number_format($radnik->varijab/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,',','.')}}</td>
+                                        <td>{{number_format($radnik->TOPLI_obrok_iznos/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,',','.')}}</td>
+                                        <td>{{number_format($radnik->NETO_neto_zarada-$radnik->SIOB_ukupni_iznos_obustava-$radnik->ZARKR_ukupni_zbir_kredita,2,',','.')}}</td>
                                             <?php
                                             $sum_KOEF_osnovna_zarada+=$radnik->maticnadatotekaradnika->KOEF_osnovna_zarada;
                                             $sum_UKSA_ukupni_sati_za_isplatu+=$radnik->UKSA_ukupni_sati_za_isplatu;
@@ -173,15 +176,15 @@
                             <tfoot>
                             <tr style="font-weight: 700;">
                                 <td colspan="4"> UKUPNO ZA TROSKOVNI CENTAR:   </td>
-                                <td>{{number_format($sum_KOEF_osnovna_zarada,2,'.',',')}}</td>
-                                <td>{{number_format($sum_UKSA_ukupni_sati_za_isplatu,2,'.',',')}}</td>
-                                <td>{{number_format($sum_IZNETO_zbir_ukupni_iznos_naknade_i_naknade,2,'.',',')}}</td>
-                                <td>{{number_format($sum_NETO_neto_zarada,2,'.',',')}}</td>
-                                <td>{{number_format($sum_EFIZNO_kumulativ_iznosa_za_efektivne_sate,2,'.',',')}}</td>
-                                <td>{{number_format($sum_BMIN_prekovremeni_iznos,2,'.',',')}}</td>
-                                <td>{{number_format($sum_varijab,2,'.',',')}}</td>
-                                <td>{{number_format($sum_TOPLI_obrok_iznos,2,'.',',')}}</td>
-                                <td>{{number_format($sum_ZA_ISPLATU_NETO_neto_zarada,2,'.',',')}}</td>
+                                <td>{{number_format($sum_KOEF_osnovna_zarada,2,',','.')}}</td>
+                                <td>{{number_format($sum_UKSA_ukupni_sati_za_isplatu,2,',','.')}}</td>
+                                <td>{{number_format($sum_IZNETO_zbir_ukupni_iznos_naknade_i_naknade,2,',','.')}}</td>
+                                <td>{{number_format($sum_NETO_neto_zarada,2,',','.')}}</td>
+                                <td>{{number_format($sum_EFIZNO_kumulativ_iznosa_za_efektivne_sate,2,',','.')}}</td>
+                                <td>{{number_format($sum_BMIN_prekovremeni_iznos,2,',','.')}}</td>
+                                <td>{{number_format($sum_varijab,2,',','.')}}</td>
+                                <td>{{number_format($sum_TOPLI_obrok_iznos,2,',','.')}}</td>
+                                <td>{{number_format($sum_ZA_ISPLATU_NETO_neto_zarada,2,',','.')}}</td>
                             </tr>
                             </tfoot>
                         </table>

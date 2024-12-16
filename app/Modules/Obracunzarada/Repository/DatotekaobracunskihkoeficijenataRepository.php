@@ -22,22 +22,27 @@ class DatotekaobracunskihkoeficijenataRepository extends BaseRepository implemen
     public function createMesecnatabelapoentaza($array)
     {
         $month = (int)$array['month'];
-        $year =$array['year'];
-        $startOfMonth = Carbon::create($year, (int)$month, 1);
+        $realMonth=$month+1;
+        $year =(int)$array['year'];
+        $startOfMonth = Carbon::create($year, (int)$realMonth, 1);
+        $datumBaza = $startOfMonth->format('Y-m-d');
+        $endOfMonthTwo = $startOfMonth->copy()->endOfMonth();
+
+        $dani=$endOfMonthTwo->format('d');
+//        $startOfMonth=$startOfM->addMonth();
         $workingDays = $this->calculateWorkingHour($startOfMonth);
         $workingHours= $workingDays * 8;
         $endOfMonth = $startOfMonth->copy()->endOfMonth();
-
         $data =[
-            'kalendarski_broj_dana'=>$endOfMonth->format('d'),
+            'kalendarski_broj_dana'=>$dani,
             'mesecni_fond_sati'=>$array['mesecni_fond_sati'],
             'prosecni_godisnji_fond_sati'=>$array['prosecni_godisnji_fond_sati'],
             'cena_rada_tekuci'=>$array['cena_rada_tekuci'],
             'mesecni_fond_sati_praznika'=>$array['mesecni_fond_sati_praznika'],
             'cena_rada_prethodni'=>$array['cena_rada_prethodni'],
             'vrednost_akontacije'=>$array['vrednost_akontacije'],
-            'datum'=>$startOfMonth,
-            'mesec'=>$array['month'],
+            'datum'=>$datumBaza,
+            'mesec'=>$realMonth,
             'godina'=>$array['year'],
             'status'=> Datotekaobracunskihkoeficijenata::AKTUELAN,
             'period_isplate_od'=>$array['period_isplate_od'],
@@ -53,7 +58,6 @@ class DatotekaobracunskihkoeficijenataRepository extends BaseRepository implemen
         $workingDays = 0;
 
         while ($startOfMonth <= $endOfMonth) {
-            // Check if the day is a working day (Monday to Friday)
             if ($startOfMonth->isWeekday()) {
                 $workingDays++;
             }

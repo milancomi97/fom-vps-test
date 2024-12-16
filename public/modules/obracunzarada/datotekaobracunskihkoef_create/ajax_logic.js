@@ -65,6 +65,7 @@ $(document).ready(function () {
             $('#myModal').modal('hide');
             return null;
 
+            // debugger;
             var mesecni_fond_sati = $('#mesecni_fond_sati_modal').val();
             var year = $('.create-mesecna-poentaza').data('year');
             var month = $('.create-mesecna-poentaza').data('month')

@@ -88,7 +88,12 @@ class IzvestajZaradaController extends Controller
        $strucneKvalifikacijeSifarnik =  $this->strucnakvalifikacijaInterface->getAllKeySifra();
 
         return view('obracunzarada::izvestaji.ranglista_zarade',
-            ['month_id'=>$request->month_id,'groupedZara'=>$groupedZara,'strucneKvalifikacijeSifarnik'=>$strucneKvalifikacijeSifarnik,'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik]);
+            ['month_id'=>$request->month_id,
+                'groupedZara'=>$groupedZara,
+                'strucneKvalifikacijeSifarnik'=>$strucneKvalifikacijeSifarnik,
+                'minimalneBrutoOsnoviceSifarnik'=>$minimalneBrutoOsnoviceSifarnik,
+                'datum'=>Carbon::createFromFormat('Y-m-d',$monthData->datum)
+            ]);
     }
 
 

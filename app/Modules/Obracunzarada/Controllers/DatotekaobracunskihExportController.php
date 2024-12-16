@@ -21,6 +21,7 @@ use App\Modules\Obracunzarada\Service\ObradaObracunavanjeService;
 use App\Modules\Obracunzarada\Service\ProveraPoentazeService;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\PodaciofirmiRepositoryInterface;
+use DateTime;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -1050,5 +1051,43 @@ public function stampaPoVrstiPlacanjaAlimentacija(Request $request)
         return $pdf->download('pdf_' . $sifraVrstePlacanja . '_' . date("d.m.y") . '.pdf');
     }
 
+    public function proveraObavestenihRadnika(Request $request){
+
+        $zaraData= $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id',$request->month_id)->get();
+
+        $withEmail=[];
+        $withoutEmail=[];
+        $monthData = $this->datotekaobracunskihkoeficijenataInterface->getById($request->month_id);
+
+        $date = new DateTime($monthData->datum);
+
+        $datum = $date->format('m.Y');
+
+        $zaraDataSorted = $zaraData->sortBy('maticni_broj');
+        foreach ($zaraDataSorted as $zaraRadnik){
+
+            $zaraRadnik->load('maticnadatotekaradnika');
+
+            if($zaraRadnik->maticnadatotekaradnika->email_za_plate){
+                $withEmail[]=$zaraRadnik;
+            }else{
+                $withoutEmail[]=$zaraRadnik;
+            }
+            $test='test';
+
+
+
+        }
+
+        return view('obracunzarada::izvestaji.provera_obavestenih_radnika',
+            [
+                'withEmail'=>$withEmail,
+                'withoutEmail'=>$withoutEmail,
+                'datum'=>$datum
+
+            ]
+        );
+
+    }
 
 }

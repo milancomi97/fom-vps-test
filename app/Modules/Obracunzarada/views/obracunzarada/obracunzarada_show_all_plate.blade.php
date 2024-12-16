@@ -142,7 +142,7 @@
                 </form>
                 </div>
                 <div class=" col-md-2">
-                    <form class="loaderEvent" method="POST" action="{{route('datotekaobracunskihkoeficijenata.email_radnik_lista_all')}}">
+                    <form class="loaderEvent" method="POST" action="{{route('datotekaobracunskihkoeficijenata.provera_obavestenih_radnika')}}">
                         @csrf
                         <input type="hidden" name="month_id" value="{{$monthData->id}}">
                         <button class="btn btn-warning">Provera obaveštenih radnika</button>
@@ -202,7 +202,7 @@
                                     @endif
                                 </td>
                                 <td>
-                @if($value->maticnadatotekaradnika->email_za_plate !==null)
+                @if($value->maticnadatotekaradnika->email_za_plate)
                                         @if($value->maticnadatotekaradnika->email_za_plate_poslat)
                                             <span class="status_icon text-success">Poslat</span>
 

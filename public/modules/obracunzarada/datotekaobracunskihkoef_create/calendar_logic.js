@@ -1,5 +1,6 @@
 // let currentMonth = new Date().getMonth();
 // let currentYear = new Date().getFullYear();
+debugger;
 let currentMonth = parseInt(activeMonth);
 let currentYear = parseInt(activeYear);
 
@@ -29,10 +30,12 @@ function updateMonthContainer(activeMonth) {
 
             }
 
+            debugger;
             $.each([
                 {'label': 'Kalendarski broj dana', 'val': `${monthData.kalendarski_broj_dana}`},
                 // {'label': 'Prosečni godišnji fond sati', 'val': `${monthData.prosecni_godisnji_fond_sati}`},
                 {'label': 'Mesečni fond sati', 'val': `${monthData.mesecni_fond_sati}`},
+                {'label': 'Fond sati praznika', 'val': `${monthData.mesecni_fond_sati_praznika}`},
                 {'label': 'Status meseca', 'val': `${monthStatusString}`},
                 // {'label': 'Cena rada prethodni', 'val': `${monthData.cena_rada_prethodni}`},
             ], function(key, value) {
@@ -293,8 +296,10 @@ function updateMonthContainer(activeMonth) {
 
 function updateMonth(activeMonth) {
 
+    debugger;
     const monthYearElement = document.getElementById('monthYear');
-    const monthName = new Date(currentYear, activeMonth).toLocaleString('sr-Latn', {
+    const monthNameJS = activeMonth;
+    const monthName = new Date(currentYear, monthNameJS).toLocaleString('sr-Latn', {
         month: 'long',
         year: 'numeric'
     });
@@ -306,8 +311,10 @@ function getMonthData(month) {
 
     var data = getFromDatabase(date)
     var fullData = {};
+    debugger;
     if (data) {
         fullData = {
+
             month: new Date(currentYear, month).toLocaleString('sr-Latn', {month: 'long'}),
             status: data.status,
             kalendarski_broj_dana:data.kalendarski_broj_dana,
@@ -315,6 +322,7 @@ function getMonthData(month) {
             cena_rada_tekuci:data.cena_rada_tekuci,
             cena_rada_prethodni:data.cena_rada_prethodni,
             mesecni_fond_sati: data.mesecni_fond_sati,
+            mesecni_fond_sati_praznika:data.mesecni_fond_sati_praznika,
             month_id: data.id,
             currYear: currentYear,
             currMonth: month,
@@ -333,6 +341,7 @@ function getMonthData(month) {
 }
 
 function getDate(currentYear, month) {
+    // debugger;
     let currentDate = new Date(currentYear, month);
     let year = currentDate.getFullYear();
     let months = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based

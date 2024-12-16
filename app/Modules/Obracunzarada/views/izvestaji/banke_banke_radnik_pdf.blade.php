@@ -134,7 +134,7 @@
                     <tr>
                         <td class="text-left">{{ $radnik['maticni_broj']  }}</td>
                         <td class="text-left">{{ $radnik['prezime']  }} {{ $radnik['srednje_ime']  }} . {{ $radnik['ime']  }}</td>
-                        <td class="text-right">{{ number_format($radnik['UKIS_ukupan_iznos_za_izplatu'], 2, '.', ',')  }}</td>
+                        <td class="text-right">{{ number_format($radnik['UKIS_ukupan_iznos_za_izplatu'], 2, ',', '.')  }}</td>
                         <td  class="text-right">{{ $radnik['maticnadatotekaradnika']['ZRAC_tekuci_racun']  }}</td>
                             <?php $iznosPoBanciCounter+=$radnik['UKIS_ukupan_iznos_za_izplatu']; ?>
                     </tr>
@@ -143,7 +143,7 @@
             <tfoot>
             <tr>
                 <td colspan="2"> UKUPNO ZA ISPLATNO MESTO:   </td>
-                <td  class="text-right"><b>{{ number_format($iznosPoBanciCounter, 2, '.', ',') }}</b></td>
+                <td  class="text-right"><b>{{ number_format($iznosPoBanciCounter, 2, ',', '.') }}</b></td>
                 <td></td>
             </tr>
             </tfoot>

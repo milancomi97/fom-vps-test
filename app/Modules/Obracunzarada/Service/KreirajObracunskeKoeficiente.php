@@ -40,6 +40,7 @@ class KreirajObracunskeKoeficiente
         foreach ($radnici as $key => $radnik) {
             if (isset($radnik->maticnadatotekaradnika->id)) {
 
+                // TODO PROVERITI
                 if ($radnik->sifra_mesta_troska_id > 0) {
 
                     $data[] = [
@@ -47,7 +48,7 @@ class KreirajObracunskeKoeficiente
 //                    'vrste_placanja' => $vrstePlacanja,
                         'vrste_placanja' => $vrstePlacanja,
                         'user_id' => $radnik->id,
-                        'datum' => $datotekaobracunskihkoeficijenata->datum->format('Y-m-d'),
+                        'datum' => $datotekaobracunskihkoeficijenata->datum,
                         'maticni_broj' => $radnik->maticni_broj,
                         'ime' => $radnik->ime,
                         'prezime' => $radnik->prezime,

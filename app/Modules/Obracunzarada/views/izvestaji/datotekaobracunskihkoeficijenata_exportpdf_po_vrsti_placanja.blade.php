@@ -132,10 +132,10 @@
         @endphp
         @foreach($dkopData as $vrstaPlacanja)
             <tr>
-                <td>{{ $vrstaPlacanja['maticni_broj'] }} {{ $vrstaPlacanja['mdrData']['PREZIME_prezime'] }} {{ $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{ $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
+                <td>{{ $vrstaPlacanja['maticni_broj'] }} {{ $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{ $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
                 <td>{{ $vrstaPlacanja['troskovno_mesto_id'] }}</td>
                 <td class="text-right">{{ $vrstaPlacanja['sati'] }}</td>
-                <td class="text-right">{{ number_format($vrstaPlacanja['iznos'], 2, '.', ',') }}</td>
+                <td class="text-right">{{ number_format($vrstaPlacanja['iznos'], 2, ',', '.') }}</td>
             </tr>
             @php
                 $satiBrojac += $vrstaPlacanja['sati'];
@@ -145,7 +145,7 @@
         <tr>
             <td colspan="2">Ukupno:</td>
             <td class="text-right"><b>{{ $satiBrojac }}</b></td>
-            <td class="text-right"><b>{{ number_format($iznosBrojac, 2, '.', ',') }}</b></td>
+            <td class="text-right"><b>{{ number_format($iznosBrojac, 2, ',', '.') }}</b></td>
             <td colspan="2">
             </td>
         </tr>

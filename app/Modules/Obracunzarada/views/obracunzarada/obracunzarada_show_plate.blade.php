@@ -209,17 +209,17 @@
              </td>
             </tr>
             <tr>
-                <td>Osnovna bruto zarada:  {{number_format($mdrData['KOEF_osnovna_zarada'], 2, '.', ',')}}</td>
+                <td>Osnovna bruto zarada:  {{number_format($mdrData['KOEF_osnovna_zarada'], 2, ',', '.')}}</td>
             </tr>
             <tr>
                 <td>
-                    Prosecna bruto zarada/cas: {{  number_format($mdrData['PRIZ_ukupan_bruto_iznos']/$mdrData['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'], 2, '.', ',')}}
+                    Prosecna bruto zarada/cas: {{  number_format($mdrData['PRIZ_ukupan_bruto_iznos']/$mdrData['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'], 2, ',', '.')}}
                 </td>
                 <td>
-                    Učinak: {{  number_format($mdrData['PREB_prebacaj'], 2, '.', ',')}}
+                    Učinak: {{  number_format($mdrData['PREB_prebacaj'], 2, ',', '.')}}
                 </td>
 {{--                <td>--}}
-{{--                    Korektivni faktor: {{  number_format($mdrData['KFAK_korektivni_faktor'], 2, '.', ',')}}--}}
+{{--                    Korektivni faktor: {{  number_format($mdrData['KFAK_korektivni_faktor'], 2, ',', '.')}}--}}
 {{--                </td>--}}
             </tr>
         </table>
@@ -243,7 +243,7 @@
                             {{ $radnik['procenat'] !== null ? $radnik['procenat'] . '%' : '' }}
                         </td>
                         <td>{{ $radnik['sati'] !== null && $radnik['procenat'] == null ? $radnik['sati'] : '' }}</td>
-                        <td class="text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
+                        <td class="text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, ',', '.') : '0.00' }}</td>
                     </tr>
                 @endif
             @endforeach
@@ -270,7 +270,7 @@
                             <td>kreditor={{ $radnik['kreditorAdditionalData']['imek_naziv_kreditora'] ?? '' }}</td>
                             <td class="small_font">{{ $radnik['kreditAdditionalData']['SALD_saldo'] - $radnik['kreditAdditionalData']['RATA_rata']}}</td>
                             <td >part={{ $radnik['kreditAdditionalData']['PART_partija_poziv_na_broj'] ?? '' }}</td>
-                            <td class="text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
+                            <td class="text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, ',', '.') : '0.00' }}</td>
                         </tr>
                     @else
                         <tr>
@@ -278,7 +278,7 @@
                             <td></td>
                             <td></td>
                             <td class="">{{ $radnik['procenat'] !== null ? $radnik['procenat'].'%' : '' }}</td>
-                            <td class="text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, '.', ',') : '0.00' }}</td>
+                            <td class="text-right">{{ $radnik['iznos'] !== null ? number_format($radnik['iznos'], 2, ',', '.') : '0.00' }}</td>
                         </tr>
                     @endif
                 @endif
@@ -290,15 +290,15 @@
         <table class="table table-bordered ">
             <tr>
                 <td><strong>Bruto zarada</strong></td>
-                <td class="text-right">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade, 2, '.', ',') }}</td>
+                <td class="text-right">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade, 2, ',', '.') }}</td>
             </tr>
             <tr>
                 <td><strong>Poresko oslobođenje</strong></td>
-                <td class="text-right">{{ number_format($zarData->POROSL_poresko_oslobodjenje, 2, '.', ',') }}</td>
+                <td class="text-right">{{ number_format($zarData->POROSL_poresko_oslobodjenje, 2, ',', '.') }}</td>
             </tr>
             <tr>
                 <td><strong>Oporezivi iznos zarade</strong></td>
-                <td class="text-right">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade - $zarData->POROSL_poresko_oslobodjenje, 2, '.', ',') }}</td>
+                <td class="text-right">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade - $zarData->POROSL_poresko_oslobodjenje, 2, ',', '.') }}</td>
             </tr>
         </table>
 
@@ -306,15 +306,15 @@
         <table class="table table-bordered ">
             <tr>
                 <td><strong>Neto zarada (1 - 5)</strong></td>
-                <td class="text-right">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade - $zarData->SIP_ukupni_iznos_poreza - $zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',') }}</td>
+                <td class="text-right">{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade - $zarData->SIP_ukupni_iznos_poreza - $zarData->SID_ukupni_iznos_doprinosa, 2, ',', '.') }}</td>
             </tr>
             <tr>
                 <td><strong>Uk. obustave</strong></td>
-                <td class="text-right">{{ number_format($zarData->SIOB_ukupni_iznos_obustava + $zarData->ZARKR_ukupni_zbir_kredita, 2, '.', ',') }}</td>
+                <td class="text-right">{{ number_format($zarData->SIOB_ukupni_iznos_obustava + $zarData->ZARKR_ukupni_zbir_kredita, 2, ',', '.') }}</td>
             </tr>
             <tr>
                 <td><strong>Za isplatu (1 - 5 - 3)</strong></td>
-                <td class="text-right">{{ number_format($zarData->NETO_neto_zarada - $zarData->SIOB_ukupni_iznos_obustava - $zarData->ZARKR_ukupni_zbir_kredita, 2, '.', ',') }}</td>
+                <td class="text-right">{{ number_format($zarData->NETO_neto_zarada - $zarData->SIOB_ukupni_iznos_obustava - $zarData->ZARKR_ukupni_zbir_kredita, 2, ',', '.') }}</td>
             </tr>
         </table>
 
@@ -322,15 +322,15 @@
         <table class="table table-bordered">
             <tr>
 {{--                <td><strong>Ukupni Doprinosi</strong></td>--}}
-{{--                <td class="text-right">{{ number_format($zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',') }}</td>--}}
+{{--                <td class="text-right">{{ number_format($zarData->SID_ukupni_iznos_doprinosa, 2, ',', '.') }}</td>--}}
             </tr>
 {{--            <tr>--}}
 {{--                <td><strong>Porez (10%)</strong></td>--}}
-{{--                <td class="text-right">{{ number_format($zarData->SIP_ukupni_iznos_poreza, 2, '.', ',') }}</td>--}}
+{{--                <td class="text-right">{{ number_format($zarData->SIP_ukupni_iznos_poreza, 2, ',', '.') }}</td>--}}
 {{--            </tr>--}}
             <tr>
                 <td><strong>Ukupni porezi i doprinosi na teret radnika</strong></td>
-                <td class="text-right">{{ number_format($zarData->SIP_ukupni_iznos_poreza + $zarData->SID_ukupni_iznos_doprinosa, 2, '.', ',') }}</td>
+                <td class="text-right">{{ number_format($zarData->SIP_ukupni_iznos_poreza + $zarData->SID_ukupni_iznos_doprinosa, 2, ',', '.') }}</td>
             </tr>
         </table>
 
@@ -339,22 +339,22 @@
             <tr>
                 <td>Zdravstveno osiguranje (p)</td>
                 <td class="text-right">5.15%</td>
-                <td class="text-right">{{ number_format($zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>
+                <td class="text-right">{{ number_format($zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca, 2, ',', '.') }}</td>
             </tr>
             <tr>
                 <td>Penzijsko-invalidsko osiguranje (p)</td>
                 <td class="text-right">10.00%</td>
-                <td class="text-right">{{ number_format($zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>
+                <td class="text-right">{{ number_format($zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, ',', '.') }}</td>
             </tr>
          {{--   <tr>
                 <td><strong>Ukupni Doprinosi</strong></td>
                 <td></td>
-                <td class="text-right">{{ number_format($zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</td>
+                <td class="text-right">{{ number_format($zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, ',', '.') }}</td>
             </tr>--}}
             <tr>
                 <td><strong>Ukupno potrebna sredstva</strong></td>
                 <td></td>
-                <td class="text-right"><b>{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade + $zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, '.', ',') }}</b></td>
+                <td class="text-right"><b>{{ number_format($zarData->IZNETO_zbir_ukupni_iznos_naknade_i_naknade + $zarData->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $zarData->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, ',', '.') }}</b></td>
             </tr>
         </table>
 

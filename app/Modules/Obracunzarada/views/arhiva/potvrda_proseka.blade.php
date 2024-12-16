@@ -67,15 +67,15 @@
                     <td><b>Izneto:</b></td>
                 @foreach($resultData as $data)
                     @if(is_array($data))
-                        <td>{{number_format( $data['IZNETO'], 2, '.', ',')}}</td>
+                        <td>{{number_format( $data['IZNETO'], 2, ',', '.')}}</td>
 {{--                        resultData--}}
 {{--                        radnikData--}}
 {{--                    </tr>--}}
                     @endif
 
                 @endforeach
-                    <td>{{number_format($resultData['izneto'], 2, '.', ',')}}</td>
-                    <td><b>{{number_format($resultData['izneto']/$counter, 2, '.', ',')}}</b></td>
+                    <td>{{number_format($resultData['izneto'], 2, ',', '.')}}</td>
+                    <td><b>{{number_format($resultData['izneto']/$counter, 2, ',', '.')}}</b></td>
 
                 </tr>
                 <tr>
@@ -83,17 +83,17 @@
 
                 @foreach($resultData as $data)
                     @if(is_array($data))
-                        <td>{{number_format( $data['NETO'], 2, '.', ',')}}</td>
+                        <td>{{number_format( $data['NETO'], 2, ',', '.')}}</td>
 
                             {{--                        resultData--}}
                         {{--                        radnikData--}}
                         {{--                    </tr>--}}
                     @endif
                 @endforeach
-                    <td>{{number_format($resultData['neto'], 2, '.', ',')}}</td>
-                    <td><b>{{number_format($resultData['neto']/$counter, 2, '.', ',')}}</b></td>
+                    <td>{{number_format($resultData['neto'], 2, ',', '.')}}</td>
+                    <td><b>{{number_format($resultData['neto']/$counter, 2, ',', '.')}}</b></td>
                 </tr>
-{{--                {{number_format($vrstaPlacanja->iznos, 2, '.', ',')}}--}}
+{{--                {{number_format($vrstaPlacanja->iznos, 2, ',', '.')}}--}}
                 </tbody>
             </table>
         </div>

@@ -283,6 +283,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/email_radnik_lista_all', [DatotekaobracunskihEmailController::class, 'emailRadnikListaAll'])->name('datotekaobracunskihkoeficijenata.email_radnik_lista_all');
 
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/provera_obravestenih_radnika', [DatotekaobracunskihExportController::class, 'proveraObavestenihRadnika'])->name('datotekaobracunskihkoeficijenata.provera_obavestenih_radnika');
 
 
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/stampa_ostvarene_zarade', [DatotekaobracunskihExportController::class, 'stampaOstvareneZarade'])->name('datotekaobracunskihkoeficijenata.stampa_ostvarene_zarade');

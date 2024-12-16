@@ -67,15 +67,15 @@
                             <tr>
                                 <td>{{ $radnik['maticni_broj']  }}</td>
                                 <td>{{ $mdrSifarnik[$radnik['maticni_broj']]['PREZIME_prezime']  }} {{$mdrSifarnik[$radnik['maticni_broj']]['srednje_ime']}}. {{ $mdrSifarnik[$radnik['maticni_broj']]['IME_ime']  }}</td>
-                                <td class="text-right">{{ number_format($radnik['iznos'], 2, '.', ',')  }}</td>
-                                <td class="text-right">{{ number_format($radnik['SALD_saldo'], 2, '.', ',')  }}</td>
+                                <td class="text-right">{{ number_format($radnik['iznos'], 2, ',', '.')  }}</td>
+                                <td class="text-right">{{ number_format($radnik['SALD_saldo'], 2, ',', '.')  }}</td>
                                 {{--                                <td  class="text-right">{{ $radnik['maticnadatotekaradnika']['ZRAC_tekuci_racun']  }}</td>--}}
                                     <?php $iznosPoBanciCounter+=$radnik['iznos']; ?>
                             </tr>
                         @endforeach
                         <tr  class="border-topp">
                             <td colspan="2" class="text-center  border-topp"><h3><b>Ukupno:</b></h3></td>
-                            <td class="text-center border-topp"> <h3><b>{{ number_format($iznosPoBanciCounter, 2, '.', ',') }}</b></h3></td>
+                            <td class="text-center border-topp"> <h3><b>{{ number_format($iznosPoBanciCounter, 2, ',', '.') }}</b></h3></td>
                             <td  class="text-center border-topp"></td>
                         </tr>
                         </tbody>
@@ -84,7 +84,7 @@
                 @endforeach
                 <div class="myHr"></div>
 
-                <h1 class="text-center">UKUPNO: <b>{{ number_format($ukupanBrojac, 2, '.', ',') }}</b></h1>
+                <h1 class="text-center">UKUPNO: <b>{{ number_format($ukupanBrojac, 2, ',', '.') }}</b></h1>
 
 
             </div>

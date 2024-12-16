@@ -146,7 +146,9 @@ class ArhiviranjeMesecaService
             unset($zara->user_dpsm_id);
             unset($zara->obracunski_koef_id);
             unset($zara->user_mdr_id);
-
+             unset($zara->ONEZP_osiguranje_od_nezaposlenosti_teret_poslodavca);
+             unset($zara->SID_ukupni_iznos_poreza_i_doprinosa);
+             unset($zara->UKIS_ukupan_iznos_za_izplatu);
 
 
             $zara['M_G_mesec_godina']=$datum->format('my');
@@ -154,8 +156,16 @@ class ArhiviranjeMesecaService
             return $zara;
         });
 
-        $result =$this->arhivaSumeZaraPoRadnikuInterface->createMany($updatedZara->toArray());
-        return $result;
+        $zaraChunksData = $updatedZara->chunk(100);
+
+
+        foreach ($zaraChunksData as $zaraChunk){
+            $this->arhivaSumeZaraPoRadnikuInterface->createMany($zaraChunk->toArray());
+        }
+
+
+//        $result =$this->arhivaSumeZaraPoRadnikuInterface->createMany($updatedZara->toArray());
+        return [];
     }
 
 

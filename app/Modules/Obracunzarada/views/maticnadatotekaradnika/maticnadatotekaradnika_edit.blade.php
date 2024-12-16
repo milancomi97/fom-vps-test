@@ -98,15 +98,15 @@
                         </div>
 
 
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text font-weight-bold" id="span_srednje_ime">Srednje Ime:</span>
-                            </div>
-                            <input type="text" class="form-control" disabled id="srednje_ime" aria-describedby="span_srednje_ime"
-                                   value="{{$radnikData->srednje_ime}}"
-                                   name="srednje_ime"
-                            >
-                        </div>
+{{--                        <div class="input-group mb-3">--}}
+{{--                            <div class="input-group-prepend">--}}
+{{--                                <span class="input-group-text font-weight-bold" id="span_srednje_ime">Srednje Ime:</span>--}}
+{{--                            </div>--}}
+{{--                            <input type="text" class="form-control" disabled id="srednje_ime" aria-describedby="span_srednje_ime"--}}
+{{--                                   value="{{$radnikData->srednje_ime}}"--}}
+{{--                                   name="srednje_ime"--}}
+{{--                            >--}}
+{{--                        </div>--}}
 
                         <!-- 2.2  Ime, text field -->
                         <div class="input-group mb-3">
@@ -153,9 +153,9 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text font-weight-bold" id="span_sifra_mesta_troska_id">Troškovno mesto:</span>
                             </div>
-                            <select class="custom-select" id="troskovno_mesto_id" name="troskovno_mesto_id"
+                            <select class="custom-select" id="troskovno_mesto_id" name="troskovno_mesto_id" required
                                     aria-describedby="span_sifra_mesta_troska_id">
-                                <option value="0">Izaberite troškovno mesto</option>
+                                <option >Izaberite troškovno mesto</option>
                                 @foreach($troskMesta as $value => $label)
                                     @if($label['key']== $radnikData->troskovno_mesto_id)
                                         <option selected value="{{ $label['key']}}">{{ $label['value'] }}</option>
@@ -630,7 +630,52 @@
 
 
     </script>
+    <script>
+        $(document).ready(function () {
+            // Cache DOM elements
+            const form = $('#maticnadatotekaradnika');
+            const submitBtn = $('#submit_btn');
+            const errorText = $('#error-validator-text');
 
+            // Function to validate form inputs
+            function validateForm() {
+                let isValid = true;
+                let errorMessages = [];
+
+                // Example fields to validate
+                const troskovnoMesto = $('#troskovno_mesto_id');
+
+
+                // Troškovno mesto validation
+                if (!troskovnoMesto.val() || troskovnoMesto.val() === "0" ||  troskovnoMesto.val() ==="Izaberite troškovno mesto") {
+                    errorMessages.push('Izaberite troškovno mesto.');
+                    troskovnoMesto.addClass('error');
+                    isValid = false;
+                } else {
+                    troskovnoMesto.removeClass('error');
+                }
+
+
+
+                // Display error messages
+                if (!isValid) {
+                    errorText.html(errorMessages.join('<br>')).removeClass('d-none');
+                } else {
+                    errorText.addClass('d-none');
+                }
+
+                return isValid;
+            }
+
+            // Attach validation to form submit
+            form.on('submit', function (event) {
+                debugger;
+                if (!validateForm()) {
+                    event.preventDefault(); // Prevent submission if validation fails
+                }
+            });
+        });
+    </script>
 @endsection
 
 {{--errorLoading: function () {--}}
