@@ -224,9 +224,9 @@
                                 <span class="input-group-text font-weight-bold" id="span_redosled_poentazi">Redosled u poentazi:</span>
                             </div>
                             <input type="number" class="form-control" id="BRCL_redosled_poentazi"
-                                   name="span_redosled_poentazi"
+                                   name="BRCL_redosled_poentazi"
                                    value="{{$radnikData->BRCL_redosled_poentazi}}"
-                                   aria-describedby="BRCL_redosled_poentazi">
+                                   aria-describedby="span_redosled_poentazi">
                         </div>
 
                         <!-- 8. Vrsta rada, select option -->
@@ -318,8 +318,22 @@
                                        {{$radnikData->MRAD_minuli_rad_aktivan ==1 ? "checked": ''}}
                                        id="MRAD_minuli_rad_aktivan">
                             </div>
-
                         </div>
+
+
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text font-weight-bold" id="span_ACTIVE_aktivan">Aktivan:</span>
+                            </div>
+                            <div class="col col-1">
+                                <input type="checkbox" class="form-control" name="ACTIVE_aktivan"
+                                       aria-label="span_ACTIVE_aktivan"
+                                       {{$radnikData->ACTIVE_aktivan ==1 ? "checked": ''}}
+                                       id="ACTIVE_aktivan">
+                            </div>
+                        </div>
+
 
 
 {{--                        <div class="input-group mb-3">--}}
@@ -424,7 +438,7 @@
                                 <div class="form-check form-check-inline">
                                     <select class="custom-select" id="POL_pol"
                                             name="POL_pol">
-                                    @if($radnikData->Pol_pol=='Z')
+                                    @if($radnikData->POL_pol=='Z')
                                             <option selected value="Z">Z</option>
                                             <option   value="Z">Z</option>
                                         @else
@@ -494,12 +508,34 @@
                                 <a href="{{route('radnici.index')}}" class="btn btn-outline-secondary">Tabela radnika</a>
                         </div>
                     </form>
+
+                </div>
+                <div class="row justify-content-center">
+                    <h3 class="text-center">Sekcija aktivnog meseca</h3>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="button-container mb-5 text-center">
+                        <!-- First Form: Deactivation -->
+                        <form action="{{ route('radnici.deactivate_current_month', ['maticni_broj' => $radnikData->MBRD_maticni_broj]) }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button id="submit_btn" type="submit" class="btn btn-danger">Deaktiviranje radnika</button>
+                        </form>
+
+                        <!-- Second Form: Activation -->
+                        <form action="{{ route('radnici.activate_current_month', ['maticni_broj' => $radnikData->MBRD_maticni_broj]) }}" method="POST" style="display: inline;">
+                            @csrf
+                            <button type="submit" class="btn btn-warning">Aktiviranje radnika</button>
+                        </form>
+                    </div>
+                </div>
+
+
+
                 </div>
             </div>
         </div>
     </div>
     <!-- /.content-wrapper -->
-    </div>
 @endsection
 
 

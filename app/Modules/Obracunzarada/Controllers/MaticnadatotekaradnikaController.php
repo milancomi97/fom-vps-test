@@ -238,8 +238,9 @@ class MaticnadatotekaradnikaController extends Controller
         $maticni_broj=$request->maticni_broj;
         $attributes = $request->except(['_token','maticni_broj']); // Exclude _token if needed
         $attributes['MRAD_minuli_rad_aktivan'] = ( $attributes['MRAD_minuli_rad_aktivan'] ?? "") =='on';
-        $attributes['POL_pol'] = ( $attributes['POL_pol'] ?? "") =='M';
+//        $attributes['POL_pol'] = ( $attributes['POL_pol'] ?? "") =='M';
         $attributes['email_za_plate_poslat'] =(int)$attributes['email_za_plate_poslat'] ;
+        $attributes['ACTIVE_aktivan'] = ( $attributes['ACTIVE_aktivan'] ?? "") =='on';
 
         $radnik=$this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj',$maticni_broj)->first();
         $radnik->update($attributes);

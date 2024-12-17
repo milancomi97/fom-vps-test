@@ -708,7 +708,9 @@ class DatotekaobracunskihExportController extends Controller
             'PREKOVREMENI RAD',
             'MINULI RAD',
             'TOPLI OBROK',
-            'ZA ISPLATU'
+            'ZA ISPLATU',
+            'Doprinosi na teret poslodavca',
+            'Potrebna Sredstva'
         ];
 
         $radnikData = [];
@@ -726,12 +728,16 @@ class DatotekaobracunskihExportController extends Controller
                     $brojaCvarijab=0;
                     $brojaCTOPLI_obrok_iznos=0;
                     $brojacZaIsplatu=0;
+                    $brojacDoprinosiNaTeretPoslodavca=0;
+                    $brojacPotrebnaSredstva=0;
+//                 $radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade
             $radnikData[]=[$key.' - '.$orgCelineData[$key]['naziv_troskovnog_mesta'],'','','','','','',];
 
             foreach ($celinaZara as $radnik){
                 if($radnik->maticnadatotekaradnika->BRCL_redosled_poentazi<100 && $userPermission->role_id !==UserRoles::SUPERVIZOR){
                 continue;
                 }
+               $esat='test';
                 $radnikData[] = [
                     $radnik->sifra_troskovnog_mesta,
                     $radnik->maticni_broj,
@@ -745,7 +751,9 @@ class DatotekaobracunskihExportController extends Controller
                     $radnik->BMIN_prekovremeni_iznos,
                     $radnik->varijab,
                     $radnik->TOPLI_obrok_iznos / $minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,
-                    $radnik->NETO_neto_zarada - $radnik->SIOB_ukupni_iznos_obustava - $radnik->ZARKR_ukupni_zbir_kredita
+                    $radnik->NETO_neto_zarada - $radnik->SIOB_ukupni_iznos_obustava - $radnik->ZARKR_ukupni_zbir_kredita,
+                    $radnik->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $radnik->PIOP_penzijsko_osiguranje_na_teret_poslodavca,
+                    $radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade+$radnik->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $radnik->PIOP_penzijsko_osiguranje_na_teret_poslodavca
                 ];
 
                     $brojaCKOEF_osnovna_zarada+=$radnik->maticnadatotekaradnika->KOEF_osnovna_zarada;
@@ -757,14 +765,16 @@ class DatotekaobracunskihExportController extends Controller
                     $brojaCvarijab+=$radnik->varijab;
                     $brojaCTOPLI_obrok_iznos+=$radnik->TOPLI_obrok_iznos / $minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto;
                     $brojacZaIsplatu+=$radnik->NETO_neto_zarada - $radnik->SIOB_ukupni_iznos_obustava - $radnik->ZARKR_ukupni_zbir_kredita;
+                    $brojacDoprinosiNaTeretPoslodavca+=($radnik->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $radnik->PIOP_penzijsko_osiguranje_na_teret_poslodavca);
+                    $brojacPotrebnaSredstva+=($radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade+$radnik->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $radnik->PIOP_penzijsko_osiguranje_na_teret_poslodavca);
 
 
 
             }
 
 
-            $radnikData[]=['UKUPNO:','','','',$brojaCKOEF_osnovna_zarada,$brojaCUKSA_ukupni_sati_za_isplatu,$brojaCIZNETO_zbir_ukupni_iznos_naknade_i_naknade,$brojaCNETO_neto_zarada,$brojaCEFIZNO_kumulativ_iznosa_za_efektivne_sate,$brojaCBMIN_prekovremeni_iznos,$brojaCvarijab,$brojaCTOPLI_obrok_iznos,$brojaCNETO_neto_zarada];
-            $radnikData[]=['***************','***************','***************','***************','***************','***************','***************','***************','***************','***************','***************','***************'];
+            $radnikData[]=['UKUPNO:','','','',$brojaCKOEF_osnovna_zarada,$brojaCUKSA_ukupni_sati_za_isplatu,$brojaCIZNETO_zbir_ukupni_iznos_naknade_i_naknade,$brojaCNETO_neto_zarada,$brojaCEFIZNO_kumulativ_iznosa_za_efektivne_sate,$brojaCBMIN_prekovremeni_iznos,$brojaCvarijab,$brojaCTOPLI_obrok_iznos,$brojaCNETO_neto_zarada,$brojacDoprinosiNaTeretPoslodavca,$brojacPotrebnaSredstva];
+            $radnikData[]=['***************','***************','***************','***************','***************','***************','***************','***************','***************','***************','***************','***************','***************','***************'];
         }
 
         $inputDate = Carbon::parse($monthData->datum);

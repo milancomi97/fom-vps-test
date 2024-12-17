@@ -235,10 +235,10 @@
                     ">
                         <td>{{ $item['MBRD_maticni_broj'] }}</td>
                         <td>{{ $item['PREZIME_prezime'] }} {{ $item['srednje_ime'] }} {{ $item['IME_ime'] }}</td>
-                        <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos'],2,'.',',')}}</td>
+                        <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos'],2,',','.')}}</td>
                         <td>{{$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost']}}</td>
                         @if($item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost']>0)
-                        <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos']/$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'],2,'.',',')}}</td>
+                        <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos']/$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'],2,',','.')}}</td>
                         @else
                             <td>0</td>
                         @endif
@@ -249,10 +249,10 @@
                     ">
                             <td>{{ $item['MBRD_maticni_broj'] }}</td>
                             <td>{{ $item['PREZIME_prezime'] }} {{ $item['srednje_ime'] }} {{ $item['IME_ime'] }}</td>
-                            <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos'],2,'.',',')}}</td>
+                            <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos'],2,',','.')}}</td>
                             <td>{{$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost']}}</td>
                             @if($item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost']>0)
-                                <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos']/$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'],2,'.',',')}}</td>
+                                <td>{{ number_format($item['PRIZ_ukupan_bruto_iznos']/$item['PRCAS_ukupni_sati_za_ukupan_bruto_iznost'],2,',','.')}}</td>
                             @else
                                 <td>0</td>
                             @endif

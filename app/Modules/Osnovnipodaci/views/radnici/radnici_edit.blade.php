@@ -86,12 +86,6 @@
 
                     <!-- String -->
                     <div class="form-group">
-                        <label for="slika_zaposlenog">Slika Zaposlenog</label>
-                        <input type="text" class="form-control" id="slika_zaposlenog" name="slika_zaposlenog" value="{{$radnik->slika_zaposlenog}}">
-                    </div>
-
-                    <!-- String -->
-                    <div class="form-group">
                         <label for="sifra_mesta_troska_id">Troškovno Mesto</label>
                         <select id="sifra_mesta_troska_id" class="custom-select form-control" name="sifra_mesta_troska_id">
                             <option value="">Izaberi troškovno mesto</option>
@@ -107,7 +101,7 @@
 
                     <!-- String -->
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">Email za pristup</label>
                         <input type="email" class="form-control" id="email" name="email" value="{{$radnik->email}}">
                     </div>
 
@@ -118,17 +112,8 @@
 {{--                               value="{{$radnik->jmbg}}">--}}
 {{--                    </div>--}}
                     <!-- String -->
-                    <div class="form-group">
-                        <label for="telefon_poslovni">Telefon Poslovni</label>
-                        <input type="text" class="form-control" id="telefon_poslovni" name="telefon_poslovni"   value="{{$radnik->telefon_poslovni}}">
-                    </div>
 
-                    <!-- String -->
-                    <div class="form-group">
-                        <label for="licna_karta_broj_mesto_rodjenja">Lična Karta Broj Mesto Rodjenja</label>
-                        <input type="text" class="form-control" id="licna_karta_broj_mesto_rodjenja"
-                               name="licna_karta_broj_mesto_rodjenja" value="{{$radnik->licna_karta_broj_mesto_rodjenja}}" >
-                    </div>
+
 
                     <!-- String -->
 {{--                    <div class="form-group">--}}
@@ -165,12 +150,6 @@
 {{--                        </select>--}}
 {{--                    </div>--}}
 
-                    <!-- UnsignedBigInteger -->
-                    <div class="form-group">
-                        <label for="status_ugovor_id">Broj ugovora o radu</label>
-                        <input type="number" class="form-control" id="status_ugovor_id" name="status_ugovor_id"
-                               value="{{$radnik->status_ugovor_id}}">
-                    </div>
 
                     <!-- Date -->
                     <div class="form-group">

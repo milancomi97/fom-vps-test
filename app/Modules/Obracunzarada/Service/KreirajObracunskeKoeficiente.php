@@ -67,6 +67,49 @@ class KreirajObracunskeKoeficiente
         return $data;
     }
 
+    public function otvoriJednogRadnika($datotekaobracunskihkoeficijenata,$maticniBroj)
+    {
+
+        // 1. Svi aktivni
+        // 2. Dodeli
+        // Dodati logiku koja radi update za vrste placanja  || Varijablina
+        // Dodati logiku za akontacije
+        // Optimizovati logiku sa sto manje querija i ako moze kroz jedan foreach, i da ide kroz array/kolekcija umesto Queru
+        $radnici = $this->radniciInterface->where('maticni_broj',$maticniBroj)->get();
+
+        $vrstePlacanja = $this->getPoenterVrstePlacanjaInitData($datotekaobracunskihkoeficijenata);
+
+        $placanja = [];
+
+        foreach ($radnici as $key => $radnik) {
+            if (isset($radnik->maticnadatotekaradnika->id)) {
+
+                // TODO PROVERITI
+                if ($radnik->sifra_mesta_troska_id > 0) {
+
+                    $data[] = [
+                        'organizaciona_celina_id' => $radnik->sifra_mesta_troska_id,
+//                    'vrste_placanja' => $vrstePlacanja,
+                        'vrste_placanja' => $vrstePlacanja,
+                        'user_id' => $radnik->id,
+                        'datum' => $datotekaobracunskihkoeficijenata->datum,
+                        'maticni_broj' => $radnik->maticni_broj,
+                        'ime' => $radnik->ime,
+                        'prezime' => $radnik->prezime,
+                        'srednje_ime' => $radnik->srednje_ime,
+                        'obracunski_koef_id' => $datotekaobracunskihkoeficijenata->id,
+                        'status_poentaze' => 1,
+                        'user_mdr_id' => $radnik->maticnadatotekaradnika->id
+                    ];
+                }
+
+            }else{
+                $test='test';
+            }
+        }
+
+        return $data;
+    }
 
     private function updateVrstePlacanja($vrstePlacanja, $datotekaobracunskihkoeficijenata)
     {

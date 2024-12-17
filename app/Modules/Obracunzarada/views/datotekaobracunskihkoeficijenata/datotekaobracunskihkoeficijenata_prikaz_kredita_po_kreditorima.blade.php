@@ -287,10 +287,10 @@
                                         <td>{{$brojac++}}.</td>
                                         <td><a href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/show_plate?radnik_maticni=').$vrstaPlacanja['maticni_broj'].'&month_id='.$month_id!!}">
                                                 {{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</a></td>
-                                        <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['GLAVN_glavnica'],2,'.',',') }}</td>
-                                        <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['SALD_saldo'],2,'.',',') }}</td>
-                                        <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['RATA_rata'],2,'.',',') }}</td>
-                                        <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,'.',',') }}</td>
+                                        <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['GLAVN_glavnica'],2,',','.') }}</td>
+                                        <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['SALD_saldo'],2,',','.') }}</td>
+                                        <td class="text-right">{{number_format($vrstaPlacanja['kreditData']['RATA_rata'],2,',','.') }}</td>
+                                        <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,',','.') }}</td>
 
                                     </tr>
                     <?php
@@ -303,7 +303,7 @@
                     <td colspan="4">
                         Ukupno:
                     </td>
-                    <td class="text-right text-danger">{{number_format($iznosBrojac,2,'.',',')}}</td>
+                    <td class="text-right text-danger">{{number_format($iznosBrojac,2,',','.')}}</td>
                 </tr>
                 </tbody>
             </table>

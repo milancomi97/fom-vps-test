@@ -162,6 +162,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('osnovnipodaci/radnici/{radnikId}/update', [RadniciController::class, 'update'])->name('radnici.update');
 
 
+
+
+    Route::post('osnovnipodaci/radnici/updateDeactivate', [RadniciController::class, 'updateDeactivate'])->name('radnici.deactivate_current_month');
+    Route::post('osnovnipodaci/radnici/updateActivate', [RadniciController::class, 'updateActivate'])->name('radnici.activate_current_month');
+
+
+
+
+
     // Firma podaci
     Route::get('osnovnipodaci/firmapodaci/index', [FirmaController::class, 'view'])->name('firmapodaci.view');
     Route::get('osnovnipodaci/firmapodaci/edit', [FirmaController::class, 'edit'])->name('firmapodaci.edit');
@@ -243,6 +252,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('obracunzarada/maticnadatotekaradnika/findByPrezime', [MaticnadatotekaradnikaController::class, 'findByPrezime'])->name('radnici.findByPrezime');
     Route::get('obracunzarada/maticnadatotekaradnika/getById', [MaticnadatotekaradnikaController::class, 'getById'])->name('radnici.getById');
     Route::post('obracunzarada/maticnadatotekaradnika/store', [MaticnadatotekaradnikaController::class, 'store'])->name('maticnadatotekaradnika.store');
+
+
+
+
 
     Route::get('obracunzarada/maticnadatotekaradnika/edit_by_userId', [MaticnadatotekaradnikaController::class, 'editByUserId'])->name('maticnadatotekaradnika.editByUserId');
     Route::get('obracunzarada/maticnadatotekaradnika/create_from_user', [MaticnadatotekaradnikaController::class, 'createFromUser'])->name('maticnadatotekaradnika.createFromUser');

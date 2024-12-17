@@ -118,16 +118,16 @@
 {{--                                <td>{{$MDR->KOEF}}</td>--}}
                                  <td>{{number_format($radnik->maticnadatotekaradnika->KOEF_osnovna_zarada,2,',','.')}}</td>
                                 <td>{{$radnik->UKSA_ukupni_sati_za_isplatu}}</td>
-                                <td>{{number_format($radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade,2,'.',',')}}</td>
+                                <td>{{number_format($radnik->IZNETO_zbir_ukupni_iznos_naknade_i_naknade,2,',','.')}}</td>
                                 <td>{{number_format($radnik->NETO_neto_zarada,2,',','.')}}</td>
-                                <td>{{number_format($radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,'.',',')}}</td>
+                                <td>{{number_format($radnik->EFIZNO_kumulativ_iznosa_za_efektivne_sate/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,',','.')}}</td>
                                 <td>{{number_format($radnik->BMIN_prekovremeni_iznos,2,',','.')}}</td>
                                 <td>{{number_format($radnik->varijab/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,',','.')}}</td>
                                 <td>{{number_format($radnik->TOPLI_obrok_iznos/$minimalneBrutoOsnoviceSifarnik->STOPA1_koeficijent_za_obracun_neto_na_bruto,2,',','.')}}</td>
                                 <?php
                                    $zaIsplatu= $radnik->NETO_neto_zarada-$radnik->SIOB_ukupni_iznos_obustava-$radnik->ZARKR_ukupni_zbir_kredita
                                     ?>
-                                <td>{{number_format($zaIsplatu,2,'.',',')}}</td>
+                                <td>{{number_format($zaIsplatu,2,',','.')}}</td>
                                <?php
                                 $sum_KOEF_osnovna_zarada+=$radnik->maticnadatotekaradnika->KOEF_osnovna_zarada;
                                 $sum_UKSA_ukupni_sati_za_isplatu+=$radnik->UKSA_ukupni_sati_za_isplatu;

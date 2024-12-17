@@ -136,7 +136,7 @@
             <tr>
                 <td>{{$brojac++}}.</td>
                 <td>{{  $vrstaPlacanja['maticni_broj'] }} {{  $vrstaPlacanja['mdrData']['PREZIME_prezime'] }}  {{  $vrstaPlacanja['mdrData']['srednje_ime'] }}. {{  $vrstaPlacanja['mdrData']['IME_ime'] }}</td>
-                <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,'.',',') }}</td>
+                <td class="text-right">{{number_format($vrstaPlacanja['iznos'],2,',','.') }}</td>
                 <td class="text-center">{{   $vrstaPlacanja['procenat'] !=0 ? $vrstaPlacanja['procenat'] . ' %': 'fiksna'}}</td>
                 <td class="text-left">{{   $vrstaPlacanja['naziv_vrste_placanja']}}</td>
 
@@ -151,7 +151,7 @@
             <td colspan="2">
                 Ukupno:
             </td>
-            <td class="text-right"><b>{{number_format($iznosBrojac,2,'.',',')}}</b></td>
+            <td class="text-right"><b>{{number_format($iznosBrojac,2,',','.')}}</b></td>
 
         </tr>
         </tbody>
