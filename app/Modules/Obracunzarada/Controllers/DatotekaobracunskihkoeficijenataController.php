@@ -82,7 +82,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
                 'vrstePlacanjaDescription' => $this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
                 'troskovnaMestaPermission' => $troskovnaMestaPermission,
                 'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
-                'userPermission' => $userPermission
+                'userPermission' => $userPermission,
+                'user_id'=>$user_id
             ]);
 
 

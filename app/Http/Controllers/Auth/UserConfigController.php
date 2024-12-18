@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserPermission;
 use App\Modules\Obracunzarada\Consts\UserRoles;
+use App\Modules\Obracunzarada\Repository\PermesecnatabelapoentRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,11 @@ use Illuminate\Support\Facades\Auth;
 class UserConfigController extends Controller
 {
 
-    public function __construct(readonly private OrganizacionecelineRepositoryInterface $organizacionecelineInterface)
+    public function __construct(
+        readonly private OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
+        private readonly PermesecnatabelapoentRepositoryInterface $permesecnatabelapoentInterface
+
+    )
     {
     }
 
@@ -90,12 +95,14 @@ class UserConfigController extends Controller
         $orgCeline= $this->organizacionecelineInterface->getAll();
         $userData =User::with('permission')->find($request->user_id);
         $poenterPermission  = json_decode($userData->permission->troskovna_mesta_poenter,true);
+        $poenterPermissionOdgovornost = $this->permesecnatabelapoentInterface->where('status',1)->get();
 
         return view('auth.user-permissions-config', [
             'userData' => $userData,
             'permissions'=>$userData->permission,
             'organizacioneCeline'=>$orgCeline,
-            'poenterPermission'=>$poenterPermission
+            'poenterPermission'=>$poenterPermission,
+            'poenterPermissionOdgovornost'=>$poenterPermissionOdgovornost
         ],         );
     }
 
@@ -121,9 +128,85 @@ class UserConfigController extends Controller
         $permissionData['troskovna_mesta_poenter'] = $troskovnaMestaPoenter;
         $permissionData['role_id'] = $input['role_id'];
         $userPermission->update($permissionData);
-        return redirect()->back();
+
+        $this->updateTroskovnaMestaDataOdgovornosti($request->input('troskovna_mesta_data_odgovornost'),$input['user_id']);
+        return redirect()->back()->with('success','Uspesno azurirani pristupi');
     }
 
+    private function updateTroskovnaMestaDataOdgovornosti($ukljucenaTroskovnaMesta,$user_id){
+        $organizacioneCelineData = $this->permesecnatabelapoentInterface->where('status',1)->get()->keyBy('organizaciona_celina_id');
+
+        $userId=(int)$user_id;
+        if($ukljucenaTroskovnaMesta!==null){
+
+        $ukljucenaTroskovnaMestaIds=array_keys($ukljucenaTroskovnaMesta);
+        foreach ($organizacioneCelineData as $orgCelina){
+
+            if(in_array($orgCelina->organizaciona_celina_id,$ukljucenaTroskovnaMestaIds)){
+                $test='test';
+
+
+
+            $test='test';
+
+            $poenterJsonData = json_decode($orgCelina->poenteri_ids, true);
+            $poenterStatusjsonData = json_decode($orgCelina->poenteri_status, true);
+
+
+            // da li user postoji
+
+
+                if(in_array($userId,$poenterJsonData)){
+
+                    $test='test';
+                }else{
+                    $poenterJsonData[]=(int)$userId;
+                    $poenterStatusjsonData[$userId]=0;
+                }
+
+            $orgCelina->poenteri_ids = json_encode($poenterJsonData);
+            $orgCelina->poenteri_status = json_encode($poenterStatusjsonData);
+            $orgCelina->save();
+
+
+            }else{
+                // iskljuci ako nema
+                $poenterJsonData = json_decode($orgCelina->poenteri_ids, true);
+                $poenterStatusjsonData = json_decode($orgCelina->poenteri_status, true);
+
+
+                // da li user postoji
+
+
+                if(in_array($userId,$poenterJsonData)){
+               $testtt='test';
+
+
+                    unset($poenterStatusjsonData[$userId]);
+
+                $key = array_search($userId, $poenterJsonData);
+
+                if ($key !== false) {
+                    unset($poenterJsonData[$key]);
+                }
+
+                    $test='test';
+                }else{
+//                    $poenterJsonData[]=(int)$userId;
+//                    $poenterStatusjsonData[$userId]=0;
+
+                }
+
+                $orgCelina->poenteri_ids = json_encode($poenterJsonData);
+                $orgCelina->poenteri_status = json_encode($poenterStatusjsonData);
+
+                $orgCelina->save();
+            }
+        }
+
+        }
+
+    }
     private function updateTroskovnaMestaData($data){
 
         $orgCeline= $this->organizacionecelineInterface->getAll();

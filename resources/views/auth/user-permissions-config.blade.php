@@ -7,6 +7,28 @@
 @endsection
 
 @section('content')
+    @php
+        function checkPermissionOdgovornost($permission,$sifra_troskovnog_mesta,$user_id)
+        {
+
+                    $isOdgovoran = false;
+            foreach ($permission as $organizacioaCelina){
+
+                if($organizacioaCelina->organizaciona_celina_id ==$sifra_troskovnog_mesta){
+
+                    $odgovorniPoenteri = json_decode($organizacioaCelina->poenteri_ids);
+                    foreach ($odgovorniPoenteri as $poenterId){
+                        if($poenterId==$user_id){
+                            $isOdgovoran=true;
+                        }
+                    }
+
+                }
+            }
+
+                return $isOdgovoran;
+        }
+    @endphp
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
@@ -201,7 +223,7 @@
             <div class="col-md-6">
                 <div class="card card-secondary w-100">
                     <div class="card-header">
-                        <h3 class="card-title">Podesavanje pristupa</h3>
+                        <h3 class="card-title">Podesavanje pristupa (KOJU CELINU MOGU DA PRISTUPAJU)</h3>
                     </div>
                     <div class="card-body">
                         <!-- Minimal style -->
@@ -236,13 +258,42 @@
             <div class="col-md-6">
                 <div class="card card-secondary w-100">
                     <div class="card-header">
-                        <h3 class="card-title">Podesavanje odgovornosti poentera</h3>
+                        <h3 class="card-title">Podesavanje odgovornosti poentera (KOJE CELINE MOGU DA MENJAJU)</h3>
                     </div>
                     <div class="card-body">
-                        @if($permissions->role_id==UserRoles::POENTER)
-                            <h1 class="text-center">Jeste poenter</h1>
+                        @if($permissions->role_id==UserRoles::POENTER  || $permissions->role_id==UserRoles::ADMINISTRATOR)
+
+                            <div class="card-body">
+                                <!-- Minimal style -->
+                                <div class="row">
+                                    <div class="input-group mb-3">
+                                        @foreach($organizacioneCeline as $celina)
+
+                                            <div class="col-sm-5 mt-2 border-bottom">
+                                                <span class="font-weight-bold"
+                                                      id="{!! $celina->sifra_troskovnog_mesta !!}">{!! $celina->sifra_troskovnog_mesta !!}  {!! $celina->naziv_troskovnog_mesta !!}</span>
+                                            </div>
+                                            <div class="col-sm-1 mt-2">
+                                                <input type="checkbox"
+                                                       {{ checkPermissionOdgovornost($poenterPermissionOdgovornost, $celina->sifra_troskovnog_mesta, $userData->id) ? 'checked' : '' }}
+                                                       class="form-control"
+                                                       name="troskovna_mesta_data_odgovornost[{{ $celina->sifra_troskovnog_mesta }}]"
+                                                       aria-label="{!! $celina->sifra_troskovnog_mesta !!}  {!! $celina->naziv_troskovnog_mesta !!}"
+                                                       id="{!! $celina->sifra_troskovnog_mesta !!}">
+
+                                            </div>
+
+                                        @endforeach
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+
                         @else
-                            <h1 class="text-center">Nije poenter</h1>
+                            <h1 class="text-center">Nema potreban tip pristupa</h1>
                         @endif
                     </div>
                 </div>

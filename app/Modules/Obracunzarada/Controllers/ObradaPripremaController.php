@@ -259,7 +259,7 @@ class ObradaPripremaController extends Controller
 
         $varijabilna = $this->dpsmPoentazaslogInterface->getAll();
         $poenterData = $this->mesecnatabelapoentazaInterface->getAll();
-        $pristupi = $this->permesecnatabelapoentInterface->getAll();
+        $pristupi = $this->permesecnatabelapoentInterface->where('status',1)->get();
 
         // glavnaKrediti
         $dpsmKrediti = $this->dpsmKreditiInterface->getAll();
@@ -276,7 +276,7 @@ class ObradaPripremaController extends Controller
         $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->delete();
 
 
-        $pristupi->each->delete();
+//        $pristupi->each->delete();
         $kreditiPomocni->each->delete();
         $varijabilna->each->delete();
         $poenterData->each->delete();
@@ -583,7 +583,7 @@ class ObradaPripremaController extends Controller
         });
 
 
-        $selectPoenteri = UserPermission::where('role_id',UserRoles::POENTER)->get()->pluck('user_id','user_id');
+        $selectPoenteri = UserPermission::where('role_id',UserRoles::POENTER)->orWhere('role_id', UserRoles::ADMINISTRATOR)->get()->pluck('user_id','user_id');
 
         $selectOdgovornaLica = UserPermission::where('role_id',UserRoles::ADMINISTRATOR)->orWhere('role_id',UserRoles::SUPERVIZOR)->get()->pluck('user_id','user_id');
 
@@ -671,17 +671,17 @@ class ObradaPripremaController extends Controller
 
 
         $month_id = $request->month_id;
-        $user_id=   $request->user_id;
+        $user_id=$request->user_id;
         $org_celina_id= $request->org_celina_id;
         $type = $request->type;
-        $organizacioneCelineData = $this->permesecnatabelapoentInterface->where('obracunski_koef_id',$month_id)->get()->keyBy('organizaciona_celina_id');
+        $organizacioneCelineData = $this->permesecnatabelapoentInterface->where('status',1)->get()->keyBy('organizaciona_celina_id');
 
 
         if($type=='poenter_dodaj'){
             $poenterJsonData = json_decode($organizacioneCelineData[$org_celina_id]->poenteri_ids, true);
-            $poenterStatusjsonData = json_decode($organizacioneCelineData[$org_celina_id]->poenteri_ids, true);
+            $poenterStatusjsonData = json_decode($organizacioneCelineData[$org_celina_id]->poenteri_status, true);
 
-            $poenterJsonData[]=$user_id;
+            $poenterJsonData[]=(int)$user_id;
 
 
             $poenterStatusjsonData[$user_id]=0;

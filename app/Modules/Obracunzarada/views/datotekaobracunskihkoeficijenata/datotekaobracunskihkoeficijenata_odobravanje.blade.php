@@ -354,9 +354,10 @@
         @foreach($mesecnaTabelaPotenrazaTable as $key => $organizacionacelina)
             @if(isset($troskovnaMestaPermission[$key]) && $troskovnaMestaPermission[$key])
                 <div class="table-div mt-5">
-                        <?php
+                    @php
                         $approvedOrganizacioneCeline[]=$key;
-                        ?>
+                        $editableOrgJedinica=($userPermission->role_id == UserRoles::ADMINISTRATOR) && (isset($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][$user_id])) || ($userPermission->role_id == UserRoles::SUPERVIZOR ||  $userPermission->role_id == UserRoles::PROGRAMER);
+                    @endphp
                     <h3 class="text-center"> Organizaciona celina: <b>{{$key}} </b> -
                         &nbsp{{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}.</h3>
                     <button id='osvezi_stranicu' onClick="window.location.reload()" class="btn btn-secondary  calcBtn">Osvežiti proveru</button>
@@ -366,29 +367,30 @@
                         <input type="hidden" name="month_id" value="{{$monthData->id}}">
                         <button id='export-pdf-celina' class="btn btn-secondary  calcBtn">PDF Štampa</button>
                     </form>
-{{--                    <iframe id="hiddenIframe2" name="hiddenIframe2" style="display:none;"></iframe>--}}
+                    {{--                    <iframe id="hiddenIframe2" name="hiddenIframe2" style="display:none;"></iframe>--}}
 
                     <div class="divider"></div>
 
                     <table class="table table-striped" id="table-div{{$key}}"  loading="lazy">
                         <thead>
                         <tr>
-                            @foreach($tableHeaders as $keyheader =>$header)
+                        @foreach($tableHeaders as $keyheader =>$header)
                                 <th>{{ $header }}</th>
                             @endforeach
-                            <th>Napomena</th>
-                            <th>Status</th>
-                            <th>Provera</th>
+                                <th>Napomena</th>
+                                <th>Status</th>
+                                <th>Provera</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($organizacionacelina as $radnikId =>$value)
 
                             @if($radnikId !=='columnSum')
-                            <tr>
+                                <tr>
                                 <td>{{ $value['maticni_broj'] }}</td>
                                 <td class="ime_prezime">{{ $value['ime'] }}</td>
                                 @foreach( $value['vrste_placanja'] as $vrstaPlacanja)
+                                    @if($editableOrgJedinica)
 
                                     <td class="vrsta_placanja_td"><input type="number" data-record-id="{!! $value['id'] !!}"
                                                                          min="0"
@@ -398,6 +400,9 @@
                                                                          data-placement="top"
                                                                          title="{!! $vrstaPlacanja['name']!!}" data-vrsta-placanja-key="{!!$vrstaPlacanja['key']!!}" value="{!! ($vrstaPlacanja['sati'] > 0) ? $vrstaPlacanja['sati'] : null !!}">
                                     </td>
+                                    @else
+                                        <td class="vrsta_placanja_td">{{ $vrstaPlacanja['sati']}}</td>
+                                    @endif
                                 @endforeach
                                 <td class="napomena_td" data-napomena-value="{{$value['napomena']}}"
                                     data-radnik-name="{{$value['ime']}}" data-record-id="{{$value['id']}}">
