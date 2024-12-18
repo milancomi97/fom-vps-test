@@ -12,16 +12,17 @@
         <div class="content-header">
 
         </div>
+        <form  name="permissions_config_update" id="permissions_config_update"
+              method="post"
+              {{--                      action="{{url('/user/permissions_config_update')}}"--}}
+              action="{{route('permissionsUpdatePoenter.update')}}"
+        >
         <!-- /.content-header -->
         <div class="content pl-5 pr-5 ">
             <div class="container pl-5 pr-5 border">
                 <h5 class="pt-2 text-center">Podešavanje korisničkog pristupa za:</h5>
                 <h2 class="pb-5 pt-2 text-center">{{$userData->ime}}</h2>
-                <form id="permissions_config_update" name="permissions_config_update" id="permissions_config_update"
-                      method="post"
-                      {{--                      action="{{url('/user/permissions_config_update')}}"--}}
-                      action="{{route('permissionsUpdatePoenter.update')}}"
-                >
+
                     {!! csrf_field() !!}
                     <input type="hidden" name="user_id" id="user_id" value="{{$userData->id}}">
 
@@ -192,56 +193,72 @@
                     {{--                    Podesavenje modula END--}}
 
 
-                    <div class="row">
-                        <div class="card card-secondary w-100">
-                            <div class="card-header">
-                                <h3 class="card-title">Podesavanje pristupa poentera</h3>
-                            </div>
-                            <div class="card-body">
-                                <!-- Minimal style -->
-                                <div class="row">
-                                    <div class="input-group mb-3">
-                                        @foreach($organizacioneCeline as $celina)
 
-                                            <div class="col-sm-5 mt-2 border-bottom">
-                                                <span class="font-weight-bold"
-                                                      id="{!! $celina->sifra_troskovnog_mesta !!}">{!! $celina->sifra_troskovnog_mesta !!}  {!! $celina->naziv_troskovnog_mesta !!}</span>
-                                            </div>
-                                            <div class="col-sm-1 mt-2">
-                                                <input type="checkbox"
-                                                       {{(isset($poenterPermission) && $poenterPermission[$celina->sifra_troskovnog_mesta])  ? 'checked': ''}}  class="form-control"
-                                                       name="troskovna_mesta_data[{{ $celina->sifra_troskovnog_mesta }}]"
-                                                       aria-label="{!! $celina->sifra_troskovnog_mesta !!}  {!! $celina->naziv_troskovnog_mesta !!}"
-                                                       id="{!! $celina->sifra_troskovnog_mesta !!}">
-                                            </div>
-
-                                        @endforeach
-                                    </div>
-
-                                </div>
-
-                            </div>
-                            <!-- /.card-body -->
-                            <div class="card-footer">
-                                Objasnjenje
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row pt-5 mb-5">
-                        <div class="col-md-12">
-                            <div class="float-right">
-                                <a href="{{url('user/index')}}">
-                                    <button type="button" class="btn btn-success">Pregled radnika</button>
-                                </a>
-                                <button type="submit" class="btn btn-primary  ml-2">Sačuvaj izmene</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
 
             </div>
         </div>
+        <div class="row pl-5 pr-5">
+            <div class="col-md-6">
+                <div class="card card-secondary w-100">
+                    <div class="card-header">
+                        <h3 class="card-title">Podesavanje pristupa</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Minimal style -->
+                        <div class="row">
+                            <div class="input-group mb-3">
+                                @foreach($organizacioneCeline as $celina)
 
+                                    <div class="col-sm-5 mt-2 border-bottom">
+                                                <span class="font-weight-bold"
+                                                      id="{!! $celina->sifra_troskovnog_mesta !!}">{!! $celina->sifra_troskovnog_mesta !!}  {!! $celina->naziv_troskovnog_mesta !!}</span>
+                                    </div>
+                                    <div class="col-sm-1 mt-2">
+                                        <input type="checkbox"
+                                               {{(isset($poenterPermission) && $poenterPermission[$celina->sifra_troskovnog_mesta])  ? 'checked': ''}}  class="form-control"
+                                               name="troskovna_mesta_data[{{ $celina->sifra_troskovnog_mesta }}]"
+                                               aria-label="{!! $celina->sifra_troskovnog_mesta !!}  {!! $celina->naziv_troskovnog_mesta !!}"
+                                               id="{!! $celina->sifra_troskovnog_mesta !!}">
+                                    </div>
+
+                                @endforeach
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        Objasnjenje
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-secondary w-100">
+                    <div class="card-header">
+                        <h3 class="card-title">Podesavanje odgovornosti poentera</h3>
+                    </div>
+                    <div class="card-body">
+                        @if($permissions->role_id==UserRoles::POENTER)
+                            <h1 class="text-center">Jeste poenter</h1>
+                        @else
+                            <h1 class="text-center">Nije poenter</h1>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-5 mb-5">
+            <div class="col-md-12">
+                <div class="float-right">
+                    <a href="{{url('user/index')}}">
+                        <button type="button" class="btn btn-success">Pregled radnika</button>
+                    </a>
+                    <button type="submit" class="btn btn-primary  ml-2">Sačuvaj izmene</button>
+                </div>
+            </div>
+        </div>
+        </form>
     </div>
     <!-- /.content-wrapper -->
 @endsection
