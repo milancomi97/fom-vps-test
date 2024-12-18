@@ -129,10 +129,13 @@
                 },
                 columns: [
                     {
-                        title: 'Ime'
+                        title: 'Maticni Broj'
                     },
                     {
                         title: 'Prezime'
+                    },
+                    {
+                        title: 'Ime'
                     },
                     {title: 'Tip pristupa'},
                     {title: 'Datum odlaska'},

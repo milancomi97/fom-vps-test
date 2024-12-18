@@ -124,7 +124,6 @@ class RadniciController extends Controller
             $userData[] = [
                 $user->maticni_broj,
                 $user->prezime,
-                $user->srednje_ime,
                 $user->ime,
                 $user->active,
                 $user->id
@@ -250,7 +249,7 @@ class RadniciController extends Controller
 
             $radnikData->delete();
 
-            return   redirect()->back()->with('success', 'Radnika uklonjen');
+            return redirect()->back()->with('success', 'Radnika uklonjen');
 
         }
 

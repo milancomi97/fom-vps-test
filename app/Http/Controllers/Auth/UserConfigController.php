@@ -74,8 +74,9 @@ class UserConfigController extends Controller
             $roleId=$user->permission->role_id;
             if($roleId){
                 $userData[] = [
-                    $user->ime,
+                    $user->maticni_broj,
                     $user->prezime,
+                    $user->ime,
                     $permissionConstants[$roleId],
                     $user->datum_odlaska,
                     $user->active,

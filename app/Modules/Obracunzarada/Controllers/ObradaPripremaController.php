@@ -630,16 +630,28 @@ class ObradaPripremaController extends Controller
             if (isset($poenterStatusjsonData[$user_id])) {
                 unset($poenterStatusjsonData[$user_id]);
 
-                // Encode back to JSON
                 $organizacioneCelineData[$org_celina_id]->poenteri_status = json_encode($poenterStatusjsonData);
                 $organizacioneCelineData[$org_celina_id]->save();
             }
 
+            $userPermission = UserPermission::where('user_id',$user_id)->first();
 
+           $troskovnaMestaPrikaz = json_decode($userPermission->troskovna_mesta_poenter,true);
+            $troskovnaMestaPrikazUpdated=[];
+            foreach ($troskovnaMestaPrikaz as $troskovnoMestoId => $value){
+                $test='testt';
 
+                if($troskovnoMestoId==$org_celina_id){
+                    $troskovnaMestaPrikazUpdated[$troskovnoMestoId]=false;
+                }else{
+                    $troskovnaMestaPrikazUpdated[$troskovnoMestoId]=$value;
+                }
+            }
+
+            $userPermission->troskovna_mesta_poenter=json_encode($troskovnaMestaPrikazUpdated);
+            $userPermission->save();
         }
         if($type=='odg_lice_delete'){
-
 
             $odgLiceJsonData = json_decode($organizacioneCelineData[$org_celina_id]->odgovorna_lica_ids, true);
 
@@ -686,9 +698,27 @@ class ObradaPripremaController extends Controller
 
             $poenterStatusjsonData[$user_id]=0;
 
+
             $organizacioneCelineData[$org_celina_id]->poenteri_ids = json_encode($poenterJsonData);
             $organizacioneCelineData[$org_celina_id]->poenteri_status = json_encode($poenterStatusjsonData);
             $organizacioneCelineData[$org_celina_id]->save();
+
+
+            $userPerrmission=UserPermission::where('user_id',$user_id)->first();
+            $pregledPristup= json_decode($userPerrmission->troskovna_mesta_poenter,true);
+           $pregledPristupUpdated=[];
+            foreach ($pregledPristup as $troskovnoMestoPristup=>$value){
+
+                if($org_celina_id==$troskovnoMestoPristup){
+                    $pregledPristupUpdated[$troskovnoMestoPristup]=true;
+                }else{
+                    $pregledPristupUpdated[$troskovnoMestoPristup]=$value;
+                }
+            }
+
+            $userPerrmission->troskovna_mesta_poenter= json_encode($pregledPristupUpdated);
+            $userPerrmission->save();
+            $test='test';
 
 
         }

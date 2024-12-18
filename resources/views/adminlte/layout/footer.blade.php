@@ -16,8 +16,8 @@
 
             <a href="{{ route('backup.index') }}"><p><i class="fa fa-database" aria-hidden="true"></i>&nbsp;&nbsp;Backup
                     baze</p></a>
-            <a href="{{ url('/user/permissions_config') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Podešavanje
-                    pristupa</p></a>
+{{--            <a href="{{ url('/user/permissions_config') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Podešavanje--}}
+{{--                    pristupa</p></a>--}}
             <a href="{{ url('/user/index') }}"><p><i class="fa fa-cog" aria-hidden="true"></i>&nbsp;Podešavanje pristupa
                     radnika</p></a>
         @endif

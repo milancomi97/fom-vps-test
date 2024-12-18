@@ -90,10 +90,9 @@
                     {
                         title: 'Prezime'
                     },
-                    {title: 'Srednje Ime'},
                     {title: 'Ime'},
                     {
-                        title: 'Aktivan',
+                        title: 'Aktivan KADR',
                         className: 'myCustomClass',
                         render: function (data, type) {
                             return data ?  '<i class="fa fa-circle" style="color: #28A745; font-size: 2em; margin-left: 13%;"><i class="d-none">' + data + '</i></i>' :
