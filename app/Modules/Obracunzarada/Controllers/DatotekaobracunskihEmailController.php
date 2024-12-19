@@ -452,7 +452,7 @@ class DatotekaobracunskihEmailController extends Controller
 
                 try {
 //                    Mail::to($radnikEmail)->send(new DemoMail($mailData));
-                    $sttatus= Mail::to('dimitrijevicm1997@gmail.com')->send(new DemoMail($mailData));
+                    $status= Mail::to('dimitrijevicm1997@gmail.com')->send(new DemoMail($mailData));
 
                 } catch (\Exception $e) {
                     $test='3';

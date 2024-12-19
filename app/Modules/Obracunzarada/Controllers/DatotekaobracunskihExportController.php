@@ -548,10 +548,12 @@ class DatotekaobracunskihExportController extends Controller
             $datumStampe = Carbon::now()->format('d. m. Y.');
 
             $counter = 0;
+            $userData = Auth::user()->load(['permission']);
+            $permissions = $userData->permission;
+
             foreach ($zarDataKeys as $zar) {
                 $zar->load('maticnadatotekaradnika');
 
-                $counter++;
 
                 if (!$zar->maticnadatotekaradnika->email_za_plate) {
 
@@ -560,6 +562,12 @@ class DatotekaobracunskihExportController extends Controller
                     $radnikData = $this->obradaObracunavanjeService->pripremaPodatakaRadnik($monthId, $radnikMaticniId);
                     $mdrData = $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj', $radnikMaticniId)->get()->first();
                     $mdrDataCollection = collect($mdrData);
+
+                    if($mdrData->BRCL_redosled_poentazi<100 && $permissions->role_id !== UserRoles::SUPERVIZOR) {
+                        continue;
+                    }
+                    $counter++;
+
                     $mdrPreparedData = $this->obradaObracunavanjeService->pripremaMdrPodatakaRadnik($mdrDataCollection);
                     $troskovnoMesto = $this->organizacionecelineInterface->getById($mdrDataCollection['troskovno_mesto_id']);
                     $dkopData = $this->obradaDkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $monthId)->where('user_mdr_id', $mdrData['id'])->get();
