@@ -138,8 +138,9 @@ class UserConfigController extends Controller
         $organizacioneCelineData = $this->permesecnatabelapoentInterface->where('status',1)->get()->keyBy('organizaciona_celina_id');
 
         $userId=(int)$user_id;
-        if($ukljucenaTroskovnaMesta!==null){
-
+        if($ukljucenaTroskovnaMesta==null) {
+            $ukljucenaTroskovnaMesta = ['iskljuci'=>1];
+        }
         $ukljucenaTroskovnaMestaIds=array_keys($ukljucenaTroskovnaMesta);
         foreach ($organizacioneCelineData as $orgCelina){
 
@@ -205,7 +206,7 @@ class UserConfigController extends Controller
             }
         }
 
-        }
+
 
     }
     private function updateTroskovnaMestaData($data){
