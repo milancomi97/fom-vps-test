@@ -259,7 +259,7 @@ class ObradaPripremaController extends Controller
 
         $varijabilna = $this->dpsmPoentazaslogInterface->getAll();
         $poenterData = $this->mesecnatabelapoentazaInterface->getAll();
-        $pristupi = $this->permesecnatabelapoentInterface->where('status',1)->get();
+//        $pristupi = $this->permesecnatabelapoentInterface->where('status',1)->get();
 
         // glavnaKrediti
         $dpsmKrediti = $this->dpsmKreditiInterface->getAll();

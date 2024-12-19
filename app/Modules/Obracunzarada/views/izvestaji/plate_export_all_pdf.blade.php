@@ -56,6 +56,7 @@
     @endphp
 
 <div class="container mb-5">
+    <h1 class="text-center">TEST PDF</h1>
     <span class="page-number">Stranica </span>
     <!-- Company Info Section -->
     <table class="table disable_top_border">

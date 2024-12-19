@@ -105,7 +105,12 @@ class RadniciController extends Controller
                 'troskovno_mesto_id'=>$user->sifra_mesta_troska_id,
                 'user_id'=>$user->id,
                 'MRAD_minuli_rad_aktivan'=>true,
-                'BRCL_redosled_poentazi'=>'9999'
+                'BRCL_redosled_poentazi'=>'9999',
+                'PRIZ_ukupan_bruto_iznos'=>1,
+                'PRCAS_ukupni_sati_za_ukupan_bruto_iznost'=>1,
+                'KOEF_osnovna_zarada'=>1,
+                'GGST_godine_staza'=>0,
+                'MMST_meseci_staza'=>0
             ]);
             return redirect()->route('radnici.index')->with('success', 'Radnik uspešno dodat');
         } catch (\Exception $e) {
@@ -234,7 +239,7 @@ class RadniciController extends Controller
 
         $userData =User::where('maticni_broj',$maticnoBroj)->first();
         if($userData){
-            $userData->active=true;
+            $userData->active=false;
             $userData->save();
         }
 
