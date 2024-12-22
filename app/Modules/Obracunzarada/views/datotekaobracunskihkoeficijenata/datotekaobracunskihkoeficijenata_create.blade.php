@@ -395,7 +395,6 @@
         let showArhivaRoute ='{!! url('obracunzarada/arhiva/index') !!}'
 
 
-        let showPregledRadnika ='{!! url('osnovnipodaci/radnici/index') !!}'
 
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_create/calendar_logic.js') }}"></script>
