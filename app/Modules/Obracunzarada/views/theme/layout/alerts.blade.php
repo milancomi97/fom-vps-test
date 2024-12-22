@@ -15,10 +15,9 @@
     <script>
         Swal.fire({
             icon: 'error',
-            title: '{{ session('error') }}',
+            title: {!! json_encode(session('error')) !!},
             text: "",
-            showConfirmButton: false,
-            timer: 3000
+            showConfirmButton: true,
         });
     </script>
 @endif

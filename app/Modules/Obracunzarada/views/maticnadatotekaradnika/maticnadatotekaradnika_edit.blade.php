@@ -527,12 +527,16 @@
                             <button type="submit" class="btn btn-warning">Aktiviranje radnika</button>
                         </form>
                     </div>
+                    <div class="container">
+                        <h1 class="text-center">Opis:</h1>
+                        <h3>Deaktiviranje radnika - isključivanje radnika iz trenutne listu poentažе (forma poentera za unos)</h3>
+                        <h3>Aktiviranje radnika - uključivanje radnika u trenutnu listu poenaže (forma poentera za unos)</h3>
+                    </div>
                 </div>
 
 
-
-                </div>
             </div>
+        </div>
         </div>
     </div>
     <!-- /.content-wrapper -->

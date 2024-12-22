@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Modules\Kadrovskaevidencija\Repository\RadnamestaRepositoryInterface;
 use App\Modules\Kadrovskaevidencija\Repository\StrucnakvalifikacijaRepositoryInterface;
 use App\Modules\Kadrovskaevidencija\Repository\VrstaradasifarnikRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\OblikradaRepositoryInterface;
@@ -28,7 +30,9 @@ class MaticnadatotekaradnikaController extends Controller
         private readonly RadniciRepositoryInterface $radniciRepositoryInterface,
         private readonly OrganizacionecelineRepositoryInterface $organizacionecelineInterface,
         private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
-        private readonly OblikradaRepositoryInterface $oblikradaInterface
+        private readonly OblikradaRepositoryInterface $oblikradaInterface,
+        private readonly  DpsmKreditiRepositoryInterface $dpsmKreditiInterface,
+        private readonly  DpsmFiksnaPlacanjaRepositoryInterface $dpsmFiksnaPlacanjaInterface
     ) {
     }
 
@@ -243,13 +247,44 @@ class MaticnadatotekaradnikaController extends Controller
         $attributes['ACTIVE_aktivan'] = ( $attributes['ACTIVE_aktivan'] ?? "") =='on';
 
         $radnik=$this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj',$maticni_broj)->first();
+
+
+        if($radnik->ACTIVE_aktivan && (!$attributes['ACTIVE_aktivan'] )){
+            return $this->proveraPriDeaktiviranju($maticni_broj);
+        }
+
+
+
         $radnik->update($attributes);
 
+        $kadr=User::where('maticni_broj',$maticni_broj)->first();
+        $kadr->active= $attributes['ACTIVE_aktivan'];
+        $kadr->save();
         session()->flash('success', 'Podaci su uspesno izmenjeni'); // Flash success message
 
         return redirect()->route('maticnadatotekaradnika.editByUserId',[
             'user_id'=>$radnik->user_id
         ]);
+
+    }
+
+    public function proveraPriDeaktiviranju($maticniBroj){
+
+        $message='Radnik nije uklonjen zbog: <br>';
+        $krediti = $this->dpsmKreditiInterface->where('maticni_broj',$maticniBroj)->get();
+        $fiksnaPlacanja =$this->dpsmFiksnaPlacanjaInterface->where('maticni_broj',$maticniBroj)->get();
+
+        if(count($krediti)){
+            $message.='Kredita (PREGLED LINK): '.count($krediti). '<br>';
+        }
+
+        if(count($fiksnaPlacanja)){
+            $message.='Fiksnih placanja(PREGLED LINK): '.count($fiksnaPlacanja). '<br>';
+        }
+
+        if($krediti || $fiksnaPlacanja){
+            return redirect()->back()->with('error', $message);
+        }
 
     }
     }

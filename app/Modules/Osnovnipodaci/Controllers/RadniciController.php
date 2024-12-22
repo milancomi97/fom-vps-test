@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Maticnadatotekaradnika;
 use App\Models\Mesecnatabelapoentaza;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Service\KreirajObracunskeKoeficiente;
@@ -25,7 +27,9 @@ class RadniciController extends Controller
         private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
         private readonly DatotekaobracunskihkoeficijenataRepositoryInterface $datotekaobracunskihkoeficijenataInterface,
         private readonly KreirajObracunskeKoeficiente                        $kreirajObracunskeKoeficienteService,
-        private readonly MesecnatabelapoentazaRepositoryInterface $mesecnatabelapoentazaInterface
+        private readonly MesecnatabelapoentazaRepositoryInterface $mesecnatabelapoentazaInterface,
+        private readonly  DpsmKreditiRepositoryInterface $dpsmKreditiInterface,
+        private readonly  DpsmFiksnaPlacanjaRepositoryInterface $dpsmFiksnaPlacanjaInterface
 
     )
     {
@@ -179,6 +183,9 @@ class RadniciController extends Controller
         $userId = $request->radnikId;
         $user = User::findOrFail($userId);
 
+        if($user->active && (!$active)){
+            return $this->proveraPriDeaktiviranju($user->maticni_broj);
+        }
 
         $status = $user->update($requestData);
 
@@ -231,6 +238,11 @@ class RadniciController extends Controller
         $radnikData= Mesecnatabelapoentaza::where('maticni_broj',$maticnoBroj)->first();
         $mdrData=Maticnadatotekaradnika::where('MBRD_maticni_broj',$maticnoBroj)->first();
 
+
+        if($mdrData->ACTIVE_aktivan){
+           return $this->proveraPriDeaktiviranju($maticnoBroj);
+        }
+
         if($mdrData){
             $mdrData->ACTIVE_aktivan=false;
             $mdrData->save();
@@ -247,7 +259,7 @@ class RadniciController extends Controller
 
         if(!$radnikData) {
 
-            return   redirect()->back()->with('success', 'Radnika nije aktivan');
+            return   redirect()->back()->with('success', 'Radnik nije aktivan');
 
         }else{
 
@@ -299,6 +311,25 @@ class RadniciController extends Controller
     }
 
 
+    public function proveraPriDeaktiviranju($maticniBroj){
+
+        $message='Radnik nije uklonjen zbog: <br>';
+            $krediti = $this->dpsmKreditiInterface->where('maticni_broj',$maticniBroj)->get();
+            $fiksnaPlacanja =$this->dpsmFiksnaPlacanjaInterface->where('maticni_broj',$maticniBroj)->get();
+
+            if(count($krediti)){
+                $message.='Kredita (PREGLED LINK): '.count($krediti). '<br>';
+            }
+
+            if(count($fiksnaPlacanja)){
+                $message.='Fiksnih placanja (PREGLED LINK): '.count($fiksnaPlacanja). '<br>';
+            }
+
+            if($krediti || $fiksnaPlacanja){
+                return redirect()->back()->with('error', $message);
+            }
+
+    }
 
 //interni_maticni_broj
 //maticni_broj

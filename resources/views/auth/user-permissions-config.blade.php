@@ -2,8 +2,11 @@
 @extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
-
-
+<style>
+    .custom-checkbox:checked {
+    accent-color: green; /* Red when checked */
+    }
+</style>
 @endsection
 
 @section('content')
@@ -276,7 +279,7 @@
                                             <div class="col-sm-1 mt-2">
                                                 <input type="checkbox"
                                                        {{ checkPermissionOdgovornost($poenterPermissionOdgovornost, $celina->sifra_troskovnog_mesta, $userData->id) ? 'checked' : '' }}
-                                                       class="form-control"
+                                                       class="form-control custom-checkbox"
                                                        name="troskovna_mesta_data_odgovornost[{{ $celina->sifra_troskovnog_mesta }}]"
                                                        aria-label="{!! $celina->sifra_troskovnog_mesta !!}  {!! $celina->naziv_troskovnog_mesta !!}"
                                                        id="{!! $celina->sifra_troskovnog_mesta !!}">
