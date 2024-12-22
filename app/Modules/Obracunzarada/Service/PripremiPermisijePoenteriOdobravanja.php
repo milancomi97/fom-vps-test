@@ -21,7 +21,7 @@ class PripremiPermisijePoenteriOdobravanja
 
     public function execute($obracunski_koef_id, $id)
     {
-        $data = $this->permesecnatabelapoentInterface->where($obracunski_koef_id,$id)->get();
+        $data = $this->permesecnatabelapoentInterface->getAll();
 
 
         $mesecnaTabelaPoentazaPermissions= [];

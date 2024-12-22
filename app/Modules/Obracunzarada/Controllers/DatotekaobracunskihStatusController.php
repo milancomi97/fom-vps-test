@@ -86,7 +86,7 @@ class DatotekaobracunskihStatusController extends Controller
 
         $monthId =$request->month_id;
 
-        $data=$this->permesecnatabelapoentInterface->where('obracunski_koef_id',$monthId)->get();
+        $data=$this->permesecnatabelapoentInterface->getAll();
 
         $sortByPoenterIds=[];
         foreach ($data as $organizacionaCelina){

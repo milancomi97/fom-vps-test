@@ -572,7 +572,7 @@ class ObradaPripremaController extends Controller
     }
     public function podesavanjePristupa(Request $request){
 
-       $organizacioneCelineData = $this->permesecnatabelapoentInterface->where('obracunski_koef_id',$request->month_id)->get();
+       $organizacioneCelineData = $this->permesecnatabelapoentInterface->getAll();
         $radniciCollection = $this->radniciRepositoryInterface->where('active',1)->get()->keyBy('id');
 
         $dataFullData = $organizacioneCelineData->map(function ($item, $key) {
@@ -607,7 +607,7 @@ class ObradaPripremaController extends Controller
         $user_id=   $request->user_id;
         $org_celina_id= $request->org_celina_id;
         $type = $request->type;
-        $organizacioneCelineData = $this->permesecnatabelapoentInterface->where('obracunski_koef_id',$month_id)->get()->keyBy('organizaciona_celina_id');
+        $organizacioneCelineData = $this->permesecnatabelapoentInterface->getAll()->keyBy('organizaciona_celina_id');
 
 
         if($type=='poenter_delete'){
