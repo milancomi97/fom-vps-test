@@ -121,7 +121,8 @@ class DatotekaobracunskihkoeficijenataController extends Controller
                 'vrstePlacanjaDescription' => $this->vrsteplacanjaInterface->getVrstePlacanjaOpis(),
                 'troskovnaMestaPermission' => $troskovnaMestaPermission,
                 'statusRadnikaOK' => StatusRadnikaObracunskiKoef::all(),
-                'userPermission' => $userPermission
+                'userPermission' => $userPermission,
+                'user_id'=>$user_id
             ]);
 
 
@@ -228,9 +229,17 @@ class DatotekaobracunskihkoeficijenataController extends Controller
             $resultDatoteka = $this->mesecnatabelapoentazaInterface->createMany($podaciRadniciMesec);
             // Podaci o radnicima sa 001 i 019 vrstama plaćanja END
 
+
+
+
+            // TODO ovo sredi
             // Poenteri i odgovorna lica permisije odobravanja START
-            $resultPMB = $this->kreirajPermisijePoenteriOdobravanja->execute($osnovniPodaciMesec);
-            $resultPermission = $this->permesecnatabelapoentInterface->createMany($resultPMB);
+//            $resultPMB = $this->kreirajPermisijePoenteriOdobravanja->execute($osnovniPodaciMesec);
+//            $resultPermission = $this->permesecnatabelapoentInterface->createMany($resultPMB);
+
+
+
+
 
             $idRadnikaZaMesec = $this->mesecnatabelapoentazaInterface->where('obracunski_koef_id', $osnovniPodaciMesec->id)->select(['id', 'maticni_broj'])->get();
 
@@ -246,28 +255,24 @@ class DatotekaobracunskihkoeficijenataController extends Controller
     public function storeUpdate(Request $request)
     {
 
-        try {
-            $result = $this->datotekaobracunskihkoeficijenataInterface->updateMesecnatabelapoentaza($request->all());
-        } catch (\Exception $e) {
-            $message = $e->getMessage();
-            return response()->json(['message' => 'Podatak postoji', 'status' => false], 200);
+        $array=$request->input();
 
-        }
 
-        $resultOk = $this->kreirajObracunskeKoeficienteService->otvoriAktivneRadnike($result);
-        $obracunskiKoefId = $result;
+            $result = Datotekaobracunskihkoeficijenata::where('mesec',$array['month'])->where('godina',$array['year'])->first();
 
-        try {
-            $resultDatoteka = $this->mesecnatabelapoentazaInterface->createMany($resultOk);
-            $resultPMB = $this->kreirajPermisijePoenteriOdobravanja->execute($obracunskiKoefId);
-            $resultPermission = $this->permesecnatabelapoentInterface->createMany($resultPMB);
+        $data =[
+            'mesecni_fond_sati'=>$array['mesecni_fond_sati'],
+            'prosecni_godisnji_fond_sati'=>$array['prosecni_godisnji_fond_sati'],
+            'cena_rada_tekuci'=>$array['cena_rada_tekuci'],
+            'mesecni_fond_sati_praznika'=>$array['mesecni_fond_sati_praznika'],
+            'cena_rada_prethodni'=>$array['cena_rada_prethodni'],
+            'status'=> Datotekaobracunskihkoeficijenata::AKTUELAN,
+            'period_isplate_od'=>$array['period_isplate_od'],
+            'period_isplate_do'=>$array['period_isplate_do']
+        ];
+        $result->update($data);
 
-        } catch (\Exception $e) {
-            $result->delete();
-            return response()->json(['message' => 'Greska kod generisanja obracunskih koeficijenata', 'status' => false], 200);
-
-        }
-        return response()->json(['message' => 'Podatak uspesno kreiran', 'status' => true], 200);
+        return response()->json(['message' => 'Podatak azuriran kreiran', 'status' => true], 200);
     }
 
 

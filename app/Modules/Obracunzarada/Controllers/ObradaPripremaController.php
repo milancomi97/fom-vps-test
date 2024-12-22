@@ -693,8 +693,10 @@ class ObradaPripremaController extends Controller
             $poenterJsonData = json_decode($organizacioneCelineData[$org_celina_id]->poenteri_ids, true);
             $poenterStatusjsonData = json_decode($organizacioneCelineData[$org_celina_id]->poenteri_status, true);
 
-            $poenterJsonData[]=(int)$user_id;
 
+            if(!in_array($user_id,$poenterJsonData)){
+            $poenterJsonData[]=(int)$user_id;
+                }
 
             $poenterStatusjsonData[$user_id]=0;
 

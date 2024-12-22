@@ -54,6 +54,25 @@ class AppUpdatePristupiMaticni extends Command
 
         }
 
+        if (Schema::hasColumn('permesecnatabelapoents', 'obracunski_koef_id')) {
+            Schema::table('permesecnatabelapoents', function (Blueprint $table) {
+                $table->dropForeign(['obracunski_koef_id']);
+                $table->dropColumn(['obracunski_koef_id']);
+
+
+
+            });
+            // Optionally drop the columns themselves if necessary
+            // $table->dropColumn(['user_dpsm_id', 'obracunski_koef_id', 'user_mdr_id']);
+
+        }else{
+
+            $this->alert(PHP_EOL.'Ne postoji reference');
+
+        }
+
+
+
         $userPermissions = UserPermission::all();
 
         foreach ($userPermissions as $user){

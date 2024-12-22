@@ -135,18 +135,26 @@
         ?>
         @foreach($mesecnaTabelaPotenrazaTable as $key => $organizacionacelina)
             @if(isset($troskovnaMestaPermission[$key]) && $troskovnaMestaPermission[$key])
+
+
+
+     @php
+         $isAvailable=isset($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][$user_id]);
+         $isPoslatNaProveru=$isAvailable && $mesecnaTabelaPoentazaPermissions[$key]['poenterData'][$user_id]['status']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU;
+         $isUPripremi=$isAvailable && $mesecnaTabelaPoentazaPermissions[$key]['poenterData'][$user_id]['status']==StatusRadnikaObracunskiKoef::UPRIPREMI;
+        @endphp
                 <div class="table-div mt-5">
                     <h3 class="text-center"> Organizaciona celina: <b>{{$key}} </b> -
                         &nbsp{{$organizacionacelina[0]->organizacionecelina->naziv_troskovnog_mesta}}.</h3>
                     <button id='osvezi_stranicu' onClick="window.location.reload()" class="btn btn-secondary  calcBtn">Osveži proveru</button>
 
-                @if(isset($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]))
-                        @if($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]['status']==StatusRadnikaObracunskiKoef::UPRIPREMI)
+                @if($isAvailable)
+                        @if($isUPripremi)
                             {{$approvedStatus++}}
-                            <button class="btn btn-primary calcBtn" onclick="submitTroskovniCentar('{{$key}}',{{auth()->user()->id}},{{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}})">
+                            <button class="btn btn-primary calcBtn" onclick="submitTroskovniCentar('{{$key}}',{{$user_id}},{{$mesecnaTabelaPoentazaPermissions[$key]['permission_record_id']}})">
                                 Zatvori {{$key}} celinu
                             </button>
-                        @elseif($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]['status']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
+                        @elseif($isPoslatNaProveru)
                             <?php
                                 $approvedOrganizacioneCeline[]=$key;
             ?>
@@ -174,15 +182,15 @@
                         </thead>
                         <tbody>
                         @foreach($organizacionacelina as $radnikId => $value)
-                            {{--                            $mesecnaTabelaPoentazaPermissions[$key]['odgovornaLicaData'][auth()->user()->id]--}}
+                            {{--                            $mesecnaTabelaPoentazaPermissions[$key]['odgovornaLicaData'][$user_id]--}}
                             @if($radnikId !=='columnSum')
 
                             <tr>
                                 <td>{{ $value['maticni_broj'] }}</td>
                                 <td class="ime_prezime">{{ $value['ime'] }}</td>
                                 @foreach( $value['vrste_placanja'] as $vrstaPlacanja)
-                                    @if(isset($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]))
-                                        @if($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]['status']==StatusRadnikaObracunskiKoef::UPRIPREMI)
+                                    @if($isAvailable)
+                                        @if($isUPripremi)
                                             <td class="vrsta_placanja_td"><input type="number" data-record-id="{{$value['id']}}"
                                                                                  min="0"
                                                                                  class="vrsta_placanja_input"
@@ -190,7 +198,7 @@
                                                                                  data-placement="top"
                                                                                  title="{!!$vrstaPlacanja['name']!!}" data-vrsta-placanja-key="{!!$vrstaPlacanja['key']!!}" value="{!! ($vrstaPlacanja['sati'] > 0) ? $vrstaPlacanja['sati'] : null !!}">
                                             </td>
-                                        @elseif($mesecnaTabelaPoentazaPermissions[$key]['poenterData'][auth()->user()->id]['status']==StatusRadnikaObracunskiKoef::POSLATNAPROVERU)
+                                        @elseif($isPoslatNaProveru)
                                             <td class="vrsta_placanja_td">{{ $vrstaPlacanja['sati']}}</td>
                                     @endif
 {{--                                    @elseif($userPermission->role_id !== UserRoles::POENTER)--}}

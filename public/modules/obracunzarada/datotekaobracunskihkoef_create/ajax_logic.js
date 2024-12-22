@@ -5,7 +5,7 @@ $(document).ready(function () {
         var praznikInput = $('#mesecni_fond_sati_praznika_modal');
         if ($(this).is(':checked')) {
             praznikInput.prop('disabled', false);
-            praznikInput.val(0);
+
         } else {
             praznikInput.prop('disabled', true);
             praznikInput.val(0);
@@ -47,6 +47,7 @@ $(document).ready(function () {
 
     $('#submitFormBtn').on('click', function () {
 
+        debugger;
 
         // Swal.fire({
         //     title: 'Da li želite da otvorite mesec?',
@@ -62,7 +63,7 @@ $(document).ready(function () {
 
         var month_id = $('#month_id').val();
         if(month_id !==''){
-            $('#myModal').modal('hide');
+
             return null;
 
             // debugger;
@@ -357,6 +358,8 @@ $(document).ready(function () {
     });
 
 
+
+
     $(document).on('click', 'body .update-mesecna-poentaza', function (e) {
         var _token = $('input[name="_token"]').val();
         var month_id = $(this).data('month_id')
@@ -385,6 +388,7 @@ $(document).ready(function () {
                 $('#vrednost_akontacije_modal').val(response.vrednost_akontacije)
                 $('#month_id').val(response.id);
 
+                $('#mesecni_fond_sati_praznika_modal').val(response.mesecni_fond_sati_praznika);
                 $('#period_isplate_od_modal').val(response.period_isplate_od)
 
                 $('#period_isplate_do_modal').val(response.period_isplate_do)
@@ -397,7 +401,48 @@ $(document).ready(function () {
     });
 
 
+    $(document).on('click', 'body #updateFormBtn', function (e) {
+        debugger;
+        var year = $('#year_modal').val();
+        var month = $('#month_modal').val();
 
+        var mesecni_fond_sati = $('#mesecni_fond_sati_modal').val();
+        var prosecni_godisnji_fond_sati = $('#prosecni_godisnji_fond_sati_modal').val()
+        var kalendarski_broj_dana =  $('#kalendarski_broj_dana_modal').val()
+        var mesecni_fond_sati_praznika = $('#mesecni_fond_sati_praznika_modal').val();
+        var cena_rada_tekuci = $('#cena_rada_tekuci_modal').val()
+        var cena_rada_prethodni = $('#cena_rada_prethodni_modal').val()
+        var period_isplate_do = $('#period_isplate_do_modal').val()
+        var period_isplate_od = $('#period_isplate_od_modal').val()
+        var _token = $('input[name="_token"]').val();
+        $.ajax({
+            url: storeUpdateRoute,
+            type: 'POST',
+            data: {
+                year: year,
+                month: month,
+                mesecni_fond_sati_praznika:mesecni_fond_sati_praznika,
+                mesecni_fond_sati:mesecni_fond_sati,
+                prosecni_godisnji_fond_sati:prosecni_godisnji_fond_sati,
+                cena_rada_tekuci:cena_rada_tekuci,
+                cena_rada_prethodni:cena_rada_prethodni,
+                period_isplate_do:period_isplate_do,
+                period_isplate_od:period_isplate_od,
+                _token: _token
+            },
+            success: function (response) {
+                if (response.status) {
+                    location.reload()
+                } else {
+                    $("#statusMessage").text(response.message).addClass("text-danger");
+                }
+            },
+            error: function (response) {
+                $("#statusMessage").text("Greska: " + response.message).addClass("error");
+
+            }
+        });
+    });
 
 
 
