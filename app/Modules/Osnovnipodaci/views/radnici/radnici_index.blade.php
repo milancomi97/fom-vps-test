@@ -1,3 +1,4 @@
+<?php use App\Modules\Obracunzarada\Consts\UserRoles; ?>
 @extends('obracunzarada::theme.layout.app')
 
 
@@ -105,9 +106,9 @@
                             var userUrl = "{!! url('user/permissions_config_by_user?user_id=')!!}"+ data;
                             var editUrl = "{!! url('osnovnipodaci/radnici/edit_table?user_id=')!!}"+ data;
                             var editMdrUrl = "{!! url('obracunzarada/maticnadatotekaradnika/edit_by_userId?user_id=')!!}"+ data;
-
+                            var permissionSetup ='{!! auth()->user()->permission->role_id===UserRoles::SUPERVIZOR || auth()->user()->permission->role_id===UserRoles::PROGRAMER ? '':'d-none' !!}'
                             return `<div class="d-flex flex-row align-items-start">
-                                <a href="${userUrl}">
+                                <a href="${userUrl}" class="${permissionSetup}">
                                     <button type="button" class="btn btn-outline-light mb-2">
                                         <i class="fas fa-lock edit" data-id="' + data + '" style="font-size: 1em; color: #007BFF;" aria-hidden="true"></i>
                                     </button>PRIS</a>
