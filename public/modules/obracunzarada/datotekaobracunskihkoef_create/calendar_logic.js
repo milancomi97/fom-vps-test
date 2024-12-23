@@ -190,7 +190,7 @@ function updateMonthContainer(activeMonth) {
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Priprema podataka za banke').appendTo(monthCard);
+                }).text('Priprema za banke i kredite').appendTo(monthCard);
 
 
                 $('<button>').attr({

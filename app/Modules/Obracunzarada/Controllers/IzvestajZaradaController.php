@@ -182,6 +182,38 @@ class IzvestajZaradaController extends Controller
             ]);
 
     }
+    public function pripremaBankeRadnikRekapitulacija(Request $request)
+    {
+        $isplatnaMestaSifarnika =$this->isplatnamestaInterface->getAll()->keyBy('rbim_sifra_isplatnog_mesta');
+        $test='test';
+
+        $showAll = (int)$request->prikazi_sve;
+
+
+        if($showAll){
+            $resultData = $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->get();
+//            rbim_sifra_isplatnog_mesta
+            $groupedData = $resultData->sortBy('maticni_broj')->groupBy('rbim_sifra_isplatnog_mesta');
+        }else{
+
+            if(isset($request->banke_ids)){
+                $bankeIds = $request->banke_ids;
+
+                $resultData = $this->obradaZaraPoRadnikuInterface->whereIn('rbim_sifra_isplatnog_mesta',$bankeIds)->with('maticnadatotekaradnika')->get();
+                $groupedData = $resultData->sortBy('maticni_broj')->groupBy('rbim_sifra_isplatnog_mesta');
+
+            }
+
+        }
+        return view('obracunzarada::izvestaji.banke_banke_radnik_rekapitulacija',
+            [
+                'bankeDataZara' =>$groupedData,
+                'isplatnaMestaSifarnika'=>$isplatnaMestaSifarnika,
+                'pdfInputShowAll'=>$showAll,
+                'pdfInputBankeIds'=>$request->banke_ids
+            ]);
+
+    }
 
 
     public function pripremaBankeRadnikPdfExport(Request $request)
@@ -268,6 +300,44 @@ class IzvestajZaradaController extends Controller
 
         }
                 return view('obracunzarada::izvestaji.banke_kreditori_radnik',
+            [
+                'kreditiDataZara' =>$groupedData,
+                'kreditoriSifarnik'=>$kreditoriSifarnik,
+                'mdrSifarnik'=>$maticnaDatotekaRadnika,
+                'pdfInputShowAll'=>$showAll,
+                'pdfInputKreditoriIds'=>$request->kreditori_ids
+            ]);
+
+    }
+    public function pripremaBankeKreditiRekapitulacija(Request $request)
+    {
+
+        $showAll = (int)$request->prikazi_sve;
+
+
+        $kreditoriSifarnik = $this->kreditoriInterface->getAll()->keyBy('sifk_sifra_kreditora')->toArray();
+
+        $maticnaDatotekaRadnika = $this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',true)->get()->keyBy('MBRD_maticni_broj')->toArray();
+
+        if($showAll){
+            $resultData = $this->obradaKreditiInterface->getAll();
+//            rbim_sifra_isplatnog_mesta
+            $groupedData = $resultData->sortBy('maticni_broj')->groupBy('SIFK_sifra_kreditora');
+
+        }else{
+
+            if(isset($request->kreditori_ids)){
+                $kreditoriIds = $request->kreditori_ids;
+
+                $resultData = $this->obradaKreditiInterface->whereIn('SIFK_sifra_kreditora',$kreditoriIds)->get();
+                // ucitaj mdr
+                $groupedData = $resultData->sortBy('maticni_broj')->groupBy('SIFK_sifra_kreditora');
+
+
+            }
+
+        }
+        return view('obracunzarada::izvestaji.banke_kreditori_radnik_rekapitulacija',
             [
                 'kreditiDataZara' =>$groupedData,
                 'kreditoriSifarnik'=>$kreditoriSifarnik,

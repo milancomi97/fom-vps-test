@@ -34,24 +34,8 @@
         <!-- /.content-header -->
         <!-- Main content -->
         <!-- /.content -->
-        <h1 class="text-center">Lista otplate kredita po kreditorima</h1>
-        <div class="col-sm-12 form-container">
-            <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_krediti_pdf') }}">
-                @csrf
-                <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
-                <input type="hidden" name="kreditori_ids" value="{{json_encode($pdfInputKreditoriIds)}}"/>                <div class="form-group text-center">
-                    <button type="submit" class="btn btn-secondary">PDF</button>
-                </div>
-            </form>
-            <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_krediti_pdf') }}">
-                @csrf
-                <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
-                <input type="hidden" name="kreditori_ids" value="{{json_encode($pdfInputKreditoriIds)}}"/>
-                <div class="form-group text-center">
-                    <button type="submit" class="btn btn-secondary">EXCEL</button>
-                </div>
-            </form>
-        </div>
+        <h1 class="text-center">Lista otplate kredita po kreditorima Rekapitulacija</h1>
+
         <div class="row mb-5 mt-5 justify-content-center">
             <div class="container mt-5">
                 <?php $ukupanBrojac=0;?>
@@ -62,23 +46,10 @@
                     <h2 class="text-center mt-5 ">{{$key}} - {{$kreditoriSifarnik[$key]['imek_naziv_kreditora']}}</h2>
                     <table class="table table-bordered mt-2 table-striped">
                         <thead>
-                        <tr>
-                            <th>Matični broj</th>
-                            <th>Prezime i ime</th>
-                            <th>Iznos rate</th>
-                            <th>Saldo duga</th>
-                        </tr>
                         </thead>
                         <tbody>
                         @foreach($troskovnoMesto as $radnik)
-                            <tr>
-                                <td>{{ $radnik['maticni_broj']  }}</td>
-                                <td>{{ $mdrSifarnik[$radnik['maticni_broj']]['PREZIME_prezime']  }} {{$mdrSifarnik[$radnik['maticni_broj']]['srednje_ime']}}. {{ $mdrSifarnik[$radnik['maticni_broj']]['IME_ime']  }}</td>
-                                <td class="text-right">{{ number_format($radnik['iznos'], 2, ',', '.')  }}</td>
-                                <td class="text-right">{{ number_format($radnik['SALD_saldo'], 2, ',', '.')  }}</td>
-                                {{--                                <td  class="text-right">{{ $radnik['maticnadatotekaradnika']['ZRAC_tekuci_racun']  }}</td>--}}
                                     <?php $iznosPoBanciCounter+=$radnik['iznos']; ?>
-                            </tr>
                         @endforeach
                         <tr  class="border-topp">
                             <td colspan="2" class="text-center  border-topp"><h3><b>Ukupno:</b></h3></td>

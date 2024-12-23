@@ -35,41 +35,7 @@
         <!-- Main content -->
         <!-- /.content -->
 
-        <h1 class="text-center">Lista isplate po troškovnim mestima</h1>
-        <div class="container">
-        <div class="row">
-            <div class="col-6 d-flex align-items-center">
-                <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_radnik_pdf') }}">
-                    @csrf
-                    <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
-                    <input type="hidden" name="banke_ids" value="{{json_encode($pdfInputBankeIds)}}"/>
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-secondary">PDF</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-3 d-flex align-items-center">
-                <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_radnik_pdf') }}">
-                    @csrf
-                    <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
-                    <input type="hidden" name="banke_ids" value="{{json_encode($pdfInputBankeIds)}}"/>
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-secondary">EXCEL</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-3 d-flex align-items-center">
-                <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_radnik_fajlovi') }}">
-                    @csrf
-                    <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
-                    <input type="hidden" name="banke_ids" value="{{json_encode($pdfInputBankeIds)}}"/>
-                    <div class="form-group text-center">
-                        <button type="submit" class="btn btn-secondary">Izvoz fajlova</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        </div>
+        <h1 class="text-center">Lista isplate po isplatnim mestima Rekapitulacija</h1>
         <div class="row mb-5 mt-5 justify-content-center">
 
 
@@ -82,23 +48,11 @@
                     <h2 class="text-center mt-5 ">{{$key}} - {{$isplatnaMestaSifarnika[$key]['naim_naziv_isplatnog_mesta']}}</h2>
                 <table class="table table-bordered mt-2 table-striped">
                     <thead>
-                    <tr>
-                        <th>Maticni broj</th>
-                        <th>Prezime i ime</th>
-                        <th>Za isplatu</th>
-                        <th>Broj računa</th>
-
-                    </tr>
                     </thead>
                     <tbody>
                         @foreach($troskovnoMesto as $radnik)
                         <tr>
-                            <td>{{ $radnik['maticni_broj']  }}</td>
-                            <td>{{ $radnik['prezime']  }} . {{ $radnik['ime']  }}</td>
-                            <td class="text-right">{{ number_format($radnik['UKIS_ukupan_iznos_za_izplatu'], 2, ',', '.')  }}</td>
-                            <td  class="text-right">{{ $radnik['maticnadatotekaradnika']['ZRAC_tekuci_racun']  }}</td>
                             <?php $iznosPoBanciCounter+=$radnik['UKIS_ukupan_iznos_za_izplatu']; ?>
-                        </tr>
                         @endforeach
                     <tr  class="border-topp">
                         <td colspan="2" class="text-center  border-topp"><h3><b>Ukupno za banku:</b></h3></td>

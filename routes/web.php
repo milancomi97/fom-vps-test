@@ -401,6 +401,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke_radnik', [IzvestajZaradaController::class, 'pripremaBankeRadnik'])->name('datotekaobracunskihkoeficijenata.priprema_banke_radnik');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke_krediti', [IzvestajZaradaController::class, 'pripremaBankeKrediti'])->name('datotekaobracunskihkoeficijenata.priprema_banke_krediti');
 
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke_radnik_rekapitulacija', [IzvestajZaradaController::class, 'pripremaBankeRadnikRekapitulacija'])->name('datotekaobracunskihkoeficijenata.priprema_banke_radnik_rekapitulacija');
+    Route::post('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke_krediti_rekapitulacija', [IzvestajZaradaController::class, 'pripremaBankeKreditiRekapitulacija'])->name('datotekaobracunskihkoeficijenata.priprema_banke_krediti_rekapitulacija');
+
+
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke_radnik_pdf', [IzvestajZaradaController::class, 'pripremaBankeRadnikPdfExport'])->name('datotekaobracunskihkoeficijenata.priprema_banke_radnik_pdf');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke_krediti_pdf', [IzvestajZaradaController::class, 'pripremaBankeKreditiPdfExport'])->name('datotekaobracunskihkoeficijenata.priprema_banke_krediti_pdf');
     Route::post('obracunzarada/datotekaobracunskihkoeficijenata/priprema_banke_radnik_fajlovi', [IzvestajZaradaController::class, 'pripremaBankeFajloviExport'])->name('datotekaobracunskihkoeficijenata.priprema_banke_radnik_fajlovi');
