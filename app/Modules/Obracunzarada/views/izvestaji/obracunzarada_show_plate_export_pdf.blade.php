@@ -9,7 +9,12 @@
             margin: 5mm 10mm;
             font-size: 3mm;
         }
-
+        .footer {
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            bottom: 0px;
+        }
         @if(count($radnikData) > 15)
         .small_font{
             padding-top: 0 !important;
@@ -289,5 +294,8 @@
 
     <p class="text-left"><i>Ovaj dokument je punovažan bez pečata i potpisa.</i></p>
 </div>
+<footer class="text-center footer">
+   <p class="text-right" style="border-top:solid 1px red">test footer sekcija</p>
+</footer>
 </body>
 </html>

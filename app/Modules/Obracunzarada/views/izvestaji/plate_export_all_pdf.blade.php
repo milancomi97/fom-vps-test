@@ -9,6 +9,12 @@
             margin: 5mm 10mm;
             font-size: 3mm;
         }
+        .footer {
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            bottom: 0px;
+        }
 
         .small_font{
             padding-top: 0 !important;
@@ -298,7 +304,9 @@
             <td class="text-right">{{ number_format($radnikJedan['zarData']->IZNETO_zbir_ukupni_iznos_naknade_i_naknade + $radnikJedan['zarData']->ZDRP_zdravstveno_osiguranje_na_teret_poslodavca + $radnikJedan['zarData']->PIOP_penzijsko_osiguranje_na_teret_poslodavca, 2, ',', '.') }}</td>
         </tr>
     </table>
-
+    <footer class="text-center footer">
+        <p class="text-right" style="border-top:solid 1px red">test 1 footer sekcija</p>
+    </footer>
 </div>
     <div class="page-break"></div>
 @endforeach
