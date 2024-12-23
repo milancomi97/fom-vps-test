@@ -295,7 +295,7 @@
     <p class="text-left"><i>Ovaj dokument je punovažan bez pečata i potpisa.</i></p>
 </div>
 <footer class="text-center footer">
-   <p class="text-right" style="border-top:solid 1px red">test footer sekcija</p>
+   <p class="text-left" style="border-top:solid 2px black">AnalizaPlus</p>
 </footer>
 </body>
 </html>

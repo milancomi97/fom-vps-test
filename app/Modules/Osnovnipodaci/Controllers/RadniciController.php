@@ -318,11 +318,18 @@ class RadniciController extends Controller
             $fiksnaPlacanja =$this->dpsmFiksnaPlacanjaInterface->where('maticni_broj',$maticniBroj)->get();
 
             if(count($krediti)){
-                $message.='Kredita (PREGLED LINK): '.count($krediti). '<br>';
+                $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->where('maticni_broj',$maticniBroj)->first();
+                $id =$mesecnaTabelaPoentaza->id;
+
+                $message .= '<a href="' . url('obracunzarada/datotekaobracunskihkoeficijenata/show_krediti?radnik_id=' . $id) . '">Kredita</a>: ' . count($fiksnaPlacanja) . '<br>';
+
             }
 
             if(count($fiksnaPlacanja)){
-                $message.='Fiksnih placanja (PREGLED LINK): '.count($fiksnaPlacanja). '<br>';
+                $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->where('maticni_broj',$maticniBroj)->first();
+                $id =$mesecnaTabelaPoentaza->id;
+
+                $message .= '<a href="' . url('obracunzarada/datotekaobracunskihkoeficijenata/show_fiksnap?radnik_id=' . $id) . '">Fiksnih plaćanja</a>: ' . count($fiksnaPlacanja) . '<br>';
             }
 
             if($krediti || $fiksnaPlacanja){

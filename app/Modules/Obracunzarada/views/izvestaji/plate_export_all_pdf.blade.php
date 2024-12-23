@@ -305,7 +305,7 @@
         </tr>
     </table>
     <footer class="text-center footer">
-        <p class="text-right" style="border-top:solid 1px red">test 1 footer sekcija</p>
+        <p class="text-right" style="border-top:solid 2px black">AnalizaPlus</p>
     </footer>
 </div>
     <div class="page-break"></div>

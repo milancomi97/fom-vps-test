@@ -11,6 +11,7 @@ use App\Modules\Obracunzarada\Repository\DpsmFiksnaPlacanjaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\MaticnadatotekaradnikaRepositoryInterface;
+use App\Modules\Obracunzarada\Repository\MesecnatabelapoentazaRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\OblikradaRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\OpstineRepositoryInterface;
 use App\Modules\Osnovnipodaci\Repository\OrganizacionecelineRepositoryInterface;
@@ -32,7 +33,8 @@ class MaticnadatotekaradnikaController extends Controller
         private readonly MaticnadatotekaradnikaRepositoryInterface $maticnadatotekaradnikaInterface,
         private readonly OblikradaRepositoryInterface $oblikradaInterface,
         private readonly  DpsmKreditiRepositoryInterface $dpsmKreditiInterface,
-        private readonly  DpsmFiksnaPlacanjaRepositoryInterface $dpsmFiksnaPlacanjaInterface
+        private readonly  DpsmFiksnaPlacanjaRepositoryInterface $dpsmFiksnaPlacanjaInterface,
+        private readonly MesecnatabelapoentazaRepositoryInterface $mesecnatabelapoentazaInterface,
     ) {
     }
 
@@ -275,13 +277,19 @@ class MaticnadatotekaradnikaController extends Controller
         $fiksnaPlacanja =$this->dpsmFiksnaPlacanjaInterface->where('maticni_broj',$maticniBroj)->get();
 
         if(count($krediti)){
-            $message.='Kredita (PREGLED LINK): '.count($krediti). '<br>';
+            $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->where('maticni_broj',$maticniBroj)->first();
+            $id =$mesecnaTabelaPoentaza->id;
+
+            $message .= '<a href="' . url('obracunzarada/datotekaobracunskihkoeficijenata/show_krediti?radnik_id=' . $id) . '">Kredita</a>: ' . count($fiksnaPlacanja) . '<br>';
+
         }
 
         if(count($fiksnaPlacanja)){
-            $message.='Fiksnih placanja(PREGLED LINK): '.count($fiksnaPlacanja). '<br>';
-        }
+            $mesecnaTabelaPoentaza = $this->mesecnatabelapoentazaInterface->where('maticni_broj',$maticniBroj)->first();
+            $id =$mesecnaTabelaPoentaza->id;
 
+            $message .= '<a href="' . url('obracunzarada/datotekaobracunskihkoeficijenata/show_fiksnap?radnik_id=' . $id) . '">Fiksnih plaćanja</a>: ' . count($fiksnaPlacanja) . '<br>';
+        }
         if($krediti || $fiksnaPlacanja){
             return redirect()->back()->with('error', $message);
         }
