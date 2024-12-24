@@ -2,11 +2,13 @@
 
 namespace App\Modules\Obracunzarada\Controllers;
 
+use App\Exports\PoenterUnosExport;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserPermission;
 use App\Modules\Kadrovskaevidencija\Repository\StrucnakvalifikacijaRepositoryInterface;
 use App\Modules\Obracunzarada\Consts\StatusRadnikaObracunskiKoef;
+use App\Modules\Obracunzarada\Consts\UserRoles;
 use App\Modules\Obracunzarada\Repository\DatotekaobracunskihkoeficijenataRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\DpsmKreditiRepositoryInterface;
 use App\Modules\Obracunzarada\Repository\IsplatnamestaRepositoryInterface;
@@ -31,6 +33,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Mail\DemoMail;
 use Illuminate\Support\Facades\Mail;
 
+use Maatwebsite\Excel\Facades\Excel;
 use ZipArchive;
 
 class IzvestajZaradaController extends Controller
@@ -263,7 +266,72 @@ class IzvestajZaradaController extends Controller
 
     }
 
+    public function pripremaBankeRadnikExcelExport(Request $request)
+    {
 
+        // new excelll
+
+        $user_id = auth()->user()->id;
+
+        $userPermission = UserPermission::where('user_id', $user_id)->first();
+
+        $header=[];
+
+
+        // old logic
+
+        $isplatnaMestaSifarnika = $this->isplatnamestaInterface->getAll()->keyBy('rbim_sifra_isplatnog_mesta');
+        $test = 'test';
+
+        $showAll = (int)$request->prikazi_sve;
+
+
+        if ($showAll) {
+            $resultData = $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->get();
+//            rbim_sifra_isplatnog_mesta
+            $groupedData = $resultData->sortBy('maticni_broj')->groupBy('rbim_sifra_isplatnog_mesta');
+        } else {
+
+            if (isset($request->banke_ids)) {
+                $bankeIds =json_decode($request->banke_ids,true);
+
+                $resultData = $this->obradaZaraPoRadnikuInterface->whereIn('rbim_sifra_isplatnog_mesta', $bankeIds)->with('maticnadatotekaradnika')->get();
+                $groupedData = $resultData->sortBy('maticni_broj')->groupBy('rbim_sifra_isplatnog_mesta');
+
+            }
+
+        }
+        $header[]=['Maticni broj', 'Prezime Ime','Za isplatu','Broj racuna'];
+
+        foreach ($groupedData as $isplanoMesto){
+
+
+            $sumUkupno=0;
+            $header[]=['Sifra ispatnog mesta:',$isplanoMesto[0]->rbim_sifra_isplatnog_mesta,'Naziv Isplatnog mesta:',$isplatnaMestaSifarnika[$isplanoMesto[0]->rbim_sifra_isplatnog_mesta]['naim_naziv_isplatnog_mesta']];
+            foreach ($isplanoMesto as $radnik){
+                $radnikMdr=$this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj',$radnik->maticni_broj)->first();
+                if($radnikMdr->BRCL_redosled_poentazi < 100 && $userPermission->role_id !==UserRoles::SUPERVIZOR){
+                 continue;
+             }
+               $header[] = [
+                   $radnik->maticni_broj,
+                   $radnikMdr->PREZIME_prezime.' '.$radnikMdr->IME_ime,
+                   $radnik->UKIS_ukupan_iznos_za_izplatu,
+                   $radnikMdr->ZRAC_tekuci_racun.' '
+               ];
+               $sumUkupno=+$radnik->UKIS_ukupan_iznos_za_izplatu;
+
+            }
+            $header[]=['Ukupno:',$sumUkupno,'',''];
+            $header[]=['','','',''];
+        }
+
+        $datumStampe = \Carbon\Carbon::now()->format('d. m. Y.');
+
+        return Excel::download(new PoenterUnosExport($header), $datumStampe.'_isplate_po_troskovnim_mesttima.xlsx');
+
+
+    }
 
 //
 //
@@ -312,6 +380,7 @@ class IzvestajZaradaController extends Controller
     public function pripremaBankeKreditiRekapitulacija(Request $request)
     {
 
+
         $showAll = (int)$request->prikazi_sve;
 
 
@@ -350,6 +419,7 @@ class IzvestajZaradaController extends Controller
 
     public function pripremaBankeKreditiPdfExport(Request $request)
     {
+
 
         $showAll = (int)$request->prikazi_sve;
 
@@ -404,6 +474,75 @@ class IzvestajZaradaController extends Controller
 
     }
 
+    public function pripremaBankeKreditiExcelExport(Request $request)
+    {
+
+
+        $showAll = (int)$request->prikazi_sve;
+
+
+        $kreditoriSifarnik = $this->kreditoriInterface->getAll()->keyBy('sifk_sifra_kreditora')->toArray();
+//
+//        $maticnaDatotekaRadnika = $this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan',true)->get()->keyBy('MBRD_maticni_broj')->toArray();
+
+        if($showAll){
+            $resultData = $this->obradaKreditiInterface->getAll();
+//            rbim_sifra_isplatnog_mesta
+            $groupedData = $resultData->sortBy('maticni_broj')->groupBy('SIFK_sifra_kreditora');
+
+        }else{
+
+            if(isset($request->kreditori_ids)){
+                $kreditoriIds = json_decode($request->kreditori_ids,true);
+
+                $resultData = $this->obradaKreditiInterface->whereIn('SIFK_sifra_kreditora',$kreditoriIds)->get();
+                // ucitaj mdr
+                $groupedData = $resultData->sortBy('maticni_broj')->groupBy('SIFK_sifra_kreditora');
+
+
+            }
+
+        }
+
+        $header[]=['Maticni broj', 'Prezime Ime','Iznos rate','Saldo duga'];
+        foreach($groupedData as $kreditor) {
+            $sumUkupno=0;
+            $header[]=['Sifra kreditora:',$kreditor[0]->SIFK_sifra_kreditora,'Naziv Kreditora:',$kreditoriSifarnik[$kreditor[0]->SIFK_sifra_kreditora]['imek_naziv_kreditora']];
+            foreach ($kreditor as $kredit) {
+
+
+
+                $radnik=$this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj',$kredit->maticni_broj)->first();
+                $header[] = [
+                    $kredit->maticni_broj,
+                    $radnik->PREZIME_prezime.' '.$radnik->IME_ime,
+                    $kredit->iznos,
+                    $kredit->SALD_saldo
+                ];
+                $sumUkupno=+$kredit->iznos;
+            }
+            $header[]=['Ukupno:',$sumUkupno,'',''];
+            $header[]=['','','',''];
+        }
+        $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
+        $datumStampe = \Carbon\Carbon::now()->format('d. m. Y.');
+
+        return Excel::download(new PoenterUnosExport($header), $datumStampe.'otplate_kredita_po_kreditorima.xlsx');
+
+        $pdf = PDF::loadView('obracunzarada::izvestaji.banke_kreditori_radnik_pdf',
+            [
+                'kreditiDataZara' =>$groupedData,
+                'kreditoriSifarnik'=>$kreditoriSifarnik,
+                'mdrSifarnik'=>$maticnaDatotekaRadnika,
+                'podaciFirme' => $podaciFirme,
+                'datumStampe'=>$datumStampe
+            ])->setPaper('a4', 'portrait');
+
+        return $pdf->stream('pdf_isplate_krediti_'.date("d.m.y").'.pdf');
+
+        return $pdf->download('pdf_isplate_krediti_'.date("d.m.y").'.pdf');
+
+    }
 
 
     public function pripremaBankeFajloviExport(Request $request)

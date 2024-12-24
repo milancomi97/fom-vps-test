@@ -35,7 +35,10 @@
         <!-- Main content -->
         <!-- /.content -->
         <h1 class="text-center">Lista otplate kredita po kreditorima</h1>
-        <div class="col-sm-12 form-container">
+        <div class="container">
+
+        <div class="row">
+            <div class="col-4 d-flex align-items-center">
             <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_krediti_pdf') }}">
                 @csrf
                 <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
@@ -43,14 +46,19 @@
                     <button type="submit" class="btn btn-secondary">PDF</button>
                 </div>
             </form>
-            <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_krediti_pdf') }}">
+            </div>
+            <div class="col-4 d-flex align-items-center">
+
+            <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_krediti_excel') }}">
                 @csrf
                 <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
                 <input type="hidden" name="kreditori_ids" value="{{json_encode($pdfInputKreditoriIds)}}"/>
                 <div class="form-group text-center">
-                    <button type="submit" class="btn btn-secondary">EXCEL</button>
+                    <button type="submit" class="btn btn-secondary">Excel</button>
                 </div>
             </form>
+            </div>
+        </div>
         </div>
         <div class="row mb-5 mt-5 justify-content-center">
             <div class="container mt-5">

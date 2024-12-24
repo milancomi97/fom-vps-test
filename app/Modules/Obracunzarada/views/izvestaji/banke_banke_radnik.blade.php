@@ -38,7 +38,7 @@
         <h1 class="text-center">Lista isplate po troškovnim mestima</h1>
         <div class="container">
         <div class="row">
-            <div class="col-6 d-flex align-items-center">
+            <div class="col-4 d-flex align-items-center">
                 <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_radnik_pdf') }}">
                     @csrf
                     <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
@@ -48,17 +48,17 @@
                     </div>
                 </form>
             </div>
-            <div class="col-3 d-flex align-items-center">
-                <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_radnik_pdf') }}">
+            <div class="col-4 d-flex align-items-center">
+                <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_radnik_excel') }}">
                     @csrf
                     <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
                     <input type="hidden" name="banke_ids" value="{{json_encode($pdfInputBankeIds)}}"/>
                     <div class="form-group text-center">
-                        <button type="submit" class="btn btn-secondary">EXCEL</button>
+                        <button type="submit" class="btn btn-secondary">Excel</button>
                     </div>
                 </form>
             </div>
-            <div class="col-3 d-flex align-items-center">
+            <div class="col-4 d-flex align-items-center">
                 <form method="POST" action="{{ route('datotekaobracunskihkoeficijenata.priprema_banke_radnik_fajlovi') }}">
                     @csrf
                     <input type="hidden" name="prikazi_sve" value="{{$pdfInputShowAll}}"/>
