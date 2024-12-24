@@ -104,7 +104,7 @@
         <table class="table table-striped mt-3">
             <thead>
             <tr>
-            <th colspan="4">Lista otplate kredita po kreditorima</th>
+            <th colspan="4">Lista za isplatu po isplatnim mestima</th>
             </tr>
             <tr>
                 <th colspan="4">Za mesec: {!! $formattedDate !!}</th>

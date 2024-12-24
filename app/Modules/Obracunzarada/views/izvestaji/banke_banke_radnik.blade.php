@@ -37,7 +37,7 @@
         <!-- Main content -->
         <!-- /.content -->
 
-        <h1 class="text-center">Lista isplate po troškovnim mestima</h1>
+        <h1 class="text-center">Lista isplate po isplatnim mestima</h1>
         <div class="container">
         <div class="row">
             <div class="col-4 d-flex align-items-center">

@@ -336,7 +336,7 @@ class IzvestajZaradaController extends Controller
 
         $datumStampe = \Carbon\Carbon::now()->format('d. m. Y.');
 
-        return Excel::download(new PoenterUnosExport($header), $datumStampe.'_isplate_po_troskovnim_mesttima.xlsx');
+        return Excel::download(new PoenterUnosExport($header), $datumStampe.'_isplate_po_isplatnim_mestima.xlsx');
 
 
     }
