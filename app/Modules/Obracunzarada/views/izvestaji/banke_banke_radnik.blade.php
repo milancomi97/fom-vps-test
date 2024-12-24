@@ -1,3 +1,5 @@
+<?php use App\Modules\Obracunzarada\Consts\UserRoles; ?>
+
 @extends('obracunzarada::theme.layout.app')
 
 @section('custom-styles')
@@ -92,6 +94,9 @@
                     </thead>
                     <tbody>
                         @foreach($troskovnoMesto as $radnik)
+                            @if($radnik->maticnadatotekaradnika->BRCL_redosled_poentazi < 100 && $userPermission->role_id !==UserRoles::SUPERVIZOR)
+                                @continue
+                            @endif
                         <tr>
                             <td>{{ $radnik['maticni_broj']  }}</td>
                             <td>{{ $radnik['prezime']  }} . {{ $radnik['ime']  }}</td>

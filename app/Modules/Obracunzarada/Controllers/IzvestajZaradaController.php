@@ -160,7 +160,8 @@ class IzvestajZaradaController extends Controller
 
         $showAll = (int)$request->prikazi_sve;
 
-
+        $user_id = auth()->user()->id;
+        $userPermission = UserPermission::where('user_id', $user_id)->first();
         if($showAll){
             $resultData = $this->obradaZaraPoRadnikuInterface->with('maticnadatotekaradnika')->get();
 //            rbim_sifra_isplatnog_mesta
@@ -181,7 +182,8 @@ class IzvestajZaradaController extends Controller
                 'bankeDataZara' =>$groupedData,
                 'isplatnaMestaSifarnika'=>$isplatnaMestaSifarnika,
                 'pdfInputShowAll'=>$showAll,
-                'pdfInputBankeIds'=>$request->banke_ids
+                'pdfInputBankeIds'=>$request->banke_ids,
+                'userPermission'=>$userPermission
             ]);
 
     }
@@ -248,16 +250,22 @@ class IzvestajZaradaController extends Controller
 //            [
 //                'bankeDataZara' => $groupedData,
 //                'isplatnaMestaSifarnika' => $isplatnaMestaSifarnika
+        $user_id = auth()->user()->id;
+        $userPermission = UserPermission::where('user_id', $user_id)->first();
 //            ]);
         $podaciFirme = $this->podaciofirmiInterface->getAll()->first()->toArray();
         $datumStampe = \Carbon\Carbon::now()->format('d. m. Y.');
-
+        $result = $this->datotekaobracunskihkoeficijenataInterface->where('status',1)->first();
+        $date = new \DateTime($result->datum);
+        $formattedDate = $date->format('m.Y');
                 $pdf = PDF::loadView('obracunzarada::izvestaji.banke_banke_radnik_pdf',
                     [
                         'bankeDataZara' => $groupedData,
                         'isplatnaMestaSifarnika' => $isplatnaMestaSifarnika,
                         'podaciFirme'=>$podaciFirme,
-                        'datumStampe'=>$datumStampe
+                        'datumStampe'=>$datumStampe,
+                        'formattedDate'=>$formattedDate,
+                        'userPermission'=>$userPermission
                         ])->setPaper('a4', 'portrait');
 
         return $pdf->stream('pdf_isplate_po_bankama_'.date("d.m.y").'.pdf');

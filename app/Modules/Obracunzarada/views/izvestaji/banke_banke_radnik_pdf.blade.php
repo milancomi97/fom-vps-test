@@ -93,7 +93,7 @@
             <tr>
                 <td  class="pl-4"  ><strong>{{ $podaciFirme['skraceni_naziv_firme'] }} </strong>  </td>
 
-                <td class="text-right">Datum: {{ $datumStampe }}</td>
+                <td class="text-right">Datum stampe: {{ $datumStampe }}</td>
             </tr>
             <tr>
                 <td colspan="2" class="text-right"><span class="page-number">Strana: </span>
@@ -101,14 +101,18 @@
             </tr>
             </tbody>
         </table>
-
         <table class="table table-striped mt-3">
             <thead>
-            <tr >
-                <th class="borderless" colspan="4"></th>
+            <tr>
+            <th colspan="4">Lista otplate kredita po kreditorima</th>
             </tr>
             <tr>
-                <th colspan="4" class="text-left">Isplatno mesto: {{$key}} - {{$isplatnaMestaSifarnika[$key]['naim_naziv_isplatnog_mesta']}} </th>
+                <th colspan="4">Za mesec: {!! $formattedDate !!}</th>
+            </tr>
+            <tr>
+                <th colspan="2" class="text-left">Isplatno mesto: {{$key}} - {{$isplatnaMestaSifarnika[$key]['naim_naziv_isplatnog_mesta']}} </th>
+                <th colspan="2" class="text-left">Ziro racuna: {{$isplatnaMestaSifarnika[$key]['tekuci_racun_banke']}} </th>
+
             </tr>
             <tr>
             <tr>
@@ -131,12 +135,15 @@
                 $iznosPoBanciCounter=0;
                 ?>
                 @foreach($troskovnoMesto as $radnik)
+                    @if($radnik->maticnadatotekaradnika->BRCL_redosled_poentazi < 100 && $userPermission->role_id !==UserRoles::SUPERVIZOR)
+                        @continue
+                    @endif
                     <tr>
                         <td class="text-left">{{ $radnik['maticni_broj']  }}</td>
                         <td class="text-left">{{ $radnik['prezime']  }} {{ $radnik['srednje_ime']  }} . {{ $radnik['ime']  }}</td>
                         <td class="text-right">{{ number_format($radnik['UKIS_ukupan_iznos_za_izplatu'], 2, ',', '.')  }}</td>
                         <td  class="text-right">{{ $radnik['maticnadatotekaradnika']['ZRAC_tekuci_racun']  }}</td>
-                            <?php $iznosPoBanciCounter+=$radnik['UKIS_ukupan_iznos_za_izplatu']; ?>
+                        <?php $iznosPoBanciCounter+=$radnik['UKIS_ukupan_iznos_za_izplatu']; ?>
                     </tr>
                 @endforeach
             </tbody>
