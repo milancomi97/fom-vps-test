@@ -29,7 +29,7 @@ class RouteServiceProvider extends ServiceProvider
         });
         if (env('VPS_ENV') === 'MTS') {
 
-            redirect()->to('https://analizaplus.rs')->send();
+//            redirect()->to('https://analizaplus.rs')->send();
 
         }
         $this->routes(function () {
