@@ -52,7 +52,7 @@ class AppCheckUpdateUnosPoentera extends Command
 
                 $dpsm->vrste_placanja=$data['vrste_placanja'];
                 $dpsm->save();
-                $test='test';
+//                $test='test';
 
             }else{
                 $nePostoji[]=$data['maticni_broj'];
@@ -68,7 +68,7 @@ class AppCheckUpdateUnosPoentera extends Command
 
     public function getUnosPoentera()
     {
-        $filePath = storage_path('app/backup/plata_02_12_2024/unos_poentera_plus_rs.csv');
+        $filePath = storage_path('app/backup/plata_25_12_2024/unos_poentera_plus_rs_25_12_2024_novembar.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
