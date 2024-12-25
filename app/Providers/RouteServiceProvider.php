@@ -27,7 +27,11 @@ class RouteServiceProvider extends ServiceProvider
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });
+        if (env('VPS_ENV') === 'MTS') {
 
+            redirect()->to('https://analizaplus.rs')->send();
+
+        }
         $this->routes(function () {
             Route::middleware('api')
                 ->prefix('api')

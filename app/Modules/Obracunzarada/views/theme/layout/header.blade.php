@@ -1,5 +1,5 @@
 <nav
-    class="main-header navbar navbar-expand navbar-white navbar-light {{(env('VPS_ENV') !== null && env('VPS_ENV')=='MTS')?'bg-danger':''}} ">
+    class="main-header navbar navbar-expand navbar-white navbar-light  {{(env('VPS_ENV') !== null && env('VPS_ENV')=='LOCAL')?'bg-primary':''}}  {{(env('VPS_ENV') !== null && env('VPS_ENV')=='MTS')?'bg-danger':''}} ">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
