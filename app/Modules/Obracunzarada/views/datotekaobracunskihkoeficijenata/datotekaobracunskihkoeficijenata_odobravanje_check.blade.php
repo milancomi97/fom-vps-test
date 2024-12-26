@@ -187,7 +187,7 @@
                                     <td class="vrsta_placanja_td">{{ $vrstaPlacanja['sati']}}
                                     </td>
                                 @endforeach
-                                <td class="{{$value->rowSum < 168 ? 'bg-danger': ''}}">{{$value->rowSum}}</td>
+                                <td class="{{$value->rowSum < $monthData->mesecni_fond_sati ? 'bg-danger': ''}}">{{$value->rowSum}}</td>
 
                                 @endif
                                 @endif

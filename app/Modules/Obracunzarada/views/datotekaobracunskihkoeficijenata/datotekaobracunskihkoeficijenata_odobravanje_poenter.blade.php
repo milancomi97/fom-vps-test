@@ -192,7 +192,8 @@
                                     @if($isAvailable)
                                         @if($isUPripremi)
                                             <td class="vrsta_placanja_td"><input type="number" data-record-id="{{$value['id']}}"
-                                                                                 min="0"
+                                                                                 min="0" step="1"
+                                                                                 disabled="disabled"
                                                                                  class="vrsta_placanja_input"
                                                                                  data-toggle="tooltip"
                                                                                  data-placement="top"
@@ -207,7 +208,7 @@
                                     @endif
                                 @endforeach
 
-                                <td class="{{$value->rowSum < 168 ? 'bg-danger': ''}}">{{$value->rowSum}}</td>
+                                <td class="{{$value->rowSum < $monthData->mesecni_fond_sati ? 'bg-danger': ''}}">{{$value->rowSum}}</td>
                                 @endif
                                 @endforeach
                             </tr>
@@ -371,13 +372,13 @@
     </script>
     <script>
         $(function () {
+            document.addEventListener('DOMContentLoaded', () => {
+                // Enable inputs only after loading
+                $('input').prop('disabled', false);
 
-            // change-status
-            // setTimeout(function () {
-            //     $('input').prop('disabled', false);
-            // }, 3000);
-
-            $('[data-toggle="tooltip"]').tooltip({'trigger': 'focus'})
+                // Tooltip initialization
+                $('[data-toggle="tooltip"]').tooltip({ trigger: 'focus' });
+            });
 
         });
     </script>

@@ -319,9 +319,7 @@
             <div class="col-md-1">
                 <a  href="{{route('datotekaobracunskihkoeficijenata.odobravanje_check_poenteri',['month_id'=>$monthData->id])}}" class="btn btn-secondary btn-lg">Kontrola statusa poentaže</a>
             </div>
-{{--            <div class="col-md-1">--}}
-{{--                <a  href="{{route('datotekaobracunskihkoeficijenata.create')}}" class="btn btn-secondary btn-lg">Povratak u aktivan mesec</a>--}}
-{{--            </div>--}}
+
         </div>
     </div>
     <div class="container invisible maincontainer main-container mb-5">
@@ -333,11 +331,7 @@
         <div class="container ">
             <ul class="list-group">
                 <li class="list-group-item">Kalendarski broj dana: {{$monthData->kalendarski_broj_dana}}</li>
-{{--                <li class="list-group-item">Prosečni godišnji fond--}}
-{{--                    sati: {{$monthData->prosecni_godisnji_fond_sati}}</li>--}}
                 <li class="list-group-item">Mesečni fond sati: {{$monthData->mesecni_fond_sati}}</li>
-{{--                <li class="list-group-item">Cena rada tekući: {{$monthData->cena_rada_tekuci}}</li>--}}
-{{--                <li class="list-group-item">Cena rada prethodni:{{$monthData->cena_rada_prethodni}}</li>--}}
             </ul>
         </div>
 
@@ -367,7 +361,6 @@
                         <input type="hidden" name="month_id" value="{{$monthData->id}}">
                         <button id='export-pdf-celina' class="btn btn-secondary  calcBtn">PDF Štampa</button>
                     </form>
-                    {{--                    <iframe id="hiddenIframe2" name="hiddenIframe2" style="display:none;"></iframe>--}}
 
                     <div class="divider"></div>
 
@@ -424,8 +417,6 @@
                                                 class=" far fa-times-circle"></i></span>
                                     @endif
                                 </td>
-{{--                                {{dd([$monthData->mesecni_fond_sati,$value->rowSum])}}--}}
-{{--                                mesecni_fond_sati--}}
                                 <td class="{{$value->rowSum < $monthData->mesecni_fond_sati ? 'bg-danger': ''}}">{{$value->rowSum}}</td>
 
                                 @endif
@@ -595,7 +586,6 @@
                         </div>
                         <input type="hidden" name="record_id_status_modal" id="record_id_status_modal">
                         <!-- Add more form elements as needed -->
-                        {{--                        statusRadnikaOK--}}
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -658,16 +648,14 @@
         let getPermissionStatusAdministratorRoute = '{!! route('datotekaobracunskihkoeficijenata.getPermissionStatusAdministrator') !!}'
     </script>
     <script>
-        $(function () {
 
-            // change-status
-            setTimeout(function () {
+            document.addEventListener('DOMContentLoaded', () => {
+                // Enable inputs only after loading
                 $('input').prop('disabled', false);
-            }, 3000);
 
-            $('[data-toggle="tooltip"]').tooltip({'trigger': 'focus'})
-
-        });
+                // Tooltip initialization
+                $('[data-toggle="tooltip"]').tooltip({ trigger: 'focus' });
+            });
     </script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_odobravanje/ajax_logic.js') }}"></script>
     <script src="{{ asset('modules/obracunzarada/datotekaobracunskihkoef_odobravanje/modal_logic.js') }}"></script>

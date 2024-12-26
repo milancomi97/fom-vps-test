@@ -221,7 +221,7 @@ function updateMonthContainer(activeMonth) {
                     'data-month_id': monthData.month_id,
                     'data-month': monthData.currMonth,
                     'data-year': monthData.currYear
-                }).text('Arhiviraj - Zatvori mesec').appendTo(monthCard);
+                }).text('Arhiviranje/Zatvaranje meseca').appendTo(monthCard);
 
 
                 $('<button>').attr({
