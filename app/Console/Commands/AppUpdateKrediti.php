@@ -166,7 +166,7 @@ class AppUpdateKrediti extends Command
     }
     public function getKreditiData()
     {
-        $filePath = storage_path('app/backup/otvaranje_11_2024_datum_05_12_2024/MKRE.csv');
+        $filePath = storage_path('app/backup/plata_25_12_2024/MKRE.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

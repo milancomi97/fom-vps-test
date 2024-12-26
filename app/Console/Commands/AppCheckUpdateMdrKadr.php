@@ -67,7 +67,7 @@ class AppCheckUpdateMdrKadr extends Command
 //                    'ime_oca' => $kadr['SREDIME'],
 //                    'srednje_ime' => $kadr['SREDIME'],
                     'datum_prestanka_radnog_odnosa' => $this->resolvedate($kadr['DAT_KRA']),
-                    'datum_zasnivanja_radnog_odnosa' => $this->resolvedate($kadr['DAT_POC']),
+//                    'datum_zasnivanja_radnog_odnosa' => $this->resolvedate($kadr['DAT_POC']),
                     //   'broj_ugovora_o_radu'
                     'sifra_mesta_troska_id' => (int)$kadr['RBTC'],
                     'maticni_broj' => $kadr['MBRD'],
@@ -93,7 +93,7 @@ class AppCheckUpdateMdrKadr extends Command
 //                    'ime_oca' => $kadr['SREDIME'],
 //                    'srednje_ime' => $kadr['SREDIME'],
                     'datum_prestanka_radnog_odnosa' => $this->resolvedate($kadr['DAT_KRA']),
-                    'datum_zasnivanja_radnog_odnosa' => $this->resolvedate($kadr['DAT_POC']),
+//                    'datum_zasnivanja_radnog_odnosa' => $this->resolvedate($kadr['DAT_POC']),
                     //   'broj_ugovora_o_radu'
                     'sifra_mesta_troska_id' => (int)$kadr['RBTC'],
                 ]);
@@ -372,7 +372,7 @@ class AppCheckUpdateMdrKadr extends Command
 
     public function getKadrData()
     {
-        $filePath = storage_path('app/backup/otvaranje_11_2024_datum_05_12_2024/KADR.csv');
+        $filePath = storage_path('app/backup/plata_25_12_2024/KADR.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');
@@ -381,7 +381,7 @@ class AppCheckUpdateMdrKadr extends Command
 
     public function getMdrData()
     {
-        $filePath = storage_path('app/backup/otvaranje_11_2024_datum_05_12_2024/MDR.csv');
+        $filePath = storage_path('app/backup/plata_25_12_2024/MDR.csv');
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
         $csv->setDelimiter(';');

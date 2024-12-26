@@ -84,7 +84,7 @@ class AppUpdateFiksnaPlacanja extends Command
 
     public function getFiksnaPlacanjaData()
     {
-        $filePath = storage_path('app/backup/otvaranje_11_2024_datum_05_12_2024/DFVP.csv');
+        $filePath = storage_path('app/backup/plata_25_12_2024/DFVP.csv');
 
         $csv = Reader::createFromPath($filePath, 'r');
         $csv->setHeaderOffset(0);
