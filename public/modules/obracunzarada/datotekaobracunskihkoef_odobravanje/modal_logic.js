@@ -200,8 +200,19 @@ $(document).ready(function () {
                     _token: _token
                 },
                 success: function (response) {
-                    if (response.status) {
-                        location.reload()
+                    debugger;
+                    if (response.action) {
+                        $('#myModal').modal('hide');
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Napomena uspešno uneta',
+                            text: "",
+                            showConfirmButton: true,
+                            timer: 3000
+                        }).then((result) => {
+
+                        });
                     } else {
                         // $("#statusMessage").text(response.message).addClass("text-danger");
                     }
@@ -211,7 +222,6 @@ $(document).ready(function () {
                 }
             });
         } else {
-            $('#myModal').modal('hide');
 
         }
     });
