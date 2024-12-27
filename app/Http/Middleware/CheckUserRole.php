@@ -39,7 +39,10 @@ class CheckUserRole
 
         }
 
-        if (env('VPS_ENV') === 'LOCAL' && Session::get('specific_key')==null) {
+        if (env('VPS_ENV') === 'PLUS_RS') {
+            if($request->getHttpHost()=='dev.analizaplus.rs'){
+                return dd('DEVELOPERI SE NE REDIREKTUJU');
+            }
 
 //           return redirect('https://analizaplus.rs');
         }
