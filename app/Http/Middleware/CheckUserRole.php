@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Session;
 
 
 class CheckUserRole
@@ -30,6 +31,18 @@ class CheckUserRole
 
     public function handle($request, Closure $next)
     {
+
+        if (env('VPS_ENV') === 'LOCAL'){
+//            if($request->path()=='pristupi'){
+//                Session::put('specific_key', 'specific_value');
+//            }
+
+        }
+
+        if (env('VPS_ENV') === 'LOCAL' && Session::get('specific_key')==null) {
+
+//           return redirect('https://analizaplus.rs');
+        }
 
         $response = $next($request);
         $path = $request->path();

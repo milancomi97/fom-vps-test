@@ -378,6 +378,22 @@
 
                 // Tooltip initialization
                 $('[data-toggle="tooltip"]').tooltip({ trigger: 'focus' });
+
+                const inputs = document.querySelectorAll('.vrsta_placanja_input');
+                inputs.forEach(input => {
+                    // Prevent negative values on input
+                    input.addEventListener('input', function () {
+                        if (this.value < 0) {
+                            this.value = 0; // Reset to 0 if negative
+                        }
+                    });
+
+                    // Prevent typing of '-' or other invalid characters
+                    input.addEventListener('keydown', function (e) {
+                        if (e.key === '-' || e.key === 'e') {
+                            e.preventDefault(); // Block invalid key
+                        }
+                    });
             });
 
         });
