@@ -371,7 +371,6 @@
         let getPermissionStatusAdministratorRoute = '{!! route('datotekaobracunskihkoeficijenata.getPermissionStatusAdministrator') !!}'
     </script>
     <script>
-        $(function () {
             document.addEventListener('DOMContentLoaded', () => {
                 // Enable inputs only after loading
                 $('input').prop('disabled', false);

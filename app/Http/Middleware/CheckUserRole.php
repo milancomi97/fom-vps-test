@@ -32,12 +32,6 @@ class CheckUserRole
     public function handle($request, Closure $next)
     {
 
-        if (env('VPS_ENV') === 'LOCAL'){
-//            if($request->path()=='pristupi'){
-//                Session::put('specific_key', 'specific_value');
-//            }
-
-        }
 
         if (env('VPS_ENV') === 'PLUS_RS') {
             if($request->getHttpHost()=='dev.analizaplus.rs'){
