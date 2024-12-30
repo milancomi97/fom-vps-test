@@ -108,7 +108,33 @@
                     </form>
                 </div>
             </div>
-        </div>
+            <div class="container-fluid">
+                <h1>Prikaz po vrsti placanja</h1>
+                @if($darhData->isNotEmpty())
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Sifra placanja</th>
+                            <th>Naziv</th>
+                            <th>Sati</th>
+                            <th>Procenat</th>
+                            <th>Iznos</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($darhData as $row)
+                            <tr>
+                                <td>{!! $row->sifra_vrste_placanja !!}</td>
+                                <td>{!! $row->naziv_vrste_placanja !!}</td>
+                                <td>{!! $row->sati !!}</td>
+                                <td>{!! $row->procenat !!}</td>
+                                <td>{!! $row->iznos !!}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @endif
+            </div>
     </div>
     <!-- /.content-wrapper -->
     </div>

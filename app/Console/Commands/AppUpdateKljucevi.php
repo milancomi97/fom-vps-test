@@ -34,52 +34,61 @@ class AppUpdateKljucevi extends Command
 
     public function handle()
     {
-        Schema::table('dpsm_fiksna_placanjas', function (Blueprint $table) {
-//            $table->dropForeign(['user_mdr_id']);
-//            $table->index('maticni_broj');
-
-        });
 
         Schema::table('dpsm_kreditis', function (Blueprint $table) {
-            $table->dropForeign(['user_mdr_id']);
+//            $table->dropForeign(['user_mdr_id']);
+//            $table->dropColumn(['user_mdr_id']);
 
-            $table->index('maticni_broj');
+//            $table->index('maticni_broj');
         });
 
-        Schema::table('dpsm_poentazaslogs', function (Blueprint $table) {
-            $table->dropForeign(['user_dpsm_id']);
-            $table->dropForeign(['obracunski_koef_id']);
-            $table->dropForeign(['user_mdr_id']);
-
-            $table->index('maticni_broj');
-
-        });
-
-        Schema::table('obrada_dkop_sve_vrste_placanjas', function (Blueprint $table) {
-            $table->dropForeign(['user_dpsm_id']);
-            $table->dropForeign(['obracunski_koef_id']);
-            $table->dropForeign(['user_mdr_id']);
-
-            $table->index('maticni_broj');
-
-        });
-
-        Schema::table('obrada_kreditis', function (Blueprint $table) {
-            $table->dropForeign(['obracunski_koef_id']);
-            $table->dropForeign(['user_mdr_id']);
-
-            $table->index('maticni_broj');
-
-        });
-
-        Schema::table('obrada_zara_po_radnikus', function (Blueprint $table) {
-            $table->dropForeign(['user_dpsm_id']);
-            $table->dropForeign(['obracunski_koef_id']);
-            $table->dropForeign(['user_mdr_id']);
-
-            $table->index('maticni_broj');
-
-        });
+//
+//        Schema::table('dpsm_fiksna_placanjas', function (Blueprint $table) {
+////            $table->dropForeign(['user_mdr_id']);
+////            $table->index('maticni_broj');
+//
+//        });
+//
+//        Schema::table('dpsm_kreditis', function (Blueprint $table) {
+//            $table->dropForeign(['user_mdr_id']);
+//
+//            $table->index('maticni_broj');
+//        });
+//
+//        Schema::table('dpsm_poentazaslogs', function (Blueprint $table) {
+//            $table->dropForeign(['user_dpsm_id']);
+//            $table->dropForeign(['obracunski_koef_id']);
+//            $table->dropForeign(['user_mdr_id']);
+//
+//            $table->index('maticni_broj');
+//
+//        });
+//
+//        Schema::table('obrada_dkop_sve_vrste_placanjas', function (Blueprint $table) {
+//            $table->dropForeign(['user_dpsm_id']);
+//            $table->dropForeign(['obracunski_koef_id']);
+//            $table->dropForeign(['user_mdr_id']);
+//
+//            $table->index('maticni_broj');
+//
+//        });
+//
+//        Schema::table('obrada_kreditis', function (Blueprint $table) {
+//            $table->dropForeign(['obracunski_koef_id']);
+//            $table->dropForeign(['user_mdr_id']);
+//
+//            $table->index('maticni_broj');
+//
+//        });
+//
+//        Schema::table('obrada_zara_po_radnikus', function (Blueprint $table) {
+//            $table->dropForeign(['user_dpsm_id']);
+//            $table->dropForeign(['obracunski_koef_id']);
+//            $table->dropForeign(['user_mdr_id']);
+//
+//            $table->index('maticni_broj');
+//
+//        });
 
         $this->alert(PHP_EOL.'Komanda je uspesno izvrsena : res1:');
     }

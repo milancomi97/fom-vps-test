@@ -21,6 +21,8 @@
 
 @section('content')
 
+    <div class="content-wrapper">
+<div class="content">
 
     <div class="container-fluid">
         <div class="col-md-12 text-center mt-5"  id="form-column">
@@ -101,13 +103,43 @@
                 </table>
                 <a class="btn btn-success mt-3 btn-lg" href="{!! url('obracunzarada/datotekaobracunskihkoeficijenata/odobravanje?month_id=')!!}{{$mesecnaTabelaPoentaza->obracunski_koef_id}}">Forma Poentera</a>
 
-
             </div>
         </div>
 
+<div class="row">
 
+</div>
+    </div>
+    <div class="container d-flex justify-content-start align-items-center">
+
+@php
+   $napomene =  explode('<br>',$mesecnaTabelaPoentaza->napomena);
+   $counter=1;
+@endphp
+<div class="table-responsive">
+            <h1>Napomene za radnika</h1>
+            <table class="table table-primary table-striped ">
+                <thead class="table-success">
+                <tr>
+                    <th>#</th>
+                    <th>Napomena</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                @foreach($napomene as $napomena)
+                <tr>
+                    <td>{!! $counter++; !!}</td>
+                    <td>{!! $napomena !!}</td>
+                </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
+    </div>
+    </div>
 
 @endsection
 

@@ -19,7 +19,7 @@ $(document).ready(function () {
                 _token: _token
             },
             success: function (response) {
-                if (response.status) {
+                if (response) {
                     location.reload()
                 } else {
                 }

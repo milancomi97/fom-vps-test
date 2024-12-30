@@ -140,8 +140,17 @@ $(document).ready(function () {
                     record_id: deleteId
                 }, success: function (response) {
                     if (response.status) {
-                        window.location.reload();
-                    } else {
+                        Swal.fire({
+                            title: 'Podatak je uspešno obrisan',
+                            icon: 'success',
+                            timer: 3000, // Show the Swal alert for 3 seconds
+                            timerProgressBar: true, // Add a progress bar to the timer
+                        }).then(() => {
+                            // Reload the page after the alert is closed
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000); // 3 seconds delay
+                        });                    } else {
                         // $("#statusMessage").text(response.message).addClass("text-danger");
                     }
                 }, error: function (response) {
@@ -212,7 +221,17 @@ $(document).ready(function () {
                     record_id: record_id
                 }, success: function (response) {
                     if (response.status) {
-                        window.location.reload();
+                        Swal.fire({
+                            title: 'Podaci su uspešno ažurirani',
+                            icon: 'success',
+                            timer: 3000, // Show the Swal alert for 3 seconds
+                            timerProgressBar: true, // Add a progress bar to the timer
+                        }).then(() => {
+                            // Reload the page after the alert is closed
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000); // 3 seconds delay
+                        });
                     } else {
                         // $("#statusMessage").text(response.message).addClass("text-danger");
                     }

@@ -200,8 +200,8 @@ $(document).ready(function () {
                     _token: _token
                 },
                 success: function (response) {
+                    location.reload()
                     if (response.status) {
-                        location.reload()
                     } else {
                         // $("#statusMessage").text(response.message).addClass("text-danger");
                     }

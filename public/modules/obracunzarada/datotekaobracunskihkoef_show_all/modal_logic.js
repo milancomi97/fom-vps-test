@@ -60,6 +60,7 @@ $(document).ready(function () {
                 _token: _token
             },
             success: function (response) {
+
                 if (response.status) {
                     var user_status = response.data.user_status;
                     var selectOptions = response.data.select_options;
@@ -80,6 +81,7 @@ $(document).ready(function () {
                     // cloneElement("status_poentera_element", "status_poentera_div", poenterArray,'status_poentera');
                     // cloneElement("status_odgovornih_lica_element", "status_odgovornih_lica_div", odgovornaLicaArray,'status_odgovornih_lica');
                 } else {
+                    location.reload();
                 }
             },
             error: function (response) {
@@ -203,6 +205,8 @@ $(document).ready(function () {
                     if (response.status) {
                         location.reload()
                     } else {
+                        location.reload()
+
                         // $("#statusMessage").text(response.message).addClass("text-danger");
                     }
                 },

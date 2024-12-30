@@ -4,6 +4,7 @@ namespace App\Modules\Obracunzarada\Controllers;
 
 use App\Http\Controllers\Controller;
 
+use App\Models\ArhivaDarhObradaSveDkop;
 use App\Models\User;
 use App\Modules\Obracunzarada\Consts\UserRoles;
 use App\Modules\Obracunzarada\Repository\ArhivaDarhObradaSveDkopRepositoryInterface;
@@ -117,7 +118,9 @@ class ArhivaController extends Controller
         }
 
 
-        return view('obracunzarada::arhiva.arhiva_maticne_datoteke', ['arhivaMdr' => $arhivaMdr, 'archiveDate' => $datum, 'radniciSelectData' => $radniciSelectData]);
+        $darhData= ArhivaDarhObradaSveDkop::where('M_G_date', $startDate)->where('maticni_broj',$maticniBroj)->get();
+        $mdrData = $this->maticnadatotekaradnikaInterface->where('MBRD_maticni_broj',$maticniBroj)->first();
+        return view('obracunzarada::arhiva.arhiva_maticne_datoteke', ['mdrData'=>$mdrData,'darhData'=>$darhData,'arhivaMdr' => $arhivaMdr, 'archiveDate' => $datum, 'radniciSelectData' => $radniciSelectData]);
     }
 
     public function obracunskeListe(Request $request)

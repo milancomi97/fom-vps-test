@@ -291,6 +291,8 @@
 @endsection
 
 @section('content')
+<div class="content-wrapper">
+    <div class="content">
 
     <div class="container-fluid mt-5">
         <div class="loadingInit">
@@ -636,6 +638,7 @@
             </div>
         </div>
     </div>
+</div>
 
     {{--    ADMINISTRATOR STATUS END MODAL--}}
 @endsection

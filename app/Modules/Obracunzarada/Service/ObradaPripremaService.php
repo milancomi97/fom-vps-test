@@ -777,6 +777,7 @@ $test='TEST';
         foreach ($groupRadnikData as $radnik) {
 
 
+
             $radnik['ZAR2'] = $this->prepareZaraData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData);
             $radnik['DKOPADD'] = $this->prepareDKopData($radnik, $minimalneBrutoOsnoviceSifarnik, $monthData, $poresDoprinosiSifarnik, $vrstePlacanjaSifarnik);
 
@@ -1349,7 +1350,7 @@ $test='TEST';
                         'PART_partija_kredita' => $kredit->PART_partija_poziv_na_broj,
                         'KESC_prihod_rashod_tip' => $vrstePlacanjaSifarnik['093']['KESC_prihod_rashod_tip'],
                         'GLAVN_glavnica' => $kredit->GLAVN_glavnica,
-                        'SALD_saldo' => $kredit->SALD_saldo - $kredit->RATA_rata,
+                        'SALD_saldo' => $kredit->SALD_saldo,
                         'RATA_rata' => $iznos,
                         'POCE_pocetak_zaduzenja' => $kredit->POCE_pocetak_zaduzenja,
                         'RATP_prethodna' => $kredit->RATA_rata,
@@ -1375,6 +1376,10 @@ $test='TEST';
 
                     if($iznos>$kredit->RATA_rata && $iznos<$kredit->SALD_saldo){
                         $iznos = $kredit->RATA_rata;
+                    }
+
+                    if($neto2 - $siobkr - $iznos < 0){
+                        $iznos=0;
                     }
                     // id = 582
                     $data = [

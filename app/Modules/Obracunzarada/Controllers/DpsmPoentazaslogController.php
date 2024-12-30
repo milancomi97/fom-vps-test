@@ -102,6 +102,7 @@ class DpsmPoentazaslogController extends Controller
         $poenterData =  $dpsmData->toArray();
 
         $mdrData = $dpsmData->maticnadatotekaradnika->toArray();
+
         return view('obracunzarada::datotekaobracunskihkoeficijenata.datotekaobracunskihkoeficijenata_show',
             [
                 'monthData' => $formattedDate,

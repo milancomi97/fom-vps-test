@@ -143,8 +143,22 @@ $(document).ready(function () {
                     _token: _token,
                     record_id: deleteId
                 }, success: function (response) {
+                    Swal.fire({
+                        title: 'Podatak je uspešno obrisan',
+                        icon: 'success',
+                        timer: 3000, // Show the Swal alert for 3 seconds
+                        timerProgressBar: true, // Add a progress bar to the timer
+                    }).then(() => {
+                        // Reload the page after the alert is closed
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000); // 3 seconds delay
+                    });
                     if (response.status) {
-                        window.location.reload();
+
+
+
+
                     } else {
                         // $("#statusMessage").text(response.message).addClass("text-danger");
                     }
@@ -206,12 +220,20 @@ $(document).ready(function () {
                     vrste_placanja:vrstePlacanja,
                     record_id: record_id
                 }, success: function (response) {
-                    if (response.status) {
+
+                Swal.fire({
+                    title: 'Podatak je uspešno izmenjen',
+                    icon: 'success',
+                    timer: 3000, // Show the Swal alert for 3 seconds
+                    timerProgressBar: true, // Add a progress bar to the timer
+                }).then(() => {
+                    // Reload the page after the alert is closed
+                    setTimeout(() => {
                         window.location.reload();
-                    } else {
-                        // $("#statusMessage").text(response.message).addClass("text-danger");
-                    }
-                }, error: function (response) {
+                    }, 1000); // 3 seconds delay
+                });
+
+            }, error: function (response) {
 
 
                 }

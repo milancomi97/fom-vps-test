@@ -176,37 +176,17 @@ class ArhiviranjeMesecaService
 
         $allData = [];
 
-
-
-
-
-///
-///
-///
-///                 } else if ($neto2 - $siobkr <= 0 && $kredit->SALD_saldo > 0) {
-////                        id =58
-
-//        foreach ($dpsmKrediti as $glavniKredit){
-
-
-
-///
-///
-//    } else if ($neto2 > 0 && $kredit->SALD_saldo > 0) {
-//    // id = 582
-
-        //        if (($neto2 - $siobkr - $kredit->RATA_rata -$kredit->RATB) > 0 && $kredit->SALD_saldo-$kredit->RATB > 0) {
-////                        id=222
             foreach ($kreditiPomocni as $pomocniKredit){
 
-                if($pomocniKredit->kredit_glavna_tabela_id == 58 || $pomocniKredit->kredit_glavna_tabela_id == 222|| $pomocniKredit->kredit_glavna_tabela_id == 582){
 
                     $glavniKreditId= $pomocniKredit->kredit_glavna_tabela_id;
-                    $pomocniKredit= $pomocniKredit->toArray();
 
-                    $glavniKreditData =$this->dpsmKreditiInterface->getById($glavniKreditId)->toArray();
+                    $glavniKreditData =$this->dpsmKreditiInterface->getById($glavniKreditId);
                     $test='test';
-                }
+                $glavniKreditData->RATP_prethodna=$pomocniKredit->iznos;
+
+                $glavniKreditData->SALD_saldo = $glavniKreditData->SALD_saldo - $pomocniKredit->iznos;
+                $glavniKreditData->save();
                 $test='test';
 
 

@@ -247,14 +247,14 @@ class ObradaPripremaController extends Controller
 
         // TODO 2. ARCHIVE
         $mdrData = $this->maticnadatotekaradnikaInterface->where('ACTIVE_aktivan', 1)->get();
-        $mdrDataResult = $this->arhiviranjeMesecaService->archiveMDR($mdrData, $datum);
+//        $mdrDataResult = $this->arhiviranjeMesecaService->archiveMDR($mdrData, $datum);
 
 
         $dkopData = $this->dkopSveVrstePlacanjaInterface->getAll();
-        $dkopDataResult = $this->arhiviranjeMesecaService->archiveDkop($dkopData, $datum);
+//        $dkopDataResult = $this->arhiviranjeMesecaService->archiveDkop($dkopData, $datum);
 
         $zaraData = $this->obradaZaraPoRadnikuInterface->getAll();
-        $zaraDataResult = $this->arhiviranjeMesecaService->archiveZara($zaraData, $datum);
+//        $zaraDataResult = $this->arhiviranjeMesecaService->archiveZara($zaraData, $datum);
 
 
         $varijabilna = $this->dpsmPoentazaslogInterface->getAll();
@@ -270,18 +270,21 @@ class ObradaPripremaController extends Controller
         $zaraDataResult = $this->arhiviranjeMesecaService->resolveKrediti($dpsmKrediti, $kreditiPomocni);
 
 
-        $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $monthId)->delete();
-        $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->delete();
-
-        $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->delete();
+//        $this->dkopSveVrstePlacanjaInterface->where('obracunski_koef_id', $monthId)->delete();
+//        $this->obradaKreditiInterface->where('obracunski_koef_id', $monthId)->delete();
+//
+//        $this->obradaZaraPoRadnikuInterface->where('obracunski_koef_id', $monthId)->delete();
 
 
 //        $pristupi->each->delete();
-        $kreditiPomocni->each->delete();
-        $varijabilna->each->delete();
-        $poenterData->each->delete();
-        $monthData->status = Datotekaobracunskihkoeficijenata::ARHIVIRAN;
-        $monthData->save();
+
+
+
+//        $kreditiPomocni->each->delete();
+//        $varijabilna->each->delete();
+//        $poenterData->each->delete();
+//        $monthData->status = Datotekaobracunskihkoeficijenata::ARHIVIRAN;
+//        $monthData->save();
 
 
         return response()->json(['status' => true]);

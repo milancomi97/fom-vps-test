@@ -85,7 +85,7 @@ class AppUpdateKrediti extends Command
                             'RATA_rata'=>(float)$kredit['RATA'],
 //                    'RATP_prethodna'=>(float)$kredit['RATP'],
                             'POCE_pocetak_zaduzenja'=>$kredit['POCE']!=='N',
-                            'user_mdr_id'=>$radnikMdrData['id'],
+//                            'user_mdr_id'=>$radnikMdrData['id'],
 //                    'RBZA'=>(float)$kredit['RBZA'],
 //                    'RATP'=>(float)$kredit['RATP'],
 //                    'RATB'=>(float)$kredit['RATB']
